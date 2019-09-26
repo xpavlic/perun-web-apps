@@ -1,0 +1,10 @@
+{
+  "APP_TITLE": "Perun consolidator",
+  "KNOWN_IDENTITIES": "Linked identities",
+  "UNKNOWN_IDENTITIES": "New identities",
+  "DIALOGS": {
+    "ADD_IDENTITY": {
+      "INPUT_PLACEHOLDER": "Find your organization"
+    }
+  }
+}

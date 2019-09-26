@@ -1,0 +1,17 @@
+
+<div class="identities-container">
+  <div class="identities-header">
+    <h2 class="mat-title">
+      {{title | translate}}
+    </h2>
+  </div>
+
+  <div class="mat-elevation-z8 identities-overview">
+      <div *ngFor="let ues of identities" class="identity">
+        <h3 class="mat-h3">
+          {{ues.login}}
+        </h3>
+      </div>
+  </div>
+</div>
+

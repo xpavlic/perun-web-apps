@@ -1,0 +1,29 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@perun-web-apps/ui": ["libs/ui/src/index.ts"],
+      "@perun-web-apps/ui/material": ["libs/ui/material/src/index.ts"],
+      "@perun-web-apps/perun/services": ["libs/perun/services/src/index.ts"],
+      "@perun-web-apps/perun/models": ["libs/perun/models/src/index.ts"],
+      "@perun-web-apps/perun/tokens": ["libs/perun/tokens/src/index.ts"],
+      "@perun-web-apps/perun/utils": ["libs/perun/utils/src/index.ts"],
+      "@perun-web-apps/perun/auth": ["libs/perun/auth/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

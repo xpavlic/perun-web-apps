@@ -1,0 +1,12 @@
+<mat-spinner class="spinner" *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading">
+  <mat-form-field class="search-entity">
+    <input
+      [formControl]="filterInputControl"
+      matInput
+      placeholder="{{'DIALOGS.ADD_IDENTITY.INPUT_PLACEHOLDER' | translate}}">
+  </mat-form-field>
+  <cdk-virtual-scroll-viewport itemSize="57" class="entities-viewport">
+    <div *cdkVirtualFor="let entity of datasource" class="entity-item">{{entity.name.en}}</div>
+  </cdk-virtual-scroll-viewport>  
+</div>
