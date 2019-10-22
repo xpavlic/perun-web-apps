@@ -4,20 +4,18 @@
       Steps:
     </h2>
     <div id="steps">
-      <div class="step-line"><mat-icon class="success-icon">check</mat-icon><span class="step-label">Sign in with known (already registered) id.</span></div>
-      <div class="step-line"><mat-icon class="success-icon">check</mat-icon><span class="step-label">Sign in with unknown id.</span></div>
-      <div class="step-line"><mat-icon class="failure-icon">close</mat-icon><span class="step-label">Join identities.</span></div>
+      <div class="step-line"><mat-icon class="success-icon">{{perunIdentitiesLoaded ? 'check' : ''}}</mat-icon><span class="step-label">{{'HOME.PERUN_STEP' | translate}}</span></div>
+      <div class="step-line"><mat-icon class="success-icon">{{newIdentitiesLoaded ? 'check' : ''}}</mat-icon><span class="step-label">{{'HOME.NEW_STEP' | translate}}</span></div>
+      <div class="step-line"><mat-icon></mat-icon><span class="step-label">Join identities.</span></div>
     </div>
   </div>
 </div>
 <div id="controls">
-  <button mat-raised-button id="add-identity-button" (click)="addIdentity()">
-    <mat-icon>add</mat-icon>
-    Add identity
+  <button mat-raised-button id="add-identity-button" (click)="addIdentity()" color="{{(perunIdentitiesLoaded && newIdentitiesLoaded) ? undefined : 'accent'}}">
+    {{'HOME.ADD_IDENTITY' | translate}}
   </button>
-  <button mat-raised-button id="join-button" color="accent" [disabled]="true">
-    <mat-icon>compare_arrows</mat-icon>
-    Join identities
+  <button *ngIf="perunIdentitiesLoaded && newIdentitiesLoaded" mat-raised-button id="join-button" color="accent" [disabled]="true">
+    {{'HOME.LINK_IDENTITIES' | translate}}
   </button>
 </div>
 <div id="identities">
@@ -32,4 +30,3 @@
 <!---->
 <!--  </perun-web-apps-identities>-->
 </div>
-

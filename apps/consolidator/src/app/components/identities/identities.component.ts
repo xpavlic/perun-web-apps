@@ -1,7 +1,8 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
+import { RichUserExtSource } from '@perun-web-apps/perun/models';
+import { getAttribute } from '@perun-web-apps/perun/utils';
+import { Urns } from '@perun-web-apps/perun/urns';
 import { Identity } from '../../models/Identity';
-import { MatTableDataSource } from '@angular/material';
-import { UserExtSource } from '@perun-web-apps/perun/models';
 
 
 @Component({
@@ -19,5 +20,11 @@ export class IdentitiesComponent {
   title: string;
 
   @Input()
-  identities: UserExtSource[];
+  identities: Identity[];
+
+  getEmailText(identity: RichUserExtSource): string {
+    const mailAttribute = getAttribute(identity.attributes, Urns.UES_DEF_MAIL);
+
+    return mailAttribute == null ? '-' : mailAttribute.value;
+  }
 }

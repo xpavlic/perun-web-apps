@@ -43,6 +43,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@nrwl/angular": "8.4.8",
+    "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "oidc-client": "^1.9.1",
     "rxjs": "~6.4.0",

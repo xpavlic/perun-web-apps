@@ -11,7 +11,7 @@ import {
   MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatProgressSpinnerModule,
+  MatProgressSpinnerModule, MatStepperModule,
   MatTableModule
 } from '@angular/material';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -35,6 +35,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ScrollingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatStepperModule,
   ],
   exports: [
     MatCardModule,
@@ -52,6 +53,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ScrollingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatStepperModule,
   ]
 })
 export class UiMaterialModule {}

@@ -25,7 +25,10 @@
               "apps/consolidator/src/favicon.ico",
               "apps/consolidator/src/assets"
             ],
-            "styles": ["apps/consolidator/src/styles.scss"],
+            "styles": [
+              "apps/consolidator/src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -302,6 +305,31 @@
           "options": {
             "jestConfig": "libs/perun/auth/jest.config.js",
             "tsConfig": "libs/perun/auth/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "perun-urns": {
+      "root": "libs/perun/urns",
+      "sourceRoot": "libs/perun/urns/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/perun/urns/tsconfig.lib.json",
+              "libs/perun/urns/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/perun/urns/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/perun/urns/jest.config.js",
+            "tsConfig": "libs/perun/urns/tsconfig.spec.json"
           }
         }
       }

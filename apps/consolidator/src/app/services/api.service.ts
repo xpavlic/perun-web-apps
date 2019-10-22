@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { PerunApiService } from '@perun-web-apps/perun/services';
 
@@ -13,7 +12,6 @@ export class ApiService implements PerunApiService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
   ) { }
 
   private formatErrors(error: any, showError) {
@@ -21,11 +19,7 @@ export class ApiService implements PerunApiService {
   }
 
   getHeaders(): HttpHeaders {
-    let headers = new HttpHeaders();
-    if (environment.production) {
-      headers = headers.set('Authorization', this.authService.getAuthorizationHeaderValue());
-    }
-    return headers;
+    return new HttpHeaders();
   }
 
   get(path: string, params: HttpParams = new HttpParams(), showError = true): Observable<any> {

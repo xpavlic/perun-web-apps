@@ -278,3 +278,20 @@ export function parseVo(richUser: RichUser): string {
 export function filterCoreAttributes(attributes: Attribute[]): Attribute[] {
   return attributes.filter(attribute => !attribute.namespace.includes('def:core'));
 }
+
+
+/**
+ * Finds attribute with given attrName from given attributes.
+ *
+ * @param attributes attributes
+ * @param attrName attr name
+ * @return attribute with given name or null if not found
+ */
+export function getAttribute(attributes: Attribute[], attrName: string) : Attribute {
+  for (const attribute of attributes) {
+    if ((attribute.namespace + ":" + attribute.friendlyName) === attrName) {
+      return attribute;
+    }
+  }
+  return null;
+}

@@ -1,17 +1,7 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false,
   entitiesUrl: 'https://login1.cesnet.cz/proxy/module.php/perun/listOfMetadata.php',
   api_url: 'http://localhost/krb/rpc/',
-  oauth_authority: 'https://login.cesnet.cz/oidc/',
-  oauth_callback: 'http://gui-dev.org/api-callback',
-  oauth_client_id: '411471d9-5e3d-48bd-9717-25f1fa634d20',
-  oauth_post_logout_redirect_uri: 'http://gui-dev.org/',
-  oauth_redirect_uri: 'http://gui-dev.org/api-callback',
-  oauth_silent_redirect_uri: 'http://gui-dev.org/api-callback'
 };
 
 /*
