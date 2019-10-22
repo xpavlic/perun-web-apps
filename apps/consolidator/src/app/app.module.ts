@@ -19,6 +19,7 @@ import { IdentityTypeSelectionComponent } from './components/identity-type-selec
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { NewIdentityPageComponent } from './pages/new-identity-page/new-identity-page.component';
 import { ConsolidatePageComponent } from './pages/consolidate-page/consolidate-page.component';
+import { APP_BASE_HREF } from '@angular/common';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -45,6 +46,10 @@ export function createTranslateLoader(http: HttpClient) {
     {
       provide: PERUN_API_SERVICE,
       useClass: ApiService
+    },
+    {
+      provide: APP_BASE_HREF,
+      useValue: window['_app_base'] || '/krb/nic'
     }
   ],
   entryComponents: [
