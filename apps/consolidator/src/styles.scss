@@ -25,6 +25,16 @@ $consolidator-theme: mat-light-theme($consolidator-primary, $consolidator-accent
 // that you are using.
 @include angular-material-theme($consolidator-theme);
 
+.all-accent-theme {
+  $aa-theme: mat-light-theme($consolidator-accent, $consolidator-accent);
+
+  @include angular-material-theme($aa-theme);
+}
+
+button {
+  border-radius: 0 !important;
+}
+
 .success-icon {
   color: #28A745;
 }
@@ -36,4 +46,46 @@ $consolidator-theme: mat-light-theme($consolidator-primary, $consolidator-accent
 .spinner {
   margin-left: auto;
   margin-right: auto;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mr-auto {
+  margin-right: auto !important;
+}
+
+// HACK to disable stepper navigation by clicking header items
+.mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}
+// HACK to reduce whitespace in stepper
+.mat-horizontal-stepper-header-container {
+  .mat-step-header {
+    padding: 0 !important;
+  }
+}
+.mat-stepper-horizontal-line {
+  top: 12px !important;
+}
+.mat-horizontal-stepper-header-container {
+  margin-bottom: 12px !important;
+}
+
+// disable default bootstraps style
+button:focus {
+  outline: none !important;
 }

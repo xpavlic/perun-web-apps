@@ -6,8 +6,9 @@ import {
   Application,
   ApplicationForm,
   ApplicationFormItem,
-  ApplicationFormItemData, ApplicationMail
+  ApplicationFormItemData, ApplicationMail, UserExtSource
 } from '@perun-web-apps/perun/models';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,12 @@ export class RegistrarService {
   constructor(
     @Inject(PERUN_API_SERVICE) private apiService: PerunApiService
   ) { }
+
+  consolidate(token: string, showNotificationsOnError = true): Observable<UserExtSource[]> {
+    return this.apiService.post('json/registrarManager/consolidateIdentityUsingToken', {
+      token: token
+    }, showNotificationsOnError);
+  }
 
   sendInvitation(voId: number, name: string, email: string, language: string, showNotificationOnError = true): Observable<void> {
     return this.apiService.post('json/registrarManager/sendInvitation', {
@@ -268,5 +275,10 @@ export class RegistrarService {
     return this.apiService.post('json/registrarManager/createApplicationForm', {
       'group': group
     }, showNotificationOnError);
+  }
+
+  getConsolidatorToken(showNotificationOnError = true): Observable<string> {
+    return this.apiService.get('json/registrarManager/getConsolidatorToken',
+      new HttpParams(), showNotificationOnError);
   }
 }

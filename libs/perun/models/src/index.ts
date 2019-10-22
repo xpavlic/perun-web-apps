@@ -24,6 +24,7 @@ export * from './lib/RichDestination';
 export * from './lib/RichFacility';
 export * from './lib/RichMember';
 export * from './lib/RichResource';
+export * from './lib/RichUserExtSource';
 export * from './lib/RichUser';
 export * from './lib/RPCError';
 export * from './lib/Service';

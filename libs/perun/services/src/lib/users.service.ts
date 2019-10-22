@@ -5,6 +5,7 @@ import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { PerunApiService } from './perun-api-service';
 import { RichUser, User, UserExtSource } from '@perun-web-apps/perun/models';
 import { parseUrnsToUrlParam } from '@perun-web-apps/perun/utils';
+import { RichUserExtSource } from '../../../models/src/lib/RichUserExtSource';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,23 @@ export class UsersService {
 
   getUserExtSources(userId: number, showNotificationOnError = true): Observable<UserExtSource[]> {
     return this.apiService.post('json/usersManager/getUserExtSources', {
+      user: userId
+    }, showNotificationOnError);
+  }
+
+  getRichUserExtSources(userId: number, attrsNames: string[], showNotificationOnError = true):
+    Observable<RichUserExtSource[]>
+  {
+    return this.apiService.post('json/usersManager/getRichUserExtSources', {
+      user: userId,
+      attrsNames: attrsNames
+    }, showNotificationOnError);
+  }
+
+  getRichUserExtSourcesWithAllAttributes(userId: number, showNotificationOnError = true):
+    Observable<RichUserExtSource[]>
+  {
+    return this.apiService.post('json/usersManager/getRichUserExtSources', {
       user: userId
     }, showNotificationOnError);
   }

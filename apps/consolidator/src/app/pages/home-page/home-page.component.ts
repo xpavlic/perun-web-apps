@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Identity } from '../../models/Identity';
 import { MatDialog } from '@angular/material';
 import { AddIdentityDialogComponent } from '../../components/add-identity-dialog/add-identity-dialog.component';
-import { AuthzService, UsersService } from '@perun-web-apps/perun/services';
-import { UserExtSource } from '@perun-web-apps/perun/models';
+import { AuthzService, RegistrarService, UsersService } from '@perun-web-apps/perun/services';
+import { Identity } from '../../models/Identity';
 
 @Component({
   selector: 'perun-web-apps-home-page',
@@ -15,24 +14,26 @@ export class HomePageComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private usersService: UsersService,
-    private authzService: AuthzService
+    private authzService: AuthzService,
+    private registrarService: RegistrarService
   ) { }
 
-  knownIdentities: UserExtSource[];
+  knownIdentities: Identity[];
 
-  // unknownIdentities: Identity[] = [
-  //   {
-  //     login: '445320@mail.muni.cz'
-  //   },
-  //   {
-  //     login: '445320@mail.muni.cz'
-  //   }
-  // ];
+  unknownIdentities: Identity[];
+
+  perunIdentitiesLoaded = true;
+  newIdentitiesLoaded = false;
 
   ngOnInit() {
+    this.registrarService.getConsolidatorToken().subscribe(token => console.log(token));
+
     this.authzService.getPerunPrincipal().subscribe(principal => {
-      this.usersService.getUserExtSources(principal.userId).subscribe(userExtSources => {
-        this.knownIdentities = userExtSources;
+      this.usersService.getRichUserExtSourcesWithAllAttributes(principal.userId).subscribe(userExtSources => {
+        this.knownIdentities = userExtSources.map(rues => ({
+          login: rues.userExtSource.login,
+          rues: rues
+        }));
       });
     });
   }

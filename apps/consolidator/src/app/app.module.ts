@@ -13,13 +13,19 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AddIdentityDialogComponent } from './components/add-identity-dialog/add-identity-dialog.component';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { ApiService } from './services/api.service';
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
+import { FederationSelectComponent } from './components/federation-select/federation-select.component';
+import { IdentityTypeSelectionComponent } from './components/identity-type-selection/identity-type-selection.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { NewIdentityPageComponent } from './pages/new-identity-page/new-identity-page.component';
+import { ConsolidatePageComponent } from './pages/consolidate-page/consolidate-page.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, IdentitiesComponent, AddIdentityDialogComponent],
+  declarations: [AppComponent, HomePageComponent, IdentitiesComponent, AddIdentityDialogComponent, WelcomePageComponent, FederationSelectComponent, IdentityTypeSelectionComponent, ConfirmationComponent, NewIdentityPageComponent, ConsolidatePageComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

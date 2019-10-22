@@ -1,12 +1,31 @@
-<mat-spinner class="spinner" *ngIf="loading"></mat-spinner>
-<div *ngIf="!loading">
-  <mat-form-field class="search-entity">
-    <input
-      [formControl]="filterInputControl"
-      matInput
-      placeholder="{{'DIALOGS.ADD_IDENTITY.INPUT_PLACEHOLDER' | translate}}">
-  </mat-form-field>
-  <cdk-virtual-scroll-viewport itemSize="57" class="entities-viewport">
-    <div *cdkVirtualFor="let entity of datasource" class="entity-item">{{entity.name.en}}</div>
-  </cdk-virtual-scroll-viewport>  
-</div>
+<mat-horizontal-stepper
+  class="all-accent-theme"
+  [linear]="false"
+  [disableRipple]="true"
+  [selectedIndex]="currentIndex"
+  #stepper
+  labelPosition="bottom">
+  <mat-step completed="false">
+    <perun-web-apps-identity-type-selection
+    (typeSelected)="onTypeSelected($event)">
+    </perun-web-apps-identity-type-selection>
+  </mat-step>
+  <mat-step completed="false">
+    <perun-web-apps-federation-select
+      *ngIf="selectedType === 'FID'"
+      (federationSelect)="onFederationSelected($event)">
+    </perun-web-apps-federation-select>
+    <button mat-button matStepperPrevious class="mt-2">
+      {{'ID_SELECT.BACK' | translate}}
+    </button>
+  </mat-step>
+  <mat-step completed="false">
+    <perun-web-apps-confirmation
+      *ngIf="identityAddition !== undefined"
+      [identityAddition]="identityAddition">
+    </perun-web-apps-confirmation>
+    <button mat-button matStepperPrevious class="mt-2">
+      {{'ID_SELECT.BACK' | translate}}
+    </button>
+  </mat-step>
+</mat-horizontal-stepper>

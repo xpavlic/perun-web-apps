@@ -7,10 +7,13 @@
   </div>
 
   <div class="mat-elevation-z8 identities-overview">
-      <div *ngFor="let ues of identities" class="identity">
-        <h3 class="mat-h3">
-          {{ues.login}}
+      <div *ngFor="let identity of identities" class="identity">
+        <h3 class="identity-login">
+          {{identity.login}}
         </h3>
+        <p class="identity-email">
+          {{getEmailText(identity.rues)}}
+        </p>
       </div>
   </div>
 </div>
