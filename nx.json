@@ -37,6 +37,9 @@
     },
     "perun-urns": {
       "tags": []
+    },
+    "ui-alerts": {
+      "tags": []
     }
   }
 }

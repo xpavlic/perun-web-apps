@@ -1,0 +1,7 @@
+<div
+  class="perun-alert"
+  [class.warn-alert]="color === 'WARN'"
+  [class.error-alert]="color === 'ERROR'"
+  [class.info-alert]="color === 'INFO'">
+  <ng-content></ng-content>
+</div>
