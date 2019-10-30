@@ -20,13 +20,15 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { NewIdentityPageComponent } from './pages/new-identity-page/new-identity-page.component';
 import { ConsolidatePageComponent } from './pages/consolidate-page/consolidate-page.component';
 import { APP_BASE_HREF } from '@angular/common';
+import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { ConsolidationErrorPipe } from './components/consolidation-error.pipe';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, IdentitiesComponent, AddIdentityDialogComponent, WelcomePageComponent, FederationSelectComponent, IdentityTypeSelectionComponent, ConfirmationComponent, NewIdentityPageComponent, ConsolidatePageComponent],
+  declarations: [AppComponent, HomePageComponent, IdentitiesComponent, AddIdentityDialogComponent, WelcomePageComponent, FederationSelectComponent, IdentityTypeSelectionComponent, ConfirmationComponent, NewIdentityPageComponent, ConsolidatePageComponent, ConsolidationErrorPipe],
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -40,7 +42,8 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     UiModule,
-    UiMaterialModule
+    UiMaterialModule,
+    UiAlertsModule
   ],
   providers: [
     {

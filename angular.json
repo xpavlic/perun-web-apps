@@ -333,6 +333,31 @@
           }
         }
       }
+    },
+    "ui-alerts": {
+      "root": "libs/ui/alerts",
+      "sourceRoot": "libs/ui/alerts/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui/alerts/tsconfig.lib.json",
+              "libs/ui/alerts/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui/alerts/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/alerts/jest.config.js",
+            "tsConfig": "libs/ui/alerts/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

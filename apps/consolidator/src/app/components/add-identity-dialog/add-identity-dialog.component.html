@@ -22,6 +22,7 @@
   <mat-step completed="false">
     <perun-web-apps-confirmation
       *ngIf="identityAddition !== undefined"
+      (proceed)="onProceed()"
       [identityAddition]="identityAddition">
     </perun-web-apps-confirmation>
     <button mat-button matStepperPrevious class="mt-2">

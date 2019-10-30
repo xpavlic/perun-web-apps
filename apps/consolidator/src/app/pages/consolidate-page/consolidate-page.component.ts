@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NewTokensServiceService } from '../../services/new-tokens-service.service';
 import { RegistrarService } from '@perun-web-apps/perun/services';
 import { Router } from '@angular/router';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-consolidate-page',
@@ -16,6 +17,8 @@ export class ConsolidatePageComponent implements OnInit {
     private router: Router
   ) { }
 
+  error: RPCError;
+
   ngOnInit() {
     const token = this.newTokens.getTokens()[0];
     console.log(token);
@@ -23,7 +26,7 @@ export class ConsolidatePageComponent implements OnInit {
     this.registrar.consolidate(token).subscribe(ueses => {
       console.log(ueses);
       this.router.navigate(['identities']);
-    })
+    }, error => this.error = error);
   }
 
 }

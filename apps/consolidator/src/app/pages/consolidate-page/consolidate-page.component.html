@@ -1,1 +1,3 @@
-<p>consolidate-page works!</p>
+<app-alert [color]="'ERROR'" *ngIf="error !== undefined">
+  {{error | consolidationError | translate}}
+</app-alert>

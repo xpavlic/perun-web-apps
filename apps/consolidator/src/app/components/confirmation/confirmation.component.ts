@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IdentityAddition } from '../add-identity-dialog/add-identity-dialog.component';
 
 @Component({
@@ -12,6 +12,9 @@ export class ConfirmationComponent implements OnInit {
 
   @Input()
   identityAddition: IdentityAddition;
+
+  @Output()
+  proceed: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit() {
   }

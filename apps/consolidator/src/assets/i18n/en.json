@@ -30,5 +30,8 @@
     "CERTIFICATE": {
       "LABEL": "Certificate"
     }
+  },
+  "CONSOLIDATE": {
+    "ALREADY_JOINED_ERROR": "You have already linked the identity you have just used to login."
   }
 }
