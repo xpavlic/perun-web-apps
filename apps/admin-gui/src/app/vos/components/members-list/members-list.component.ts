@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {parseEmail, parseFullName} from '../../../shared/utils';
 import {MatPaginator} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import { RichMember } from '@perun-web-apps/perun/models';
+import { parseEmail, parseFullName } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-members-list',

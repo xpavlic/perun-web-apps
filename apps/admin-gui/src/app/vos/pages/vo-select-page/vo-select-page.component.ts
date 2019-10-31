@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
-import {getRecentlyVisitedIds, getRecentlyVisited} from '../../../shared/utils';
 import { VoService } from '@perun-web-apps/perun/services';
 import { Vo } from '@perun-web-apps/perun/models';
+import { getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-vo-select-page',

@@ -12,9 +12,9 @@ import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {AttributesListComponent} from '../../../../../shared/components/attributes-list/attributes-list.component';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import {filterCoreAttributes} from '../../../../../shared/utils';
 import { AttributesService, VoService } from '@perun-web-apps/perun/services';
 import { Attribute } from '@perun-web-apps/perun/models';
+import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-vo-settings-attributes',

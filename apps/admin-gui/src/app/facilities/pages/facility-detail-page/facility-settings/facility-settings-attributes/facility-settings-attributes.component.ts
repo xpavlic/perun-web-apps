@@ -6,7 +6,6 @@ import {NotificatorService} from '../../../../../core/services/common/notificato
 import {TranslateService} from '@ngx-translate/core';
 import {AttributesListComponent} from '../../../../../shared/components/attributes-list/attributes-list.component';
 import {SelectionModel} from '@angular/cdk/collections';
-import {filterCoreAttributes} from '../../../../../shared/utils';
 import {
   DeleteAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
@@ -15,6 +14,7 @@ import {
 } from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { AttributesService, FacilityService } from '@perun-web-apps/perun/services';
 import { Attribute } from '@perun-web-apps/perun/models';
+import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-facility-settings-attributes',

@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 import {DeleteGroupDialogComponent} from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import {MatCheckbox} from '@angular/material';
-import {applyFilter} from '../../../../shared/utils';
+import {applyFilter} from '@perun-web-apps/perun/utils';
 import { GroupService } from '@perun-web-apps/perun/services';
 import { Group } from '@perun-web-apps/perun/models';
 

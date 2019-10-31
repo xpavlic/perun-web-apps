@@ -1,6 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { filterCoreAttributesDefinitions } from '../../../../shared/utils';
 // tslint:disable-next-line:max-line-length
 import { DeleteAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
 import { MatDialog } from '@angular/material';
@@ -8,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { CreateAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
 import { AttributesService } from '@perun-web-apps/perun/services';
 import { AttributeDefinition } from '@perun-web-apps/perun/models';
+import { filterCoreAttributesDefinitions } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-admin-attributes',

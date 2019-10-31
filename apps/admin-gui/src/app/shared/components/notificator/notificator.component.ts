@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {NotificationData} from '../../models/NotificationData';
 import {NotificatorService} from '../../../core/services/common/notificator.service';
-import {doAfterDelay} from '../../utils';
 import {flyInOut} from '../../animations/Animations';
+import { doAfterDelay } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-notificator',
