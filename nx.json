@@ -40,6 +40,12 @@
     },
     "ui-alerts": {
       "tags": []
+    },
+    "admin-gui-e2e": {
+      "tags": []
+    },
+    "admin-gui": {
+      "tags": []
     }
   }
 }

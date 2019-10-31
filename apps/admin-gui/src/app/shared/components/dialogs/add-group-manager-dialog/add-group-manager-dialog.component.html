@@ -1,0 +1,55 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.ADD_GROUPS.TITLE' | translate}}</h1>
+
+  <div mat-dialog-content>
+    <div class="inline-dialog-items">
+      <mat-form-field class="mr-2">
+        <mat-label>{{'SHARED.COMPONENTS.MANAGERS_PAGE.SELECT_ROLE' | translate}}</mat-label>
+        <mat-select [(value)]="selectedRole">
+          <mat-option *ngFor="let role of availableRoles" [value]="role">{{role | displayedRole}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="mr-2 w-75">
+        <mat-label>{{'DIALOGS.ADD_GROUPS.SELECT_VO' | translate}}</mat-label>
+        <input type="text" placeholder="{{'DIALOGS.ADD_GROUPS.SELECT_VO' | translate}}" aria-label="Assignee" matInput
+               [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="showVoGroups()">
+          <mat-option *ngFor="let vo of filteredOptions | async" [value]="vo">
+            {{vo.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="overflow-hidden">
+      <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    </div>
+    <div class="mt-3" *ngIf="groups !== null && !loading">
+      <app-groups-list
+        [inDialog]="true"
+        [hideColumns]="['menu']"
+        [selection]="selection"
+        [groups]="groups">
+      </app-groups-list>
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      class="ml-auto"
+      color="warn"
+      (click)="onCancel()">
+      {{'DIALOGS.ADD_MANAGERS.CANCEL' | translate}}
+    </button>
+    <button
+      mat-flat-button
+      class="ml-2"
+      color="accent"
+      (click)="onSubmit()"
+      [disabled]="selection.selected.length === 0">
+      {{'DIALOGS.ADD_MANAGERS.CREATE' | translate}}
+    </button>
+  </div>
+</div>

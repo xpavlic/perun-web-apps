@@ -1,0 +1,18 @@
+<div class="notification mat-elevation-z7"
+     [class.error]="data.type === 'error'"
+     [class.success]="data.type === 'success'">
+  <div class="notification-container">
+    <div *ngIf="data.icon !== null" class="notification-icon">
+      <mat-icon>{{data.icon}}</mat-icon>
+    </div>
+    <div class="notification-text">
+      {{data.title}}
+    </div>
+    <div class="notification-action" (click)="doAction()">
+      {{data.actionText}}
+    </div>
+  </div>
+<!--  <button mat-icon-button>-->
+<!--    <mat-icon class="notification-icon">close</mat-icon>-->
+<!--  </button>-->
+</div>

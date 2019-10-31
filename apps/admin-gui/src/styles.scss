@@ -1,0 +1,898 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$perun-primary: mat-palette($mat-gray, 900);
+$perun-accent: mat-palette($mat-green, 600);
+
+// The warn palette is optional (defaults to red).
+$perun-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$perun-theme: mat-light-theme($perun-primary, $perun-accent, $perun-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($perun-theme);
+
+// Perun entities colors
+$vo-color: #283593;
+$facility-color: #d84315;
+$resource-color: #6a1b9a;
+$group-color: #33691e;
+$member-color: #ad1457;
+$admin-color: #c62828;
+$user-color: #00796b;
+
+.vo-theme {
+  $vo-primary: mat-palette($mat-indigo, 800);
+  $vo-accent: mat-palette($mat-green, 600);
+  $vo-theme: mat-light-theme($vo-primary, $vo-accent);
+
+  @include angular-material-theme($vo-theme);
+}
+
+.facility-theme {
+  $vo-primary: mat-palette($mat-deep-orange, 800);
+  $vo-accent: mat-palette($mat-green, 600);
+  $vo-theme: mat-light-theme($vo-primary, $vo-accent);
+
+  @include angular-material-theme($vo-theme);
+}
+
+.resource-theme {
+  $vo-primary: mat-palette($mat-purple, 800);
+  $vo-accent: mat-palette($mat-green, 600);
+  $vo-theme: mat-light-theme($vo-primary, $vo-accent);
+
+  @include angular-material-theme($vo-theme);
+}
+
+.group-theme {
+  $group-primary: mat-palette($mat-light-green, 900);
+  $group-accent: mat-palette($mat-green, 600);
+  $group-theme: mat-light-theme($group-primary, $group-accent);
+
+  @include angular-material-theme($group-theme);
+}
+
+.member-theme {
+  $member-primary: mat-palette($mat-pink, 800);
+  $member-accent: mat-palette($mat-green, 600);
+  $member-theme: mat-light-theme($member-primary, $member-accent);
+
+  @include angular-material-theme($member-theme);
+}
+
+.admin-theme {
+  $admin-primary: mat-palette($mat-red, 800);
+  $admin-accent: mat-palette($mat-green, 600);
+  $admin-theme: mat-light-theme($admin-primary, $admin-accent);
+
+  @include angular-material-theme($admin-theme);
+}
+
+.user-theme {
+  $user-primary: mat-palette($mat-teal, 700);
+  $user-accent: mat-palette($mat-green, 600);
+  $user-theme: mat-light-theme($user-primary, $user-accent);
+
+  @include angular-material-theme($user-theme);
+}
+
+body {
+  background-color: #fafafa;
+}
+
+button {
+  border-radius: 0 !important;
+}
+
+button:focus {
+  outline: none !important;
+}
+
+.vo-item {
+  background-color: $vo-color;
+}
+
+.facility-item {
+  background-color: $facility-color;
+}
+
+.resource-item {
+  background-color: $resource-color;
+}
+
+.group-item {
+  background-color: $group-color;
+}
+
+.member-item {
+  background-color: $member-color;
+}
+
+.vo-item-activated {
+  border-right: 5px solid $vo-color;
+  color: $vo-color !important;
+  font-weight: 500;
+  background-color: rgba(63, 76, 255, 0.10) !important;
+
+  &:hover {
+    background-color: rgba(63, 76, 255, 0.15) !important;
+  }
+}
+  //background-color: #eaeaea !important;
+.admin-item-activated {
+  border-right: 5px solid $admin-color;
+  color: $admin-color !important;
+  font-weight: 500;
+  background-color: rgba(255, 50, 50, 0.10);
+
+  &:hover {
+    background-color: rgba(255, 50, 50, 0.15) !important;
+  }
+}
+.facility-item-activated {
+  border-right: 5px solid $facility-color;
+  color: $facility-color !important;
+  font-weight: 500;
+  background-color: rgba(255, 80, 23, 0.1);
+
+  &:hover {
+    background-color: rgba(255, 80, 23, 0.15) !important;
+  }
+  //background-color: #eaeaea !important;
+}
+.resource-item-activated {
+  border-right: 5px solid $resource-color;
+  color: $resource-color !important;
+  font-weight: 500;
+  background-color: rgba(176, 44, 255, 0.10);
+
+  &:hover {
+    background-color: rgba(176, 44, 255, 0.15) !important;
+  }
+  //background-color: #eaeaea !important;
+}
+.group-item-activated {
+  border-right: 5px solid $group-color;
+  color: $group-color !important;
+  font-weight: 500;
+  background-color: rgba(123, 255, 71, 0.10);
+
+  &:hover {
+    background-color: rgba(123, 255, 71, 0.15) !important;
+  }
+}
+.member-item-activated {
+  border-right: 5px solid $member-color;
+  color: $member-color !important;
+  font-weight: 500;
+  background-color: rgba(255, 28, 133, 0.10);
+
+  &:hover {
+    background-color: rgba(255, 28, 133, 0.15) !important;
+  }
+  //background-color: #eaeaea !important;
+}
+
+.user-item-activated {
+  border-right: 5px solid $user-color;
+  color: $user-color !important;
+  font-weight: 500;
+  background-color: rgba(0, 121, 107, 0.10);
+
+  &:hover {
+    background-color: rgba(0, 121, 107, 0.15) !important;
+  }
+}
+
+.vo-item-links a:hover {
+  color: $vo-color !important;
+  background-color: rgba(63, 76, 255, 0.15) !important;
+}
+
+.group-item-links a:hover {
+  color: $group-color !important;
+  background-color: rgba(123, 255, 71, 0.15) !important;
+}
+
+.admin-item-links a:hover {
+  color: $admin-color !important;
+  background-color: rgba(255, 50, 50, 0.15) !important;
+}
+
+.facility-item-links a:hover {
+  color: $facility-color !important;
+  background-color: rgba(255, 82, 28, 0.15) !important;
+}
+
+.resource-item-links a:hover {
+  color: $resource-color !important;
+  background-color: rgba(176, 44, 255, 0.15) !important;
+}
+
+.member-item-links a:hover {
+  color: $member-color !important;
+  background-color: rgba(255, 28, 133, 0.15) !important;
+}
+
+.user-item-links a:hover {
+  color: $user-color !important;
+  background-color: rgba(0, 121, 107, 0.15) !important;
+}
+
+.vo-text {
+  color: $vo-color !important;
+}
+.facility-text {
+  color: $facility-color !important;
+}
+.resource-text {
+  color: $resource-color !important;
+}
+.group-text {
+  color: $group-color !important;
+}
+.member-text {
+  color: $member-color !important;
+}
+
+.router-component {
+  padding-bottom: 5rem;
+  width: calc(100vw - (300px + 6rem));
+  @media(min-width: 769px) and (max-width: 1199px) {
+    width: calc(100vw - 330px);
+  }
+  @media(max-width: 768px) {
+    width: calc(100vw - 30px);
+  }
+}
+
+.main-input {
+  font-size: 1.2rem !important;
+  line-height: 1.2 !important;
+}
+
+.perun-alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid;
+}
+
+.perun-alert.info-alert {
+  color: #000000;
+  background-color: rgba(25,118,210,.05);
+  border-color: #1976d2;
+}
+
+.perun-alert.warn-alert {
+  color: #000000;
+  background-color: #fff2cd;
+  border-color: #ffd657;
+}
+
+.perun-alert.error-alert {
+  color: #000000;
+  background-color: #fae2e2;
+  border-color: #d32f2f;
+}
+
+.error-text {
+  color: #d32f2f;
+}
+
+// might be useful
+.main-progress-bar {
+  z-index: 999999;
+  .mat-progress-bar-fill::after {
+    background-color: #0081cb !important;
+  }
+  .mat-progress-bar-buffer {
+    background-color: #2c2c2c;
+  }
+}
+
+.tab-padding-top {
+  .mat-tab-body-content {
+    padding-top: 2rem;
+  }
+}
+#nav-menu {
+  background: #102027;
+  position: fixed;
+  width: 100%;
+  z-index: 99999;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  //display: table;
+}
+
+.base-item-color {
+  background-color: mat-color($mat-blue-grey, 900);
+}
+.base-item-color-activated {
+  background-color: #62727b;
+}
+
+.white-color-input {
+  color: #ffffff !important;
+
+  .mat-form-field-label {
+    color: #ffffff !important;
+  }
+
+  .mat-focused {
+    color: #ffffff !important;
+    background-color: #ffffff !important;
+  }
+  input {
+    caret-color: #ffffff !important;
+  }
+
+  .mat-form-field-underline {
+    background-color: #ffffff !important;
+  }
+
+  .mat-form-field-ripple {
+    background-color: #ffffff !important;
+  }
+}
+
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-container > * {
+  width: 100%;
+}
+
+.page-title {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.page-subtitle {
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.box-button-large {
+  text-align: center;
+  font-size: 1.25em;
+  color: #ffffff;
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+  -moz-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+}
+
+.box-button-small {
+  color: #ffffff;
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+  -moz-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+}
+
+.box-button-medium {
+  color: #ffffff;
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+  -moz-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+}
+
+.button-shadow {
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35) !important;
+  -moz-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35) !important;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35) !important;
+}
+
+.menu-items {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.menu-item-large {
+  img {
+    width: 100%;
+    flex-grow: 1;
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    img {
+      padding-left: .75rem;
+      padding-right: .75rem;
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    img {
+      padding-left: .75rem;
+      padding-right: .75rem;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    img {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.25em;
+  padding: .5rem .5rem 1.5rem .5rem;
+  width: 100%;
+  margin: 1rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    color: white;
+    text-decoration: none !important;
+  }
+}
+
+.menu-item-small {
+  img {
+    width: 100%;
+    flex-grow: 1;
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    img {
+      padding-left: .75rem;
+      padding-right: .75rem;
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    img {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    img {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    img {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.25em;
+  padding: 0.5rem;
+  width: 100%;
+  margin: 1rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    color: white;
+    text-decoration: none !important;
+  }
+}
+
+.dark-hover-list-item {
+  &:hover {
+    background-color: rgba(0, 0, 0, .05);
+  }
+}
+
+.info-table {
+  td:first-child {
+    width: 40%;
+    white-space: nowrap;
+  }
+}
+
+.menu-items-row {
+  margin-left: -15px !important;
+  margin-right: -15px !important;
+}
+
+.menu-item-medium {
+
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  padding: 0.75rem;
+  width: 100%;
+  margin: 1rem;
+  font-size: 1.25rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    color: white;
+    text-decoration: none !important;
+  }
+
+  img {
+    width: 4rem;
+    height: 4rem;
+    flex-grow: 1;
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
+
+  div {
+    flex-grow: 5;
+  }
+  /*@media (min-width: 992px) and (max-width: 1199px) {
+    img {
+      padding-left: .75rem;
+      padding-right: .75rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    img {
+      padding-left: .75rem;
+      padding-right: .75rem;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    img {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }*/
+}
+
+
+// Color styles for entities
+.vo-bg-color {
+  background-color: $vo-color;
+}
+
+.facility-bg-color {
+  background-color: $facility-color;
+}
+
+.group-bg-color {
+  background-color: $group-color;
+}
+
+.member-bg-color {
+  background-color: $member-color;
+}
+
+.admin-bg-color {
+  background-color: $admin-color;
+}
+
+.user-bg-color {
+  background-color: $user-color;
+  .cdk-text-field-autofilled {
+    background-color: black !important;
+  }
+}
+
+.setting-item {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.clickable {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.unselected-setting {
+  color: #888888;
+}
+
+.app-btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.app-btn.disabled, .app-btn:disabled {
+  opacity: 0.65;
+}
+
+.app-btn:focus {
+  outline: none;
+}
+
+.vo-btn {
+  background-color: $vo-color;
+  color: #ffffff;
+  border-radius: 0;
+
+
+  &:hover {
+    background-color: lighten($vo-color, 5%);
+  }
+
+  &:active {
+    background-color: darken($vo-color, 5%);
+  }
+}
+
+.facility-btn {
+  background-color: $facility-color;
+  color: #ffffff;
+  border-radius: 0;
+
+  &:hover {
+    background-color: lighten($facility-color, 5%);
+  }
+
+  &:active {
+    background-color: darken($facility-color, 5%);
+  }
+}
+
+.resource-btn {
+  background-color: $resource-color;
+  color: #ffffff;
+  border-radius: 0;
+
+  &:hover {
+    background-color: lighten($resource-color, 5%);
+  }
+
+  &:active {
+    background-color: darken($resource-color, 5%);
+  }
+}
+
+.group-btn {
+  background-color: $group-color;
+  color: #ffffff;
+  border-radius: 0;
+
+  &:hover {
+    background-color: lighten($group-color, 5%);
+  }
+
+  &:active {
+    background-color: darken($group-color, 5%);
+  }
+}
+
+.member-btn {
+  background-color: $member-color;
+  color: #ffffff;
+  border-radius: 0;
+
+  &:hover {
+    background-color: lighten($member-color, 5%);
+  }
+
+  &:active {
+    background-color: darken($member-color, 5%);
+  }
+}
+
+.admin-btn {
+  background-color: $admin-color;
+  color: #ffffff;
+  border-radius: 0;
+
+  &:hover {
+    background-color: lighten($admin-color, 5%);
+  }
+
+  &:active {
+    background-color: darken($admin-color, 5%);
+  }
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+.user-btn {
+  background-color: $user-color;
+  color: #ffffff;
+  border-radius: 0;
+
+  &:hover {
+    background-color: lighten($user-color, 5%);
+  }
+
+  &:active {
+    background-color: darken($user-color, 5%);
+  }
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+.title-link {
+  color: #000000;
+  text-decoration: underline;
+
+  &:hover {
+    color: #404040;
+  }
+}
+
+.vo-link {
+  color: $vo-color;
+  text-decoration: underline;
+
+  &:hover {
+    color: lighten($vo-color, 10%);
+  }
+}
+
+.facility-link {
+  color: $facility-color;
+  text-decoration: underline;
+
+  &:hover {
+    color: lighten($facility-color, 10%);
+  }
+}
+
+.resource-link {
+  color: $resource-color;
+  text-decoration: underline;
+
+  &:hover {
+    color: lighten($resource-color, 10%);
+  }
+}
+
+.member-link {
+  color: $member-color;
+  text-decoration: underline;
+
+  &:hover {
+    color: lighten($member-color, 10%);
+  }
+}
+
+.group-link {
+  color: $group-color;
+  text-decoration: underline;
+
+  &:hover {
+    color: lighten($group-color, 10%);
+  }
+}
+
+.user-link {
+  color: $user-color;
+  text-decoration: underline;
+
+  &:hover {
+    color: lighten($user-color, 10%);
+  }
+}
+// HACKS
+
+// Dont show horizontal scroll at menu items
+.mat-tab-body-content {
+  overflow: hidden !important;
+}
+
+.no-label-margin-bottom {
+  label {
+    margin-bottom: 0 !important;
+  }
+}
+
+// sharp design
+.mat-stroked-button {
+  border-radius: 0 !important;
+}
+.mat-flat-button {
+  border-radius: 0 !important;
+}
+.mat-button {
+  border-radius: 0 !important;
+}
+.card {
+  border-radius: 0 !important;
+}
+
+//colors for material icons
+.material-icons.orange {
+  color: #FB8C00;
+  vertical-align: bottom;
+}
+.material-icons.red {
+  color: #ff0000;
+  vertical-align: bottom;
+}
+.material-icons.green {
+  color: #28a745;
+  vertical-align: bottom;
+}
+.material-icons.blue {
+  color: #1a87ff;
+  vertical-align: bottom;
+}
+
+//specific style for dialog without any border
+.noBorderDialog .mat-dialog-container {
+  padding: 0px !important;
+}
+
+.mat-drawer-inner-container {
+  background-color: mat-color($mat-blue-grey, 900);
+}
+
+.filter-field {
+  width:350px !important;
+}
+
+.align-inline {
+  display: flex;
+  line-height: 75px;
+  align-items: flex-end;
+}
+
+.static-column-size {
+  width: 80px;
+}

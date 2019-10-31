@@ -1,0 +1,52 @@
+<h1 class="page-subtitle">
+  {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.TITLE' | translate}}
+</h1>
+
+<div class="w-100 d-flex">
+  <button
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    (click)="add()">
+    {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.ADD' | translate}}
+  </button>
+
+  <button
+    mat-flat-button
+    color="warn"
+    class="mr-2"
+    (click)="remove()"
+    [disabled]="selection.selected.length === 0">
+    {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.REMOVE' | translate}}
+  </button>
+
+  <button
+    mat-stroked-button
+    class="mr-2"
+    (click)="changeEmailFooter()">
+    <i class="material-icons">email</i>
+    {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
+  </button>
+
+  <button
+    mat-stroked-button
+    class="ml-auto"
+    (click)="copy()">
+    <i class="material-icons">file_copy</i>
+    {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
+  </button>
+</div>
+
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
+</mat-spinner>
+
+<div *ngIf="applicationMails.length !== 0 && !loading" class="card mt-2">
+  <app-notification-list
+    [applicationMails]="applicationMails"
+    [voId]="voId"
+    [selection]="selection"
+    (selectionChange)="changeSelection($event)"></app-notification-list>
+</div>
+<div *ngIf="this.applicationMails.length === 0 && !loading" class="perun-alert warn-alert">
+  {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.NO_EMAILS' | translate}}
+</div>
