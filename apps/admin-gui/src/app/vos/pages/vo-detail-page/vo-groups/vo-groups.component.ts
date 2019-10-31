@@ -8,7 +8,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { GroupFlatNode } from '../../../components/groups-tree/groups-tree.component';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
 import { MatCheckbox } from '@angular/material';
-import { applyFilter } from '../../../../shared/utils';
+import { applyFilter } from '@perun-web-apps/perun/utils';
 import { GroupService, VoService } from '@perun-web-apps/perun/services';
 import { Group, Vo } from '@perun-web-apps/perun/models';
 

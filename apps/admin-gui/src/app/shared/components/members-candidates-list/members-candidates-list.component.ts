@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-import {parseEmail, parseFullName} from '../../utils';
 import { MemberCandidate } from '@perun-web-apps/perun/models';
+import { parseEmail, parseFullName } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-members-candidates-list',

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {parseVo} from '../utils';
+import { parseVo } from '@perun-web-apps/perun/utils';
 
 @Pipe({
   name: 'userVo'

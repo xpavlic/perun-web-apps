@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {parseTechnicalOwnersNames} from '../../../shared/utils';
 import { RichFacility } from '@perun-web-apps/perun/models';
+import { parseTechnicalOwnersNames } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-facility-select-table',

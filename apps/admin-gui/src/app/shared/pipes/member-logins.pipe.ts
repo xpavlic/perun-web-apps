@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {parseLogins} from '../utils';
+import { parseLogins } from '@perun-web-apps/perun/utils';
 
 @Pipe({
   name: 'memberLogins'

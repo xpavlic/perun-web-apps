@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {parseTechnicalOwnersNames} from '../utils';
+import { parseTechnicalOwnersNames } from '@perun-web-apps/perun/utils';
 
 @Pipe({
   name: 'technicalOwners'

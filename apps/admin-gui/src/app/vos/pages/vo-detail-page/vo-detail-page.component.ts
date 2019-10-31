@@ -3,9 +3,9 @@ import { SideMenuService } from '../../../core/services/common/side-menu.service
 import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { fadeIn } from '../../../shared/animations/Animations';
-import { addRecentlyVisited } from '../../../shared/utils';
 import { VoService } from '@perun-web-apps/perun/services';
 import { Vo } from '@perun-web-apps/perun/models';
+import { addRecentlyVisited } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-vo-detail-page',
