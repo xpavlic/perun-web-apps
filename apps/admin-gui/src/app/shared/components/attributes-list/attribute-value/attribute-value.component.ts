@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Attribute} from '../../../../core/models/Attribute';
 import {AttributeValueMapComponent} from './attribute-value-map/attribute-value-map.component';
+import { Attribute } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-attribute-value',

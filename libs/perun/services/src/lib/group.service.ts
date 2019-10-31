@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpParams} from '@angular/common/http';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { PerunApiService } from './perun-api-service';
-import { Group } from '@perun-web-apps/perun/models';
+import { Group, Vo } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +73,9 @@ export class GroupService {
       'movingGroup' : movingGroupId,
       'destinationGroup' : destinationGroupId
     }, showNotificationOnError);
+  }
+
+  getVoOfGroup(id: number, showNotificationOnError = true): Observable<Vo> {
+    return this.apiService.get(`json/groupsManager/getVo?group=${id}`, new HttpParams(), showNotificationOnError);
   }
 }

@@ -1,10 +1,9 @@
 /* tslint:disable:member-ordering */
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {Group} from '../../../core/models/Group';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import {TreeGroup} from '../../../core/models/TreeGroup';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
+import { Group, TreeGroup } from '@perun-web-apps/perun/models';
 
 
 export interface GroupFlatNode {

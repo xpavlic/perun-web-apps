@@ -32,12 +32,8 @@ export class AuthzService {
         }, showNotificationOnError);
   }
 
-  getManagerGroups(
-    role: string,
-    complementaryObjectId: number,
-    complementaryObjectName: string,
-    showNotificationOnError = true): Observable<Group[]>
-  {
+  getManagerGroups( role: string, complementaryObjectId: number, complementaryObjectName: string,
+                    showNotificationOnError = true): Observable<Group[]> {
     return this.apiService.post(`json/authzResolver/getAdminGroups`, {
       role: role,
       complementaryObjectId: complementaryObjectId,

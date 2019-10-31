@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 
 import { graphviz } from 'd3-graphviz';
-import {AttributesService} from '../../../../../core/services/api/attributes.service';
+import { AttributesService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-visualizer-attr-modules',

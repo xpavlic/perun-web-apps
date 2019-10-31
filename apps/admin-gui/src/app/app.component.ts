@@ -1,10 +1,10 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {AuthzService} from './core/services/api/authz.service';
-import {PerunPrincipal} from './core/models/PerunPrincipal';
 import {AuthResolverService} from './core/services/common/auth-resolver.service';
 import {AuthService} from './core/services/common/auth.service';
 import {CacheHelperService} from './core/services/common/cache-helper.service';
+import { AuthzService } from '@perun-web-apps/perun/services';
+import { PerunPrincipal } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-root',

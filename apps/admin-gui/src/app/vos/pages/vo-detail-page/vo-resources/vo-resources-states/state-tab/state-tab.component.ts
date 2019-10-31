@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ResourceState} from '../../../../../../core/models/ResourceState';
 import {MatTableDataSource} from '@angular/material';
-import {Task} from '../../../../../../core/models/Task';
+import { ResourceState, Task } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-state-tab',

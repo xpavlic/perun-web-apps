@@ -1,18 +1,16 @@
-import {Component, HostBinding, Input, OnInit, ViewChild} from '@angular/core';
-import {Vo} from '../../../../core/models/Vo';
-import {Group} from '../../../../core/models/Group';
+import { Component, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {CreateGroupDialogComponent} from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
-import {GroupService} from '../../../../core/services/api/group.service';
-import {SideMenuService} from '../../../../core/services/common/side-menu.service';
-import {VoService} from '../../../../core/services/api/vo.service';
-import {ActivatedRoute} from '@angular/router';
-import {DeleteGroupDialogComponent} from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
-import {SelectionModel} from '@angular/cdk/collections';
-import {GroupFlatNode} from '../../../components/groups-tree/groups-tree.component';
-import {MoveGroupDialogComponent} from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
-import {MatCheckbox} from '@angular/material';
-import {applyFilter} from '../../../../shared/utils';
+import { CreateGroupDialogComponent } from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
+import { SideMenuService } from '../../../../core/services/common/side-menu.service';
+import { ActivatedRoute } from '@angular/router';
+import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
+import { SelectionModel } from '@angular/cdk/collections';
+import { GroupFlatNode } from '../../../components/groups-tree/groups-tree.component';
+import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
+import { MatCheckbox } from '@angular/material';
+import { applyFilter } from '../../../../shared/utils';
+import { GroupService, VoService } from '@perun-web-apps/perun/services';
+import { Group, Vo } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-groups',

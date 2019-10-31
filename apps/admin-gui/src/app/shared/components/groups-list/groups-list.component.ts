@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {Group} from '../../../core/models/Group';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material';
+import { Group } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-groups-list',

@@ -1,9 +1,9 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {SideMenuService} from '../../../../../core/services/common/side-menu.service';
-import {VoService} from '../../../../../core/services/api/vo.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MenuItem} from '../../../../../shared/models/MenuItem';
-import {Vo} from '../../../../../core/models/Vo';
+import { VoService } from '@perun-web-apps/perun/services';
+import { Vo } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-resources-overview',

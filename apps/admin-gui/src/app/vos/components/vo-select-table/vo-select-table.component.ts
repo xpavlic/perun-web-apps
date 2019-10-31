@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {Vo} from '../../../core/models/Vo';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { Vo } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-select-table',

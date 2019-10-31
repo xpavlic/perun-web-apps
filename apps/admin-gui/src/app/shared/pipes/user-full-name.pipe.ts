@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {User} from '../../core/models/User';
+import { User } from '@perun-web-apps/perun/models';
 
 @Pipe({
   name: 'userFullName'

@@ -1,13 +1,13 @@
 import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {GroupService} from '../../../../core/services/api/group.service';
-import {Group} from '../../../../core/models/Group';
 import {CreateGroupDialogComponent} from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
 import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 import {DeleteGroupDialogComponent} from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import {MatCheckbox} from '@angular/material';
 import {applyFilter} from '../../../../shared/utils';
+import { GroupService } from '@perun-web-apps/perun/services';
+import { Group } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-subgroups',

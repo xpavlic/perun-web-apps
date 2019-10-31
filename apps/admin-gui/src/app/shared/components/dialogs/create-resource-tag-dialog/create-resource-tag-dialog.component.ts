@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {ResourcesService} from '../../../../core/services/api/resources.service';
+import { ResourcesService } from '@perun-web-apps/perun/services';
 
 export interface CreateResourceTagDialogDialogData {
   voId: number;

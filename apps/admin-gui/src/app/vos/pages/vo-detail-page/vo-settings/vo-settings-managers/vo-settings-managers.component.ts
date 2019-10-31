@@ -1,9 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {VoService} from '../../../../../core/services/api/vo.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
-import {Vo} from '../../../../../core/models/Vo';
-import {Role} from '../../../../../core/models/PerunPrincipal';
+import { VoService } from '@perun-web-apps/perun/services';
+import { Role, Vo } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-settings-managers',

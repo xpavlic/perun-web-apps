@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthResolverService} from '../../../core/services/common/auth-resolver.service';
-import {PerunPrincipal} from '../../../core/models/PerunPrincipal';
-import {User} from '../../../core/models/User';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import {SideMenuItemService} from '../../side-menu/side-menu-item.service';
-import {UsersService} from '../../../core/services/api/users.service';
+import { UsersService } from '@perun-web-apps/perun/services';
+import { PerunPrincipal, User } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-user-profile',

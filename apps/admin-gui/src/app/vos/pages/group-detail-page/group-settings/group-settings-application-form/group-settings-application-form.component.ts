@@ -1,11 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {RegistrarService} from '../../../../../core/services/api/registrar.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import {ApplicationForm} from '../../../../../core/models/ApplicationForm';
-import {ApplicationFormItem} from '../../../../../core/models/ApplicationFormItem';
 import {
   AddApplicationFormItemDialogComponent
 } from '../../../../../shared/components/dialogs/add-application-form-item-dialog/add-application-form-item-dialog.component';
@@ -18,6 +15,8 @@ import {
 import {
   UpdateApplicationFormDialogComponent
 } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
+import { RegistrarService } from '@perun-web-apps/perun/services';
+import { ApplicationForm, ApplicationFormItem } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-settings-application-form',

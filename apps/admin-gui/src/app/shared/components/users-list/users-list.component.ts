@@ -1,8 +1,8 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {RichUser} from '../../../core/models/RichUser';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {parseFullName, parseUserEmail, parseVo} from '../../utils';
 import {SelectionModel} from '@angular/cdk/collections';
+import { RichUser } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-users-list',

@@ -1,12 +1,12 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {Vo} from '../../../../core/models/Vo';
 import {MenuItem} from '../../../../shared/models/MenuItem';
 import {InviteMemberDialogComponent} from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {SideMenuService} from '../../../../core/services/common/side-menu.service';
-import {VoService} from '../../../../core/services/api/vo.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthResolverService} from '../../../../core/services/common/auth-resolver.service';
+import { VoService } from '@perun-web-apps/perun/services';
+import { Vo } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-overview',

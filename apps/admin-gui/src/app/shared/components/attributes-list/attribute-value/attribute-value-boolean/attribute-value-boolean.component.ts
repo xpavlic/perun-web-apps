@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Attribute} from '../../../../../core/models/Attribute';
+import { Attribute } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-attribute-value-boolean',

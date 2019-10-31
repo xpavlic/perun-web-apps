@@ -1,12 +1,11 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {RichMember} from '../../../../core/models/RichMember';
 import {parseFullName, parseStatusColor, parseStatusIcon} from '../../../../shared/utils';
-import {Urns} from '../../../../shared/urns';
-import {AttributesService} from '../../../../core/services/api/attributes.service';
 import {TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute} from '@angular/router';
-import {MembersService} from '../../../../core/services/api/members.service';
 import {MenuItem} from '../../../../shared/models/MenuItem';
+import { AttributesService, MembersService } from '@perun-web-apps/perun/services';
+import { RichMember } from '@perun-web-apps/perun/models';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-member-overview',

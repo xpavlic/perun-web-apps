@@ -1,8 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {RegistrarService} from '../../../../../core/services/api/registrar.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApplicationForm} from '../../../../../core/models/ApplicationForm';
-import {ApplicationFormItem} from '../../../../../core/models/ApplicationFormItem';
 import {MatDialog} from '@angular/material';
 import {
   UpdateApplicationFormDialogComponent
@@ -18,6 +15,8 @@ import {
 import {
   EditApplicationFormItemDialogComponent
 } from '../../../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
+import { RegistrarService } from '@perun-web-apps/perun/services';
+import { ApplicationForm, ApplicationFormItem } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-settings-application-form',

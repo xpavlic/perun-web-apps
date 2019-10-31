@@ -1,8 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {PropagationStatsReaderService} from '../../../../../core/services/api/propagation-stats-reader.service';
-import {ResourceState} from '../../../../../core/models/ResourceState';
 import {CustomIconService} from '../../../../../core/services/api/custom-icon.service';
+import { PropagationStatsReaderService } from '@perun-web-apps/perun/services';
+import { ResourceState } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-resources-states',

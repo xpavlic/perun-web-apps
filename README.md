@@ -1,84 +1,177 @@
 # PerunWebApps
 
-This project was generated using [Nx](https://nx.dev).
+This repository contains Perun web applications.
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+## Admin gui
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+Command to serve the admin gui:
+```shell script
+ng serve admin-gui --public-host=http://localhost:4200 --disable-host-check
+```
 
-## Quick Start & Documentation
+## Consolidator
 
-[Nx Documentation](https://nx.dev/angular)
+Command to serve the consolidator:
 
-[10-minute video showing all Nx features](https://nx.dev/angular/getting-started/what-is-nx)
+```shell script
+nx serve consolidator --disable-host-check --baseHref=/krb/nic/ --deployUrl=/krb/nic/ --publicHost=localhost:4200
+```
 
-[Interactive Tutorial](https://nx.dev/angular/tutorial/01-create-application)
+## Apache config
+```
+<VirtualHost *:80>
 
-## Adding capabilities to your workspace
+  # AliasMatch ^/apps/establish-vo-form/([^/]+)/ /home/vectoun/git/perun/perun-apps/apps/establish-vo-form/
+  
+  Alias /apps/user-profile/non/ /home/vectoun/git/perun/perun-apps/apps/user-profile/
+  Alias /apps/user-profile/krb/ /home/vectoun/git/perun/perun-apps/apps/user-profile/
+  Alias /apps/user-profile/fed/ /home/vectoun/git/perun/perun-apps/apps/user-profile/
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+  Alias "/apps/create-vo-demo/non" "/home/vectoun/git/perun/perun-apps/apps/create-vo-demo"
+  Alias "/apps/create-vo-demo/krb" "/home/vectoun/git/perun/perun-apps/apps/create-vo-demo"
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+  # mini-apps non authz files
+  <LocationMatch "^/apps/([^/]+)/([^/]+)/([^/]+)$">
+    Options FollowSymLinks Indexes Includes ExecCGI
+    Require all granted
+    AddHandler cgi-script .cgi .pl
+  </LocationMatch>
 
-Below are some plugins which you can add to your workspace:
+  <Directory "/home/vectoun/git/perun/perun-apps/">
+    Require all granted
+  </Directory>
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+  # mini-apps include files (no-authz)
+  Alias "/apps-include/" "/home/vectoun/git/perun/perun-apps/apps-include/"
+  <Location "/apps-include/">
+    Options FollowSymLinks Indexes Includes ExecCGI
+    Require all granted
+    AddHandler cgi-script .cgi .pl
+  </Location>
 
-## Generate an application
+  # mini-apps fix edugain default page
+  <LocationMatch "^/apps/edugain-group/non/$">
+    DirectoryIndex help.html
+  </LocationMatch>
 
-Run `ng g @nrwl/angular:app my-app` to generate an application.
+  ServerAdmin perun@cesnet.cz
 
-> You can use any of the plugins above to generate applications as well.
+  DocumentRoot /var/www/
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+  ProxyPreserveHost On
+  ProxyIOBufferSize 32192
 
-## Generate a library
+  SSLProxyEngine on
 
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
+  ErrorLog ${APACHE_LOG_DIR}/error.log
 
-> You can also use any of the plugins above to generate libraries as well.
+  LogLevel debug
 
-Libraries are sharable across libraries and applications. They can be imported from `@perun-web-apps/mylib`.
+  # 8009 port pro externí tomcat
 
-## Development server
+  RewriteEngine on
 
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+  #REWRITE NEW CONSOLIDATOR
+  RewriteRule ^/krb/nic/(.*)$ http://localhost:4200/krb/nic/$1 [P,QSA]
+  RewriteRule ^/krb/nic/sockjs-node/(.*)$ http://localhost:4200/krb/nic/sockjs-node/$1 [P,QSA]
 
-## Code scaffolding
+  #REWRITE NEW GUI
+  RewriteCond %{HTTP_HOST} gui-dev\.org [NC]
+  RewriteRule ^/$ http://localhost:4200/ [P,QSA]
+  RewriteCond %{HTTP_HOST} gui-dev\.org [NC]
+  RewriteRule ^/(.*)$ http://localhost:4200/$1 [P,QSA]
+  RewriteCond %{HTTP_HOST} gui-dev\.org [NC]
+  RewriteRule ^/sockjs-node/(.*)$ http://localhost:4200/sockjs-node/$1 [P,QSA]
 
-Run `ng g component my-component --project=my-app` to generate a new component.
+  # REWRITE RPC
+  RewriteRule /non/rpc/(.*)$ ajp://localhost:8009/perun-rpc/$1 [P,QSA]
+  RewriteRule /krb/rpc/(.*)$ ajp://localhost:8009/perun-rpc/$1 [P,QSA]
+  RewriteRule /fed/rpc/(.*)$ ajp://localhost:8009/perun-rpc/$1 [P,QSA]
+  RewriteRule /cert/rpc/(.*)$ ajp://localhost:8009/perun-rpc/$1 [P,QSA]
+  RewriteRule /oauth/rpc/(.*)$ ajp://localhost:8009/perun-rpc/$1 [P,QSA]
+  # POZOR, v rewritech běží každá aplikace na vlastním portu, aby mohly běžet zarás !!
 
-## Build
+  # REWRITE GUI
+  RewriteRule ^/gui/$ /krb/gui/ [R,QSA]
+  RewriteRule ^/gui/(.*)$ /krb/gui/$1 [R,QSA]
+  RewriteRule ^/(.*)/gui/$ http://127.0.0.1:8889/PerunWeb.html [P,QSA]
+  RewriteRule ^/(.*)/gui/(.*)$ http://127.0.0.1:8889/$2 [P,QSA]
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+  # REWRITE CABINET
+  RewriteRule ^/cabinet/$ /krb/cabinet/ [R,QSA]
+  RewriteRule ^/cabinet/(.*)$ /krb/cabinet/$1 [R,QSA]
+  RewriteRule ^/(.*)/cabinet/$ http://127.0.0.1:8892/PerunCabinet.html [P,QSA]
+  RewriteRule ^/(.*)/cabinet/(.*)$ http://127.0.0.1:8892/$2 [P,QSA]
 
-## Running unit tests
+  # REWRITE PWD-RESET
+  RewriteRule ^/pwd-reset/$ /krb/pwd-reset/ [R,QSA]
+  RewriteRule ^/pwd-reset/(.*)$ /krb/pwd-reset/$1 [R,QSA]
+  RewriteRule ^/(.*)/pwd-reset/$ http://127.0.0.1:8891/PerunPwdReset.html [P,QSA]
+  RewriteRule ^/(.*)/pwd-reset/(.*)$ http://127.0.0.1:8891/$2 [P,QSA]
 
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+  # REWRITE WUI
+  RewriteRule ^/wui/$ /krb/wui/ [R,QSA]
+  RewriteRule ^/wui/(.*)$ /krb/wui/$1 [R,QSA]
+  RewriteRule ^/(.*)/wui/$ http://127.0.0.1:8888/PerunAdmin.html [P,QSA]
+  RewriteRule ^/(.*)/wui/(.*)$ http://127.0.0.1:8888/$2 [P,QSA]
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+  # REWRITE WUI-PROFILE
+  RewriteRule ^/profile/$ /krb/profile/ [R,QSA]
+  RewriteRule ^/profile/(.*)$ /krb/profile/$1 [R,QSA]
+  RewriteRule ^/(.*)/profile/$ http://127.0.0.1:8885/PerunProfile.html [P,QSA]
+  RewriteRule ^/(.*)/profile/$ http://127.0.0.1:8885/PerunProfileElixir.html [P,QSA]
+  RewriteRule ^/(.*)/profile/(.*)$ http://127.0.0.1:8885/$2 [P,QSA]
 
-## Running end-to-end tests
+  # REWRITE WUI-REGISTRAR
+  RewriteRule ^/registrar/$ /krb/registrar/ [R,QSA]
+  RewriteRule ^/registrar/(.*)$ /krb/registrar/$1 [R,QSA]
+  RewriteRule ^/(.*)/registrar/$ http://127.0.0.1:8887/PerunRegistrar.html [P,QSA]
+  RewriteRule ^/(.*)/registrar/$ http://127.0.0.1:8887/PerunRegistrarMU.html [P,QSA]
+  #RewriteRule ^/(.*)/registrar/$ http://127.0.0.1:8887/PerunRegistrarElixir.html [P,QSA]
+  RewriteRule ^/(.*)/registrar/(.*)$ http://127.0.0.1:8887/$2 [P,QSA]
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+  # REWRITE WUI-CONSOLIDATOR
+  RewriteRule ^/ic/$ /krb/ic/ [R,QSA]
+  RewriteRule ^/ic/(.*)$ /krb/ic/$1 [R,QSA]
+  RewriteRule ^/(.*)/ic/$ http://127.0.0.1:8886/PerunConsolidator.html [P,QSA]
+  RewriteRule ^/(.*)/ic/$ http://127.0.0.1:8886/PerunConsolidatorMU.html [P,QSA]
+  #RewriteRule ^/(.*)/ic/$ http://127.0.0.1:8886/PerunConsolidatorElixir.html [P,QSA]
+  RewriteRule ^/(.*)/ic/(.*)$ http://127.0.0.1:8886/$2 [P,QSA]
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+  # make root redirect to cert-gui
+  RewriteRule ^/$ /gui/ [R]
 
-## Understand your workspace
+  # protection from proxy attacks
+  RewriteRule .* - [E=AJP_APACHE_REQUEST_URI:%{REQUEST_URI}]
 
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
+  ######## RPC #########
 
-## Further help
+  ## RPC over NON
+  <Location "/non/rpc/">
+    Options FollowSymLinks
+    Order allow,deny
+    Allow from all
+    Require all granted
 
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+    # Fake user
+    SetEnvIf _ .* AJP_EXTSOURCE=LOCAL
+    SetEnvIf _ .* AJP_EXTSOURCETYPE=cz.metacentrum.perun.core.impl.ExtSourceInternal
+    SetEnvIf _ .* AJP_EXTSOURCELOA=0
+  </Location>
+
+  <Location "/krb/rpc/">
+    Options FollowSymLinks
+    Order allow,deny
+    Allow from all
+    Require all granted
+
+    # Fake user    
+    SetEnvIf _ .* AJP_ENV_REMOTE_USER=vectoun@META
+    SetEnvIf _ .* AJP_EXTSOURCE=META
+    SetEnvIf _ .* AJP_EXTSOURCETYPE=cz.metacentrum.perun.core.impl.ExtSourceKerberos
+    SetEnvIf _ .* AJP_EXTSOURCELOA=2
+   
+    SetEnvIf Referer ^.*identityAuth$ AJP_ENV_REMOTE_USER=newvectoun@META
+  </Location>
+</VirtualHost>
+```

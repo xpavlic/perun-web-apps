@@ -1,4 +1,5 @@
-import { Resource, Task } from '@perun-web-apps/perun/models';
+import {Resource} from './Resource';
+import {Task} from './Task';
 
 export interface ResourceState {
   resource: Resource;

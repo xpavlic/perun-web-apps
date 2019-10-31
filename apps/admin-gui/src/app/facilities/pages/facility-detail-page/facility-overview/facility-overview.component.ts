@@ -1,8 +1,8 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {FacilityService} from '../../../../core/services/api/facility.service';
-import {ActivatedRoute} from '@angular/router';
-import {MenuItem} from '../../../../shared/models/MenuItem';
-import {Facility} from '../../../../core/models/Facility';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MenuItem } from '../../../../shared/models/MenuItem';
+import { Facility } from '@perun-web-apps/perun/models';
+import { FacilityService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-overview',
@@ -13,14 +13,13 @@ export class FacilityOverviewComponent implements OnInit {
 
   // class used for animation
   @HostBinding('class.router-component') true;
+  navItems: MenuItem[] = [];
+  facility: Facility;
 
   constructor(
     private facilityService: FacilityService,
     private route: ActivatedRoute,
   ) { }
-
-  navItems: MenuItem[] = [];
-  facility: Facility;
 
   ngOnInit() {
     this.route.params.subscribe(params => {

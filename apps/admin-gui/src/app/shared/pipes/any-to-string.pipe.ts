@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Attribute} from '../../core/models/Attribute';
+import { Attribute } from '@perun-web-apps/perun/models';
 
 @Pipe({
   name: 'anyToString'

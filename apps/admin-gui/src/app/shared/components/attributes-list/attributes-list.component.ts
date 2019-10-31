@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, Input, OnChanges, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Attribute} from '../../../core/models/Attribute';
 import {AttributeValueComponent} from './attribute-value/attribute-value.component';
+import { Attribute } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-attributes-list',

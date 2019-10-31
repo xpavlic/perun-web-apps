@@ -16,6 +16,8 @@ import {RouteReuseStrategy} from '@angular/router';
 import {CacheRouteReuseStrategy} from './core/services/common/cache-route-reuse-strategy';
 import {MatIconModule} from '@angular/material';
 import {CustomIconService} from './core/services/api/custom-icon.service';
+import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
+import { ApiService } from './core/services/api/api.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -46,7 +48,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     provide: RouteReuseStrategy,
     useClass: CacheRouteReuseStrategy
     },
-    CustomIconService],
+    CustomIconService,
+    {
+      provide: PERUN_API_SERVICE,
+      useClass: ApiService
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

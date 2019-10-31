@@ -2,9 +2,8 @@ import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/co
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {Application} from '../../../core/models/Application';
 import {Router} from '@angular/router';
-import {Group} from '../../../core/models/Group';
+import { Application, Group } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-applications-list',

@@ -2,9 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import {TranslateService} from '@ngx-translate/core';
-import {Group} from '../../../../core/models/Group';
-import {GroupService} from '../../../../core/services/api/group.service';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
+import { Group } from '@perun-web-apps/perun/models';
+import { GroupService } from '@perun-web-apps/perun/services';
 
 export interface DeleteGroupDialogData {
   voId: number;

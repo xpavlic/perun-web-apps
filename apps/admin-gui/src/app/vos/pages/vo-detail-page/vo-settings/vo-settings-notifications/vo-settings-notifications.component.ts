@@ -1,8 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {RegistrarService} from '../../../../../core/services/api/registrar.service';
-import {ApplicationForm} from '../../../../../core/models/ApplicationForm';
-import {ApplicationMail} from '../../../../../core/models/ApplicationMail';
 import {MatDialog} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {TranslateService} from '@ngx-translate/core';
@@ -19,6 +16,8 @@ import {
 import {
   NotificationsCopyMailsDialogComponent
 } from '../../../../../shared/components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
+import { RegistrarService } from '@perun-web-apps/perun/services';
+import { ApplicationForm, ApplicationMail } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-settings-notifications',

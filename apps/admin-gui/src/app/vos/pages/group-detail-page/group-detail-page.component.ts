@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
-import {VoService} from '../../../core/services/api/vo.service';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {SideMenuItemService} from '../../../shared/side-menu/side-menu-item.service';
-import {Vo} from '../../../core/models/Vo';
-import {GroupService} from '../../../core/services/api/group.service';
-import {Group} from '../../../core/models/Group';
 import {fadeIn} from '../../../shared/animations/Animations';
+import { GroupService, VoService } from '@perun-web-apps/perun/services';
+import { Group, Vo } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-detail-page',

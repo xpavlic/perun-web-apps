@@ -1,22 +1,16 @@
 import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {User} from '../../../../../../core/models/User';
-import {UsersService} from '../../../../../../core/services/api/users.service';
-import {Facility} from '../../../../../../core/models/Facility';
-import {FacilityService} from '../../../../../../core/services/api/facility.service';
-import {Member} from '../../../../../../core/models/Member';
-import {MembersService} from '../../../../../../core/services/api/members.service';
-import {ServiceService} from '../../../../../../core/services/api/service.service';
-import {ResourcesService} from '../../../../../../core/services/api/resources.service';
-import {GroupService} from '../../../../../../core/services/api/group.service';
-import {Group} from '../../../../../../core/models/Group';
-import {Resource} from '../../../../../../core/models/Resource';
-import {VoService} from '../../../../../../core/services/api/vo.service';
-import {Service} from '../../../../../../core/models/Service';
-import {RichDestination} from '../../../../../../core/models/RichDestination';
 import * as shape from 'd3-shape';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
+import {
+  FacilityService, GroupService,
+  MembersService,
+  ResourcesService,
+  ServiceService,
+  UsersService, VoService
+} from '@perun-web-apps/perun/services';
+import { Facility, Group, Member, Resource, RichDestination, Service, User } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-user-destination-graph',

@@ -1,14 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
-import {VoService} from '../../../core/services/api/vo.service';
-import {Vo} from '../../../core/models/Vo';
-import {RichMember} from '../../../core/models/RichMember';
-import {MembersService} from '../../../core/services/api/members.service';
 import {SideMenuItemService} from '../../../shared/side-menu/side-menu-item.service';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
-import {AttributesService} from '../../../core/services/api/attributes.service';
 import {TranslateService} from '@ngx-translate/core';
 import {fadeIn} from '../../../shared/animations/Animations';
+import { AttributesService, MembersService, VoService } from '@perun-web-apps/perun/services';
+import { RichMember, Vo } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-member-detail-page',

@@ -1,4 +1,4 @@
-import { Owner } from '@perun-web-apps/perun/models';
+import {Owner} from './Owner';
 
 export interface RichFacility {
   id: number;

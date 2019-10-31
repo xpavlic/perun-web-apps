@@ -1,4 +1,4 @@
-import { Group } from '@perun-web-apps/perun/models';
+import {Group} from './Group';
 
 export class TreeGroup implements Group {
   id: number;

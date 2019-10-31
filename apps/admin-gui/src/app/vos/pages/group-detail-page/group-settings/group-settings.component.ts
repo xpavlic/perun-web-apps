@@ -1,5 +1,4 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
 import {fadeIn} from '../../../../shared/animations/Animations';
 
 @Component({

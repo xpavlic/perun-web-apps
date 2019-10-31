@@ -1,11 +1,9 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MembersService} from '../../../../core/services/api/members.service';
-import {GroupService} from '../../../../core/services/api/group.service';
-import {Group} from '../../../../core/models/Group';
-import {RichMember} from '../../../../core/models/RichMember';
-import {Urns} from '../../../../shared/urns';
+import { GroupService, MembersService } from '@perun-web-apps/perun/services';
+import { Group, RichMember } from '@perun-web-apps/perun/models';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-group-members',

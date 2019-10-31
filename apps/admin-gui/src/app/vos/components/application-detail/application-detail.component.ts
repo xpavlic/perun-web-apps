@@ -1,16 +1,12 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {RegistrarService} from '../../../core/services/api/registrar.service';
-import {MatDialog, MatTableDataSource} from '@angular/material';
-import {TranslateService} from '@ngx-translate/core';
-import {Application} from '../../../core/models/Application';
-import {ApplicationFormItemData} from '../../../core/models/ApplicationFormItemData';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ApplicationFormItem} from '../../../core/models/ApplicationFormItem';
-import {ApplicationReSendNotificationDialogComponent
-} from '../../../shared/components/dialogs/application-re-send-notification-dialog/application-re-send-notification-dialog.component';
-import {ApplicationRejectDialogComponent
-} from '../../../shared/components/dialogs/application-reject-dialog/application-reject-dialog.component';
-import {NotificatorService} from '../../../core/services/common/notificator.service';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApplicationReSendNotificationDialogComponent } from '../../../shared/components/dialogs/application-re-send-notification-dialog/application-re-send-notification-dialog.component';
+import { ApplicationRejectDialogComponent } from '../../../shared/components/dialogs/application-reject-dialog/application-reject-dialog.component';
+import { NotificatorService } from '../../../core/services/common/notificator.service';
+import { RegistrarService } from '@perun-web-apps/perun/services';
+import { Application, ApplicationFormItem, ApplicationFormItemData } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-application-detail',

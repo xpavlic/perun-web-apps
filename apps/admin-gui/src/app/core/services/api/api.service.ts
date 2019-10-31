@@ -5,12 +5,13 @@ import {environment} from '../../../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import {NotificatorService} from '../common/notificator.service';
 import {AuthService} from '../common/auth.service';
-import {RPCError} from '../../models/RPCError';
+import { PerunApiService } from '@perun-web-apps/perun/services';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class ApiService implements PerunApiService {
 
   constructor(
     private http: HttpClient,

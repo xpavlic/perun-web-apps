@@ -1,17 +1,13 @@
 import {Component, HostBinding, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {AuthzService} from '../../../core/services/api/authz.service';
-import {Group} from '../../../core/models/Group';
-import {RichUser} from '../../../core/models/RichUser';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Role} from '../../../core/models/PerunPrincipal';
-import {Urns} from '../../urns';
 import {AddManagerDialogComponent} from '../dialogs/add-manager-dialog/add-manager-dialog.component';
 import {RemoveManagerDialogComponent} from '../dialogs/remove-manager-dialog/remove-manager-dialog.component';
 import {RemoveGroupManagerDialogComponent} from '../dialogs/remove-group-manager-dialog/remove-group-manager-dialog.component';
 import {AddGroupManagerDialogComponent} from '../dialogs/add-group-manager-dialog/add-group-manager-dialog.component';
-import {Vo} from '../../../core/models/Vo';
-import {Facility} from '../../../core/models/Facility';
+import { AuthzService } from '@perun-web-apps/perun/services';
+import { Facility, Group, RichUser, Role, Vo } from '@perun-web-apps/perun/models';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-managers-page',

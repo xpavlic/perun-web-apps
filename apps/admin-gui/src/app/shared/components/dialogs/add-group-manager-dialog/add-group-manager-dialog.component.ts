@@ -1,19 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {VoService} from '../../../../core/services/api/vo.service';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Group} from '../../../../core/models/Group';
-import {Vo} from '../../../../core/models/Vo';
-import {GroupService} from '../../../../core/services/api/group.service';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
-import {AuthzService} from '../../../../core/services/api/authz.service';
-import {Role} from '../../../../core/models/PerunPrincipal';
-import {Facility} from '../../../../core/models/Facility';
+import { Facility, Group, Role, Vo } from '@perun-web-apps/perun/models';
+import { AuthzService, GroupService, VoService } from '@perun-web-apps/perun/services';
 
 export interface AddGroupManagerDialogData {
   complementaryObject: Vo | Group | Facility;

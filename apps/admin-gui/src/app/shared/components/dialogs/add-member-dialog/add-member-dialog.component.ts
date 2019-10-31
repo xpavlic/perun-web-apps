@@ -4,10 +4,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MembersService} from '../../../../core/services/api/members.service';
-import {VoService} from '../../../../core/services/api/vo.service';
-import {MemberCandidate} from '../../../../core/models/MemberCandidate';
-import {RegistrarService} from '../../../../core/services/api/registrar.service';
+import { MembersService, RegistrarService, VoService } from '@perun-web-apps/perun/services';
+import { MemberCandidate } from '@perun-web-apps/perun/models';
 
 export interface AddMemberDialogData {
   voId: number;

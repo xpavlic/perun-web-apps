@@ -2,11 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/material';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import {AuthzService} from '../../../../core/services/api/authz.service';
-import {Vo} from '../../../../core/models/Vo';
-import {Group} from '../../../../core/models/Group';
-import {Role} from '../../../../core/models/PerunPrincipal';
-import {Facility} from '../../../../core/models/Facility';
+import { Facility, Group, Role, Vo } from '@perun-web-apps/perun/models';
+import { AuthzService } from '@perun-web-apps/perun/services';
 
 export interface RemoveGroupDialogData {
   complementaryObject: Vo | Group | Facility;

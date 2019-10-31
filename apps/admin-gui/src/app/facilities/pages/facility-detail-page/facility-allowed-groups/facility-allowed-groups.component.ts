@@ -1,10 +1,7 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
-import {Group} from '../../../../core/models/Group';
-import {ActivatedRoute} from '@angular/router';
-import {FacilityService} from '../../../../core/services/api/facility.service';
-import {Facility} from '../../../../core/models/Facility';
-import {Vo} from '../../../../core/models/Vo';
-import {VoService} from '../../../../core/services/api/vo.service';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FacilityService, VoService } from '@perun-web-apps/perun/services';
+import { Facility, Group, Vo } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-facility-allowed-groups',

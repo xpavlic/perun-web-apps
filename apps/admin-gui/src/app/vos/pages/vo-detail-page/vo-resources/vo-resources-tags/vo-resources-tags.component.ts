@@ -1,7 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ResourcesService} from '../../../../../core/services/api/resources.service';
-import {ResourceTag} from '../../../../../core/models/ResourceTag';
 import {MatDialog} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
@@ -12,6 +10,8 @@ import {
 } from '../../../../../shared/components/dialogs/delete-resource-tag-dialog/delete-resource-tag-dialog.component';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
+import { ResourcesService } from '@perun-web-apps/perun/services';
+import { ResourceTag } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-resources-tags',

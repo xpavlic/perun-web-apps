@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FacilityService} from '../../../core/services/api/facility.service';
-import {RichFacility} from '../../../core/models/RichFacility';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import {getRecentlyVisited, getRecentlyVisitedIds} from '../../../shared/utils';
+import { FacilityService } from '@perun-web-apps/perun/services';
+import { RichFacility } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-facility-select-page',

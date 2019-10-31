@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/material';
-import {ResourcesService} from '../../../../core/services/api/resources.service';
-import {ResourceTag} from '../../../../core/models/ResourceTag';
+import { ResourceTag } from '@perun-web-apps/perun/models';
+import { ResourcesService } from '@perun-web-apps/perun/services';
 
 export interface DeleteResourceTagDialogDialogData {
   voId: number;

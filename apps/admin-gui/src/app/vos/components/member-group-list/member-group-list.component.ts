@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Group} from '../../../core/models/Group';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ActivatedRoute} from '@angular/router';
+import { Group } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-member-group-list',

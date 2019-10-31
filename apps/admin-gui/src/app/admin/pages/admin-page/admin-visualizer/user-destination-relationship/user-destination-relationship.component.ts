@@ -1,15 +1,13 @@
-import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
-import {User} from '../../../../../core/models/User';
-import {UsersService} from '../../../../../core/services/api/users.service';
-import {TranslateService} from '@ngx-translate/core';
-import {FacilityService} from '../../../../../core/services/api/facility.service';
-import {ServiceService} from '../../../../../core/services/api/service.service';
-import {Router} from '@angular/router';
-import {MatStepper} from '@angular/material';
-import {NotificatorService} from '../../../../../core/services/common/notificator.service';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { MatStepper } from '@angular/material';
+import { NotificatorService } from '../../../../../core/services/common/notificator.service';
+import { User } from '@perun-web-apps/perun/models';
+import { FacilityService, ServiceService, UsersService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-user-destination-relationship',

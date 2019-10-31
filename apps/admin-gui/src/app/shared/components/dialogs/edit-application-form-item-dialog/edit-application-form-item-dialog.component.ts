@@ -1,11 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {ApplicationFormItem} from '../../../../core/models/ApplicationFormItem';
-import {RegistrarService} from '../../../../core/services/api/registrar.service';
-import {AttributesService} from '../../../../core/services/api/attributes.service';
-import {AttributeDefinition} from '../../../../core/models/AttributeDefinition';
 import {TranslateService} from '@ngx-translate/core';
-import {Group} from '../../../../core/models/Group';
+import { ApplicationFormItem, AttributeDefinition, Group } from '@perun-web-apps/perun/models';
+import { AttributesService, RegistrarService } from '@perun-web-apps/perun/services';
 
 export interface EditApplicationFormItemDialogComponentData {
   voId: number;

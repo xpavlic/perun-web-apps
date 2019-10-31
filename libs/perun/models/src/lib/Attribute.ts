@@ -1,4 +1,4 @@
-import { AttributeDefinition } from '@perun-web-apps/perun/models';
+import {AttributeDefinition} from './AttributeDefinition';
 
 export interface Attribute extends AttributeDefinition {
   createdAt: string;

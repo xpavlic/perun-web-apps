@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {GroupService} from '../../../../core/services/api/group.service';
-import {Group} from '../../../../core/models/Group';
 import {ActivatedRoute} from '@angular/router';
+import { GroupService } from '@perun-web-apps/perun/services';
+import { Group } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-member-groups',

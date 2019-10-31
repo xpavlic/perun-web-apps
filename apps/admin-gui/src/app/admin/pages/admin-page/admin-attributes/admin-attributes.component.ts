@@ -1,13 +1,13 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {AttributesService} from '../../../../core/services/api/attributes.service';
-import {AttributeDefinition} from '../../../../core/models/AttributeDefinition';
-import {SelectionModel} from '@angular/cdk/collections';
-import {filterCoreAttributesDefinitions} from '../../../../shared/utils';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { filterCoreAttributesDefinitions } from '../../../../shared/utils';
 // tslint:disable-next-line:max-line-length
-import {DeleteAttributeDefinitionDialogComponent} from '../../../../shared/components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
-import {MatDialog} from '@angular/material';
+import { DeleteAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
+import { MatDialog } from '@angular/material';
 // tslint:disable-next-line:max-line-length
-import {CreateAttributeDefinitionDialogComponent} from '../../../../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
+import { CreateAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
+import { AttributesService } from '@perun-web-apps/perun/services';
+import { AttributeDefinition } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-admin-attributes',

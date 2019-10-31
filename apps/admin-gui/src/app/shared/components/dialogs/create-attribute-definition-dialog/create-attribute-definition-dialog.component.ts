@@ -2,10 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import {AttributesService} from '../../../../core/services/api/attributes.service';
-import {AttributeDefinition} from '../../../../core/models/AttributeDefinition';
-import {ActionType, AttributeRights} from '../../../../core/models/AttributeRights';
-import {Role} from '../../../../core/models/PerunPrincipal';
+import { AttributesService } from '@perun-web-apps/perun/services';
+import { ActionType, AttributeDefinition, AttributeRights, Role } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-create-attribute-definition-dialog',

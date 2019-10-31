@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {RichMember} from '../../../../core/models/RichMember';
 import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/material';
-import {MembersService} from '../../../../core/services/api/members.service';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
+import { RichMember } from '@perun-web-apps/perun/models';
+import { MembersService } from '@perun-web-apps/perun/services';
 
 export interface RemoveMembersDialogData {
   members: RichMember[];

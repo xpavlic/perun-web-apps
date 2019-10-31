@@ -1,4 +1,4 @@
-import {RPCError} from '../../core/models/RPCError';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 export interface NotificationData {
   title: string;

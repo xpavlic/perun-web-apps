@@ -1,8 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MenuItem} from '../../../../../shared/models/MenuItem';
-import {Resource} from '../../../../../core/models/Resource';
-import {ResourcesService} from '../../../../../core/services/api/resources.service';
+import { ResourcesService } from '@perun-web-apps/perun/services';
+import { Resource } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-resource-settings-overview',

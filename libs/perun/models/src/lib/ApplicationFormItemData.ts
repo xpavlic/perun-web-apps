@@ -1,4 +1,4 @@
-import { ApplicationFormItem } from '@perun-web-apps/perun/models';
+import {ApplicationFormItem} from './ApplicationFormItem';
 
 export interface ApplicationFormItemData {
   assuranceLevel: string;

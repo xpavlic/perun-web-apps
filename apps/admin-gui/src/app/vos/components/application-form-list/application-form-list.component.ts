@@ -1,9 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild, ChangeDetectorRef, Output, EventEmitter} from '@angular/core';
-import {ApplicationForm} from '../../../core/models/ApplicationForm';
-import {ApplicationFormItem} from '../../../core/models/ApplicationFormItem';
 import {MatDialog, MatTable} from '@angular/material';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {RegistrarService} from '../../../core/services/api/registrar.service';
 import {
   DeleteApplicationFormItemDialogComponent
 } from '../../../shared/components/dialogs/delete-application-form-item-dialog/delete-application-form-item-dialog.component';
@@ -12,6 +9,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {
   EditApplicationFormItemDialogComponent
 } from '../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
+import { RegistrarService } from '@perun-web-apps/perun/services';
+import { ApplicationForm, ApplicationFormItem } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-application-form-list',

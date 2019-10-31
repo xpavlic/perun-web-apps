@@ -1,7 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Group} from '../../../../core/models/Group';
-import {GroupService} from '../../../../core/services/api/group.service';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -9,6 +7,8 @@ import {openClose} from '../../../animations/Animations';
 import {GroupFlatNode} from '../../../../vos/components/groups-tree/groups-tree.component';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
+import { GroupService } from '@perun-web-apps/perun/services';
+import { Group } from '@perun-web-apps/perun/models';
 
 export interface MoveGroupDialogData {
   group: GroupFlatNode;

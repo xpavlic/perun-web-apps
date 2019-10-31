@@ -1,6 +1,6 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute, RouterOutlet} from '@angular/router';
-import {fadeIn} from '../../../../shared/animations/Animations';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { fadeIn } from '../../../../shared/animations/Animations';
 
 @Component({
   selector: 'app-vo-resources',

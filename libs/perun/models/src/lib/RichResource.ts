@@ -1,4 +1,6 @@
-import { Facility, ResourceTag, Vo } from '@perun-web-apps/perun/models';
+import {Vo} from './Vo';
+import {Facility} from './Facility';
+import {ResourceTag} from './ResourceTag';
 
 export interface RichResource {
   id: number;

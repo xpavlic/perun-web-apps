@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {MenuItem} from '../../../models/MenuItem';
-import {User} from '../../../../core/models/User';
+import { User } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-user-overview',

@@ -1,14 +1,9 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Vo} from '../../core/models/Vo';
 import {EntityMenuLink, SideMenuItem} from './side-menu.component';
-import {Group} from '../../core/models/Group';
-import {RichMember} from '../../core/models/RichMember';
-import {User} from '../../core/models/User';
 import {parseFullName} from '../utils';
-import {Facility} from '../../core/models/Facility';
-import {Resource} from '../../core/models/Resource';
 import {AuthResolverService} from '../../core/services/common/auth-resolver.service';
+import { Facility, Group, Resource, RichMember, User, Vo } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
-import {ApiService} from './api.service';
+import { Inject, Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {RTMessage} from '../../models/RTMessage';
+import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
+import { PerunApiService } from '@perun-web-apps/perun/services';
+import { RTMessage } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {RTMessage} from '../../models/RTMessage';
 export class RtMessagesService {
 
   constructor(
-    private apiService: ApiService
+    @Inject(PERUN_API_SERVICE) private apiService: PerunApiService
   ) { }
 
   sendMessageToRT(queue: string, subject: string, text: string, showNotification = true): Observable<RTMessage> {

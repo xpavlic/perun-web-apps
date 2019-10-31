@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ApplicationMail} from '../../../../core/models/ApplicationMail';
 import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/material';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import {RegistrarService} from '../../../../core/services/api/registrar.service';
+import { ApplicationMail } from '@perun-web-apps/perun/models';
+import { RegistrarService } from '@perun-web-apps/perun/services';
 
 export interface DeleteApplicationFormMailDialogData {
   voId: number;

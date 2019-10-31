@@ -1,4 +1,5 @@
-import { Attribute, UserExtSource } from '@perun-web-apps/perun/models';
+import {Attribute} from './Attribute';
+import {UserExtSource} from './UserExtSource';
 
 export interface RichUser {
   beanName: string;

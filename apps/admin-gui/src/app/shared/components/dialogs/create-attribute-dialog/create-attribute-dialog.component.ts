@@ -1,12 +1,12 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-import {AttributesService, Entity} from '../../../../core/services/api/attributes.service';
-import {Attribute} from '../../../../core/models/Attribute';
 import {AttributesListComponent} from '../../attributes-list/attributes-list.component';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
 import {filterCoreAttributes} from '../../../utils';
+import { Attribute } from '@perun-web-apps/perun/models';
+import { AttributesService, Entity } from '../../../../../../../../libs/perun/services/src/lib/attributes.service';
 
 export interface CreateAttributeDialogData {
   entityId: number;

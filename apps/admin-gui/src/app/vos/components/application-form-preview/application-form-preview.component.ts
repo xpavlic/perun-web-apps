@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ApplicationFormItem} from '../../../core/models/ApplicationFormItem';
 import {ActivatedRoute} from '@angular/router';
-import {RegistrarService} from '../../../core/services/api/registrar.service';
+import { RegistrarService } from '@perun-web-apps/perun/services';
+import { ApplicationFormItem } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-application-form-preview',

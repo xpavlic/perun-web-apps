@@ -1,7 +1,5 @@
 import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Attribute} from '../../../../../core/models/Attribute';
-import {AttributesService} from '../../../../../core/services/api/attributes.service';
 import {filterCoreAttributes} from '../../../../../shared/utils';
 import {SelectionModel} from '@angular/cdk/collections';
 import {AttributesListComponent} from '../../../../../shared/components/attributes-list/attributes-list.component';
@@ -14,6 +12,8 @@ import {
 import {
   DeleteAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+import { AttributesService } from '@perun-web-apps/perun/services';
+import { Attribute } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-settings-attributes',

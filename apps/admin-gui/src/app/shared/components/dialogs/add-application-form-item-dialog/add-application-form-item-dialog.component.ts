@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {ApplicationFormItem} from '../../../../core/models/ApplicationFormItem';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
-import {RegistrarService} from '../../../../core/services/api/registrar.service';
+import { ApplicationFormItem } from '@perun-web-apps/perun/models';
+import { RegistrarService } from '@perun-web-apps/perun/services';
 
 export interface AddApplicationFormItemDialogComponentData {
   voId: number;

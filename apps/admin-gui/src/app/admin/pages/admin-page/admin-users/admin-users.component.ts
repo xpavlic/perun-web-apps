@@ -1,6 +1,6 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {RichUser} from '../../../../core/models/RichUser';
-import {UsersService} from '../../../../core/services/api/users.service';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { UsersService } from '@perun-web-apps/perun/services';
+import { RichUser } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-admin-users',

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Attribute} from '../../../../../core/models/Attribute';
+import { Attribute } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-attribute-value-list',

@@ -1,12 +1,10 @@
 import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {AttributesService} from '../../../../../core/services/api/attributes.service';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
 import {MatDialog} from '@angular/material';
 import {TranslateService} from '@ngx-translate/core';
 import {AttributesListComponent} from '../../../../../shared/components/attributes-list/attributes-list.component';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Attribute} from '../../../../../core/models/Attribute';
 import {filterCoreAttributes} from '../../../../../shared/utils';
 import {
   CreateAttributeDialogComponent
@@ -14,6 +12,8 @@ import {
 import {
   DeleteAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+import { AttributesService } from '@perun-web-apps/perun/services';
+import { Attribute } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-member-settings-attributes',

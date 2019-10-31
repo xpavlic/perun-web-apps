@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
-import {PerunPrincipal} from '../../core/models/PerunPrincipal';
+import { PerunPrincipal } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-perun-nav-menu',

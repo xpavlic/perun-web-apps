@@ -1,4 +1,5 @@
-import { Facility, Service } from '@perun-web-apps/perun/models';
+import {Facility} from './Facility';
+import {Service} from './Service';
 
 export class RichDestination {
   id: number;

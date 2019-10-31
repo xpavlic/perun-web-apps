@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild} from '@angular/core';
-import {ApplicationMail} from '../../../core/models/ApplicationMail';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
   AddEditNotificationDialogComponent
 } from '../../../shared/components/dialogs/add-edit-notification-dialog/add-edit-notification-dialog.component';
-import {RegistrarService} from '../../../core/services/api/registrar.service';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../core/services/common/notificator.service';
+import { RegistrarService } from '@perun-web-apps/perun/services';
+import { ApplicationMail } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-notification-list',

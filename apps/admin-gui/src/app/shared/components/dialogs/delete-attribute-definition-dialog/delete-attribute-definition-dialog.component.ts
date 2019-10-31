@@ -2,8 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/material';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import {AttributesService} from '../../../../core/services/api/attributes.service';
-import {AttributeDefinition} from '../../../../core/models/AttributeDefinition';
+import { AttributeDefinition } from '@perun-web-apps/perun/models';
+import { AttributesService } from '@perun-web-apps/perun/services';
 
 export interface DeleteAttributeDefinitionDialogData {
   attributes: AttributeDefinition[];

@@ -1,14 +1,12 @@
 import {Component, HostBinding, Input, OnInit} from '@angular/core';
-import {ResourcesService} from '../../../../core/services/api/resources.service';
 import {SideMenuService} from '../../../../core/services/common/side-menu.service';
 import {ActivatedRoute} from '@angular/router';
-import {RichResource} from '../../../../core/models/RichResource';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Facility} from '../../../../core/models/Facility';
-import {FacilityService} from '../../../../core/services/api/facility.service';
 import {MatDialog} from '@angular/material';
 import {
   RemoveResourceDialogComponent} from '../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
+import { FacilityService, ResourcesService } from '@perun-web-apps/perun/services';
+import { Facility, RichResource } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-facility-resources',

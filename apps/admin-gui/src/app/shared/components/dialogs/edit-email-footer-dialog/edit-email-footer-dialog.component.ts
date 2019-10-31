@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {AttributesService} from '../../../../core/services/api/attributes.service';
-import {Attribute} from '../../../../core/models/Attribute';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
-import {Urns} from '../../../urns';
+import { AttributesService } from '@perun-web-apps/perun/services';
+import { Attribute } from '@perun-web-apps/perun/models';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 export interface ApplicationFormEmailFooterDialogData {
   voId: number;

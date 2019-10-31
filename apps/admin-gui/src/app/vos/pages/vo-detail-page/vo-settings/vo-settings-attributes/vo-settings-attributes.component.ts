@@ -1,9 +1,6 @@
 import {SideMenuService} from '../../../../../core/services/common/side-menu.service';
-import {VoService} from '../../../../../core/services/api/vo.service';
 import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Attribute} from '../../../../../core/models/Attribute';
-import {AttributesService} from '../../../../../core/services/api/attributes.service';
 import {
   DeleteAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
@@ -16,6 +13,8 @@ import {AttributesListComponent} from '../../../../../shared/components/attribut
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
 import {filterCoreAttributes} from '../../../../../shared/utils';
+import { AttributesService, VoService } from '@perun-web-apps/perun/services';
+import { Attribute } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-settings-attributes',

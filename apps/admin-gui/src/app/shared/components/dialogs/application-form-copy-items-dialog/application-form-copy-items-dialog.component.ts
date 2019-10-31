@@ -1,14 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {VoService} from '../../../../core/services/api/vo.service';
-import {GroupService} from '../../../../core/services/api/group.service';
-import {Vo} from '../../../../core/models/Vo';
-import {Group} from '../../../../core/models/Group';
 import {TranslateService} from '@ngx-translate/core';
-import {RegistrarService} from '../../../../core/services/api/registrar.service';
 import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import { GroupService, RegistrarService, VoService } from '@perun-web-apps/perun/services';
+import { Group, Vo } from '@perun-web-apps/perun/models';
 
 export interface ApplicationFormCopyItemsDialogData {
   voId: number;

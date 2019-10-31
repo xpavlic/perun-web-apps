@@ -1,17 +1,15 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {Vo} from '../../../../core/models/Vo';
-import {RichMember} from '../../../../core/models/RichMember';
-import {MembersService} from '../../../../core/services/api/members.service';
 import {SideMenuService} from '../../../../core/services/common/side-menu.service';
-import {VoService} from '../../../../core/services/api/vo.service';
 import {ActivatedRoute} from '@angular/router';
-import {Urns} from '../../../../shared/urns';
 import {SelectionModel} from '@angular/cdk/collections';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
 import {MatDialog} from '@angular/material';
 import {RemoveMembersDialogComponent} from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import {AddMemberDialogComponent} from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
+import { MembersService, VoService } from '@perun-web-apps/perun/services';
+import { RichMember, Vo } from '@perun-web-apps/perun/models';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-vo-members',

@@ -1,10 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Vo} from '../../../../../core/models/Vo';
 import {SelectionModel} from '@angular/cdk/collections';
-import {ResourcesService} from '../../../../../core/services/api/resources.service';
-import {RichResource} from '../../../../../core/models/RichResource';
-import {VoService} from '../../../../../core/services/api/vo.service';
+import { ResourcesService, VoService } from '@perun-web-apps/perun/services';
+import { RichResource, Vo } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-resources-preview',

@@ -1,4 +1,6 @@
-import { Attribute, User, UserExtSource } from '@perun-web-apps/perun/models';
+import {User} from './User';
+import {Attribute} from './Attribute';
+import {UserExtSource} from './UserExtSource';
 
 export interface RichMember {
   id: number;

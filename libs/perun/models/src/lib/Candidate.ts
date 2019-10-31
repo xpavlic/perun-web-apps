@@ -1,4 +1,4 @@
-import { UserExtSource } from '@perun-web-apps/perun/models';
+import {UserExtSource} from './UserExtSource';
 
 export interface Candidate {
   userExtSource: UserExtSource;

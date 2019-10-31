@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {ApplicationMail} from '../../../../core/models/ApplicationMail';
 import {openClose, tagsOpenClose} from '../../../animations/Animations';
-import {RegistrarService} from '../../../../core/services/api/registrar.service';
+import { ApplicationMail } from '@perun-web-apps/perun/models';
+import { RegistrarService } from '@perun-web-apps/perun/services';
 
 export interface ApplicationFormAddEditMailDialogData {
   voId: number;

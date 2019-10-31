@@ -3,14 +3,9 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {SelectionModel} from '@angular/cdk/collections';
-import {RichUser} from '../../../../core/models/RichUser';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UsersService} from '../../../../core/services/api/users.service';
-import {AuthzService} from '../../../../core/services/api/authz.service';
-import {Vo} from '../../../../core/models/Vo';
-import {Role} from '../../../../core/models/PerunPrincipal';
-import {Group} from '../../../../core/models/Group';
-import {Facility} from '../../../../core/models/Facility';
+import { Facility, Group, RichUser, Role, Vo } from '@perun-web-apps/perun/models';
+import { AuthzService, UsersService } from '@perun-web-apps/perun/services';
 
 export interface AddManagerDialogData {
   complementaryObject: Vo | Group | Facility;

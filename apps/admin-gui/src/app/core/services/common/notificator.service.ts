@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {NotificationData} from '../../../shared/models/NotificationData';
 import {TranslateService} from '@ngx-translate/core';
-import {RPCError} from '../../models/RPCError';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root'

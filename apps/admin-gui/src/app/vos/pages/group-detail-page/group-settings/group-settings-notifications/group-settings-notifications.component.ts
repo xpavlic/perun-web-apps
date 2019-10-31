@@ -1,11 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {RegistrarService} from '../../../../../core/services/api/registrar.service';
 import {TranslateService} from '@ngx-translate/core';
 import {MatDialog} from '@angular/material';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
-import {ApplicationForm} from '../../../../../core/models/ApplicationForm';
-import {ApplicationMail} from '../../../../../core/models/ApplicationMail';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
   AddEditNotificationDialogComponent
@@ -19,6 +16,8 @@ import {
 import {
   EditEmailFooterDialogComponent
 } from '../../../../../shared/components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
+import { RegistrarService } from '@perun-web-apps/perun/services';
+import { ApplicationForm, ApplicationMail } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-settings-notifications',

@@ -1,13 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {RichUser} from '../../../../core/models/RichUser';
 import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/material';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import {AuthzService} from '../../../../core/services/api/authz.service';
-import {Vo} from '../../../../core/models/Vo';
-import {Role} from '../../../../core/models/PerunPrincipal';
-import {Group} from '../../../../core/models/Group';
-import {Facility} from '../../../../core/models/Facility';
+import { Facility, Group, RichUser, Role, Vo } from '@perun-web-apps/perun/models';
+import { AuthzService } from '@perun-web-apps/perun/services';
 
 export interface RemoveManagerDialogData {
   complementaryObject: Vo | Group | Facility;

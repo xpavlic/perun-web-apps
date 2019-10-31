@@ -1,17 +1,11 @@
-import {RichMember} from '../core/models/RichMember';
-import {User} from '../core/models/User';
-import {RichUser} from '../core/models/RichUser';
-import {Attribute} from '../core/models/Attribute';
-import {Owner} from '../core/models/Owner';
-import {Group} from '../core/models/Group';
-import {AttributeDefinition} from '../core/models/AttributeDefinition';
-
-
 /**
  * Return string representing Material icon for status of given member.
  *
  * @param richMember member
  */
+import { Attribute, AttributeDefinition, Group, Owner, RichMember, RichUser, User } from '@perun-web-apps/perun/models';
+
+
 export function parseStatusIcon(richMember: RichMember): string {
   switch (richMember.status) {
     case 'VALID':

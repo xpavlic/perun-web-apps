@@ -1,13 +1,10 @@
 import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
-import {AttributesService} from '../../../../../core/services/api/attributes.service';
 import {SideMenuService} from '../../../../../core/services/common/side-menu.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import {FacilityService} from '../../../../../core/services/api/facility.service';
 import {AttributesListComponent} from '../../../../../shared/components/attributes-list/attributes-list.component';
-import {Attribute} from '../../../../../core/models/Attribute';
 import {SelectionModel} from '@angular/cdk/collections';
 import {filterCoreAttributes} from '../../../../../shared/utils';
 import {
@@ -16,6 +13,8 @@ import {
 import {
   CreateAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
+import { AttributesService, FacilityService } from '@perun-web-apps/perun/services';
+import { Attribute } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-facility-settings-attributes',
