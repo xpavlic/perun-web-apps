@@ -1,4 +1,5 @@
-import { Group, Vo } from '@perun-web-apps/perun/models';
+import {Vo} from './Vo';
+import {Group} from './Group';
 
 export interface ApplicationForm {
   automaticApproval: boolean;

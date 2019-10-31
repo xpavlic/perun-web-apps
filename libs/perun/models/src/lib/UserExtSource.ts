@@ -1,4 +1,4 @@
-import { ExtSource } from '@perun-web-apps/perun/models';
+import {ExtSource} from './ExtSource';
 
 export interface UserExtSource {
   beanName: string;

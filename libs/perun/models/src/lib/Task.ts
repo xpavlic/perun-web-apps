@@ -1,6 +1,6 @@
-import {
-  Facility, RichDestination, Service
-} from '@perun-web-apps/perun/models';
+import {Service} from './Service';
+import {Facility} from './Facility';
+import {RichDestination} from './RichDestination';
 
 export interface Task {
   id: number;

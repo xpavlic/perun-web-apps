@@ -1,4 +1,4 @@
-import { User } from '@perun-web-apps/perun/models';
+import {User} from './User';
 
 export interface PerunPrincipal {
   actor: string;

@@ -1,0 +1,6 @@
+<div *ngIf="size === 'small'" class="items-container">
+  <a *ngFor="let item of items" class="item-itself {{item.style}}" [routerLink]="item.url">
+    <img src="assets/img/PerunWebImages/{{item.icon}}" alt="{{item.label}}">
+    {{item.label | translate}}
+  </a>
+</div>

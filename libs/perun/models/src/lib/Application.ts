@@ -1,10 +1,8 @@
-import {
-  ApplicationState,
-  ApplicationType,
-  Group,
-  User,
-  Vo
-} from '@perun-web-apps/perun/models';
+import {Group} from './Group';
+import {User} from './User';
+import {Vo} from './Vo';
+import { ApplicationState } from './ApplicationState.enum';
+import { ApplicationType } from './ApplicationType.enum';
 
 export interface Application {
   id: number;

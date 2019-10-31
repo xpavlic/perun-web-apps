@@ -1,0 +1,49 @@
+<div class="card mt-3" [hidden]="dataSource.filteredData.length === 0">
+  <div class="card-body">
+    <table mat-table [dataSource]="dataSource" matSort matSortDirection="asc" matSortDisableClear
+           class="w-100">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header>{{'FACILITY_MANAGEMENT.TABLE.ID' | translate}}</th>
+        <td class="static-column-size" mat-cell *matCellDef="let facility">{{facility.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="recent">
+        <th mat-header-cell *matHeaderCellDef>
+        </th>
+        <td mat-cell *matCellDef="let facility">
+          <mat-icon
+            class="align-bottom"
+            *ngIf="recentIds.indexOf(facility.id) > -1"
+            matTooltip="{{'VO_MANAGEMENT.TABLE.RECENT' | translate}}">
+            visibility
+          </mat-icon>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header>{{'FACILITY_MANAGEMENT.TABLE.NAME' | translate}}</th>
+        <td mat-cell *matCellDef="let facility">{{facility.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>{{'FACILITY_MANAGEMENT.TABLE.DESCRIPTION' | translate}}</th>
+        <td mat-cell *matCellDef="let facility">{{facility.description}}</td>
+      </ng-container>
+      <ng-container matColumnDef="technicalOwners">
+        <th mat-header-cell *matHeaderCellDef>{{'FACILITY_MANAGEMENT.TABLE.TECHNICAL_OWNERS' | translate}}</th>
+        <td mat-cell *matCellDef="let facility">{{facility.facilityOwners | technicalOwners}}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let facility; columns: displayedColumns;"
+        [routerLink]="['/facilities', facility.id]"
+        class="dark-hover-list-item">
+      </tr>
+    </table>
+    <mat-paginator [length]="this.facilities.length" [pageSize]="10" [pageSizeOptions]="[5,10,25]"></mat-paginator>
+  </div>
+</div>
+
+<div *ngIf="dataSource.filteredData.length === 0" class="perun-alert warn-alert">
+  {{'SHARED.COMPONENTS.NO_FILTER_RESULTS_ALERT' | translate}}
+</div>

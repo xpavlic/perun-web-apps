@@ -1,0 +1,29 @@
+.entity-menu-item-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.entity-menu-item-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.entity-menu-item-icon {
+  height: 2rem
+}
+
+.entity-menu-accordion{
+  background-color: #f4f4f4;
+}
+
+#sideMenuAccordion {
+  width: 300px;
+}
