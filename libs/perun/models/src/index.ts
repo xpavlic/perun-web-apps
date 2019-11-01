@@ -10,6 +10,7 @@ export * from './lib/Attribute';
 export * from './lib/AttributeDefinition';
 export * from './lib/AttributeRights';
 export * from './lib/Candidate';
+export * from './lib/AttrEntity';
 export * from './lib/ExtSource';
 export * from './lib/Facility';
 export * from './lib/Graph';

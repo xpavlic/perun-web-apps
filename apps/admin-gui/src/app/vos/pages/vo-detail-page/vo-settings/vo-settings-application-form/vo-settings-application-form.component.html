@@ -60,9 +60,9 @@
     </button>
   </div>
 
-  <div class="perun-alert info-alert">
+  <app-alert [color]="'info'">
     {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DRAG_AND_DROP_INFO' | translate}}
-  </div>
+  </app-alert>
 
   <app-application-form-list
     [loading]="loading"

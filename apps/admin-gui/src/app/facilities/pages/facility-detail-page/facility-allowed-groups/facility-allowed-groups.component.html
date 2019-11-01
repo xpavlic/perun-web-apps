@@ -17,9 +17,9 @@
     [groups] = "groupsToShow">
   </app-groups-list>
 
-  <div *ngIf="groupsToShow.length === 0 && !loading" class="perun-alert warn-alert">
+  <app-alert *ngIf="groupsToShow.length === 0 && !loading" color="warn">
     {{'FACILITY_DETAIL.ALLOWED_GROUPS.NO_GROUPS_ALERT' | translate}}
-  </div>
+  </app-alert>
 
 </div>
 

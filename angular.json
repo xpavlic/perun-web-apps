@@ -284,31 +284,6 @@
         }
       }
     },
-    "perun-auth": {
-      "root": "libs/perun/auth",
-      "sourceRoot": "libs/perun/auth/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/perun/auth/tsconfig.lib.json",
-              "libs/perun/auth/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/perun/auth/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/perun/auth/jest.config.js",
-            "tsConfig": "libs/perun/auth/tsconfig.spec.json"
-          }
-        }
-      }
-    },
     "perun-urns": {
       "root": "libs/perun/urns",
       "sourceRoot": "libs/perun/urns/src",
@@ -411,8 +386,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "6mb"
                 }
               ]
             }

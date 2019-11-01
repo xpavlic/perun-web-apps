@@ -12,9 +12,9 @@
         <span class="badge badge-danger ml-1">{{errorPropagation.length}}</span>
       </ng-template>
       <ng-template matTabContent>
-        <div *ngIf="errorPropagation.length === 0" class="perun-alert warn-alert">
+        <app-alert *ngIf="errorPropagation.length === 0" [color]="'warn'">
           {{'VO_DETAIL.RESOURCES.STATES.NO_RESOURCES_IN_ERROR' | translate}}
-        </div>
+        </app-alert>
 
         <app-state-tab
         [propagation]="errorPropagation">
@@ -29,9 +29,9 @@
 
       <ng-template matTabContent>
 
-        <div *ngIf="okPropagation.length === 0" class="perun-alert warn-alert">
+        <app-alert *ngIf="okPropagation.length === 0" color="warn">
           {{'VO_DETAIL.RESOURCES.STATES.NO_RESOURCES_IN_OK' | translate}}
-        </div>
+        </app-alert>
 
         <app-state-tab
         [propagation]="okPropagation">

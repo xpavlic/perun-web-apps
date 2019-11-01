@@ -41,9 +41,9 @@ export class AnyToStringPipe implements PipeTransform {
 
   whenValueIsMap(map: Map<string, string>): string {
     let result = '';
-    for (const [key, value] of map.entries()) {
+    map.forEach((value, key) => {
       result = result.concat(key + ': ' + value + ', ');
-    }
+    });
     return result;
   }
 }

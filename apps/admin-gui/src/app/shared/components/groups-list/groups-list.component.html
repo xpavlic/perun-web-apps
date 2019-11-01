@@ -61,10 +61,10 @@
   </div>
 </div>
 
-<div *ngIf="groups.length === 0" class="perun-alert warn-alert">
+<app-alert *ngIf="groups.length === 0" color="warn">
   {{'VO_DETAIL.GROUPS.NO_GROUPS' | translate}}
-</div>
+</app-alert>
 
-<div *ngIf="dataSource.filteredData.length === 0 && groups.length !== 0" class="perun-alert warn-alert">
+<app-alert *ngIf="dataSource.filteredData.length === 0 && groups.length !== 0" color="warn">
   {{'SHARED.COMPONENTS.NO_FILTER_RESULTS_ALERT' | translate}}
-</div>
+</app-alert>

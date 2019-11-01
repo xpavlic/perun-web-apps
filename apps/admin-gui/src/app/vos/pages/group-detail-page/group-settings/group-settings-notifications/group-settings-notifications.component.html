@@ -46,12 +46,12 @@
       [selection]="selection"
       (selectionChange)="changeSelection($event)"></app-notification-list>
   </div>
-  <div *ngIf="this.applicationMails.length === 0" class="perun-alert warn-alert">
+  <app-alert *ngIf="this.applicationMails.length === 0" color="warn">
     {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.NO_EMAILS' | translate}}
-  </div>
+  </app-alert>
 </div>
 <div *ngIf="noApplicationForm && !loading">
-  <div class="perun-alert warn-alert">{{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.NO_APPLICATION_FORM' | translate}}</div>
+  <app-alert color="warn">{{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.NO_APPLICATION_FORM' | translate}}</app-alert>
   <button mat-stroked-button
           (click)="createEmptyApplicationForm()">
     {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.CREATE_APPLICATION_FORM' | translate}}

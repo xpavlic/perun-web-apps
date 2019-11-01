@@ -1,8 +1,8 @@
 <div class="{{data.style}}">
   <h1 class="page-subtitle">{{'DIALOGS.CREATE_ATTRIBUTE.SET_NEW' | translate}}</h1>
-  <div *ngIf="showError" class="perun-alert error-alert">
+  <app-alert *ngIf="showError" color="error">
     {{'DIALOGS.CREATE_ATTRIBUTE.ERROR_EMPTY_VALUE' | translate}}
-  </div>
+  </app-alert>
   <button mat-flat-button class="mr-2" color="accent" (click)="onSave()" [disabled]="selected.selected.length === 0">
     {{'DIALOGS.CREATE_ATTRIBUTE.SAVE' | translate}}
   </button>

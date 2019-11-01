@@ -4,15 +4,15 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {AttributesListComponent} from '../../attributes-list/attributes-list.component';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import { Attribute } from '@perun-web-apps/perun/models';
-import { AttributesService, Entity } from '../../../../../../../../libs/perun/services/src/lib/attributes.service';
+import { Attribute, AttrEntity } from '@perun-web-apps/perun/models';
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
+import { AttributesService } from '@perun-web-apps/perun/services';
 
 export interface CreateAttributeDialogData {
   entityId: number;
   notEmptyAttributes: Attribute[];
   style?: string;
-  entity: Entity;
+  entity: AttrEntity;
 }
 
 @Component({

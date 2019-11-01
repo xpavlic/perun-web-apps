@@ -149,6 +149,7 @@ import { CreateAttributeDefinitionDialogComponent } from './components/dialogs/c
 import { PerunFooterComponent } from './perun-footer/perun-footer.component';
 import { BugReportDialogComponent } from './components/bug-report-dialog/bug-report-dialog.component';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
+import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 
 @NgModule({
   imports: [
@@ -194,7 +195,8 @@ import { AutoFocusDirective } from './directives/auto-focus.directive';
     MatCardModule,
     MatChipsModule,
     MatMenuModule,
-    ScrollingModule
+    ScrollingModule,
+    UiAlertsModule
   ],
   exports: [
     PerunNavComponent,
