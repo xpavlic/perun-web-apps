@@ -15,11 +15,11 @@
       *ngIf="users !== undefined && users.length > 0"
       [users]="users">
     </app-users-list>
-    <div *ngIf="!firstSearchDone" class="perun-alert info-alert">
+    <app-alert *ngIf="!firstSearchDone" [color]="'info'">
       {{'ADMIN.USERS.SEARCH_INFO' | translate}}
-    </div>
-    <div *ngIf="firstSearchDone && users.length === 0" class="perun-alert warn-alert">
+    </app-alert>
+    <app-alert *ngIf="firstSearchDone && users.length === 0" [color]="'warn'">
       {{'ADMIN.USERS.NO_USERS_FOUND' | translate}}
-    </div>
+    </app-alert>
   </div>
 </div>

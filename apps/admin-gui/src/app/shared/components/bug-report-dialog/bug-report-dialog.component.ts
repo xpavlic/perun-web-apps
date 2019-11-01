@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../core/services/common/notificator.service';
 import { RPCError } from '@perun-web-apps/perun/models';
-import { RtMessagesService } from '../../../../../../../libs/perun/services/src/lib/rt-messages.service';
+import { RtMessagesService } from '@perun-web-apps/perun/services';
 
 
 export interface BugReportData {

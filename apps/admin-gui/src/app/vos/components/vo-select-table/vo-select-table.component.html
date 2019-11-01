@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<div *ngIf="dataSource.filteredData.length === 0" class="perun-alert warn-alert">
+<app-alert *ngIf="dataSource.filteredData.length === 0" color="warn">
   {{'SHARED.COMPONENTS.NO_FILTER_RESULTS_ALERT' | translate}}
-</div>
+</app-alert>
 

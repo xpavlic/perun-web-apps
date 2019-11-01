@@ -31,7 +31,7 @@
     </app-groups-list>
   </div>
 
-  <div *ngIf="groups.length === 0 && !loading" class="perun-alert warn-alert">
+  <app-alert *ngIf="groups.length === 0 && !loading" color="warn">
     {{'VO_DETAIL.GROUPS.NO_GROUPS' | translate}}
-  </div>
+  </app-alert>
 </div>

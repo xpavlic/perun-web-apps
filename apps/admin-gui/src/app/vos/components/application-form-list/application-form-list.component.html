@@ -179,6 +179,6 @@
     </table>
   </div>
 </div>
-<div *ngIf="this.applicationFormItems.length === 0 && !loading" class="perun-alert warn-alert">
+<app-alert *ngIf="this.applicationFormItems.length === 0 && !loading" color="warn">
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}
-</div>
+</app-alert>

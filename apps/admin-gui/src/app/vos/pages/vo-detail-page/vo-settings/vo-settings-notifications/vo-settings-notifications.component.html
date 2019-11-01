@@ -47,6 +47,6 @@
     [selection]="selection"
     (selectionChange)="changeSelection($event)"></app-notification-list>
 </div>
-<div *ngIf="this.applicationMails.length === 0 && !loading" class="perun-alert warn-alert">
+<app-alert *ngIf="this.applicationMails.length === 0 && !loading" [color]="'warn'">
   {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.NO_EMAILS' | translate}}
-</div>
+</app-alert>

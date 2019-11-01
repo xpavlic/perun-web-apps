@@ -25,6 +25,7 @@ import {
 import {
   ResourceSettingsAttributesComponent
 } from './pages/resource-detail-page/resource-settings/resource-settings-attributes/resource-settings-attributes.component';
+import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {
   imports: [
     CommonModule,
     FacilitiesRoutingModule,
-    SharedModule
+    SharedModule,
+    UiAlertsModule
   ]
 })
 export class FacilitiesModule { }

@@ -28,9 +28,9 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading">
 
-    <div *ngIf="managers && managers.length == 0 && selected === 'user'" class="perun-alert warn-alert">
+    <app-alert *ngIf="managers && managers.length == 0 && selected === 'user'" color="warn">
       {{'SHARED.COMPONENTS.MANAGERS_PAGE.NO_MANAGERS' | translate}}
-    </div>
+    </app-alert>
     <app-users-list
       *ngIf="managers && managers.length > 0 && selected === 'user'"
       [users]="managers"

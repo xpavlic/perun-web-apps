@@ -60,9 +60,9 @@
     </button>
   </div>
 
-  <div class="perun-alert info-alert">
+  <app-alert color="info">
     {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.DRAG_AND_DROP_INFO' | translate}}
-  </div>
+  </app-alert>
 
   <app-application-form-list
     [loading]="loading"
@@ -72,7 +72,7 @@
   </app-application-form-list>
 </div>
 <div *ngIf="!loading && noApplicationForm">
-  <div class="perun-alert warn-alert">{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}</div>
+  <app-alert color="warn">{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}</app-alert>
   <button mat-stroked-button
           (click)="createEmptyApplicationForm()">
     {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CREATE_APPLICATION_FORM' | translate}}
