@@ -6,10 +6,10 @@
   <packaging>pom</packaging>
 
   <groupId>cz.metacentrum.perun</groupId>
-  <artifactId>consolidator-gui</artifactId>
+  <artifactId>perun-web-apps</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>Consolidator GUI</name>
+  <name>Perun web apps</name>
 
   <properties>
     <frontend-plugin.version>1.7.6</frontend-plugin.version>
@@ -22,8 +22,8 @@
         <artifactId>frontend-maven-plugin</artifactId>
         <version>${frontend-plugin.version}</version>
         <configuration>
-          <nodeVersion>v11.15.0</nodeVersion>
-          <npmVersion>6.9.0</npmVersion>
+          <nodeVersion>v12.13.0</nodeVersion>
+          <npmVersion>6.12.0</npmVersion>
           <workingDirectory>src/main/web/</workingDirectory>
         </configuration>
         <executions>
@@ -40,13 +40,25 @@
             </goals>
           </execution>
           <execution>
-            <id>prod</id>
+            <id>admin-gui</id>
             <goals>
               <goal>npm</goal>
             </goals>
             <configuration>
               <arguments>
-                run ng build -- --configuration=production
+                run ng build admin-gui -- --prod
+              </arguments>
+            </configuration>
+            <phase>generate-resources</phase>
+          </execution>
+          <execution>
+            <id>consolidator</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                run ng build consolidator -- --prod
               </arguments>
             </configuration>
             <phase>generate-resources</phase>
