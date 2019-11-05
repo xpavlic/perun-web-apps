@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 import { MembersService, RegistrarService, VoService } from '@perun-web-apps/perun/services';
 import { MemberCandidate } from '@perun-web-apps/perun/models';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 export interface AddMemberDialogData {
   voId: number;
@@ -82,7 +83,8 @@ export class AddMemberDialogComponent implements OnInit {
     this.selection.clear();
 
     // TODO properly test it on devel when possible.
-    this.voService.getCompleteCandidates(this.data.voId, ['name'], this.searchString).subscribe(
+    this.voService.getCompleteCandidates(this.data.voId,
+      [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL], this.searchString).subscribe(
       members => {
         this.members = members;
         this.loading = false;
