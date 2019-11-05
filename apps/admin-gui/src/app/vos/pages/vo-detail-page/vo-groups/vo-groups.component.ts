@@ -57,8 +57,10 @@ export class VoGroupsComponent implements OnInit {
       data: {voId: this.vo.id, parentGroup: null}
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.loadAllGroups();
+    dialogRef.afterClosed().subscribe((success) => {
+      if (success) {
+        this.loadAllGroups();
+      }
     });
   }
 
