@@ -5,11 +5,14 @@ import { NotificatorService } from '../../../core/services/common/notificator.se
 import { RtMessagesService } from '@perun-web-apps/perun/services';
 
 @Component({
-  selector: 'perun-web-apps-report-issue-dialog',
+  selector: 'app-perun-web-apps-report-issue-dialog',
   templateUrl: './report-issue-dialog.component.html',
   styleUrls: ['./report-issue-dialog.component.scss']
 })
 export class ReportIssueDialogComponent implements OnInit {
+
+  message = '';
+  subject = '';
 
   constructor(private dialogRef: MatDialogRef<ReportIssueDialogComponent>,
               private translate: TranslateService,
@@ -18,9 +21,6 @@ export class ReportIssueDialogComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  message = '';
-  subject = '';
 
   sendBugReport() {
     this.rtMessages.sendMessageToRT('perun', this.subject, this.getFullEmailBody()).subscribe(rtMessage => {
