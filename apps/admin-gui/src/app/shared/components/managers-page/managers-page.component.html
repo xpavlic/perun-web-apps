@@ -42,7 +42,8 @@
       *ngIf="groups && selected === 'group' && !loading"
       [hideColumns]="['menu']"
       [groups]="groups"
-      [selection]="selectionGroups">
+      [selection]="selectionGroups"
+      [disableMembers]="false">
     </app-groups-list>
   </div>
 
