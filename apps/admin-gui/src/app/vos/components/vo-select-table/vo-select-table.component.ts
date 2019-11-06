@@ -32,6 +32,8 @@ export class VoSelectTableComponent implements OnChanges, AfterViewInit {
   displayedColumns: string[] = ['id', 'recent', 'name'];
   dataSource: MatTableDataSource<Vo>;
 
+  exporting = false;
+
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<Vo>(this.vos);
     this.setDataSource();

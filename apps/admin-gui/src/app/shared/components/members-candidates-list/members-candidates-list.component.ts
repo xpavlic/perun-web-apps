@@ -32,6 +32,8 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   displayedColumns: string[] = ['checkbox', 'fullName', 'voExtSource', 'email'];
   dataSource: MatTableDataSource<MemberCandidate>;
 
+  exporting = false;
+
   setDataSource() {
     if (!!this.dataSource) {
       this.dataSource.sort = this.sort;

@@ -27,6 +27,8 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   displayedColumns: string[] = ['select', 'id', 'name', 'facility', 'tags', 'description'];
   dataSource: MatTableDataSource<RichResource>;
 
+  exporting = false;
+
   @Input()
   selection;
 

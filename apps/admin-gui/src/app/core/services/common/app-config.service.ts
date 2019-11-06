@@ -44,6 +44,12 @@ export class AppConfigService {
           this.instanceConfig = data;
           this.authService.loadConfigData(this.instanceConfig);
         }
+      }, () => {
+        if (environment.production) {
+          console.error('Failed to load instance config.')
+        } else {
+          console.log('instance config not detected')
+        }
       });
   }
 

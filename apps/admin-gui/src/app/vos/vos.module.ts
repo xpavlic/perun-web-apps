@@ -73,12 +73,15 @@ import {
   GroupSettingsNotificationsComponent
 } from './pages/group-detail-page/group-settings/group-settings-notifications/group-settings-notifications.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { MatTableExporterModule } from 'mat-table-exporter';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 
 @NgModule({
   imports: [
     CommonModule,
     VosRoutingModule,
+    SharedModule,
+    MatTableExporterModule,
     SharedModule,
     UiAlertsModule
   ],

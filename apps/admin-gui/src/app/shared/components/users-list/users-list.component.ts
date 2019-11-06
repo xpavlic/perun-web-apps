@@ -39,6 +39,8 @@ export class UsersListComponent implements OnChanges {
 
   dataSource: MatTableDataSource<RichUser>;
 
+  exporting = false;
+
   setDataSource() {
     if (!!this.dataSource) {
       this.dataSource.sort = this.sort;

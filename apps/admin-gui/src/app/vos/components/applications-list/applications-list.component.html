@@ -1,6 +1,7 @@
-<div class="card mt-2" [hidden]="this.applications.length === 0 || dataSource.filteredData.length === 0">
+<div class="card mt-2" [class.hide-table]="exporting" [hidden]="this.applications.length === 0 || dataSource.filteredData.length === 0">
   <div class="card-body table-theme">
-    <table mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear class="w-100">
+    <app-table-options [exporter]="exporter" (start)="exporting = true" (end)="exporting = false"></app-table-options>
+    <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear class="w-100">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_ID' | translate}}</th>
         <td mat-cell class="static-column-size" *matCellDef="let application">{{application.id}}</td>
@@ -68,6 +69,8 @@
     <mat-paginator [length]="this.applications.length" [pageSize]="10" [pageSizeOptions]="[5,10,25]"></mat-paginator>
   </div>
 </div>
+
+<mat-spinner *ngIf="exporting" class="ml-auto mr-auto"></mat-spinner>
 
 <app-alert *ngIf="this.applications.length === 0" color="warn">
   {{'VO_DETAIL.APPLICATION.NO_APPLICATION_FOUND' | translate}}

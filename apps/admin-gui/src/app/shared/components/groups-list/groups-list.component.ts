@@ -40,6 +40,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   displayedColumns: string[] = ['select', 'id', 'name', 'description', 'menu'];
   dataSource: MatTableDataSource<Group>;
 
+  exporting = false;
+
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   ngOnChanges(changes: SimpleChanges) {

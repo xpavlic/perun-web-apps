@@ -38,6 +38,8 @@ export class MemberGroupListComponent implements OnInit, OnChanges, AfterViewIni
   displayedColumns: string[] = ['select', 'id', 'name'];
   dataSource: MatTableDataSource<Group>;
 
+  exporting = false;
+
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<Group>(this.groups);

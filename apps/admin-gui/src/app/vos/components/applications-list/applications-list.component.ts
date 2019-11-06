@@ -33,6 +33,8 @@ export class ApplicationsListComponent implements OnChanges {
 
   dataSource: MatTableDataSource<Application>;
 
+  exporting = false;
+
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   private sort: MatSort;
 

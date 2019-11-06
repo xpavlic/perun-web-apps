@@ -149,6 +149,8 @@ import { CreateAttributeDefinitionDialogComponent } from './components/dialogs/c
 import { PerunFooterComponent } from './perun-footer/perun-footer.component';
 import { BugReportDialogComponent } from './components/bug-report-dialog/bug-report-dialog.component';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
+import { TableOptionsComponent } from './components/table-options/table-options.component';
+import {MatTableExporterModule} from 'mat-table-exporter';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 
 @NgModule({
@@ -195,6 +197,7 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     MatCardModule,
     MatChipsModule,
     MatMenuModule,
+    MatTableExporterModule,
     ScrollingModule,
     UiAlertsModule
   ],
@@ -288,7 +291,8 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     ResourcesTagsListComponent,
     UserDetailComponent,
     UserDetailPageComponent,
-    PerunFooterComponent
+    PerunFooterComponent,
+    TableOptionsComponent
   ],
   entryComponents: [
     CreateGroupDialogComponent,
@@ -426,7 +430,8 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     CreateAttributeDefinitionDialogComponent,
     PerunFooterComponent,
     BugReportDialogComponent,
-    AutoFocusDirective
+    AutoFocusDirective,
+    TableOptionsComponent
   ],
   providers: [
     AnyToStringPipe,

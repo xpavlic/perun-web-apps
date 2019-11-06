@@ -37,6 +37,8 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   @Input()
   hideColumns: string[] = [];
 
+  exporting = false;
+
   displayedColumns: string[] = ['checkbox', 'id', 'fullName', 'status', 'groupStatus', 'email'];
   dataSource: MatTableDataSource<RichMember>;
 

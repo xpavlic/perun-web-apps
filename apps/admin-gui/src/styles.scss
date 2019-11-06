@@ -870,3 +870,9 @@ button:focus {
 .static-column-size {
   width: 80px;
 }
+
+.hide-table {
+  height: 0 !important;
+  overflow: hidden !important;
+  border: none !important;
+}
