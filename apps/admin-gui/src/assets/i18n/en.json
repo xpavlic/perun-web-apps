@@ -524,7 +524,8 @@
       "CANCEL": "Cancel",
       "CREATE": "Create",
       "SUCCESS": "New group successfully created",
-      "SUCCESS_SUBGROUP": "New subgroup successfully created"
+      "SUCCESS_SUBGROUP": "New subgroup successfully created",
+      "FILL_VALUE": "Please fill this value."
     },
     "INVITE_MEMBER": {
       "TITLE": "Invite member",

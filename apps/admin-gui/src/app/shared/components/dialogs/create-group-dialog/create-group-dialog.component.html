@@ -4,20 +4,29 @@
   <mat-form-field>
     <input
       matInput
+      required
       placeholder="{{'DIALOGS.CREATE_GROUP.NAME' | translate}}"
       [(ngModel)]="name">
+    <mat-error>
+      {{'DIALOGS.CREATE_GROUP.FILL_VALUE' | translate}}
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <textarea
       matInput
+      required
       placeholder="{{'DIALOGS.CREATE_GROUP.DESCRIPTION' | translate}}"
       [(ngModel)]="description"></textarea>
+    <mat-error>
+      {{'DIALOGS.CREATE_GROUP.FILL_VALUE' | translate}}
+    </mat-error>
   </mat-form-field>
 
 </div>
 <div mat-dialog-actions>
   <button
     mat-flat-button
+    required
     class="ml-auto"
     (click)="onCancel()">
     {{'DIALOGS.CREATE_GROUP.CANCEL' | translate}}
@@ -26,6 +35,7 @@
     mat-flat-button
     class="ml-2"
     color="accent"
+    [disabled]="name == '' || description == ''"
     (click)="onSubmit()">
     {{'DIALOGS.CREATE_GROUP.CREATE' | translate}}
   </button>

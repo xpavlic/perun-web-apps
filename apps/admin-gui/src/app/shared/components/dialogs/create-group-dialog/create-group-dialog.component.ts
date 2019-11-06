@@ -54,12 +54,12 @@ export class CreateGroupDialogComponent {
     if (this.isNotSubGroup) {
       this.groupService.createGroup(this.data.voId, this.name, this.description).subscribe(group => {
         this.notificator.showSuccess(this.successMessage);
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       });
     } else {
       this.groupService.createSubGroup(this.data.parentGroup.id, this.name, this.description).subscribe(group => {
         this.notificator.showSuccess(this.successSubGroupMessage);
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       });
     }
   }
