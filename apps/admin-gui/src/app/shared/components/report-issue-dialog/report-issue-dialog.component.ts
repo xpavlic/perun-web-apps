@@ -23,7 +23,7 @@ export class ReportIssueDialogComponent implements OnInit {
   }
 
   sendBugReport() {
-    this.rtMessages.sendMessageToRT('perun', this.subject, this.getFullEmailBody()).subscribe(rtMessage => {
+    this.rtMessages.sendMessageToRT('perun', this.subject, this.getFullEmailBody()).subscribe(() => {
       // TODO show ticket number and email
       this.dialogRef.afterClosed()
         .subscribe(() => this.notificator.showSuccess(this.translate.instant('DIALOGS.REPORT_ISSUE.SUCCESS')));
@@ -43,4 +43,7 @@ export class ReportIssueDialogComponent implements OnInit {
 
   }
 
+  close() {
+    this.dialogRef.close();
+  }
 }
