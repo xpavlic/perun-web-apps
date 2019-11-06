@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {environment} from '../../../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import {NotificatorService} from '../common/notificator.service';
 import {AuthService} from '../common/auth.service';
 import { PerunApiService } from '@perun-web-apps/perun/services';
 import { RPCError } from '@perun-web-apps/perun/models';
+import { AppConfigService } from '../common/app-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,13 @@ export class ApiService implements PerunApiService {
   constructor(
     private http: HttpClient,
     private notificator: NotificatorService,
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    private appConfigService: AppConfigService
+  ) {
+    this.api_url = this.appConfigService.get('api_url');
+  }
+
+  api_url: string;
 
   private formatErrors(error: any, url: string, payload: any, showError) {
     const rpcError = error.error as RPCError;
@@ -36,13 +41,13 @@ export class ApiService implements PerunApiService {
   }
 
   get(path: string, params: HttpParams = new HttpParams(), showError = true): Observable<any> {
-    const url = `${environment.api_url}${path}`;
+    const url = `${this.api_url}${path}`;
     return this.http.get(url, { headers: this.getHeaders() })
       .pipe(catchError(err => this.formatErrors(err, url, null, showError)));
   }
 
   put(path: string, body: Object = {}, showError = true): Observable<any> {
-    const url = `${environment.api_url}${path}`;
+    const url = `${this.api_url}${path}`;
     const payload = JSON.stringify(body);
     return this.http.put(
       url,
@@ -51,7 +56,7 @@ export class ApiService implements PerunApiService {
   }
 
   post(path: string, body: Object = {}, showError = true): Observable<any> {
-    const url = `${environment.api_url}${path}`;
+    const url = `${this.api_url}${path}`;
     const payload = JSON.stringify(body);
     let headers = this.getHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
@@ -63,7 +68,7 @@ export class ApiService implements PerunApiService {
   }
 
   delete(path, showError = true): Observable<any> {
-    const url = `${environment.api_url}${path}`;
+    const url = `${this.api_url}${path}`;
     return this.http.delete(
       url,
       { headers: this.getHeaders() }

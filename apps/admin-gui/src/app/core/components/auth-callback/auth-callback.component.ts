@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import { AuthService } from '../../services/common/auth.service';
 
 @Component({
   selector: 'app-auth-callback',
@@ -9,20 +7,6 @@ import { AuthService } from '../../services/common/auth.service';
 })
 export class AuthCallbackComponent implements OnInit {
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) { }
-
   ngOnInit() {
-    this.authService.completeAuthentication().then(() => {
-      const redirectUrl = sessionStorage.getItem('auth:redirect');
-      if (redirectUrl) {
-        sessionStorage.removeItem('auth:redirect');
-        this.router.navigate([redirectUrl]);
-      } else {
-        this.router.navigate(['/']);
-      }
-    });
   }
 }

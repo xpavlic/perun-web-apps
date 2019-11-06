@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,18 +10,29 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CoreModule} from './core/core.module';
-import {AuthService} from './core/services/common/auth.service';
-import {Router} from '@angular/router';
 import {RouteReuseStrategy} from '@angular/router';
 import {CacheRouteReuseStrategy} from './core/services/common/cache-route-reuse-strategy';
 import {MatIconModule} from '@angular/material';
 import {CustomIconService} from './core/services/api/custom-icon.service';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { ApiService } from './core/services/api/api.service';
+import { AppConfigService } from './core/services/common/app-config.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const loadAppDefaultConfig = (appConfig: AppConfigService) => {
+  return () => {
+    return appConfig.loadAppDefaultConfig();
+  };
+};
+
+const loadAppInstanceConfig = (appConfig: AppConfigService) => {
+  return () => {
+    return appConfig.loadAppInstanceConfig();
+  };
+};
 
 @NgModule({
   declarations: [
@@ -44,7 +55,21 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [{
+  providers: [
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadAppDefaultConfig,
+      multi: true,
+      deps: [AppConfigService]
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadAppInstanceConfig,
+      multi: true,
+      deps: [AppConfigService]
+    },
+    {
     provide: RouteReuseStrategy,
     useClass: CacheRouteReuseStrategy
     },
@@ -59,51 +84,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 export class AppModule {
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private customIconService: CustomIconService
   ) {
     this.customIconService.registerPerunRefreshIcon();
-    const currentPathname = window.location.pathname;
-
-    if (currentPathname === '/api-callback') {
-      this.handleAuthCallback();
-    } else {
-      this.verifyAuthentication(currentPathname);
-    }
-  }
-
-  /**
-   * Check if the user is logged in and if not,
-   * save current path and start authentication;
-   *
-   * @param path current url path
-   */
-  private verifyAuthentication(path: string): void {
-    this.authService.isLoggedInPromise().subscribe(isLoggedIn => {
-      if (!isLoggedIn) {
-        sessionStorage.setItem('auth:redirect', path);
-        this.authService.startAuthentication().then(r => console.log('R:' + r));
-      }
-    });
-  }
-
-  /**
-   * This method is used to handle oauth callbacks.
-   *
-   * First, it finishes the authentication and then redirects user to the url
-   * he wanted to visit.
-   *
-   */
-  private handleAuthCallback(): void {
-      this.authService.completeAuthentication().then(() => {
-        const redirectUrl = sessionStorage.getItem('auth:redirect');
-        if (redirectUrl) {
-          sessionStorage.removeItem('auth:redirect');
-          this.router.navigate([redirectUrl]);
-        } else {
-          this.router.navigate(['/']);
-        }
-      });
   }
 }
