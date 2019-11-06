@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppConfigService } from '../../core/services/common/app-config.service';
+import { MatDialog } from '@angular/material';
+import { ReportIssueDialogComponent } from '../components/report-issue-dialog/report-issue-dialog.component';
 
 @Component({
   selector: 'app-perun-footer',
@@ -8,7 +10,8 @@ import { AppConfigService } from '../../core/services/common/app-config.service'
 })
 export class PerunFooterComponent implements OnInit {
 
-  constructor(private appConfigService: AppConfigService) { }
+  constructor(private appConfigService: AppConfigService,
+              private dialog: MatDialog) { }
 
   perunwebpage = '';
   perunTeamWebpage = '';
@@ -32,4 +35,9 @@ export class PerunFooterComponent implements OnInit {
     this.copyright = this.appConfigService.get('footer_copyright');
   }
 
+  openBugReportDialog() {
+    this.dialog.open(ReportIssueDialogComponent, {
+      width: '550px',
+    });
+  }
 }

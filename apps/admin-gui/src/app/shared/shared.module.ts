@@ -150,6 +150,7 @@ import { PerunFooterComponent } from './perun-footer/perun-footer.component';
 import { BugReportDialogComponent } from './components/bug-report-dialog/bug-report-dialog.component';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { ReportIssueDialogComponent } from './components/report-issue-dialog/report-issue-dialog.component';
 
 @NgModule({
   imports: [
@@ -323,7 +324,8 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     EditEmailFooterDialogComponent,
     AddEditNotificationDialogComponent,
     NotificationsCopyMailsDialogComponent,
-    BugReportDialogComponent
+    BugReportDialogComponent,
+    ReportIssueDialogComponent
   ],
   declarations: [
     AttributesListComponent,
@@ -426,7 +428,8 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     CreateAttributeDefinitionDialogComponent,
     PerunFooterComponent,
     BugReportDialogComponent,
-    AutoFocusDirective
+    AutoFocusDirective,
+    ReportIssueDialogComponent
   ],
   providers: [
     AnyToStringPipe,
