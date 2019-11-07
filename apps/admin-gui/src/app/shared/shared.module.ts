@@ -151,6 +151,7 @@ import { BugReportDialogComponent } from './components/bug-report-dialog/bug-rep
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { ReportIssueDialogComponent } from './components/report-issue-dialog/report-issue-dialog.component';
+import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/create-vo-dialog.component';
 
 @NgModule({
   imports: [
@@ -325,7 +326,8 @@ import { ReportIssueDialogComponent } from './components/report-issue-dialog/rep
     AddEditNotificationDialogComponent,
     NotificationsCopyMailsDialogComponent,
     BugReportDialogComponent,
-    ReportIssueDialogComponent
+    ReportIssueDialogComponent,
+    CreateVoDialogComponent
   ],
   declarations: [
     AttributesListComponent,
@@ -429,7 +431,8 @@ import { ReportIssueDialogComponent } from './components/report-issue-dialog/rep
     PerunFooterComponent,
     BugReportDialogComponent,
     AutoFocusDirective,
-    ReportIssueDialogComponent
+    ReportIssueDialogComponent,
+    CreateVoDialogComponent
   ],
   providers: [
     AnyToStringPipe,

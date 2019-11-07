@@ -34,4 +34,11 @@ export class VoService {
       searchString: searchString
     }, showNotificationOnError);
   }
+
+  createVo(fullName: string, shortName:string, showNotificationOnError = true): Observable<Vo> {
+    return this.apiService.post('json/vosManager/createVo', {
+      name: fullName,
+      shortName: shortName
+    }, showNotificationOnError);
+  }
 }
