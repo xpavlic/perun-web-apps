@@ -1,22 +1,32 @@
 <div *ngIf="!loading">
+  <div *ngIf="isProduction" class="beta-warning">
+    <mat-icon>alert</mat-icon> This is a beta of new Perun admin GUI! It is not complete, it might contain bugs! Use it only for testing!
+  </div>
   <app-perun-nav-menu
     id="nav-menu"
+    [ngStyle]="{'top': getNavMenuTop()}"
     class="mat-elevation-z3"
     [sideNav]="sidenav"
     [principal]="principal">
   </app-perun-nav-menu>
   <app-notificator></app-notificator>
-  <mat-sidenav-container id="content">
+  <mat-sidenav-container
+    id="content"
+    [ngStyle]="{'margin-top': getSideNavMarginTop(),'min-height': getSideNavMinHeight()}"
+  >
     <mat-sidenav #sidenav
                  [mode]="sidebarMode"
                  [opened]="true"
                  [fixedInViewport]="true"
-                 [fixedTopGap]="64">
+                 [fixedTopGap]="getTopGap()">
 
       <app-side-menu [sideNav]="sidenav"></app-side-menu>
     </mat-sidenav>
 
-    <mat-sidenav-content id="content-inner">
+    <mat-sidenav-content id="content-inner"
+      [ngStyle]="{
+        'height': getContentInnerHeight()
+      }">
       <div class="pt-3 pb-4" id="footer-bottom">
         <router-outlet></router-outlet>
       </div>
