@@ -41,8 +41,7 @@
             <a target="_blank" [href]="administratorDocumentationWebpage">{{'SHARED.FOOTER.ADMINISTRATOR_DOCUMENTATION' | translate}}</a>
           </li>
           <li>
-            <!--TODO open popup window with reporting an issue-->
-            <a target="_blank" href="#!">{{'SHARED.FOOTER.REPORT_ISSUE' | translate}}</a>
+            <span (click)="openBugReportDialog()" id="clickable">{{'SHARED.FOOTER.REPORT_ISSUE' | translate}}</span>
           </li>
         </ul>
 
