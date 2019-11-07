@@ -14,7 +14,8 @@
   <app-groups-list
     *ngIf="!loading && groupsToShow.length !== 0"
     [hideColumns]="['menu']"
-    [groups] = "groupsToShow">
+    [groups] = "groupsToShow"
+    [disableMembers]="false">
   </app-groups-list>
 
   <app-alert *ngIf="groupsToShow.length === 0 && !loading" color="warn">

@@ -37,6 +37,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   @Input()
   inDialog: boolean;
 
+  @Input()
+  disableMembers: boolean;
+
   displayedColumns: string[] = ['select', 'id', 'name', 'description', 'menu'];
   dataSource: MatTableDataSource<Group>;
 
@@ -68,7 +71,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   isAllSelected() {
     let numSelected = this.selection.selected.length;
 
-    if (numSelected > 0 && this.hasMembersGroup) {
+    if (numSelected > 0 && this.hasMembersGroup && this.disableMembers) {
       numSelected++;
     }
 
@@ -80,7 +83,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => {
-        if (row.name !== 'members') {
+        if (row.name !== 'members' ) {
+          this.selection.select(row);
+        } else if (!this.disableMembers) {
           this.selection.select(row);
         }
       });
