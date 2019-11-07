@@ -3,6 +3,7 @@ import {NotificationData} from '../../models/NotificationData';
 import {NotificatorService} from '../../../core/services/common/notificator.service';
 import {flyInOut} from '../../animations/Animations';
 import { doAfterDelay } from '@perun-web-apps/perun/utils';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-notificator',
@@ -30,5 +31,9 @@ export class NotificatorComponent {
     doAfterDelay(data.delay, () => {
       this.notifications.shift();
     });
+  }
+
+  getNotificatorTop() {
+    return environment.production ? '112px' : '64px';
   }
 }
