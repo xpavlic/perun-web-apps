@@ -44,7 +44,7 @@ export class NotificatorComponent {
 
   getNotificatorTop() {
     if (this.mobileView) {
-      return 'undefined';
+      return 'initial';
     }
     return environment.production ? '112px' : '64px';
   }
