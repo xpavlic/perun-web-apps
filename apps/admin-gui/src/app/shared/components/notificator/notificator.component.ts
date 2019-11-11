@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import {NotificationData} from '../../models/NotificationData';
 import {NotificatorService} from '../../../core/services/common/notificator.service';
 import {flyInOut} from '../../animations/Animations';
 import { doAfterDelay } from '@perun-web-apps/perun/utils';
 import { environment } from '../../../../environments/environment';
+import { AppComponent } from '../../../app.component';
 
 @Component({
   selector: 'app-notificator',
@@ -21,9 +22,17 @@ export class NotificatorComponent {
     this.notificator.addNotification.subscribe(notificationData => {
       this.processNotification(notificationData);
     });
+    this.getScreenSize();
   }
 
+  private mobileView = false;
+
   notifications: NotificationData[] = [];
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.mobileView = window.innerWidth <= AppComponent.minWidth;
+  }
 
   private processNotification(data: NotificationData): void {
     this.notifications.push(data);
@@ -34,6 +43,9 @@ export class NotificatorComponent {
   }
 
   getNotificatorTop() {
+    if (this.mobileView) {
+      return 'undefined';
+    }
     return environment.production ? '112px' : '64px';
   }
 }
