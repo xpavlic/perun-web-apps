@@ -4,18 +4,36 @@
 }
 
 #content-inner {
+  position: relative;
+  min-height: calc(100vh - 64px);
   //height: calc(100vh - 112px);
 }
 
-#footer-bottom {
-  min-height: calc(100vh);
+#footer {
+  position: absolute;
+  height: 200px;
+  bottom: 0;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    height: 450px;
+  }
+}
+
+#content-wrap {
+  padding-bottom: 250px;
+  padding-top: 10px;
+  @media (max-width: 768px) {
+    padding-bottom: 500px;
+  }
 }
 
 .beta-warning {
   height: 48px;
-  position: absolute;
+  position: fixed;
+  z-index: 999999;
   top: 0;
-  background-color: rgba(255, 56, 56, 0.36);
+  background-color: rgb(255, 191, 197);
   width: 100%;
   color: #d32f2f;
   text-align: center;
