@@ -39,16 +39,13 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
-
-    if (window.innerWidth > AppComponent.minWidth) {
-      this.sidebarMode = 'side';
-    }
-
-    if (window.innerWidth <= AppComponent.minWidth) {
-      this.sidebarMode = 'over';
-    }
+    this.sidebarMode = this.isMobile() ? 'over' : 'side';
 
     this.lastScreenWidth = window.innerWidth;
+  }
+
+  isMobile(): boolean {
+    return window.innerWidth <= AppComponent.minWidth;
   }
 
   ngOnInit(): void {
@@ -90,6 +87,10 @@ export class AppComponent implements OnInit {
   }
 
   getContentInnerMinHeight() {
-    return environment.production ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
+    // 64 for nav (+48) when alert is shown
+    // 210 for footer, 510 for footer on mobile
+
+    const footerSpace = this.isMobile() ? '510' : '210';
+    return environment.production ? 'calc((100vh - 112px) + ' + footerSpace + 'px)' : 'calc((100vh - 64px) + ' + footerSpace + 'px)';
   }
 }
