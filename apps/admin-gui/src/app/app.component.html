@@ -23,7 +23,10 @@
       <app-side-menu [sideNav]="sidenav"></app-side-menu>
     </mat-sidenav>
 
-    <mat-sidenav-content id="content-inner">
+    <mat-sidenav-content id="content-inner"
+      [ngStyle]="{
+         'min-height' : getContentInnerMinHeight()
+      }">
       <div id="content-wrap">
         <router-outlet></router-outlet>
       </div>

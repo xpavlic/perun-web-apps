@@ -88,4 +88,8 @@ export class AppComponent implements OnInit {
   getNavMenuTop() {
     return environment.production ? '48px' : '0';
   }
+
+  getContentInnerMinHeight() {
+    return environment.production ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
+  }
 }
