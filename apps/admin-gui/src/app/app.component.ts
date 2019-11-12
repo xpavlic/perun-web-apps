@@ -85,10 +85,6 @@ export class AppComponent implements OnInit {
     return environment.production ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
   }
 
-  getContentInnerHeight() {
-    return environment.production ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
-  }
-
   getNavMenuTop() {
     return environment.production ? '48px' : '0';
   }

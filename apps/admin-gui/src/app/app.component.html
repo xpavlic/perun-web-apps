@@ -23,14 +23,13 @@
       <app-side-menu [sideNav]="sidenav"></app-side-menu>
     </mat-sidenav>
 
-    <mat-sidenav-content id="content-inner"
-      [ngStyle]="{
-        'height': getContentInnerHeight()
-      }">
-      <div class="pt-3 pb-4" id="footer-bottom">
+    <mat-sidenav-content id="content-inner">
+      <div id="content-wrap">
         <router-outlet></router-outlet>
       </div>
-      <app-perun-footer></app-perun-footer>
+      <div id="footer">
+        <app-perun-footer></app-perun-footer>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
