@@ -27,10 +27,10 @@ export const flyInOut = trigger('flyInOut', [
 export const rollInOut = trigger('rollInOut', [
   transition(':enter', [
     style({height: '0px'}),
-    animate('.5s')
+    animate('.25s')
   ]),
   transition(':leave', [
-    animate('.5s', style({height: '0px'}))
+    animate('.25s', style({height: '0px'}))
   ])
 ]);
 
@@ -41,7 +41,7 @@ export const fadeIn =
       query(':enter',
         [
           style({
-            position: 'absolute',
+            // position: 'absolute',
             width: '100%',
             opacity: 0
           })
@@ -56,7 +56,7 @@ export const fadeIn =
             width: '100%',
             opacity: 1
           }),
-          animate('0.35s', style({
+          animate('0.15s', style({
             position: 'absolute',
             width: '100%',
             opacity: 0
@@ -72,7 +72,7 @@ export const fadeIn =
             width: '100%',
             opacity: 0
           }),
-          animate('0.35s', style({
+          animate('0.15s', style({
             position: 'absolute',
             width: '100%',
             opacity: 1
