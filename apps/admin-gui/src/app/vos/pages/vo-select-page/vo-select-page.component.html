@@ -3,6 +3,9 @@
   </app-back-button>
   <h1 class="page-title">{{'VO_MANAGEMENT.TITLE' | translate}}</h1>
   <app-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></app-refresh-button>
+  <button mat-flat-button color="accent" class="ml-2 mr-2" (click)="onCreateVo()" *ngIf="!loading && isAllowed">
+    {{'VO_MANAGEMENT.CREATE_VO' | translate}}
+  </button>
   <app-immediate-filter [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'" (filter)="applyFilter($event)" *ngIf="!loading"></app-immediate-filter>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <app-vo-select-table *ngIf="!loading"
