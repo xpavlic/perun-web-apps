@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>{{"DIALOGS.CREATE_VO.TITLE" | translate}}</h1>
+<div class="{{theme}}">
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+</div>
+<div class="{{theme}}" *ngIf="!loading">
+  <div mat-dialog-content class="dialog-container">
+
+    <mat-form-field>
+      <input
+        matInput
+        required
+        placeholder="{{'DIALOGS.CREATE_VO.FULL_NAME' | translate}}"
+        [(ngModel)]="fullName">
+      <mat-error>
+        {{'DIALOGS.CREATE_VO.FILL_VALUE' | translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        required
+        placeholder="{{'DIALOGS.CREATE_VO.SHORT_NAME' | translate}}"
+        [(ngModel)]="shortName">
+      <mat-error>
+        {{'DIALOGS.CREATE_VO.FILL_VALUE' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-error *ngIf="!isValidFullName() && fullName !== ''">
+      {{'DIALOGS.CREATE_VO.FILL_FULL_NAME' | translate}}
+    </mat-error>
+
+    <mat-error *ngIf="!isValidShortName() && shortName !== ''">
+      {{'DIALOGS.CREATE_VO.FILL_SHORT_NAME' | translate}}
+    </mat-error>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-stroked-button
+      class="ml-auto"
+      (click)="onCancel()">
+      {{'DIALOGS.CREATE_VO.CANCEL' | translate}}
+    </button>
+    <div matTooltip="{{'DIALOGS.CREATE_VO.TOOLTIP' | translate}}" matTooltipPosition="above" [matTooltipDisabled]="isValidFullName() && isValidShortName()">
+    <button
+      mat-flat-button
+      class="ml-2"
+      color="accent"
+      [disabled]="!isValidShortName() || !isValidFullName()"
+      (click)="onSubmit()">
+      {{'DIALOGS.CREATE_VO.CREATE' | translate}}
+    </button>
+    </div>
+  </div>
+</div>

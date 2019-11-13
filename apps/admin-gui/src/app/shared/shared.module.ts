@@ -153,6 +153,7 @@ import { TableOptionsComponent } from './components/table-options/table-options.
 import {MatTableExporterModule} from 'mat-table-exporter';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { ReportIssueDialogComponent } from './components/report-issue-dialog/report-issue-dialog.component';
+import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/create-vo-dialog.component';
 
 @NgModule({
   imports: [
@@ -329,7 +330,8 @@ import { ReportIssueDialogComponent } from './components/report-issue-dialog/rep
     AddEditNotificationDialogComponent,
     NotificationsCopyMailsDialogComponent,
     BugReportDialogComponent,
-    ReportIssueDialogComponent
+    ReportIssueDialogComponent,
+    CreateVoDialogComponent
   ],
   declarations: [
     AttributesListComponent,
@@ -434,7 +436,8 @@ import { ReportIssueDialogComponent } from './components/report-issue-dialog/rep
     BugReportDialogComponent,
     AutoFocusDirective,
     TableOptionsComponent,
-    ReportIssueDialogComponent
+    ReportIssueDialogComponent,
+    CreateVoDialogComponent
   ],
   providers: [
     AnyToStringPipe,
