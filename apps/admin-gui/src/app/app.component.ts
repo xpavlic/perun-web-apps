@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
 
   sidebarMode: 'over' | 'push' | 'side' = 'side';
   lastScreenWidth: number;
-  loading = true;
 
   principal: PerunPrincipal;
   isProduction = false;
@@ -50,24 +49,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.isProduction = environment.production;
-    this.authService.getUserManager().getUser().then(user => {
-      if (user) {
-        this.loadPrincipal();
-        this.loading = false;
-      } else {
-        this.authService.userSet.subscribe(() => {
-          this.loadPrincipal();
-          this.loading = false;
-        });
-      }
-    });
-  }
-
-  private loadPrincipal(): void {
-    this.authzService.getPerunPrincipal().subscribe(perunPrincipal => {
-      this.authResolver.setPerunPrincipal(perunPrincipal);
-      this.principal = perunPrincipal;
-    });
+    this.principal = this.authResolver.getPerunPrincipal();
   }
 
   getTopGap() {

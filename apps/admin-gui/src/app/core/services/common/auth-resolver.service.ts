@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import { GroupService } from '@perun-web-apps/perun/services';
 import { PerunPrincipal, Role } from '@perun-web-apps/perun/models';
 
 @Injectable({
@@ -7,7 +6,7 @@ import { PerunPrincipal, Role } from '@perun-web-apps/perun/models';
 })
 export class AuthResolverService {
 
-  constructor(private groupService: GroupService) {
+  constructor() {
   }
 
   private principal: PerunPrincipal;

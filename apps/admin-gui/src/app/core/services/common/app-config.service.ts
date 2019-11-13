@@ -2,55 +2,70 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { environment } from '../../../../environments/environment';
+import { StoreService } from './store.service';
+import { AuthResolverService } from './auth-resolver.service';
+import { AuthzService } from '@perun-web-apps/perun/services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppConfigService {
 
-  private instanceConfig;
-  private defaultConfig;
-
   constructor(private http: HttpClient,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private storeService: StoreService,
+              private authResolver: AuthResolverService,
+              private authzService: AuthzService) {}
 
   /**
    * Load default configuration.
-   * If instance is not in production mode configuration it is also
-   * taken as instance configuration and start authentication.
+   * If instance is not in production mode, the configuration is also
+   * taken as instance configuration and load additional data.
    */
   loadAppDefaultConfig() : Promise<void> {
-    return this.http.get('/assets/config/defaultConfig.json', {headers: this.getNoCacheHeaders()})
-      .toPromise()
-      .then(config => {
-        this.defaultConfig = config;
-        if (!environment.production) {
-          this.instanceConfig = config;
-          this.authService.loadConfigData(this.instanceConfig);
-        }
-      });
+    return new Promise((resolve) => {
+
+      this.http.get('/assets/config/defaultConfig.json', {headers: this.getNoCacheHeaders()})
+        .subscribe(config => {
+          this.storeService.setDefaultConfig(config);
+          if (!environment.production) {
+            this.storeService.setInstanceConfig(config);
+            this.loadAdditionalData(config).then( () => {
+              resolve();
+            });
+          }
+        });
+
+    });
   }
 
   /**
    * Load instance configuration.
-   * If instance is in production mode configuration mode is assigned to
-   * instance config and start authentication.
+   * If instance is in production mode, configuration mode is assigned to
+   * instance config and load additional data.
    */
   loadAppInstanceConfig() : Promise<void>  {
-    return this.http.get('/assets/config/instanceConfig.json', {headers: this.getNoCacheHeaders()})
-      .toPromise()
-      .then(data => {
-        if (environment.production) {
-          this.instanceConfig = data;
-          this.authService.loadConfigData(this.instanceConfig);
-        }
-      }, () => {
-        if (environment.production) {
-          console.error('Failed to load instance config.')
-        } else {
-          console.log('instance config not detected')
-        }
-      });
+    return new Promise((resolve, reject) => {
+
+      this.http.get('/assets/config/instanceConfig.json', { headers: this.getNoCacheHeaders() })
+        .subscribe(config => {
+          if (environment.production) {
+            this.storeService.setInstanceConfig(config);
+            this.loadAdditionalData(config).then( () => {
+              resolve();
+            });
+          }
+        }, () => {
+          if (environment.production) {
+            console.error('Failed to load instance config.');
+            reject();
+          } else {
+            console.log('instance config not detected');
+            resolve();
+          }
+        });
+
+    });
   }
 
   getNoCacheHeaders() : HttpHeaders {
@@ -62,16 +77,34 @@ export class AppConfigService {
   }
 
   /**
-   * Get key from json configuration. If key is not present in instance
-   * configuration method returns value from default configuration.
-   * @param key
+   * Load additional data. First it init authService with necessarily data. Then start authentication and after user is
+   * authenticated the principal is loaded.
+   * @param config of the instance
    */
-  get(key: any) {
-    const value = this.instanceConfig[key];
-    if (value) {
-      return value;
-    } else {
-      return this.defaultConfig[key];
-    }
+  loadAdditionalData(config: any): Promise<any> {
+    return new Promise((resolve) => {
+      this.authService.loadConfigData(config);
+
+      this.authService.authenticate().then(() => {
+
+        this.loadPrincipal().then( () => {
+          resolve();
+        });
+      });
+
+    });
   }
+
+  /**
+   * Load principal
+   */
+  loadPrincipal(): Promise<any> {
+    return this.authzService.getPerunPrincipal()
+      .toPromise()
+      .then(perunPrincipal => {
+      this.authResolver.setPerunPrincipal(perunPrincipal);
+    });
+  }
+
+
 }
