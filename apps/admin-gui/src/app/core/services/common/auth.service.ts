@@ -29,7 +29,9 @@ export class AuthService {
   constructor(
     private injector: Injector
   ) {
-    setTimeout(() => this.router = this.injector.get(Router));
+    setTimeout(() => {
+      this.router = this.injector.get(Router);
+    });
   }
   manager: UserManager;
 
@@ -47,20 +49,19 @@ export class AuthService {
 
   loadConfigData(config: any) {
     this.manager = new UserManager(getClientSettings(config));
-    this.authenticate();
     this.setUser();
     this.manager.events.addUserLoaded(user => {
       this.user = user;
     });
   }
 
-  authenticate() {
+  authenticate(): Promise<any> {
     const currentPathname = window.location.pathname;
 
     if (currentPathname === '/api-callback') {
-      this.handleAuthCallback();
+      return this.handleAuthCallback();
     } else {
-      this.verifyAuthentication(currentPathname);
+      return this.verifyAuthentication(currentPathname);
     }
   }
 
@@ -117,8 +118,10 @@ export class AuthService {
    *
    * @param path current url path
    */
-  private verifyAuthentication(path: string): void {
-    this.isLoggedInPromise().subscribe(isLoggedIn => {
+  private verifyAuthentication(path: string): Promise<any> {
+    return this.isLoggedInPromise()
+      .toPromise()
+      .then(isLoggedIn => {
       if (!isLoggedIn) {
         sessionStorage.setItem('auth:redirect', path);
         this.startAuthentication().then(r => console.log('R:' + r));
@@ -133,8 +136,8 @@ export class AuthService {
    * he wanted to visit.
    *
    */
-  private handleAuthCallback(): void {
-    this.completeAuthentication().then(() => {
+  private handleAuthCallback(): Promise<any> {
+    return this.completeAuthentication().then(() => {
       const redirectUrl = sessionStorage.getItem('auth:redirect');
       if (redirectUrl) {
         sessionStorage.removeItem('auth:redirect');

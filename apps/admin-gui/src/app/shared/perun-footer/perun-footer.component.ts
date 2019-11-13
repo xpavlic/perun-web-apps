@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppConfigService } from '../../core/services/common/app-config.service';
 import { MatDialog } from '@angular/material';
 import { ReportIssueDialogComponent } from '../components/report-issue-dialog/report-issue-dialog.component';
+import { StoreService } from '../../core/services/common/store.service';
 
 @Component({
   selector: 'app-perun-footer',
@@ -10,7 +10,7 @@ import { ReportIssueDialogComponent } from '../components/report-issue-dialog/re
 })
 export class PerunFooterComponent implements OnInit {
 
-  constructor(private appConfigService: AppConfigService,
+  constructor(private storeService: StoreService,
               private dialog: MatDialog) { }
 
   perunwebpage = '';
@@ -25,14 +25,14 @@ export class PerunFooterComponent implements OnInit {
   currentYear = (new Date()).getFullYear();
 
   ngOnInit() {
-    this.perunwebpage = this.appConfigService.get('footer_perun_web_web');
-    this.perunTeamWebpage = this.appConfigService.get('footer_perun_team_web');
-    this.privacyPolicy = this.appConfigService.get('footer_privacy_policy_web');
-    this.userDocumentationWebpage = this.appConfigService.get('footer_users_documentation_web');
-    this.administratorDocumentationWebpage = this.appConfigService.get('footer_administrator_documentation');
-    this.supportMail = this.appConfigService.get('footer_support_mail');
-    this.version = this.appConfigService.get('version');
-    this.copyright = this.appConfigService.get('footer_copyright');
+    this.perunwebpage = this.storeService.get('footer_perun_web_web');
+    this.perunTeamWebpage = this.storeService.get('footer_perun_team_web');
+    this.privacyPolicy = this.storeService.get('footer_privacy_policy_web');
+    this.userDocumentationWebpage = this.storeService.get('footer_users_documentation_web');
+    this.administratorDocumentationWebpage = this.storeService.get('footer_administrator_documentation');
+    this.supportMail = this.storeService.get('footer_support_mail');
+    this.version = this.storeService.get('version');
+    this.copyright = this.storeService.get('footer_copyright');
   }
 
   openBugReportDialog() {
