@@ -50,7 +50,10 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
       this.dataSource.sortingDataAccessor = (item, property) => {
         if (property === 'namespace') {
           return item.namespace.substring(item.namespace.lastIndexOf(':') + 1, item.namespace.length);
-        } else {
+        } else if (property === 'friendlyName') {
+          return item[property].toLowerCase();
+        }
+        else {
           return item[property];
         }
       };
