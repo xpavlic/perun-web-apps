@@ -1,4 +1,5 @@
-<div id="notificator">
+<div id="notificator"
+  [ngStyle]="{'top': getNotificatorTop()}">
   <div *ngFor="let data of notifications" @flyInOut>
     <app-notification  [data]="data">
     </app-notification>

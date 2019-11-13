@@ -1,5 +1,10 @@
 footer {
   background: #263238;
+  height: 100%;
+}
+
+.footer-col {
+  padding-top: 35px;
 }
 
 #copyright {
@@ -13,4 +18,8 @@ a {
 
 li {
   color: #E0E0E0;
+}
+
+#clickable {
+  cursor: pointer;
 }

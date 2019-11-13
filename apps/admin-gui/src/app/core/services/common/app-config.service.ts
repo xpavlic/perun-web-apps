@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { environment } from '../../../../environments/environment';
 
@@ -20,7 +20,7 @@ export class AppConfigService {
    * taken as instance configuration and start authentication.
    */
   loadAppDefaultConfig() : Promise<void> {
-    return this.http.get('/assets/config/defaultConfig.json')
+    return this.http.get('/assets/config/defaultConfig.json', {headers: this.getNoCacheHeaders()})
       .toPromise()
       .then(config => {
         this.defaultConfig = config;
@@ -37,7 +37,7 @@ export class AppConfigService {
    * instance config and start authentication.
    */
   loadAppInstanceConfig() : Promise<void>  {
-    return this.http.get('/assets/config/instanceConfig.json')
+    return this.http.get('/assets/config/instanceConfig.json', {headers: this.getNoCacheHeaders()})
       .toPromise()
       .then(data => {
         if (environment.production) {
@@ -51,6 +51,14 @@ export class AppConfigService {
           console.log('instance config not detected')
         }
       });
+  }
+
+  getNoCacheHeaders() : HttpHeaders {
+    return new HttpHeaders({
+      'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
   }
 
   /**

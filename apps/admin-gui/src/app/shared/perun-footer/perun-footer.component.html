@@ -1,14 +1,14 @@
 <!-- Footer -->
-<footer class="page-footer font-small pt-3 mt-5">
+<footer class="font-small">
 
   <!-- Footer Links -->
-  <div class="container text-center text-md-left mt-3">
+  <div class="container text-center text-md-left">
 
     <!-- Grid row -->
     <div class="row">
 
       <!-- Grid column -->
-      <div class="col-md-4 mx-auto">
+      <div class="col-md-4 mx-auto footer-col">
 
         <!-- Links -->
         <h6 class="text-uppercase font-weight-bold text-white">
@@ -29,7 +29,7 @@
       </div>
 
       <!-- Grid column -->
-      <div class="col-md-4 mx-auto">
+      <div class="col-md-4 mx-auto footer-col">
 
         <!-- Links -->
         <h6 class="text-uppercase font-weight-bold text-white">{{'SHARED.FOOTER.HELP' | translate}}</h6>
@@ -41,14 +41,13 @@
             <a target="_blank" [href]="administratorDocumentationWebpage">{{'SHARED.FOOTER.ADMINISTRATOR_DOCUMENTATION' | translate}}</a>
           </li>
           <li>
-            <!--TODO open popup window with reporting an issue-->
-            <a target="_blank" href="#!">{{'SHARED.FOOTER.REPORT_ISSUE' | translate}}</a>
+            <span (click)="openBugReportDialog()" id="clickable">{{'SHARED.FOOTER.REPORT_ISSUE' | translate}}</span>
           </li>
         </ul>
 
       </div>
       <!-- Grid column -->
-      <div class="col-md-4 mx-auto">
+      <div class="col-md-4 mx-auto footer-col">
 
         <!-- Links -->
         <h6 class="text-uppercase font-weight-bold text-white">{{'SHARED.FOOTER.SUPPORT' | translate}}</h6>

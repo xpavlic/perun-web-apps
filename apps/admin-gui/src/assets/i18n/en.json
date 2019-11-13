@@ -505,6 +505,17 @@
       "SEND": "Send",
       "SUCCESS": "Bug report send"
     },
+    "REPORT_ISSUE": {
+      "TITLE": "Report an issue",
+      "SUBJECT": "Subject",
+      "SUBJECT_ERROR": "Subject cannot be empty.",
+      "MESSAGE": "Message",
+      "MESSAGE_PLACEHOLDER": "You can describe an issue. (Minimal length is 60 characters)",
+      "MESSAGE_ERROR": "Minimal length is 60.",
+      "CANCEL": "Cancel",
+      "SEND": "Send",
+      "SUCCESS": "Bug report send"
+    },
     "MOVE_GROUP": {
       "TITLE": "Move group - ",
       "INFO": "Selected group will be moved (including all its sub-groups).",

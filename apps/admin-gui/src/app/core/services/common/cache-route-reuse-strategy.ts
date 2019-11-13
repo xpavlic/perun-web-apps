@@ -16,6 +16,7 @@ import {
   VoResourcesPreviewComponent
 } from '../../../vos/pages/vo-detail-page/vo-resources/vo-resources-preview/vo-resources-preview.component';
 import {VoResourcesStatesComponent} from '../../../vos/pages/vo-detail-page/vo-resources/vo-resources-states/vo-resources-states.component';
+import { AdminUsersComponent } from '../../../admin/pages/admin-page/admin-users/admin-users.component';
 
 export class CachedRoute {
   routeHandle: DetachedRouteHandle;
@@ -59,6 +60,12 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
       components: [
         MemberGroupsComponent.id
       ]
+    },
+    {
+      type: 'admin',
+      components: [
+        AdminUsersComponent.id
+      ]
     }
   ];
 
@@ -89,6 +96,11 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
       resetPath: ':voId/members/:memberId',
       param: 'memberId'
     },
+    {
+      lastValue: null,
+      resetType: 'admin',
+      resetPath: 'admin/users'
+    }
   ];
 
   private isUserNavigatingBack = false;

@@ -152,6 +152,7 @@ import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { TableOptionsComponent } from './components/table-options/table-options.component';
 import {MatTableExporterModule} from 'mat-table-exporter';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { ReportIssueDialogComponent } from './components/report-issue-dialog/report-issue-dialog.component';
 
 @NgModule({
   imports: [
@@ -327,7 +328,8 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     EditEmailFooterDialogComponent,
     AddEditNotificationDialogComponent,
     NotificationsCopyMailsDialogComponent,
-    BugReportDialogComponent
+    BugReportDialogComponent,
+    ReportIssueDialogComponent
   ],
   declarations: [
     AttributesListComponent,
@@ -431,7 +433,8 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     PerunFooterComponent,
     BugReportDialogComponent,
     AutoFocusDirective,
-    TableOptionsComponent
+    TableOptionsComponent,
+    ReportIssueDialogComponent
   ],
   providers: [
     AnyToStringPipe,

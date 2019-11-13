@@ -9,6 +9,8 @@ import { RichUser } from '@perun-web-apps/perun/models';
 })
 export class AdminUsersComponent implements OnInit {
 
+  static id = 'AdminUsersComponent';
+
   @HostBinding('class.router-component') true;
 
   constructor(
