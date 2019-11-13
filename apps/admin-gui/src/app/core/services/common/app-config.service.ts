@@ -33,6 +33,8 @@ export class AppConfigService {
             this.loadAdditionalData(config).then( () => {
               resolve();
             });
+          } else {
+            resolve();
           }
         });
 
