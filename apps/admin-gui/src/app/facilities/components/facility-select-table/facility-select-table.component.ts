@@ -20,6 +20,8 @@ export class FacilitySelectTableComponent implements AfterViewInit, OnChanges {
   @Input()
   filterValue: string;
 
+  exporting = false;
+
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();

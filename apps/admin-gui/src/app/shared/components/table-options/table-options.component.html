@@ -1,0 +1,15 @@
+<div class="position-right">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="exportOptions">Export</button>
+  </mat-menu>
+
+  <mat-menu #exportOptions="matMenu">
+    <button mat-menu-item (click)="exporter.exportTable('xlsx', {fileName: 'export'})">Excel</button>
+    <button mat-menu-item (click)="exporter.exportTable('csv', {fileName: 'export'})">Csv</button>
+    <button mat-menu-item (click)="exporter.exportTable('json', {fileName: 'export'})">Json</button>
+  </mat-menu>
+</div>

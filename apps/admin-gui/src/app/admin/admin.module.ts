@@ -23,6 +23,7 @@ import { AdminUserDetailPageComponent } from './pages/admin-user-detail-page/adm
 import {CreateAttributeDefinitionDialogComponent} from '../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
 // tslint:disable-next-line:max-line-length
 import {DeleteAttributeDefinitionDialogComponent} from '../shared/components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
+import { MatTableExporterModule } from 'mat-table-exporter';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 
 @NgModule({
@@ -43,6 +44,7 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     CommonModule,
     AdminRoutingModule,
     SharedModule,
+    MatTableExporterModule,
     UiAlertsModule
   ],
   entryComponents: [

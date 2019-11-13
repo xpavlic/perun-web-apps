@@ -149,6 +149,8 @@ import { CreateAttributeDefinitionDialogComponent } from './components/dialogs/c
 import { PerunFooterComponent } from './perun-footer/perun-footer.component';
 import { BugReportDialogComponent } from './components/bug-report-dialog/bug-report-dialog.component';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
+import { TableOptionsComponent } from './components/table-options/table-options.component';
+import {MatTableExporterModule} from 'mat-table-exporter';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { ReportIssueDialogComponent } from './components/report-issue-dialog/report-issue-dialog.component';
 import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/create-vo-dialog.component';
@@ -197,6 +199,7 @@ import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/c
     MatCardModule,
     MatChipsModule,
     MatMenuModule,
+    MatTableExporterModule,
     ScrollingModule,
     UiAlertsModule
   ],
@@ -290,7 +293,8 @@ import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/c
     ResourcesTagsListComponent,
     UserDetailComponent,
     UserDetailPageComponent,
-    PerunFooterComponent
+    PerunFooterComponent,
+    TableOptionsComponent
   ],
   entryComponents: [
     CreateGroupDialogComponent,
@@ -431,6 +435,7 @@ import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/c
     PerunFooterComponent,
     BugReportDialogComponent,
     AutoFocusDirective,
+    TableOptionsComponent,
     ReportIssueDialogComponent,
     CreateVoDialogComponent
   ],

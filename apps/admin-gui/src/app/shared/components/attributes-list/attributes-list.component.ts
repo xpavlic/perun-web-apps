@@ -43,6 +43,8 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   @Input()
   filterValue = '';
 
+  exporting = false;
+
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<Attribute>(this.attributes);
     this.setDataSource();

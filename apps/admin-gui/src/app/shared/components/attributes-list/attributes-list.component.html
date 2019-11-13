@@ -1,6 +1,8 @@
-<div class="card mt-3" [hidden]="dataSource.filteredData.length === 0">
+<div class="card mt-3" [class.hide-table]="exporting" [hidden]="dataSource.filteredData.length === 0">
   <div class="card-body">
-    <table mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
+    <app-table-options [exporter]="exporter" (start)="exporting = true" (end)="exporting = false"></app-table-options>
+
+    <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
            class="w-100">
 
       <ng-container matColumnDef="select">
@@ -58,6 +60,8 @@
     <mat-paginator [length]="this.attributes.length" [pageSize]="10" [pageSizeOptions]="[5,10,25]"></mat-paginator>
   </div>
 </div>
+
+<mat-spinner *ngIf="exporting" class="ml-auto mr-auto"></mat-spinner>
 
 <app-alert *ngIf="dataSource.filteredData.length === 0" color="warn">
   {{'SHARED.COMPONENTS.NO_FILTER_RESULTS_ALERT' | translate}}

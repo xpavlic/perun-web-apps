@@ -39,6 +39,7 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
   selection = new SelectionModel<ResourceTag>(true, []);
 
   isChanging = new SelectionModel<ResourceTag>(true, []);
+  exporting = false;
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<ResourceTag>(this.resourceTags);

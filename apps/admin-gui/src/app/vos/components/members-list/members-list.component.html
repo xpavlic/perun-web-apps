@@ -1,9 +1,12 @@
-<div class="card mt-2">
+<div class="card mt-2" [class.hide-table]="exporting">
   <div class="card-body table-theme">
+    <app-table-options [exporter]="exporter" (start)="exporting = true" (end)="exporting = false"></app-table-options>
     <table
       class="w-100"
       mat-table
+      matTableExporter
       [dataSource]="dataSource"
+      #exporter="matTableExporter"
       matSort
       matSortActive="id"
       matSortDirection="asc"
@@ -65,3 +68,5 @@
     <mat-paginator [length]="this.members.length" [pageSize]="10" [pageSizeOptions]="[5,10,25]"></mat-paginator>
   </div>
 </div>
+
+<mat-spinner *ngIf="exporting" class="ml-auto mr-auto"></mat-spinner>

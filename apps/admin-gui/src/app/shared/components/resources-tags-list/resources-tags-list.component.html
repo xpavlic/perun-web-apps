@@ -1,6 +1,7 @@
-<div class="card mt-2" [hidden]="resourceTags.length === 0 || dataSource.filteredData.length === 0">
+<div class="card mt-2" [class.hide-table]="exporting" [hidden]="resourceTags.length === 0 || dataSource.filteredData.length === 0">
   <div class="card-body">
-    <table mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
+    <app-table-options [exporter]="exporter" (start)="exporting = true" (end)="exporting = false"></app-table-options>
+    <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
            class="w-100">
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
@@ -73,6 +74,8 @@
     <mat-paginator [length]="this.resourceTags.length" [pageSize]="10" [pageSizeOptions]="[5,10,25]"></mat-paginator>
   </div>
 </div>
+
+<mat-spinner *ngIf="exporting" class="ml-auto mr-auto"></mat-spinner>
 
 <app-alert *ngIf="resourceTags.length === 0" color="warn">
   {{'VO_DETAIL.RESOURCES.TAGS.NO_TAGS' | translate}}

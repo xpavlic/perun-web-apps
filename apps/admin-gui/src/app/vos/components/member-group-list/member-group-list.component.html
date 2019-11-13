@@ -1,6 +1,7 @@
-<div class="card mt-2" [hidden]="dataSource.filteredData.length === 0 || groups.length === 0">
+<div class="card mt-2" [class.hide-table]="exporting" [hidden]="dataSource.filteredData.length === 0 || groups.length === 0">
   <div class="card-body">
-    <table mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear class="w-100">
+    <app-table-options [exporter]="exporter" (start)="exporting = true" (end)="exporting = false"></app-table-options>
+    <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear class="w-100">
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
           <mat-checkbox color="primary"
@@ -39,6 +40,8 @@
     <mat-paginator [length]="this.groups.length" [pageSize]="10" [pageSizeOptions]="[5,10,25]"></mat-paginator>
   </div>
 </div>
+
+<mat-spinner *ngIf="exporting" class="ml-auto mr-auto"></mat-spinner>
 
 <app-alert *ngIf="groups.length === 0" color="warn">
   {{'VO_DETAIL.GROUPS.NO_GROUPS' | translate}}

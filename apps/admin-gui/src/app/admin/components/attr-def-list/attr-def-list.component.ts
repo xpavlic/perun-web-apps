@@ -21,6 +21,8 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   @Input()
   filterValue: string;
 
+  exporting = false;
+
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
