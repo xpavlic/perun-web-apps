@@ -49,8 +49,8 @@ export class SideMenuItemService {
       icon: 'perun_admin-white.svg',
       baseColorClass: 'base-item-color',
       baseColorClassRegex: '^/admin$',
-      activatedClass: 'admin-item-activated',
-      linksClass: 'admin-item-links',
+      activatedClass: 'dark-item-activated',
+      linksClass: 'dark-item-links',
       links: [
         {
           label: 'MENU_ITEMS.ADMIN.OVERVIEW',
@@ -126,8 +126,8 @@ export class SideMenuItemService {
       colorClass: 'facility-item',
       icon: 'manage_facility_white.svg',
       // labelClass: 'facility-text',
-      activatedClass: 'facility-item-activated',
-      linksClass: 'facility-item-links'
+      activatedClass: 'dark-item-activated',
+      linksClass: 'dark-item-links'
     };
   }
 
@@ -158,8 +158,8 @@ export class SideMenuItemService {
       colorClass: 'resource-item',
       icon: 'manage_facility_white.svg',
       // labelClass: 'resource-text',
-      activatedClass: 'resource-item-activated',
-      linksClass: 'resource-item-links',
+      activatedClass: 'dark-item-activated',
+      linksClass: 'dark-item-links',
     };
   }
 
@@ -230,8 +230,8 @@ export class SideMenuItemService {
       colorClass: 'group-item',
       icon: 'group-white.svg',
       // labelClass: 'group-text',
-      activatedClass: 'group-item-activated',
-      linksClass: 'group-item-links'
+      activatedClass: 'dark-item-activated',
+      linksClass: 'dark-item-links'
     };
   }
 
@@ -243,8 +243,8 @@ export class SideMenuItemService {
       colorClass: 'vo-item',
       icon: 'vo-white.svg',
       // labelClass: 'vo-text',
-      activatedClass: 'vo-item-activated',
-      linksClass: 'vo-item-links'
+      activatedClass: 'dark-item-activated',
+      linksClass: 'dark-item-links'
     };
   }
 
@@ -280,8 +280,8 @@ export class SideMenuItemService {
       colorClass: 'member-item',
       icon: 'user-white.svg',
       // labelClass: 'member-text',
-      activatedClass: 'member-item-activated',
-      linksClass: 'member-item-links'
+      activatedClass: 'dark-item-activated',
+      linksClass: 'dark-item-links'
     };
   }
 
@@ -326,8 +326,8 @@ export class SideMenuItemService {
       ],
       colorClass: 'user-bg-color',
       icon: 'user-white.svg',
-      activatedClass: 'user-item-activated',
-      linksClass: 'user-item-links'
+      activatedClass: 'dark-item-activated',
+      linksClass: 'dark-item-links'
     };
   }
 

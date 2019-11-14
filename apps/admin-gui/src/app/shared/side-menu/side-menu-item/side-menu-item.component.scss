@@ -2,11 +2,15 @@
   width: 300px;
 }
 
+.side-entity-menu {
+  background-color: #39444a;
+}
+
 .side-entity-menu a {
   padding: 8px 8px 8px 40px;
   text-decoration: none;
+  color: #ffffff;
   font-size: 1rem;
-  color: #5f6368;
   display: block;
   transition: 0.2s;
 }
