@@ -35,6 +35,13 @@ export class VoService {
     }, showNotificationOnError);
   }
 
+  removeVo(voId:number, force:boolean, showNotificationOnError = true): Observable<Vo> {
+    return this.apiService.post('json/vosManager/deleteVo', {
+      vo: voId,
+      force: force
+    }, showNotificationOnError);
+  }
+
   createVo(fullName: string, shortName:string, showNotificationOnError = true): Observable<Vo> {
     return this.apiService.post('json/vosManager/createVo', {
       name: fullName,

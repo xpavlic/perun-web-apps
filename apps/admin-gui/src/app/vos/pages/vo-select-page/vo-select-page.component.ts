@@ -3,9 +3,11 @@ import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import { VoService } from '@perun-web-apps/perun/services';
 import { Vo } from '@perun-web-apps/perun/models';
 import { getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
-import { MatDialog } from '@angular/material';
-import { CreateVoDialogComponent } from '../../../shared/components/dialogs/create-vo-dialog/create-vo-dialog.component';
 import { AuthResolverService } from '../../../core/services/common/auth-resolver.service';
+import { MatDialog } from '@angular/material';
+import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
+import { SelectionModel } from '@angular/cdk/collections';
+import { CreateVoDialogComponent } from '../../../shared/components/dialogs/create-vo-dialog/create-vo-dialog.component';
 
 @Component({
   selector: 'app-vo-select-page',
@@ -26,17 +28,21 @@ export class VoSelectPageComponent implements OnInit {
   loading: boolean;
   filterValue = '';
 
-  isAllowed: boolean;
+  isVoAdmin: boolean;
+
+  selection: SelectionModel<Vo>;
 
   ngOnInit() {
     this.loading = true;
-    this.isAllowed = this.authzService.isVoAdmin();
+    this.selection = new SelectionModel<Vo>(false, []);
+    this.isVoAdmin = this.authzService.isVoAdmin();
     this.sideMenuService.setAccessMenuItems([]);
     this.refreshTable();
   }
 
   refreshTable() {
     this.loading = true;
+    this.selection.clear();
     this.voService.getVos().subscribe(vos => {
       this.vos = getRecentlyVisited('vos', vos);
       this.recentIds = getRecentlyVisitedIds('vos');
@@ -60,4 +66,18 @@ export class VoSelectPageComponent implements OnInit {
       }
     });
   }
+
+  onRemoveVo() {
+    const dialogRef = this.dialog.open(RemoveVoDialogComponent, {
+      width: '600px',
+      data: { theme: 'vo-theme', vos: this.selection.selected}
+    });
+
+    dialogRef.afterClosed().subscribe( isVoRemoved => {
+      if (isVoRemoved){
+        this.refreshTable();
+      }
+    });
+  }
+
 }

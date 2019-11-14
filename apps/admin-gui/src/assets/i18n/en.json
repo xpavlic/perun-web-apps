@@ -7,7 +7,8 @@
   },
   "VO_MANAGEMENT": {
     "TITLE": "Select organization",
-    "CREATE_VO": "New organization...",
+    "CREATE_VO": "New...",
+    "REMOVE_VO": "Remove...",
     "FILTER_PLACEHOLDER": "Filter by name",
     "TABLE": {
       "ID": "Id",
@@ -549,6 +550,16 @@
       "FILL_VALUE": "Please fill this value.",
       "FILL_FULL_NAME": "Maximal length of full name is 128 characters",
       "FILL_SHORT_NAME": "Maximal length short name is 32 characters, allowed characters are a-z, A-Z, 0-9, ., _, -"
+    },
+    "REMOVE_VO": {
+      "TITLE": "Remove organization",
+      "CANCEL": "Cancel",
+      "REMOVE": "Remove",
+      "FORCE": "Force",
+      "FORCE_WARNING": "Using force also deletes all groups, members and resources of selected organizations.",
+      "DESCRIPTION": "Following organizations will be removed",
+      "ASK": "Do you want to proceed?",
+      "SUCCESS": "Organization was successfully removed"
     },
     "INVITE_MEMBER": {
       "TITLE": "Invite member",
