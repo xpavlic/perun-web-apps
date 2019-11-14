@@ -123,6 +123,15 @@ button:focus {
   background-color: $member-color;
 }
 
+.dark-item-activated {
+  border-left: 5px solid #ffffff;
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.10) !important;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+  }
+}
 .vo-item-activated {
   border-right: 5px solid $vo-color;
   color: $vo-color !important;
@@ -133,7 +142,7 @@ button:focus {
     background-color: rgba(63, 76, 255, 0.15) !important;
   }
 }
-  //background-color: #eaeaea !important;
+
 .admin-item-activated {
   border-right: 5px solid $admin-color;
   color: $admin-color !important;
@@ -199,6 +208,9 @@ button:focus {
   }
 }
 
+.dark-item-links a:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
 .vo-item-links a:hover {
   color: $vo-color !important;
   background-color: rgba(63, 76, 255, 0.15) !important;
