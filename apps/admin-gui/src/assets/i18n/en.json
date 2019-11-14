@@ -1,4 +1,8 @@
 {
+  "NAV": {
+    "LOGOUT": "Log out",
+    "PROFILE": "Profile"
+  },
   "MAIN_MENU": {
     "VOS": "Organizations",
     "FACILITIES": "Facilities",
