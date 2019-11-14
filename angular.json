@@ -359,7 +359,7 @@
               "apps/admin-gui/src/assets",
               "apps/admin-gui/src/silent-refresh.html",
               "apps/admin-gui/src/silent-refresh.js",
-              "apps/admin-gui/src/oidc-client.slim.js"
+              "apps/admin-gui/src/oidc-client.slim.min.js"
             ],
             "styles": [
               "apps/admin-gui/src/styles.scss",
