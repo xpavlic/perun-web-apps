@@ -446,7 +446,5 @@ import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/c
 export class SharedModule {
   constructor(private translate: TranslateService) {
     translate.addLangs(['en', 'cs']);
-    translate.setDefaultLang('en');
-    translate.use('en');
   }
 }

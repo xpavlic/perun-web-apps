@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {SharedModule} from './shared/shared.module';
 import { MainMenuPageComponent } from './main-menu-page/main-menu-page.component';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -22,15 +22,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-const loadAppDefaultConfig = (appConfig: AppConfigService) => {
+const loadConfigs = (appConfig: AppConfigService) => {
   return () => {
-    return appConfig.loadAppDefaultConfig();
-  };
-};
-
-const loadAppInstanceConfig = (appConfig: AppConfigService) => {
-  return () => {
-    return appConfig.loadAppInstanceConfig();
+    return appConfig.loadConfigs();
   };
 };
 
@@ -59,13 +53,7 @@ const loadAppInstanceConfig = (appConfig: AppConfigService) => {
     AppConfigService,
     {
       provide: APP_INITIALIZER,
-      useFactory: loadAppDefaultConfig,
-      multi: true,
-      deps: [AppConfigService]
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: loadAppInstanceConfig,
+      useFactory: loadConfigs,
       multi: true,
       deps: [AppConfigService]
     },
@@ -84,8 +72,11 @@ const loadAppInstanceConfig = (appConfig: AppConfigService) => {
 export class AppModule {
 
   constructor(
-    private customIconService: CustomIconService
+    private customIconService: CustomIconService,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
     this.customIconService.registerPerunRefreshIcon();
   }
 }

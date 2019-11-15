@@ -25,14 +25,38 @@ export class StoreService {
   /**
    * Get key from json configuration. If key is not present in instance
    * configuration method returns value from default configuration.
-   * @param key
+   * @param keys
    */
-  get(key: any) {
-    const value = this.instanceConfig[key];
-    if (value) {
-      return value;
-    } else {
-      return this.defaultConfig[key];
+  get(...keys: string[]) : any {
+    let currentValue: string;
+
+    if (this.instanceConfig !== undefined) {
+      for (let i = 0; i < keys.length; ++i) {
+        if (i === 0) {
+          currentValue = this.instanceConfig[keys[i]];
+        } else {
+          if (currentValue === undefined) {
+            break;
+          }
+          currentValue = currentValue[keys[i]];
+        }
+      }
     }
+
+    if (currentValue === undefined) {
+      for (let i = 0; i < keys.length; ++i) {
+        if (i === 0) {
+          currentValue = this.defaultConfig[keys[i]];
+        } else {
+          if (currentValue === undefined) {
+            console.error('Missing value in default config: ' + keys);
+            break;
+          }
+          currentValue = currentValue[keys[i]];
+        }
+      }
+    }
+
+    return currentValue;
   }
 }
