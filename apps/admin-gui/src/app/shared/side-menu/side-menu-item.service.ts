@@ -40,6 +40,55 @@ export class SideMenuItemService {
     };
   }
 
+  getUserItem(user: User): SideMenuItem {
+    return {
+      baseLink: ['/profile'],
+      expandable: false,
+      label: parseFullName(user),
+      colorClass: 'base-item-color-activated',
+      icon: 'user-white.svg',
+      baseColorClass: 'base-item-color',
+      baseColorClassRegex: '^/profile$',
+      activatedClass: 'dark-item-activated',
+      linksClass: 'dark-item-links',
+      links: [
+        {
+          label: 'MENU_ITEMS.USER.OVERVIEW',
+          url: ['/profile'],
+          activatedRegex: '^/profile$'
+        },
+        {
+          label: 'MENU_ITEMS.USER.DETAIL',
+          url: ['/profile/detail'],
+          activatedRegex: `^/profile/detail`
+        },
+        {
+          label: 'MENU_ITEMS.USER.ORGANIZATIONS',
+          url: [`/profile/organizations`],
+          activatedRegex: `^/profile/organizations`
+        },
+        {
+          label: 'MENU_ITEMS.USER.GROUPS',
+          url: [`/profile/groups`],
+          activatedRegex: `^/profile/groups`
+        },
+        {
+          label: 'MENU_ITEMS.USER.SETTINGS',
+          url: [`/profile/settings`],
+          activatedRegex: `^/profile/settings$`,
+          children: [
+            {
+              label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
+              url: [`/profile/settings/attributes`],
+              activatedRegex: `^/profile/settings/attributes`
+            }
+          ],
+          showChildrenRegex: `^/profile/settings`
+        },
+      ],
+    };
+  }
+
   getAdminItem(): SideMenuItem {
     return {
       baseLink: ['/admin'],
