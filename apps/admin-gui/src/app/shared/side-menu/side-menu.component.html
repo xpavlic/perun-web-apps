@@ -54,4 +54,19 @@
       </app-side-menu-item>
     </div>
   </div>
+  <app-side-menu-root-item
+    [sideNav]="sideNav"
+    [showOpen]="userItemOpened"
+    [item]="userItem">
+  </app-side-menu-root-item>
+  <div
+    *ngFor="let item of userItems; let i = index"
+    @rollInOut
+    class="overflow-hidden">
+    <app-side-menu-item
+      [sideNav]="sideNav"
+      [item]="item"
+      [index]="i">
+    </app-side-menu-item>
+  </div>
 </div>
