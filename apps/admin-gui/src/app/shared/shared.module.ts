@@ -155,6 +155,7 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { ReportIssueDialogComponent } from './components/report-issue-dialog/report-issue-dialog.component';
 import { RemoveVoDialogComponent } from './components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/create-vo-dialog.component';
+import { VoSelectTableComponent } from './components/vo-select-table/vo-select-table.component';
 
 @NgModule({
   imports: [
@@ -295,7 +296,8 @@ import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/c
     UserDetailComponent,
     UserDetailPageComponent,
     PerunFooterComponent,
-    TableOptionsComponent
+    TableOptionsComponent,
+    VoSelectTableComponent
   ],
   entryComponents: [
     CreateGroupDialogComponent,
@@ -440,7 +442,8 @@ import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/c
     ReportIssueDialogComponent,
     RemoveVoDialogComponent,
     TableOptionsComponent,
-    CreateVoDialogComponent
+    CreateVoDialogComponent,
+    VoSelectTableComponent
   ],
   providers: [
     AnyToStringPipe,
