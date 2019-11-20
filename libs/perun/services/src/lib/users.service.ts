@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { PerunApiService } from './perun-api-service';
-import { RichUser, RichUserExtSource, User, UserExtSource, Vo } from '@perun-web-apps/perun/models';
+import { RichUser, RichUserExtSource, User, UserExtSource, Vo, Group } from '@perun-web-apps/perun/models';
 import { parseUrnsToUrlParam } from '@perun-web-apps/perun/utils';
 
 @Injectable({
@@ -72,6 +72,12 @@ export class UsersService {
   getVosWhereUserIsAdmin(userId: number, showNotificationOnError = true):Observable<Vo[]>{
     return this.apiService.post('json/usersManager/getVosWhereUserIsAdmin',{
       user: userId
+    }, showNotificationOnError);
+  }
+
+  getGroupsWhereUserIsAdmin(userId: number, showNotificationOnError = true): Observable<Group[]> {
+    return this.apiService.post('json/usersManager/getGroupsWhereUserIsAdmin', {
+      'user': userId
     }, showNotificationOnError);
   }
 }
