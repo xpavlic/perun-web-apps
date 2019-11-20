@@ -21,8 +21,6 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private cache: CacheHelperService
   ) {
-    translate.setDefaultLang('en');
-    translate.use('en');
 
     this.cache.init();
     this.getScreenSize(null);

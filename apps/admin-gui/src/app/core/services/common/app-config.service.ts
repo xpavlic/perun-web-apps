@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { StoreService } from './store.service';
 import { AuthResolverService } from './auth-resolver.service';
 import { AuthzService } from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,14 @@ export class AppConfigService {
               private authService: AuthService,
               private storeService: StoreService,
               private authResolver: AuthResolverService,
-              private authzService: AuthzService) {}
+              private authzService: AuthzService,
+              private translate: TranslateService) {}
+
+  loadConfigs(): Promise<void> {
+    return this.loadAppDefaultConfig()
+      .then(() => this.loadAppInstanceConfig())
+      .then(() => this.loadAdditionalData());
+  }
 
   /**
    * Load default configuration.
@@ -28,14 +36,7 @@ export class AppConfigService {
       this.http.get('/assets/config/defaultConfig.json', {headers: this.getNoCacheHeaders()})
         .subscribe(config => {
           this.storeService.setDefaultConfig(config);
-          if (!environment.production) {
-            this.storeService.setInstanceConfig(config);
-            this.loadAdditionalData(config).then( () => {
-              resolve();
-            });
-          } else {
-            resolve();
-          }
+          resolve();
         });
 
     });
@@ -51,12 +52,8 @@ export class AppConfigService {
 
       this.http.get('/assets/config/instanceConfig.json', { headers: this.getNoCacheHeaders() })
         .subscribe(config => {
-          if (environment.production) {
-            this.storeService.setInstanceConfig(config);
-            this.loadAdditionalData(config).then( () => {
-              resolve();
-            });
-          }
+          this.storeService.setInstanceConfig(config);
+          resolve();
         }, () => {
           if (environment.production) {
             console.error('Failed to load instance config.');
@@ -66,7 +63,6 @@ export class AppConfigService {
             resolve();
           }
         });
-
     });
   }
 
@@ -83,9 +79,9 @@ export class AppConfigService {
    * authenticated the principal is loaded.
    * @param config of the instance
    */
-  loadAdditionalData(config: any): Promise<any> {
+  loadAdditionalData(): Promise<any> {
     return new Promise((resolve) => {
-      this.authService.loadConfigData(config);
+      this.authService.loadConfigData();
 
       this.authService.authenticate().then(() => {
 
