@@ -1,8 +1,7 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {AuthResolverService} from './core/services/common/auth-resolver.service';
-import {AuthService} from './core/services/common/auth.service';
-import {CacheHelperService} from './core/services/common/cache-helper.service';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { AuthResolverService } from './core/services/common/auth-resolver.service';
+import { AuthService } from './core/services/common/auth.service';
+import { CacheHelperService } from './core/services/common/cache-helper.service';
 import { AuthzService } from '@perun-web-apps/perun/services';
 import { PerunPrincipal } from '@perun-web-apps/perun/models';
 import { environment } from '../environments/environment';
@@ -15,7 +14,6 @@ import { environment } from '../environments/environment';
 export class AppComponent implements OnInit {
 
   constructor(
-    translate: TranslateService,
     private authzService: AuthzService,
     private authResolver: AuthResolverService,
     private authService: AuthService,
@@ -26,7 +24,7 @@ export class AppComponent implements OnInit {
     this.getScreenSize(null);
   }
 
-  public static minWidth = 768;
+  public static minWidth = 992;
 
   sidebarMode: 'over' | 'push' | 'side' = 'side';
   lastScreenWidth: number;
@@ -70,7 +68,8 @@ export class AppComponent implements OnInit {
     // 64 for nav (+48) when alert is shown
     // 210 for footer, 510 for footer on mobile
 
-    const footerSpace = this.isMobile() ? '510' : '210';
+    let footerSpace = this.isMobile() ? '510' : '210';
+    footerSpace = '0';
     return environment.production ? 'calc((100vh - 112px) + ' + footerSpace + 'px)' : 'calc((100vh - 64px) + ' + footerSpace + 'px)';
   }
 }

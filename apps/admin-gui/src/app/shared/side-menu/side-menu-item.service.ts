@@ -18,7 +18,7 @@ export class SideMenuItemService {
 
   getFacilitiesManagementItem(): SideMenuItem {
     return {
-      label: 'Facilities management',
+      label: 'MAIN_MENU.FACILITIES',
       colorClass: 'base-item-color-activated',
       icon: 'manage_facility_white.svg',
       baseLink: ['/facilities'],
@@ -30,7 +30,7 @@ export class SideMenuItemService {
 
   getAccessManagementItem(): SideMenuItem {
     return {
-      label: 'Access management',
+      label: 'MAIN_MENU.ACCESS',
       colorClass: 'base-item-color-activated',
       icon: 'vo-white.svg',
       links: [],
@@ -44,7 +44,7 @@ export class SideMenuItemService {
     return {
       baseLink: ['/profile'],
       expandable: false,
-      label: parseFullName(user),
+      label: 'MAIN_MENU.PROFILE',
       colorClass: 'base-item-color-activated',
       icon: 'user-white.svg',
       baseColorClass: 'base-item-color',
@@ -93,7 +93,7 @@ export class SideMenuItemService {
     return {
       baseLink: ['/admin'],
       expandable: false,
-      label: 'MENU_ITEMS.ADMIN.TITLE',
+      label: 'MAIN_MENU.ADMIN',
       colorClass: 'base-item-color-activated',
       icon: 'perun_admin-white.svg',
       baseColorClass: 'base-item-color',
