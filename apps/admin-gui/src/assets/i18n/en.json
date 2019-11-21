@@ -1082,8 +1082,8 @@
       "PERUN_WEB": "Perun website",
       "PERUN_TEAM": "Perun team",
       "SUPPORT": "Support",
-      "USER_DOCUMENTATION": "Users Documentation",
-      "ADMINISTRATOR_DOCUMENTATION": "Administrators Documentation",
+      "USER_DOCUMENTATION": "Documentation",
+      "ADMINISTRATOR_DOCUMENTATION": "API Documentation",
       "REPORT_ISSUE": "Report Issue",
       "PRIVACY_POLICY": "Privacy Policy"
     }
