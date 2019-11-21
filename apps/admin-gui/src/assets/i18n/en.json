@@ -4,10 +4,14 @@
     "PROFILE": "Profile"
   },
   "MAIN_MENU": {
-    "VOS": "Organizations",
-    "FACILITIES": "Facilities",
-    "USERS": "Users",
-    "ADMIN": "Admin"
+    "ACCESS": "Access management",
+    "FACILITIES": "Facilities management",
+    "ADMIN": "Perun admin",
+    "PROFILE": "Profile",
+    "ACCESS_DESC": "Manage organizations, groups and members.",
+    "FACILITIES_DESC": "Manage facilities and resources.",
+    "ADMIN_DESC": "Manage attributes, users and do diagnostics.",
+    "PROFILE_DESC": "View information about you and your organizations and groups."
   },
   "VO_MANAGEMENT": {
     "TITLE": "Select organization",
