@@ -1,8 +1,7 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {AuthResolverService} from './core/services/common/auth-resolver.service';
-import {AuthService} from './core/services/common/auth.service';
-import {CacheHelperService} from './core/services/common/cache-helper.service';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { AuthResolverService } from './core/services/common/auth-resolver.service';
+import { AuthService } from './core/services/common/auth.service';
+import { CacheHelperService } from './core/services/common/cache-helper.service';
 import { AuthzService } from '@perun-web-apps/perun/services';
 import { PerunPrincipal } from '@perun-web-apps/perun/models';
 import { environment } from '../environments/environment';
@@ -15,7 +14,6 @@ import { environment } from '../environments/environment';
 export class AppComponent implements OnInit {
 
   constructor(
-    translate: TranslateService,
     private authzService: AuthzService,
     private authResolver: AuthResolverService,
     private authService: AuthService,
@@ -26,7 +24,7 @@ export class AppComponent implements OnInit {
     this.getScreenSize(null);
   }
 
-  public static minWidth = 768;
+  public static minWidth = 992;
 
   sidebarMode: 'over' | 'push' | 'side' = 'side';
   lastScreenWidth: number;
