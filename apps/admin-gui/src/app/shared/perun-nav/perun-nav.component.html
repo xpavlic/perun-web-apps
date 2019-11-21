@@ -15,11 +15,13 @@
     <mat-icon>
       person
     </mat-icon>
+    <span class="d-none d-lg-inline">
     {{principal.user.titleBefore}}
     {{principal.user.firstName}}
     {{principal.user.middleName}}
     {{principal.user.lastName}}
     {{principal.user.titleAfter}}
+    </span>
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item>{{'NAV.LOGOUT' | translate}}</button>
