@@ -70,7 +70,8 @@ export class AppComponent implements OnInit {
     // 64 for nav (+48) when alert is shown
     // 210 for footer, 510 for footer on mobile
 
-    const footerSpace = this.isMobile() ? '510' : '210';
+    let footerSpace = this.isMobile() ? '510' : '210';
+    footerSpace = '0';
     return environment.production ? 'calc((100vh - 112px) + ' + footerSpace + 'px)' : 'calc((100vh - 64px) + ' + footerSpace + 'px)';
   }
 }
