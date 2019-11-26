@@ -86,7 +86,7 @@ export class AuthService {
   }
 
   getAuthorizationHeaderValue(): string {
-    return 'Bearer ' + this.user.access_token;
+    return !!this.user ? 'Bearer ' + this.user.access_token : '';
   }
 
   startAuthentication(): Promise<void> {
