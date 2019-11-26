@@ -40,6 +40,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   @Input()
   disableMembers: boolean;
 
+  @Input()
+  pageSize = 10;
+
   displayedColumns: string[] = ['select', 'id', 'vo', 'name', 'description', 'menu'];
   dataSource: MatTableDataSource<Group>;
 
