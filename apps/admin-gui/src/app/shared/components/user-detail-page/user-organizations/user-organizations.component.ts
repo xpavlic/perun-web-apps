@@ -2,6 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { UsersService } from '@perun-web-apps/perun/services';
 import { PerunPrincipal, Vo } from '@perun-web-apps/perun/models';
 import { AuthResolverService } from '../../../../core/services/common/auth-resolver.service';
+import { StoreService } from '../../../../core/services/common/store.service';
 
 @Component({
   selector: 'app-user-organizations',
@@ -14,7 +15,8 @@ export class UserOrganizationsComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private authResolver: AuthResolverService
+    private authResolver: AuthResolverService,
+    private store: StoreService
   ) {
   }
 
@@ -28,7 +30,7 @@ export class UserOrganizationsComponent implements OnInit {
   displayedColumns = ['id', 'name'];
 
   ngOnInit() {
-    this.principal = this.authResolver.getPerunPrincipal();
+    this.principal = this.store.getPerunPrincipal();
     this.userId = this.principal.user.id;
 
     this.refreshTable();

@@ -5,6 +5,7 @@ import {AppComponent} from '../../app.component';
 import {SideMenuItemService} from './side-menu-item.service';
 import {AuthResolverService} from '../../core/services/common/auth-resolver.service';
 import {rollInOut} from '../animations/Animations';
+import { StoreService } from '../../core/services/common/store.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -19,7 +20,8 @@ export class SideMenuComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
-    public authResolver: AuthResolverService
+    public authResolver: AuthResolverService,
+    private store: StoreService
   ) { }
 
   accessItems: SideMenuItem[] = [];
@@ -30,7 +32,7 @@ export class SideMenuComponent implements OnInit {
   accessItem = this.sideMenuItemService.getAccessManagementItem();
   adminItem = this.sideMenuItemService.getAdminItem();
   facilityItem = this.sideMenuItemService.getFacilitiesManagementItem();
-  userItem = this.sideMenuItemService.getUserItem(this.authResolver.getPerunPrincipal().user);
+  userItem = this.sideMenuItemService.getUserItem(this.store.getPerunPrincipal().user);
 
   @Input()
   sideNav: MatSidenav;
