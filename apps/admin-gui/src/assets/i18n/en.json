@@ -1036,6 +1036,18 @@
       "FILTER": "Filter by name or ID",
       "IS_ADMIN": "Organizations where you are admin",
       "IS_MEMBER": "Organizations where you are member"
+    },
+    "SETTINGS": {
+      "ATTRIBUTES": {
+        "TITLE": "Attributes",
+        "DELETE": "Remove selected",
+        "FILTER": "Filter by id, name, value or description",
+        "SAVE": "Save selected",
+        "CREATE": "Add...",
+        "CANCEL": "Cancel",
+        "SUCCESS_DELETE": "Attributes deleted successfully",
+        "SUCCESS_SAVE": "Attributes saved successfully"
+      }
     }
   },
   "SHARED": {

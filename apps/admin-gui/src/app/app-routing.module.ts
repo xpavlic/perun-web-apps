@@ -11,7 +11,7 @@ import {UserSettingsComponent} from './shared/components/user-detail-page/user-s
 import {
   UserSettingsOverviewComponent
 } from './shared/components/user-detail-page/user-settings/user-settings-overview/user-settings-overview.component';
-import {UserAttributesComponent} from './shared/components/user-detail-page/user-settings/user-attributes/user-attributes.component';
+import {UserSettingsAttributesComponent} from './shared/components/user-detail-page/user-settings/user-settings-attributes/user-settings-attributes.component';
 
 const routes: Routes = [
   {
@@ -69,7 +69,7 @@ const routes: Routes = [
           },
           {
             path: 'attributes',
-            component: UserAttributesComponent,
+            component: UserSettingsAttributesComponent,
             data: {animation: 'UserAttributesPage'}
           }
         ]

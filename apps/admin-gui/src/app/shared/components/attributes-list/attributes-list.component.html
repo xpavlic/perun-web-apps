@@ -2,8 +2,17 @@
   <div class="card-body">
     <app-table-options [exporter]="exporter" (start)="exporting = true" (end)="exporting = false"></app-table-options>
 
-    <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
-           class="w-100">
+    <table
+      [hiddenColumns]="[0]"
+      mat-table
+      matTableExporter
+      [dataSource]="dataSource"
+      #exporter="matTableExporter"
+      matSort
+      matSortActive="id"
+      matSortDirection="asc"
+      matSortDisableClear
+      class="w-100">
 
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
