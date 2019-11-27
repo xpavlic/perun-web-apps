@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import { Group, PerunPrincipal, Vo } from '@perun-web-apps/perun/models';
 import { GroupService, MembersService, UsersService } from '@perun-web-apps/perun/services';
-import { AuthResolverService } from '../../../../core/services/common/auth-resolver.service';
+import { StoreService } from '../../../../core/services/common/store.service';
 
 @Component({
   selector: 'app-user-groups',
@@ -21,11 +21,11 @@ export class UserGroupsComponent implements OnInit {
   constructor(private usersService: UsersService,
               private memberService: MembersService,
               private groupService: GroupService,
-              private authResolver: AuthResolverService) { }
+              private store: StoreService) { }
 
   ngOnInit() {
     this.loading = true;
-    this.principal = this.authResolver.getPerunPrincipal();
+    this.principal = this.store.getPerunPrincipal();
     this.refreshTable();
   }
 
