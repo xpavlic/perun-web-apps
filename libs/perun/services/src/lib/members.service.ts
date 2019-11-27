@@ -82,4 +82,17 @@ export class MembersService {
       user: userId
     }, showNotificationOnError);
   }
+
+  getMemberByUser(voId: number, userId: number, showNotificationOnError = true): Observable<Member> {
+    return this.apiService.post('json/membersManager/getMemberByUser', {
+      'vo': voId,
+      'user': userId
+    }, showNotificationOnError);
+  }
+
+  getRichMember(memberId: number, showNotificationOnError = true): Observable<RichMember> {
+    return this.apiService.post('json/membersManager/getRichMember', {
+      'id': memberId
+    }, showNotificationOnError);
+  }
 }
