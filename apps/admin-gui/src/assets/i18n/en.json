@@ -601,8 +601,12 @@
     "REMOVE_MEMBERS": {
       "TITLE": "Confirm removal",
       "DESCRIPTION": "Following members will be removed from VO and their settings will be lost.\n\nYou can consider changing their status to \"DISABLED\", which will prevent them from accessing VO resources.",
+      "DESCRIPTION_GROUP": "Following members will be removed from group. They will lose access to resources provided by this group.",
       "ASK": "Do you want to proceed?",
-      "SUCCESS": "Selected members were deleted"
+      "SUCCESS": "Selected members were deleted",
+      "SUCCESS_GROUP": "Selected members were removed",
+      "REMOVE": "Delete",
+      "REMOVE_GROUP": "Remove"
     },
     "REMOVE_RESOURCES": {
       "TITLE": "Confirm removal",
