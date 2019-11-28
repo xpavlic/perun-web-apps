@@ -26,7 +26,8 @@
     "update:check": "ng update",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "start-dev-admin-gui": "ng serve admin-gui --public-host=http://localhost:4200 --disable-host-check"
   },
   "private": true,
   "dependencies": {
