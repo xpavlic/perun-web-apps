@@ -16,8 +16,8 @@ export class NotificatorService {
   defaultAction: string;
   defaultRpcMessage: string;
 
-  defaultErrorDelayMs = 10_000;
-  defaultSuccessDelayMs = 6_000;
+  defaultErrorDelayMs = 5_000;
+  defaultSuccessDelayMs = 3_000;
 
   @Output()
   addNotification: EventEmitter<NotificationData> = new EventEmitter<NotificationData>();

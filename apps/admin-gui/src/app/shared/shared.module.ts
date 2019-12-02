@@ -155,6 +155,7 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { ReportIssueDialogComponent } from './components/report-issue-dialog/report-issue-dialog.component';
 import { RemoveVoDialogComponent } from './components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/create-vo-dialog.component';
+import { ShowNotificationHistoryDialogComponent } from './components/dialogs/show-notification-history-dialog/show-notification-history-dialog.component';
 
 @NgModule({
   imports: [
@@ -333,7 +334,8 @@ import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/c
     BugReportDialogComponent,
     ReportIssueDialogComponent,
     CreateVoDialogComponent,
-    RemoveVoDialogComponent
+    RemoveVoDialogComponent,
+    ShowNotificationHistoryDialogComponent
   ],
   declarations: [
     AttributesListComponent,
@@ -440,7 +442,8 @@ import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/c
     ReportIssueDialogComponent,
     RemoveVoDialogComponent,
     TableOptionsComponent,
-    CreateVoDialogComponent
+    CreateVoDialogComponent,
+    ShowNotificationHistoryDialogComponent
   ],
   providers: [
     AnyToStringPipe,

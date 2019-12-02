@@ -1,7 +1,8 @@
 {
   "NAV": {
     "LOGOUT": "Log out",
-    "PROFILE": "Profile"
+    "PROFILE": "Profile",
+    "NOTIFICATIONS_TOOLTIP": "Recent notifications"
   },
   "MAIN_MENU": {
     "ACCESS": "Access management",
@@ -179,7 +180,7 @@
         "SUCCESS_MESSAGE": "Settings saved.",
         "ERROR_MESSAGE": "Failed to save settings."
       },
-      "APPLICATION_FORM":{
+      "APPLICATION_FORM": {
         "TITLE": "Application form",
         "DRAG_AND_DROP_INFO": "You can move the table items by dragging them with the handle on the left side.",
         "ADD_BUTTON": "Add",
@@ -930,6 +931,11 @@
       "CONFIRM": "Delete",
       "WARNING": "This action will also delete all assigned values",
       "SUCCESS": "Selected attributes has been deleted successfully"
+    },
+    "NOTIFICATION_LIST": {
+      "TITLE": "Recent notifications",
+      "CANCEL": "Cancel",
+      "NO_NOTIFICATIONS_ALERT": "There are no recent notifications"
     }
   },
   "MEMBERS_LIST": {
