@@ -602,8 +602,12 @@
     "REMOVE_MEMBERS": {
       "TITLE": "Confirm removal",
       "DESCRIPTION": "Following members will be removed from VO and their settings will be lost.\n\nYou can consider changing their status to \"DISABLED\", which will prevent them from accessing VO resources.",
+      "DESCRIPTION_GROUP": "Following members will be removed from group. They will lose access to resources provided by this group.",
       "ASK": "Do you want to proceed?",
-      "SUCCESS": "Selected members were deleted"
+      "SUCCESS": "Selected members were deleted",
+      "SUCCESS_GROUP": "Selected members were removed",
+      "REMOVE": "Delete",
+      "REMOVE_GROUP": "Remove"
     },
     "REMOVE_RESOURCES": {
       "TITLE": "Confirm removal",
@@ -1036,6 +1040,24 @@
       "USER_ID": "User ID",
       "USER_TYPE": "User type",
       "EDIT_NAME": "Edit name"
+    },
+    "ORGANIZATIONS": {
+      "TITLE": "User organizations",
+      "FILTER": "Filter by name or ID",
+      "IS_ADMIN": "Organizations where you are admin",
+      "IS_MEMBER": "Organizations where you are member"
+    },
+    "SETTINGS": {
+      "ATTRIBUTES": {
+        "TITLE": "Attributes",
+        "DELETE": "Remove selected",
+        "FILTER": "Filter by id, name, value or description",
+        "SAVE": "Save selected",
+        "CREATE": "Add...",
+        "CANCEL": "Cancel",
+        "SUCCESS_DELETE": "Attributes deleted successfully",
+        "SUCCESS_SAVE": "Attributes saved successfully"
+      }
     }
   },
   "SHARED": {
@@ -1057,6 +1079,7 @@
       },
       "GROUPS_LIST": {
         "TABLE_GROUP_ID": "Id",
+        "TABLE_VO_NAME": "Vo",
         "TABLE_GROUP_NAME": "Name",
         "TABLE_SEARCH": "Filter by name, description or ID",
         "TABLE_GROUP_DESCRIPTION": "Description"
@@ -1084,6 +1107,12 @@
         "GROUP": "Group",
         "NO_MANAGERS": "This role has no managers.",
         "NO_GROUP_MANAGERS": "This role has no group managers."
+      },
+      "USER_DETAIL": {
+        "GROUPS": {
+          "MEMBER_GROUPS": "Member groups",
+          "ADMINS_GROUPS": "Groups where user is admin"
+        }
       }
     },
     "FOOTER": {

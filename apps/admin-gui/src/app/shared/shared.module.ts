@@ -137,7 +137,7 @@ import {UserOverviewComponent} from './components/user-detail-page/user-overview
 import {UserGroupsComponent} from './components/user-detail-page/user-groups/user-groups.component';
 import {UserSettingsComponent} from './components/user-detail-page/user-settings/user-settings.component';
 import {UserOrganizationsComponent} from './components/user-detail-page/user-organizations/user-organizations.component';
-import {UserAttributesComponent} from './components/user-detail-page/user-settings/user-attributes/user-attributes.component';
+import {UserSettingsAttributesComponent} from './components/user-detail-page/user-settings/user-settings-attributes/user-settings-attributes.component';
 import {
   UserSettingsOverviewComponent
 } from './components/user-detail-page/user-settings/user-settings-overview/user-settings-overview.component';
@@ -156,6 +156,7 @@ import { ReportIssueDialogComponent } from './components/report-issue-dialog/rep
 import { RemoveVoDialogComponent } from './components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/create-vo-dialog.component';
 import { ShowNotificationHistoryDialogComponent } from './components/dialogs/show-notification-history-dialog/show-notification-history-dialog.component';
+import { VoSelectTableComponent } from './components/vo-select-table/vo-select-table.component';
 
 @NgModule({
   imports: [
@@ -296,7 +297,8 @@ import { ShowNotificationHistoryDialogComponent } from './components/dialogs/sho
     UserDetailComponent,
     UserDetailPageComponent,
     PerunFooterComponent,
-    TableOptionsComponent
+    TableOptionsComponent,
+    VoSelectTableComponent
   ],
   entryComponents: [
     CreateGroupDialogComponent,
@@ -426,7 +428,7 @@ import { ShowNotificationHistoryDialogComponent } from './components/dialogs/sho
     UserGroupsComponent,
     UserSettingsComponent,
     UserOrganizationsComponent,
-    UserAttributesComponent,
+    UserSettingsAttributesComponent,
     UserSettingsOverviewComponent,
     ResourcesTagsListComponent,
     DebounceFilterComponent,
@@ -443,7 +445,8 @@ import { ShowNotificationHistoryDialogComponent } from './components/dialogs/sho
     RemoveVoDialogComponent,
     TableOptionsComponent,
     CreateVoDialogComponent,
-    ShowNotificationHistoryDialogComponent
+    ShowNotificationHistoryDialogComponent,
+    VoSelectTableComponent
   ],
   providers: [
     AnyToStringPipe,

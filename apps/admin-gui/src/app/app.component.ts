@@ -5,6 +5,7 @@ import { CacheHelperService } from './core/services/common/cache-helper.service'
 import { AuthzService } from '@perun-web-apps/perun/services';
 import { PerunPrincipal } from '@perun-web-apps/perun/models';
 import { environment } from '../environments/environment';
+import { StoreService } from './core/services/common/store.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
     private authzService: AuthzService,
     private authResolver: AuthResolverService,
     private authService: AuthService,
-    private cache: CacheHelperService
+    private cache: CacheHelperService,
+    private store: StoreService
   ) {
 
     this.cache.init();
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.isProduction = environment.production;
-    this.principal = this.authResolver.getPerunPrincipal();
+    this.principal = this.store.getPerunPrincipal();
   }
 
   getTopGap() {

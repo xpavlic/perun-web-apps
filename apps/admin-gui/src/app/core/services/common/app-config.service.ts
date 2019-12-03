@@ -5,7 +5,6 @@ import { environment } from '../../../../environments/environment';
 import { StoreService } from './store.service';
 import { AuthResolverService } from './auth-resolver.service';
 import { AuthzService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,7 @@ export class AppConfigService {
               private authService: AuthService,
               private storeService: StoreService,
               private authResolver: AuthResolverService,
-              private authzService: AuthzService,
-              private translate: TranslateService) {}
+              private authzService: AuthzService) {}
 
   loadConfigs(): Promise<void> {
     return this.loadAppDefaultConfig()
@@ -100,7 +98,8 @@ export class AppConfigService {
     return this.authzService.getPerunPrincipal()
       .toPromise()
       .then(perunPrincipal => {
-      this.authResolver.setPerunPrincipal(perunPrincipal);
+        this.storeService.setPerunPrincipal(perunPrincipal);
+        this.authResolver.init(perunPrincipal);
     });
   }
 

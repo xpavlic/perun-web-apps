@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PerunPrincipal } from '@perun-web-apps/perun/models';
 
 /**
  * Class that just store data about instance and default configuration.
@@ -11,6 +12,7 @@ export class StoreService {
 
   private instanceConfig;
   private defaultConfig;
+  private principal: PerunPrincipal;
 
   constructor() { }
 
@@ -20,6 +22,14 @@ export class StoreService {
 
   setDefaultConfig(defaultConfig: any) {
     this.defaultConfig = defaultConfig;
+  }
+
+  setPerunPrincipal(principal: PerunPrincipal): void {
+    this.principal = principal;
+  }
+
+  getPerunPrincipal(): PerunPrincipal {
+    return this.principal;
   }
 
   /**
