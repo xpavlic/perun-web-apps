@@ -74,6 +74,7 @@ import {
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { VoSettingsExtsourcesComponent } from './pages/vo-detail-page/vo-settings/vo-settings-extsources/vo-settings-extsources.component';
 
 @NgModule({
   imports: [
@@ -138,7 +139,8 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     ExpirationSettingsComponent,
     GroupSettingsManagersComponent,
     GroupSettingsNotificationsComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    VoSettingsExtsourcesComponent
   ],
   entryComponents: [
   ],
