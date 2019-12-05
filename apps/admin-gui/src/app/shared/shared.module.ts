@@ -155,6 +155,7 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { ReportIssueDialogComponent } from './components/report-issue-dialog/report-issue-dialog.component';
 import { RemoveVoDialogComponent } from './components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/create-vo-dialog.component';
+import { ShowNotificationHistoryDialogComponent } from './components/dialogs/show-notification-history-dialog/show-notification-history-dialog.component';
 import { VoSelectTableComponent } from './components/vo-select-table/vo-select-table.component';
 
 @NgModule({
@@ -335,7 +336,8 @@ import { VoSelectTableComponent } from './components/vo-select-table/vo-select-t
     BugReportDialogComponent,
     ReportIssueDialogComponent,
     CreateVoDialogComponent,
-    RemoveVoDialogComponent
+    RemoveVoDialogComponent,
+    ShowNotificationHistoryDialogComponent
   ],
   declarations: [
     AttributesListComponent,
@@ -443,6 +445,7 @@ import { VoSelectTableComponent } from './components/vo-select-table/vo-select-t
     RemoveVoDialogComponent,
     TableOptionsComponent,
     CreateVoDialogComponent,
+    ShowNotificationHistoryDialogComponent,
     VoSelectTableComponent
   ],
   providers: [

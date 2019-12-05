@@ -10,7 +10,14 @@
     <img src="assets/img/PerunWebImages/perun_logo-white.svg" alt="Home">
   </a>
 </div>
+
 <div id="nav-menu-user-info">
+  <button mat-icon-button (click)="showNotificationHistory()" [matTooltip]="'NAV.NOTIFICATIONS_TOOLTIP'|translate">
+    <mat-icon>
+      {{hasNotifications() ? 'notifications_active' : 'notifications'}}
+    </mat-icon>
+  </button>
+
   <button mat-button [matMenuTriggerFor]="menu">
     <mat-icon>
       person
