@@ -476,6 +476,11 @@ export class SideMenuItemService {
             label: 'MENU_ITEMS.VO.NOTIFICATIONS',
             url: [`/organizations/${vo.id}/settings/notifications`],
             activatedRegex: '/organizations/\\d+/settings/notifications$'
+          },
+          {
+            label: 'MENU_ITEMS.VO.EXTSOURCES',
+            url: [`/organizations/${vo.id}/settings/extsources`],
+            activatedRegex: '/organizations/\\d+/settings/extsources$'
           }
         ],
         showChildrenRegex: '/organizations/\\d+/settings'

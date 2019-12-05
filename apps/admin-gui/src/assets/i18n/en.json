@@ -448,7 +448,8 @@
       "EXPIRATION": "Membership",
       "MANAGERS": "Managers",
       "APPLICATION_FORM": "Application form",
-      "NOTIFICATIONS": "Notifications"
+      "NOTIFICATIONS": "Notifications",
+      "EXTSOURCES": "External sources"
     },
     "FACILITY": {
       "OVERVIEW": "Overview",
