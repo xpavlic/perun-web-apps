@@ -124,12 +124,12 @@ button:focus {
 }
 
 .dark-item-activated {
-  border-left: 5px solid #ffffff;
+  //border-left: 5px solid #ffffff;
   font-weight: 500;
-  background-color: rgba(255, 255, 255, 0.10) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.15) !important;
+    //background-color: rgba(255, 255, 255, 0.15) !important;
   }
 }
 .vo-item-activated {
@@ -209,7 +209,7 @@ button:focus {
 }
 
 .dark-item-links a:hover {
-  background-color: rgba(255, 255, 255, 0.15) !important;
+  //background-color: rgba(255, 255, 255, 0.15) !important;
 }
 .vo-item-links a:hover {
   color: $vo-color !important;
@@ -501,7 +501,7 @@ button:focus {
 
 .dark-hover-list-item {
   &:hover {
-    background-color: rgba(0, 0, 0, .05);
+    //background-color: rgba(0, 0, 0, .05);
   }
 }
 
@@ -865,7 +865,7 @@ button:focus {
 }
 
 .mat-drawer-inner-container {
-  background-color: mat-color($mat-blue-grey, 900);
+  //background-color: mat-color($mat-blue-grey, 900);
 }
 
 .filter-field {
@@ -888,6 +888,15 @@ button:focus {
   border: none !important;
 }
 
-.mat-drawer-side {
-  border-right: solid 1px #071e24 !important;
+// this allows custom colors for perun icons used in material icons
+.perun-icon {
+  path {
+    fill: currentColor;
+  }
+  rect {
+    fill: currentColor;
+  }
+  polygon {
+    fill: currentColor;
+  }
 }

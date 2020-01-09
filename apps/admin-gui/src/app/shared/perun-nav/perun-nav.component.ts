@@ -17,10 +17,13 @@ export class PerunNavComponent implements OnInit {
   constructor(private storeService: StoreService,
               private authService: AuthService,
               private dialog: MatDialog,
+              private store: StoreService,
               private notificationStorageService: NotificationStorageService) {
   }
 
   logoutEnabled = true;
+  navTextColor = this.store.get('theme', 'nav_text_color');
+  iconColor = this.store.get('theme', 'nav_icon_color');
 
   @Input()
   sideNav: MatSidenav;
