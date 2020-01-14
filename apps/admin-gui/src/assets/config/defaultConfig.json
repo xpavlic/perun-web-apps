@@ -42,6 +42,7 @@
     "sidemenu_border_color": "#071e24",
     "sidemenu_item_links_bg_color": "#39444a",
     "sidemenu_item_icon_color": "#ffffff",
+    "sidemenu_text_color":"#ffffff",
     "sidemenu_vo_bg_color":"#283593",
     "sidemenu_member_bg_color": "#ad1457",
     "sidemenu_group_bg_color":"#33691e",
@@ -49,12 +50,18 @@
     "sidemenu_resource_bg_color":"#6a1b9a",
     "sidemenu_user_bg_color": "#000000",
     "sidemenu_item_links_text_color": "#ffffff",
-    "sidemenu_text_color":"#ffffff",
     "sidemenu_vo_text_color": "#ffffff",
     "sidemenu_member_text_color":"#ffffff",
     "sidemenu_group_text_color": "#ffffff",
     "sidemenu_facility_text_color":"#ffffff",
     "sidemenu_resource_text_color": "#ffffff",
-    "sidemenu_user_text_color":"#ffffff"
+    "sidemenu_user_text_color":"#ffffff",
+    "vo_color": "#283593",
+    "group_color": "#33691e",
+    "facility_color": "#d84315",
+    "resource_color": "#6a1b9a",
+    "user_color": "#00796b",
+    "member_color": "#ad1457",
+    "admin_color": "#c62828"
   }
 }

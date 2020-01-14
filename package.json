@@ -57,6 +57,7 @@
     "mat-table-exporter": "^1.2.2",
     "oidc-client": "^1.9.1",
     "rxjs": "~6.4.0",
+    "tinycolor2": "^1.4.1",
     "zone.js": "^0.9.1"
   },
   "devDependencies": {

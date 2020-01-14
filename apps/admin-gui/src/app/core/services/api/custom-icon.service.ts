@@ -43,6 +43,74 @@ export class CustomIconService {
       url: 'assets/img/PerunWebImages/group-white.svg',
       name: 'perun-group'
     },
+    {
+      url: 'assets/img/PerunWebImages/attributes-white.svg',
+      name: 'perun-attributes'
+    },
+    {
+      url: 'assets/img/PerunWebImages/preview-white.svg',
+      name: 'perun-preview'
+    },
+    {
+      url: 'assets/img/PerunWebImages/module_dependencies.svg',
+      name: 'perun-module-dependencies'
+    },
+    {
+      url: 'assets/img/PerunWebImages/user_destination_relationship.svg',
+      name: 'perun-user-destination-relationship'
+    },
+    {
+      url: 'assets/img/PerunWebImages/settings2-white.svg',
+      name: 'perun-settings2'
+    },
+    {
+      url: 'assets/img/PerunWebImages/attributes-white.svg',
+      name: 'perun-attributes'
+    },
+    {
+      url: 'assets/img/PerunWebImages/applications-white.svg',
+      name: 'perun-applications'
+    },
+    {
+      url: 'assets/img/PerunWebImages/manager-white.svg',
+      name: 'perun-manager'
+    },
+    {
+      url: 'assets/img/PerunWebImages/application_form-white.svg',
+      name: 'perun-application-form'
+    },
+    {
+      url: 'assets/img/PerunWebImages/notification-white.svg',
+      name: 'perun-notification'
+    },
+    {
+      url: 'assets/img/PerunWebImages/invite_member-white.svg',
+      name: 'perun-invite-member'
+    },
+    {
+      url: 'assets/img/PerunWebImages/service_identity-white.svg',
+      name: 'perun-service-identity'
+    },
+    {
+      url: 'assets/img/PerunWebImages/create1-white.svg',
+      name: 'perun-create1'
+    },
+    {
+      url: 'assets/img/PerunWebImages/resource-white.svg',
+      name: 'perun-resource'
+    },
+    {
+      url: 'assets/img/PerunWebImages/resource_tags-white.svg',
+      name: 'perun-resource-tags'
+    },
+    {
+      url: 'assets/img/PerunWebImages/resources_state-white.svg',
+      name: 'perun-resources-state'
+    },
+    {
+      url: 'assets/img/PerunWebImages/external_sources-white.svg',
+      name: 'perun-external-sources'
+    },
   ];
 
   registerPerunRefreshIcon() {

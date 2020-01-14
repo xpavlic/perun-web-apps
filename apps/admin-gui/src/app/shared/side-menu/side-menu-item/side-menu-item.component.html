@@ -7,7 +7,7 @@
     <div class="entity-menu-item-link {{item.labelClass}}" matRipple>
       <a class="entity-menu-item-label" [ngStyle]="{'color': item.textColorCss}">
         <div>
-          <mat-icon [ngStyle]="{'color': iconColor}" [svgIcon]="item.icon" class="perun-icon"></mat-icon>
+          <mat-icon [ngStyle]="{'color': 'currentColor'}" [svgIcon]="item.icon" class="perun-icon"></mat-icon>
         </div>
         <div class="ml-3">{{item.label | translate}}</div>
       </a>
