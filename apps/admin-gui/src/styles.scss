@@ -473,9 +473,9 @@ button:focus {
 
 .dark-item-activated {
   //border-left: 5px solid #ffffff;
-  font-weight: 500;
-  background-color: rgba(255, 255, 255, 0.08) !important;
-
+  font-weight: 600;
+  //background-color: rgba(255, 255, 255, 0.08) !important;
+  text-decoration: underline !important;
   &:hover {
     //background-color: rgba(255, 255, 255, 0.15) !important;
   }
@@ -653,6 +653,8 @@ button:focus {
   z-index: 999;
   display: flex;
   justify-content: space-between;
+  height: 64px;
+  max-height: 64px;
   //display: table;
 }
 
