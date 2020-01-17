@@ -7,7 +7,7 @@
     "ng": "ng",
     "nx": "nx",
     "start": "ng serve",
-    "build": "npm run ng-openapi-gen && npm run ng -- build",
+    "build": "ng build",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
