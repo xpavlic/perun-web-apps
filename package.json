@@ -47,7 +47,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@nrwl/angular": "8.11.1",
-    "@swimlane/ngx-charts": "^13.0.2",
+    "@swimlane/ngx-charts": "^12.0.1",
     "@swimlane/ngx-graph": "^6.2.0",
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.4",
