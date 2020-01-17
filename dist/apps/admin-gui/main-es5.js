@@ -38982,7 +38982,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(
     /*! @swimlane/ngx-charts */
-    "../../node_modules/@swimlane/ngx-charts/fesm2015/swimlane-ngx-charts.js");
+    "../../node_modules/@swimlane/ngx-charts/release/esm.js");
     /* harmony import */
 
 
