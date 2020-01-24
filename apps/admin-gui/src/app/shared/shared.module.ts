@@ -164,6 +164,7 @@ import { RemoveRelationDialogComponent } from './components/dialogs/remove-relat
 import { ChangeMemberStatusDialogComponent } from './components/dialogs/change-member-status-dialog/change-member-status-dialog.component';
 import { RemoveGroupFromResourceDialogComponent } from './components/dialogs/remove-group-from-resource-dialog/remove-group-from-resource-dialog.component';
 import { AssignGroupToResourceDialogComponent } from './components/dialogs/assign-group-to-resource-dialog/assign-group-to-resource-dialog.component';
+import { CreateResourceDialogComponent } from './components/dialogs/create-resource-dialog/create-resource-dialog.component';
 import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
 
 @NgModule({
@@ -308,6 +309,7 @@ import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
     PerunFooterComponent,
     TableOptionsComponent,
     VoSelectTableComponent,
+    CreateResourceDialogComponent,
     ExtSourcesListComponent,
     ExtSourceTypePipe
   ],
@@ -354,7 +356,8 @@ import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
     ChangeMemberStatusDialogComponent,
     ChangeMemberStatusDialogComponent,
     RemoveGroupFromResourceDialogComponent,
-    AssignGroupToResourceDialogComponent
+    AssignGroupToResourceDialogComponent,
+    CreateResourceDialogComponent
   ],
   declarations: [
     AttributesListComponent,
@@ -470,6 +473,7 @@ import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
     ChangeMemberStatusDialogComponent,
     RemoveGroupFromResourceDialogComponent,
     AssignGroupToResourceDialogComponent,
+    CreateResourceDialogComponent,
     VoSelectTableComponent,
     ExtSourcesListComponent,
     AddExtSourceDialogComponent,
