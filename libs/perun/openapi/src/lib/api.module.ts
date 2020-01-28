@@ -1,71 +1,59 @@
-/* tslint:disable */
 import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core';
+import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
-import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { UtilsService } from './services/utils.service';
-import { AuthzResolverService } from './services/authz-resolver.service';
-import { AttributesManagerService } from './services/attributes-manager.service';
-import { DatabaseManagerService } from './services/database-manager.service';
-import { ExtSourcesManagerService } from './services/ext-sources-manager.service';
-import { UsersManagerService } from './services/users-manager.service';
-import { MembersManagerService } from './services/members-manager.service';
-import { FacilitiesManagerService } from './services/facilities-manager.service';
-import { OwnersManagerService } from './services/owners-manager.service';
-import { GroupsManagerService } from './services/groups-manager.service';
-import { ResourcesManagerService } from './services/resources-manager.service';
-import { VosManagerService } from './services/vos-manager.service';
-import { RegistrarManagerService } from './services/registrar-manager.service';
-import { ServicesManagerService } from './services/services-manager.service';
 
-/**
- * Module that provides all services and configuration.
- */
+import { AttributesManagerService } from './api/attributesManager.service';
+import { AuthzResolverService } from './api/authzResolver.service';
+import { DatabaseManagerService } from './api/databaseManager.service';
+import { ExtSourcesManagerService } from './api/extSourcesManager.service';
+import { FacilitiesManagerService } from './api/facilitiesManager.service';
+import { GroupsManagerService } from './api/groupsManager.service';
+import { MembersManagerService } from './api/membersManager.service';
+import { OwnersManagerService } from './api/ownersManager.service';
+import { RegistrarManagerService } from './api/registrarManager.service';
+import { ResourcesManagerService } from './api/resourcesManager.service';
+import { ServicesManagerService } from './api/servicesManager.service';
+import { UsersManagerService } from './api/usersManager.service';
+import { UtilsService } from './api/utils.service';
+import { VosManagerService } from './api/vosManager.service';
+
 @NgModule({
-  imports: [],
-  exports: [],
+  imports:      [],
   declarations: [],
+  exports:      [],
   providers: [
-    UtilsService,
-    AuthzResolverService,
     AttributesManagerService,
+    AuthzResolverService,
     DatabaseManagerService,
     ExtSourcesManagerService,
-    UsersManagerService,
-    MembersManagerService,
     FacilitiesManagerService,
-    OwnersManagerService,
     GroupsManagerService,
-    ResourcesManagerService,
-    VosManagerService,
+    MembersManagerService,
+    OwnersManagerService,
     RegistrarManagerService,
+    ResourcesManagerService,
     ServicesManagerService,
-    ApiConfiguration
-  ],
+    UsersManagerService,
+    UtilsService,
+    VosManagerService ]
 })
 export class ApiModule {
-  static forRoot(params: ApiConfigurationParams): ModuleWithProviders {
-    return {
-      ngModule: ApiModule,
-      providers: [
-        {
-          provide: ApiConfiguration,
-          useValue: params
-        }
-      ]
+    public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {
+        return {
+            ngModule: ApiModule,
+            providers: [ { provide: Configuration, useFactory: configurationFactory } ]
+        };
     }
-  }
 
-  constructor( 
-    @Optional() @SkipSelf() parentModule: ApiModule,
-    @Optional() http: HttpClient
-  ) {
-    if (parentModule) {
-      throw new Error('ApiModule is already loaded. Import in your base AppModule only.');
+    constructor( @Optional() @SkipSelf() parentModule: ApiModule,
+                 @Optional() http: HttpClient) {
+        if (parentModule) {
+            throw new Error('ApiModule is already loaded. Import in your base AppModule only.');
+        }
+        if (!http) {
+            throw new Error('You need to import the HttpClientModule in your AppModule! \n' +
+            'See also https://github.com/angular/angular/issues/20575');
+        }
     }
-    if (!http) {
-      throw new Error('You need to import the HttpClientModule in your AppModule! \n' +
-      'See also https://github.com/angular/angular/issues/20575');
-    }
-  }
 }

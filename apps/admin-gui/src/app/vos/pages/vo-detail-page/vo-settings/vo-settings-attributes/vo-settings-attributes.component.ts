@@ -1,4 +1,3 @@
-import {SideMenuService} from '../../../../../core/services/common/side-menu.service';
 import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
@@ -12,9 +11,8 @@ import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {AttributesListComponent} from '../../../../../shared/components/attributes-list/attributes-list.component';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import { AttributesService, VoService } from '@perun-web-apps/perun/services';
-import { Attribute } from '@perun-web-apps/perun/models';
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-vo-settings-attributes',
@@ -25,9 +23,7 @@ export class VoSettingsAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private attributesService: AttributesService,
-              private sideMenuService: SideMenuService,
-              private voService: VoService,
+  constructor(private attributesManager: AttributesManagerService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
@@ -93,8 +89,8 @@ export class VoSettingsAttributesComponent implements OnInit {
   onSave() {
     // have to use this to update attribute with map in it, before saving it
     this.list.updateMapAttributes();
-    this.attributesService.setAttributes(this.voId, 'vo', this.selection.selected).subscribe(() => {
-      this.attributesService.getAllAttributes(this.voId, 'vo').subscribe(attributes => {
+    this.attributesManager.setVoAttributes({vo: this.voId, attributes: this.selection.selected}).subscribe( () => {
+      this.attributesManager.getVoAttributes(this.voId).subscribe(attributes => {
         this.attributes = filterCoreAttributes(attributes);
         this.notificator.showSuccess(this.saveSuccessMessage);
         this.selection.clear();
@@ -104,7 +100,7 @@ export class VoSettingsAttributesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.attributesService.getAllAttributes(this.voId, 'vo').subscribe(attributes => {
+    this.attributesManager.getVoAttributes(this.voId).subscribe(attributes => {
       this.attributes = filterCoreAttributes(attributes);
       this.selection.clear();
       this.loading = false;

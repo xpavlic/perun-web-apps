@@ -1,16 +1,15 @@
 import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AttributesService } from '@perun-web-apps/perun/services';
 import { NotificatorService } from '../../../../../core/services/common/notificator.service';
 import { MatDialog } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { AttributesListComponent } from '../../../attributes-list/attributes-list.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Attribute } from '@perun-web-apps/perun/models';
 import { CreateAttributeDialogComponent } from '../../../dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
 import { DeleteAttributeDialogComponent } from '../../../dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { StoreService } from '../../../../../core/services/common/store.service';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-user-settings-attributes',
@@ -23,7 +22,7 @@ export class UserSettingsAttributesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private attributesService: AttributesService,
+    private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
     private dialog: MatDialog,
     private translate: TranslateService,
@@ -77,8 +76,8 @@ export class UserSettingsAttributesComponent implements OnInit {
   onSave() {
     // have to use this to update attribute with map in it, before saving it
     this.list.updateMapAttributes();
-    this.attributesService.setAttributes(this.userId, 'user', this.selection.selected).subscribe(() => {
-      this.attributesService.getAllAttributes(this.userId, 'user').subscribe(attributes => {
+    this.attributesManager.setUserAttributes({user: this.userId, attributes: this.selection.selected}).subscribe(() => {
+      this.attributesManager.getUserAttributes(this.userId).subscribe(attributes => {
         this.attributes = filterCoreAttributes(attributes);
         this.notificator.showSuccess(this.saveSuccessMessage);
         this.selection.clear();
@@ -106,7 +105,7 @@ export class UserSettingsAttributesComponent implements OnInit {
   refreshTable() {
     // TODO Does not apply filter on refresh.
     this.loading = true;
-    this.attributesService.getAllAttributes(this.userId, 'user').subscribe(attributes => {
+    this.attributesManager.getUserAttributes(this.userId).subscribe(attributes => {
       this.attributes = filterCoreAttributes(attributes);
       this.selection.clear();
       this.loading = false;

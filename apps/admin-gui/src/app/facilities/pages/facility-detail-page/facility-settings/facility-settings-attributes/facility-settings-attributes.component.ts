@@ -1,5 +1,4 @@
 import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
-import {SideMenuService} from '../../../../../core/services/common/side-menu.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
@@ -12,9 +11,8 @@ import {
 import {
   CreateAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
-import { AttributesService, FacilityService } from '@perun-web-apps/perun/services';
-import { Attribute } from '@perun-web-apps/perun/models';
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-facility-settings-attributes',
@@ -25,9 +23,7 @@ export class FacilitySettingsAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private attributesService: AttributesService,
-              private sideMenuService: SideMenuService,
-              private facility: FacilityService,
+  constructor(private attributesManager: AttributesManagerService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
@@ -75,8 +71,8 @@ export class FacilitySettingsAttributesComponent implements OnInit {
   onSave() {
     // have to use this to update attribute with map in it, before saving it
     this.list.updateMapAttributes();
-    this.attributesService.setAttributes(this.facilityId, 'facility', this.selection.selected).subscribe(() => {
-      this.attributesService.getAllAttributes(this.facilityId, 'facility').subscribe(attributes => {
+    this.attributesManager.setFacilityAttributes({facility: this.facilityId, attributes: this.selection.selected}).subscribe(() => {
+      this.attributesManager.getFacilityAttributes(this.facilityId).subscribe(attributes => {
         this.attributes = filterCoreAttributes(attributes);
         this.notificator.showSuccess(this.saveSuccessMessage);
         this.selection.clear();
@@ -104,7 +100,7 @@ export class FacilitySettingsAttributesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.attributesService.getAllAttributes(this.facilityId, 'facility').subscribe(attributes => {
+    this.attributesManager.getFacilityAttributes(this.facilityId).subscribe(attributes => {
       this.attributes = filterCoreAttributes(attributes);
       this.selection.clear();
       this.loading = false;

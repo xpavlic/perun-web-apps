@@ -4,6 +4,7 @@ import {NotificatorService} from '../../../../core/services/common/notificator.s
 import {TranslateService} from '@ngx-translate/core';
 import { AttrEntity, Attribute } from '@perun-web-apps/perun/models';
 import { AttributesService } from '@perun-web-apps/perun/services';
+import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DeleteAttributeDialogData {
   entityId: number;

@@ -2,9 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
-import { AttributesService } from '@perun-web-apps/perun/services';
-import { Attribute } from '@perun-web-apps/perun/models';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface ApplicationFormEmailFooterDialogData {
   voId: number;
@@ -19,7 +18,7 @@ export interface ApplicationFormEmailFooterDialogData {
 export class EditEmailFooterDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<EditEmailFooterDialogComponent>,
-              private attributesService: AttributesService,
+              private attributesManager: AttributesManagerService,
               private translateService: TranslateService,
               private notificator: NotificatorService,
               @Inject(MAT_DIALOG_DATA) public data: ApplicationFormEmailFooterDialogData) { }
@@ -32,13 +31,14 @@ export class EditEmailFooterDialogComponent implements OnInit {
   }
 
   submit() {
+    // @ts-ignore
     this.mailAttribute.value = this.mailFooter;
     if (this.data.groupId) {
-      this.attributesService.setAttributes(this.data.groupId, 'group', [this.mailAttribute]).subscribe( () => {
+      this.attributesManager.setGroupAttribute({group: this.data.groupId, attribute: this.mailAttribute}).subscribe(() => {
         this.notificateSuccess();
       });
     } else {
-      this.attributesService.setAttributes(this.data.voId, 'vo', [this.mailAttribute]).subscribe( () => {
+      this.attributesManager.setVoAttribute({vo: this.data.voId, attribute: this.mailAttribute}).subscribe(() => {
         this.notificateSuccess();
       });
     }
@@ -50,12 +50,12 @@ export class EditEmailFooterDialogComponent implements OnInit {
   }
 
   getFooterForVo() {
-    this.attributesService.getAttributes(this.data.voId,
-      'vo',
-      [Urns.VO_DEF_MAIL_FOOTER]).subscribe( footer => {
-      this.mailAttribute = footer[0];
-      if (footer[0].value) {
-        this.mailFooter = footer[0].value;
+    this.attributesManager.getVoAttributeByName(this.data.voId,
+      Urns.VO_DEF_MAIL_FOOTER).subscribe( footer => {
+      this.mailAttribute = footer;
+      if (footer.value) {
+        // @ts-ignore
+        this.mailFooter = footer.value;
       } else {
         this.mailFooter = '';
       }
@@ -63,17 +63,15 @@ export class EditEmailFooterDialogComponent implements OnInit {
   }
 
   getFooterForGroup() {
-    this.attributesService.getAttributes(this.data.groupId,
-      'group',
-      [Urns.GROUP_DEF_MAIL_FOOTER]).subscribe( footer => {
-
-      this.mailAttribute = footer[0];
-      if (footer[0].value) {
-        this.mailFooter = footer[0].value;
+    this.attributesManager.getGroupAttributeByName(this.data.groupId,
+      Urns.GROUP_DEF_MAIL_FOOTER).subscribe(footer => {
+      this.mailAttribute = footer;
+      if (footer.value) {
+        // @ts-ignore
+        this.mailFooter = footer.value;
       } else {
         this.mailFooter = '';
       }
-
     });
   }
 

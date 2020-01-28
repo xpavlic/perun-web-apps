@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
+import { ActionType, AttributeRights, Role } from '@perun-web-apps/perun/models';
+import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { AttributesService } from '@perun-web-apps/perun/services';
-import { ActionType, AttributeDefinition, AttributeRights, Role } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-create-attribute-definition-dialog',
@@ -15,7 +16,8 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
               private notificator: NotificatorService,
               private translate: TranslateService,
-              private attributeService: AttributesService) {
+              private attributeService: AttributesService,
+              private attributesManager: AttributesManagerService) {
   }
 
   attDef: AttributeDefinition;
@@ -44,13 +46,11 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
 
   ngOnInit() {
     this.attDef = {
-      baseFriendlyName: '',
       beanName: '',
       description: '',
       displayName: '',
       entity: '',
       friendlyName: '',
-      friendlyNameParameter: '',
       id: undefined,
       namespace: '',
       type: '',
@@ -62,7 +62,7 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
   onSubmit() {
     this.attDef.namespace = 'urn:perun:' + this.attDef.entity + ':attribute-def:' + this.definitionType;
     this.readValueType();
-    this.attributeService.createAttributeDefinition(this.attDef).subscribe(attDef => {
+    this.attributesManager.createAttributeDefinition({attribute: this.attDef}).subscribe(attDef => {
       this.attDef = attDef;
       this.attributeService.setAttributesRights(this.readRights()).subscribe(() => {
         this.translate.get('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS').subscribe(successMessage => {

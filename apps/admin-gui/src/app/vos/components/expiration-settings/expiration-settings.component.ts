@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {openClose} from '../../../shared/animations/Animations';
-import { Attribute } from '@perun-web-apps/perun/models';
+import { Attribute } from '@perun-web-apps/perun/openapi';
 
 export class ExpirationAttrValue {
   period: string;

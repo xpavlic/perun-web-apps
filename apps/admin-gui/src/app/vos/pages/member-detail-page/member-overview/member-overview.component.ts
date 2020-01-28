@@ -2,10 +2,11 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute} from '@angular/router';
 import {MenuItem} from '../../../../shared/models/MenuItem';
-import { AttributesService, MembersService } from '@perun-web-apps/perun/services';
+import { MembersService } from '@perun-web-apps/perun/services';
 import { RichMember } from '@perun-web-apps/perun/models';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { parseFullName, parseStatusColor, parseStatusIcon } from '@perun-web-apps/perun/utils';
+import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-member-overview',
@@ -18,7 +19,7 @@ export class MemberOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(
-    private attributeService: AttributesService,
+    private attributesManager: AttributesManagerService,
     private membersService: MembersService,
     private translate: TranslateService,
     private route: ActivatedRoute
@@ -44,7 +45,7 @@ export class MemberOverviewComponent implements OnInit {
 
         this.initNavItems();
 
-        this.attributeService.getAttribute(this.member.id, 'member', Urns.MEMBER_DEF_EXPIRATION).subscribe(attr => {
+        this.attributesManager.getMemberAttributeByName(this.member.id, Urns.MEMBER_DEF_EXPIRATION).subscribe(attr => {
           this.expiration = attr.value === null ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') : attr.value;
         });
       });

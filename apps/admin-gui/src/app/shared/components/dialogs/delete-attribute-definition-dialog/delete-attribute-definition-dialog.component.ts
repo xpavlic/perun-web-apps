@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/materi
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
 import { AttributeDefinition } from '@perun-web-apps/perun/models';
-import { AttributesService } from '@perun-web-apps/perun/services';
+import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DeleteAttributeDefinitionDialogData {
   attributes: AttributeDefinition[];
@@ -20,7 +20,7 @@ export class DeleteAttributeDefinitionDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: DeleteAttributeDefinitionDialogData,
               private notificator: NotificatorService,
               private translate: TranslateService,
-              private attributeService: AttributesService) {
+              private attributesManager: AttributesManagerService) {
   }
 
   displayedColumns: string[] = ['name'];
@@ -39,7 +39,8 @@ export class DeleteAttributeDefinitionDialogComponent implements OnInit {
     for (const attr of this.data.attributes) {
       ids.push(attr.id);
     }
-    this.attributeService.deleteAttributeDefinitions(ids).subscribe(() => {
+
+    this.attributesManager.deleteAttributeDefinitions(ids).subscribe(() => {
       this.translate.get('DIALOGS.DELETE_ATTRIBUTE_DEFINITION.SUCCESS').subscribe(successMessage => {
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close(true);

@@ -11,9 +11,8 @@ import {
 import {
   DeleteAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
-import { AttributesService } from '@perun-web-apps/perun/services';
-import { Attribute } from '@perun-web-apps/perun/models';
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-group-settings-attributes',
@@ -26,7 +25,7 @@ export class GroupSettingsAttributesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private attributesService: AttributesService,
+    private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
     private dialog: MatDialog,
     private translate: TranslateService
@@ -76,8 +75,8 @@ export class GroupSettingsAttributesComponent implements OnInit {
   onSave() {
     // have to use this to update attribute with map in it, before saving it
     this.list.updateMapAttributes();
-    this.attributesService.setAttributes(this.groupId, 'group', this.selection.selected).subscribe(() => {
-      this.attributesService.getAllAttributes(this.groupId, 'group').subscribe(attributes => {
+    this.attributesManager.setGroupAttributes({group: this.groupId, attributes: this.selection.selected}).subscribe(() => {
+      this.attributesManager.getGroupAttributes(this.groupId).subscribe(attributes => {
         this.attributes = filterCoreAttributes(attributes);
         this.notificator.showSuccess(this.saveSuccessMessage);
         this.selection.clear();
@@ -105,7 +104,7 @@ export class GroupSettingsAttributesComponent implements OnInit {
   refreshTable() {
     // TODO Does not apply filter on refresh.
     this.loading = true;
-    this.attributesService.getAllAttributes(this.groupId, 'group').subscribe(attributes => {
+    this.attributesManager.getGroupAttributes(this.groupId).subscribe(attributes => {
       this.attributes = filterCoreAttributes(attributes);
       this.selection.clear();
       this.loading = false;

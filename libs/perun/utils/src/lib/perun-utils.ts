@@ -4,14 +4,14 @@
  * @param richMember member
  */
 import {
-  Attribute,
-  AttributeDefinition, Candidate,
+  Candidate,
   Group,
   Owner,
   RichMember,
   RichUser,
   User
 } from '@perun-web-apps/perun/models';
+import { Attribute, AttributeDefinition } from '@perun-web-apps/perun/openapi';
 
 
 export function parseStatusIcon(richMember: RichMember): string {

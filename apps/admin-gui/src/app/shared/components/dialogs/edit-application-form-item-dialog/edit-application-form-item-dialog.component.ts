@@ -1,8 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {TranslateService} from '@ngx-translate/core';
-import { ApplicationFormItem, AttributeDefinition, Group } from '@perun-web-apps/perun/models';
-import { AttributesService, RegistrarService } from '@perun-web-apps/perun/services';
+import { ApplicationFormItem, Group } from '@perun-web-apps/perun/models';
+import { RegistrarService } from '@perun-web-apps/perun/services';
+import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface EditApplicationFormItemDialogComponentData {
   voId: number;
@@ -31,7 +32,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<EditApplicationFormItemDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: EditApplicationFormItemDialogComponentData,
               private registrarService: RegistrarService,
-              private attributesService: AttributesService,
+              private attributesManager: AttributesManagerService,
               private translateService: TranslateService) { }
 
   applicationFormItem: ApplicationFormItem;
@@ -46,7 +47,8 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
   ngOnInit() {
     this.applicationFormItem = this.data.applicationFormItem;
-    this.attributesService.getAttributesDefinition().subscribe( attributeDefinitions => {
+
+    this.attributesManager.getAllAttributeDefinitions().subscribe( attributeDefinitions => {
       this.attributeDefinitions = attributeDefinitions;
       this.getDestinationAndSourceAttributes();
     });

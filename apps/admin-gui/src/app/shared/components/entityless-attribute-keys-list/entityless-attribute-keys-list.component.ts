@@ -13,9 +13,10 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSourc
 import { NotificatorService } from '../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Attribute, AttributeDefinition } from '@perun-web-apps/perun/models';
+import { AttributeDefinition } from '@perun-web-apps/perun/models';
 import { AttributesService } from '@perun-web-apps/perun/services';
 import { AttributeValueComponent } from '../attributes-list/attribute-value/attribute-value.component';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface EntitylessAttributeKeysListData {
   attDef: AttributeDefinition;
@@ -33,6 +34,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
               @Inject(MAT_DIALOG_DATA) public data: EntitylessAttributeKeysListData,
               private notificator: NotificatorService,
               private translate: TranslateService,
+              private attributesManager: AttributesManagerService,
               private attributeService: AttributesService) {
   }
 
@@ -71,7 +73,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.attDef = this.data.attDef;
     this.attributeService.getEntitylessKeys(this.attDef.id).subscribe(keys => {
-      this.attributeService.getEntitylessAttributes(this.attDef.namespace + ':' + this.attDef.friendlyName).subscribe(att => {
+      this.attributesManager.getEntitylessAttributesByName(`${this.attDef.namespace}:${this.attDef.friendlyName}`).subscribe(att => {
         let i = 0;
         this.records = [];
         for (const key of keys) {
@@ -94,12 +96,12 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
   onSave() {
     this.updateMapAttributes();
     for (const rec of this.selection.selected) {
-      this.attributeService.setEntitylessAttribute(rec[0], rec[1]).subscribe(() =>
+      this.attributesManager.setEntitylessAttribute({key: rec[0], attribute: rec[1]}).subscribe(() => {
         this.translate.get('SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.SAVE_SUCCESS').subscribe(message => {
           this.notificator.showSuccess(message);
           this.ngOnInit();
-        })
-      );
+        });
+      });
     }
     this.isAddButtonDisabled = false;
   }
@@ -156,22 +158,6 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
 
   onValueChange(record: [string, Attribute]) {
     this.selection.select(record);
-  }
-
-  searchForAttribute(attribute: Attribute): [string, Attribute] {
-    for (const record of this.records) {
-      if (record[1].id === attribute.id) {
-        return record;
-      }
-    }
-  }
-
-  searchForKey(key: string): [string, Attribute] {
-    for (const record of this.records) {
-      if (record[0] === key) {
-        return record;
-      }
-    }
   }
 
   updateMapAttributes() {

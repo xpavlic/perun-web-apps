@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "license": "MIT",
   "scripts": {
+    "openapi-gen": "openapi-generator generate -i https://raw.githubusercontent.com/CESNET/perun/master/perun-openapi/openapi.yml -g typescript-angular -o libs/perun/openapi/src/lib",
     "ng-openapi-gen": "ng-openapi-gen",
     "ng": "ng",
     "nx": "nx",
@@ -47,6 +48,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@nrwl/angular": "8.11.1",
+    "@openapitools/openapi-generator-cli": "^1.0.8-4.2.2",
     "@swimlane/ngx-charts": "^12.0.1",
     "@swimlane/ngx-graph": "^6.2.0",
     "bootstrap": "^4.4.1",

@@ -18,7 +18,7 @@ import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { ApiService } from './core/services/api/api.service';
 import { AppConfigService } from './core/services/common/app-config.service';
 // @ts-ignore
-import { ApiModule } from '@perun-web-apps/perun/openapi';
+import { ApiModule, Configuration, ConfigurationParameters } from '@perun-web-apps/perun/openapi';
 // @ts-ignore
 import { ApiConfiguration } from '@perun-web-apps/perun/openapi';
 import { StoreService } from './core/services/common/store.service';
@@ -35,10 +35,18 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-export function ApiConfigurationFactory(store: StoreService): ApiConfiguration {
-  return {
-    rootUrl: store.get('api_url')
+// export function ApiConfigurationFactory(store: StoreService): ApiConfiguration {
+//   return {
+//     rootUrl: store.get('api_url')
+//   };
+// }
+
+export function apiConfigFactory(store: StoreService): Configuration {
+  const params: ConfigurationParameters = {
+    basePath: store.get('api_url')
+    // set configuration parameters here.
   };
+  return new Configuration(params);
 }
 
 const loadConfigs = (appConfig: AppConfigService) => {
@@ -77,9 +85,14 @@ const loadConfigs = (appConfig: AppConfigService) => {
       multi: true,
       deps: [AppConfigService]
     },
+    // {
+    //   provide: ApiConfiguration,
+    //   useFactory: ApiConfigurationFactory,
+    //   deps: [StoreService]
+    // },
     {
-      provide: ApiConfiguration,
-      useFactory: ApiConfigurationFactory,
+      provide: Configuration,
+      useFactory: apiConfigFactory,
       deps: [StoreService]
     },
     {

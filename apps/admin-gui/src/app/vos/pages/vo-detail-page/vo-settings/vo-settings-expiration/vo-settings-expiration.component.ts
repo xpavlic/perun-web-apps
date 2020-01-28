@@ -3,10 +3,9 @@ import {openClose} from '../../../../../shared/animations/Animations';
 import {ActivatedRoute} from '@angular/router';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import { AttributesService } from '@perun-web-apps/perun/services';
-import { Attribute } from '@perun-web-apps/perun/models';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { ApiRequestConfigurationService } from '../../../../../core/services/api/api-request-configuration.service';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-vo-settings-expiration',
@@ -21,7 +20,7 @@ export class VoSettingsExpirationComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(
-    private attributesService: AttributesService,
+    private attributesManager: AttributesManagerService,
     private route: ActivatedRoute,
     private translate: TranslateService,
     private notificator: NotificatorService,
@@ -47,7 +46,7 @@ export class VoSettingsExpirationComponent implements OnInit {
   }
 
   private loadSettings(): void {
-    this.attributesService.getAttribute(this.voId, 'vo', Urns.VO_DEF_EXPIRATION_RULES).subscribe(attr => {
+    this.attributesManager.getVoAttributeByName(this.voId, Urns.VO_DEF_EXPIRATION_RULES).subscribe(attr => {
       this.expirationAttribute = attr;
     });
   }
@@ -56,12 +55,12 @@ export class VoSettingsExpirationComponent implements OnInit {
     // FIXME this might not work in case of some race condition (other request finishes sooner)
     this.apiRequest.dontHandleErrorForNext();
 
-    this.attributesService.setAttribute(this.voId, 'vo', attribute, false).subscribe(() => {
+    this.attributesManager.setVoAttribute({vo: this.voId, attribute: attribute}).subscribe(() => {
         this.loadSettings();
         this.notificator.showSuccess(this.successMessage);
       }, error => {
       console.log(error);
-      this.notificator.showRPCError(error, this.errorMessage);
+      this.notificator.showRPCError(error.error, this.errorMessage);
     });
   }
 }

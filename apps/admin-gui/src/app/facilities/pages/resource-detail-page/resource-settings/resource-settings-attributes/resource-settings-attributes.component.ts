@@ -1,5 +1,4 @@
 import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
-import {SideMenuService} from '../../../../../core/services/common/side-menu.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
@@ -12,9 +11,8 @@ import {
 import {
   CreateAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
-import { AttributesService } from '@perun-web-apps/perun/services';
-import { Attribute } from '@perun-web-apps/perun/models';
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-resource-settings-attributes',
@@ -25,8 +23,7 @@ export class ResourceSettingsAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private attributesService: AttributesService,
-              private sideMenuService: SideMenuService,
+  constructor(private attributesManager: AttributesManagerService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
@@ -74,8 +71,8 @@ export class ResourceSettingsAttributesComponent implements OnInit {
   onSave() {
     // have to use this to update attribute with map in it, before saving it
     this.list.updateMapAttributes();
-    this.attributesService.setAttributes(this.resourceId, 'resource', this.selection.selected).subscribe(() => {
-      this.attributesService.getAllAttributes(this.resourceId, 'resource').subscribe(attributes => {
+    this.attributesManager.setResourceAttributes({resource: this.resourceId, attributes: this.selection.selected}).subscribe(() => {
+      this.attributesManager.getResourceAttributes(this.resourceId).subscribe(attributes => {
         this.attributes = filterCoreAttributes(attributes);
         this.notificator.showSuccess(this.saveSuccessMessage);
         this.selection.clear();
@@ -103,7 +100,7 @@ export class ResourceSettingsAttributesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.attributesService.getAllAttributes(this.resourceId, 'resource').subscribe(attributes => {
+    this.attributesManager.getResourceAttributes(this.resourceId).subscribe(attributes => {
       this.attributes = filterCoreAttributes(attributes);
       this.selection.clear();
       this.loading = false;

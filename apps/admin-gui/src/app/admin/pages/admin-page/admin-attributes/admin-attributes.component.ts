@@ -5,9 +5,8 @@ import { DeleteAttributeDefinitionDialogComponent } from '../../../../shared/com
 import { MatDialog } from '@angular/material';
 // tslint:disable-next-line:max-line-length
 import { CreateAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
-import { AttributesService } from '@perun-web-apps/perun/services';
-import { AttributeDefinition } from '@perun-web-apps/perun/models';
 import { filterCoreAttributesDefinitions } from '@perun-web-apps/perun/utils';
+import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-admin-attributes',
@@ -20,7 +19,7 @@ export class AdminAttributesComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private attrService: AttributesService
+    private attributesManager: AttributesManagerService,
   ) {
   }
 
@@ -65,7 +64,7 @@ export class AdminAttributesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.attrService.getAttributesDefinition().subscribe(attrDefs => {
+    this.attributesManager.getAllAttributeDefinitions().subscribe(attrDefs => {
       this.attrDefinitions = filterCoreAttributesDefinitions(attrDefs);
       this.loading = false;
     });

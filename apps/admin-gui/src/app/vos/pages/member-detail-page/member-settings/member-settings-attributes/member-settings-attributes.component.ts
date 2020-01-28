@@ -11,9 +11,8 @@ import {
 import {
   DeleteAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
-import { AttributesService } from '@perun-web-apps/perun/services';
-import { Attribute } from '@perun-web-apps/perun/models';
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-member-settings-attributes',
@@ -25,7 +24,7 @@ export class MemberSettingsAttributesComponent implements OnInit {
   @HostBinding('class.router-component') true;
   constructor(
     private route: ActivatedRoute,
-    private attributesService: AttributesService,
+    private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
     private dialog: MatDialog,
     private translate: TranslateService
@@ -74,8 +73,8 @@ export class MemberSettingsAttributesComponent implements OnInit {
   onSave() {
     // have to use this to update attribute with map in it, before saving it
     this.list.updateMapAttributes();
-    this.attributesService.setAttributes(this.memberId, 'member', this.selection.selected).subscribe(() => {
-      this.attributesService.getAllAttributes(this.memberId, 'member').subscribe(attributes => {
+    this.attributesManager.setMemberAttributes({member: this.memberId, attributes: this.selection.selected}).subscribe(() => {
+      this.attributesManager.getMemberAttributes(this.memberId).subscribe(attributes => {
         this.attributes = filterCoreAttributes(attributes);
         this.notificator.showSuccess(this.saveSuccessMessage);
         this.selection.clear();
@@ -102,7 +101,7 @@ export class MemberSettingsAttributesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.attributesService.getAllAttributes(this.memberId, 'member').subscribe(attributes => {
+    this.attributesManager.getMemberAttributes(this.memberId).subscribe(attributes => {
       this.attributes = filterCoreAttributes(attributes);
       this.selection.clear();
       this.loading = false;

@@ -2,10 +2,9 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
-import { AttributesService } from '@perun-web-apps/perun/services';
-import { Attribute } from '@perun-web-apps/perun/models';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { ApiRequestConfigurationService } from '../../../../../core/services/api/api-request-configuration.service';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 
 @Component({
@@ -18,7 +17,7 @@ export class GroupSettingsExpirationComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(
-    private attributesService: AttributesService,
+    private attributesManager: AttributesManagerService,
     private route: ActivatedRoute,
     private translate: TranslateService,
     private notificator: NotificatorService,
@@ -44,7 +43,7 @@ export class GroupSettingsExpirationComponent implements OnInit {
   }
 
   private loadSettings(): void {
-    this.attributesService.getAttribute(this.groupId, 'group', Urns.GROUP_DEF_EXPIRATION_RULES).subscribe(attr => {
+    this.attributesManager.getGroupAttributeByName(this.groupId, Urns.GROUP_DEF_EXPIRATION_RULES).subscribe(attr => {
       this.expirationAttribute = attr;
     });
   }
@@ -52,10 +51,11 @@ export class GroupSettingsExpirationComponent implements OnInit {
   saveExpirationAttribute(attribute: Attribute) {
     // FIXME this might not work in case of some race condition (other request finishes sooner)
     this.apiRequest.dontHandleErrorForNext();
-    this.attributesService.setAttribute(this.groupId, 'group', attribute, false).subscribe(() => {
+
+    this.attributesManager.setGroupAttribute({group: this.groupId, attribute: attribute}).subscribe( () => {
         this.loadSettings();
         this.notificator.showSuccess(this.successMessage);
       },
-      error => this.notificator.showRPCError(error, this.errorMessage));
+      error => this.notificator.showRPCError(error.error, this.errorMessage));
   }
 }
