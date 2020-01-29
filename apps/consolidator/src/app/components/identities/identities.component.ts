@@ -25,6 +25,6 @@ export class IdentitiesComponent {
   getEmailText(identity: RichUserExtSource): string {
     const mailAttribute = getAttribute(identity.attributes, Urns.UES_DEF_MAIL);
 
-    return mailAttribute == null ? '-' : mailAttribute.value;
+    return mailAttribute == null ? '-' : <string><unknown>mailAttribute.value;
   }
 }
