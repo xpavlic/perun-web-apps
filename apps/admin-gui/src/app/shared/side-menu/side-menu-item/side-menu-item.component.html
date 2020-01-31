@@ -19,6 +19,7 @@
       <div *ngFor="let link of item.links">
         <a (click)="navigate(link.url)"
            matRipple
+           class="clickable"
            [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
            [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
            [class.activated]="isActive(currentUrl, link.activatedRegex) && item.activatedClass === undefined"
@@ -26,7 +27,7 @@
           {{link.label | translate}}
         </a>
         <div class="entity-menu-item-sub-menu" @rollInOut *ngIf="isActive(currentUrl, link.showChildrenRegex)">
-          <a class="entity-menu-item-sub-menu-item" *ngFor="let child of link?.children"
+          <a class="entity-menu-item-sub-menu-item clickable" *ngFor="let child of link?.children"
              matRipple
              [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
              [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"

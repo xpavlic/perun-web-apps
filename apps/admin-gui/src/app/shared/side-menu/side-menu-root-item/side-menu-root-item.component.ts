@@ -16,7 +16,7 @@ import { StoreService } from '../../../core/services/common/store.service';
 })
 export class SideMenuRootItemComponent implements OnInit, OnChanges {
 
-  private currentUrl: string;
+  currentUrl: string;
 
   constructor(
     private router: Router,

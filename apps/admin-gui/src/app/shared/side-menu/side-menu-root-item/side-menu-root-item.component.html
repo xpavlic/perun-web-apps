@@ -3,6 +3,7 @@
        matRipple
        [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
        [ngStyle]="{'background': item.backgroundColorCss}"
+       [class.root-header-activated]="isActive(currentUrl, item.baseColorClassRegex)"
        (click)="toggle()">
     <div class="entity-menu-item-link {{item.labelClass}}">
       <a class="entity-menu-item-label" [ngStyle]="{'color': item.textColorCss}">
@@ -19,6 +20,7 @@
       <div *ngFor="let link of item.links">
         <a (click)="navigate(link.url)"
            matRipple
+           class="clickable"
            [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
            [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
            [class.activated]="isActive(currentUrl, link.activatedRegex) && item.activatedClass === undefined"
@@ -30,7 +32,7 @@
              matRipple
              [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
              [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
-             class="pl-5" *ngFor="let child of link?.children"
+             class="pl-5 clickable" *ngFor="let child of link?.children"
              [class.activated]="isActive(currentUrl, child.activatedRegex) && item.activatedClass === undefined"
              [ngClass]="isActive(currentUrl, child.activatedRegex) && item.activatedClass !== undefined ? item.activatedClass : ''">
             {{child.label | translate}}

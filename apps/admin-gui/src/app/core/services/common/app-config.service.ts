@@ -23,6 +23,11 @@ export interface EntityColorConfig {
   cssVariable: string;
 }
 
+export interface ColorConfig {
+  configValue: string;
+  cssVariable: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -72,6 +77,25 @@ export class AppConfigService {
     }
   ];
 
+  colorConfigs: ColorConfig[] = [
+    {
+      configValue: 'sidemenu_hover_color',
+      cssVariable: '--side-root-item-hover'
+    },
+    {
+      configValue: 'sidemenu_root_active_color',
+      cssVariable: '--side-root-item-active'
+    },
+    {
+      configValue: 'sidemenu-link-active',
+      cssVariable: '--side-link-active'
+    },
+    {
+      configValue: 'sidemenu-link-hover',
+      cssVariable: '--side-link-hover'
+    }
+  ];
+
   loadConfigs(): Promise<void> {
     return this.loadAppDefaultConfig()
       .then(() => this.loadAppInstanceConfig())
@@ -81,6 +105,11 @@ export class AppConfigService {
 
   initializeColors() : Promise<void> {
     return new Promise<void>((resolve => {
+      this.colorConfigs.forEach(cc => {
+        const color = this.storeService.get('theme', cc.configValue);
+        document.documentElement.style.setProperty(cc.cssVariable, color);
+      });
+
       this.entityColorConfigs.forEach(ecc => {
         const color = this.storeService.get('theme', ecc.configValue);
         // set CSS variable for given entity
