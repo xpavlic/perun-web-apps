@@ -17,8 +17,9 @@ import {
   EditEmailFooterDialogComponent
 } from '../../../../../shared/components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { ApplicationForm, ApplicationMail } from '@perun-web-apps/perun/models';
+import { ApplicationForm } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '../../../../../core/services/api/api-request-configuration.service';
+import { ApplicationMail } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-settings-notifications',

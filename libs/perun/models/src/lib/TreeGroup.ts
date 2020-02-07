@@ -1,4 +1,4 @@
-import {Group} from './Group';
+import { Group } from '@perun-web-apps/perun/openapi';
 
 export class TreeGroup implements Group {
   id: number;
@@ -8,6 +8,7 @@ export class TreeGroup implements Group {
   children: TreeGroup[];
   shortName: string;
   description: string;
+  beanName: string;
 
   constructor(group: Group) {
     this.id = group.id;

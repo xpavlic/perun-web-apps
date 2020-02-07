@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Input, OnChanges, QueryList, SimpleChanges, Vi
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {AttributeValueComponent} from './attribute-value/attribute-value.component';
-import { Attribute } from '@perun-web-apps/perun/models';
+import { Attribute } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-attributes-list',

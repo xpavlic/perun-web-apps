@@ -8,7 +8,7 @@ import {GroupFlatNode} from '../../../../vos/components/groups-tree/groups-tree.
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
 import { GroupService } from '@perun-web-apps/perun/services';
-import { Group } from '@perun-web-apps/perun/models';
+import { Group } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '../../../../core/services/api/api-request-configuration.service';
 
 export interface MoveGroupDialogData {

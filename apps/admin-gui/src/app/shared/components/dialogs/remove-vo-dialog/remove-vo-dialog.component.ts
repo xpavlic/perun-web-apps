@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/mate
 import { TranslateService } from '@ngx-translate/core';
 import { VoService } from '@perun-web-apps/perun/services';
 import { NotificatorService } from '../../../../core/services/common/notificator.service';
-import { Vo } from '@perun-web-apps/perun/models';
+import { Vo } from '@perun-web-apps/perun/openapi';
 
 export interface RemoveVoDialogData {
   vos: Vo[]

@@ -13,8 +13,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSourc
 import { NotificatorService } from '../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AttributeDefinition } from '@perun-web-apps/perun/models';
-import { AttributesService } from '@perun-web-apps/perun/services';
+import { AttributeDefinition } from '@perun-web-apps/perun/openapi';
 import { AttributeValueComponent } from '../attributes-list/attribute-value/attribute-value.component';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
@@ -35,7 +34,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
               private notificator: NotificatorService,
               private translate: TranslateService,
               private attributesManager: AttributesManagerService,
-              private attributeService: AttributesService) {
+              ) {
   }
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -72,7 +71,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     this.attDef = this.data.attDef;
-    this.attributeService.getEntitylessKeys(this.attDef.id).subscribe(keys => {
+    this.attributesManager.getEntitylessKeys(this.attDef.id).subscribe(keys => {
       this.attributesManager.getEntitylessAttributesByName(`${this.attDef.namespace}:${this.attDef.friendlyName}`).subscribe(att => {
         let i = 0;
         this.records = [];
@@ -108,7 +107,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
 
   onRemove() {
     for (const rec of this.selection.selected) {
-      this.attributeService.removeEntitylessAttribute(rec[0], rec[1].id).subscribe(() => {
+      this.attributesManager.removeEntitylessAttribute(rec[0], rec[1].id).subscribe(() => {
         this.translate.get('SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.REMOVE_SUCCESS').subscribe(message => {
           this.notificator.showSuccess(message);
           this.ngOnInit();

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RichDestination, Service } from '@perun-web-apps/perun/models';
+import { RichDestination, Service } from '@perun-web-apps/perun/openapi';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { PerunApiService } from './perun-api-service';
 import { HttpParams } from '@angular/common/http';

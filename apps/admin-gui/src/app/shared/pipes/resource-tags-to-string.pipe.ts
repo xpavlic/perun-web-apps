@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import { ResourceTag } from '@perun-web-apps/perun/models';
+import { ResourceTag } from '@perun-web-apps/perun/openapi';
 
 @Pipe({
   name: 'resourceTagsToString'

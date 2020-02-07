@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from '../../../../shared/models/MenuItem';
-import { Facility } from '@perun-web-apps/perun/models';
+import { Facility } from '@perun-web-apps/perun/openapi';
 import { FacilityService } from '@perun-web-apps/perun/services';
 
 @Component({

@@ -16,8 +16,9 @@ import {
   UpdateApplicationFormDialogComponent
 } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { ApplicationForm, ApplicationFormItem } from '@perun-web-apps/perun/models';
+import { ApplicationForm } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '../../../../../core/services/api/api-request-configuration.service';
+import { ApplicationFormItem } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-settings-application-form',

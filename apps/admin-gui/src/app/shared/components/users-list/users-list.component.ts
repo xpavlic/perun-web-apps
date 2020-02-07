@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-import { RichUser } from '@perun-web-apps/perun/models';
+import { RichUser } from '@perun-web-apps/perun/openapi';
 import { parseFullName, parseUserEmail, parseVo } from '@perun-web-apps/perun/utils';
 
 @Component({

@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import {SideMenuItemService} from '../../../shared/side-menu/side-menu-item.service';
 import { UsersService } from '@perun-web-apps/perun/services';
-import { User } from '@perun-web-apps/perun/models';
+import { User } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-admin-user-detail-page',

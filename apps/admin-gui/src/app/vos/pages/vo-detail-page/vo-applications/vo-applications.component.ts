@@ -1,7 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { RegistrarService, VoService } from '@perun-web-apps/perun/services';
-import { Application, Vo } from '@perun-web-apps/perun/models';
+import { Vo } from '@perun-web-apps/perun/openapi';
+import { Application } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-applications',

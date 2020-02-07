@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { Attribute } from '@perun-web-apps/perun/models';
+import { Attribute } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-attribute-value-string',
@@ -19,7 +19,7 @@ export class AttributeValueStringComponent implements OnInit {
   value: string;
 
   ngOnInit() {
-    this.value = this.attribute.value;
+    this.value = <string><unknown>this.attribute.value;
   }
 
   _sendEventToParent() {

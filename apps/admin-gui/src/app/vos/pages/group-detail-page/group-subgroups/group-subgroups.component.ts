@@ -1,14 +1,13 @@
-import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {CreateGroupDialogComponent} from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
-import {ActivatedRoute} from '@angular/router';
-import {SelectionModel} from '@angular/cdk/collections';
-import {DeleteGroupDialogComponent} from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
-import {MatCheckbox} from '@angular/material';
-import {applyFilter} from '@perun-web-apps/perun/utils';
+import { CreateGroupDialogComponent } from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
+import { ActivatedRoute } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
+import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
+import { MatCheckbox } from '@angular/material';
+import { applyFilter } from '@perun-web-apps/perun/utils';
 import { GroupService } from '@perun-web-apps/perun/services';
-import { Group } from '@perun-web-apps/perun/models';
-import { GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-group-subgroups',

@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material';
-import { Group } from '@perun-web-apps/perun/models';
+import { Group } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-groups-list',

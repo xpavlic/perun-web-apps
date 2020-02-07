@@ -2,7 +2,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MenuItem} from '../../../../shared/models/MenuItem';
 import { ResourcesService } from '@perun-web-apps/perun/services';
-import { Resource } from '@perun-web-apps/perun/models';
+import { Resource } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-resource-overview',

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { NotificatorService } from '../../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GroupService, ResourcesService } from '@perun-web-apps/perun/services';
-import { Group, Resource } from '@perun-web-apps/perun/models';
+import { Group, Resource } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 
 export interface AssignGroupToResourceDialogData {

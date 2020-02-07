@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MemberCandidate } from '@perun-web-apps/perun/models';
 import { parseEmail, parseUserEmail } from '@perun-web-apps/perun/utils';
+import { MemberCandidate } from '@perun-web-apps/perun/models';
 
 @Pipe({
   name: 'memberCandidateEmail'

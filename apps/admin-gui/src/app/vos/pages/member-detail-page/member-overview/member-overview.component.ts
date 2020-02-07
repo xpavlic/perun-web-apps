@@ -3,7 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute} from '@angular/router';
 import {MenuItem} from '../../../../shared/models/MenuItem';
 import { MembersService } from '@perun-web-apps/perun/services';
-import { RichMember } from '@perun-web-apps/perun/models';
+import { RichMember } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { parseFullName, parseStatusColor, parseStatusIcon } from '@perun-web-apps/perun/utils';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';

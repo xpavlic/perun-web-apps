@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { PerunPrincipal } from '@perun-web-apps/perun/models';
+import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '../../core/services/common/store.service';
 import { AuthService } from '../../core/services/common/auth.service';
 import { MatDialog } from '@angular/material';

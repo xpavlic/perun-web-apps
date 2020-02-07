@@ -3,7 +3,7 @@ import {SideMenuService} from '../../../../../core/services/common/side-menu.ser
 import {ActivatedRoute, Router} from '@angular/router';
 import {MenuItem} from '../../../../../shared/models/MenuItem';
 import { MembersService, VoService } from '@perun-web-apps/perun/services';
-import { Member, Vo } from '@perun-web-apps/perun/models';
+import { Member, Vo } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-member-settings-overview',

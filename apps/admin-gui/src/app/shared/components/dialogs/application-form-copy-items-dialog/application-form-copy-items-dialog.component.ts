@@ -5,7 +5,7 @@ import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/fo
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import { GroupService, RegistrarService, VoService } from '@perun-web-apps/perun/services';
-import { Group, Vo } from '@perun-web-apps/perun/models';
+import { Group, Vo } from '@perun-web-apps/perun/openapi';
 
 export interface ApplicationFormCopyItemsDialogData {
   voId: number;
@@ -42,7 +42,8 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
         voId: 0,
         parentGroupId: 0,
         shortName: '',
-        description: ''
+        description: '',
+        beanName: 'group'
       };
       this.groupControl.setValue(this.fakeGroup);
 

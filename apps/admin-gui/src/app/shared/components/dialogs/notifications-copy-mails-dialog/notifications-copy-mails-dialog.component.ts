@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {openClose} from '../../../animations/Animations';
 import { GroupService, RegistrarService, VoService } from '@perun-web-apps/perun/services';
-import { Group, Vo } from '@perun-web-apps/perun/models';
+import { Group, Vo } from '@perun-web-apps/perun/openapi';
 
 export interface NotificationsCopyMailsDialogData {
   voId: number;
@@ -46,7 +46,8 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
         voId: 0,
         parentGroupId: 0,
         shortName: '',
-        description: ''
+        description: '',
+        beanName: 'group'
       };
       this.groupControl.setValue(this.fakeGroup);
 

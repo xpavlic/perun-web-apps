@@ -17,7 +17,8 @@ import {
   NotificationsCopyMailsDialogComponent
 } from '../../../../../shared/components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { ApplicationForm, ApplicationMail } from '@perun-web-apps/perun/models';
+import { ApplicationForm } from '@perun-web-apps/perun/openapi';
+import { ApplicationMail } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-settings-notifications',

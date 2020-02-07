@@ -1,6 +1,5 @@
-import {RichUser} from './RichUser';
 import {Candidate} from './Candidate';
-import {RichMember} from './RichMember';
+import { RichMember, RichUser } from '@perun-web-apps/perun/openapi';
 
 export interface MemberCandidate {
   beanName: string;

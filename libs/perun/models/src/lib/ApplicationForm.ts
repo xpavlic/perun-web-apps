@@ -1,5 +1,4 @@
-import {Vo} from './Vo';
-import {Group} from './Group';
+import { Group, Vo } from '@perun-web-apps/perun/openapi';
 
 export interface ApplicationForm {
   automaticApproval: boolean;

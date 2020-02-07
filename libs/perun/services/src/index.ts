@@ -1,4 +1,3 @@
-export { AttributesService } from './lib/attributes.service';
 export { AuthzService } from './lib/authz.service';
 export { FacilityService } from './lib/facility.service';
 export { GroupService } from './lib/group.service';

@@ -7,7 +7,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
-import { Facility, Group, Role, Vo } from '@perun-web-apps/perun/models';
+import { Facility, Group, Vo } from '@perun-web-apps/perun/openapi';
+import { Role } from '@perun-web-apps/perun/models';
 import { AuthzService, GroupService, VoService } from '@perun-web-apps/perun/services';
 
 export interface AddGroupManagerDialogData {

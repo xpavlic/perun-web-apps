@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import { ActionType, AttributeRights, Role } from '@perun-web-apps/perun/models';
-import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { AttributesService } from '@perun-web-apps/perun/services';
+import { ActionType } from '@perun-web-apps/perun/openapi';
+import { AttributeDefinition, AttributeRights, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { Role } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-create-attribute-definition-dialog',
@@ -16,7 +16,6 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
               private notificator: NotificatorService,
               private translate: TranslateService,
-              private attributeService: AttributesService,
               private attributesManager: AttributesManagerService) {
   }
 
@@ -66,7 +65,7 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
     this.readValueType();
     this.attributesManager.createAttributeDefinition({attribute: this.attDef}).subscribe(attDef => {
       this.attDef = attDef;
-      this.attributeService.setAttributesRights(this.readRights()).subscribe(() => {
+      this.attributesManager.setAttributeRights({rights: this.readRights()}).subscribe(() => {
         this.translate.get('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS').subscribe(successMessage => {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close(true);
@@ -88,23 +87,23 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
     rightsSELF.rights = [];
 
     if (this.readSelf) {
-      rightsSELF.rights.push(ActionType.READ);
+      rightsSELF.rights.push('READ');
     }
     if (this.readSelfPublic) {
-      rightsSELF.rights.push(ActionType.READ_PUBLIC);
+      rightsSELF.rights.push('READ_PUBLIC');
     }
     if (this.readSelfVo) {
-      rightsSELF.rights.push(ActionType.READ_VO);
+      rightsSELF.rights.push('READ_VO');
     }
 
     if (this.writeSelf) {
-      rightsSELF.rights.push(ActionType.WRITE);
+      rightsSELF.rights.push('WRITE');
     }
     if (this.writeSelfPublic) {
-      rightsSELF.rights.push(ActionType.WRITE_PUBLIC);
+      rightsSELF.rights.push('WRITE_PUBLIC');
     }
     if (this.writeSelfVo) {
-      rightsSELF.rights.push(ActionType.WRITE_VO);
+      rightsSELF.rights.push('WRITE_VO');
     }
 
     list.push(rightsSELF);

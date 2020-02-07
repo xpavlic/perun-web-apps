@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExtSourceService } from '@perun-web-apps/perun/services';
 import { ActivatedRoute } from '@angular/router';
-import { ExtSource } from '@perun-web-apps/perun/models';
+import { ExtSource } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material';
 import { AddExtSourceDialogComponent } from '../../../../../shared/components/dialogs/add-ext-source-dialog/add-ext-source-dialog.component';

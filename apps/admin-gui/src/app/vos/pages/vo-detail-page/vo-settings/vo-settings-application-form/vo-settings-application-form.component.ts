@@ -16,7 +16,8 @@ import {
   EditApplicationFormItemDialogComponent
 } from '../../../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { ApplicationForm, ApplicationFormItem } from '@perun-web-apps/perun/models';
+import { ApplicationForm } from '@perun-web-apps/perun/openapi';
+import { ApplicationFormItem } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-settings-application-form',

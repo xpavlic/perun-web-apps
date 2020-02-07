@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MembersService, VoService } from '@perun-web-apps/perun/services';
-import { RichMember, Vo } from '@perun-web-apps/perun/models';
+import { RichMember, Vo } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl } from '@angular/forms';
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { PerunPrincipal, Role } from '@perun-web-apps/perun/models';
+import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
+import { Role } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root'

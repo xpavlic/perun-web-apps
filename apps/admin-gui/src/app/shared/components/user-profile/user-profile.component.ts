@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthResolverService } from '../../../core/services/common/auth-resolver.service';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { UsersService } from '@perun-web-apps/perun/services';
-import { PerunPrincipal, User } from '@perun-web-apps/perun/models';
+import { PerunPrincipal, User } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '../../../core/services/common/store.service';
 
 @Component({

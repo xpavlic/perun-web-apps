@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { ExtSource } from '@perun-web-apps/perun/models';
+import { ExtSource } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 

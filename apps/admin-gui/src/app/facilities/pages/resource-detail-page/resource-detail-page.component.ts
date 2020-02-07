@@ -4,7 +4,7 @@ import {fadeIn} from '../../../shared/animations/Animations';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import {SideMenuItemService} from '../../../shared/side-menu/side-menu-item.service';
 import { FacilityService, ResourcesService } from '@perun-web-apps/perun/services';
-import { Resource } from '@perun-web-apps/perun/models';
+import { Resource } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-resource-detail-page',

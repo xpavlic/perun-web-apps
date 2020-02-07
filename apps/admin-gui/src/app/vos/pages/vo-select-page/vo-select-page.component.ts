@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import { VoService } from '@perun-web-apps/perun/services';
-import { Vo } from '@perun-web-apps/perun/models';
+import { Vo } from '@perun-web-apps/perun/openapi';
 import { getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import { AuthResolverService } from '../../../core/services/common/auth-resolver.service';
 import { MatDialog } from '@angular/material';

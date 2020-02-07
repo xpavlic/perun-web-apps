@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { MatStepper } from '@angular/material';
 import { NotificatorService } from '../../../../../core/services/common/notificator.service';
-import { User } from '@perun-web-apps/perun/models';
+import { User } from '@perun-web-apps/perun/openapi';
 import { FacilityService, ServiceService, UsersService } from '@perun-web-apps/perun/services';
 
 @Component({

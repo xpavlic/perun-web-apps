@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { RPCError } from '@perun-web-apps/perun/models';
-import { TranslateService } from '@ngx-translate/core';
 
 @Pipe({
   name: 'consolidationError'

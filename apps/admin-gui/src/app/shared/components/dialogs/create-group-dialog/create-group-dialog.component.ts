@@ -2,7 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
-import { Group } from '@perun-web-apps/perun/models';
+import { Group } from '@perun-web-apps/perun/openapi';
 import { GroupService } from '@perun-web-apps/perun/services';
 
 export interface CreateGroupDialogData {

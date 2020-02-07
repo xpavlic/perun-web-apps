@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 
 import { graphviz } from 'd3-graphviz';
-import { AttributesService } from '@perun-web-apps/perun/services';
+import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-visualizer-attr-modules',
@@ -13,11 +13,11 @@ export class VisualizerAttrModulesComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(
-    private attributesService: AttributesService
+    private attributesManager: AttributesManagerService
   ) { }
 
   ngOnInit() {
-    this.attributesService.getAttributeModulesDependenciesGraphText('DOT').subscribe(data => {
+    this.attributesManager.getAttributeModulesDependenciesGraphText('DOT').subscribe(data => {
       const graphData = data.graph
         .replace('\\t', '')
         .replace('\\n', '')

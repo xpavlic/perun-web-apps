@@ -12,7 +12,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog, MatPaginator } from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-import { RichMember } from '@perun-web-apps/perun/models';
+import { RichMember } from '@perun-web-apps/perun/openapi';
 import { parseEmail, parseFullName } from '@perun-web-apps/perun/utils';
 import { ChangeMemberStatusDialogComponent } from '../../../shared/components/dialogs/change-member-status-dialog/change-member-status-dialog.component';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthResolverService} from '../../core/services/common/auth-resolver.service';
-import { PerunPrincipal } from '@perun-web-apps/perun/models';
+import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '../../core/services/common/store.service';
 
 @Component({

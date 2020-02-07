@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {MatSort, MatTableDataSource} from '@angular/material';
-import { Service } from '@perun-web-apps/perun/models';
+import { Service } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-services-list',

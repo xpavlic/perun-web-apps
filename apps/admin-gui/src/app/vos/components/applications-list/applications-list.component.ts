@@ -3,7 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {Router} from '@angular/router';
-import { Application, Group } from '@perun-web-apps/perun/models';
+import { Group } from '@perun-web-apps/perun/openapi';
+import { Application } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-applications-list',

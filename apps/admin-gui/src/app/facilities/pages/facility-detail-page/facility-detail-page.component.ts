@@ -4,7 +4,7 @@ import { fadeIn } from '../../../shared/animations/Animations';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { FacilityService } from '@perun-web-apps/perun/services';
-import { Facility } from '@perun-web-apps/perun/models';
+import { Facility } from '@perun-web-apps/perun/openapi';
 import { addRecentlyVisited } from '@perun-web-apps/perun/utils';
 
 @Component({

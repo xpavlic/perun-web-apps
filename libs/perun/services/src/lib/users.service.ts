@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { PerunApiService } from './perun-api-service';
-import { RichUser, RichUserExtSource, User, UserExtSource, Vo } from '@perun-web-apps/perun/models';
+import { Group, RichUser, User, UserExtSource, Vo } from '@perun-web-apps/perun/openapi';
 import { parseUrnsToUrlParam } from '@perun-web-apps/perun/utils';
-import { Group } from '@perun-web-apps/perun/openapi';
+import { RichUserExtSource } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root'

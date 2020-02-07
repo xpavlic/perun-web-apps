@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Attribute } from '@perun-web-apps/perun/models';
+import { Attribute } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-attribute-value-map',

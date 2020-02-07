@@ -10,7 +10,7 @@ import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/
 import { MatCheckbox } from '@angular/material';
 import { applyFilter } from '@perun-web-apps/perun/utils';
 import { GroupService, VoService } from '@perun-web-apps/perun/services';
-import { Group, Vo } from '@perun-web-apps/perun/models';
+import { Group, Vo } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-vo-groups',

@@ -1,8 +1,8 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { Application } from '@perun-web-apps/perun/models';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { Application } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-applications',

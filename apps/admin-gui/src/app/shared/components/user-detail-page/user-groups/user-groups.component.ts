@@ -1,8 +1,7 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import { PerunPrincipal, Vo } from '@perun-web-apps/perun/models';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { MembersService, UsersService } from '@perun-web-apps/perun/services';
 import { StoreService } from '../../../../core/services/common/store.service';
-import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, GroupsManagerService, PerunPrincipal, Vo } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-user-groups',

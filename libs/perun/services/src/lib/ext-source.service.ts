@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { PerunApiService } from '@perun-web-apps/perun/services';
 import { Observable } from 'rxjs';
-import { ExtSource } from '@perun-web-apps/perun/models';
 import { HttpParams } from '@angular/common/http';
+import { ExtSource } from '@perun-web-apps/perun/openapi';
 
 @Injectable({
   providedIn: 'root'

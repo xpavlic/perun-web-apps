@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import { FacilityService } from '@perun-web-apps/perun/services';
-import { RichFacility } from '@perun-web-apps/perun/models';
+import { RichFacility } from '@perun-web-apps/perun/openapi';
 import { getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 
 @Component({

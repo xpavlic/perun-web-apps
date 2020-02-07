@@ -1,9 +1,8 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {SelectionModel} from '@angular/cdk/collections';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
 import { ResourcesService } from '@perun-web-apps/perun/services';
-import { RichResource } from '@perun-web-apps/perun/models';
-import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, GroupsManagerService, RichResource } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-group-resources',

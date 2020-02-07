@@ -1,14 +1,18 @@
 import { Inject, Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { PerunApiService } from './perun-api-service';
 import {
-  Application,
   ApplicationForm,
-  ApplicationFormItem,
-  ApplicationFormItemData, ApplicationMail, UserExtSource
-} from '@perun-web-apps/perun/models';
+  UserExtSource
+} from '@perun-web-apps/perun/openapi';
 import { HttpParams } from '@angular/common/http';
+import {
+  Application,
+  ApplicationFormItem,
+  ApplicationFormItemData,
+  ApplicationMail
+} from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +21,8 @@ export class RegistrarService {
 
   constructor(
     @Inject(PERUN_API_SERVICE) private apiService: PerunApiService
-  ) { }
+  ) {
+  }
 
   consolidate(token: string, showNotificationsOnError = true): Observable<UserExtSource[]> {
     return this.apiService.post('json/registrarManager/consolidateIdentityUsingToken', {
@@ -233,7 +238,7 @@ export class RegistrarService {
   }
 
   updateApplicationMail(mail: ApplicationMail, showNotificationOnError = true) {
-    return this.apiService.post( 'json/registrarManager/updateApplicationMail', {
+    return this.apiService.post('json/registrarManager/updateApplicationMail', {
       'mail': mail
     }, showNotificationOnError);
   }

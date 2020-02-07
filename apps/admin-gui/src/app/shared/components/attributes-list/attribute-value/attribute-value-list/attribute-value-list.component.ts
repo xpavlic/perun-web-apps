@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Attribute } from '@perun-web-apps/perun/models';
+import { Attribute } from '@perun-web-apps/perun/openapi';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -39,6 +39,7 @@ export class AttributeValueListComponent implements OnInit {
     const valueL = event.value;
 
     if ((valueL || '').trim()) {
+      // @ts-ignore
       this.attribute.value.push(valueL.trim());
     }
 
@@ -49,14 +50,17 @@ export class AttributeValueListComponent implements OnInit {
   }
 
   remove(chip: string): void {
+    // @ts-ignore
     const index = this.attribute.value.indexOf(chip);
 
     if (index >= 0) {
+      // @ts-ignore
       this.attribute.value.splice(index, 1);
     }
   }
 
   drop(event: CdkDragDrop<any[]>) {
+    // @ts-ignore
     moveItemInArray(this.attribute.value, event.previousIndex, event.currentIndex);
   }
 }

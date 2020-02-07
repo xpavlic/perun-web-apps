@@ -1,10 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpParams} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { PerunApiService } from './perun-api-service';
-import { Facility, Resource, RichFacility, Vo } from '@perun-web-apps/perun/models';
-import { Group } from '@perun-web-apps/perun/openapi';
+import { Facility, Group, Resource, RichFacility, Vo } from '@perun-web-apps/perun/openapi';
 
 @Injectable({
   providedIn: 'root'

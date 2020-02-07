@@ -4,7 +4,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ActivatedRoute, Router} from '@angular/router';
-import { Facility, Group, RichUser, Role, Vo } from '@perun-web-apps/perun/models';
+import { Facility, Group, RichUser, Vo } from '@perun-web-apps/perun/openapi';
+import { Role } from '@perun-web-apps/perun/models';
 import { AuthzService, UsersService } from '@perun-web-apps/perun/services';
 
 export interface AddManagerDialogData {

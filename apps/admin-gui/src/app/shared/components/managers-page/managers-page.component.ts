@@ -6,8 +6,9 @@ import {RemoveManagerDialogComponent} from '../dialogs/remove-manager-dialog/rem
 import {RemoveGroupManagerDialogComponent} from '../dialogs/remove-group-manager-dialog/remove-group-manager-dialog.component';
 import {AddGroupManagerDialogComponent} from '../dialogs/add-group-manager-dialog/add-group-manager-dialog.component';
 import { AuthzService } from '@perun-web-apps/perun/services';
-import { Facility, Group, RichUser, Role, Vo } from '@perun-web-apps/perun/models';
+import { Facility, Group, RichUser, Vo } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { Role } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-managers-page',

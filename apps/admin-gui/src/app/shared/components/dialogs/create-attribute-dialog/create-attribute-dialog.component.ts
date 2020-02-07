@@ -6,7 +6,6 @@ import {NotificatorService} from '../../../../core/services/common/notificator.s
 import {TranslateService} from '@ngx-translate/core';
 import { AttrEntity } from '@perun-web-apps/perun/models';
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
-import { AttributesService } from '@perun-web-apps/perun/services';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface CreateAttributeDialogData {
@@ -26,7 +25,6 @@ export class CreateAttributeDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<CreateAttributeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: CreateAttributeDialogData,
-              private attributesService: AttributesService,
               private attributesManager: AttributesManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService) {
@@ -47,7 +45,44 @@ export class CreateAttributeDialogComponent implements OnInit {
     this.data.notEmptyAttributes.forEach(attribute => {
       unWanted.push(attribute.id);
     });
-    this.attributesService.getAttributeDefinitionsWithRights(this.data.entityId, this.data.entity).subscribe(attributes => {
+
+    let memberId: number;
+    let userId: number;
+    let voId: number;
+    let groupId: number;
+    let resourceId: number;
+    let facilityId: number;
+    let hostId: number;
+    let uesId: number;
+
+    switch (this.data.entity) {
+      case 'member':
+        memberId = this.data.entityId;
+        break;
+      case 'user':
+        userId = this.data.entityId;
+        break;
+      case 'vo':
+        voId = this.data.entityId;
+        break;
+      case 'group':
+        groupId = this.data.entityId;
+        break;
+      case 'resource':
+        resourceId = this.data.entityId;
+        break;
+      case 'facility':
+        facilityId = this.data.entityId;
+        break;
+      case 'host':
+        hostId = this.data.entityId;
+        break;
+      case 'ues':
+        uesId = this.data.entityId;
+        break;
+    }
+    this.attributesManager.getAttributesDefinitionWithRights(memberId, userId, voId, groupId, resourceId, facilityId,
+        hostId, uesId).subscribe(attributes => {
       this.attributes = attributes as Attribute[];
       this.attributes = this.attributes.filter(attribute => {
         return !unWanted.includes(attribute.id);

@@ -2,7 +2,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 import { ResourcesService, VoService } from '@perun-web-apps/perun/services';
-import { RichResource, Vo } from '@perun-web-apps/perun/models';
+import { RichResource, Vo } from '@perun-web-apps/perun/openapi';
 import { RemoveResourceDialogComponent } from '../../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { MatDialog } from '@angular/material';
 

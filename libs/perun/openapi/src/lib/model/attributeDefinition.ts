@@ -12,7 +12,7 @@
 import { Auditable } from './auditable';
 
 
-export interface  AttributeDefinition extends Auditable {
+export interface AttributeDefinition extends Auditable { 
     friendlyName?: string;
     namespace?: string;
     description?: string;

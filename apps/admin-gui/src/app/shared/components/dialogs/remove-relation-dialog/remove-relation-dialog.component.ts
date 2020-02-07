@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/mate
 import { NotificatorService } from '../../../../core/services/common/notificator.service';
 import { GroupService} from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { Group} from '@perun-web-apps/perun/models';
+import { Group} from '@perun-web-apps/perun/openapi';
 
 export interface RemoveRelationDialogData {
   groups: Group[],

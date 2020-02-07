@@ -2,9 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { NotificatorService } from '../../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ActionType, AttributeDefinition, AttributeRights, Role, Service } from '@perun-web-apps/perun/models';
-import { AttributesService, ServiceService } from '@perun-web-apps/perun/services';
+import { ActionType, Service } from '@perun-web-apps/perun/openapi';
+import { ServiceService } from '@perun-web-apps/perun/services';
 import { slideInOutLeft, slideInOutRight, switchAnimation } from '../../../animations/Animations';
+import { AttributeDefinition, AttributeRights, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { Role } from '@perun-web-apps/perun/models';
 
 export interface EditAttributeDefinitionDialogData {
   attDef: AttributeDefinition;
@@ -23,7 +25,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: EditAttributeDefinitionDialogData,
               private notificator: NotificatorService,
               private translate: TranslateService,
-              private attributeService: AttributesService,
+              private attributesManager: AttributesManagerService,
               private serviceService: ServiceService) {
   }
 
@@ -54,7 +56,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     this.serviceService.getServicesByAttributeDefinition(this.attDef.id).subscribe(response => {
       this.services = response;
     });
-    this.attributeService.getAttributeRights(this.attDef.id).subscribe(response => {
+    this.attributesManager.getAttributeRights(this.attDef.id).subscribe(response => {
       this.fromRightsToCheckboxes(response);
     });
   }
@@ -68,9 +70,9 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.attributeService.updateAttributeDefinition(this.attDef).subscribe(attDef => {
+    this.attributesManager.updateAttributeDefinition({attributeDefinition: this.attDef}).subscribe(attDef => {
       this.attDef = attDef;
-      this.attributeService.setAttributesRights(this.fromCheckboxesToRights()).subscribe(() => {
+      this.attributesManager.setAttributeRights({rights: this.fromCheckboxesToRights()}).subscribe(() => {
         this.translate.get('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SUCCESS').subscribe(successMessage => {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close(true);
@@ -92,23 +94,23 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     rightsSELF.rights = [];
 
     if (this.readSelf) {
-      rightsSELF.rights.push(ActionType.READ);
+      rightsSELF.rights.push('READ');
     }
     if (this.readSelfPublic) {
-      rightsSELF.rights.push(ActionType.READ_PUBLIC);
+      rightsSELF.rights.push('READ_PUBLIC');
     }
     if (this.readSelfVo) {
-      rightsSELF.rights.push(ActionType.READ_VO);
+      rightsSELF.rights.push('READ_VO');
     }
 
     if (this.writeSelf) {
-      rightsSELF.rights.push(ActionType.WRITE);
+      rightsSELF.rights.push('WRITE');
     }
     if (this.writeSelfPublic) {
-      rightsSELF.rights.push(ActionType.WRITE_PUBLIC);
+      rightsSELF.rights.push('WRITE_PUBLIC');
     }
     if (this.writeSelfVo) {
-      rightsSELF.rights.push(ActionType.WRITE_VO);
+      rightsSELF.rights.push('WRITE_VO');
     }
 
     list.push(rightsSELF);
@@ -119,11 +121,11 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     rightsVO.rights = [];
 
     if (this.readVo) {
-      rightsVO.rights.push(ActionType.READ);
+      rightsVO.rights.push('READ');
     }
 
     if (this.writeVo) {
-      rightsVO.rights.push(ActionType.WRITE);
+      rightsVO.rights.push('WRITE');
     }
 
     list.push(rightsVO);
@@ -138,7 +140,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     }
 
     if (this.writeGroup) {
-      rightsGROUP.rights.push(ActionType.WRITE);
+      rightsGROUP.rights.push('WRITE');
     }
 
     list.push(rightsGROUP);
@@ -149,11 +151,11 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     rightsFACILITY.rights = [];
 
     if (this.readFacility) {
-      rightsFACILITY.rights.push(ActionType.READ);
+      rightsFACILITY.rights.push('READ');
     }
 
     if (this.writeFacility) {
-      rightsFACILITY.rights.push(ActionType.WRITE);
+      rightsFACILITY.rights.push('WRITE');
     }
 
     list.push(rightsFACILITY);
@@ -165,49 +167,49 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     for (const right of rights) {
       switch (right.role) {
         case Role.SELF: {
-          if (right.rights.includes(ActionType.READ)) {
+          if (right.rights.includes('READ')) {
             this.readSelf = true;
           }
-          if (right.rights.includes(ActionType.READ_PUBLIC)) {
+          if (right.rights.includes('READ_PUBLIC')) {
             this.readSelfPublic = true;
           }
-          if (right.rights.includes(ActionType.READ_VO)) {
+          if (right.rights.includes('READ_VO')) {
             this.readSelfVo = true;
           }
-          if (right.rights.includes(ActionType.WRITE)) {
+          if (right.rights.includes('WRITE')) {
             this.writeSelf = true;
           }
-          if (right.rights.includes(ActionType.WRITE_PUBLIC)) {
+          if (right.rights.includes('WRITE_PUBLIC')) {
             this.writeSelfPublic = true;
           }
-          if (right.rights.includes(ActionType.WRITE_VO)) {
+          if (right.rights.includes('WRITE_VO')) {
             this.writeSelfVo = true;
           }
           break;
         }
         case Role.GROUPADMIN: {
-          if (right.rights.includes(ActionType.READ)) {
+          if (right.rights.includes('READ')) {
             this.readGroup = true;
           }
-          if (right.rights.includes(ActionType.WRITE)) {
+          if (right.rights.includes('WRITE')) {
             this.writeGroup = true;
           }
           break;
         }
         case Role.FACILITYADMIN: {
-          if (right.rights.includes(ActionType.READ)) {
+          if (right.rights.includes('READ')) {
             this.readFacility = true;
           }
-          if (right.rights.includes(ActionType.WRITE)) {
+          if (right.rights.includes('WRITE')) {
             this.writeFacility = true;
           }
           break;
         }
         case Role.VOADMIN: {
-          if (right.rights.includes(ActionType.READ)) {
+          if (right.rights.includes('READ')) {
             this.readVo = true;
           }
-          if (right.rights.includes(ActionType.WRITE)) {
+          if (right.rights.includes('WRITE')) {
             this.writeVo = true;
           }
           break;

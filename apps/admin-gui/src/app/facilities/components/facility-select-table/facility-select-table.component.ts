@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import { RichFacility } from '@perun-web-apps/perun/models';
+import { RichFacility } from '@perun-web-apps/perun/openapi';
 import { parseTechnicalOwnersNames } from '@perun-web-apps/perun/utils';
 
 @Component({

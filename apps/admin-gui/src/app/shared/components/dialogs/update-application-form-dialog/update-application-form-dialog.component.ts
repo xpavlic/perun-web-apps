@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { ApplicationForm } from '@perun-web-apps/perun/models';
+import { ApplicationForm } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-update-application-form-dialog',

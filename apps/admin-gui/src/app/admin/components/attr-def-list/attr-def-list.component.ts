@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-import { AttributeDefinition } from '@perun-web-apps/perun/models';
+import { AttributeDefinition } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDefinitionDialogComponent } from '../../../shared/components/dialogs/edit-attribute-definition-dialog/edit-attribute-definition-dialog.component';
 
 @Component({

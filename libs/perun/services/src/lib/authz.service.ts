@@ -3,7 +3,8 @@ import {Observable} from 'rxjs';
 import {HttpParams} from '@angular/common/http';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { PerunApiService } from './perun-api-service';
-import { Group, PerunPrincipal, RichUser, Role } from '@perun-web-apps/perun/models';
+import { Group, PerunPrincipal, RichUser } from '@perun-web-apps/perun/openapi';
+import { Role } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root'

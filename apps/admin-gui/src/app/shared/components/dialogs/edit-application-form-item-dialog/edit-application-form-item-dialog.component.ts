@@ -1,7 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {TranslateService} from '@ngx-translate/core';
-import { ApplicationFormItem, Group } from '@perun-web-apps/perun/models';
+import { Group } from '@perun-web-apps/perun/openapi';
+import { ApplicationFormItem } from '@perun-web-apps/perun/models';
 import { RegistrarService } from '@perun-web-apps/perun/services';
 import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 

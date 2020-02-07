@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PerunPrincipal } from '@perun-web-apps/perun/models';
+import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 
 /**
  * Class that just store data about instance and default configuration.

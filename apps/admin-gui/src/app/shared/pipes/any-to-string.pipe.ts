@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import { Attribute } from '@perun-web-apps/perun/models';
+import { Attribute } from '@perun-web-apps/perun/openapi';
 
 @Pipe({
   name: 'anyToString'
@@ -12,22 +12,22 @@ export class AnyToStringPipe implements PipeTransform {
     }
     switch (attribute.type) {
       case 'java.lang.String': {
-        return attribute.value;
+        return <string><unknown>attribute.value;
       }
       case 'java.lang.Integer': {
         return attribute.value.toString();
       }
       case 'java.util.ArrayList': {
-        return this.whenValueIsArray(attribute.value);
+        return this.whenValueIsArray(<string[]>attribute.value);
       }
       case 'java.util.LinkedHashMap': {
-        return this.whenValueIsMap(attribute.value);
+        return this.whenValueIsMap(<Map<string, string>>attribute.value);
       }
       case 'java.lang.Boolean': {
         return attribute.value.toString();
       }
       default: {
-        return attribute.value;
+        return <string><unknown>attribute.value;
       }
     }
   }

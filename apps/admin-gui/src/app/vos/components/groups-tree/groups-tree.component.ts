@@ -3,7 +3,8 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
-import { Group, TreeGroup } from '@perun-web-apps/perun/models';
+import { Group } from '@perun-web-apps/perun/openapi';
+import { TreeGroup } from '@perun-web-apps/perun/models';
 
 
 export interface GroupFlatNode {

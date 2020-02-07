@@ -1,17 +1,26 @@
-import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, HostBinding, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as shape from 'd3-shape';
-import {Subject} from 'rxjs';
-import {TranslateService} from '@ngx-translate/core';
+import { Subject } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import {
   FacilityService,
   MembersService,
   ResourcesService,
   ServiceService,
-  UsersService, VoService
+  UsersService,
+  VoService
 } from '@perun-web-apps/perun/services';
-import { Facility, Member, Resource, RichDestination, Service, User } from '@perun-web-apps/perun/models';
-import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  Facility,
+  Group,
+  GroupsManagerService,
+  Member,
+  Resource,
+  RichDestination,
+  Service,
+  User
+} from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-user-destination-graph',

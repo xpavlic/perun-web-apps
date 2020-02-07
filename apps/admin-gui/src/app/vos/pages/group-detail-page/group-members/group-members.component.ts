@@ -1,13 +1,12 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SelectionModel} from '@angular/cdk/collections';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
 import { MembersService } from '@perun-web-apps/perun/services';
-import { RichMember } from '@perun-web-apps/perun/models';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MatDialog } from '@angular/material';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
-import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, GroupsManagerService, RichMember } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-group-members',

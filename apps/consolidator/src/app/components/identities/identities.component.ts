@@ -1,8 +1,8 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { RichUserExtSource } from '@perun-web-apps/perun/models';
 import { getAttribute } from '@perun-web-apps/perun/utils';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Identity } from '../../models/Identity';
+import { RichUserExtSource } from '@perun-web-apps/perun/models';
 
 
 @Component({

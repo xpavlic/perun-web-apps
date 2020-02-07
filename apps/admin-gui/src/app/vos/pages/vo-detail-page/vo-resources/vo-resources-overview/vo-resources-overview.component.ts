@@ -3,7 +3,7 @@ import {SideMenuService} from '../../../../../core/services/common/side-menu.ser
 import {ActivatedRoute, Router} from '@angular/router';
 import {MenuItem} from '../../../../../shared/models/MenuItem';
 import { VoService } from '@perun-web-apps/perun/services';
-import { Vo } from '@perun-web-apps/perun/models';
+import { Vo } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-vo-resources-overview',

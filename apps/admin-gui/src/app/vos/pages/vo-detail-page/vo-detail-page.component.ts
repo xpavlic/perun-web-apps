@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { fadeIn } from '../../../shared/animations/Animations';
 import { VoService } from '@perun-web-apps/perun/services';
-import { Vo } from '@perun-web-apps/perun/models';
+import { Vo } from '@perun-web-apps/perun/openapi';
 import { addRecentlyVisited } from '@perun-web-apps/perun/utils';
 
 @Component({

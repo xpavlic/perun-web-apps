@@ -1,6 +1,6 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {MenuItem} from '../../../../shared/models/MenuItem';
-import {ActivatedRoute} from '@angular/router';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { MenuItem } from '../../../../shared/models/MenuItem';
+import { ActivatedRoute } from '@angular/router';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({

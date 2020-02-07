@@ -1,6 +1,4 @@
-import {Service} from './Service';
-import {Facility} from './Facility';
-import {RichDestination} from './RichDestination';
+import { Facility, RichDestination, Service } from '@perun-web-apps/perun/openapi';
 
 export interface Task {
   id: number;

@@ -2,7 +2,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {MenuItem} from '../../../../../shared/models/MenuItem';
 import {ActivatedRoute} from '@angular/router';
 import { FacilityService } from '@perun-web-apps/perun/services';
-import { Facility } from '@perun-web-apps/perun/models';
+import { Facility } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-facility-settings-overview',

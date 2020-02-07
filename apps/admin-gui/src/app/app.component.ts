@@ -3,7 +3,7 @@ import { AuthResolverService } from './core/services/common/auth-resolver.servic
 import { AuthService } from './core/services/common/auth.service';
 import { CacheHelperService } from './core/services/common/cache-helper.service';
 import { AuthzService } from '@perun-web-apps/perun/services';
-import { PerunPrincipal } from '@perun-web-apps/perun/models';
+import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { environment } from '../environments/environment';
 import { StoreService } from './core/services/common/store.service';
 

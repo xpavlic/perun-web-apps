@@ -4,14 +4,14 @@
  * @param richMember member
  */
 import {
-  Candidate,
   Group,
   Owner,
   RichMember,
   RichUser,
   User
-} from '@perun-web-apps/perun/models';
+} from '@perun-web-apps/perun/openapi';
 import { Attribute, AttributeDefinition } from '@perun-web-apps/perun/openapi';
+import { Candidate } from '@perun-web-apps/perun/models';
 
 
 export function parseStatusIcon(richMember: RichMember): string {
@@ -56,14 +56,14 @@ export function parseEmail(richMember: RichMember): string {
   if (richMember) {
     richMember.memberAttributes.forEach(attr => {
       if (attr.friendlyName === 'mail' && attr.value !== null) {
-        email = attr.value;
+        email = <string><unknown>attr.value;
       }
     });
 
     if (email.length === 0) {
       richMember.userAttributes.forEach(attr => {
         if (attr.friendlyName === 'preferredMail') {
-          email = attr.value;
+          email = <string><unknown>attr.value;
         }
       });
     }
@@ -81,7 +81,7 @@ export function parseUserEmail(richUser: RichUser): string {
   if (richUser) {
     richUser.userAttributes.forEach(attr => {
       if (attr.friendlyName === 'preferredMail') {
-        email = attr.value;
+        email = <string><unknown>attr.value;
       }
     });
   }
@@ -97,7 +97,9 @@ export function parseLogins(richMember: RichMember|RichUser): string {
   let logins = '';
 
   richMember.userAttributes.forEach(attr => {
+    // @ts-ignore
     if (attr.baseFriendlyName === 'login-namespace') {
+      // @ts-ignore
       logins += attr.friendlyNameParameter + ': ' + attr.value + ' ';
     }
   });
@@ -296,7 +298,7 @@ export function parseVo(richUser: RichUser): string {
   if (richUser) {
     richUser.userAttributes.forEach(attr => {
       if (attr.friendlyName === 'organization') {
-        result = attr.value;
+        result = <string><unknown>attr.value;
       }
     });
   }

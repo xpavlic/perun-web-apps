@@ -5,7 +5,8 @@ import { NotificatorService } from '../../../../core/services/common/notificator
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { GroupService, MembersService, RegistrarService, VoService } from '@perun-web-apps/perun/services';
-import { Group, MemberCandidate } from '@perun-web-apps/perun/models';
+import { Group } from '@perun-web-apps/perun/openapi';
+import { MemberCandidate } from '@perun-web-apps/perun/models';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { getCandidateEmail } from '@perun-web-apps/perun/utils';
 
