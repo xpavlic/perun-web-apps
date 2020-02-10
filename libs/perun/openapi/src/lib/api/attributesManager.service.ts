@@ -759,7 +759,7 @@ export class AttributesManagerService {
     }
 
     /**
-     * Returns all AttributeDefinitions for every entity and possible combination of entities with rights. Only attribute definition of attributes user can read (or write) you will get.
+     * Returns all AttributeDefinitions for every entity and possible combination of entities with rights. Only attribute definition of attributes user can read (or write) you will get. Combination of entities is based on provided parameters, which are optional (at least one must be present).
      * @param member id of Member
      * @param user id of User
      * @param vo id of Vo
@@ -4926,6 +4926,72 @@ export class AttributesManagerService {
     }
 
     /**
+     * Remove facility attribute
+     * @param facility id of Facility
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeFacilityAttribute(facility: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeFacilityAttribute(facility: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeFacilityAttribute(facility: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeFacilityAttribute(facility: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (facility === null || facility === undefined) {
+            throw new Error('Required parameter facility was null or undefined when calling removeFacilityAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeFacilityAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (facility !== undefined && facility !== null) {
+            queryParameters = queryParameters.set('facility', <any>facility);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/f`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Remove attributes of namespace facility
      * @param facility id of Facility
      * @param attributes list of attribute ids List&lt;Integer&gt;
@@ -4994,6 +5060,72 @@ export class AttributesManagerService {
     }
 
     /**
+     * Remove group attribute
+     * @param group id of Group
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeGroupAttribute(group: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupAttribute(group: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupAttribute(group: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupAttribute(group: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (group === null || group === undefined) {
+            throw new Error('Required parameter group was null or undefined when calling removeGroupAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeGroupAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (group !== undefined && group !== null) {
+            queryParameters = queryParameters.set('group', <any>group);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/g`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Remove attributes of namespace group
      * @param group id of Group
      * @param attributes list of attribute ids List&lt;Integer&gt;
@@ -5050,6 +5182,79 @@ export class AttributesManagerService {
 
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Remove group-resource attribute
+     * @param group id of Group
+     * @param resource id of Resource
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (group === null || group === undefined) {
+            throw new Error('Required parameter group was null or undefined when calling removeGroupResourceAttribute.');
+        }
+        if (resource === null || resource === undefined) {
+            throw new Error('Required parameter resource was null or undefined when calling removeGroupResourceAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeGroupResourceAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (group !== undefined && group !== null) {
+            queryParameters = queryParameters.set('group', <any>group);
+        }
+        if (resource !== undefined && resource !== null) {
+            queryParameters = queryParameters.set('resource', <any>resource);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/g-r`,
             null,
             {
                 params: queryParameters,
@@ -5219,6 +5424,72 @@ export class AttributesManagerService {
     }
 
     /**
+     * Remove host attribute
+     * @param host id of Host
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeHostAttribute(host: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeHostAttribute(host: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeHostAttribute(host: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeHostAttribute(host: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (host === null || host === undefined) {
+            throw new Error('Required parameter host was null or undefined when calling removeHostAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeHostAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (host !== undefined && host !== null) {
+            queryParameters = queryParameters.set('host', <any>host);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/h`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Remove attributes of namespace host
      * @param host id of Host
      * @param attributes list of attribute ids List&lt;Integer&gt;
@@ -5275,6 +5546,72 @@ export class AttributesManagerService {
 
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/h`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Remove member attribute
+     * @param member id of Member
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeMemberAttribute(member: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberAttribute(member: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberAttribute(member: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberAttribute(member: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (member === null || member === undefined) {
+            throw new Error('Required parameter member was null or undefined when calling removeMemberAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeMemberAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (member !== undefined && member !== null) {
+            queryParameters = queryParameters.set('member', <any>member);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m`,
             null,
             {
                 params: queryParameters,
@@ -5418,6 +5755,79 @@ export class AttributesManagerService {
 
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-workWithUserAttributes`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Remove member-group attribute
+     * @param member id of Member
+     * @param group id of Group
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (member === null || member === undefined) {
+            throw new Error('Required parameter member was null or undefined when calling removeMemberGroupAttribute.');
+        }
+        if (group === null || group === undefined) {
+            throw new Error('Required parameter group was null or undefined when calling removeMemberGroupAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeMemberGroupAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (member !== undefined && member !== null) {
+            queryParameters = queryParameters.set('member', <any>member);
+        }
+        if (group !== undefined && group !== null) {
+            queryParameters = queryParameters.set('group', <any>group);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m-g`,
             null,
             {
                 params: queryParameters,
@@ -5587,6 +5997,79 @@ export class AttributesManagerService {
     }
 
     /**
+     * Remove member-resource attribute
+     * @param member id of Member
+     * @param resource id of Resource
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (member === null || member === undefined) {
+            throw new Error('Required parameter member was null or undefined when calling removeMemberResourceAttribute.');
+        }
+        if (resource === null || resource === undefined) {
+            throw new Error('Required parameter resource was null or undefined when calling removeMemberResourceAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeMemberResourceAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (member !== undefined && member !== null) {
+            queryParameters = queryParameters.set('member', <any>member);
+        }
+        if (resource !== undefined && resource !== null) {
+            queryParameters = queryParameters.set('resource', <any>resource);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m-r`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Remove attributes of namespace member-resource
      * @param member id of Member
      * @param resource id of Resource
@@ -5650,6 +6133,72 @@ export class AttributesManagerService {
 
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-r`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Remove resource attribute
+     * @param resource id of Resource
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeResourceAttribute(resource: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeResourceAttribute(resource: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeResourceAttribute(resource: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeResourceAttribute(resource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (resource === null || resource === undefined) {
+            throw new Error('Required parameter resource was null or undefined when calling removeResourceAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeResourceAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (resource !== undefined && resource !== null) {
+            queryParameters = queryParameters.set('resource', <any>resource);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/r`,
             null,
             {
                 params: queryParameters,
@@ -5798,6 +6347,72 @@ export class AttributesManagerService {
     }
 
     /**
+     * Remove user attribute
+     * @param user id of User
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeUserAttribute(user: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserAttribute(user: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserAttribute(user: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserAttribute(user: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (user === null || user === undefined) {
+            throw new Error('Required parameter user was null or undefined when calling removeUserAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeUserAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (user !== undefined && user !== null) {
+            queryParameters = queryParameters.set('user', <any>user);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/u`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Remove attributes of namespace user
      * @param user id of User
      * @param attributes list of attribute ids List&lt;Integer&gt;
@@ -5854,6 +6469,72 @@ export class AttributesManagerService {
 
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/u`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Remove userExtSource attribute
+     * @param userExtSource id of UserExtSource
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (userExtSource === null || userExtSource === undefined) {
+            throw new Error('Required parameter userExtSource was null or undefined when calling removeUserExtSourceAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeUserExtSourceAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (userExtSource !== undefined && userExtSource !== null) {
+            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/ues`,
             null,
             {
                 params: queryParameters,
@@ -6002,6 +6683,72 @@ export class AttributesManagerService {
 
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/u-f`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Remove vo attribute
+     * @param vo id of Vo
+     * @param attribute id of AttributeDefinition
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeVoAttribute(vo: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeVoAttribute(vo: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeVoAttribute(vo: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeVoAttribute(vo: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (vo === null || vo === undefined) {
+            throw new Error('Required parameter vo was null or undefined when calling removeVoAttribute.');
+        }
+        if (attribute === null || attribute === undefined) {
+            throw new Error('Required parameter attribute was null or undefined when calling removeVoAttribute.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (vo !== undefined && vo !== null) {
+            queryParameters = queryParameters.set('vo', <any>vo);
+        }
+        if (attribute !== undefined && attribute !== null) {
+            queryParameters = queryParameters.set('attribute', <any>attribute);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/v`,
             null,
             {
                 params: queryParameters,

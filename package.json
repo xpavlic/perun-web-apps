@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "license": "MIT",
   "scripts": {
-    "openapi-gen": "openapi-generator generate -i ../perun/perun-openapi/openapi.yml -g typescript-angular -o libs/perun/openapi/src/lib",
+    "openapi-gen": "openapi-generator generate -i https://raw.githubusercontent.com/CESNET/perun/master/perun-openapi/openapi.yml -g typescript-angular -o libs/perun/openapi/src/lib",
     "ng-openapi-gen": "ng-openapi-gen",
     "ng": "ng",
     "nx": "nx",
