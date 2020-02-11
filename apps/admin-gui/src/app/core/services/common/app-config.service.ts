@@ -100,7 +100,8 @@ export class AppConfigService {
     return this.loadAppDefaultConfig()
       .then(() => this.loadAppInstanceConfig())
       .then(() => this.initializeColors())
-      .then(() => this.loadAdditionalData());
+      .then(() => this.authenticateUser())
+      .then(() => this.loadPrincipal());
   }
 
   initializeColors() : Promise<void> {
@@ -185,21 +186,20 @@ export class AppConfigService {
   }
 
   /**
-   * Load additional data. First it init authService with necessarily data. Then start authentication and after user is
-   * authenticated the principal is loaded.
-   * @param config of the instance
+   * Load additional data. First it init authService with necessarily data, then
+   * start authentication.
    */
-  loadAdditionalData(): Promise<any> {
+  authenticateUser(): Promise<any> {
     return new Promise((resolve) => {
       this.authService.loadConfigData();
 
-      this.authService.authenticate().then(() => {
-
-        this.loadPrincipal().then( () => {
+      if (this.storeService.get('skip_oidc')) {
+        resolve();
+      } else {
+        this.authService.authenticate().then(() => {
           resolve();
         });
-      });
-
+      }
     });
   }
 
