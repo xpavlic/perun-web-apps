@@ -65,8 +65,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
   isAddButtonDisabled = false;
 
   ngOnChanges(changes: SimpleChanges) {
-    this.dataSource = new MatTableDataSource<[string, Attribute]>(this.records);
-    this.setDataSource();
+    this.ngOnInit();
   }
 
   ngOnInit() {
@@ -102,6 +101,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
         });
       });
     }
+    this.selection.clear();
     this.isAddButtonDisabled = false;
   }
 
@@ -115,18 +115,19 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
       });
     }
     this.ngOnInit();
+    this.selection.clear();
     this.isAddButtonDisabled = false;
   }
 
   onAdd() {
     const rec = ['', this.attDef as Attribute] as [string, Attribute];
     rec[1].value = undefined;
-    this.records.push(rec);
-    this.ngOnChanges(undefined);
+    this.records.unshift(rec);
+    this.dataSource.data = this.records;
+    this.setDataSource();
     this.selection.clear();
     this.selection.select(rec);
     this.isAddButtonDisabled = true;
-    this.paginator.lastPage();
   }
 
   onCancel() {
