@@ -18,7 +18,7 @@ export class NotificationStorageService {
   }
 
   getNotifications(){
-    return this.notificationData;
+    return this.notificationData.reverse();
   }
 
   clearNotifications(){
