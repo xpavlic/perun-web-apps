@@ -6,6 +6,7 @@ import { AuthService } from '../common/auth.service';
 import { ApiRequestConfigurationService } from './api-request-configuration.service';
 import { NotificatorService } from '../common/notificator.service';
 import { RPCError } from '@perun-web-apps/perun/models';
+import { StoreService } from '../common/store.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
@@ -14,9 +15,21 @@ export class ApiInterceptor implements HttpInterceptor {
     private authService: AuthService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private notificator: NotificatorService,
+    private store: StoreService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const apiUrl = this.store.get('api_url');
+    if (apiUrl !== undefined && req.url.toString().indexOf(apiUrl) !== -1 && !this.authService.isLoggedIn()) {
+      const err: RPCError = {
+        message: "Your authentication has timed out.",
+        errorId: null,
+        name: "User not logged in.",
+        type: "UserNotLoggedIn"
+      };
+      this.notificator.showRPCError(err);
+      return throwError(err);
+    }
     // Apply the headers
     req = req.clone({
       setHeaders: {

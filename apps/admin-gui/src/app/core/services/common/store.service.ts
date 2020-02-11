@@ -53,6 +53,9 @@ export class StoreService {
       }
     }
 
+    if (this.defaultConfig === undefined) {
+      return undefined;
+    }
     if (currentValue === undefined) {
       for (let i = 0; i < keys.length; ++i) {
         if (i === 0) {
