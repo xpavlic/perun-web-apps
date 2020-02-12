@@ -27,6 +27,8 @@ import { ApplicationFormItem } from '@perun-web-apps/perun/models';
 })
 export class GroupSettingsApplicationFormComponent implements OnInit {
 
+  static id = 'GroupSettingsApplicationFormComponent';
+
   @HostBinding('class.router-component') true;
 
   constructor(private registrarService: RegistrarService,
@@ -43,6 +45,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   voId: number;
   groupId: number;
   noApplicationForm = false;
+  itemsChanged = false;
 
   ngOnInit() {
     this.loading = true;
@@ -71,24 +74,21 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   add() {
     const dialog = this.dialog.open(AddApplicationFormItemDialogComponent, {
       width: '500px',
-      data: {voId: this.voId, groupId: this.groupId, applicationFormItems: this.applicationFormItems}
+      data: {applicationFormItems: this.applicationFormItems}
     });
     dialog.afterClosed().subscribe( success => {
+      // success is field contains of two items: first is applicationFormItems with new item in it,
+      // second item is new Application Form Item
       if (success) {
-        this.registrarService.getFormItemsForGroup(this.groupId).subscribe( formItems => {
-          this.applicationFormItems = formItems;
-          const editDialog = this.dialog.open(EditApplicationFormItemDialogComponent, {
-            width: '600px',
-            height: '600px',
-            data: {voId: this.voId,
-              groupId: this.groupId,
-              applicationFormItem: formItems[success.ordnum],
-              applicationFormItems: this.applicationFormItems}
-          });
-          editDialog.afterClosed().subscribe(() => {
-            this.updateFormItems();
-          });
+        this.applicationFormItems = Object.assign([], success[0]);
+        this.dialog.open(EditApplicationFormItemDialogComponent, {
+          width: '600px',
+          height: '600px',
+          data: {voId: this.voId,
+            groupId: this.groupId,
+            applicationFormItem: success[1]}
         });
+        this.itemsChanged = true;
       }
     });
   }
@@ -121,25 +121,44 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   }
 
   preview() {
-    this.router.navigate(['/organizations', this.voId, 'groups', this.groupId, 'settings', 'applicationForm', 'preview']);
+    this.router.navigate(['/organizations', this.voId, 'groups', this.groupId, 'settings', 'applicationForm', 'preview'],
+      {queryParams: {applicationFormItems: JSON.stringify(this.applicationFormItems)}});
   }
 
   updateFormItems() {
     this.loading = true;
     this.registrarService.getFormItemsForGroup(this.groupId).subscribe( formItems => {
       this.applicationFormItems = formItems;
+      this.itemsChanged = false;
       this.loading = false;
     });
   }
 
-  changeItems(applicationFormItemsChange: ApplicationFormItem[]) {
-    this.applicationFormItems = applicationFormItemsChange;
+  changeItems() {
+    this.itemsChanged = true;
   }
 
   createEmptyApplicationForm() {
     this.registrarService.createApplicationForm(this.groupId).subscribe( () => {
       this.noApplicationForm = false;
       this.ngOnInit();
+    });
+  }
+
+  save() {
+    let i = 0;
+    for (const item of this.applicationFormItems) {
+      item.ordnum = i;
+      if (!item.forDelete) {
+        i++
+      }
+    }
+    this.registrarService.updateFormItemsForVo(this.voId, this.applicationFormItems).subscribe( () => {
+      this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
+        .subscribe( successMessage => {
+          this.notificator.showSuccess(successMessage);
+        });
+      this.updateFormItems();
     });
   }
 }

@@ -26,6 +26,8 @@ import { ApplicationFormItem } from '@perun-web-apps/perun/models';
 })
 export class VoSettingsApplicationFormComponent implements OnInit {
 
+  static id = 'VoSettingsApplicationFormComponent';
+
   @HostBinding('class.router-component') true;
 
   constructor(private registrarService: RegistrarService,
@@ -38,6 +40,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   loading = false;
   applicationForm: ApplicationForm;
   applicationFormItems: ApplicationFormItem[] = [];
+  itemsChanged = false;
   voId: number;
 
   ngOnInit() {
@@ -58,21 +61,19 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   add() {
     const dialog = this.dialog.open(AddApplicationFormItemDialogComponent, {
       width: '500px',
-      data: {voId: this.voId, applicationFormItems: this.applicationFormItems}
+      data: {applicationFormItems: this.applicationFormItems}
     });
     dialog.afterClosed().subscribe( success => {
+      // success is field contains of two items: first is applicationFormItems with new item in it,
+      // second item is new Application Form Item
       if (success) {
-        this.registrarService.getFormItemsForVo(this.voId).subscribe( formItems => {
-          this.applicationFormItems = formItems;
-          const editDialog = this.dialog.open(EditApplicationFormItemDialogComponent, {
-            width: '600px',
-            height: '600px',
-            data: {voId: this.voId, applicationFormItem: formItems[success.ordnum], applicationFormItems: this.applicationFormItems}
-          });
-          editDialog.afterClosed().subscribe(() => {
-            this.updateFormItems();
-          });
+        this.applicationFormItems = Object.assign([], success[0]);
+        this.dialog.open(EditApplicationFormItemDialogComponent, {
+          width: '600px',
+          height: '600px',
+          data: {voId: this.voId, applicationFormItem: success[1]}
         });
+        this.itemsChanged = true;
       }
     });
   }
@@ -105,18 +106,37 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   }
 
   preview() {
-    this.router.navigate(['/organizations', this.voId, 'settings', 'applicationForm', 'preview']);
+    this.router.navigate(['/organizations', this.voId, 'settings', 'applicationForm', 'preview'],
+      {queryParams: {applicationFormItems: JSON.stringify(this.applicationFormItems)}});
   }
 
   updateFormItems() {
     this.loading = true;
     this.registrarService.getFormItemsForVo(this.voId).subscribe( formItems => {
       this.applicationFormItems = formItems;
+      this.itemsChanged = false;
       this.loading = false;
     });
   }
 
-  changeItems(applicationFormItemsChange: ApplicationFormItem[]) {
-    this.applicationFormItems = applicationFormItemsChange;
+  changeItems() {
+    this.itemsChanged = true;
+  }
+
+  save() {
+    let i = 0;
+    for (const item of this.applicationFormItems) {
+      item.ordnum = i;
+      if (!item.forDelete) {
+        i++
+      }
+    }
+    this.registrarService.updateFormItemsForVo(this.voId, this.applicationFormItems).subscribe( () => {
+      this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
+        .subscribe( successMessage => {
+        this.notificator.showSuccess(successMessage);
+      });
+      this.updateFormItems();
+    });
   }
 }

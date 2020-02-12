@@ -10,7 +10,6 @@ export interface EditApplicationFormItemDialogComponentData {
   voId: number;
   group: Group;
   applicationFormItem: ApplicationFormItem;
-  applicationFormItems: ApplicationFormItem[];
 }
 
 export class SelectionItem {
@@ -47,8 +46,8 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
 
   ngOnInit() {
-    this.applicationFormItem = this.data.applicationFormItem;
-
+    this.applicationFormItem = new ApplicationFormItem();
+    this.copy(this.data.applicationFormItem, this.applicationFormItem);
     this.attributesManager.getAllAttributeDefinitions().subscribe( attributeDefinitions => {
       this.attributeDefinitions = attributeDefinitions;
       this.getDestinationAndSourceAttributes();
@@ -70,21 +69,8 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
   submit() {
     this.updateOptions();
-    for (const item of this.data.applicationFormItems) {
-      if (item.id === this.applicationFormItem.id) {
-        this.data.applicationFormItems[item.ordnum] = this.applicationFormItem;
-        break;
-      }
-    }
-    if (this.data.group) {      // if the dialog is for group
-      this.registrarService.updateFormItemsForGroup(this.data.group.id, this.data.applicationFormItems).subscribe( () => {
-        this.dialogRef.close(true);
-      });
-    } else {
-      this.registrarService.updateFormItemsForVo(this.data.voId, this.data.applicationFormItems).subscribe(() => {
-        this.dialogRef.close(true);
-      });
-    }
+    this.copy(this.applicationFormItem, this.data.applicationFormItem);
+    this.dialogRef.close(true);
   }
 
   onChangingType(type: string) {
@@ -286,5 +272,28 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
       return 0;
     });
+  }
+
+  copy(from: ApplicationFormItem, to: ApplicationFormItem) {
+    to.applicationTypes = from.applicationTypes;
+    to.beanName = from.beanName;
+    to.federationAttribute = from.federationAttribute;
+    to.forDelete = from.forDelete;
+    to.i18n['cs'].errorMessage = from.i18n['cs'].errorMessage;
+    to.i18n['cs'].help = from.i18n['cs'].help;
+    to.i18n['cs'].label = from.i18n['cs'].label;
+    to.i18n['cs'].options = from.i18n['cs'].options;
+    to.i18n['en'].errorMessage = from.i18n['en'].errorMessage;
+    to.i18n['en'].help = from.i18n['en'].help;
+    to.i18n['en'].label = from.i18n['en'].label;
+    to.i18n['en'].options = from.i18n['en'].options;
+    to.id = from.id;
+    to.ordnum = from.ordnum;
+    to.perunDestinationAttribute = from.perunDestinationAttribute;
+    to.perunSourceAttribute = from.perunSourceAttribute;
+    to.regex = from.regex;
+    to.required = from.required;
+    to.shortname = from.shortname;
+    to.type = from.type;
   }
 }
