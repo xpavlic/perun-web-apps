@@ -95,7 +95,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
   }
 
   submit() {
-    if (this.data.groupId) {      // checking if the dialog is for group or Vo
+    if (this.data.groupId) { // checking if the dialog is for group or Vo
       if (this.groupControl.value === this.fakeGroup) {   // no group selected
         this.registrarService.copyFormFromVoToGroup(this.voControl.value.id, this.data.groupId).subscribe( () => {
           this.dialogRef.close(true);
