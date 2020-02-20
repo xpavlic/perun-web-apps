@@ -60,8 +60,6 @@ import { MemberStatusIconColorPipe } from './pipes/member-status-icon-color.pipe
 import { MemberEmailPipe } from './pipes/member-email.pipe';
 import { MemberLoginsPipe } from './pipes/member-logins.pipe';
 import { RemoveMembersDialogComponent } from './components/dialogs/remove-members-dialog/remove-members-dialog.component';
-import { NgxGraphModule } from '@swimlane/ngx-graph';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SideMenuRootItemComponent } from './side-menu/side-menu-root-item/side-menu-root-item.component';
 import { DebuggerPageComponent } from './debugger-page/debugger-page.component';
 import { TechnicalOwnersPipe } from './pipes/technical-owners.pipe';
@@ -208,12 +206,8 @@ import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
     MatPaginatorModule,
     MatCardModule,
     MatStepperModule,
-    NgxGraphModule,
-    NgxChartsModule,
     DragDropModule,
-    NgxChartsModule,
     DragDropModule,
-    NgxChartsModule,
     MatCardModule,
     MatChipsModule,
     MatMenuModule,
@@ -269,8 +263,6 @@ import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
     MemberStatusIconColorPipe,
     MemberEmailPipe,
     MemberLoginsPipe,
-    NgxGraphModule,
-    NgxChartsModule,
     TechnicalOwnersPipe,
     ResourcesListComponent,
     GroupsListComponent,

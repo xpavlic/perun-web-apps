@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {NoPreloading, RouterModule, Routes} from '@angular/router';
 import {MainMenuPageComponent} from './main-menu-page/main-menu-page.component';
 import {AuthCallbackComponent} from './core/components/auth-callback/auth-callback.component';
 import {UserProfileComponent} from './shared/components/user-profile/user-profile.component';
@@ -80,7 +80,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: PreloadAllModules,
+    preloadingStrategy: NoPreloading,
     scrollPositionRestoration: 'enabled'
   })],
   exports: [RouterModule]
