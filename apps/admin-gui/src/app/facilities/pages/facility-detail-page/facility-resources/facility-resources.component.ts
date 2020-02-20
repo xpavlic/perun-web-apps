@@ -2,7 +2,7 @@ import {Component, HostBinding, Input, OnInit} from '@angular/core';
 import {SideMenuService} from '../../../../core/services/common/side-menu.service';
 import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {
   RemoveResourceDialogComponent} from '../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { FacilityService } from '@perun-web-apps/perun/services';

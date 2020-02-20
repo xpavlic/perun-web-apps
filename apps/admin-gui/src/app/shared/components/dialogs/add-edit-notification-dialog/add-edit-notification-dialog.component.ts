@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {openClose, tagsOpenClose} from '../../../animations/Animations';
 import { ApplicationMail } from '@perun-web-apps/perun/models';
 import { RegistrarService } from '@perun-web-apps/perun/services';

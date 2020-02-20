@@ -4,7 +4,7 @@ import { VoService } from '@perun-web-apps/perun/services';
 import { Vo } from '@perun-web-apps/perun/openapi';
 import { getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import { AuthResolverService } from '@perun-web-apps/perun/services';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CreateVoDialogComponent } from '../../../shared/components/dialogs/create-vo-dialog/create-vo-dialog.component';

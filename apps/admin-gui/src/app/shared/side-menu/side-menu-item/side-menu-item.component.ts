@@ -40,7 +40,7 @@ export class SideMenuItemComponent implements OnInit, OnChanges {
   @Input()
   showOpen: boolean;
 
-  @ViewChild('collapse', { static: false }) collapseDiv: ElementRef;
+  @ViewChild('collapse') collapseDiv: ElementRef;
 
   expanded = true;
   linkBgColor = this.store.get('theme', 'sidemenu_item_links_bg_color');

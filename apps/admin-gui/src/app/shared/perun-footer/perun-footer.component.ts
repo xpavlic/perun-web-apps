@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ReportIssueDialogComponent } from '../components/report-issue-dialog/report-issue-dialog.component';
 import { StoreService } from '@perun-web-apps/perun/services';
 

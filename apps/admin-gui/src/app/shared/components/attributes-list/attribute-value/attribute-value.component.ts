@@ -12,7 +12,7 @@ export class AttributeValueComponent implements OnInit {
   constructor() {
   }
 
-  @ViewChild('map', {static: false})
+  @ViewChild('map')
   mapComponent: AttributeValueMapComponent;
 
   @Input()

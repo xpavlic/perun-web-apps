@@ -3,7 +3,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {
   DeleteAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {
   CreateAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
@@ -32,7 +32,7 @@ export class VoSettingsAttributesComponent implements OnInit {
     this.translate.get('VO_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_DELETE').subscribe(value => this.deleteSuccessMessage = value);
   }
 
-  @ViewChild('list', {static: false})
+  @ViewChild('list')
   list: AttributesListComponent;
 
   attributes: Attribute[] = [];

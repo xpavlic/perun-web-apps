@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild, ChangeDetectorRef, Output, EventEmitter} from '@angular/core';
-import {MatDialog, MatTable} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTable } from '@angular/material/table';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {
   DeleteApplicationFormItemDialogComponent
@@ -41,7 +42,7 @@ export class ApplicationFormListComponent implements OnChanges {
 
   dataSource = this.applicationFormItems;
   displayedColumns: string[] = ['drag', 'shortname', 'type', 'preview', 'edit', 'delete'];
-  @ViewChild('table', { static: false }) table: MatTable<ApplicationFormItem>;
+  @ViewChild('table') table: MatTable<ApplicationFormItem>;
 
   mapForCombobox: Map<number, string> = new Map();
   dragDisabled = true;

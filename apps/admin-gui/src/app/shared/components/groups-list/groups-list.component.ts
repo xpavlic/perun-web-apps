@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, Simple
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MatPaginator} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 import { Group } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -54,7 +54,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
 
   exporting = false;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnChanges(changes: SimpleChanges) {
     this.hasMembersGroup = this.checkIfHasMembersGroup();

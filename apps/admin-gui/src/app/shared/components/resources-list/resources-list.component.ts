@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { RichResource } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -36,7 +38,7 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   @Input()
   filterValue: string;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnChanges(changes: SimpleChanges) {
     this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));

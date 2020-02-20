@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { MatStepper } from '@angular/material';
+import { MatStepper } from '@angular/material/stepper';
 import { NotificatorService } from '../../../../../core/services/common/notificator.service';
 import { User } from '@perun-web-apps/perun/openapi';
 import { FacilityService, ServiceService, UsersService } from '@perun-web-apps/perun/services';

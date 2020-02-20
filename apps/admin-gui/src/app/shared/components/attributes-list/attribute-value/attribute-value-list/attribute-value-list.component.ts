@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatChipInputEvent} from '@angular/material';
+import { MatChipInputEvent } from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';

@@ -1,5 +1,5 @@
 import {Component, HostBinding, Input, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {SelectionModel} from '@angular/cdk/collections';
 import {AddManagerDialogComponent} from '../dialogs/add-manager-dialog/add-manager-dialog.component';
 import {RemoveManagerDialogComponent} from '../dialogs/remove-manager-dialog/remove-manager-dialog.component';

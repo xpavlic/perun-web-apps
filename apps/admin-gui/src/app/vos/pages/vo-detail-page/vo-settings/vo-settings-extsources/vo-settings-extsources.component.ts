@@ -3,7 +3,7 @@ import { ExtSourceService } from '@perun-web-apps/perun/services';
 import { ActivatedRoute } from '@angular/router';
 import { ExtSource } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AddExtSourceDialogComponent } from '../../../../../shared/components/dialogs/add-ext-source-dialog/add-ext-source-dialog.component';
 import { NotificatorService } from '../../../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';

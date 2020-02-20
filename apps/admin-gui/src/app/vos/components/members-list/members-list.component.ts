@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { MatDialog, MatPaginator } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import {SelectionModel} from '@angular/cdk/collections';
 import { RichMember } from '@perun-web-apps/perun/openapi';
 import { parseEmail, parseFullName } from '@perun-web-apps/perun/utils';
@@ -32,7 +33,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     this.setDataSource();
   }
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @Input()
   members: RichMember[];

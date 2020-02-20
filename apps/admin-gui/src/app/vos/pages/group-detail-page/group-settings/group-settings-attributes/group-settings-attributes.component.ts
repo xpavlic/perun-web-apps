@@ -4,7 +4,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {AttributesListComponent} from '../../../../../shared/components/attributes-list/attributes-list.component';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {
   CreateAttributeDialogComponent
 } from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
@@ -34,7 +34,7 @@ export class GroupSettingsAttributesComponent implements OnInit {
     this.translate.get('GROUP_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_DELETE').subscribe(value => this.deleteSuccessMessage = value);
   }
 
-  @ViewChild('list', {static: false})
+  @ViewChild('list')
   list: AttributesListComponent;
 
   saveSuccessMessage: string;

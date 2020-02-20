@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { VoService } from '@perun-web-apps/perun/services';
 import { Vo } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';

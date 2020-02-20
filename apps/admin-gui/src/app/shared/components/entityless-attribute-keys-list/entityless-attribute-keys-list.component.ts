@@ -9,7 +9,10 @@ import {
   SimpleChanges,
   ViewChild, ViewChildren
 } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { NotificatorService } from '../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -42,7 +45,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit {
     this.setDataSource();
   }
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @Input()
   attDef: AttributeDefinition;

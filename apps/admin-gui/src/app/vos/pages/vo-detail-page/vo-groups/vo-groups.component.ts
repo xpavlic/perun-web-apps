@@ -7,7 +7,7 @@ import { DeleteGroupDialogComponent } from '../../../../shared/components/dialog
 import { SelectionModel } from '@angular/cdk/collections';
 import { GroupFlatNode } from '../../../components/groups-tree/groups-tree.component';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
-import { MatCheckbox } from '@angular/material';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { applyFilter } from '@perun-web-apps/perun/utils';
 import { VoService } from '@perun-web-apps/perun/services';
 import { Group, GroupsManagerService, Vo } from '@perun-web-apps/perun/openapi';

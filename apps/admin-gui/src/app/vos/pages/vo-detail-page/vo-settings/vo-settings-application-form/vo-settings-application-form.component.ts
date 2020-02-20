@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {
   UpdateApplicationFormDialogComponent
 } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';

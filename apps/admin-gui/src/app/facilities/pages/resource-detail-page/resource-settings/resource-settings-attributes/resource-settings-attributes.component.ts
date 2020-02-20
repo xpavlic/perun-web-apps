@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {NotificatorService} from '../../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
 import {AttributesListComponent} from '../../../../../shared/components/attributes-list/attributes-list.component';
@@ -32,7 +32,7 @@ export class ResourceSettingsAttributesComponent implements OnInit {
     this.translate.get('RESOURCE_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_DELETE').subscribe(value => this.deleteSuccessMessage = value);
   }
 
-  @ViewChild('list', {static: false})
+  @ViewChild('list')
   list: AttributesListComponent;
 
   attributes: Attribute[] = [];

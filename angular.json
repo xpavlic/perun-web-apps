@@ -20,7 +20,7 @@
             "main": "apps/consolidator/src/main.ts",
             "polyfills": "apps/consolidator/src/polyfills.ts",
             "tsConfig": "apps/consolidator/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/consolidator/src/favicon.ico",
               "apps/consolidator/src/assets"
@@ -44,7 +44,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -53,6 +52,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -353,7 +356,7 @@
             "main": "apps/admin-gui/src/main.ts",
             "polyfills": "apps/admin-gui/src/polyfills.ts",
             "tsConfig": "apps/admin-gui/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/admin-gui/src/favicon.ico",
               "apps/admin-gui/src/assets",
@@ -380,7 +383,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -389,6 +391,10 @@
                   "type": "initial",
                   "maximumWarning": "4mb",
                   "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -504,7 +510,7 @@
             "main": "apps/statistics/src/main.ts",
             "polyfills": "apps/statistics/src/polyfills.ts",
             "tsConfig": "apps/statistics/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/statistics/src/favicon.ico",
               "apps/statistics/src/assets"
@@ -529,7 +535,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,

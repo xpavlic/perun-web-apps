@@ -15,7 +15,7 @@ export class ApplicationsListComponent implements OnChanges {
 
   constructor(private router: Router) { }
 
-  @ViewChild(MatSort, { static: false }) set matSort(ms: MatSort) {
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
@@ -36,7 +36,7 @@ export class ApplicationsListComponent implements OnChanges {
 
   exporting = false;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   private sort: MatSort;
 
   ngOnChanges(changes: SimpleChanges) {

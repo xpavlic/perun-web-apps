@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationStorageService } from '../../../../core/services/common/notification-storage.service';
 import { NotificationData } from '../../../models/NotificationData';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-show-notification-history-dialog',

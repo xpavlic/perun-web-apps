@@ -13,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { setContext } from 'apollo-link-context';
 import { ApolloLink } from 'apollo-link';
 import { ChartsModule } from 'ng2-charts';
-import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DefaultOptions } from 'apollo-client';
 import { AppConfigService } from '@perun-web-apps/config';
 

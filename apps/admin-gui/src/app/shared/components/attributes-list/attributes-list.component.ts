@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, Input, OnChanges, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {AttributeValueComponent} from './attribute-value/attribute-value.component';
 import { Attribute } from '@perun-web-apps/perun/openapi';
@@ -22,7 +24,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   @ViewChildren(AttributeValueComponent)
   items: QueryList<AttributeValueComponent>;
 
-  @ViewChild(MatPaginator, {static: false})
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   @Input()

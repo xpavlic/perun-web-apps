@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { CreateRelationDialogComponent } from '../../../../../shared/components/dialogs/create-relation-dialog/create-relation-dialog.component';

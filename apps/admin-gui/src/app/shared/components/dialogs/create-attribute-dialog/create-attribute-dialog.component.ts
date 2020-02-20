@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {SelectionModel} from '@angular/cdk/collections';
 import {AttributesListComponent} from '../../attributes-list/attributes-list.component';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
@@ -31,7 +31,7 @@ export class CreateAttributeDialogComponent implements OnInit {
     this.translate.get('DIALOGS.CREATE_ATTRIBUTE.SUCCESS_SAVE').subscribe(value => this.saveSuccessMessage = value);
   }
 
-  @ViewChild('list', {static: false})
+  @ViewChild('list')
   list: AttributesListComponent;
 
   attributes: Attribute[];

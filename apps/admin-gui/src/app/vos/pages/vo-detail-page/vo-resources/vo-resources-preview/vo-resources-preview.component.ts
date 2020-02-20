@@ -4,7 +4,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { VoService } from '@perun-web-apps/perun/services';
 import { ResourcesManagerService, RichResource, Vo } from '@perun-web-apps/perun/openapi';
 import { RemoveResourceDialogComponent } from '../../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-vo-resources-preview',

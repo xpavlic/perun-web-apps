@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AddIdentityDialogComponent } from '../../components/add-identity-dialog/add-identity-dialog.component';
 import { AuthzService, RegistrarService, UsersService } from '@perun-web-apps/perun/services';
 import { Identity } from '../../models/Identity';

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { IdentityType, IdentityTypeData } from '../identity-type-selection/identity-type-selection.component';
-import { MAT_DIALOG_DATA, MatDialogRef, MatHorizontalStepper } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatHorizontalStepper } from '@angular/material/stepper';
 import { Entity } from '../../models/Entity';
 import { Router } from '@angular/router';
 

@@ -4,7 +4,7 @@ import { CreateGroupDialogComponent } from '../../../../shared/components/dialog
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
-import { MatCheckbox } from '@angular/material';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { applyFilter } from '@perun-web-apps/perun/utils';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 

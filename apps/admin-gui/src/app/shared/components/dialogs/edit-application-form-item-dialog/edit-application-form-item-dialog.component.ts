@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
 import { Group } from '@perun-web-apps/perun/openapi';
 import { ApplicationFormItem } from '@perun-web-apps/perun/models';

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { EntitiesService } from '../../services/entities.service';
 import { Entity } from '../../models/Entity';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 
 @Component({
