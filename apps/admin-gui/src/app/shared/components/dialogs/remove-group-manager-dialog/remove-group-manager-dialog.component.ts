@@ -3,8 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import {TranslateService} from '@ngx-translate/core';
-import { Facility, Group, Vo } from '@perun-web-apps/perun/openapi';
-import { AuthzService } from '@perun-web-apps/perun/services';
+import { AuthzResolverService, Facility, Group, Vo } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
 
 export interface RemoveGroupDialogData {
@@ -25,7 +24,7 @@ export class RemoveGroupManagerDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: RemoveGroupDialogData,
               private notificator: NotificatorService,
               private translate: TranslateService,
-              private authzService: AuthzService) {
+              private authzService: AuthzResolverService) {
   }
 
   displayedColumns: string[] = ['name'];
@@ -45,7 +44,7 @@ export class RemoveGroupManagerDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    this.authzService.unsetRoleForGroups(this.data.role, this.data.groups.map(group => group.id), this.data.complementaryObject)
+    this.authzService.unsetRoleWithGroupComplementaryObject({role: this.data.role, authorizedGroups: this.data.groups.map(group => group.id), complementaryObject: this.data.complementaryObject})
       .subscribe(() => {
         this.translate.get('DIALOGS.REMOVE_GROUPS.SUCCESS').subscribe(successMessage => {
           this.notificator.showSuccess(successMessage);
