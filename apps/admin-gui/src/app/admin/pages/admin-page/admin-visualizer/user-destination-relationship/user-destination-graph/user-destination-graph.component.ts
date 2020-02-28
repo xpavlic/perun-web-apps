@@ -4,12 +4,12 @@ import * as shape from 'd3-shape';
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  FacilityService,
   MembersService,
   ServiceService,
   VoService
 } from '@perun-web-apps/perun/services';
 import {
+  FacilitiesManagerService,
   Facility,
   Group,
   GroupsManagerService,
@@ -30,8 +30,8 @@ export class UserDestinationGraphComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(private route: ActivatedRoute,
+              private facilityManager: FacilitiesManagerService,
               private userService: UsersManagerService,
-              private facilityService: FacilityService,
               private memberService: MembersService,
               private serviceService: ServiceService,
               private resourceManager: ResourcesManagerService,
@@ -77,7 +77,7 @@ export class UserDestinationGraphComponent implements OnInit {
       this.service = params['service'];
       this.userService.getUserById(params['user']).subscribe(user => {
         this.user = user;
-        this.facilityService.getFacilitiesByDestination(this.destination).subscribe( facilities => {
+        this.facilityManager.getFacilitiesByDestination(this.destination).subscribe( facilities => {
           this.facilities = facilities;
           this.memberService.getMembersByUser(this.user.id).subscribe(membership => {
             this.membership = membership;
@@ -147,7 +147,7 @@ export class UserDestinationGraphComponent implements OnInit {
 
   connectToService(facility: Facility, destinations: RichDestination[]) {
     if (this.isConnectedToService(destinations)) {
-      this.facilityService.getAssignedResources(facility.id).subscribe(connectedResources => {
+      this.facilityManager.getAssignedResourcesForFacility(facility.id).subscribe(connectedResources => {
         for (let i = 0; i < this.membership.length; i++) {
           this.connectToGroups(facility, this.membership[i], connectedResources);
         }
@@ -156,7 +156,7 @@ export class UserDestinationGraphComponent implements OnInit {
   }
 
   connectToGroups(facility: Facility, member: Member, connectedResources: Resource[]) {
-    this.facilityService.getAllowedGroups(facility.id, member.voId).subscribe(allowedGroups => {
+    this.facilityManager.getAllowedGroups(facility.id, member.voId).subscribe(allowedGroups => {
       if (allowedGroups.length !== 0) {
         this.groupService.getMemberGroups(member.id).subscribe(memberGroups => {
           const connectedGroups: Group[] = this.findConnectedGroups(allowedGroups, memberGroups);

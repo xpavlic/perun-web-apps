@@ -6,8 +6,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 import { NotificatorService } from '../../../../../core/services/common/notificator.service';
-import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
-import { FacilityService, ServiceService} from '@perun-web-apps/perun/services';
+import { User, UsersManagerService, FacilitiesManagerService } from '@perun-web-apps/perun/openapi';
+import { ServiceService} from '@perun-web-apps/perun/services';
+
 
 @Component({
   selector: 'app-user-destination-relationship',
@@ -29,7 +30,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
 
   constructor(private usersService: UsersManagerService,
               private translate: TranslateService,
-              private facilityService: FacilityService,
+              private facilityManager: FacilitiesManagerService,
               private serviceService: ServiceService,
               private router: Router,
               private notificator: NotificatorService) { }
@@ -85,7 +86,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
     this.availableServices = [];
     this.availableServices.push(this.noServiceText);
     this.chosenService = '';
-    this.facilityService.getFacilitiesByDestination(this.destination).subscribe( facilities => {
+    this.facilityManager.getFacilitiesByDestination(this.destination).subscribe( facilities => {
       if (facilities.length === 0) {
         this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.ERROR_WRONG_DESTINATION').subscribe( errorMessage => {
           this.notificator.showError(errorMessage);
