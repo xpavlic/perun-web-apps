@@ -1,17 +1,16 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {Router} from '@angular/router';
-import { Group } from '@perun-web-apps/perun/openapi';
-import { Application } from '@perun-web-apps/perun/models';
+import { Application, Group } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-applications-list',
   templateUrl: './applications-list.component.html',
   styleUrls: ['./applications-list.component.scss']
 })
-export class ApplicationsListComponent implements OnChanges {
+export class ApplicationsListComponent implements OnChanges, AfterViewInit {
 
   constructor(private router: Router) { }
 
@@ -38,6 +37,10 @@ export class ApplicationsListComponent implements OnChanges {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private sort: MatSort;
+
+  ngAfterViewInit(): void {
+    this.setDataSource();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<Application>(this.applications);
