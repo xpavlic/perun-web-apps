@@ -5,7 +5,7 @@ import { NotificatorService } from '../../../../core/services/common/notificator
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MembersService, RegistrarService, VoService } from '@perun-web-apps/perun/services';
-import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, GroupsManagerService, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { MemberCandidate } from '@perun-web-apps/perun/models';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { getCandidateEmail } from '@perun-web-apps/perun/utils';
@@ -32,6 +32,7 @@ export class AddMemberDialogComponent implements OnInit {
     private groupService: GroupsManagerService,
     private voService: VoService,
     private registrarService: RegistrarService,
+    private registrarManager: RegistrarManagerService,
     private translate: TranslateService,
     private notificator: NotificatorService,
     protected route: ActivatedRoute,
@@ -90,25 +91,29 @@ export class AddMemberDialogComponent implements OnInit {
     // TODO Was not tested properly. Need to be tested on devel.
     if (this.selection.selected[0].richUser) {
       if (this.data.type === 'vo') {
-        this.registrarService.sendInvitationToExistingUser(this.selection.selected[0].richUser.id, this.data.entityId).subscribe(() => {
+        this.registrarManager.sendInvitationToExistingUser(
+          {user: this.selection.selected[0].richUser.id, vo: this.data.entityId}).subscribe(() => {
           this.onInviteSuccess();
         });
       } else if (this.data.type === 'group') {
-        this.registrarService.sendInvitationGroupToExistingUser(this.selection.selected[0].richUser.id, this.data.voId ,this.data.group.id).subscribe(() => {
+        this.registrarManager.sendInvitationGroupToExistingUser(
+          {user: this.selection.selected[0].richUser.id, vo: this.data.voId, group: this.data.group.id}).subscribe(() => {
           this.onInviteSuccess();
         });
       }
     } else {
       if (this.data.type === 'vo') {
-        this.registrarService.sendInvitation(this.data.voId,
-          getCandidateEmail(this.selection.selected[0].candidate)).subscribe( () => {
+        this.registrarManager.sendInvitation({vo: this.data.voId,
+          // TODO allow to choose language
+          email: getCandidateEmail(this.selection.selected[0].candidate), language: 'en'}).subscribe(() => {
             this.onInviteSuccess();
         });
       } else if (this.data.type === 'group') {
-        this.registrarService.sendInvitationForGroup(this.data.voId, this.data.group.id,
-          getCandidateEmail(this.selection.selected[0].candidate)).subscribe( () => {
+          // TODO allow to choose language
+        this.registrarManager.sendInvitationForGroup({vo: this.data.voId, group: this.data.group.id,
+          email: getCandidateEmail(this.selection.selected[0].candidate), language: 'en'}).subscribe( () => {
             this.onInviteSuccess();
-        })
+        });
       }
     }
 

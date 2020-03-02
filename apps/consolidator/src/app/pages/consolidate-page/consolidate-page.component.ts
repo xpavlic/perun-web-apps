@@ -3,6 +3,7 @@ import { NewTokensServiceService } from '../../services/new-tokens-service.servi
 import { RegistrarService } from '@perun-web-apps/perun/services';
 import { Router } from '@angular/router';
 import { RPCError } from '@perun-web-apps/perun/models';
+import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'perun-web-apps-consolidate-page',
@@ -14,6 +15,7 @@ export class ConsolidatePageComponent implements OnInit {
   constructor(
     private newTokens: NewTokensServiceService,
     private registrar: RegistrarService,
+    private registrarManager: RegistrarManagerService,
     private router: Router
   ) { }
 
@@ -23,7 +25,7 @@ export class ConsolidatePageComponent implements OnInit {
     const token = this.newTokens.getTokens()[0];
     console.log(token);
 
-    this.registrar.consolidate(token).subscribe(ueses => {
+    this.registrarManager.consolidateIdentityUsingToken(token).subscribe(ueses => {
       console.log(ueses);
       this.router.navigate(['identities']);
     }, error => this.error = error);

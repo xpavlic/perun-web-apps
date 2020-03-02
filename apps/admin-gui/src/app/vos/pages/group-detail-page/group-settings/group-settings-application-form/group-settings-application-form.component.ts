@@ -16,7 +16,7 @@ import {
   UpdateApplicationFormDialogComponent
 } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { ApplicationForm } from '@perun-web-apps/perun/openapi';
+import { ApplicationForm, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '../../../../../core/services/api/api-request-configuration.service';
 import { ApplicationFormItem } from '@perun-web-apps/perun/models';
 
@@ -31,13 +31,16 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private registrarService: RegistrarService,
-              protected route: ActivatedRoute,
-              private dialog: MatDialog,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private apiRequest: ApiRequestConfigurationService,
-              private router: Router) { }
+  constructor(
+    private registrarService: RegistrarService,
+    private registrarManager: RegistrarManagerService,
+    protected route: ActivatedRoute,
+    private dialog: MatDialog,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private apiRequest: ApiRequestConfigurationService,
+    private router: Router) {
+  }
 
   loading = false;
   applicationForm: ApplicationForm;
@@ -54,18 +57,20 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
       this.groupId = params['groupId'];
       // FIXME this might not work in case of some race condition (other request finishes sooner)
       this.apiRequest.dontHandleErrorForNext();
-      this.registrarService.getApplicationFormForGroup(this.groupId, false).subscribe( form => {
+      this.registrarManager.getGroupApplicationForm(this.groupId).subscribe( form => {
         this.applicationForm = form;
-        this.registrarService.getFormItemsForGroup(this.groupId).subscribe( formItems => {
+        this.registrarManager.getFormItemsForGroup(this.groupId).subscribe(formItems => {
+          // @ts-ignore
+          // TODO reimplement this so we can use the model from openapi
           this.applicationFormItems = formItems;
           this.loading = false;
         });
       }, error => {
-        if (error.name === 'FormNotExistsException') {
+        if (error.error.name === 'FormNotExistsException') {
           this.noApplicationForm = true;
           this.loading = false;
         } else {
-          this.notificator.showRPCError(error);
+          this.notificator.showRPCError(error.error);
         }
       });
     });
@@ -127,7 +132,9 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
 
   updateFormItems() {
     this.loading = true;
-    this.registrarService.getFormItemsForGroup(this.groupId).subscribe( formItems => {
+    this.registrarManager.getFormItemsForGroup(this.groupId).subscribe( formItems => {
+      // @ts-ignore
+      // TODO reimplement this
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
       this.loading = false;
@@ -139,7 +146,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   }
 
   createEmptyApplicationForm() {
-    this.registrarService.createApplicationForm(this.groupId).subscribe( () => {
+    this.registrarManager.createApplicationFormInGroup(this.groupId).subscribe( () => {
       this.noApplicationForm = false;
       this.ngOnInit();
     });
@@ -153,7 +160,9 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
         i++
       }
     }
-    this.registrarService.updateFormItemsForVo(this.voId, this.applicationFormItems).subscribe( () => {
+    // @ts-ignore
+    // TODO reimplement this
+    this.registrarManager.updateFormItemsForGroup({group: this.groupId, items: this.applicationFormItems}).subscribe( () => {
       this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
         .subscribe( successMessage => {
           this.notificator.showSuccess(successMessage);

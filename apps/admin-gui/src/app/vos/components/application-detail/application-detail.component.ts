@@ -7,7 +7,8 @@ import { ApplicationReSendNotificationDialogComponent } from '../../../shared/co
 import { ApplicationRejectDialogComponent } from '../../../shared/components/dialogs/application-reject-dialog/application-reject-dialog.component';
 import { NotificatorService } from '../../../core/services/common/notificator.service';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { Application, ApplicationFormItem, ApplicationFormItemData } from '@perun-web-apps/perun/models';
+import { ApplicationFormItem } from '@perun-web-apps/perun/models';
+import { Application, ApplicationFormItemData, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-application-detail',
@@ -19,12 +20,15 @@ export class ApplicationDetailComponent implements OnInit {
   // used for router animation
   @HostBinding('class.router-component') true;
 
-  constructor(private registrarService: RegistrarService,
-              private dialog: MatDialog,
-              private translate: TranslateService,
-              private route: ActivatedRoute,
-              private notificator: NotificatorService,
-              private router: Router) { }
+  constructor(
+    private registrarService: RegistrarService,
+    private registrarManager: RegistrarManagerService,
+    private dialog: MatDialog,
+    private translate: TranslateService,
+    private route: ActivatedRoute,
+    private notificator: NotificatorService,
+    private router: Router) {
+  }
 
   application: Application;
   userData: ApplicationFormItemData[] = [];
@@ -36,9 +40,9 @@ export class ApplicationDetailComponent implements OnInit {
     this.loading = true;
     this.route.params.subscribe(parentParams => {
       const applicationId = parentParams['applicationId'];
-      this.registrarService.getApplicationById(applicationId).subscribe(application => {
+      this.registrarManager.getApplicationById(applicationId).subscribe(application => {
         this.application = application;
-        this.registrarService.getApplicationDataById(this.application.id).subscribe(value => {
+        this.registrarManager.getApplicationDataById(this.application.id).subscribe(value => {
           this.userData = value;
           this.dataSource = new MatTableDataSource<ApplicationFormItemData>(this.userData);
           this.loading = false;
@@ -80,7 +84,7 @@ export class ApplicationDetailComponent implements OnInit {
   }
 
   deleteApplication() {
-    this.registrarService.deleteApplication(this.application.id).subscribe(any => {
+    this.registrarManager.deleteApplication(this.application.id).subscribe(any => {
       this.translate.get('VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE_MESSAGE').subscribe(successMessage => {
         this.notificator.showSuccess(successMessage);
         this.router.navigateByUrl(this.router.url.substring(0, this.router.url.lastIndexOf('/')));
@@ -96,7 +100,7 @@ export class ApplicationDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(value => {
       this.loading = true;
-      this.registrarService.getApplicationById(this.application.id).subscribe(reloaded => {
+      this.registrarManager.getApplicationById(this.application.id).subscribe(reloaded => {
         this.application = reloaded;
         this.loading = false;
       });
@@ -104,12 +108,12 @@ export class ApplicationDetailComponent implements OnInit {
   }
 
   approveApplication() {
-    this.registrarService.approveApplication(this.application.id).subscribe( application => {
+    this.registrarManager.approveApplication(this.application.id).subscribe( application => {
       this.translate.get('VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPROVE_MESSAGE').subscribe(successMessage => {
         this.notificator.showSuccess(successMessage);
       });
       this.loading = true;
-      this.registrarService.getApplicationById(this.application.id).subscribe(reloaded => {
+      this.registrarManager.getApplicationById(this.application.id).subscribe(reloaded => {
         this.application = reloaded;
         this.loading = false;
       });
@@ -117,12 +121,12 @@ export class ApplicationDetailComponent implements OnInit {
   }
 
   verifyApplication() {
-    this.registrarService.verifyApplication(this.application.id).subscribe(application => {
+    this.registrarManager.verifyApplication(this.application.id).subscribe(application => {
       this.translate.get('VO_DETAIL.APPLICATION.APPLICATION_DETAIL.VERIFY_MESSAGE').subscribe(successMessage => {
         this.notificator.showSuccess(successMessage);
       });
       this.loading = true;
-      this.registrarService.getApplicationById(this.application.id).subscribe(reloaded => {
+      this.registrarManager.getApplicationById(this.application.id).subscribe(reloaded => {
         this.application = reloaded;
         this.loading = false;
       });

@@ -17,7 +17,7 @@ import {
   NotificationsCopyMailsDialogComponent
 } from '../../../../../shared/components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { ApplicationForm } from '@perun-web-apps/perun/openapi';
+import { ApplicationForm, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { ApplicationMail } from '@perun-web-apps/perun/models';
 
 @Component({
@@ -29,11 +29,14 @@ export class VoSettingsNotificationsComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private route: ActivatedRoute,
-              private registrarService: RegistrarService,
-              private translate: TranslateService,
-              private dialog: MatDialog,
-              private notificator: NotificatorService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private registrarManager: RegistrarManagerService,
+    private registrarService: RegistrarService,
+    private translate: TranslateService,
+    private dialog: MatDialog,
+    private notificator: NotificatorService) {
+  }
 
   loading = false;
   voId: number;
@@ -45,7 +48,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
     this.loading = true;
     this.route.parent.parent.params.subscribe(params => {
       this.voId = params['voId'];
-      this.registrarService.getApplicationFormForVo(this.voId).subscribe( form => {
+      this.registrarManager.getVoApplicationForm(this.voId).subscribe( form => {
         this.applicationForm = form;
         this.registrarService.getApplicationMailsForVo(this.voId).subscribe( mails => {
           this.applicationMails = mails;

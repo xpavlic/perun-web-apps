@@ -11,6 +11,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../core/services/common/notificator.service';
 import { RegistrarService } from '@perun-web-apps/perun/services';
 import { ApplicationMail } from '@perun-web-apps/perun/models';
+import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-notification-list',
@@ -19,10 +20,13 @@ import { ApplicationMail } from '@perun-web-apps/perun/models';
 })
 export class NotificationListComponent implements OnChanges, AfterViewInit {
 
-  constructor(private registrarService: RegistrarService,
-              private translate: TranslateService,
-              private notificator: NotificatorService,
-              private dialog: MatDialog) { }
+  constructor(
+    private registrarService: RegistrarService,
+    private registrarManager: RegistrarManagerService,
+    private translate: TranslateService,
+    private notificator: NotificatorService,
+    private dialog: MatDialog) {
+  }
 
   @Input()
   applicationMails: ApplicationMail[];

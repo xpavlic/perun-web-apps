@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
-import { RegistrarService } from '@perun-web-apps/perun/services';
+import { MailType, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DialogData {
   applicationId: number;
@@ -19,9 +19,9 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private translate: TranslateService,
               private notificator: NotificatorService,
-              private registrarService: RegistrarService) { }
+              private registrarManager: RegistrarManagerService) { }
 
-  mailType = 'APP_CREATED_USER';
+  mailType: MailType = 'APP_CREATED_USER';
   reason = '';
 
   ngOnInit() {
@@ -33,14 +33,16 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
 
   onSubmit() {
     if (this.mailType === 'APP_REJECTED_USER') {
-      this.registrarService.sendMessageWithReason(this.data.applicationId, this.mailType, this.reason).subscribe( any => {
+      this.registrarManager.sendMessage(
+        {applicationId: this.data.applicationId, mailType: this.mailType, reason: this.reason}).subscribe( () => {
         this.translate.get('DIALOGS.RE_SEND_NOTIFICATION.SUCCESS').subscribe(successMessage => {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close();
         });
       });
     } else {
-      this.registrarService.sendMessage(this.data.applicationId, this.mailType).subscribe( any => {
+      this.registrarManager.sendMessage(
+        {applicationId: this.data.applicationId, mailType: this.mailType}).subscribe( () => {
         this.translate.get('DIALOGS.RE_SEND_NOTIFICATION.SUCCESS').subscribe(successMessage => {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close();

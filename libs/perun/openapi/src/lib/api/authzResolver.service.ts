@@ -51,14 +51,13 @@ export class AuthzResolverService {
             this.configuration.basePath = basePath;
         }
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
-        console.log('Constructor')
     }
 
 
 
     /**
      * Get all groups of managers (authorizedGroups) for complementaryObject and role
-     * @param role
+     * @param role 
      * @param complementaryObjectId Property id of complementaryObject to get managers for
      * @param complementaryObjectName Property beanName of complementaryObject, meaning object type (Vo | Group | Facility | ... )
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -117,7 +116,6 @@ export class AuthzResolverService {
         }
 
 
-
         return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/authzResolver/getAdminGroups`,
             {
                 params: queryParameters,
@@ -132,7 +130,7 @@ export class AuthzResolverService {
     /**
      * Gets all rich admins
      * Returns all managers for complementaryObject and role with specified attributes.
-     * @param role
+     * @param role 
      * @param complementaryObjectId Property id of complementaryObject to get managers for
      * @param complementaryObjectName Property beanName of complementaryObject, meaning object type (Vo | Group | Facility | ... )
      * @param specificAttributes list of specified attributes which are needed in object richUser
@@ -257,9 +255,6 @@ export class AuthzResolverService {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
-      console.log('CCCCC');
-      console.log(this.configuration.basePath);
-
 
         return this.httpClient.get<PerunPrincipal>(`${this.configuration.basePath}/json/authzResolver/getPerunPrincipal`,
             {
@@ -273,7 +268,7 @@ export class AuthzResolverService {
 
     /**
      * Set role for authorizedGroup and complementaryObject
-     * @param setRoleWithGroupComplementaryObject
+     * @param setRoleWithGroupComplementaryObject 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -335,7 +330,7 @@ export class AuthzResolverService {
 
     /**
      * Set role for user and complementaryObject
-     * @param setRoleWithUserComplementaryObject
+     * @param setRoleWithUserComplementaryObject 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -397,7 +392,7 @@ export class AuthzResolverService {
 
     /**
      * Unset role for authorizedGroup and complementaryObject
-     * @param unsetRoleWithGroupComplementaryObject
+     * @param unsetRoleWithGroupComplementaryObject 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -459,7 +454,7 @@ export class AuthzResolverService {
 
     /**
      * Unset role for user and complementaryObject
-     * @param unsetRoleWithUserComplementaryObject
+     * @param unsetRoleWithUserComplementaryObject 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */

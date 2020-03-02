@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrarService } from '@perun-web-apps/perun/services';
 import { NewTokensServiceService } from '../../services/new-tokens-service.service';
 import { Router } from '@angular/router';
+import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'perun-web-apps-new-identity-page',
@@ -12,12 +12,12 @@ export class NewIdentityPageComponent implements OnInit {
 
   constructor(
     private newTokensService: NewTokensServiceService,
-    private registrar: RegistrarService,
+    private registrarManager: RegistrarManagerService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.registrar.getConsolidatorToken().subscribe(newToken => {
+    this.registrarManager.getConsolidatorToken().subscribe(newToken => {
       this.newTokensService.addToken(newToken);
       this.router.navigate(['consolidate']);
     });

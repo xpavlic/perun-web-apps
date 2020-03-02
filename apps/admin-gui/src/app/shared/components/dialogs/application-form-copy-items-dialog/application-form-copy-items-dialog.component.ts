@@ -5,7 +5,7 @@ import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/fo
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import { RegistrarService, VoService } from '@perun-web-apps/perun/services';
-import { Group, GroupsManagerService, Vo } from '@perun-web-apps/perun/openapi';
+import { Group, GroupsManagerService, RegistrarManagerService, Vo } from '@perun-web-apps/perun/openapi';
 
 export interface ApplicationFormCopyItemsDialogData {
   voId: number;
@@ -24,6 +24,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
               private groupService: GroupsManagerService,
               private translateService: TranslateService,
               private registrarService: RegistrarService,
+              private registrarManager: RegistrarManagerService,
               @Inject(MAT_DIALOG_DATA) public data: ApplicationFormCopyItemsDialogData) { }
 
   vos: Vo[] = [];
@@ -97,21 +98,21 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
   submit() {
     if (this.data.groupId) { // checking if the dialog is for group or Vo
       if (this.groupControl.value === this.fakeGroup) {   // no group selected
-        this.registrarService.copyFormFromVoToGroup(this.voControl.value.id, this.data.groupId).subscribe( () => {
+        this.registrarManager.copyFormFromVoToGroup(this.voControl.value.id, this.data.groupId).subscribe( () => {
           this.dialogRef.close(true);
         });
       } else {
-        this.registrarService.copyFormFromGroupToGroup(this.groupControl.value.id, this.data.groupId).subscribe( () => {
+        this.registrarManager.copyFormFromGroupToGroup(this.groupControl.value.id, this.data.groupId).subscribe( () => {
           this.dialogRef.close(true);
         });
       }
     } else {
       if (this.groupControl.value === this.fakeGroup) {       // no group selected
-        this.registrarService.copyFormFromVoToVo(this.voControl.value.id, this.data.voId).subscribe( () => {
+        this.registrarManager.copyFormFromVoToVo(this.voControl.value.id, this.data.voId).subscribe( () => {
           this.dialogRef.close(true);
         });
       } else {
-        this.registrarService.copyFormFromGroupToVo(this.groupControl.value.id, this.data.voId).subscribe( () => {
+        this.registrarManager.copyFormFromGroupToVo(this.groupControl.value.id, this.data.voId).subscribe( () => {
           this.dialogRef.close(true);
         });
       }

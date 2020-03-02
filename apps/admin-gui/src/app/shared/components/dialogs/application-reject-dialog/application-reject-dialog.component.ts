@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../../core/services/common/notificator.service';
 import { RegistrarService } from '@perun-web-apps/perun/services';
+import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DialogData {
   applicationId: number;
@@ -19,7 +20,7 @@ export class ApplicationRejectDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private translate: TranslateService,
               private notificator: NotificatorService,
-              private registrarService: RegistrarService) { }
+              private registrarManager: RegistrarManagerService) { }
 
   reason = '';
 
@@ -31,7 +32,7 @@ export class ApplicationRejectDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.registrarService.rejectApplication(this.data.applicationId, this.reason).subscribe( any => {
+    this.registrarManager.rejectApplication(this.data.applicationId, this.reason).subscribe( any => {
       this.translate.get('DIALOGS.REJECT_APPLICATION.SUCCESS').subscribe(successMessage => {
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close();

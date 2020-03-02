@@ -1,8 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
-import { Application } from '@perun-web-apps/perun/models';
+import { Application, Group, GroupsManagerService, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-group-applications',
@@ -18,6 +17,7 @@ export class GroupApplicationsComponent implements OnInit {
 
   constructor(private groupService: GroupsManagerService,
               private registarService: RegistrarService,
+              private registrarManager: RegistrarManagerService,
               protected route: ActivatedRoute) { }
 
   state = 'pending';
@@ -40,7 +40,7 @@ export class GroupApplicationsComponent implements OnInit {
 
 
   setData(state: string[]) {
-    this.registarService.getApplicationsForGroupWithState(this.group.id, state).subscribe(applications => {
+    this.registrarManager.getApplicationsForGroup(this.group.id, state).subscribe(applications => {
       this.applications = applications;
       this.loading = false;
     });
@@ -70,7 +70,7 @@ export class GroupApplicationsComponent implements OnInit {
         break;
       }
       case 'all': {
-        this.registarService.getApplicationsForGroup(this.group.id).subscribe(applications => {
+        this.registrarManager.getApplicationsForGroup(this.group.id).subscribe(applications => {
           this.applications = applications;
           this.loading = false;
         });

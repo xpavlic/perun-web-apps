@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { RegistrarService } from '@perun-web-apps/perun/services';
+import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 
 export interface InviteMemberDialogData {
@@ -23,7 +23,7 @@ export class InviteMemberDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<InviteMemberDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: InviteMemberDialogData,
-              private registrarService: RegistrarService,
+              private registrarManager: RegistrarManagerService,
               private snackBar: MatSnackBar,
               private translate: TranslateService) { }
 
@@ -38,7 +38,7 @@ export class InviteMemberDialogComponent implements OnInit {
     if (this.emailForm.invalid || this.name === '') {
       return;
     } else {
-      this.registrarService.sendInvitation(this.data.voId, this.emailForm.value).subscribe(() => {
+      this.registrarManager.sendInvitation({vo: this.data.voId, email: this.emailForm.value, language: 'en'}).subscribe(() => {
         this.translate.get('DIALOGS.INVITE_MEMBER.SUCCESS').subscribe(successMessage => {
           this.snackBar.open(successMessage, null, {duration: 5000});
           this.dialogRef.close();

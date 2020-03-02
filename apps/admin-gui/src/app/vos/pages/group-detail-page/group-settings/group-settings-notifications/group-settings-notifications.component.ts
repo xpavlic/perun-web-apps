@@ -17,7 +17,7 @@ import {
   EditEmailFooterDialogComponent
 } from '../../../../../shared/components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { ApplicationForm } from '@perun-web-apps/perun/openapi';
+import { ApplicationForm, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '../../../../../core/services/api/api-request-configuration.service';
 import { ApplicationMail } from '@perun-web-apps/perun/models';
 
@@ -30,12 +30,15 @@ export class GroupSettingsNotificationsComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private route: ActivatedRoute,
-              private registrarService: RegistrarService,
-              private translate: TranslateService,
-              private dialog: MatDialog,
-              private apiRequest: ApiRequestConfigurationService,
-              private notificator: NotificatorService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private registrarService: RegistrarService,
+    private registrarManager: RegistrarManagerService,
+    private translate: TranslateService,
+    private dialog: MatDialog,
+    private apiRequest: ApiRequestConfigurationService,
+    private notificator: NotificatorService) {
+  }
 
   loading = false;
   voId: number;
@@ -54,7 +57,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
 
       // FIXME this might not work in case of some race condition (other request finishes sooner)
       this.apiRequest.dontHandleErrorForNext();
-      this.registrarService.getApplicationFormForGroup(this.groupId, false).subscribe( form => {
+      this.registrarManager.getGroupApplicationForm(this.groupId).subscribe( form => {
         this.applicationForm = form;
         this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe( mails => {
           this.applicationMails = mails;
@@ -143,7 +146,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   }
 
   createEmptyApplicationForm() {
-    this.registrarService.createApplicationForm(this.groupId).subscribe( () => {
+    this.registrarManager.createApplicationFormInGroup(this.groupId).subscribe( () => {
       this.noApplicationForm = false;
       this.ngOnInit();
     });

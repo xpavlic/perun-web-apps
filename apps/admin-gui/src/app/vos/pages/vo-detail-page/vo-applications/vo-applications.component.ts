@@ -1,8 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { RegistrarService, VoService } from '@perun-web-apps/perun/services';
-import { Vo } from '@perun-web-apps/perun/openapi';
-import { Application } from '@perun-web-apps/perun/models';
+import { Application, RegistrarManagerService, Vo } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-vo-applications',
@@ -17,6 +16,7 @@ export class VoApplicationsComponent implements OnInit {
 
   constructor(private voService: VoService,
               private registrarService: RegistrarService,
+              private registrarManager: RegistrarManagerService,
               protected route: ActivatedRoute) { }
 
   state = 'pending';
@@ -40,7 +40,7 @@ export class VoApplicationsComponent implements OnInit {
 
 
   setData(state: string[]) {
-    this.registrarService.getApplicationsForVoWithState(this.vo.id, state).subscribe(applications => {
+    this.registrarManager.getApplicationsForVo(this.vo.id, state).subscribe(applications => {
       this.applications = applications;
       this.loading = false;
     });
@@ -70,7 +70,7 @@ export class VoApplicationsComponent implements OnInit {
         break;
       }
       case 'all': {
-        this.registrarService.getApplicationsForVo(this.vo.id).subscribe(applications => {
+        this.registrarManager.getApplicationsForVo(this.vo.id).subscribe(applications => {
           this.applications = applications;
           this.loading = false;
         });

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddIdentityDialogComponent } from '../../components/add-identity-dialog/add-identity-dialog.component';
-import { RegistrarService} from '@perun-web-apps/perun/services';
 import { Identity } from '../../models/Identity';
-import { AuthzResolverService, UsersManagerService } from '@perun-web-apps/perun/openapi';
+import { AuthzResolverService, UsersManagerService, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+
 
 @Component({
   selector: 'perun-web-apps-home-page',
@@ -16,7 +16,7 @@ export class HomePageComponent implements OnInit {
     private dialog: MatDialog,
     private usersService: UsersManagerService,
     private authzService: AuthzResolverService,
-    private registrarService: RegistrarService
+    private registrarManager: RegistrarManagerService
   ) { }
 
   knownIdentities: Identity[];
@@ -27,7 +27,7 @@ export class HomePageComponent implements OnInit {
   newIdentitiesLoaded = false;
 
   ngOnInit() {
-    this.registrarService.getConsolidatorToken().subscribe(token => console.log(token));
+    this.registrarManager.getConsolidatorToken().subscribe(token => console.log(token));
 
     this.authzService.getPerunPrincipal().subscribe(principal => {
       this.usersService.getRichUserExtSources(principal.userId).subscribe(userExtSources => {

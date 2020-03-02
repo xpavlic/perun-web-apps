@@ -16,7 +16,7 @@ import {
   EditApplicationFormItemDialogComponent
 } from '../../../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
 import { RegistrarService } from '@perun-web-apps/perun/services';
-import { ApplicationForm } from '@perun-web-apps/perun/openapi';
+import { ApplicationForm, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { ApplicationFormItem } from '@perun-web-apps/perun/models';
 
 @Component({
@@ -30,12 +30,15 @@ export class VoSettingsApplicationFormComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private registrarService: RegistrarService,
-              protected route: ActivatedRoute,
-              private dialog: MatDialog,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private router: Router) { }
+  constructor(
+    private registrarService: RegistrarService,
+    private registrarManager: RegistrarManagerService,
+    protected route: ActivatedRoute,
+    private dialog: MatDialog,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private router: Router) {
+  }
 
   loading = false;
   applicationForm: ApplicationForm;
@@ -48,9 +51,11 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     this.route.parent.parent.params.subscribe(params => {
       const voId = params['voId'];
       this.voId = voId;
-      this.registrarService.getApplicationFormForVo(voId).subscribe( form => {
+      this.registrarManager.getVoApplicationForm(voId).subscribe( form => {
         this.applicationForm = form;
-        this.registrarService.getFormItemsForVo(voId).subscribe( formItems => {
+        this.registrarManager.getFormItemsForVo(voId).subscribe( formItems => {
+          // @ts-ignore
+          // TODO reimplement this
           this.applicationFormItems = formItems;
           this.loading = false;
         });
@@ -112,7 +117,9 @@ export class VoSettingsApplicationFormComponent implements OnInit {
 
   updateFormItems() {
     this.loading = true;
-    this.registrarService.getFormItemsForVo(this.voId).subscribe( formItems => {
+    this.registrarManager.getFormItemsForVo(this.voId).subscribe( formItems => {
+      // @ts-ignore
+      // TODO reimplement this
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
       this.loading = false;
@@ -131,7 +138,9 @@ export class VoSettingsApplicationFormComponent implements OnInit {
         i++
       }
     }
-    this.registrarService.updateFormItemsForVo(this.voId, this.applicationFormItems).subscribe( () => {
+    console.log(this.applicationFormItems);
+    // @ts-ignore
+    this.registrarManager.updateFormItemsForVo({vo: this.voId, items: this.applicationFormItems}).subscribe( () => {
       this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
         .subscribe( successMessage => {
         this.notificator.showSuccess(successMessage);
