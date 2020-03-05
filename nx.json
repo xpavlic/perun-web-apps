@@ -56,6 +56,9 @@
     },
     "config": {
       "tags": []
+    },
+    "general": {
+      "tags": []
     }
   }
 }
