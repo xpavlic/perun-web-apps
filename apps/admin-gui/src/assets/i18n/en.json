@@ -1,4 +1,11 @@
 {
+  "GENERAL": {
+    "PRINCIPAL_ERROR": {
+      "TITLE": "Server down error",
+      "MESSAGE": "The server is probably being restarted. Please, try it again later.",
+      "ACTION": "Refresh"
+    }
+  },
   "NAV": {
     "LOGOUT": "Log out",
     "PROFILE": "Profile",

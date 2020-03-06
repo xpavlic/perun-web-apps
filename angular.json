@@ -647,6 +647,37 @@
           "styleext": "scss"
         }
       }
+    },
+    "general": {
+      "projectType": "library",
+      "root": "libs/general",
+      "sourceRoot": "libs/general/src",
+      "prefix": "perun-web-apps",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/general/tsconfig.lib.json",
+              "libs/general/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/general/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/general/jest.config.js",
+            "tsConfig": "libs/general/tsconfig.spec.json",
+            "setupFile": "libs/general/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

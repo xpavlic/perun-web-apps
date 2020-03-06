@@ -38,7 +38,7 @@ export class InviteMemberDialogComponent implements OnInit {
     if (this.emailForm.invalid || this.name === '') {
       return;
     } else {
-      this.registrarManager.sendInvitation({vo: this.data.voId, email: this.emailForm.value, language: 'en'}).subscribe(() => {
+      this.registrarManager.sendInvitation(this.emailForm.value, 'en', this.data.voId).subscribe(() => {
         this.translate.get('DIALOGS.INVITE_MEMBER.SUCCESS').subscribe(successMessage => {
           this.snackBar.open(successMessage, null, {duration: 5000});
           this.dialogRef.close();
