@@ -61,21 +61,21 @@ export class RegistrarManagerService {
     /**
      * Manually approves an application.
      * Expected to be called as a result of direct VO administrator action in the web UI. 
-     * @param appId id of application
+     * @param id numeric id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public approveApplication(appId: number, observe?: 'body', reportProgress?: boolean): Observable<Application>;
-    public approveApplication(appId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
-    public approveApplication(appId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
-    public approveApplication(appId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (appId === null || appId === undefined) {
-            throw new Error('Required parameter appId was null or undefined when calling approveApplication.');
+    public approveApplication(id: number, observe?: 'body', reportProgress?: boolean): Observable<Application>;
+    public approveApplication(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
+    public approveApplication(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
+    public approveApplication(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling approveApplication.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (appId !== undefined && appId !== null) {
-            queryParameters = queryParameters.set('appId', <any>appId);
+        if (id !== undefined && id !== null) {
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
@@ -536,21 +536,21 @@ export class RegistrarManagerService {
 
     /**
      * Deletes an application.
-     * @param appId id of application
+     * @param id numeric id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteApplication(appId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteApplication(appId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteApplication(appId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteApplication(appId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (appId === null || appId === undefined) {
-            throw new Error('Required parameter appId was null or undefined when calling deleteApplication.');
+    public deleteApplication(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteApplication(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteApplication(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteApplication(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteApplication.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (appId !== undefined && appId !== null) {
-            queryParameters = queryParameters.set('appId', <any>appId);
+        if (id !== undefined && id !== null) {
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
@@ -1247,22 +1247,22 @@ export class RegistrarManagerService {
     /**
      * Manually rejects an application.
      * Expected to be called as a result of direct VO administrator action in the web UI. 
-     * @param appId id of application
+     * @param id numeric id
      * @param reason description of reason
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public rejectApplication(appId: number, reason?: string, observe?: 'body', reportProgress?: boolean): Observable<Application>;
-    public rejectApplication(appId: number, reason?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
-    public rejectApplication(appId: number, reason?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
-    public rejectApplication(appId: number, reason?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (appId === null || appId === undefined) {
-            throw new Error('Required parameter appId was null or undefined when calling rejectApplication.');
+    public rejectApplication(id: number, reason?: string, observe?: 'body', reportProgress?: boolean): Observable<Application>;
+    public rejectApplication(id: number, reason?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
+    public rejectApplication(id: number, reason?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
+    public rejectApplication(id: number, reason?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling rejectApplication.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (appId !== undefined && appId !== null) {
-            queryParameters = queryParameters.set('appId', <any>appId);
+        if (id !== undefined && id !== null) {
+            queryParameters = queryParameters.set('id', <any>id);
         }
         if (reason !== undefined && reason !== null) {
             queryParameters = queryParameters.set('reason', <any>reason);
@@ -1836,21 +1836,21 @@ export class RegistrarManagerService {
 
     /**
      * Forcefully marks application as verified (only when application was in NEW state).
-     * @param appId id of application
+     * @param id numeric id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public verifyApplication(appId: number, observe?: 'body', reportProgress?: boolean): Observable<Application>;
-    public verifyApplication(appId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
-    public verifyApplication(appId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
-    public verifyApplication(appId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (appId === null || appId === undefined) {
-            throw new Error('Required parameter appId was null or undefined when calling verifyApplication.');
+    public verifyApplication(id: number, observe?: 'body', reportProgress?: boolean): Observable<Application>;
+    public verifyApplication(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
+    public verifyApplication(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
+    public verifyApplication(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling verifyApplication.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (appId !== undefined && appId !== null) {
-            queryParameters = queryParameters.set('appId', <any>appId);
+        if (id !== undefined && id !== null) {
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
