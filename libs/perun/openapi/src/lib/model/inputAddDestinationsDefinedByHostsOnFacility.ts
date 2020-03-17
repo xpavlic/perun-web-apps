@@ -9,19 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DestinationPropagationType } from './destinationPropagationType';
 import { Service } from './service';
-import { DestinationType } from './destinationType';
 
 
 /**
- * input to addDestinationToMultipleServices
+ * input to addDestinationsDefinedByHostsOnFacility
  */
-export interface InputAddDestinationToMultipleServices { 
+export interface InputAddDestinationsDefinedByHostsOnFacility { 
     services: Array<Service>;
     facility: number;
-    destination: string;
-    type: DestinationType;
-    propagationType?: DestinationPropagationType;
 }
 
