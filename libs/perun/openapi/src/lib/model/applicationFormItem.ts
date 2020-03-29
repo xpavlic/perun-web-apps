@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ItemTexts } from './itemTexts';
 import { Type } from './type';
 import { AppType } from './appType';
 
@@ -24,5 +25,6 @@ export interface ApplicationFormItem {
     regex?: string;
     applicationTypes?: Array<AppType>;
     ordnum?: number;
+    i18n?: { [key: string]: ItemTexts; };
 }
 

@@ -24,6 +24,7 @@ import { ApplicationFormItemData } from '../model/applicationFormItemData';
 import { ApplicationMail } from '../model/applicationMail';
 import { InputAddApplicationMailForGroup } from '../model/inputAddApplicationMailForGroup';
 import { InputAddApplicationMailForVo } from '../model/inputAddApplicationMailForVo';
+import { InputFormItemData } from '../model/inputFormItemData';
 import { InputSendMessage } from '../model/inputSendMessage';
 import { InputSetSendingEnabled } from '../model/inputSetSendingEnabled';
 import { InputUpdateApplicationMail } from '../model/inputUpdateApplicationMail';
@@ -2442,6 +2443,68 @@ export class RegistrarManagerService {
 
         return this.httpClient.post<ApplicationForm>(`${this.configuration.basePath}/json/registrarManager/updateForm`,
             inputUpdateForm,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Update application form item data value, which was originally submitted by the User.
+     * @param inputFormItemData 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateFormItemData(inputFormItemData: InputFormItemData, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateFormItemData(inputFormItemData: InputFormItemData, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateFormItemData(inputFormItemData: InputFormItemData, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateFormItemData(inputFormItemData: InputFormItemData, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (inputFormItemData === null || inputFormItemData === undefined) {
+            throw new Error('Required parameter inputFormItemData was null or undefined when calling updateFormItemData.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/json/registrarManager/updateFormItemData`,
+            inputFormItemData,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

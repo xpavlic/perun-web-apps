@@ -1,12 +1,14 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { AuthzResolverService, PerunPrincipal } from '@perun-web-apps/perun/openapi';
+import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { AuthService } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowNotificationHistoryDialogComponent } from '../components/dialogs/show-notification-history-dialog/show-notification-history-dialog.component';
 import { NotificationStorageService } from '../../core/services/common/notification-storage.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService } from '../../core/services/common/notificator.service';
 
 @Component({
   selector: 'app-perun-nav-menu',
@@ -17,7 +19,11 @@ export class PerunNavComponent implements OnInit, AfterViewInit {
 
   constructor(private storeService: StoreService,
               private authService: AuthService,
+              public authResolver: GuiAuthResolver,
+              private authzResolverService: AuthzResolverService,
               private dialog: MatDialog,
+              private notificator: NotificatorService,
+              private translateService: TranslateService,
               private store: StoreService,
               private sanitizer: DomSanitizer,
               private notificationStorageService: NotificationStorageService) {
@@ -57,5 +63,10 @@ export class PerunNavComponent implements OnInit, AfterViewInit {
 
   getNewNotificationsCount(): number {
     return this.notificationStorageService.newNotificationsCount;
+  }
+
+  reloadRoles() {
+    this.authzResolverService.loadAuthorizationComponents().subscribe(() =>
+      this.notificator.showSuccess(this.translateService.instant('NAV.RELOAD_ROLES_SUCCESS')));
   }
 }

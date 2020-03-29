@@ -4,7 +4,7 @@ import {InviteMemberDialogComponent} from '../../../../shared/components/dialogs
 import {MatDialog} from '@angular/material/dialog';
 import {SideMenuService} from '../../../../core/services/common/side-menu.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthResolverService} from '@perun-web-apps/perun/services';
+import {GuiAuthResolver} from '@perun-web-apps/perun/services';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -21,7 +21,7 @@ export class VoOverviewComponent implements OnInit {
     private voService: VosManagerService,
     protected route: ActivatedRoute,
     protected router: Router,
-    protected authResolver: AuthResolverService
+    protected authResolver: GuiAuthResolver
   ) {
   }
 

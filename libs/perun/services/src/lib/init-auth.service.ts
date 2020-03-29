@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 // tslint:disable-next-line:nx-enforce-module-boundaries
 import { AuthService } from './auth.service';
 import { StoreService } from './store.service';
-import { AuthResolverService } from './auth-resolver.service';
+import { GuiAuthResolver } from './gui-auth-resolver.service';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class InitAuthService {
   constructor(
     private authService: AuthService,
     private storeService: StoreService,
-    private authResolver: AuthResolverService,
+    private authResolver: GuiAuthResolver,
     private authzService: AuthzResolverService
   ) {
   }

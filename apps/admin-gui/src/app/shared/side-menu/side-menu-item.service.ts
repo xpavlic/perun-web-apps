@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityMenuLink, SideMenuItem } from './side-menu.component';
-import { AuthResolverService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { Facility, Group, Resource, RichMember, User, Vo } from '@perun-web-apps/perun/openapi';
 import { parseFullName } from '@perun-web-apps/perun/utils';
 import { StoreService } from '@perun-web-apps/perun/services';
@@ -13,7 +13,7 @@ export class SideMenuItemService {
 
   constructor(
     private translate: TranslateService,
-    private authResolver: AuthResolverService,
+    private authResolver: GuiAuthResolver,
     private store: StoreService,
   ) {
   }

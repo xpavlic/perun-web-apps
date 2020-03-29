@@ -1,7 +1,7 @@
 export { MembersService } from './lib/members.service';
 export { PerunApiService } from './lib/perun-api-service';
 export { RtMessagesService } from './lib/rt-messages.service';
-export { AuthResolverService } from './lib/auth-resolver.service';
+export { GuiAuthResolver } from './lib/gui-auth-resolver.service';
 export { AuthService } from './lib/auth.service';
 export { StoreService } from './lib/store.service';
 export { InitAuthService } from './lib/init-auth.service';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
-import { AuthResolverService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -18,7 +18,7 @@ export class VoSelectPageComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
-    private authzService: AuthResolverService,
+    private authzService: GuiAuthResolver,
     private dialog: MatDialog
   ) { }
 

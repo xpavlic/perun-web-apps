@@ -5,7 +5,7 @@ import { Role } from '@perun-web-apps/perun/models';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthResolverService {
+export class GuiAuthResolver {
 
   constructor() {
   }

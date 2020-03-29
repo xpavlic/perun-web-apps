@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthResolverService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { PerunPrincipal, User } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '@perun-web-apps/perun/services';
@@ -12,7 +12,7 @@ import { StoreService } from '@perun-web-apps/perun/services';
 export class UserProfileComponent implements OnInit {
 
   constructor(
-    public authResolver: AuthResolverService,
+    public authResolver: GuiAuthResolver,
     private sideMenuService: SideMenuService,
     private store: StoreService
   ) {

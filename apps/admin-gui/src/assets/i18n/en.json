@@ -9,7 +9,9 @@
   "NAV": {
     "LOGOUT": "Log out",
     "PROFILE": "Profile",
-    "NOTIFICATIONS_TOOLTIP": "Recent notifications"
+    "NOTIFICATIONS_TOOLTIP": "Recent notifications",
+    "RELOAD_ROLES": "Reload roles",
+    "RELOAD_ROLES_SUCCESS": "Roles reloaded"
   },
   "MAIN_MENU": {
     "ACCESS": "Access management",

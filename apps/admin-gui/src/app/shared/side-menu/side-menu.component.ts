@@ -3,7 +3,7 @@ import {MatSidenav} from '@angular/material/sidenav';
 import {SideMenuService} from '../../core/services/common/side-menu.service';
 import {AppComponent} from '../../app.component';
 import {SideMenuItemService} from './side-menu-item.service';
-import {AuthResolverService} from '@perun-web-apps/perun/services';
+import {GuiAuthResolver} from '@perun-web-apps/perun/services';
 import {rollInOut} from '../animations/Animations';
 import { StoreService } from '@perun-web-apps/perun/services';
 
@@ -20,7 +20,7 @@ export class SideMenuComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
-    public authResolver: AuthResolverService,
+    public authResolver: GuiAuthResolver,
     private store: StoreService
   ) { }
 
