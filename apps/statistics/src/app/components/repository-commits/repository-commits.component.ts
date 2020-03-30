@@ -85,7 +85,7 @@ export class RepositoryCommitsComponent implements OnInit {
 
   commitsPerDate: Map<string, number> = new Map<string, number>();
   chartData = [
-    { data: [], label: 'Commits' },
+    { data: [], label: 'Merged pull requests' },
   ];
 
   chartLabels = [];
@@ -106,8 +106,10 @@ export class RepositoryCommitsComponent implements OnInit {
     private refresher: RefresherService,
   ) { }
 
-  fetchData() {
-    this.loading = true;
+  fetchData(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.loading = true;
+    }
     const sinceDay = this.initMap();
 
     console.log(sinceDay);
@@ -134,13 +136,15 @@ export class RepositoryCommitsComponent implements OnInit {
       });
       console.log(this.commitsPerDate);
       this.setCharData();
-      this.loading = false;
+      if (shouldLoad) {
+        this.loading = false;
+      }
     });
   }
 
   ngOnInit() {
-   this.fetchData();
-   this.refresher.subscribe(() => this.fetchData());
+   this.fetchData(true);
+   this.refresher.subscribe(() => this.fetchData(false));
   }
 
   private initMap(): string {

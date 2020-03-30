@@ -2,6 +2,7 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
   </mat-spinner>
   <canvas baseChart *ngIf="!loading"
+          class="chart"
         [chartType]="'line'"
         [datasets]="chartData"
         [labels]="chartLabels"

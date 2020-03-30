@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-home-page',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private store: StoreService
+  ) { }
+
+  graphanaIds: number[];
 
   ngOnInit() {
+    this.graphanaIds = this.store.get('graphana_ids');
+    console.log(this.graphanaIds);
   }
-
 }

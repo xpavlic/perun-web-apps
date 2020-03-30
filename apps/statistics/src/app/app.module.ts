@@ -17,15 +17,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DefaultOptions } from 'apollo-client';
 import { AppConfigService } from '@perun-web-apps/config';
+import { StoreService } from '@perun-web-apps/perun/services';
+import { GraphanaGraphComponent } from './components/graphana-graph/graphana-graph.component';
+import { JednotnePrihlaseniLoginyComponent } from './components/jednotne-prihlaseni-loginy/jednotne-prihlaseni-loginy.component';
 
-const TOKEN = '8852026d7d2135dadc37d1ca8716dc6dc8f0cf59';
-
-export function provideApollo(httpLink: HttpLink) {
+export function provideApollo(httpLink: HttpLink, store: StoreService) {
   const basic = setContext((operation, context) => ({
     headers: {
       Accept: 'charset=utf-8'
     }
   }));
+
+  const TOKEN = store.get('github_token');
 
   // Get the authentication token from local storage if it exists
   const auth = setContext((operation, context) => ({
@@ -63,7 +66,7 @@ const loadConfigs = (appConfig: AppConfigService) => {
 };
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, RepositoryCommitsComponent],
+  declarations: [AppComponent, HomePageComponent, RepositoryCommitsComponent, GraphanaGraphComponent, JednotnePrihlaseniLoginyComponent],
   imports: [
     BrowserModule,
     ApolloModule,
@@ -73,13 +76,13 @@ const loadConfigs = (appConfig: AppConfigService) => {
     HttpClientModule,
     ChartsModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
   ],
   providers: [
     {
     provide: APOLLO_OPTIONS,
     useFactory: provideApollo,
-    deps: [HttpLink]
+    deps: [HttpLink, StoreService]
     },
     {
       provide: APP_INITIALIZER,
