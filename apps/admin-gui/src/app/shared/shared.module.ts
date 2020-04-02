@@ -41,7 +41,6 @@ import {InviteMemberDialogComponent} from './components/dialogs/invite-member-di
 import {UserFullNamePipe} from './pipes/user-full-name.pipe';
 import {DeleteGroupDialogComponent} from './components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import {SettingsToggleItemComponent} from './components/settings-toggle-item/settings-toggle-item.component';
-import { ResourceTagsToStringPipe } from './pipes/resource-tags-to-string.pipe';
 import { ApplicationStatePipe } from './pipes/application-state.pipe';
 import { NotificatorComponent } from './components/notificator/notificator.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -63,7 +62,6 @@ import { SideMenuRootItemComponent } from './side-menu/side-menu-root-item/side-
 import { DebuggerPageComponent } from './debugger-page/debugger-page.component';
 import { TechnicalOwnersPipe } from './pipes/technical-owners.pipe';
 import { RemoveResourceDialogComponent } from './components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
-import {ResourcesListComponent} from './components/resources-list/resources-list.component';
 import { AddManagerDialogComponent } from './components/dialogs/add-manager-dialog/add-manager-dialog.component';
 import { RemoveManagerDialogComponent } from './components/dialogs/remove-manager-dialog/remove-manager-dialog.component';
 import {AddGroupManagerDialogComponent } from './components/dialogs/add-group-manager-dialog/add-group-manager-dialog.component';
@@ -235,7 +233,6 @@ import { UserRolesComponent } from './components/user-detail-page/user-settings/
     MatStepperModule,
     SettingsToggleItemComponent,
     MatRippleModule,
-    ResourceTagsToStringPipe,
     ApplicationStatePipe,
     MatPaginatorModule,
     NotificatorComponent,
@@ -247,7 +244,6 @@ import { UserRolesComponent } from './components/user-detail-page/user-settings/
     MemberEmailPipe,
     MemberLoginsPipe,
     TechnicalOwnersPipe,
-    ResourcesListComponent,
     ApplicationFormItemTypePipe,
     DragDropModule,
     ApplicationFormWidgetDescriptionPipe,
@@ -256,7 +252,6 @@ import { UserRolesComponent } from './components/user-detail-page/user-settings/
     AddGroupManagerDialogComponent,
     RemoveGroupManagerDialogComponent,
     ApplicationFormWidgetDescriptionPipe,
-    ResourcesListComponent,
     TechnicalOwnersPipe,
     UsersListComponent,
     AnyToStringPipe,
@@ -293,7 +288,6 @@ import { UserRolesComponent } from './components/user-detail-page/user-settings/
     UserFullNamePipe,
     DeleteGroupDialogComponent,
     SettingsToggleItemComponent,
-    ResourceTagsToStringPipe,
     ApplicationStatePipe,
     NotificatorComponent,
     NotificationComponent,
@@ -313,7 +307,6 @@ import { UserRolesComponent } from './components/user-detail-page/user-settings/
     DebuggerPageComponent,
     TechnicalOwnersPipe,
     RemoveResourceDialogComponent,
-    ResourcesListComponent,
     AddManagerDialogComponent,
     RemoveManagerDialogComponent,
     AddManagerDialogComponent,
@@ -326,7 +319,6 @@ import { UserRolesComponent } from './components/user-detail-page/user-settings/
     AddApplicationFormItemDialogComponent,
     EditApplicationFormItemDialogComponent,
     ApplicationFormWidgetDescriptionPipe,
-    ResourcesListComponent,
     TechnicalOwnersPipe,
     SideMenuRootItemComponent,
     ApplicationRejectDialogComponent,
