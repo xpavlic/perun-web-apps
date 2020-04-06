@@ -7,6 +7,7 @@ import { DeleteGroupDialogComponent } from '../../../../shared/components/dialog
 import { MatCheckbox } from '@angular/material/checkbox';
 import { applyFilter } from '@perun-web-apps/perun/utils';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-group-subgroups',
@@ -93,7 +94,7 @@ export class GroupSubgroupsComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.groupService.getAllRichSubGroupsWithGroupAttributesByNames(this.group.id, ['null'] ).subscribe(groups => {
+    this.groupService.getAllRichSubGroupsWithGroupAttributesByNames(this.group.id, [Urns.GROUP_DEF_MAIL_FOOTER]).subscribe(groups => {
       this.groups = groups;
       this.filteredTreeGroups = this.groups;
       this.filteredGroups = this.groups;
