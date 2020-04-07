@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MenuItem} from '../../models/MenuItem';
+import {MenuItem} from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-menu-buttons-field',
+  selector: 'perun-web-apps-menu-buttons-field',
   templateUrl: './menu-buttons-field.component.html',
   styleUrls: ['./menu-buttons-field.component.scss']
 })

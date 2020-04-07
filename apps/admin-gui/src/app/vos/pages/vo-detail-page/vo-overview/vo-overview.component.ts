@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MenuItem} from '../../../../shared/models/MenuItem';
+import {MenuItem} from '@perun-web-apps/perun/models';
 import {InviteMemberDialogComponent} from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {SideMenuService} from '../../../../core/services/common/side-menu.service';

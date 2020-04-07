@@ -1,5 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {MenuItem} from '../../../../shared/models/MenuItem';
+import {MenuItem} from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-admin-overview',
