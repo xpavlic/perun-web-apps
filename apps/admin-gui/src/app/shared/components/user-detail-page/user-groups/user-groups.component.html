@@ -5,11 +5,12 @@
 <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 <div *ngIf="!loading">
   <perun-web-apps-groups-list
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize"
     [groups]="membersGroups"
     [hideColumns]="['select', 'menu']"
     [inDialog]="false"
     [disableMembers]="false"
-    [pageSize]="5"
   ></perun-web-apps-groups-list>
 </div>
 
@@ -19,11 +20,12 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading">
     <perun-web-apps-groups-list
+      (page)="adminPageChanged($event)"
+      [pageSize]="adminPageSize"
       [groups]="adminsGroups"
       [hideColumns]="['select', 'menu']"
       [inDialog]="false"
       [disableMembers]="false"
-      [pageSize]="5"
     ></perun-web-apps-groups-list>
   </div>
 </div>

@@ -1,5 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { RichUser, UsersManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  TABLE_ADMIN_USER_SELECT,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-admin-users',
@@ -13,7 +18,8 @@ export class AdminUsersComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(
-    private usersService: UsersManagerService
+    private usersService: UsersManagerService,
+    private tableConfigService: TableConfigService
   ) { }
 
   users: RichUser[];
@@ -21,8 +27,11 @@ export class AdminUsersComponent implements OnInit {
   searchString = '';
   loading = false;
   firstSearchDone = false;
+  pageSize: number;
+  tableId = TABLE_ADMIN_USER_SELECT;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
   }
 
   onSearchByString() {
@@ -40,5 +49,10 @@ export class AdminUsersComponent implements OnInit {
     if (event.key === 'Enter' && this.searchString.length > 0) {
       this.onSearchByString();
     }
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

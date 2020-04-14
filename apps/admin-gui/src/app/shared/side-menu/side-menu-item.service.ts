@@ -110,6 +110,11 @@ export class SideMenuItemService {
               label: 'MENU_ITEMS.USER.ROLES',
               url: [`/profile/settings/roles`],
               activatedRegex: `^/profile/settings/roles`
+            },
+            {
+              label: 'MENU_ITEMS.USER.GUI_CONFIG',
+              url: ['/profile/settings/gui-config'],
+              activatedRegex: '/profile/settings/gui-config'
             }
           ],
           showChildrenRegex: `^/profile/settings`

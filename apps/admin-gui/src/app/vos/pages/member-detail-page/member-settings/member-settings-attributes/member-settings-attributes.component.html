@@ -15,6 +15,8 @@
   <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'SHARED.COMPONENTS.ATTRIBUTES_LIST.FILTER'"></perun-web-apps-immediate-filter>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <perun-web-apps-attributes-list
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize"
     #list
     *ngIf="!loading"
     [filterValue]="filterValue"

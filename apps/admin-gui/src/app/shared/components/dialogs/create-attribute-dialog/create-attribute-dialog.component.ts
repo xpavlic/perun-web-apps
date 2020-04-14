@@ -7,6 +7,8 @@ import {TranslateService} from '@ngx-translate/core';
 import { AttrEntity } from '@perun-web-apps/perun/models';
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { TableConfigService, TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 export interface CreateAttributeDialogData {
   entityId: number;
@@ -27,6 +29,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: CreateAttributeDialogData,
               private attributesManager: AttributesManagerService,
               private notificator: NotificatorService,
+              private tableConfigService: TableConfigService,
               private translate: TranslateService) {
     this.translate.get('DIALOGS.CREATE_ATTRIBUTE.SUCCESS_SAVE').subscribe(value => this.saveSuccessMessage = value);
   }
@@ -39,8 +42,11 @@ export class CreateAttributeDialogComponent implements OnInit {
   saveSuccessMessage: string;
   showError = false;
   filterValue = '';
+  tableId = TABLE_ATTRIBUTES_SETTINGS;
+  pageSize: number;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     const unWanted = new Array<number>();
     this.data.notEmptyAttributes.forEach(attribute => {
       unWanted.push(attribute.id);
@@ -156,6 +162,11 @@ export class CreateAttributeDialogComponent implements OnInit {
     this.notificator.showSuccess(this.saveSuccessMessage);
     this.selected.clear();
     this.dialogRef.close('saved');
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }
 

@@ -12,6 +12,8 @@
   </mat-spinner>
   <div *ngIf="!loading">
     <app-users-list
+      (page)="pageChanged($event)"
+      [pageSize]="pageSize"
       *ngIf="users !== undefined && users.length > 0"
       [users]="users">
     </app-users-list>

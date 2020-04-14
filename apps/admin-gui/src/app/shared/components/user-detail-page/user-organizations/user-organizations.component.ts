@@ -1,7 +1,11 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { PerunPrincipal, UsersManagerService, Vo } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
+import { PageEvent } from '@angular/material/paginator';
+import {
+  TABLE_USER_PROFILE_ADMIN_SELECT, TABLE_USER_PROFILE_MEMBER_SELECT,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-user-organizations',
@@ -15,6 +19,7 @@ export class UserOrganizationsComponent implements OnInit {
   constructor(
     private usersService: UsersManagerService,
     private authResolver: GuiAuthResolver,
+    private tableConfigService: TableConfigService,
     private store: StoreService
   ) {
   }
@@ -27,8 +32,14 @@ export class UserOrganizationsComponent implements OnInit {
   filterValue = '';
 
   displayedColumns = ['id', 'name'];
+  adminPageSize: number;
+  memberPageSize: number;
+  adminTableId = TABLE_USER_PROFILE_ADMIN_SELECT;
+  memberTableId = TABLE_USER_PROFILE_MEMBER_SELECT;
 
   ngOnInit() {
+    this.adminPageSize = this.tableConfigService.getTablePageSize(this.adminTableId);
+    this.memberPageSize = this.tableConfigService.getTablePageSize(this.memberTableId);
     this.principal = this.store.getPerunPrincipal();
     this.userId = this.principal.user.id;
 
@@ -51,4 +62,13 @@ export class UserOrganizationsComponent implements OnInit {
     this.filterValue = filterValue;
   }
 
+  adminPageChanged(event: PageEvent) {
+    this.adminPageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.adminTableId, event.pageSize);
+  }
+
+  memberPageChanged(event: PageEvent) {
+    this.memberPageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.memberTableId, event.pageSize);
+  }
 }

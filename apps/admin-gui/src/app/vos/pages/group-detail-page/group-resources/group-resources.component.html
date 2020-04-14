@@ -7,6 +7,8 @@
   <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-resources-list *ngIf="resources && !loading"
+                                 (page)="pageChanged($event)"
+                                 [pageSize]="pageSize"
                                  [filterValue]="filterValue"
                                  [resources]="resources"
                                  [selection]="selected">

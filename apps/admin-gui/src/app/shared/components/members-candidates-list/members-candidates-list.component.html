@@ -76,7 +76,12 @@
         *matRowDef="let memberCandidate; columns: displayedColumns;">
       </tr>
     </table>
-    <mat-paginator [length]="this.members.length" [pageSize]="10" [pageSizeOptions]="[5,10,25]"></mat-paginator>
+    <mat-paginator
+      [length]="this.members.length"
+      (page)="pageChanged($event)"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
   </div>
 </div>
 

@@ -1,7 +1,12 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { MembersService} from '@perun-web-apps/perun/services';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { MembersService, StoreService } from '@perun-web-apps/perun/services';
 import { Group, GroupsManagerService, PerunPrincipal, UsersManagerService, Vo } from '@perun-web-apps/perun/openapi';
+import {
+  TABLE_USER_DETAIL_ADMIN_GROUPS,
+  TABLE_USER_DETAIL_MEMBER_GROUPS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-user-groups',
@@ -18,13 +23,22 @@ export class UserGroupsComponent implements OnInit {
   membersGroups: Group[] = [];
   adminsGroups: Group[] = [];
 
+  tableId = TABLE_USER_DETAIL_MEMBER_GROUPS;
+  pageSize: number;
+
+  adminTableId = TABLE_USER_DETAIL_ADMIN_GROUPS;
+  adminPageSize: number;
+
   constructor(private usersService: UsersManagerService,
               private memberService: MembersService,
+              private tableConfigService: TableConfigService,
               private groupService: GroupsManagerService,
               private store: StoreService) { }
 
   ngOnInit() {
     this.loading = true;
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
+    this.adminPageSize = this.tableConfigService.getTablePageSize(this.adminTableId);
     this.principal = this.store.getPerunPrincipal();
     this.refreshTable();
   }
@@ -46,5 +60,14 @@ export class UserGroupsComponent implements OnInit {
     this.usersService.getGroupsWhereUserIsAdmin(this.principal.userId).subscribe( groups => {
       this.adminsGroups = groups;
     });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  }
+  adminPageChanged(event: PageEvent) {
+    this.adminPageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.adminTableId, event.pageSize);
   }
 }

@@ -11,6 +11,11 @@ import { DeleteAttributeDialogComponent } from '../../../dialogs/delete-attribut
 import { StoreService } from '@perun-web-apps/perun/services';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDialogComponent } from '../../../dialogs/edit-attribute-dialog/edit-attribute-dialog.component';
+import {
+  TABLE_ATTRIBUTES_SETTINGS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-user-settings-attributes',
@@ -27,6 +32,7 @@ export class UserSettingsAttributesComponent implements OnInit {
     private notificator: NotificatorService,
     private dialog: MatDialog,
     private translate: TranslateService,
+    private tableConfigService: TableConfigService,
     private store: StoreService
   ) {
     this.translate.get('USER_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_SAVE').subscribe(value => this.saveSuccessMessage = value);
@@ -45,7 +51,11 @@ export class UserSettingsAttributesComponent implements OnInit {
   loading: boolean;
   filterValue = '';
 
+  tableId = TABLE_ATTRIBUTES_SETTINGS;
+  pageSize: number;
+
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(params => {
       this.userId = params['userId'];
       if (this.userId === undefined) {
@@ -123,5 +133,10 @@ export class UserSettingsAttributesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

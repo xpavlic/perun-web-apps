@@ -35,5 +35,14 @@ export class UserSettingsOverviewComponent implements OnInit {
         style: 'user-btn'
       }
     ];
+    // if at user profile, add user gui config item
+    if (!window.location.pathname.startsWith('/admin')) {
+      this.navItems.push({
+          cssIcon: 'perun-settings2',
+          url: 'gui-config',
+          label: 'MENU_ITEMS.USER.GUI_CONFIG',
+          style: 'user-btn'
+        });
+    }
   }
 }

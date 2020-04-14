@@ -4,6 +4,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { ResourcesManagerService, RichResource, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { RemoveResourceDialogComponent } from '../../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TABLE_VO_RESOURCES_LIST, TableConfigService } from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-vo-resources-preview',
@@ -19,6 +21,7 @@ export class VoResourcesPreviewComponent implements OnInit {
   constructor(private resourcesManager: ResourcesManagerService,
               private voService: VosManagerService,
               private route: ActivatedRoute,
+              private tableConfigService: TableConfigService,
               private dialog: MatDialog) {
   }
 
@@ -28,8 +31,13 @@ export class VoResourcesPreviewComponent implements OnInit {
 
   loading: boolean;
   filterValue = '';
+  pageSize: number;
+
+  tableId = TABLE_VO_RESOURCES_LIST;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
+
     this.route.parent.parent.params.subscribe(parentParams => {
       const voId = parentParams['voId'];
 
@@ -65,5 +73,10 @@ export class VoResourcesPreviewComponent implements OnInit {
         this.refreshTable();
       }
     });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

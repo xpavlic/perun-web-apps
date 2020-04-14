@@ -14,6 +14,11 @@ import {
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDialogComponent } from '../../../../../shared/components/dialogs/edit-attribute-dialog/edit-attribute-dialog.component';
+import { PageEvent } from '@angular/material/paginator';
+import {
+  TABLE_ATTRIBUTES_SETTINGS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-facility-settings-attributes',
@@ -28,6 +33,7 @@ export class FacilitySettingsAttributesComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
+              private tableConfigService: TableConfigService,
               private translate: TranslateService) {
     this.translate.get('FACILITY_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_SAVE').subscribe(value => this.saveSuccessMessage = value);
     this.translate.get('FACILITY_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_DELETE').subscribe(value => this.deleteSuccessMessage = value);
@@ -44,8 +50,11 @@ export class FacilitySettingsAttributesComponent implements OnInit {
 
   loading: boolean;
   filterValue = '';
+  pageSize: number;
+  tableId = TABLE_ATTRIBUTES_SETTINGS;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(params => {
       this.facilityId = params['facilityId'];
       this.refreshTable();
@@ -118,5 +127,10 @@ export class FacilitySettingsAttributesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

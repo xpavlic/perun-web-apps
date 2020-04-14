@@ -181,7 +181,8 @@
       "DELETE_GROUP": "Delete",
       "TITLE_SUBGROUPS": "Subgroups",
       "LIST_VIEW": "List view",
-      "FILTER": "Filter"
+      "FILTER": "Filter",
+      "NO_GROUPS": "No groups found"
     },
     "MEMBERS": {
       "TITLE": "Members",
@@ -559,7 +560,8 @@
       "DETAIL": "Detail",
       "ATTRIBUTES": "Attributes",
       "TITLE": "User - ",
-      "ROLES": "Roles"
+      "ROLES": "Roles",
+      "GUI_CONFIG": "Gui configuration"
     }
   },
   "DIALOGS": {
@@ -1209,6 +1211,9 @@
         "CANCEL": "Cancel",
         "SUCCESS_DELETE": "Attributes deleted successfully",
         "SUCCESS_SAVE": "Attributes saved successfully"
+      },
+      "GUI_CONFIG": {
+        "PREF_TABLE_PAGE_SIZE": "Preferred table page size"
       }
     }
   },

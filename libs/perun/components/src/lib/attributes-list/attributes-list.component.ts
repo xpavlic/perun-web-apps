@@ -1,10 +1,21 @@
-import {AfterViewInit, Component, Input, OnChanges, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges, Output,
+  QueryList,
+  SimpleChanges,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {AttributeValueComponent} from './attribute-value/attribute-value.component';
 import { Attribute } from '@perun-web-apps/perun/openapi';
+import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'perun-web-apps-attributes-list',
@@ -45,7 +56,14 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   @Input()
   filterValue = '';
 
+  @Input()
+  pageSize = 10;
+
+  @Output()
+  page = new EventEmitter<PageEvent>();
+
   exporting = false;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<Attribute>(this.attributes);
@@ -93,5 +111,9 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
 
   onValueChange(attribute: Attribute) {
     this.selection.select(attribute);
+  }
+
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
   }
 }

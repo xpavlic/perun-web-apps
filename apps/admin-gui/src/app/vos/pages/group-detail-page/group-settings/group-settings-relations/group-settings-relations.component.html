@@ -12,6 +12,8 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 
   <perun-web-apps-groups-list
+      (page)="pageChanged($event)"
+      [pageSize]="pageSize"
       *ngIf="!loading"
       [groups]="groups"
       [selection]="selection"

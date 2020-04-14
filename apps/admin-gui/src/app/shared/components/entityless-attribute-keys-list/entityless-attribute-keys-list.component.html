@@ -91,7 +91,12 @@
           class="dark-hover-list-item">
         </tr>
       </table>
-      <mat-paginator [length]="this.records.length" [pageSize]="5" [pageSizeOptions]="[1,5,10,25]"></mat-paginator>
+      <mat-paginator
+        [length]="this.records.length"
+        [pageSize]="pageSize"
+        (page)="pageChanged($event)"
+        [pageSizeOptions]="pageSizeOptions">
+      </mat-paginator>
     </div>
   </div>
 

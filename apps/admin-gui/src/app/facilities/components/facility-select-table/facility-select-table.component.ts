@@ -1,9 +1,18 @@
-import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { RichFacility } from '@perun-web-apps/perun/openapi';
-import { parseTechnicalOwnersNames } from '@perun-web-apps/perun/utils';
+import { parseTechnicalOwnersNames, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-facility-select-table',
@@ -22,6 +31,12 @@ export class FacilitySelectTableComponent implements AfterViewInit, OnChanges {
   @Input()
   filterValue: string;
 
+  @Input()
+  pageSize = 10;
+
+  @Output()
+  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+
   exporting = false;
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -35,6 +50,7 @@ export class FacilitySelectTableComponent implements AfterViewInit, OnChanges {
 
   displayedColumns: string[] = ['id', 'recent', 'name', 'description', 'technicalOwners'];
   dataSource: MatTableDataSource<RichFacility>;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<RichFacility>(this.facilities);
@@ -64,5 +80,9 @@ export class FacilitySelectTableComponent implements AfterViewInit, OnChanges {
         return parseTechnicalOwnersNames(data.facilityOwners).toLowerCase().indexOf(lowerCaseFilter) !== -1;
       });
     }
+  }
+
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
   }
 }

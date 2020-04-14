@@ -1,12 +1,16 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
-import {SideMenuService} from '../../../../core/services/common/side-menu.service';
-import {ActivatedRoute} from '@angular/router';
-import {SelectionModel} from '@angular/cdk/collections';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { SideMenuService } from '../../../../core/services/common/side-menu.service';
+import { ActivatedRoute } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  RemoveResourceDialogComponent} from '../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
+import { RemoveResourceDialogComponent } from '../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { FacilitiesManagerService, Facility, RichResource } from '@perun-web-apps/perun/openapi';
 import { CreateResourceDialogComponent } from '../../../../shared/components/dialogs/create-resource-dialog/create-resource-dialog.component';
+import { PageEvent } from '@angular/material/paginator';
+import {
+  TABLE_FACILITY_RESOURCES_LIST,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-facility-resources',
@@ -23,6 +27,7 @@ export class FacilityResourcesComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
               private sideMenuService: SideMenuService,
+              private tableConfigService: TableConfigService,
               private facilityManager: FacilitiesManagerService,
               private route: ActivatedRoute) {
   }
@@ -35,8 +40,12 @@ export class FacilityResourcesComponent implements OnInit {
   filterValue = '';
 
   loading: boolean;
+  pageSize: number;
+  tableId = TABLE_FACILITY_RESOURCES_LIST;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
+
     this.route.parent.params.subscribe(parentParams => {
       const facilityId = parentParams['facilityId'];
 
@@ -85,5 +94,10 @@ export class FacilityResourcesComponent implements OnInit {
         this.refreshTable();
       }
     });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

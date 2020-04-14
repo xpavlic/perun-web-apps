@@ -1,5 +1,14 @@
-import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
@@ -9,7 +18,7 @@ import {
   getCandidateEmail,
   getExtSourceNameOrOrganizationColumn,
   parseUserEmail,
-  parseVo, parseName
+  parseVo, parseName, TABLE_ITEMS_COUNT_OPTIONS
 } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -40,10 +49,17 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   @Input()
   type: string;
 
+  @Input()
+  pageSize = 10;
+
+  @Output()
+  page = new EventEmitter<PageEvent>();
+
   displayedColumns: string[] = ['checkbox', 'status', 'fullName', 'voExtSource', 'email', 'logins', 'alreadyMember', 'local'];
   dataSource: MatTableDataSource<MemberCandidate>;
 
   exporting = false;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   setDataSource() {
     if (!!this.dataSource) {
@@ -212,5 +228,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
         }
     }
     return false;
+  }
+
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
   }
 }

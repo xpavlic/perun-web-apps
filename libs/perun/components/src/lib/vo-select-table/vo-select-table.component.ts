@@ -1,9 +1,19 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Vo } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
+import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'perun-web-apps-vo-select-table',
@@ -29,6 +39,12 @@ export class VoSelectTableComponent implements OnChanges, AfterViewInit {
   @Input()
   displayedColumns: string[];
 
+  @Input()
+  pageSize = 10;
+
+  @Output()
+  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
@@ -40,6 +56,7 @@ export class VoSelectTableComponent implements OnChanges, AfterViewInit {
 
   dataSource: MatTableDataSource<Vo>;
   exporting = false;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<Vo>(this.vos);

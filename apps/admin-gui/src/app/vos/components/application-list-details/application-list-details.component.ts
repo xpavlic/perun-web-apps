@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Application, Group, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-perun-web-apps-application-list-details',
@@ -23,6 +24,12 @@ export class ApplicationListDetailsComponent implements OnChanges {
   @Input()
   filterValue: string;
 
+  @Input()
+  pageSize = 10;
+
+  @Output()
+  page = new EventEmitter<PageEvent>();
+
   displayedColumns: string[] = ['id', 'voId', 'voName', 'groupId', 'groupName', 'type',
     'state', 'extSourceName', 'extSourceType', 'extSourceLoa',
     'user', 'createdBy', 'createdAt', 'modifiedBy', 'modifiedAt', 'fedInfo'];
@@ -36,6 +43,8 @@ export class ApplicationListDetailsComponent implements OnChanges {
   addedColumns = new Set<string>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges(changes: SimpleChanges) {
     this.loading = true;
@@ -111,5 +120,9 @@ export class ApplicationListDetailsComponent implements OnChanges {
     } else {
       this.router.navigate(['/organizations', application.vo.id, 'applications', application.id]);
     }
+  }
+
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
   }
 }

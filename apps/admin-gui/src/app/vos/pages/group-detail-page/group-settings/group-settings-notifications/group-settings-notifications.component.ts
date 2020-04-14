@@ -19,6 +19,11 @@ import {
 import { ApplicationForm, ApplicationMail, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '../../../../../core/services/api/api-request-configuration.service';
 import { createNewApplicationMail } from '@perun-web-apps/perun/utils';
+import { PageEvent } from '@angular/material/paginator';
+import {
+  TABLE_GROUP_SETTINGS_NOTIFICATIONS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-group-settings-notifications',
@@ -35,6 +40,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
     private translate: TranslateService,
     private dialog: MatDialog,
     private apiRequest: ApiRequestConfigurationService,
+    private tableConfigService: TableConfigService,
     private notificator: NotificatorService) {
   }
 
@@ -45,9 +51,13 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   applicationMails: ApplicationMail[] = [];
   selection = new SelectionModel<ApplicationMail>(true, []);
   noApplicationForm = false;
+  pageSize: number;
 
+  private tableId = TABLE_GROUP_SETTINGS_NOTIFICATIONS;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
+
     this.loading = true;
     this.route.parent.parent.params.subscribe(params => {
       this.voId = params['voId'];
@@ -148,5 +158,10 @@ export class GroupSettingsNotificationsComponent implements OnInit {
       this.noApplicationForm = false;
       this.ngOnInit();
     });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

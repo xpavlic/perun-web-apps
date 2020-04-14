@@ -4,5 +4,10 @@
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
 <!--this list is duplicated because it might contain
 other data than the one displayed in vo detail(e.g. members status-->
-<app-member-group-list [groups]="groups" [filterValue]="filterValue" *ngIf="!loading">
+<app-member-group-list
+  [pageSize]="pageSize"
+  (page)="pageChanged($event)"
+  [groups]="groups"
+  [filterValue]="filterValue"
+  *ngIf="!loading">
 </app-member-group-list>

@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {TranslateService} from '@ngx-translate/core';
-import {NotificatorService} from '../../../../core/services/common/notificator.service';
-import {SelectionModel} from '@angular/cdk/collections';
-import {ActivatedRoute, Router} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService } from '../../../../core/services/common/notificator.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   AuthzResolverService,
   Facility,
@@ -13,6 +13,8 @@ import {
   Vo
 } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
+import { TABLE_ADD_MANAGER, TableConfigService } from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 export interface AddManagerDialogData {
   complementaryObject: Vo | Group | Facility;
@@ -36,7 +38,8 @@ export class AddManagerDialogComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     protected route: ActivatedRoute,
-    protected router: Router
+    protected router: Router,
+    private tableConfigService: TableConfigService
   ) {
     translate.get('DIALOGS.ADD_MANAGERS.TITLE').subscribe(value => this.title = value);
     translate.get('DIALOGS.ADD_MANAGERS.SUCCESS').subscribe(value => this.successMessage = value);
@@ -54,6 +57,15 @@ export class AddManagerDialogComponent implements OnInit {
   firstSearchDone = false;
   availableRoles: Role[];
   theme: string;
+  pageSize: number;
+  tableId = TABLE_ADD_MANAGER;
+
+  ngOnInit(): void {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
+    this.theme = this.data.theme;
+    this.availableRoles = this.data.availableRoles;
+    this.selectedRole = this.data.selectedRole;
+  }
 
   onCancel(): void {
     this.dialogRef.close();
@@ -83,10 +95,8 @@ export class AddManagerDialogComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-    this.theme = this.data.theme;
-    this.availableRoles = this.data.availableRoles;
-    this.selectedRole = this.data.selectedRole;
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
-
 }

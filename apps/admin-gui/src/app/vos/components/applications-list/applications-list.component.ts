@@ -1,9 +1,19 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {Router} from '@angular/router';
 import { Application, Group } from '@perun-web-apps/perun/openapi';
+import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-applications-list',
@@ -31,12 +41,19 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   @Input()
   filterValue: string;
 
+  @Input()
+  pageSize = 10;
+
+  @Output()
+  page = new EventEmitter<PageEvent>();
+
   dataSource: MatTableDataSource<Application>;
 
   exporting = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private sort: MatSort;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngAfterViewInit(): void {
     this.setDataSource();
@@ -102,5 +119,9 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
     } else {
       this.router.navigate(['/organizations', application.vo.id, 'applications', application.id]);
     }
+  }
+
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
   }
 }

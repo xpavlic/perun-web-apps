@@ -151,6 +151,8 @@ import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { UserRolesComponent } from './components/user-detail-page/user-settings/user-roles/user-roles.component';
 import { EditAttributeDialogComponent } from './components/dialogs/edit-attribute-dialog/edit-attribute-dialog.component';
+import { UserSettingsAppConfigurationComponent } from './components/user-detail-page/user-settings/user-settings-app-configuration/user-settings-app-configuration.component';
+import { ConfigTableConfigModule } from '@perun-web-apps/config/table-config';
 
 @NgModule({
   imports: [
@@ -196,7 +198,8 @@ import { EditAttributeDialogComponent } from './components/dialogs/edit-attribut
     ScrollingModule,
     UiAlertsModule,
     MatBadgeModule,
-    PerunSharedComponentsModule
+    PerunSharedComponentsModule,
+    ConfigTableConfigModule
   ],
   exports: [
     PerunNavComponent,
@@ -275,7 +278,8 @@ import { EditAttributeDialogComponent } from './components/dialogs/edit-attribut
     PerunFooterComponent,
     CreateResourceDialogComponent,
     ExtSourcesListComponent,
-    ExtSourceTypePipe
+    ExtSourceTypePipe,
+    ConfigTableConfigModule
   ],
   declarations: [
     PerunNavComponent,
@@ -379,7 +383,8 @@ import { EditAttributeDialogComponent } from './components/dialogs/edit-attribut
     AddExtSourceDialogComponent,
     ExtSourceTypePipe,
     UserRolesComponent,
-    EditAttributeDialogComponent
+    EditAttributeDialogComponent,
+    UserSettingsAppConfigurationComponent
   ],
   providers: [
     AnyToStringPipe,

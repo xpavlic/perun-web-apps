@@ -11,6 +11,8 @@
   </mat-checkbox>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <perun-web-apps-groups-list
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize"
     *ngIf="!loading"
     [groups]="filteredGroups"
     [selection]="selection"

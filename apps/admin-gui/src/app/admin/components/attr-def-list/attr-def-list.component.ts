@@ -9,12 +9,13 @@ import {
   ViewChild
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import { AttributeDefinition } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDefinitionDialogComponent } from '../../../shared/components/dialogs/edit-attribute-definition-dialog/edit-attribute-definition-dialog.component';
+import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-attr-def-list',
@@ -33,9 +34,13 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   hideColumns: string[] = [];
   @Input()
   filterValue: string;
+  @Input()
+  pageSize = 10;
 
   @Output()
   refreshEvent = new EventEmitter<void>();
+  @Output()
+  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   exporting = false;
 
@@ -50,6 +55,7 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   dataSource: MatTableDataSource<AttributeDefinition>;
 
   private sort: MatSort;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<AttributeDefinition>(this.definitions);
@@ -113,5 +119,9 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
         this.refreshEvent.emit();
       }
     });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
   }
 }

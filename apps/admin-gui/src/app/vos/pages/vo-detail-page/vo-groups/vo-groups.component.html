@@ -24,6 +24,8 @@
       [selection]="selected">
     </app-groups-tree>
     <perun-web-apps-groups-list
+      (page)="pageChanged($event)"
+      [pageSize]="pageSize"
       (moveGroup)="onMoveGroup($event)"
       [groups]="filteredGroups"
       [selection]="selected"

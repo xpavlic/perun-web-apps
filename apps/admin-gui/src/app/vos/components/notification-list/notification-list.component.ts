@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
@@ -10,6 +10,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '../../../core/services/common/notificator.service';
 import { ApplicationMail, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-notification-list',
@@ -39,9 +40,13 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
 
   @Input()
   selection = new SelectionModel<ApplicationMail>(true, []);
+  @Input()
+  pageSize = 10;
 
   @Output()
   selectionChange = new EventEmitter<SelectionModel<ApplicationMail>>();
+  @Output()
+  page: EventEmitter<PageEvent> = new EventEmitter();
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -51,6 +56,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private sort: MatSort;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges() {
     this.dataSource = new MatTableDataSource<ApplicationMail>(this.applicationMails);

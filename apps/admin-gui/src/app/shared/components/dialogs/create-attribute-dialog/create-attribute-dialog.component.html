@@ -9,6 +9,8 @@
   </div>
   <div mat-dialog-content>
     <perun-web-apps-attributes-list
+      (page)="pageChanged($event)"
+      [pageSize]="pageSize"
       *ngIf="attributes !== undefined"
       #list
       [filterValue]="filterValue"

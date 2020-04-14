@@ -28,6 +28,8 @@
         {{'DIALOGS.ADD_MEMBERS.NO_USERS_FOUND' | translate}}
       </app-alert>
       <app-members-candidates-list
+        [pageSize]="pageSize"
+        (page)="pageChanged($event)"
         [selection]="selection"
         [members]="members"
         [type]="data.type"

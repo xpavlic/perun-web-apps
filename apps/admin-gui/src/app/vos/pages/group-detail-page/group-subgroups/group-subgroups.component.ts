@@ -8,6 +8,8 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { applyFilter } from '@perun-web-apps/perun/utils';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { TABLE_GROUP_SUBGROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-group-subgroups',
@@ -24,24 +26,20 @@ export class GroupSubgroupsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private groupService: GroupsManagerService,
+    private tableConfigService: TableConfigService,
     private route: ActivatedRoute
   ) {
   }
   group: Group;
-
   groups: Group[] = [];
-
   filteredGroups: Group[] = [];
-
   filteredTreeGroups: Group[] = [];
-
   selected = new SelectionModel<Group>(true, []);
-
   showGroupList = false;
-
   loading: boolean;
-
   filtering = false;
+  tableId = TABLE_GROUP_SUBGROUPS;
+  pageSize: number;
 
   @ViewChild('checkbox', {static: true})
   checkbox: MatCheckbox;
@@ -58,6 +56,7 @@ export class GroupSubgroupsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     if (localStorage.getItem('preferedValue') === 'list') {
       this.checkbox.toggle();
       this.selected.clear();
@@ -108,5 +107,10 @@ export class GroupSubgroupsComponent implements OnInit {
     this.filteredGroups = results[0];
     this.filteredTreeGroups = results[1];
     this.filtering = filterValue !== '';
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

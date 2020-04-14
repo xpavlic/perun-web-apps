@@ -11,10 +11,10 @@ import {
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {SelectionModel} from '@angular/cdk/collections';
 import { RichMember } from '@perun-web-apps/perun/openapi';
-import { parseEmail, parseFullName } from '@perun-web-apps/perun/utils';
+import { parseEmail, parseFullName, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 import { ChangeMemberStatusDialogComponent } from '../../../shared/components/dialogs/change-member-status-dialog/change-member-status-dialog.component';
 
 @Component({
@@ -47,6 +47,12 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   @Input()
   hideColumns: string[] = [];
 
+  @Input()
+  pageSize = 10;
+
+  @Output()
+  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+
   @Output()
   updateTable = new EventEmitter<boolean>();
 
@@ -54,6 +60,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
 
   displayedColumns: string[] = ['checkbox', 'id', 'fullName', 'status', 'groupStatus', 'email'];
   dataSource: MatTableDataSource<RichMember>;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   setDataSource() {
     this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));
@@ -117,5 +124,9 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
         }
       })
     }
+  }
+
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
   }
 }

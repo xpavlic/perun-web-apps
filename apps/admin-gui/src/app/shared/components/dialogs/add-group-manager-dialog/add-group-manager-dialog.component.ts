@@ -1,14 +1,26 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {TranslateService} from '@ngx-translate/core';
-import {NotificatorService} from '../../../../core/services/common/notificator.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SelectionModel} from '@angular/cdk/collections';
-import {Observable} from 'rxjs';
-import {FormControl} from '@angular/forms';
-import {map, startWith} from 'rxjs/operators';
-import { AuthzResolverService, Facility, Group, GroupsManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService } from '../../../../core/services/common/notificator.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import {
+  AuthzResolverService,
+  Facility,
+  Group,
+  GroupsManagerService,
+  Vo,
+  VosManagerService
+} from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
+import {
+  TABLE_SELECT_GROUP_MANAGER_DIALOG,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 export interface AddGroupManagerDialogData {
   complementaryObject: Vo | Group | Facility;
@@ -33,6 +45,7 @@ export class AddGroupManagerDialogComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     protected route: ActivatedRoute,
+    private tableConfigService: TableConfigService,
     protected router: Router
   ) {
     translate.get('DIALOGS.ADD_GROUPS.TITLE').subscribe(value => this.title = value);
@@ -56,6 +69,9 @@ export class AddGroupManagerDialogComponent implements OnInit {
 
   availableRoles: Role[];
   theme: string;
+
+  tableId = TABLE_SELECT_GROUP_MANAGER_DIALOG;
+  pageSize: number;
 
   displayFn(vo?: Vo): string | undefined {
     return vo ? vo.name : null;
@@ -108,5 +124,10 @@ export class AddGroupManagerDialogComponent implements OnInit {
         }, () => this.loading = false);
       }
     }, () => this.loading = false);
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

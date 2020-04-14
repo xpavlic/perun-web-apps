@@ -7,6 +7,8 @@ import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { Group, GroupsManagerService, RichMember } from '@perun-web-apps/perun/openapi';
+import { PageEvent } from '@angular/material/paginator';
+import { TABLE_GROUP_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-group-members',
@@ -25,6 +27,7 @@ export class GroupMembersComponent implements OnInit {
     private groupService: GroupsManagerService,
     protected route: ActivatedRoute,
     protected router: Router,
+    private tableConfigService: TableConfigService,
     private dialog: MatDialog
   ) { }
 
@@ -39,14 +42,18 @@ export class GroupMembersComponent implements OnInit {
   loading = false;
   data: 'search' | 'all';
 
+  tableId = TABLE_GROUP_MEMBERS;
+
   private attrNames = [
     Urns.MEMBER_DEF_ORGANIZATION,
     Urns.MEMBER_DEF_MAIL,
     Urns.USER_DEF_ORGANIZATION,
     Urns.USER_DEF_PREFERRED_MAIL
   ];
+  pageSize: number;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.selection = new SelectionModel<RichMember>(true, []);
     this.route.parent.params.subscribe(parentParams => {
       const groupId = parentParams['groupId'];
@@ -137,5 +144,10 @@ export class GroupMembersComponent implements OnInit {
         break;
       }
     }
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

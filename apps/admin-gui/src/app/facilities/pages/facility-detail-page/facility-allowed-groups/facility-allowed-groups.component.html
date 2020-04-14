@@ -12,6 +12,8 @@
   </mat-form-field>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-groups-list
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize"
     *ngIf="!loading && groupsToShow.length !== 0"
     [hideColumns]="['menu', 'vo']"
     [groups] = "groupsToShow"

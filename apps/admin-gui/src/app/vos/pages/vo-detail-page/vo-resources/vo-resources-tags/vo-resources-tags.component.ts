@@ -1,16 +1,14 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {SelectionModel} from '@angular/cdk/collections';
-import {
-  CreateResourceTagDialogComponent
-} from '../../../../../shared/components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
-import {
-  DeleteResourceTagDialogComponent
-} from '../../../../../shared/components/dialogs/delete-resource-tag-dialog/delete-resource-tag-dialog.component';
-import {TranslateService} from '@ngx-translate/core';
-import {NotificatorService} from '../../../../../core/services/common/notificator.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { CreateResourceTagDialogComponent } from '../../../../../shared/components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
+import { DeleteResourceTagDialogComponent } from '../../../../../shared/components/dialogs/delete-resource-tag-dialog/delete-resource-tag-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService } from '../../../../../core/services/common/notificator.service';
 import { ResourcesManagerService, ResourceTag } from '@perun-web-apps/perun/openapi';
+import { PageEvent } from '@angular/material/paginator';
+import { TABLE_VO_RESOURCES_TAGS, TableConfigService } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-vo-resources-tags',
@@ -24,6 +22,7 @@ export class VoResourcesTagsComponent implements OnInit {
               private resourceManager: ResourcesManagerService,
               private dialog: MatDialog,
               private notificator: NotificatorService,
+              private tableConfigService: TableConfigService,
               private translator: TranslateService) { }
 
   loading = false;
@@ -33,8 +32,11 @@ export class VoResourcesTagsComponent implements OnInit {
   selection = new SelectionModel<ResourceTag>(true, []);
 
   filterValue: string;
+  pageSize: number;
+  tableId = TABLE_VO_RESOURCES_TAGS;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(parentParams => {
       this.voId = parentParams['voId'];
       this.updateData();
@@ -83,5 +85,10 @@ export class VoResourcesTagsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

@@ -7,6 +7,8 @@
 <div *ngIf="!loading && vosWhereIsMember.length !== 0">
   <h1 class="page-subtitle">{{'USER_DETAIL.ORGANIZATIONS.IS_MEMBER' | translate}}</h1>
   <perun-web-apps-vo-select-table [displayedColumns]="displayedColumns"
+                                  [pageSize]="memberPageSize"
+                                  (page)="memberPageChanged($event)"
                                   [filterValue]="filterValue"
                                   [vos]="vosWhereIsMember">
   </perun-web-apps-vo-select-table>
@@ -15,6 +17,8 @@
 <div *ngIf="!loading && vosWhereIsAdmin.length !== 0" class="mt-5">
   <h1 class="page-subtitle">{{'USER_DETAIL.ORGANIZATIONS.IS_ADMIN' | translate}}</h1>
   <perun-web-apps-vo-select-table [displayedColumns]="displayedColumns"
+                                  [pageSize]="adminPageSize"
+                                  (page)="adminPageChanged($event)"
                                   [filterValue]="filterValue"
                                   [vos]="vosWhereIsAdmin">
   </perun-web-apps-vo-select-table>

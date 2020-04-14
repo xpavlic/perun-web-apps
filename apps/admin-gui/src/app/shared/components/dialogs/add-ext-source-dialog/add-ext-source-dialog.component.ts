@@ -4,6 +4,8 @@ import { ExtSource, ExtSourcesManagerService } from '@perun-web-apps/perun/opena
 import { SelectionModel } from '@angular/cdk/collections';
 import { NotificatorService } from '../../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PageEvent } from '@angular/material/paginator';
+import { TABLE_ADD_EXTSOURCE_DIALOG, TableConfigService } from '@perun-web-apps/config/table-config';
 
 export interface AddExtSourceDialogData {
   voId: number
@@ -22,6 +24,7 @@ export class AddExtSourceDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) private data: AddExtSourceDialogData,
               private extSourceService: ExtSourcesManagerService,
               private notificator: NotificatorService,
+              private tableConfigService: TableConfigService,
               private translate: TranslateService) {
     this.translate.get('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED').subscribe(result => this.successMessage = result);
   }
@@ -33,8 +36,11 @@ export class AddExtSourceDialogComponent implements OnInit {
   filterValue = '';
   processing: boolean;
   successMessage: string;
+  pageSize: number;
+  tableId = TABLE_ADD_EXTSOURCE_DIALOG;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.extSourceService.getExtSources().subscribe(sources => {
       this.extSources = sources.filter(source => !this.data.voExtSources.includes(source));
@@ -56,5 +62,10 @@ export class AddExtSourceDialogComponent implements OnInit {
 
   onCancel() {
     this.dialogRef.close(false);
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

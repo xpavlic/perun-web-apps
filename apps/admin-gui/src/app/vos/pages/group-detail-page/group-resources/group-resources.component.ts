@@ -2,6 +2,8 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Group, GroupsManagerService, ResourcesManagerService, RichResource } from '@perun-web-apps/perun/openapi';
+import { PageEvent } from '@angular/material/paginator';
+import { TableConfigService, TABLE_GROUP_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-group-resources',
@@ -17,6 +19,7 @@ export class GroupResourcesComponent implements OnInit {
 
   constructor(private resourcesManager: ResourcesManagerService,
               private groupService: GroupsManagerService,
+              private tableConfigService: TableConfigService,
               private route: ActivatedRoute) {
   }
 
@@ -26,8 +29,12 @@ export class GroupResourcesComponent implements OnInit {
 
   loading: boolean;
   filterValue = '';
+  pageSize: number;
+  tableId = TABLE_GROUP_RESOURCES_LIST;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
+
     this.route.parent.params.subscribe(parentParams => {
       const groupId = parentParams['groupId'];
 
@@ -49,5 +56,10 @@ export class GroupResourcesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

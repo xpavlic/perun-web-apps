@@ -11,6 +11,8 @@ import { MembersService } from '@perun-web-apps/perun/services';
 import { RichMember, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl } from '@angular/forms';
+import { TABLE_VO_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-vo-members',
@@ -30,6 +32,7 @@ export class VoMembersComponent implements OnInit {
     private route: ActivatedRoute,
     private notificator: NotificatorService,
     private translate: TranslateService,
+    private tableConfigService: TableConfigService,
     private dialog: MatDialog
   ) { }
 
@@ -53,8 +56,11 @@ export class VoMembersComponent implements OnInit {
   statuses = new FormControl();
   statusList = ['VALID', 'INVALID', 'SUSPENDED', 'EXPIRED', 'DISABLED'];
   selectedStatuses: string[] = ['VALID', 'INVALID', 'SUSPENDED', 'EXPIRED', 'DISABLED'];
+  pageSize: number;
+  tableId = TABLE_VO_MEMBERS;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.statuses.setValue(this.statusList);
     this.route.parent.params.subscribe(parentParams => {
       const voId = parentParams['voId'];
@@ -147,5 +153,10 @@ export class VoMembersComponent implements OnInit {
       return `${this.statuses.value[0]}  ${this.statuses.value.length > 1 ? ('(+' + (this.statuses.value.length - 1) +' '+ (this.statuses.value.length === 2 ? 'other)' : 'others)')) : ''}`;
     }
     return '';
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

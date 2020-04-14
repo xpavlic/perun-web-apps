@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NotificatorService } from '../../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ExtSource, ExtSourcesManagerService } from '@perun-web-apps/perun/openapi';
+import { PageEvent } from '@angular/material/paginator';
+import { TABLE_ADMIN_EXTSOURCES, TableConfigService } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-admin-ext-sources',
@@ -12,6 +14,7 @@ export class AdminExtSourcesComponent implements OnInit {
 
   constructor(private extSourceService: ExtSourcesManagerService,
               private notificator: NotificatorService,
+              private tableConfigService: TableConfigService,
               private translate: TranslateService
   ) {
     this.translate.get('ADMIN.EXT_SOURCES.LOAD_SUCCESS').subscribe(result => this.loadSuccess = result);
@@ -24,8 +27,11 @@ export class AdminExtSourcesComponent implements OnInit {
   loading = false;
 
   loadSuccess: string;
+  pageSize: number;
+  tableId = TABLE_ADMIN_EXTSOURCES;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.refreshTable();
   }
 
@@ -46,5 +52,10 @@ export class AdminExtSourcesComponent implements OnInit {
       this.extSources = result;
       this.loading = false;
     });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

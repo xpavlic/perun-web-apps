@@ -35,6 +35,8 @@
         {{'DIALOGS.ADD_MANAGERS.NO_USERS_FOUND' | translate}}
       </app-alert>
       <app-users-list
+        [pageSize]="pageSize"
+        (page)="pageChanged($event)"
         [inDialog]="true"
         [selection]="selection"
         [users]="users"

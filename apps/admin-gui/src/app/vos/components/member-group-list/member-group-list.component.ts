@@ -1,10 +1,20 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit, Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ActivatedRoute} from '@angular/router';
 import { Group } from '@perun-web-apps/perun/openapi';
+import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-member-group-list',
@@ -35,13 +45,19 @@ export class MemberGroupListComponent implements OnInit, OnChanges, AfterViewIni
   @Input()
   selection = new SelectionModel<Group>(true, []);
 
+  @Input()
+  pageSize = 10;
+
+  @Output()
+  page = new EventEmitter<PageEvent>();
+
   private sort: MatSort;
 
   displayedColumns: string[] = ['select', 'id', 'name'];
   dataSource: MatTableDataSource<Group>;
 
   exporting = false;
-
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<Group>(this.groups);
@@ -81,5 +97,9 @@ export class MemberGroupListComponent implements OnInit, OnChanges, AfterViewIni
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
   }
 }

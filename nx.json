@@ -9,7 +9,8 @@
   },
   "projects": {
     "consolidator-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["consolidator"]
     },
     "consolidator": {
       "tags": []
@@ -39,7 +40,8 @@
       "tags": []
     },
     "admin-gui-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["admin-gui"]
     },
     "admin-gui": {
       "tags": []
@@ -65,6 +67,17 @@
     },
     "perun-facility-services-config": {
       "tags": []
+    },
+    "config-table-config": {
+      "tags": []
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
     }
   }
 }

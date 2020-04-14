@@ -14,6 +14,11 @@ import {
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDialogComponent } from '../../../../../shared/components/dialogs/edit-attribute-dialog/edit-attribute-dialog.component';
+import {
+  TABLE_ATTRIBUTES_SETTINGS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-group-settings-attributes',
@@ -29,7 +34,8 @@ export class GroupSettingsAttributesComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
     private dialog: MatDialog,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private tableConfigService: TableConfigService,
   ) {
     this.translate.get('GROUP_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_SAVE').subscribe(value => this.saveSuccessMessage = value);
     this.translate.get('GROUP_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_DELETE').subscribe(value => this.deleteSuccessMessage = value);
@@ -46,8 +52,11 @@ export class GroupSettingsAttributesComponent implements OnInit {
 
   loading: boolean;
   filterValue = '';
+  tableId = TABLE_ATTRIBUTES_SETTINGS;
+  pageSize: number;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(params => {
       this.groupId = params['groupId'];
 
@@ -122,5 +131,10 @@ export class GroupSettingsAttributesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

@@ -6,6 +6,8 @@
   </div>
   <div mat-dialog-content *ngIf="!processing">
     <app-ext-sources-list
+      [pageSize]="pageSize"
+      (page)="pageChanged($event)"
       *ngIf="!loading"
       [extSources]="extSources"
       [filterValue]="filterValue"

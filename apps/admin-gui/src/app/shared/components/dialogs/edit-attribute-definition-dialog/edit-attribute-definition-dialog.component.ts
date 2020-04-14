@@ -2,10 +2,21 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '../../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ActionType, Service, ServicesManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  ActionType,
+  AttributeDefinition,
+  AttributeRights,
+  AttributesManagerService,
+  Service,
+  ServicesManagerService
+} from '@perun-web-apps/perun/openapi';
 import { slideInOutLeft, slideInOutRight, switchAnimation } from '../../../animations/Animations';
-import { AttributeDefinition, AttributeRights, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
+import { PageEvent } from '@angular/material/paginator';
+import {
+  TABLE_ENTITYLESS_ATTRIBUTE_KEYS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
 
 export interface EditAttributeDefinitionDialogData {
   attDef: AttributeDefinition;
@@ -25,6 +36,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
               private notificator: NotificatorService,
               private translate: TranslateService,
               private attributesManager: AttributesManagerService,
+              private tableConfigService: TableConfigService,
               private serviceService: ServicesManagerService) {
   }
 
@@ -48,8 +60,11 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   writeVo = false;
   writeGroup = false;
   writeFacility = false;
+  pageSize: number;
+  tableId = TABLE_ENTITYLESS_ATTRIBUTE_KEYS;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.dialogRef.addPanelClass('mat-dialog-height-transition');
     this.attDef = this.data.attDef;
     this.serviceService.getServicesByAttributeDefinition(this.attDef.id).subscribe(response => {
@@ -226,5 +241,10 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
       this.dialogRef.updateSize('700px');
       this.activatedComponent = 'Edit';
     }
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

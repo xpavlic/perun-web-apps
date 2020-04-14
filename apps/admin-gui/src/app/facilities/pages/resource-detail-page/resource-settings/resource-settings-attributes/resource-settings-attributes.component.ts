@@ -14,6 +14,11 @@ import {
 import { filterCoreAttributes } from '@perun-web-apps/perun/utils';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDialogComponent } from '../../../../../shared/components/dialogs/edit-attribute-dialog/edit-attribute-dialog.component';
+import { PageEvent } from '@angular/material/paginator';
+import {
+  TABLE_ATTRIBUTES_SETTINGS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-resource-settings-attributes',
@@ -28,6 +33,7 @@ export class ResourceSettingsAttributesComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
+              private tableConfigService: TableConfigService,
               private translate: TranslateService) {
     this.translate.get('RESOURCE_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_SAVE').subscribe(value => this.saveSuccessMessage = value);
     this.translate.get('RESOURCE_DETAIL.SETTINGS.ATTRIBUTES.SUCCESS_DELETE').subscribe(value => this.deleteSuccessMessage = value);
@@ -41,11 +47,13 @@ export class ResourceSettingsAttributesComponent implements OnInit {
   resourceId: number;
   saveSuccessMessage: string;
   deleteSuccessMessage: string;
-
   loading: boolean;
   filterValue = '';
+  tableId = TABLE_ATTRIBUTES_SETTINGS;
+  pageSize: number;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(params => {
       this.resourceId = params['resourceId'];
       this.refreshTable();
@@ -118,5 +126,10 @@ export class ResourceSettingsAttributesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
    this.filterValue = filterValue;
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

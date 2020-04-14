@@ -5,9 +5,20 @@ import { NotificatorService } from '../../../../core/services/common/notificator
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MembersService } from '@perun-web-apps/perun/services';
-import { Group, GroupsManagerService, RegistrarManagerService, VosManagerService, MemberCandidate } from '@perun-web-apps/perun/openapi';
+import {
+  Group,
+  GroupsManagerService,
+  MemberCandidate,
+  RegistrarManagerService,
+  VosManagerService
+} from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { getCandidateEmail } from '@perun-web-apps/perun/utils';
+import { PageEvent } from '@angular/material/paginator';
+import {
+  TABLE_ADD_MEMBER_CANDIDATES_DIALOG,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
 
 export interface AddMemberDialogData {
   voId?: number;
@@ -34,6 +45,7 @@ export class AddMemberDialogComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     protected route: ActivatedRoute,
+    private tableConfigService: TableConfigService,
     protected router: Router
   ) {
     translate.get('DIALOGS.ADD_MEMBERS.TITLE').subscribe(value => this.title = value);
@@ -55,6 +67,8 @@ export class AddMemberDialogComponent implements OnInit {
   firstSearchDone = false;
 
   theme: string;
+  pageSize: number;
+  tableId = TABLE_ADD_MEMBER_CANDIDATES_DIALOG;
 
   onCancel(): void {
     this.dialogRef.close();
@@ -141,6 +155,7 @@ export class AddMemberDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pageSize  = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
   }
 
@@ -193,5 +208,10 @@ export class AddMemberDialogComponent implements OnInit {
       this.notificator.showSuccess(this.successInviteMessage);
       this.dialogRef.close();
     });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

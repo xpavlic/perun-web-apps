@@ -6,6 +6,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddExtSourceDialogComponent } from '../../../../../shared/components/dialogs/add-ext-source-dialog/add-ext-source-dialog.component';
 import { NotificatorService } from '../../../../../core/services/common/notificator.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PageEvent } from '@angular/material/paginator';
+import {
+  TABLE_VO_EXTSOURCES_SETTINGS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-vo-settings-extsources',
@@ -18,6 +23,7 @@ export class VoSettingsExtsourcesComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
+              private tableConfigService: TableConfigService,
               private translate: TranslateService) {
     this.translate.get('VO_DETAIL.SETTINGS.EXT_SOURCES.SUCCESS_REMOVED').subscribe(result => this.successMessage = result);
   }
@@ -28,8 +34,11 @@ export class VoSettingsExtsourcesComponent implements OnInit {
   loading: boolean;
   filterValue = '';
   successMessage: string;
+  pageSize: number;
+  tableId = TABLE_VO_EXTSOURCES_SETTINGS;
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(parentParams => {
       this.voId = parentParams['voId'];
       this.refreshTable();
@@ -72,5 +81,10 @@ export class VoSettingsExtsourcesComponent implements OnInit {
         this.refreshTable();
       });
     }
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

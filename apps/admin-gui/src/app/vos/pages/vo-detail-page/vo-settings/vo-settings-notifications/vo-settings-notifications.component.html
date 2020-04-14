@@ -42,6 +42,8 @@
 <div *ngIf="applicationMails.length !== 0 && !loading" class="card mt-2">
   <app-notification-list
     [applicationMails]="applicationMails"
+    [pageSize]="pageSize"
+    (page)="pageChanged($event)"
     [voId]="voId"
     [selection]="selection"
     (selectionChange)="changeSelection($event)"></app-notification-list>

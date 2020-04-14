@@ -14,6 +14,8 @@ import {
 import { Attribute, AttributeDefinition } from '@perun-web-apps/perun/openapi';
 
 
+export const TABLE_ITEMS_COUNT_OPTIONS = [5, 10, 25, 100, 1000, 10000];
+
 export function parseStatusIcon(richMember: RichMember): string {
   switch (richMember.status) {
     case 'VALID':

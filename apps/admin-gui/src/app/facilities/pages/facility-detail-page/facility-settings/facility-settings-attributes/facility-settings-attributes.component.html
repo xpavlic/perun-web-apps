@@ -17,6 +17,8 @@
   <perun-web-apps-attributes-list
     #list
     *ngIf="!loading"
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize"
     [filterValue]="filterValue"
     [attributes]="attributes"
     [selection]="selection">

@@ -10,6 +10,8 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { applyFilter } from '@perun-web-apps/perun/utils';
 import { Group, GroupsManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
+import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-vo-groups',
@@ -28,24 +30,21 @@ export class VoGroupsComponent implements OnInit {
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
     private route: ActivatedRoute,
+    private tableConfigService: TableConfigService,
   ) { }
 
   @Input()
   vo: Vo;
 
   groups: Group[] = [];
-
   filteredGroups: Group[] = [];
-
   filteredTreeGroups: Group[] = [];
-
   showGroupList = false;
-
   selected = new SelectionModel<Group>(true, []);
-
   loading: boolean;
-
   filtering = false;
+  tableId = TABLE_VO_GROUPS;
+  pageSize: number;
 
   @ViewChild('checkbox', {static: true})
   checkbox: MatCheckbox;
@@ -64,6 +63,7 @@ export class VoGroupsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     if (localStorage.getItem('preferedValue') === 'list') {
       this.checkbox.toggle();
       this.selected.clear();
@@ -134,5 +134,10 @@ export class VoGroupsComponent implements OnInit {
     this.filteredGroups = results[0];
     this.filteredTreeGroups = results[1];
     this.filtering = filterValue !== '';
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

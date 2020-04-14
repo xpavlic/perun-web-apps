@@ -1,5 +1,10 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Attribute, AttributesManagerService, Facility, Group, Resource, Service } from '@perun-web-apps/perun/openapi';
+import {
+  TABLE_ATTRIBUTES_SETTINGS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
 
@@ -11,7 +16,8 @@ export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
 export class ServiceConfiguratorComponent implements OnInit, OnChanges {
 
   constructor(
-    private attributesManager: AttributesManagerService
+    private attributesManager: AttributesManagerService,
+    private tableConfigService: TableConfigService
   ) { }
 
   @Input()
@@ -32,7 +38,11 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
   resourceAttributes: Attribute[];
   groupAttributes: Attribute[];
 
+  tableId = TABLE_ATTRIBUTES_SETTINGS;
+  pageSize: number;
+
   ngOnInit() {
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loadFacilityAttributes();
   }
 
@@ -97,5 +107,10 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     if (this.resource !== undefined) {
       this.loadResourceAttributes();
     }
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

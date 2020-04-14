@@ -93,7 +93,8 @@
           "options": {
             "jestConfig": "apps/consolidator/jest.config.js",
             "tsConfig": "apps/consolidator/tsconfig.spec.json",
-            "setupFile": "apps/consolidator/src/test-setup.ts"
+            "setupFile": "apps/consolidator/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -146,7 +147,8 @@
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "tsConfig": "libs/ui/tsconfig.spec.json",
-            "setupFile": "libs/ui/src/test-setup.ts"
+            "setupFile": "libs/ui/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -177,7 +179,8 @@
           "options": {
             "jestConfig": "libs/ui/material/jest.config.js",
             "tsConfig": "libs/ui/material/tsconfig.spec.json",
-            "setupFile": "libs/ui/material/src/test-setup.ts"
+            "setupFile": "libs/ui/material/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -207,7 +210,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/perun/services/jest.config.js",
-            "tsConfig": "libs/perun/services/tsconfig.spec.json"
+            "tsConfig": "libs/perun/services/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
@@ -232,7 +236,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/perun/models/jest.config.js",
-            "tsConfig": "libs/perun/models/tsconfig.spec.json"
+            "tsConfig": "libs/perun/models/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
@@ -257,7 +262,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/perun/tokens/jest.config.js",
-            "tsConfig": "libs/perun/tokens/tsconfig.spec.json"
+            "tsConfig": "libs/perun/tokens/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
@@ -282,7 +288,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/perun/utils/jest.config.js",
-            "tsConfig": "libs/perun/utils/tsconfig.spec.json"
+            "tsConfig": "libs/perun/utils/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
@@ -307,7 +314,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/perun/urns/jest.config.js",
-            "tsConfig": "libs/perun/urns/tsconfig.spec.json"
+            "tsConfig": "libs/perun/urns/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
@@ -332,7 +340,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/ui/alerts/jest.config.js",
-            "tsConfig": "libs/ui/alerts/tsconfig.spec.json"
+            "tsConfig": "libs/ui/alerts/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
@@ -432,7 +441,8 @@
           "options": {
             "jestConfig": "apps/admin-gui/jest.config.js",
             "tsConfig": "apps/admin-gui/tsconfig.spec.json",
-            "setupFile": "apps/admin-gui/src/test-setup.ts"
+            "setupFile": "apps/admin-gui/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -485,7 +495,8 @@
           "options": {
             "jestConfig": "libs/perun/openapi/jest.config.js",
             "tsConfig": "libs/perun/openapi/tsconfig.spec.json",
-            "setupFile": "libs/perun/openapi/src/test-setup.ts"
+            "setupFile": "libs/perun/openapi/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -585,7 +596,8 @@
           "options": {
             "jestConfig": "apps/statistics/jest.config.js",
             "tsConfig": "apps/statistics/tsconfig.spec.json",
-            "setupFile": "apps/statistics/src/test-setup.ts"
+            "setupFile": "apps/statistics/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -638,7 +650,8 @@
           "options": {
             "jestConfig": "libs/config/jest.config.js",
             "tsConfig": "libs/config/tsconfig.spec.json",
-            "setupFile": "libs/config/src/test-setup.ts"
+            "setupFile": "libs/config/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -669,7 +682,8 @@
           "options": {
             "jestConfig": "libs/general/jest.config.js",
             "tsConfig": "libs/general/tsconfig.spec.json",
-            "setupFile": "libs/general/src/test-setup.ts"
+            "setupFile": "libs/general/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -700,7 +714,8 @@
           "options": {
             "jestConfig": "libs/perun/components/jest.config.js",
             "tsConfig": "libs/perun/components/tsconfig.spec.json",
-            "setupFile": "libs/perun/components/src/test-setup.ts"
+            "setupFile": "libs/perun/components/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -734,7 +749,40 @@
           "options": {
             "jestConfig": "libs/perun/facility-services-config/jest.config.js",
             "tsConfig": "libs/perun/facility-services-config/tsconfig.spec.json",
-            "setupFile": "libs/perun/facility-services-config/src/test-setup.ts"
+            "setupFile": "libs/perun/facility-services-config/src/test-setup.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "config-table-config": {
+      "projectType": "library",
+      "root": "libs/config/table-config",
+      "sourceRoot": "libs/config/table-config/src",
+      "prefix": "perun-web-apps",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/config/table-config/tsconfig.lib.json",
+              "libs/config/table-config/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/config/table-config/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/config/table-config/jest.config.js",
+            "tsConfig": "libs/config/table-config/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/config/table-config/src/test-setup.ts"
           }
         }
       },

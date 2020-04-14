@@ -32,6 +32,9 @@
       ],
       "@perun-web-apps/perun/facility-services-config": [
         "libs/perun/facility-services-config/src/index.ts"
+      ],
+      "@perun-web-apps/config/table-config": [
+        "libs/config/table-config/src/index.ts"
       ]
     }
   },

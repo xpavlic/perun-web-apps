@@ -9,6 +9,8 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-resources-list
     *ngIf="!loading"
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize"
     [filterValue]="filterValue"
     [resources]="resources"
     [selection]="selected">

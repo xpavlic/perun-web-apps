@@ -15,6 +15,7 @@
     [extSources]="extSources"
     [filterValue]="filterValue"
     [hideColumns]="['select']"
-    [pageSize]="10">
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize">
   </app-ext-sources-list>
 </div>

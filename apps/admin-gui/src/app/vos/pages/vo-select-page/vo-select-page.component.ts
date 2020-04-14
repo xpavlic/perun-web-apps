@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CreateVoDialogComponent } from '../../../shared/components/dialogs/create-vo-dialog/create-vo-dialog.component';
+import { TABLE_VO_SELECT, TableConfigService } from '@perun-web-apps/config/table-config';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-vo-select-page',
@@ -19,6 +21,7 @@ export class VoSelectPageComponent implements OnInit {
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
     private authzService: GuiAuthResolver,
+    private tableConfigService: TableConfigService,
     private dialog: MatDialog
   ) { }
 
@@ -32,9 +35,12 @@ export class VoSelectPageComponent implements OnInit {
   selection: SelectionModel<Vo>;
 
   displayedColumns: string[];
+  tableId = TABLE_VO_SELECT;
+  pageSize: number;
 
   ngOnInit() {
     this.loading = true;
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.selection = new SelectionModel<Vo>(false, []);
     this.isVoAdmin = this.authzService.isVoAdmin();
     this.displayedColumns = this.isVoAdmin ? ['checkbox', 'id', 'recent', 'name'] : ['id', 'recent', 'name'];
@@ -82,4 +88,8 @@ export class VoSelectPageComponent implements OnInit {
     });
   }
 
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  }
 }
