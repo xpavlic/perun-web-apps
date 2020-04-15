@@ -21,6 +21,7 @@ import {
   TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 export interface AddGroupManagerDialogData {
   complementaryObject: Vo | Group | Facility;
@@ -111,18 +112,12 @@ export class AddGroupManagerDialogComponent implements OnInit {
     return this.vos.filter(option => option.name.toLowerCase().includes(<string>filterValue));
   }
 
-  showVoGroups() {
+  showVoGroups(event: MatAutocompleteSelectedEvent) {
     this.loading = true;
-    this.filteredOptions.subscribe( values => {
-      if ( values.length !== 0) {
-        this.selected = values[0].id;
-
-        this.groupService.getAllGroups(this.selected).subscribe(groups => {
-          this.groups = groups;
-          this.loading = false;
-          this.firstSearchDone = true;
-        }, () => this.loading = false);
-      }
+    this.groupService.getAllGroups(event.option.value.id).subscribe(groups => {
+      this.groups = groups;
+      this.loading = false;
+      this.firstSearchDone = true;
     }, () => this.loading = false);
   }
 

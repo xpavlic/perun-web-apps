@@ -14,7 +14,7 @@
         <mat-label>{{'DIALOGS.ADD_GROUPS.SELECT_VO' | translate}}</mat-label>
         <input type="text" placeholder="{{'DIALOGS.ADD_GROUPS.SELECT_VO' | translate}}" aria-label="Assignee" matInput
                [formControl]="myControl" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="showVoGroups()">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="showVoGroups($event)">
           <mat-option *ngFor="let vo of filteredOptions | async" [value]="vo">
             {{vo.name}}
           </mat-option>
