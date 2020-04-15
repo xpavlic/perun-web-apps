@@ -70,6 +70,9 @@
     },
     "config-table-config": {
       "tags": []
+    },
+    "perun-pipes": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

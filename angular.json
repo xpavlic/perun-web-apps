@@ -791,6 +791,38 @@
           "styleext": "scss"
         }
       }
+    },
+    "perun-pipes": {
+      "projectType": "library",
+      "root": "libs/perun/pipes",
+      "sourceRoot": "libs/perun/pipes/src",
+      "prefix": "perun-web-apps",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/perun/pipes/tsconfig.lib.json",
+              "libs/perun/pipes/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/perun/pipes/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/perun/pipes/jest.config.js",
+            "tsConfig": "libs/perun/pipes/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/perun/pipes/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

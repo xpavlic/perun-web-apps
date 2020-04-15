@@ -32,11 +32,11 @@ import { AttributesListComponent } from './attributes-list/attributes-list.compo
 import { MatChipsModule } from '@angular/material/chips';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ResourcesListComponent } from './resources-list/resources-list.component';
-import { ResourceTagsToStringPipe } from '../../../pipes/resource-tags-to-string.pipe';
 import { MenuButtonsFieldComponent } from './menu-buttons-field/menu-buttons-field.component';
 import { MatRippleModule } from '@angular/material/core';
 import { AttributeValueListEditDialogComponent } from './attributes-list/attribute-value/attribute-value-list/attribute-value-list-edit-dialog/attribute-value-list-edit-dialog.component';
 import { AttributeValueListDeleteDialogComponent } from './attributes-list/attribute-value/attribute-value-list/attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
+import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
 
 @NgModule({
   imports: [
@@ -60,7 +60,8 @@ import { AttributeValueListDeleteDialogComponent } from './attributes-list/attri
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
+    PerunPipesModule
   ],
   declarations: [
     VoSelectTableComponent,
@@ -77,7 +78,6 @@ import { AttributeValueListDeleteDialogComponent } from './attributes-list/attri
     AttributeValueMapComponent,
     AttributeValueStringComponent,
     ResourcesListComponent,
-    ResourceTagsToStringPipe,
     MenuButtonsFieldComponent,
     AttributeValueListEditDialogComponent,
     AttributeValueListDeleteDialogComponent
@@ -97,7 +97,6 @@ import { AttributeValueListDeleteDialogComponent } from './attributes-list/attri
     AttributeValueMapComponent,
     AttributeValueStringComponent,
     ResourcesListComponent,
-    ResourceTagsToStringPipe,
     MenuButtonsFieldComponent
   ]
 })
