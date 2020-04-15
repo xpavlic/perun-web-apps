@@ -1,18 +1,18 @@
 .items-container {
   display: grid;
   grid-gap: 0;
-  grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+  grid-template-columns: repeat(auto-fill,minmax(208px,1fr));
   margin: 0 -8px;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+    grid-template-columns: repeat(auto-fill,minmax(148px,1fr));
   }
 }
 
 .item-pic {
   color: currentColor;
-  transform: scale(4);
-  height: 96px;
+  transform: scale(3);
+  height: 74px;
   margin-bottom: 22px;
 }
 
@@ -22,7 +22,7 @@
 
 .item-itself {
   text-align: center;
-  min-height: 200px;
+  min-height: 186px;
   height: 100%;
   padding: 20px;
   display: flex;
