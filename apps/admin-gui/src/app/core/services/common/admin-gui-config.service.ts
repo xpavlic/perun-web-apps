@@ -107,7 +107,6 @@ export class AdminGuiConfigService {
   }
 
   private handlePrincipalErr(err: any) {
-    console.log("sdfsdf");
     this.translate.get('GENERAL.PRINCIPAL.ERROR.TITLE').subscribe(sdf => console.log(sdf));
     this.dialog.open(ServerDownDialogComponent, {
       data: {
