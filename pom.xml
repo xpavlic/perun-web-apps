@@ -63,6 +63,18 @@
             </configuration>
             <phase>generate-resources</phase>
           </execution>
+          <execution>
+            <id>user-profile</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                run ng build user-profile -- --prod
+              </arguments>
+            </configuration>
+            <phase>generate-resources</phase>
+          </execution>
         </executions>
       </plugin>
     </plugins>
