@@ -102,9 +102,14 @@ export class SideMenuItemService {
           activatedRegex: `^/profile/settings$`,
           children: [
             {
-              label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
+              label: 'MENU_ITEMS.USER.ATTRIBUTES',
               url: [`/profile/settings/attributes`],
               activatedRegex: `^/profile/settings/attributes`
+            },
+            {
+              label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
+              url: [`/profile/settings/facilityAttributes`],
+              activatedRegex: `^/profile/settings/facilityAttributes`
             },
             {
               label: 'MENU_ITEMS.USER.ROLES',
@@ -320,6 +325,11 @@ export class SideMenuItemService {
               activatedRegex: '/organizations/\\d+/groups/\\d+/settings/attributes$'
             },
             {
+              label: 'MENU_ITEMS.GROUP.RESOURCE_ATTRIBUTES',
+              url: [`/organizations/${group.voId}/groups/${group.id}/settings/resourceAttributes`],
+              activatedRegex: '/organizations/\\d+/groups/\\d+/settings/resourceAttributes$'
+            },
+            {
               label: 'MENU_ITEMS.GROUP.EXPIRATION',
               url: [`/organizations/${group.voId}/groups/${group.id}/settings/expiration`],
               activatedRegex: '/organizations/\\d+/groups/\\d+/settings/expiration$'
@@ -402,7 +412,12 @@ export class SideMenuItemService {
               label: 'MENU_ITEMS.MEMBER.RESOURCE_ATTRIBUTES',
               url: [`/organizations/${member.voId}/members/${member.id}/settings/resource_attributes`],
               activatedRegex: '/organizations/\\d+/members/\\d+/settings/resource_attributes'
-            }
+            },
+            {
+              label: 'MENU_ITEMS.MEMBER.GROUP_ATTRIBUTES',
+              url: [`/organizations/${member.voId}/members/${member.id}/settings/groupAttributes`],
+              activatedRegex: '/organizations/\\d+/members/\\d+/settings/groupAttributes$'
+            },
           ],
           showChildrenRegex: '/organizations/\\d+/members/\\d+/settings'
         }

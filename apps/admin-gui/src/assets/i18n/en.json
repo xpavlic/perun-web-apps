@@ -553,6 +553,7 @@
       "APPLICATIONS": "Applications",
       "SETTINGS": "Settings",
       "ATTRIBUTES": "Attributes",
+      "RESOURCE_ATTRIBUTES": "Resource attributes",
       "MANAGERS": "Managers",
       "EXPIRATION": "Membership",
       "APPLICATION_FORM": "Application form",
@@ -564,7 +565,8 @@
       "GROUPS": "Groups",
       "SETTINGS": "Settings",
       "ATTRIBUTES": "Attributes",
-      "RESOURCE_ATTRIBUTES": "Resource attributes"
+      "RESOURCE_ATTRIBUTES": "Resource attributes",
+      "GROUP_ATTRIBUTES": "Group attributes"
     },
     "ADMIN": {
       "TITLE": "Perun admin",
@@ -585,6 +587,7 @@
       "ORGANIZATIONS": "Organizations",
       "DETAIL": "Detail",
       "ATTRIBUTES": "Attributes",
+      "FACILITY_ATTRIBUTES": "Facility attributes",
       "TITLE": "User - ",
       "ROLES": "Roles",
       "GUI_CONFIG": "Gui configuration"

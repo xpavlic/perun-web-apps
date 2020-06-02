@@ -80,6 +80,8 @@ import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { ApplicationListDetailsComponent } from './components/application-list-details/application-list-details.component';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
 import { MemberSettingsResourceAttributesComponent } from './pages/member-detail-page/member-settings/member-settings-resource-attributes/member-settings-resource-attributes.component';
+import { GroupSettingsResourceAttributesComponent } from './pages/group-detail-page/group-settings/group-settings-resource-attributes/group-settings-resource-attributes.component';
+import { MemberSettingsGroupAttributesComponent } from './pages/member-detail-page/member-settings/member-settings-group-attributes/member-settings-group-attributes.component';
 
 @NgModule({
   imports: [
@@ -150,7 +152,9 @@ import { MemberSettingsResourceAttributesComponent } from './pages/member-detail
     VoSettingsExtsourcesComponent,
     GroupSettingsRelationsComponent,
     ApplicationListDetailsComponent,
-    MemberSettingsResourceAttributesComponent
+    MemberSettingsResourceAttributesComponent,
+    GroupSettingsResourceAttributesComponent,
+    MemberSettingsGroupAttributesComponent
   ],
 })
 export class VosModule {
