@@ -12,6 +12,10 @@ export class Urns {
   // User
   public static USER_DEF_ORGANIZATION = 'urn:perun:user:attribute-def:def:organization';
   public static USER_DEF_PREFERRED_MAIL = 'urn:perun:user:attribute-def:def:preferredMail';
+  public static USER_DEF_LOGIN_EINFRA = 'urn:perun:user:attribute-def:def:login-namespace:einfra';
+  public static USER_DEF_LOGIN_EINFRA_SERVICES = 'urn:perun:user:attribute-def:def:login-namespace:einfra-services';
+  public static USER_DEF_LOGIN_MU = 'urn:perun:user:attribute-def:def:login-namespace:mu';
+  public static USER_DEF_LOGIN_CESNET = 'urn:perun:user:attribute-def:def:login-namespace:cesnet';
 
   // Group
   public static GROUP_DEF_EXPIRATION_RULES = 'urn:perun:group:attribute-def:def:groupMembershipExpirationRules';

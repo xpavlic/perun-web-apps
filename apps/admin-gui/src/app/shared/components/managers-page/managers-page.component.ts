@@ -64,7 +64,13 @@ export class ManagersPageComponent implements OnInit {
     this.loading = true;
     if (this.selected === 'user') {
       this.authzService.getAuthzRichAdmins(this.selectedRole, this.complementaryObject.id, this.complementaryObjectType,
-        [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL],false, true).subscribe(managers => {
+        [
+          Urns.USER_DEF_ORGANIZATION,
+          Urns.USER_DEF_PREFERRED_MAIL,
+          Urns.USER_DEF_LOGIN_CESNET,
+          Urns.USER_DEF_LOGIN_EINFRA,
+          Urns.USER_DEF_LOGIN_EINFRA_SERVICES,
+          Urns.USER_DEF_LOGIN_MU],false, true).subscribe(managers => {
         this.managers = managers;
         this.selectionUsers.clear();
         this.selectionGroups.clear();

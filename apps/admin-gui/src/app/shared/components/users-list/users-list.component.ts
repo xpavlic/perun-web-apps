@@ -43,7 +43,7 @@ export class UsersListComponent implements OnChanges {
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
-  displayedColumns: string[] = ['select', 'id', 'name', 'email', 'organization'];
+  displayedColumns: string[] = ['select', 'id', 'name', 'email', 'logins', 'organization'];
 
   dataSource: MatTableDataSource<RichUser>;
 

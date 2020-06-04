@@ -90,6 +90,23 @@ export function parseUserEmail(richUser: RichUser): string {
   return email;
 }
 
+export function parseUserLogins(richUser: RichUser): string {
+  let logins = '';
+  if (!!richUser && !!richUser.userAttributes) {
+    richUser.userAttributes
+      .filter(attr => attr.baseFriendlyName === 'login-namespace')
+      .filter(attr => attr.value !== null)
+      .forEach(attr => {
+        logins += attr.friendlyNameParameter + ": " + attr.value + ", ";
+    })
+  }
+
+  if (logins.endsWith(', ')) {
+    logins = logins.substring(0, logins.length-2);
+  }
+  return logins;
+}
+
 /**
  * Get logins of given member.
  *
@@ -99,9 +116,7 @@ export function parseLogins(richMember: RichMember|RichUser): string {
   let logins = '';
 
   richMember.userAttributes.forEach(attr => {
-    // @ts-ignore
     if (attr.baseFriendlyName === 'login-namespace') {
-      // @ts-ignore
       logins += attr.friendlyNameParameter + ': ' + attr.value + ' ';
     }
   });

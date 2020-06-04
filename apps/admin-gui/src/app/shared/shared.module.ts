@@ -160,6 +160,7 @@ import { AddGroupResourceDialogComponent } from './components/dialogs/add-group-
 import { RemoveGroupResourceDialogComponent } from './components/dialogs/remove-group-resource-dialog/remove-group-resource-dialog.component';
 import { TwoEntityAttributePageComponent } from './components/two-entity-attribute-page/two-entity-attribute-page.component';
 import { UserSettingsFacilityAttributesComponent } from './components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
+import { UserLoginsPipe } from './pipes/user-logins.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -399,7 +400,8 @@ import { UserSettingsFacilityAttributesComponent } from './components/user-detai
     AddGroupResourceDialogComponent,
     RemoveGroupResourceDialogComponent,
     TwoEntityAttributePageComponent,
-    UserSettingsFacilityAttributesComponent
+    UserSettingsFacilityAttributesComponent,
+    UserLoginsPipe
   ],
   providers: [
     AnyToStringPipe,

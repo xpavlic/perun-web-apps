@@ -20,6 +20,8 @@ export interface AttributeDefinition extends Auditable {
     displayName?: string;
     writable?: boolean;
     unique?: boolean;
+    readonly friendlyNameParameter?: string;
+    readonly baseFriendlyName?: string;
     readonly entity?: string;
 }
 

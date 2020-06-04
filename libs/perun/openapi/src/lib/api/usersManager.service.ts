@@ -267,6 +267,70 @@ export class UsersManagerService {
     }
 
     /**
+     * Returns list of RichUsers with attributes who matches the searchString.
+     * @param searchString Text to search by
+     * @param attrsNames list of attribute names List&lt;String&gt; or null
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findRichUsersWithAttributes(searchString: string, attrsNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<RichUser>>;
+    public findRichUsersWithAttributes(searchString: string, attrsNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichUser>>>;
+    public findRichUsersWithAttributes(searchString: string, attrsNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichUser>>>;
+    public findRichUsersWithAttributes(searchString: string, attrsNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (searchString === null || searchString === undefined) {
+            throw new Error('Required parameter searchString was null or undefined when calling findRichUsersWithAttributes.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (searchString !== undefined && searchString !== null) {
+            queryParameters = queryParameters.set('searchString', <any>searchString);
+        }
+        if (attrsNames) {
+            attrsNames.forEach((element) => {
+                queryParameters = queryParameters.append('attrsNames[]', <any>element);
+            })
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<RichUser>>(`${this.configuration.basePath}/json/usersManager/findRichUsersWithAttributes`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Returns list of Users with attributes who matches the searchString, searching name, email, logins.
      * @param searchString Text to search by
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
