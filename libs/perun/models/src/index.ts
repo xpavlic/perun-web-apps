@@ -5,6 +5,7 @@ export * from './lib/ApplicationFormItemData';
 export * from './lib/ApplicationState.enum';
 export * from './lib/ApplicationType.enum';
 export * from './lib/AttrEntity';
+export * from './lib/AttributeForExportData'
 export * from './lib/PerunPrincipal';
 export * from './lib/ResourceState';
 export * from './lib/RichUserExtSource';

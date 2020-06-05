@@ -4,7 +4,9 @@
   </button>
 
   <mat-menu #menu="matMenu">
-    <button mat-menu-item [matMenuTriggerFor]="exportOptions">Export</button>
+    <button mat-menu-item [matMenuTriggerFor]="exportOptions">
+      {{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.EXPORT_TO_FILE' | translate}}
+    </button>
   </mat-menu>
 
   <mat-menu #exportOptions="matMenu">

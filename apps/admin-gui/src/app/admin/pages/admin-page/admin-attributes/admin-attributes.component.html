@@ -4,6 +4,9 @@
   <button mat-flat-button (click)="onCreate()" color="accent" class="mr-2">
     {{'ADMIN.ATTRIBUTES.CREATE' | translate}}
   </button>
+  <button mat-flat-button (click)="onImport()" color="accent" class="mr-2">
+    {{'ADMIN.ATTRIBUTES.IMPORT' | translate}}
+  </button>
   <button mat-flat-button color="warn" (click)="onDelete()" class="mr-2" [disabled]="selected.selected.length === 0">
     {{'ADMIN.ATTRIBUTES.DELETE' | translate}}
   </button>

@@ -1,6 +1,6 @@
 <div class="card mt-2" [class.hide-table]="exporting">
   <div class="card-body table-theme">
-    <perun-web-apps-table-options (end)="exporting = false" (start)="exporting = true" [exporter]="exporter"></perun-web-apps-table-options>
+    <perun-web-apps-table-options (exportEnd)="exporting = false" (exportStart)="exporting = true" [exporter]="exporter"></perun-web-apps-table-options>
     <table
       class="w-100"
       mat-table

@@ -9,6 +9,7 @@ import { filterCoreAttributesDefinitions } from '@perun-web-apps/perun/utils';
 import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_ADMIN_ATTRIBUTES, TableConfigService } from '@perun-web-apps/config/table-config';
+import { AttributeImportDialogComponent } from '../../../../shared/components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
 
 @Component({
   selector: 'app-admin-attributes',
@@ -83,5 +84,17 @@ export class AdminAttributesComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  }
+
+  onImport() {
+    const dialogRef = this.dialog.open(AttributeImportDialogComponent, {
+      width: '700px'
+    });
+
+    dialogRef.afterClosed().subscribe(value => {
+      if (value === true) {
+        this.refreshTable();
+      }
+    })
   }
 }

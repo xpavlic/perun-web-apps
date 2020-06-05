@@ -1,6 +1,6 @@
 <div class="card mt-2 w-100" [class.hide-table]="loading" [hidden]="this.table.length === 0 || (dataSource ? dataSource.filteredData.length === 0 : false)">
   <div class="card-body table-theme">
-    <perun-web-apps-table-options (end)="loading = false" (start)="loading = true" [exporter]="exporter"></perun-web-apps-table-options>
+    <perun-web-apps-table-options (exportEnd)="loading = false" (exportStart)="loading = true" [exporter]="exporter"></perun-web-apps-table-options>
     <div class="overflow-auto">
       <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter">
         <ng-container matColumnDef="id">

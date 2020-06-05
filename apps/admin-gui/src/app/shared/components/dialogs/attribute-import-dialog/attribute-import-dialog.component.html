@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>
+  {{'DIALOGS.IMPORT_ATTRIBUTE.TITLE' | translate}}
+</h1>
+<div content>
+  <app-alert
+    color="info">
+    {{'DIALOGS.IMPORT_ATTRIBUTE.INFO' | translate}}
+  </app-alert>
+  <mat-form-field class="w-100">
+    <input matInput required [(ngModel)]="value" [placeholder]="'DIALOGS.IMPORT_ATTRIBUTE.HINT' | translate">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="mt-3">
+  <button
+    mat-stroked-button
+    class="ml-auto"
+    (click)="dialogRef.close()">
+    {{'DIALOGS.IMPORT_ATTRIBUTE.CANCEL' | translate}}
+  </button>
+  <button mat-flat-button color="accent" class="ml-2" (click)="create()" [disabled]="value.trim().length === 0">
+    {{'DIALOGS.IMPORT_ATTRIBUTE.CREATE' | translate}}
+  </button>
+</div>

@@ -594,6 +594,13 @@
     }
   },
   "DIALOGS": {
+    "IMPORT_ATTRIBUTE": {
+      "INFO": "To import an attribute, you have to paste the content, which you copied on the attribute definitions detail dialog.",
+      "HINT": "Paste the copied content here",
+      "TITLE": "Import attribute definition",
+      "CREATE": "Create attribute",
+      "CANCEL": "Cancel"
+    },
     "BUG_REPORT": {
       "TITLE": "Report a bug",
       "SUBJECT": "Subject",
@@ -999,6 +1006,9 @@
       "ERROR_INVALID_GROUP": "Please choose Group from options",
       "ERROR_NO_GROUP": "Please choose Group"
     },
+    "IMPORT_ATTRIBUTE_DEFINITION": {
+      "SUCCESS": "Attribute imported."
+    },
     "CREATE_ATTRIBUTE_DEFINITION": {
       "TITLE":"Create Attribute Definition",
       "FRIENDLY_NAME": "Friendly name",
@@ -1095,6 +1105,9 @@
       "SUCCESS_ADDED": "External source successfully added: "
     },
     "EDIT_ATTRIBUTE_DEFINITION": {
+      "COPY_FOR_IMPORT": "Copy for import",
+      "COPIED": "Data copied to clipboard.",
+      "COPY": "Copy failed.",
       "SUCCESS": "Attribute definition successfully edited",
       "DISPLAY_NAME": "Display name",
       "ERROR_FIELD_EMPTY": "This field can't be empty",
@@ -1195,6 +1208,7 @@
       "TABLE_ATTR_TYPE": "Type",
       "TABLE_ATTR_UNIQUE": "Unique",
       "CREATE": "New attribute definition",
+      "IMPORT": "Import",
       "DELETE": "Delete",
       "SEARCH": "Filter by ID, name, entity, definition, or type",
       "NO_ATTRIBUTES": "There are no attributes available."
@@ -1396,6 +1410,9 @@
         },
         "USER_DONT_EXIST": {
           "TITLE": "Requested user (by ID or external identity) doesn't exist."
+        },
+        "TABLE_OPTIONS": {
+          "EXPORT_TO_FILE": "Export to file"
         }
       },
       "ORGANIZATIONS": {

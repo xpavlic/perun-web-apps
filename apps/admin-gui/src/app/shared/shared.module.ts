@@ -161,6 +161,7 @@ import { RemoveGroupResourceDialogComponent } from './components/dialogs/remove-
 import { TwoEntityAttributePageComponent } from './components/two-entity-attribute-page/two-entity-attribute-page.component';
 import { UserSettingsFacilityAttributesComponent } from './components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
 import { UserLoginsPipe } from './pipes/user-logins.pipe';
+import { AttributeImportDialogComponent } from './components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -401,7 +402,8 @@ import { UserLoginsPipe } from './pipes/user-logins.pipe';
     RemoveGroupResourceDialogComponent,
     TwoEntityAttributePageComponent,
     UserSettingsFacilityAttributesComponent,
-    UserLoginsPipe
+    UserLoginsPipe,
+    AttributeImportDialogComponent
   ],
   providers: [
     AnyToStringPipe,

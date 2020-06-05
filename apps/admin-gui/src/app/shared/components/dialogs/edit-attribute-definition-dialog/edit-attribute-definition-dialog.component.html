@@ -114,6 +114,12 @@
           <button
             mat-stroked-button
             class="ml-auto"
+            (click)="onCopy()">
+            {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FOR_IMPORT' | translate}}
+          </button>
+          <button
+            mat-stroked-button
+            class="ml-2"
             (click)="onCancel()">
             {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.CANCEL' | translate}}
           </button>

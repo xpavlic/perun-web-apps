@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,6 +17,9 @@ import {
   TABLE_ENTITYLESS_ATTRIBUTE_KEYS,
   TableConfigService
 } from '@perun-web-apps/config/table-config';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { AttributeForExportData } from '@perun-web-apps/perun/models';
 
 export interface EditAttributeDefinitionDialogData {
   attDef: AttributeDefinition;
@@ -35,10 +38,14 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: EditAttributeDefinitionDialogData,
               private notificator: NotificatorService,
               private translate: TranslateService,
+              private clipboard: Clipboard,
               private attributesManager: AttributesManagerService,
               private tableConfigService: TableConfigService,
               private serviceService: ServicesManagerService) {
   }
+
+  @ViewChild("copiedTooltip")
+  copiedToolTip: MatTooltip;
 
   showKeys = false;
 
@@ -246,5 +253,18 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  }
+
+  onCopy() {
+    const data: AttributeForExportData = {
+      attributeDefinition: this.attDef,
+      attributeRights: this.fromCheckboxesToRights()
+    }
+    const success = this.clipboard.copy(JSON.stringify(data));
+    if (success) {
+      this.notificator.showSuccess(this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED'));
+    } else {
+      this.notificator.showError(this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED'));
+    }
   }
 }

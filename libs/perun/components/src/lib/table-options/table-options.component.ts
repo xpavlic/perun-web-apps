@@ -13,16 +13,14 @@ export class TableOptionsComponent implements OnInit {
   @Input()
   exporter: MatTableExporterDirective;
 
-  // tslint:disable-next-line:no-output-native
   @Output()
-  start = new EventEmitter();
+  exportStart = new EventEmitter();
 
-  // tslint:disable-next-line:no-output-native
   @Output()
-  end = new EventEmitter();
+  exportEnd = new EventEmitter();
 
   ngOnInit(): void {
-    this.exporter.exportStarted.subscribe(() => {this.start.emit();});
-    this.exporter.exportCompleted.subscribe(() => this.end.emit());
+    this.exporter.exportStarted.subscribe(() => {this.exportStart.emit();});
+    this.exporter.exportCompleted.subscribe(() => this.exportEnd.emit());
   }
 }

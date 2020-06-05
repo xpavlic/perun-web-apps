@@ -3,8 +3,8 @@
      [hidden]="dataSource.filteredData.length === 0 || destinations.length === 0">
   <div class="card-body">
     <perun-web-apps-table-options
-      (end)="exporting = false"
-      (start)="exporting = true"
+      (exportEnd)="exporting = false"
+      (exportStart)="exporting = true"
       [exporter]="exporter"
       class="ml-auto">
     </perun-web-apps-table-options>
