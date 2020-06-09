@@ -15,6 +15,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "@perun-web-apps/ui": ["libs/ui/src/index.ts"],
       "@perun-web-apps/ui/material": ["libs/ui/material/src/index.ts"],

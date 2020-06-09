@@ -1,7 +1,6 @@
 {
   "config": "default",
   "api_url": "http://localhost/krb/rpc",
-  "version": "0.0.0",
 
   "oidc_client" : {
     "oauth_authority": "https://login.cesnet.cz/oidc/",
