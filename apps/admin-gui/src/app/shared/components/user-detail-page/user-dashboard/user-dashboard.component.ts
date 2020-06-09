@@ -7,7 +7,7 @@ import {
   UsersManagerService,
   Vo
 } from '@perun-web-apps/perun/openapi';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import {
   TABLE_USER_PROFILE_DASHBOARD_FACILITY,
   TABLE_USER_PROFILE_DASHBOARD_GROUP,
@@ -28,6 +28,7 @@ export class UserDashboardComponent implements OnInit {
 
   constructor(private userManager: UsersManagerService,
               private storeService: StoreService,
+              private guiAuthResolver: GuiAuthResolver,
               private tableConfigService: TableConfigService,
               private facilitiesService: FacilitiesManagerService) { }
 
@@ -69,9 +70,11 @@ export class UserDashboardComponent implements OnInit {
   }
 
   getAdminFacility() {
-    this.facilitiesService.getAllFacilities().subscribe(facilities => {
-      this.adminFacility = facilities;
-    });
+    if (this.guiAuthResolver.isFacilityAdmin()) {
+      this.facilitiesService.getAllFacilities().subscribe(facilities => {
+        this.adminFacility = facilities;
+      });
+    }
   }
 
   pageChanged($event: PageEvent, tableId: string, pagesize: number) {
