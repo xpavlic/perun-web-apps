@@ -1,6 +1,8 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import {MenuItem} from '@perun-web-apps/perun/models';
-import { User } from '@perun-web-apps/perun/openapi';
+import {
+  User
+} from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-user-overview',
@@ -23,12 +25,6 @@ export class UserOverviewComponent implements OnInit {
 
   private initNavItems() {
     this.navItems = [
-      {
-        cssIcon: 'perun-user',
-        url: `detail`,
-        label: 'MENU_ITEMS.USER.DETAIL',
-        style: 'user-btn'
-      },
       {
         cssIcon: 'perun-vo',
         url: `organizations`,
