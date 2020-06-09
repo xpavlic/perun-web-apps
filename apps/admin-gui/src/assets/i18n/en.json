@@ -1368,7 +1368,8 @@
         "VO_SELECT_TABLE": {
           "ID": "Id",
           "NAME": "Name",
-          "RECENT": "Recently viewed"
+          "RECENT": "Recently viewed",
+          "SHORTNAME": "Short name"
         },
         "RESOURCES_LIST": {
           "TITLE": "Resources",
