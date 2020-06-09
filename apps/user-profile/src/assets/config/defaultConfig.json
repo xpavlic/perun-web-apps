@@ -30,12 +30,12 @@
     {
       "label": "PREFERRED_SHELLS.TITLE",
       "en": "Preferred shells (custom label)",
-      "cz": "Preferovane shelly (custom label)"
+      "cz": "Preferované shelly (custom label)"
     },
     {
       "label": "MENU_ITEMS.PROFILE",
-      "en": "Profile(cutom label)",
-      "cz": "Profil(cutom label)"
+      "en": "Profile (custom label)",
+      "cz": "Profil (vlastní štítek)"
     }
   ],
   "header_label": "Generic user profile",
@@ -48,7 +48,7 @@
     "columns": [
       {
         "title_en": "ABOUT",
-        "title_cz": "O NAS",
+        "title_cz": "O NÁS",
         "elements": [
           {
             "link": "https://perun-aai.org/",
@@ -58,12 +58,12 @@
           {
             "link": "https://perun-aai.org/team",
             "label_en": "Perun team",
-            "label_cz": "Perun team"
+            "label_cz": "Perun tým"
           },
           {
             "link": "https://pernhub.org/",
             "label_en": "Privacy policy",
-            "label_cz": "Ochrana osobnych udajov"
+            "label_cz": "Ochrana osobních údajů"
           }
         ]
       },
@@ -74,7 +74,7 @@
           {
             "link": "https://perun-aai.org/documentation/users-documentation",
             "label_en": "Documentation",
-            "label_cz": "Dokumentacia"
+            "label_cz": "Dokumentace"
           }
         ]
       },
