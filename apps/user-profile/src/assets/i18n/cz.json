@@ -11,7 +11,7 @@
   "SETTINGS": {
     "ALTERNATIVE_PASSWORDS": "Alternativní hesla",
     "DATA_QUOTAS": "Kvóty dat",
-    "MAILING_LISTS": "Vyřazení ze seznamu adresátú",
+    "MAILING_LISTS": "Vyřazení ze seznamu adresátů",
     "PREFERRED_SHELLS": "Preferované shelly",
     "PREFERRED_UNIX_GROUP_NAMES": "Preferovaná jména Unixových skupin",
     "SAMBA_PASSWORD": "Heslo pro službu SAMBA",
@@ -71,8 +71,8 @@
   "SSH_KEYS": {
     "SSH_KEYS_TITLE": "SSH klíče",
     "SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů.",
-    "ADMIN_SSH_KEYS_TITLE": "Seznam vašich administratorských SSH klíčú",
-    "ADMIN_SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů, které jsou používány pro přístup na učet root.",
+    "ADMIN_SSH_KEYS_TITLE": "Seznam vašich administratorských SSH klíčů",
+    "ADMIN_SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů, které jsou používány pro přístup na účet root.",
     "NEW_KEY": "Nový klíč",
     "REMOVE_KEY": "Odstranit",
     "REMOVE_DIALOG_TITLE": "Odstranit SSH klíč",
@@ -99,7 +99,7 @@
     "NO_SHELLS": "Nemáte nastaveny žádné preferované shelly",
     "REMOVE_DIALOG_TITLE": "Odstranění preferovaného shellu",
     "REMOVE_DIALOG_DESCRIPTION": "Vámi vybrané preferované shelly budou odstraněny",
-    "DESCRIPTION": "Seznam shellu, seřazených od nejvíce preferovaných po nejméně preferované, je použit pro rozhodnutí při výběru shellu na vašich strojích. Pokud žádný z preferovaných shellu není na daném stroji dostupný (nebo není žádný preferovaný shell zvolen), použije se výchozí shell daného stroje."
+    "DESCRIPTION": "Seznam shellů, seřazených od nejvíce preferovaných po nejméně preferované, je použit pro rozhodnutí při výběru shellu na vašich strojích. Pokud žádný z preferovaných shellů není na daném stroji dostupný (nebo není žádný preferovaný shell zvolen), použije se výchozí shell daného stroje."
   },
   "ALT_PASSWORDS": {
     "TITLE_GENERATE": "Vygenerujte nové alternativní heslo",
@@ -133,7 +133,7 @@
     },
     "ADD_SSH": {
       "TITLE": "Přidat nový SSH klíč",
-      "INPUT_PLACEHOLDER": "Začíná 'ssh-rsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' or 'ecdsa-sha2-nistp521'.",
+      "INPUT_PLACEHOLDER": "Začíná 'ssh-rsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' nebo 'ecdsa-sha2-nistp521'.",
       "CANCEL": "Zrušit",
       "ADD": "Přidat"
     },
@@ -168,7 +168,7 @@
       "REASON": "Důvod:",
       "SEND": "Poslat",
       "CANCEL": "Zrušit",
-      "SUCCESS": "Žádost o změnu datové kvóty byla odoslána"
+      "SUCCESS": "Žádost o změnu datové kvóty byla odeslána"
     },
     "REMOVE_USER_EXT_SOURCE": {
       "TITLE": "Odstranění externí identity",
