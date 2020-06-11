@@ -9,7 +9,7 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
-import { RemoveUserExtSourceDialogComponent } from '../../components/dialogs/remove-user-ext-source-dialog/remove-user-ext-source-dialog.component';
+import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/components';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -34,6 +34,8 @@ export class IdentitiesPageComponent implements OnInit {
 
   userId: number;
   loading: boolean;
+
+  hiddenColumns = ['loa', 'id'];
 
   ngOnInit() {
     this.userId = this.storage.getPerunPrincipal().userId;

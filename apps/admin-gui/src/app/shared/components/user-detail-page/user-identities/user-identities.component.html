@@ -1,0 +1,9 @@
+<h3>TITLE</h3>
+<button (click)="addIdentity()" color="accent" mat-flat-button>ADD</button>
+<button (click)="removeIdentity()" [disabled]="selection.selected.length === 0" class="ml-2" color="warn" mat-flat-button>REMOVE</button>
+
+<perun-web-apps-user-ext-sources-list
+  [hideColumns]="hiddenColumns"
+  [selection]="selection"
+  [userExtSources]="userExtSources"
+></perun-web-apps-user-ext-sources-list>

@@ -38,6 +38,12 @@ export class UserOverviewComponent implements OnInit {
         style: 'user-btn'
       },
       {
+        cssIcon: 'perun-group',
+        url: `identities`,
+        label: 'MENU_ITEMS.USER.IDENTITIES',
+        style: 'user-btn'
+      },
+      {
         cssIcon: 'perun-settings2',
         url: `settings`,
         label: 'MENU_ITEMS.ADMIN.SETTINGS',

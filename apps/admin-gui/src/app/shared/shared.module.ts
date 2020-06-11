@@ -161,6 +161,8 @@ import { FacilitySelectTableComponent } from './components/facility-select-table
 import { UserDashboardComponent } from './components/user-detail-page/user-dashboard/user-dashboard.component';
 import { HostsListComponent } from './components/hosts-list/hosts-list.component';
 import { UserSettingsServiceIdentitiesComponent } from './components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
+import { UserIdentitiesComponent } from './components/user-detail-page/user-identities/user-identities.component';
+import { AddUserExtSourceDialogComponent } from './components/dialogs/add-user-ext-source-dialog/add-user-ext-source-dialog.component';
 import { SecurityTeamsListComponent } from './components/security-teams-list/security-teams-list.component';
 
 @NgModule({
@@ -402,8 +404,10 @@ import { SecurityTeamsListComponent } from './components/security-teams-list/sec
     FacilitySelectTableComponent,
     UserDashboardComponent,
     UserSettingsServiceIdentitiesComponent,
-    SecurityTeamsListComponent,
-    HostsListComponent
+    HostsListComponent,
+    UserIdentitiesComponent,
+    AddUserExtSourceDialogComponent,
+    SecurityTeamsListComponent
   ],
   providers: [
     AnyToStringPipe,

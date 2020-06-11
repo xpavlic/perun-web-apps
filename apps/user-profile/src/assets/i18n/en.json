@@ -56,13 +56,6 @@
     "USER_INFO": "User information",
     "DATA": "Data for "
   },
-  "USER_EXT_SOURCES_LIST": {
-    "MAIL": "Email",
-    "EXT_SOURCE_NAME": "Federated identity",
-    "LOGIN": "Login",
-    "LAST_ACCESS": "Last access",
-    "NO_IDENTITIES": "No external identities found"
-  },
   "MEMBERSHIP_LIST": {
     "NAME": "Name",
     "DESCRIPTION": "Description",
@@ -251,6 +244,15 @@
             "DIALOG_BUG_REPORT": "Report a bug",
             "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed."
           }
+        },
+        "USER_EXT_SOURCES_LIST": {
+          "MAIL": "Email",
+          "EXT_SOURCE_NAME": "Federated identity",
+          "LOGIN": "Login",
+          "LAST_ACCESS": "Last access",
+          "NO_IDENTITIES": "No external identities found",
+          "ID": "Id",
+          "LOA": "Level of assurance"
         },
         "BUG_REPORT": {
           "TITLE": "Report a bug",

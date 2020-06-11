@@ -56,13 +56,6 @@
     "USER_INFO": "Informace o uživateli",
     "DATA": "Data použitá pro "
   },
-  "USER_EXT_SOURCES_LIST": {
-    "MAIL": "Email",
-    "EXT_SOURCE_NAME": "Federovaná identita",
-    "LOGIN": "Jméno",
-    "LAST_ACCESS": "Poslední použití",
-    "NO_IDENTITIES": "Nenalezeny žádné identity"
-  },
   "MEMBERSHIP_LIST": {
     "NAME": "Jméno",
     "DESCRIPTION": "Popis",
@@ -251,6 +244,15 @@
             "DIALOG_BUG_REPORT": "Nahlásit chybu",
             "DEFAULT_RPC_ERROR_MESSAGE": "Operace se nezdařila."
           }
+        },
+        "USER_EXT_SOURCES_LIST": {
+          "MAIL": "Email",
+          "EXT_SOURCE_NAME": "Federovaná identita",
+          "LOGIN": "Jméno",
+          "LAST_ACCESS": "Poslední použití",
+          "NO_IDENTITIES": "Nenalezeny žádné identity",
+          "ID": "Id",
+          "LOA": "Úroveň důvěry"
         },
         "BUG_REPORT": {
           "TITLE": "Nahlásit chybu",

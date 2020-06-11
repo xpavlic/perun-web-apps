@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RemoveUserExtSourceDialogComponent } from './remove-user-ext-source-dialog.component';
+import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/components';
 
 describe('RemoveUserExtSourceDialogComponent', () => {
   let component: RemoveUserExtSourceDialogComponent;
