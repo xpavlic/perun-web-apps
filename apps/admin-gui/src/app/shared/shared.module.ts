@@ -159,6 +159,7 @@ import { UserLoginsPipe } from './pipes/user-logins.pipe';
 import { AttributeImportDialogComponent } from './components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
 import { FacilitySelectTableComponent } from './components/facility-select-table/facility-select-table.component';
 import { UserDashboardComponent } from './components/user-detail-page/user-dashboard/user-dashboard.component';
+import { UserSettingsServiceIdentitiesComponent } from './components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
 
 @NgModule({
   imports: [
@@ -395,7 +396,8 @@ import { UserDashboardComponent } from './components/user-detail-page/user-dashb
     UserLoginsPipe,
     AttributeImportDialogComponent,
     FacilitySelectTableComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    UserSettingsServiceIdentitiesComponent,
   ],
   providers: [
     AnyToStringPipe,

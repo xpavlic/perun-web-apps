@@ -85,7 +85,10 @@
               "apps/consolidator/tsconfig.app.json",
               "apps/consolidator/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/consolidator/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/consolidator/**"
+            ]
           }
         },
         "test": {
@@ -120,8 +123,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/consolidator-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/consolidator-e2e/**"]
+            "tsConfig": [
+              "apps/consolidator-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/consolidator-e2e/**"
+            ]
           }
         }
       }
@@ -139,7 +147,10 @@
               "libs/ui/tsconfig.lib.json",
               "libs/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/**"
+            ]
           }
         },
         "test": {
@@ -171,7 +182,10 @@
               "libs/ui/material/tsconfig.lib.json",
               "libs/ui/material/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/material/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/material/**"
+            ]
           }
         },
         "test": {
@@ -203,7 +217,10 @@
               "libs/perun/services/tsconfig.lib.json",
               "libs/perun/services/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/services/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/services/**"
+            ]
           }
         },
         "test": {
@@ -229,7 +246,10 @@
               "libs/perun/models/tsconfig.lib.json",
               "libs/perun/models/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/models/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/models/**"
+            ]
           }
         },
         "test": {
@@ -255,7 +275,10 @@
               "libs/perun/tokens/tsconfig.lib.json",
               "libs/perun/tokens/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/tokens/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/tokens/**"
+            ]
           }
         },
         "test": {
@@ -281,7 +304,10 @@
               "libs/perun/utils/tsconfig.lib.json",
               "libs/perun/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/utils/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/utils/**"
+            ]
           }
         },
         "test": {
@@ -307,7 +333,10 @@
               "libs/perun/urns/tsconfig.lib.json",
               "libs/perun/urns/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/urns/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/urns/**"
+            ]
           }
         },
         "test": {
@@ -333,7 +362,10 @@
               "libs/ui/alerts/tsconfig.lib.json",
               "libs/ui/alerts/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/alerts/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/alerts/**"
+            ]
           }
         },
         "test": {
@@ -377,7 +409,9 @@
               "apps/admin-gui/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
+            "scripts": [
+              "./node_modules/tinycolor2/dist/tinycolor-min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -433,7 +467,10 @@
               "apps/admin-gui/tsconfig.app.json",
               "apps/admin-gui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/admin-gui/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/admin-gui/**"
+            ]
           }
         },
         "test": {
@@ -468,8 +505,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/admin-gui-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/admin-gui-e2e/**"]
+            "tsConfig": [
+              "apps/admin-gui-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/admin-gui-e2e/**"
+            ]
           }
         }
       }
@@ -487,7 +529,10 @@
               "libs/perun/openapi/tsconfig.lib.json",
               "libs/perun/openapi/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/openapi/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/openapi/**"
+            ]
           }
         },
         "test": {
@@ -588,7 +633,10 @@
               "apps/statistics/tsconfig.app.json",
               "apps/statistics/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/statistics/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/statistics/**"
+            ]
           }
         },
         "test": {
@@ -623,8 +671,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/statistics-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/statistics-e2e/**"]
+            "tsConfig": [
+              "apps/statistics-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/statistics-e2e/**"
+            ]
           }
         }
       }
@@ -642,7 +695,10 @@
               "libs/config/tsconfig.lib.json",
               "libs/config/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/config/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/config/**"
+            ]
           }
         },
         "test": {
@@ -674,7 +730,10 @@
               "libs/general/tsconfig.lib.json",
               "libs/general/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/general/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/general/**"
+            ]
           }
         },
         "test": {
@@ -706,7 +765,10 @@
               "libs/perun/components/tsconfig.lib.json",
               "libs/perun/components/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/components/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/components/**"
+            ]
           }
         },
         "test": {
@@ -773,7 +835,10 @@
               "libs/config/table-config/tsconfig.lib.json",
               "libs/config/table-config/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/config/table-config/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/config/table-config/**"
+            ]
           }
         },
         "test": {
@@ -805,7 +870,10 @@
               "libs/perun/pipes/tsconfig.lib.json",
               "libs/perun/pipes/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/pipes/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/pipes/**"
+            ]
           }
         },
         "test": {
@@ -852,7 +920,9 @@
               "apps/user-profile/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
+            "scripts": [
+              "./node_modules/tinycolor2/dist/tinycolor-min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -910,7 +980,10 @@
               "apps/user-profile/tsconfig.app.json",
               "apps/user-profile/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/user-profile/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/user-profile/**"
+            ]
           }
         },
         "test": {
@@ -944,8 +1017,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/user-profile-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/user-profile-e2e/**"]
+            "tsConfig": [
+              "apps/user-profile-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/user-profile-e2e/**"
+            ]
           }
         }
       }
@@ -963,7 +1041,10 @@
               "libs/perun/animations/tsconfig.lib.json",
               "libs/perun/animations/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/animations/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/animations/**"
+            ]
           }
         },
         "test": {
@@ -995,7 +1076,10 @@
               "libs/perun/directives/tsconfig.lib.json",
               "libs/perun/directives/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/perun/directives/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/perun/directives/**"
+            ]
           }
         },
         "test": {
@@ -1016,7 +1100,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "4943eaad-16db-431b-972e-d43fa4fcbbd0"
   },
   "schematics": {
     "@nrwl/angular:application": {

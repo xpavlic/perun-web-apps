@@ -466,6 +466,11 @@ export class SideMenuItemService {
               label: 'MENU_ITEMS.USER.ROLES',
               url: [`${path}/settings/roles`],
               activatedRegex: `^${path}/settings/roles`
+            },
+            {
+             label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
+             url:[`${path}/settings/service-identities`],
+             activatedRegex: `^${path}/settings/service-identities`
             }
           ],
           showChildrenRegex: `${regex}/settings`

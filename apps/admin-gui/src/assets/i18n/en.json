@@ -591,7 +591,8 @@
       "FACILITY_ATTRIBUTES": "Facility attributes",
       "TITLE": "User - ",
       "ROLES": "Roles",
-      "GUI_CONFIG": "Gui configuration"
+      "GUI_CONFIG": "Gui configuration",
+      "SERVICE_IDENTITIES": "Service Identities"
     }
   },
   "DIALOGS": {
@@ -1280,6 +1281,12 @@
         "SUCCESS_DELETE": "Attributes deleted successfully",
         "SUCCESS_SAVE": "Attributes saved successfully"
       },
+      "SERVICE_IDENTITIES": {
+        "TITLE": "Service identities",
+        "CREATE": "Add",
+        "DELETE": "Remove"
+      },
+
       "GUI_CONFIG": {
         "PREF_TABLE_PAGE_SIZE": "Preferred table page size"
       }
