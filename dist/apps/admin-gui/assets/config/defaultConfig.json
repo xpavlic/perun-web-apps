@@ -10,10 +10,16 @@
     "oauth_redirect_uri": "http://gui-dev.org/api-callback",
     "oauth_silent_redirect_uri": "http://gui-dev.org/silent-refresh.html"
   },
+  "login_namespace_attributes": [
+    "urn:perun:user:attribute-def:def:login-namespace:einfra",
+    "urn:perun:user:attribute-def:def:login-namespace:einfra-services",
+    "urn:perun:user:attribute-def:def:login-namespace:cesnet",
+    "urn:perun:user:attribute-def:def:login-namespace:mu"
+  ],
   "skip_oidc": false,
   "footer_perun_web_web": "https://perun-aai.org/",
   "footer_perun_team_web": "https://perun-aai.org/team",
-  "footer_privacy_policy_web": "https://pernhub.org/",
+  "footer_privacy_policy_web": "https://perun-aai.org/",
   "footer_users_documentation_web": "https://perun-aai.org/documentation/users-documentation",
   "footer_administrator_documentation": "https://perun-aai.org/documentation/admin-documentation",
   "footer_support_mail": "perun@cesnet.cz",
