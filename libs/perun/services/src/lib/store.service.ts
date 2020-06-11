@@ -32,6 +32,10 @@ export class StoreService {
     return this.principal;
   }
 
+  getLoginAttributeNames(): Array<string> {
+    return this.get("login_namespace_attributes");
+  }
+
   /**
    * Get key from json configuration. If key is not present in instance
    * configuration method returns value from default configuration.

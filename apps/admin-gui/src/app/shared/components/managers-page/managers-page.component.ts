@@ -11,6 +11,7 @@ import { Role } from '@perun-web-apps/perun/models';
 import { TABLE_GROUP_MANAGERS_PAGE, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-managers-page',
@@ -24,7 +25,8 @@ export class ManagersPageComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private tableConfigService: TableConfigService,
-    private authzService: AuthzResolverService
+    private authzService: AuthzResolverService,
+    private storeService: StoreService
   ) {
   }
 
@@ -63,15 +65,13 @@ export class ManagersPageComponent implements OnInit {
 
   changeUser() {
     this.loading = true;
+    let attributes = [
+      Urns.USER_DEF_ORGANIZATION,
+      Urns.USER_DEF_PREFERRED_MAIL];
+    attributes = attributes.concat(this.storeService.getLoginAttributeNames());
     if (this.selected === 'user') {
       this.authzService.getAuthzRichAdmins(this.selectedRole, this.complementaryObject.id, this.complementaryObjectType,
-        [
-          Urns.USER_DEF_ORGANIZATION,
-          Urns.USER_DEF_PREFERRED_MAIL,
-          Urns.USER_DEF_LOGIN_CESNET,
-          Urns.USER_DEF_LOGIN_EINFRA,
-          Urns.USER_DEF_LOGIN_EINFRA_SERVICES,
-          Urns.USER_DEF_LOGIN_MU],false, true).subscribe(managers => {
+        attributes,false, true).subscribe(managers => {
         this.managers = managers;
         this.selectionUsers.clear();
         this.selectionGroups.clear();
