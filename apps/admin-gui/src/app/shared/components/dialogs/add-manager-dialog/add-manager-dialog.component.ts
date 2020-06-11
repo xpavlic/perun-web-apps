@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -38,6 +38,7 @@ export class AddManagerDialogComponent implements OnInit {
     private usersService: UsersManagerService,
     private translate: TranslateService,
     private notificator: NotificatorService,
+    private storeService: StoreService,
     protected route: ActivatedRoute,
     protected router: Router,
     private tableConfigService: TableConfigService
@@ -86,13 +87,12 @@ export class AddManagerDialogComponent implements OnInit {
 
     this.selection.clear();
 
-    this.usersService.findRichUsersWithAttributes(this.searchString, [
-        Urns.USER_DEF_ORGANIZATION,
-        Urns.USER_DEF_PREFERRED_MAIL,
-        Urns.USER_DEF_LOGIN_CESNET,
-        Urns.USER_DEF_LOGIN_EINFRA,
-        Urns.USER_DEF_LOGIN_EINFRA_SERVICES,
-        Urns.USER_DEF_LOGIN_MU]).subscribe(
+    let attributes = [
+      Urns.USER_DEF_ORGANIZATION,
+      Urns.USER_DEF_PREFERRED_MAIL];
+    attributes = attributes.concat(this.storeService.getLoginAttributeNames());
+
+    this.usersService.findRichUsersWithAttributes(this.searchString, attributes).subscribe(
       users => {
         this.users = users;
         this.loading = false;

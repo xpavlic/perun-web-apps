@@ -6,6 +6,7 @@ import {
 } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-admin-users',
@@ -20,6 +21,7 @@ export class AdminUsersComponent implements OnInit {
 
   constructor(
     private usersService: UsersManagerService,
+    private storeService: StoreService,
     private tableConfigService: TableConfigService
   ) { }
 
@@ -38,14 +40,11 @@ export class AdminUsersComponent implements OnInit {
   onSearchByString() {
     this.loading = true;
     this.firstSearchDone = true;
-    this.usersService.findRichUsersWithAttributes(this.searchString,
-      [
-          Urns.USER_DEF_ORGANIZATION,
-          Urns.USER_DEF_PREFERRED_MAIL,
-          Urns.USER_DEF_LOGIN_CESNET,
-          Urns.USER_DEF_LOGIN_EINFRA,
-          Urns.USER_DEF_LOGIN_EINFRA_SERVICES,
-          Urns.USER_DEF_LOGIN_MU]).subscribe(users => {
+    let attributes = [
+      Urns.USER_DEF_ORGANIZATION,
+      Urns.USER_DEF_PREFERRED_MAIL];
+    attributes = attributes.concat(this.storeService.getLoginAttributeNames());
+    this.usersService.findRichUsersWithAttributes(this.searchString, attributes).subscribe(users => {
       this.users = users;
       this.loading = false;
     }, () => {
