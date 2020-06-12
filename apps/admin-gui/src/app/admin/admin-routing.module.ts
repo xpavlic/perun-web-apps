@@ -123,7 +123,7 @@ const routes: Routes = [
             path: 'service-identities',
             component: UserSettingsServiceIdentitiesComponent,
             data: {animation: 'UserServiceIdentities'}
-          },
+          }
         ]
       }
     ]

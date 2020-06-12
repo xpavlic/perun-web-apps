@@ -13,6 +13,7 @@ import { UserRolesComponent } from './shared/components/user-detail-page/user-se
 import { UserSettingsAppConfigurationComponent } from './shared/components/user-detail-page/user-settings/user-settings-app-configuration/user-settings-app-configuration.component';
 import { UserSettingsFacilityAttributesComponent } from './shared/components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
 import { UserDashboardComponent } from './shared/components/user-detail-page/user-dashboard/user-dashboard.component';
+import { UserSettingsServiceIdentitiesComponent } from './shared/components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
 
 const routes: Routes = [
   {
@@ -76,6 +77,11 @@ const routes: Routes = [
             path: 'roles',
             component: UserRolesComponent,
             data: { animation: 'UserRolesPage' }
+          },
+          {
+            path: 'service-identities',
+            component: UserSettingsServiceIdentitiesComponent,
+            data: {animation: 'UserServiceIdentities'}
           },
           {
             path: 'gui-config',

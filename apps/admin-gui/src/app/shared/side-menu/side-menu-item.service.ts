@@ -112,6 +112,11 @@ export class SideMenuItemService {
               activatedRegex: `^/home/settings/roles`
             },
             {
+              label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
+              url:[`/home/settings/service-identities`],
+              activatedRegex: `^/home/settings/service-identities`
+            },
+            {
               label: 'MENU_ITEMS.USER.GUI_CONFIG',
               url: ['/home/settings/gui-config'],
               activatedRegex: '/home/settings/gui-config'
