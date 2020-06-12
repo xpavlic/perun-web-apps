@@ -73,6 +73,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { ShowSshDialogComponent } from './components/dialogs/show-ssh-dialog/show-ssh-dialog.component';
 import { ApiInterceptor } from '@perun-web-apps/perun/services';
 import { NotificatorComponent } from './components/notificator/notificator.component';
+import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
+import { ApiService } from '@perun-web-apps/perun/services';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -192,7 +194,11 @@ const loadConfigs = (appConfig: UserProfileConfigService) => {
     },
     UserFullNamePipe,
     ApiInterceptor,
-    API_INTERCEPTOR_PROVIDER
+    API_INTERCEPTOR_PROVIDER,
+    {
+      provide: PERUN_API_SERVICE,
+      useClass: ApiService
+    },
   ],
   bootstrap: [AppComponent]
 })

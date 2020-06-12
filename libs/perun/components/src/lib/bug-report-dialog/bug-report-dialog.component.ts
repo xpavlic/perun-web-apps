@@ -31,7 +31,7 @@ export class BugReportDialogComponent implements OnInit {
 
   ngOnInit() {
     if (this.data.error && this.data.error.errorId) {
-      this.subject = this.translate.instant('DIALOGS.BUG_REPORT.SUBJECT_VALUE') +
+      this.subject = this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUBJECT_VALUE') +
         this.parseMethod(this.data.error.call) + ' (' + this.data.error.errorId + ')';
     }
   }
@@ -40,7 +40,7 @@ export class BugReportDialogComponent implements OnInit {
     this.rtMessages.sendMessageToRT('perun', this.subject, this.getFullEmailBody()).subscribe(() => {
       // TODO show ticket number and email
       this.dialogRef.afterClosed()
-        .subscribe(() => this.notificator.showSuccess(this.translate.instant('DIALOGS.BUG_REPORT.SUCCESS')));
+        .subscribe(() => this.notificator.showSuccess(this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS')));
       this.dialogRef.close();
     });
   }

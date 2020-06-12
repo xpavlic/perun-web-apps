@@ -34,7 +34,6 @@ export class ProfilePageComponent implements OnInit {
 
   userId: number;
 
-  emailAttribute: Attribute;
   languageAttribute: Attribute;
   timezoneAttribute: Attribute;
   organizationAttribute: Attribute;
@@ -49,25 +48,23 @@ export class ProfilePageComponent implements OnInit {
       this.userId = principal.userId;
 
       this.usersManagerService.getRichUserWithAttributes(this.userId).subscribe(richUser=>{
-        // console.log(richUser.userAttributes.map(elem=>elem.friendlyName));
-        // this.fullName = `${richUser.titleBefore?richUser.titleBefore:''} ${richUser.firstName} ${richUser.middleName?richUser.middleName+' ':''}${richUser.lastName}${richUser.titleAfter?' '+richUser.titleAfter:''}`;
         this.fullName = new UserFullNamePipe().transform(richUser);
 
         this.organizationAttribute = richUser.userAttributes.find(att => att.friendlyName === 'organization');
         // @ts-ignore
         this.organization = this.organizationAttribute.value;
 
-        this.emailAttribute = richUser.userAttributes.find(att => att.friendlyName === 'preferredMail');
+        const emailAttribute = richUser.userAttributes.find(att => att.friendlyName === 'preferredMail');
         // @ts-ignore
-        this.email = this.emailAttribute.value;
+        this.email = emailAttribute.value;
 
         this.languageAttribute = richUser.userAttributes.find(att => att.friendlyName === 'preferredLanguage');
         // @ts-ignore
-        this.currentLang = this.languageAttribute.value;
+        this.currentLang = this.languageAttribute && this.languageAttribute.value ? this.languageAttribute.value : 'en';
 
         this.timezoneAttribute = richUser.userAttributes.find(att => att.friendlyName === 'timezone');
         // @ts-ignore
-        this.currentTimezone = this.timezoneAttribute.value;
+        this.currentTimezone =this.timezoneAttribute && this.timezoneAttribute.value ? this.timezoneAttribute.value : '-';
       });
     });
   }
@@ -76,18 +73,40 @@ export class ProfilePageComponent implements OnInit {
     this.currentLang = lang;
     this.translateService.use(this.currentLang);
 
+    if(!this.languageAttribute){
+      this.attributesManagerService.getAttributeDefinitionByName('urn:perun:user:attribute-def:def:preferredLanguage').subscribe(att => {
+        this.languageAttribute = att as Attribute;
+        this.setLanguage();
+      })
+    }
+    else {
+      this.setLanguage();
+    }
+  }
+
+  setLanguage(){
     // @ts-ignore
     this.languageAttribute.value = this.currentLang;
     this.attributesManagerService.setUserAttribute({ user: this.userId, attribute: this.languageAttribute }).subscribe(() => {
       // this.notificator.showSuccess("done");
     });
-
   }
 
   changeTimeZone(tz: string) {
-    console.log(moment().tz(tz).format());
     this.currentTimezone = tz;
 
+    if(!this.timezoneAttribute){
+      this.attributesManagerService.getAttributeDefinitionByName('urn:perun:user:attribute-def:def:timezone').subscribe(att => {
+       this.timezoneAttribute = att as Attribute;
+       this.setTimeZone();
+      })
+    }
+    else {
+      this.setTimeZone();
+    }
+  }
+
+  setTimeZone(){
     // @ts-ignore
     this.timezoneAttribute.value = this.currentTimezone;
     this.attributesManagerService.setUserAttribute({ user: this.userId, attribute: this.timezoneAttribute }).subscribe(() => {
@@ -98,7 +117,7 @@ export class ProfilePageComponent implements OnInit {
   changeEmail() {
     const config = getDefaultDialogConfig();
     config.width = '350px';
-    config.data = { userId: this.userId, attribute: this.emailAttribute };
+    config.data = { userId: this.userId };
 
     const dialogRef = this.dialog.open(ChangeEmailDialogComponent, config);
 
@@ -110,7 +129,6 @@ export class ProfilePageComponent implements OnInit {
   }
   getEmail() {
     this.attributesManagerService.getUserAttributeByName(this.userId, 'urn:perun:user:attribute-def:def:preferredMail').subscribe(attribute => {
-      this.emailAttribute = attribute;
       // @ts-ignore
       this.email = attribute.value;
     });

@@ -42,6 +42,9 @@ export class IdentitiesPageComponent implements OnInit {
 
   refreshTables(){
     this.loading = true;
+    this.idpExtSources = [];
+    this.certExtSources = [];
+    this.otherExtSources = [];
     this.usersManagerService.getRichUserExtSources(this.userId).subscribe(userExtSources =>{
       let count = userExtSources.length;
       userExtSources.forEach(ues =>{
