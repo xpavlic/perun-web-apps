@@ -217,6 +217,11 @@ export class SideMenuItemService {
           activatedRegex: 'facilities/\\d+/services-destinations'
         },
         {
+          label: 'MENU_ITEMS.FACILITY.HOSTS',
+          url: [`/facilities/${facility.id}/hosts`],
+          activatedRegex: 'facilities/\\d+/hosts'
+        },
+        {
           label: 'MENU_ITEMS.FACILITY.SETTINGS',
           url: ['/facilities', facility.id, 'settings'],
           activatedRegex: '/facilities/\\d+/settings$',

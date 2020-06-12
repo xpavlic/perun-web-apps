@@ -159,6 +159,7 @@ import { UserLoginsPipe } from './pipes/user-logins.pipe';
 import { AttributeImportDialogComponent } from './components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
 import { FacilitySelectTableComponent } from './components/facility-select-table/facility-select-table.component';
 import { UserDashboardComponent } from './components/user-detail-page/user-dashboard/user-dashboard.component';
+import { HostsListComponent } from './components/hosts-list/hosts-list.component';
 import { UserSettingsServiceIdentitiesComponent } from './components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
 
 @NgModule({
@@ -289,7 +290,8 @@ import { UserSettingsServiceIdentitiesComponent } from './components/user-detail
     SideMenuRootItemComponent,
     DestinationListComponent,
     TwoEntityAttributePageComponent,
-    FacilitySelectTableComponent
+    FacilitySelectTableComponent,
+    HostsListComponent
   ],
   declarations: [
     PerunNavComponent,
@@ -398,6 +400,7 @@ import { UserSettingsServiceIdentitiesComponent } from './components/user-detail
     FacilitySelectTableComponent,
     UserDashboardComponent,
     UserSettingsServiceIdentitiesComponent,
+    HostsListComponent
   ],
   providers: [
     AnyToStringPipe,
