@@ -10,8 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {
   EditApplicationFormItemDialogComponent
 } from '../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
-import { ApplicationForm } from '@perun-web-apps/perun/openapi';
-import { ApplicationFormItem } from '@perun-web-apps/perun/models';
+import { ApplicationForm, ApplicationFormItem } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -57,7 +56,7 @@ export class ApplicationFormListComponent implements OnChanges {
     config.height = '600px';
     config.data = {voId: this.applicationForm.vo.id,
       group: this.applicationForm.group,
-      applicationFormItem: applicationFormItem}
+      applicationFormItem: applicationFormItem};
 
     const editDialog = this.dialog.open(EditApplicationFormItemDialogComponent, config);
     editDialog.afterClosed().subscribe((success) => {

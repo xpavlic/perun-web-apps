@@ -2,7 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
 import {NotificatorService} from '@perun-web-apps/perun/services';
-import { ApplicationFormItem } from '@perun-web-apps/perun/models';
+import { ApplicationFormItem, Type } from '@perun-web-apps/perun/openapi';
+import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
 
 export interface AddApplicationFormItemDialogComponentData {
   applicationFormItems: ApplicationFormItem[];
@@ -54,9 +55,9 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
   }
 
   createApplicationItem(): ApplicationFormItem {
-    const newApplicationItem = new ApplicationFormItem();
+    const newApplicationItem = createNewApplicationFormItem();
     newApplicationItem.shortname = this.shortName;
-    newApplicationItem.type = this.selectedWidget;
+    newApplicationItem.type = this.selectedWidget as Type;
     for (let i = 0; i < this.items.length; i++) {
       if (this.selectedItem === this.items[i]) {
         this.data.applicationFormItems.splice(i, 0, newApplicationItem);

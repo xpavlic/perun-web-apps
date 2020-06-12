@@ -26,5 +26,6 @@ export interface ApplicationFormItem {
     applicationTypes?: Array<AppType>;
     ordnum?: number;
     i18n?: { [key: string]: ItemTexts; };
+    forDelete?: boolean;
 }
 

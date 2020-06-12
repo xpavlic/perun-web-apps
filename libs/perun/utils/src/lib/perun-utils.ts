@@ -9,7 +9,7 @@ import {
   RichMember,
   RichUser,
   User,
-  Candidate, ApplicationMail
+  Candidate, ApplicationMail, ApplicationFormItem
 } from '@perun-web-apps/perun/openapi';
 import { Attribute, AttributeDefinition } from '@perun-web-apps/perun/openapi';
 import { MatDialogConfig } from '@angular/material/dialog';
@@ -544,9 +544,24 @@ export function createNewApplicationMail(): ApplicationMail {
 }
 
 
-export function getDefaultDialogConfig():  MatDialogConfig{
+export function getDefaultDialogConfig(): MatDialogConfig {
   const config = new MatDialogConfig();
   config.disableClose = true;
 
   return config
+}
+
+export function createNewApplicationFormItem(): ApplicationFormItem {
+  return { applicationTypes:['INITIAL', 'EXTENSION'],
+          federationAttribute: '',
+          i18n: { ['en']: {locale: 'en', errorMessage: '', help: '', label: '', options: ''},
+            ['cs']: {locale: 'cs', errorMessage: '', help: '', label: '', options: ''}},
+          id: 0,
+          ordnum: 0,
+          perunDestinationAttribute: null,
+          perunSourceAttribute: null,
+          regex: '',
+          required: false,
+          shortname: '',
+          type: null };
 }

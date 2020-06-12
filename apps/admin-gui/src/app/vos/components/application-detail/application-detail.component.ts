@@ -6,8 +6,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApplicationReSendNotificationDialogComponent } from '../../../shared/components/dialogs/application-re-send-notification-dialog/application-re-send-notification-dialog.component';
 import { ApplicationRejectDialogComponent } from '../../../shared/components/dialogs/application-reject-dialog/application-reject-dialog.component';
 import { NotificatorService } from '@perun-web-apps/perun/services';
-import { ApplicationFormItem } from '@perun-web-apps/perun/models';
-import { Application, ApplicationFormItemData, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  Application,
+  ApplicationFormItem,
+  ApplicationFormItemData,
+  RegistrarManagerService
+} from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({

@@ -15,8 +15,7 @@ import {
 import {
   EditApplicationFormItemDialogComponent
 } from '../../../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
-import { ApplicationForm, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
-import { ApplicationFormItem } from '@perun-web-apps/perun/models';
+import { ApplicationForm, ApplicationFormItem, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -53,8 +52,6 @@ export class VoSettingsApplicationFormComponent implements OnInit {
       this.registrarManager.getVoApplicationForm(voId).subscribe( form => {
         this.applicationForm = form;
         this.registrarManager.getFormItemsForVo(voId).subscribe( formItems => {
-          // @ts-ignore
-          // TODO reimplement this
           this.applicationFormItems = formItems;
           this.loading = false;
         });
@@ -63,7 +60,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   }
 
   add() {
-    let config = getDefaultDialogConfig()
+    let config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {applicationFormItems: this.applicationFormItems};
 
@@ -122,8 +119,6 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   updateFormItems() {
     this.loading = true;
     this.registrarManager.getFormItemsForVo(this.voId).subscribe( formItems => {
-      // @ts-ignore
-      // TODO reimplement this
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
       this.loading = false;
