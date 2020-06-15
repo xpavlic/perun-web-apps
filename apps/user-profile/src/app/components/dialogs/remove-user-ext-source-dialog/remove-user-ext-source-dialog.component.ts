@@ -41,7 +41,7 @@ export class RemoveUserExtSourceDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    this.usersManagerService.removeUserExtSource(this.data.userId, this.data.extSources[0].userExtSource.extSource.id,false).subscribe(() =>{
+    this.usersManagerService.removeUserExtSource(this.data.userId, this.data.extSources[0].userExtSource.id,false).subscribe(() =>{
       this.loading = false;
       this.dialogRef.close(true);
     }, () => this.loading = false);

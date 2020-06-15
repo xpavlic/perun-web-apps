@@ -1,13 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-// tslint:disable-next-line:nx-enforce-module-boundaries
-import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService } from '@perun-web-apps/perun/services';
 
 export interface ChangeEmailDialogData {
   userId: number;
-  attribute: Attribute;
 }
 
 @Component({
@@ -17,14 +16,18 @@ export interface ChangeEmailDialogData {
 })
 export class ChangeEmailDialogComponent implements OnInit {
 
+  successMessage: string;
+
+  emailControl: FormControl;
+
   constructor(private dialogRef: MatDialogRef<ChangeEmailDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: ChangeEmailDialogData,
               private translate: TranslateService,
-              private attributesManagerService: AttributesManagerService
+              private notificator: NotificatorService,
+              private usersManagerService: UsersManagerService
   ) {
+    translate.get('DIALOGS.CHANGE_EMAIL.SUCCESS').subscribe(res => this.successMessage = res);
   }
-
-  emailControl: FormControl;
 
   ngOnInit() {
     this.emailControl = new FormControl(null, [Validators.required,
@@ -33,14 +36,14 @@ export class ChangeEmailDialogComponent implements OnInit {
   }
 
   onCancel() {
-    this.dialogRef.close(false);
+    this.dialogRef.close();
   }
 
   onSubmit() {
-    this.data.attribute.value = this.emailControl.value;
-    this.attributesManagerService.setUserAttribute({ user: this.data.userId, attribute: this.data.attribute }).subscribe(() => {
-      this.dialogRef.close(true);
-    });
+    this.usersManagerService.requestPreferredEmailChange(this.data.userId,this.emailControl.value, this.translate.currentLang).subscribe(() => {
+      this.notificator.showSuccess(this.successMessage);
+      this.dialogRef.close();
+    })
 
   }
 }

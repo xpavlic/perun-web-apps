@@ -10,4 +10,5 @@ export { ApiInterceptor } from './lib/ApiInterceptor';
 export { ApiRequestConfigurationService } from './lib/api-request-configuration.service';
 export { NotificatorService } from './lib/notificator.service';
 export { NotificationStorageService } from './lib/notification-storage.service';
+export {ApiService} from './lib/api.service'
 

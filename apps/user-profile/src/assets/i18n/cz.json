@@ -129,7 +129,8 @@
       "TITLE": "Aktualizovat email",
       "INPUT_PLACEHOLDER": "Nový email",
       "CANCEL": "Zrušit",
-      "CHANGE": "Změnit"
+      "CHANGE": "Změnit",
+      "SUCCESS": "Žádost o změnu preferovaného emailu byla odeslána na zadanou adresu."
     },
     "ADD_SSH": {
       "TITLE": "Přidat nový SSH klíč",
@@ -240,6 +241,9 @@
         "USER_DONT_EXIST": {
           "TITLE": "Požadovaný uživatel (dle ID nebo externí identity) neexistuje."
         },
+        "TABLE_OPTIONS": {
+          "EXPORT_TO_FILE": "Exportovat do souboru"
+        },
         "NOTIFICATOR": {
           "NOTIFICATION": {
             "DEFAULT_ACTION": "Zobrazit",
@@ -247,6 +251,18 @@
             "DIALOG_BUG_REPORT": "Nahlásit chybu",
             "DEFAULT_RPC_ERROR_MESSAGE": "Operace se nezdařila."
           }
+        },
+        "BUG_REPORT": {
+          "TITLE": "Nahlásit chybu",
+          "SUBJECT": "Předmět",
+          "SUBJECT_VALUE": "Nahlásený problém: ",
+          "SUBJECT_ERROR": "Předmět musí být vyplněn.",
+          "MESSAGE": "Zpráva",
+          "MESSAGE_PLACEHOLDER": "Popište, co jste delali když nastal problém. (Minimální délka je 60 znaků)",
+          "MESSAGE_ERROR": "Minimální délka je 60 znaků.",
+          "CANCEL": "Zrušit",
+          "SEND": "Poslat",
+          "SUCCESS": "Nahlášená chyba byla odoslána"
         }
       },
       "ORGANIZATIONS": {

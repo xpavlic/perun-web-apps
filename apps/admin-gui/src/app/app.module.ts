@@ -15,7 +15,7 @@ import {CacheRouteReuseStrategy} from './core/services/common/cache-route-reuse-
 import { MatIconModule } from '@angular/material/icon';
 import {CustomIconService} from '@perun-web-apps/perun/services';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
-import { ApiService } from './core/services/api/api.service';
+import { ApiService } from '@perun-web-apps/perun/services';
 import { AdminGuiConfigService } from './core/services/common/admin-gui-config.service';
 // @ts-ignore
 import { ApiModule, Configuration, ConfigurationParameters } from '@perun-web-apps/perun/openapi';
