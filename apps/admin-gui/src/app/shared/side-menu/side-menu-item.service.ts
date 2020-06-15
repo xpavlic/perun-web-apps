@@ -102,11 +102,6 @@ export class SideMenuItemService {
               activatedRegex: `^/home/settings/attributes`
             },
             {
-              label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
-              url: [`/home/settings/facilityAttributes`],
-              activatedRegex: `^/home/settings/facilityAttributes`
-            },
-            {
               label: 'MENU_ITEMS.USER.ROLES',
               url: [`/home/settings/roles`],
               activatedRegex: `^/home/settings/roles`
@@ -466,6 +461,11 @@ export class SideMenuItemService {
               label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
               url: [`${path}/settings/attributes`],
               activatedRegex: `${regex}/settings/attributes`
+            },
+            {
+              label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
+              url: [`${path}/settings/facilityAttributes`],
+              activatedRegex: `^${path}/settings/facilityAttributes`
             },
             {
               label: 'MENU_ITEMS.USER.ROLES',
