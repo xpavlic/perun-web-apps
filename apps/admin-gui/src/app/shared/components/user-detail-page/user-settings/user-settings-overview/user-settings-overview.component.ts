@@ -39,6 +39,12 @@ export class UserSettingsOverviewComponent implements OnInit {
         url: `roles`,
         label: 'MENU_ITEMS.USER.ROLES',
         style: 'user-btn'
+      },
+      {
+        cssIcon: 'perun-attributes',
+        url:`service-identities`,
+        label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
+        style: 'user-btn'
       }
     ];
     // if at user profile, add user gui config item
