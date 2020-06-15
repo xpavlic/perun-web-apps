@@ -72,7 +72,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
           this.loading = false;
         });
       }, error => {
-        if (error.name === 'FormNotExistsException') {
+        if (error.error.name === 'FormNotExistsException') {
           this.noApplicationForm = true;
           this.loading = false;
         } else {

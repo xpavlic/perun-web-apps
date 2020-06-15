@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
-import { Group } from '@perun-web-apps/perun/openapi';
-import { ApplicationFormItem } from '@perun-web-apps/perun/models';
+import { ApplicationFormItem, AppType, Group } from '@perun-web-apps/perun/openapi';
 import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
 
 export interface EditApplicationFormItemDialogComponentData {
   voId: number;
@@ -44,7 +44,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
 
   ngOnInit() {
-    this.applicationFormItem = new ApplicationFormItem();
+    this.applicationFormItem = createNewApplicationFormItem();
     this.copy(this.data.applicationFormItem, this.applicationFormItem);
     this.attributesManager.getAllAttributeDefinitions().subscribe( attributeDefinitions => {
       this.attributeDefinitions = attributeDefinitions;
@@ -71,7 +71,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
-  onChangingType(type: string) {
+  onChangingType(type: AppType) {
     if (this.applicationFormItem.applicationTypes.includes(type)) {
       const index = this.applicationFormItem.applicationTypes.indexOf(type);
       this.applicationFormItem.applicationTypes.splice(index, 1);
@@ -274,7 +274,6 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
   copy(from: ApplicationFormItem, to: ApplicationFormItem) {
     to.applicationTypes = from.applicationTypes;
-    to.beanName = from.beanName;
     to.federationAttribute = from.federationAttribute;
     to.forDelete = from.forDelete;
     to.i18n['cs'].errorMessage = from.i18n['cs'].errorMessage;

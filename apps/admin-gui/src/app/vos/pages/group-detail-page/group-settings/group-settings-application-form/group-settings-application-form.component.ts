@@ -15,9 +15,8 @@ import {
 import {
   UpdateApplicationFormDialogComponent
 } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
-import { ApplicationForm, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import { ApplicationForm, ApplicationFormItem, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
-import { ApplicationFormItem } from '@perun-web-apps/perun/models';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -59,8 +58,6 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
       this.registrarManager.getGroupApplicationForm(this.groupId).subscribe( form => {
         this.applicationForm = form;
         this.registrarManager.getFormItemsForGroup(this.groupId).subscribe(formItems => {
-          // @ts-ignore
-          // TODO reimplement this so we can use the model from openapi
           this.applicationFormItems = formItems;
           this.loading = false;
         });
@@ -137,8 +134,6 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   updateFormItems() {
     this.loading = true;
     this.registrarManager.getFormItemsForGroup(this.groupId).subscribe( formItems => {
-      // @ts-ignore
-      // TODO reimplement this
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
       this.loading = false;
