@@ -17,6 +17,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
+import { AddUserExtSourceInput } from '../model/addUserExtSourceInput';
 import { Group } from '../model/group';
 import { PerunException } from '../model/perunException';
 import { RichUser } from '../model/richUser';
@@ -54,6 +55,68 @@ export class UsersManagerService {
     }
 
 
+
+    /**
+     * Adds user\&#39;s external sources.
+     * @param addUserExtSourceInput 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addUserExtSource(addUserExtSourceInput: AddUserExtSourceInput, observe?: 'body', reportProgress?: boolean): Observable<UserExtSource>;
+    public addUserExtSource(addUserExtSourceInput: AddUserExtSourceInput, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserExtSource>>;
+    public addUserExtSource(addUserExtSourceInput: AddUserExtSourceInput, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserExtSource>>;
+    public addUserExtSource(addUserExtSourceInput: AddUserExtSourceInput, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (addUserExtSourceInput === null || addUserExtSourceInput === undefined) {
+            throw new Error('Required parameter addUserExtSourceInput was null or undefined when calling addUserExtSource.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<UserExtSource>(`${this.configuration.basePath}/json/usersManager/addUserExtSource`,
+            addUserExtSourceInput,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * Creates alternative password in external system.
