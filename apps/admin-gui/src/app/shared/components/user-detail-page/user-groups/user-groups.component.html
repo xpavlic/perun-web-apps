@@ -1,6 +1,7 @@
 <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
 
-<h1 class="page-subtitle pt-2">{{'SHARED.COMPONENTS.USER_DETAIL.GROUPS.MEMBER_GROUPS' | translate}}</h1>
+<h1 *ngIf="this.showPrincipal" class="page-subtitle pt-2">{{'SHARED.COMPONENTS.USER_DETAIL.GROUPS.YOU_ARE_MEMBER' | translate}}</h1>
+<h1 *ngIf="!this.showPrincipal" class="page-subtitle pt-2">{{'SHARED.COMPONENTS.USER_DETAIL.GROUPS.USER_IS_MEMBER' | translate}}</h1>
 
 <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 <div *ngIf="!loading">
@@ -14,7 +15,8 @@
 </div>
 
 <div *ngIf="adminsGroups.length != 0">
-  <h1 class="page-subtitle pt-5">{{'SHARED.COMPONENTS.USER_DETAIL.GROUPS.ADMINS_GROUPS' | translate}}</h1>
+  <h1 *ngIf="this.showPrincipal" class="page-subtitle pt-5">{{'SHARED.COMPONENTS.USER_DETAIL.GROUPS.YOU_ARE_ADMIN' | translate}}</h1>
+  <h1 *ngIf="!this.showPrincipal" class="page-subtitle pt-5">{{'SHARED.COMPONENTS.USER_DETAIL.GROUPS.USER_IS_ADMIN' | translate}}</h1>
 
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading">

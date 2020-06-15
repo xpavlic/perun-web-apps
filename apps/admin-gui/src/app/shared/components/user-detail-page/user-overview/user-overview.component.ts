@@ -28,19 +28,19 @@ export class UserOverviewComponent implements OnInit {
       {
         cssIcon: 'perun-vo',
         url: `organizations`,
-        label: 'MENU_ITEMS.USER.ORGANIZATIONS',
+        label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
         style: 'user-btn'
       },
       {
         cssIcon: 'perun-group',
         url: `groups`,
-        label: 'MENU_ITEMS.USER.GROUPS',
+        label: 'MENU_ITEMS.ADMIN.GROUPS',
         style: 'user-btn'
       },
       {
         cssIcon: 'perun-settings2',
         url: `settings`,
-        label: 'MENU_ITEMS.USER.SETTINGS',
+        label: 'MENU_ITEMS.ADMIN.SETTINGS',
         style: 'user-btn'
       }
     ];

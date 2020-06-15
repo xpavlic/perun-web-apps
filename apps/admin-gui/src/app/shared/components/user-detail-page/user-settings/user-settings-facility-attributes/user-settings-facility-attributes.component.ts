@@ -12,17 +12,23 @@ export class UserSettingsFacilityAttributesComponent implements OnInit {
 
   constructor(protected route: ActivatedRoute,
               private storage: StoreService,
-              private facilitiesManagerService: FacilitiesManagerService) {
+              private facilitiesManagerService: FacilitiesManagerService,
+              private store: StoreService) {
   }
 
   userId: number;
   facilities: Facility[] = [];
   loading: boolean;
+  showPrincipal: boolean
 
 
   ngOnInit(): void {
     this.loading = true;
-    this.userId = this.storage.getPerunPrincipal().userId;
+    if ((this.showPrincipal = this.route.snapshot.data.showPrincipal) === true) {
+      this.userId = this.store.getPerunPrincipal().user.id;
+    } else {
+      this.route.parent.parent.params.subscribe(params => this.userId = params['userId']);
+    }
 
     this.facilitiesManagerService.getAssignedFacilitiesByUser(this.userId).subscribe(facilities => {
       this.facilities = facilities;

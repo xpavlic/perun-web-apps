@@ -94,12 +94,12 @@ const routes: Routes = [
       {
         path: 'organizations',
         component: UserOrganizationsComponent,
-        data: {animation: 'UserOrganizationsPage'}
+        data: {animation: 'UserOrganizationsPage', showPrincipal: false}
       },
       {
         path: 'groups',
         component: UserGroupsComponent,
-        data: {animation: 'UserGroupsPage'}
+        data: {animation: 'UserGroupsPage', showPrincipal: false}
       },
       {
         path: 'settings',
@@ -118,7 +118,7 @@ const routes: Routes = [
           {
             path: 'facilityAttributes',
             component: UserSettingsFacilityAttributesComponent,
-            data: {animation: 'UserSettingsFacilityAttributesPage'}
+            data: {animation: 'UserSettingsFacilityAttributesPage', showPrincipal: false}
           },
           {
             path: 'roles',
