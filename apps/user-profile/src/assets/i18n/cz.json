@@ -265,6 +265,14 @@
           "CANCEL": "Zrušit",
           "SEND": "Poslat",
           "SUCCESS": "Nahlášená chyba byla odoslána"
+        },
+        "REMOVE_USER_EXT_SOURCE": {
+          "TITLE": "Odstranit uživateli externi identitu",
+          "DESCRIPTION": "Následující externí identita bude odstraněna",
+          "ASK": "Jste si jistí, že chcete pokračovat?",
+          "CANCEL": "Zrušit",
+          "REMOVE": "Odstranit",
+          "SUCCESS": "Uživatelova externí identita byla odstraněna"
         }
       },
       "ORGANIZATIONS": {

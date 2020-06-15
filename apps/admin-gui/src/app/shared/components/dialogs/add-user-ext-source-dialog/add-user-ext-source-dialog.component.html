@@ -1,57 +1,50 @@
-<h3>TITLE</h3>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<div *ngIf="!loading" class="{{theme}}">
-  <div class="row">
-    <p class="column-size center-self">{{'EXTERNAL LOGIN:' | translate}}</p>
-    <mat-form-field appearance="standard" class="center-self">
-      <label class="label-width">
-        <input
-          [formControl]="loginControl"
-          matInput
-          required>
-      </label>
+<h1 mat-dialog-title>{{'DIALOGS.ADD_USER_EXT_SOURCE.TITLE'|translate}}</h1>
+<div class="dialog-container user-theme" mat-dialog-content>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading">
+    <mat-form-field appearance="standard" class="center-self w-100">
+      <input
+        [formControl]="loginControl"
+        matInput
+        placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN'|translate}}"
+        required>
     </mat-form-field>
-  </div>
-  <div class="row">
-    <p class="column-size center-self">{{'EXTERNAL SOURCE:'|customTranslate | translate}}</p>
-    <mat-form-field class="center-self ml-2 w-50">
+    <mat-form-field class="center-self w-100">
       <input [formControl]="extSourcesControl"
              [matAutocomplete]="auto"
              matInput
+             placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.EXT_SOURCE'|translate}}"
              type="text">
-      <mat-autocomplete  #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let extSource of filteredExtSources | async" [value]="extSource">
           {{extSource.name}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-
-  </div>
-  <div class="row">
-    <p class="column-size center-self">{{'LOA:'| translate}}</p>
-    <mat-form-field class="center-self ml-2 w-50">
-      <mat-select [(value)]="loa" class="select-width mt-auto mb-auto ml-2">
+    <mat-form-field class="center-self">
+      <mat-select [(value)]="loa"
+                  placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.LOA'|translate}}">
         <mat-option *ngFor="let loa of loas" [value]="loa">
           {{loa}}
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <p class="pre-wrap">{{'DIALOGS.ADD_USER_EXT_SOURCE.LOA_INFO'|translate}}</p>
   </div>
-
-  <div mat-dialog-actions>
-    <button
-      (click)="onAdd()"
-      [disabled]="loginControl.invalid"
-      class="ml-auto"
-      color="accent"
-      mat-flat-button>
-      {{'ADD'|customTranslate | translate}}
-    </button>
-    <button
-      (click)="onCancel()"
-      class="ml-2"
-      mat-stroked-button>
-      {{'CANCEL'|customTranslate | translate}}
-    </button>
-  </div>
+</div>
+<div mat-dialog-actions>
+  <button
+    (click)="onCancel()"
+    class="ml-auto"
+    mat-flat-button>
+    {{'DIALOGS.ADD_USER_EXT_SOURCE.CANCEL'|translate}}
+  </button>
+  <button
+    (click)="onAdd()"
+    [disabled]="loginControl.invalid"
+    class="ml-2"
+    color="accent"
+    mat-flat-button>
+    {{'DIALOGS.ADD_USER_EXT_SOURCE.ADD'|translate}}
+  </button>
 </div>

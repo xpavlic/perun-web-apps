@@ -164,13 +164,6 @@
       "CANCEL": "Cancel",
       "SUCCESS": "Request for changing the data quota has been sent"
     },
-    "REMOVE_USER_EXT_SOURCE": {
-      "TITLE": "Remove user's external identity",
-      "DESCRIPTION": "Following external identity will be removed",
-      "ASK": "Are you sure you want to continue?",
-      "CANCEL": "Cancel",
-      "REMOVE": "Remove"
-    },
     "SHOW_SSH": {
       "CLOSE": "Cancel"
     }
@@ -265,6 +258,14 @@
           "CANCEL": "Cancel",
           "SEND": "Send",
           "SUCCESS": "Bug report send"
+        },
+        "REMOVE_USER_EXT_SOURCE": {
+          "TITLE": "Remove user's external identity",
+          "DESCRIPTION": "Following external identity will be removed",
+          "ASK": "Are you sure you want to continue?",
+          "CANCEL": "Cancel",
+          "REMOVE": "Remove",
+          "SUCCESS": "User external source successfully removed"
         }
       },
       "ORGANIZATIONS": {

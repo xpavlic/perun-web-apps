@@ -87,6 +87,7 @@ export class IdentitiesPageComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
+      theme: 'user-theme',
       userId: this.userId,
       extSources: selected
     };
