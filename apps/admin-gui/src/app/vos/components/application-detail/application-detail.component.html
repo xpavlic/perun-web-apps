@@ -68,7 +68,7 @@
       </ng-container>
       <ng-container matColumnDef="value">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let userData"> {{userData.value}} </td>
+        <td class="word-break-all" mat-cell *matCellDef="let userData"> {{userData.value}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="h-50"></tr>
