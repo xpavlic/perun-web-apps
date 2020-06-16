@@ -126,6 +126,12 @@
         "SUCCESS_DELETE": "Attributes deleted successfully",
         "SUCCESS_SAVE": "Attributes saved successfully"
       }
+    },
+    "HOSTS": {
+      "TITLE": "Hosts",
+      "ADD": "Add",
+      "REMOVE": "Remove",
+      "FILTER": "Filter"
     }
   },
   "RESOURCE_DETAIL": {
@@ -538,7 +544,8 @@
       "SERVICE_CONFIG": "Services configuration",
       "OWNERS": "Owners",
       "MANAGERS": "Managers",
-      "SERVICES_DESTINATIONS": "Services destinations"
+      "SERVICES_DESTINATIONS": "Services destinations",
+      "HOSTS": "Hosts"
     },
     "RESOURCE": {
       "OVERVIEW": "Overview",
@@ -1333,6 +1340,11 @@
           "MEMBER_GROUPS": "Groups where you are member",
           "ADMINS_GROUPS": "Groups where you are admin"
         }
+      },
+      "HOSTS_LIST" : {
+        "TABLE_HOST_ID": "Host ID",
+        "TABLE_HOST_NAME": "Host name",
+        "NO_HOST_WARNING": "No hosts found"
       }
     },
     "FOOTER": {
