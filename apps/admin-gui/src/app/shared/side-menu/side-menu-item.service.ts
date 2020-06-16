@@ -102,6 +102,11 @@ export class SideMenuItemService {
               activatedRegex: `^/home/settings/attributes`
             },
             {
+              label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
+              url: [`/home/settings/facilityAttributes`],
+              activatedRegex: `^/home/settings/facilityAttributes`
+            },
+            {
               label: 'MENU_ITEMS.USER.ROLES',
               url: [`/home/settings/roles`],
               activatedRegex: `^/home/settings/roles`
