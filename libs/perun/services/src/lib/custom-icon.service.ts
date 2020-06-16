@@ -139,6 +139,10 @@ export class CustomIconService {
     {
       url: 'assets/img/PerunWebImages/home-white.svg',
       name: 'perun-home-white'
+    },
+    {
+      url: 'assets/img/PerunWebImages/security_admin-blue.svg',
+      name: 'perun-security-teams'
     }
   ];
 
