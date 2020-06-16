@@ -21,15 +21,9 @@ import {
 } from './pages/admin-page/admin-visualizer/user-destination-relationship/user-destination-graph/user-destination-graph.component';
 import { AdminUsersComponent } from './pages/admin-page/admin-users/admin-users.component';
 import { AdminUserDetailPageComponent } from './pages/admin-user-detail-page/admin-user-detail-page.component';
-// tslint:disable-next-line:max-line-length
-import {CreateAttributeDefinitionDialogComponent} from '../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
-// tslint:disable-next-line:max-line-length
-import {DeleteAttributeDefinitionDialogComponent} from '../shared/components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { AdminExtSourcesComponent } from './pages/admin-page/admin-ext-sources/admin-ext-sources.component';
-import { EditAttributeDefinitionDialogComponent } from '../shared/components/dialogs/edit-attribute-definition-dialog/edit-attribute-definition-dialog.component';
-import { EntitylessAttributeKeysListComponent } from '../shared/components/entityless-attribute-keys-list/entityless-attribute-keys-list.component';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
 

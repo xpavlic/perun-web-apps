@@ -473,6 +473,11 @@ export class SideMenuItemService {
               activatedRegex: `${regex}/settings/attributes`
             },
             {
+              label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
+              url: [`${path}/settings/facilityAttributes`],
+              activatedRegex: `^${path}/settings/facilityAttributes`
+            },
+            {
               label: 'MENU_ITEMS.USER.ROLES',
               url: [`${path}/settings/roles`],
               activatedRegex: `^${path}/settings/roles`
