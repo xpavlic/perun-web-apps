@@ -47,12 +47,12 @@ const routes: Routes = [
       {
         path: 'organizations',
         component: UserOrganizationsComponent,
-        data: {animation: 'UserOrganizationsPage'}
+        data: {animation: 'UserOrganizationsPage', showPrincipal: true}
       },
       {
         path: 'groups',
         component: UserGroupsComponent,
-        data: {animation: 'UserGroupsPage'}
+        data: {animation: 'UserGroupsPage', showPrincipal: true}
       },
       {
         path: 'settings',
@@ -71,7 +71,7 @@ const routes: Routes = [
           {
             path: 'facilityAttributes',
             component: UserSettingsFacilityAttributesComponent,
-            data: {animation: 'UserSettingsFacilityAttributesPage'}
+            data: {animation: 'UserSettingsFacilityAttributesPage', showPrincipal: true}
           },
           {
             path: 'roles',

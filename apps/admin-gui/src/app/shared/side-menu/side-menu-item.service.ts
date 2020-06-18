@@ -68,7 +68,7 @@ export class SideMenuItemService {
       expandable: false,
       label: 'MAIN_MENU.HOME',
       colorClass: 'base-item-color-activated',
-      icon: 'perun-user',
+      icon: 'perun-home-white',
       baseColorClass: 'base-item-color',
       baseColorClassRegex: '^dont-use$',
       activatedClass: 'dark-item-activated',
@@ -453,17 +453,17 @@ export class SideMenuItemService {
           activatedRegex: `${regex}$`
         },
         {
-          label: 'MENU_ITEMS.USER.ORGANIZATIONS',
+          label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
           url: [`${path}/organizations`],
           activatedRegex: `${regex}/organizations`
         },
         {
-          label: 'MENU_ITEMS.USER.GROUPS',
+          label: 'MENU_ITEMS.ADMIN.GROUPS',
           url: [`${path}/groups`],
           activatedRegex: `${regex}/groups`
         },
         {
-          label: 'MENU_ITEMS.USER.SETTINGS',
+          label: 'MENU_ITEMS.ADMIN.SETTINGS',
           url: [`${path}/settings`],
           activatedRegex: `${regex}/settings$`,
           children: [

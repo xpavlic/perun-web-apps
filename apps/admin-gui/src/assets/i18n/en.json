@@ -582,7 +582,10 @@
       "ATTRIBUTES": "Attributes",
       "VISUALIZER": "Visualizer",
       "USERS": "Users",
-      "EXT_SOURCES": "External sources"
+      "EXT_SOURCES": "External sources",
+      "GROUPS": "Groups",
+      "SETTINGS": "Settings",
+      "ORGANIZATIONS": "Organizations"
     },
     "VISUALIZER": {
       "ATTR_DEPENDENCIES": "Modules dependencies",
@@ -590,9 +593,9 @@
     },
     "USER": {
       "OVERVIEW": "Overview",
-      "GROUPS": "Groups",
-      "SETTINGS": "Settings",
-      "ORGANIZATIONS": "Organizations",
+      "GROUPS": "My groups",
+      "SETTINGS": "My settings",
+      "ORGANIZATIONS": "My organizations",
       "DETAIL": "Detail",
       "ATTRIBUTES": "Attributes",
       "FACILITY_ATTRIBUTES": "Facility attributes",
@@ -1337,8 +1340,10 @@
       },
       "USER_DETAIL": {
         "GROUPS": {
-          "MEMBER_GROUPS": "Groups where you are member",
-          "ADMINS_GROUPS": "Groups where you are admin"
+          "YOU_ARE_MEMBER": "Groups where you are member",
+          "YOU_ARE_ADMIN": "Groups where you are admin",
+          "USER_IS_MEMBER": "Groups where user is member",
+          "USER_IS_ADMIN": "Groups where user is admin"
         }
       },
       "HOSTS_LIST" : {
@@ -1448,8 +1453,10 @@
       "ORGANIZATIONS": {
         "TITLE": "User organizations",
         "FILTER": "Filter by name or ID",
-        "IS_ADMIN": "Organizations where you are admin",
-        "IS_MEMBER": "Organizations where you are member"
+        "YOU_ARE_ADMIN": "Organizations where you are admin",
+        "YOU_ARE_MEMBER": "Organizations where you are member",
+        "USER_IS_ADMIN": "Organizations where user is admin",
+        "USER_IS_MEMBER": "Organizations where user is member"
       },
       "GROUPS": {
         "MEMBER_GROUPS": "Member groups",
