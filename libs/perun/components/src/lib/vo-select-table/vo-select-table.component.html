@@ -32,6 +32,11 @@
           </mat-icon>
         </td>
       </ng-container>
+      <ng-container matColumnDef="shortName">
+        <th mat-header-cell *matHeaderCellDef
+        mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.VO_SELECT_TABLE.SHORTNAME' | translate}}</th>
+        <td mat-cell *matCellDef="let vo">{{vo.shortName}}</td>
+      </ng-container>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef
             mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.VO_SELECT_TABLE.NAME' | translate}}</th>
