@@ -240,6 +240,11 @@ export class SideMenuItemService {
               label: 'MENU_ITEMS.FACILITY.MANAGERS',
               url: ['/facilities', facility.id, 'settings', 'managers'],
               activatedRegex: '/facilities/\\d+/settings/managers$'
+            },
+            {
+              label: 'MENU_ITEMS.FACILITY.BLACKLIST',
+              url: ['facilities', facility.id, 'settings', 'blacklist'],
+              activatedRegex: '/facilities/\\d+/settings/blacklist'
             }
           ],
           showChildrenRegex: '/facilities/\\d+/settings'

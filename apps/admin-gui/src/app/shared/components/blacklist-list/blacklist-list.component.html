@@ -1,0 +1,63 @@
+<div class="card mt-3">
+  <div class="card-body table-theme">
+    <perun-web-apps-table-options (exportEnd)="exporting = false" (exportStart)="exporting = true" [exporter]="exporter"></perun-web-apps-table-options>
+    <table
+      mat-table matTableExporter
+      [dataSource]="dataSource"
+      #exporter="matTableExporter"
+      matSort matSortActive="id"
+      matSortDirection="asc" matSortDisableClear
+      class="w-100">
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox color="primary"
+                        (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let banOnFacilityWithUser" class="static-column-size">
+          <mat-checkbox color="primary"
+                        (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(banOnFacilityWithUser) : null"
+                        [checked]="selection.isSelected(banOnFacilityWithUser)"
+                        [aria-label]="checkboxLabel(banOnFacilityWithUser)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="userId">
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header>{{'SHARED.COMPONENTS.BLACKLIST_LIST.USER_ID' | translate}}</th>
+        <td mat-cell class="static-column-size" *matCellDef="let banOnFacilityWithUser">{{banOnFacilityWithUser[1].id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header>{{'SHARED.COMPONENTS.BLACKLIST_LIST.NAME' | translate}}</th>
+        <td mat-cell *matCellDef="let banOnFacilityWithUser">{{parseFullName(banOnFacilityWithUser[1])}}</td>
+      </ng-container>
+      <ng-container matColumnDef="reason">
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header>{{'SHARED.COMPONENTS.BLACKLIST_LIST.REASON' | translate}}</th>
+        <td mat-cell *matCellDef="let banOnFacilityWithUser">{{banOnFacilityWithUser[0].description}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let banOnFacilityWithUser; columns: displayedColumns;"
+      >
+      </tr>
+    </table>
+    <mat-paginator
+      [length]="this.bansOnFacilitiesWithUsers.length"
+      [pageSize]="pageSize"
+      (page)="page.emit($event)"
+      [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+  </div>
+</div>
+
+<mat-spinner *ngIf="exporting" class="ml-auto mr-auto"></mat-spinner>

@@ -161,6 +161,7 @@ import { FacilitySelectTableComponent } from './components/facility-select-table
 import { UserDashboardComponent } from './components/user-detail-page/user-dashboard/user-dashboard.component';
 import { HostsListComponent } from './components/hosts-list/hosts-list.component';
 import { UserSettingsServiceIdentitiesComponent } from './components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
+import { BlacklistListComponent } from './components/blacklist-list/blacklist-list.component';
 
 @NgModule({
   imports: [
@@ -291,7 +292,8 @@ import { UserSettingsServiceIdentitiesComponent } from './components/user-detail
     DestinationListComponent,
     TwoEntityAttributePageComponent,
     FacilitySelectTableComponent,
-    HostsListComponent
+    HostsListComponent,
+    BlacklistListComponent
   ],
   declarations: [
     PerunNavComponent,
@@ -400,7 +402,8 @@ import { UserSettingsServiceIdentitiesComponent } from './components/user-detail
     FacilitySelectTableComponent,
     UserDashboardComponent,
     UserSettingsServiceIdentitiesComponent,
-    HostsListComponent
+    HostsListComponent,
+    BlacklistListComponent
   ],
   providers: [
     AnyToStringPipe,

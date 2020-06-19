@@ -125,6 +125,10 @@
         "CANCEL": "Cancel",
         "SUCCESS_DELETE": "Attributes deleted successfully",
         "SUCCESS_SAVE": "Attributes saved successfully"
+      },
+      "BLACKLIST": {
+        "TITLE": "Blacklist",
+        "FILTER": "Filter"
       }
     },
     "HOSTS": {
@@ -545,7 +549,8 @@
       "OWNERS": "Owners",
       "MANAGERS": "Managers",
       "SERVICES_DESTINATIONS": "Services destinations",
-      "HOSTS": "Hosts"
+      "HOSTS": "Hosts",
+      "BLACKLIST": "Blacklist"
     },
     "RESOURCE": {
       "OVERVIEW": "Overview",
@@ -1350,6 +1355,11 @@
         "TABLE_HOST_ID": "Host ID",
         "TABLE_HOST_NAME": "Host name",
         "NO_HOST_WARNING": "No hosts found"
+      },
+      "BLACKLIST_LIST": {
+        "USER_ID": "User ID",
+        "NAME": "Name",
+        "REASON": "Reason"
       }
     },
     "FOOTER": {
