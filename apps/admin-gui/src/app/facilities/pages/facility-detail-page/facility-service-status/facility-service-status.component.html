@@ -1,1 +1,28 @@
-<p>facility-service-status works!</p>
+<div>
+  <h1 class="page-subtitle">{{'FACILITY_DETAIL.SERVICES_STATUS.TITLE' | translate}}</h1>
+  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+  <button mat-flat-button color="accent" [disabled]="selected.selected.length === 0" (click)="forcePropagation()">
+    {{'FACILITY_DETAIL.SERVICES_STATUS.FORCE_PROPAGATION' | translate}}
+  </button>
+  <button mat-flat-button color="accent" (click)="allow()">
+    {{'FACILITY_DETAIL.SERVICES_STATUS.ALLOW' | translate}}
+  </button>
+  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0" (click)="block()">
+    {{'FACILITY_DETAIL.SERVICES_STATUS.BLOCK' | translate}}
+  </button>
+  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0" (click)="delete()">
+    {{'FACILITY_DETAIL.SERVICES_STATUS.DELETE' | translate}}
+  </button>
+  <perun-web-apps-immediate-filter
+      [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"
+      (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <perun-web-apps-services-status-list
+      [pageSize]="pageSize"
+      (page)="pageChanged($event)"
+      *ngIf="!loading"
+      [filterValue]="filterValue"
+      [servicesStatus]="servicesStates"
+      [selection]="selected">>
+  </perun-web-apps-services-status-list>
+</div>

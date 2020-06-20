@@ -623,7 +623,8 @@
       "SERVICES_DESTINATIONS": "Services destinations",
       "HOSTS": "Hosts",
       "BLACKLIST": "Blacklist",
-      "SECURITY_TEAMS": "Security teams"
+      "SECURITY_TEAMS": "Security teams",
+      "SERVICES_STATUS": "Services status"
     },
     "RESOURCE": {
       "OVERVIEW": "Overview",
