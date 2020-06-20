@@ -4,25 +4,26 @@
   <button mat-flat-button color="accent" [disabled]="selected.selected.length === 0" (click)="forcePropagation()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.FORCE_PROPAGATION' | translate}}
   </button>
-  <button mat-flat-button color="accent" (click)="allow()">
+  <button mat-flat-button color="accent" class="ml-2" [disabled]="selected.selected.length === 0 || this.disableAllowButton" (click)="allow()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.ALLOW' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0" (click)="block()">
+  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0 || this.disableBlockButton" (click)="block()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.BLOCK' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0" (click)="delete()">
+  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0 || this.disableDeleteTaskButton" (click)="delete()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.DELETE' | translate}}
   </button>
   <perun-web-apps-immediate-filter
-      [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"
+      [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TABLE_SEARCH'"
       (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-services-status-list
       [pageSize]="pageSize"
       (page)="pageChanged($event)"
+      (selectionChange)="selectionChanged()"
       *ngIf="!loading"
       [filterValue]="filterValue"
       [servicesStatus]="servicesStates"
-      [selection]="selected">>
+      [selection]="selected">
   </perun-web-apps-services-status-list>
 </div>

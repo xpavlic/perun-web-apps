@@ -41,14 +41,17 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
   @Input()
   pageSize = 10;
   @Input()
-  disableRouting = false;
+  disableRouting = true;
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
+  @Output()
+  selectionChange: EventEmitter<any> = new EventEmitter<any>();
+
   private sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'id', 'serviceName', 'status', 'blocked', 'started', 'ended'];
+  displayedColumns: string[] = ['select', 'task.id', 'service.name', 'status', 'blocked', 'task.startTime', 'task.endTime'];
   dataSource: MatTableDataSource<ServiceState>;
 
   exporting = false;
@@ -60,11 +63,58 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
     this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));
     this.dataSource = new MatTableDataSource<ServiceState>(this.servicesStatus);
     this.setDataSource();
+    this.dataSource.filterPredicate = (data, filter) => {
+      const transformedFilter = filter.trim().toLowerCase();
+
+      const listAsFlatString = (obj): string => {
+        let returnVal = '';
+
+        Object.values(obj).forEach((val) => {
+          if (typeof val !== 'object') {
+            returnVal = returnVal + ' ' + val;
+          } else if (val !== null) {
+            returnVal = returnVal + ' ' + listAsFlatString(val);
+          }
+        });
+
+        return returnVal.trim().toLowerCase();
+      };
+
+      return listAsFlatString(data).includes(transformedFilter);
+    };
     this.dataSource.filter = this.filterValue;
   }
 
   setDataSource() {
     if (!!this.dataSource) {
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'task.id':
+            if (item.task) {
+              return item.task.id;
+            } else {
+              return 0;
+            }
+          case 'service.name':
+            return item.service.name;
+          case 'blocked':
+            return item.blockedOnFacility;
+          case 'task.startTime':
+            if (item.task) {
+              return item.task.startTime;
+            } else {
+              return 0;
+            }
+          case 'task.endTime':
+            if (item.task) {
+              return item.task.endTime;
+            } else {
+              return 0;
+            }
+          default:
+            return item[property];
+        }
+      };
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }

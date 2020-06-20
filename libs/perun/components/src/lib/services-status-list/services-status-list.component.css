@@ -1,0 +1,20 @@
+.disable-outline{
+    outline: none !important;
+}
+
+.make-green {
+  background-color: #8fbc8f;
+}
+
+.make-lightyellow {
+  background-color: #ffffcc;
+}
+
+.make-yellow {
+  background-color: #f5fa75;
+}
+
+.make-red {
+  background-color: #fdc3c3;
+}
+

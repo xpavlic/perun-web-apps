@@ -68,8 +68,6 @@ import { ResourceAssignedServicesComponent } from './pages/resource-detail-page/
     FacilitySecurityTeamsComponent,
     ResourceSettingsManagersComponent,
     ResourceAssignedServicesComponent,
-    ResourceSettingsManagersComponent,
-    FacilitySecurityTeamsComponent,
     FacilityServiceStatusComponent
   ],
   imports: [

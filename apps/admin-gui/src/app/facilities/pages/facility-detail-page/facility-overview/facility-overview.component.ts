@@ -47,7 +47,7 @@ export class FacilityOverviewComponent implements OnInit {
         style: 'facility-btn'
       },
       {
-        cssIcon: 'perun-status',
+        cssIcon: 'perun-service-status',
         url: `/facilities/${this.facility.id}/services-status`,
         label: 'MENU_ITEMS.FACILITY.SERVICES_STATUS',
         style: 'facility-btn'

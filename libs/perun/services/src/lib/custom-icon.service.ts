@@ -137,10 +137,6 @@ export class CustomIconService {
       name: 'perun-hosts'
     },
     {
-      url: 'assets/img/PerunWebImages/apply3-blue.svg',
-      name: 'perun-status'
-    },
-    {
       url: 'assets/img/PerunWebImages/home-white.svg',
       name: 'perun-home-white'
     },
@@ -167,6 +163,10 @@ export class CustomIconService {
     {
       url: 'assets/img/PerunWebImages/resource-black.svg',
       name: 'perun-resource-black'
+    },
+    {
+      url: 'assets/img/PerunWebImages/service_status-grey.svg',
+      name: 'perun-service-status'
     }
   ];
 

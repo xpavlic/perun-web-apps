@@ -19,7 +19,7 @@ export interface AttributeDefinitionAllOf {
     displayName?: string;
     writable?: boolean;
     unique?: boolean;
-    readonly FriendlyNameParameter?: string;
+    readonly friendlyNameParameter?: string;
     readonly baseFriendlyName?: string;
     readonly entity?: string;
 }

@@ -162,6 +162,18 @@
       "ADD": "Add",
       "REMOVE": "Remove",
       "FILTER": "Filter"
+    },
+    "SERVICES_STATUS": {
+      "TITLE": "Services status",
+      "FORCE_PROPAGATION": "Force propagation",
+      "ALLOW": "Allow",
+      "BLOCK": "Block",
+      "DELETE": "Delete Task",
+      "SUCCESS_FORCE_PROPAGATION": "Service propagation forced",
+      "SUCCESS_ALLOW": "Services allowed",
+      "SUCCESS_BLOCK": "Services blocked",
+      "SUCCESS_DELETE": "Tasks deleted",
+      "ALREADY_DELETED": "Task was already deleted"
     }
   },
   "RESOURCE_DETAIL": {
@@ -1790,6 +1802,17 @@
         "SHOW_VALUE": {
           "CLOSE": "Close",
           "COPY": "Copy to clipboard"
+        },
+        "SERVICES_STATUS_LIST": {
+          "TABLE_SEARCH": "Filter by service name, id or state",
+          "TASK_ID": "Task ID",
+          "SERVICE_NAME": "Service",
+          "STATUS": "Status",
+          "BLOCKED": "Blocked",
+          "STARTED": "Started",
+          "ENDED": "Ended",
+          "NO_SERVICES_STATUS_WARNING": "No service configuration was propagated to this facility.",
+          "NOT_YET": "NOT YET"
         }
       },
       "ORGANIZATIONS": {

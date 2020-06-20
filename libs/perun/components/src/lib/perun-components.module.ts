@@ -117,9 +117,6 @@ import { ServicesStatusListComponent } from './services-status-list/services-sta
     EditGroupDialogComponent,
     GroupSyncDetailDialogComponent,
     GroupsTreeComponent,
-    ShowValueDialogComponent,
-    PasswordResetComponent,
-    CreateAttributeDialogComponent,
     ServicesStatusListComponent
   ],
   exports: [
@@ -148,8 +145,6 @@ import { ServicesStatusListComponent } from './services-status-list/services-sta
     GroupSyncDetailDialogComponent,
     EditGroupDialogComponent,
     GroupsTreeComponent,
-    PasswordResetComponent,
-    CreateAttributeDialogComponent,
     ServicesStatusListComponent
   ]
 })
