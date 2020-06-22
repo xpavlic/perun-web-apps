@@ -20,8 +20,9 @@
                [opened]="!isMobile()"
                [fixedInViewport]="true"
                [fixedTopGap]="getTopGap()">
-
-    <app-side-menu [sideNav]="sidenav"></app-side-menu>
+    <perfect-scrollbar [ngStyle]="{'background': sideMenubackgroundColor}" [scrollIndicators]="true">
+      <app-side-menu [sideNav]="sidenav"></app-side-menu>
+    </perfect-scrollbar>
   </mat-sidenav>
 
   <mat-sidenav-content id="content-inner"
