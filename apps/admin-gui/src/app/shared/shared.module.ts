@@ -166,6 +166,9 @@ import { AddUserExtSourceDialogComponent } from './components/dialogs/add-user-e
 import { SecurityTeamsListComponent } from './components/security-teams-list/security-teams-list.component';
 import { AddHostDialogComponent } from './components/dialogs/add-host-dialog/add-host-dialog.component';
 import { RemoveHostDialogComponent } from './components/dialogs/remove-host-dialog/remove-host-dialog.component';
+import { OwnersListComponent } from './components/owners-list/owners-list.component';
+import { AddFacilityOwnerDialogComponent } from './components/dialogs/add-facility-owner-dialog/add-facility-owner-dialog.component';
+import { RemoveFacilityOwnerDialogComponent } from './components/dialogs/remove-facility-owner-dialog/remove-facility-owner-dialog.component';
 
 @NgModule({
   imports: [
@@ -297,7 +300,8 @@ import { RemoveHostDialogComponent } from './components/dialogs/remove-host-dial
     TwoEntityAttributePageComponent,
     FacilitySelectTableComponent,
     HostsListComponent,
-    SecurityTeamsListComponent
+    SecurityTeamsListComponent,
+    OwnersListComponent
   ],
   declarations: [
     PerunNavComponent,
@@ -411,7 +415,10 @@ import { RemoveHostDialogComponent } from './components/dialogs/remove-host-dial
     AddUserExtSourceDialogComponent,
     SecurityTeamsListComponent,
     AddHostDialogComponent,
-    RemoveHostDialogComponent
+    RemoveHostDialogComponent,
+    OwnersListComponent,
+    AddFacilityOwnerDialogComponent,
+    RemoveFacilityOwnerDialogComponent
   ],
   providers: [
     AnyToStringPipe,
