@@ -132,6 +132,12 @@
       "ADD": "Add",
       "REMOVE": "Remove",
       "FILTER": "Filter"
+    },
+    "SECURITY_TEAMS": {
+      "TITLE": "Security teams",
+      "ADD": "Add",
+      "REMOVE": "Remove",
+      "FILTER": "Filter"
     }
   },
   "RESOURCE_DETAIL": {
@@ -545,7 +551,8 @@
       "OWNERS": "Owners",
       "MANAGERS": "Managers",
       "SERVICES_DESTINATIONS": "Services destinations",
-      "HOSTS": "Hosts"
+      "HOSTS": "Hosts",
+      "SECURITY_TEAMS":  "Security teams"
     },
     "RESOURCE": {
       "OVERVIEW": "Overview",
@@ -1350,6 +1357,12 @@
         "TABLE_HOST_ID": "Host ID",
         "TABLE_HOST_NAME": "Host name",
         "NO_HOST_WARNING": "No hosts found"
+      },
+      "SECURITY_TEAMS_LIST": {
+        "ID": "id",
+        "NAME": "name",
+        "DESCRIPTION": "description",
+        "NO_SECURITY_TEAMS_WARNING": "No security teams found"
       }
     },
     "FOOTER": {
