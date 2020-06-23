@@ -45,7 +45,7 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
-  displayedColumns: string[] = ['select', 'userId', "name", "reason"];
+  displayedColumns: string[] = ['select', 'userId', 'name', 'reason'];
   dataSource: MatTableDataSource<[BanOnFacility, User]>;
 
   exporting = false;
@@ -89,7 +89,7 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row[0].userId + 1}`;
   }
 
-  parseFullName = (user : User) => {
+  parseFullName = (user: User) => {
     return parseFullName(user);
   };
 

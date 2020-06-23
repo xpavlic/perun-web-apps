@@ -1,6 +1,7 @@
 <div class="card mt-3">
   <div class="card-body table-theme">
-    <perun-web-apps-table-options (exportEnd)="exporting = false" (exportStart)="exporting = true" [exporter]="exporter"></perun-web-apps-table-options>
+    <perun-web-apps-table-options (exportEnd)="exporting = false" (exportStart)="exporting = true"
+                                  [exporter]="exporter"></perun-web-apps-table-options>
     <table
       mat-table matTableExporter
       [dataSource]="dataSource"
@@ -31,7 +32,8 @@
       <ng-container matColumnDef="userId">
         <th mat-header-cell *matHeaderCellDef
             mat-sort-header>{{'SHARED.COMPONENTS.BLACKLIST_LIST.USER_ID' | translate}}</th>
-        <td mat-cell class="static-column-size" *matCellDef="let banOnFacilityWithUser">{{banOnFacilityWithUser[1].id}}</td>
+        <td mat-cell class="static-column-size"
+            *matCellDef="let banOnFacilityWithUser">{{banOnFacilityWithUser[1].id}}</td>
       </ng-container>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef

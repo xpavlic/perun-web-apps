@@ -23,20 +23,23 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
               private facilitiesManager: FacilitiesManagerService,
               private usersManager: UsersManagerService,
               private tableConfigService: TableConfigService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   facility: Facility;
   bansOnFacilitiesWithUsers: [BanOnFacility, User][] = [];
-  selected = new SelectionModel<[BanOnFacility, User]>();
-  filterValue='';
+  selected = new SelectionModel<[BanOnFacility, User]>(true, []);
+  filterValue = '';
   loading: boolean;
   pageSize: number;
   tableId = TABLE_FACILITY_BLACKLIST_LIST;
 
 
   ngOnInit(): void {
-    this.route.parent.params.subscribe(parentParams => {
-      const facilityId = parentParams['facilityId'];
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
+
+    this.route.parent.parent.params.subscribe(parentParentParams => {
+      const facilityId = parentParentParams['facilityId'];
       this.facilitiesManager.getFacilityById(facilityId).subscribe(facility => {
         this.facility = facility;
 
@@ -47,14 +50,15 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.facilitiesManager.getBansForFacility(this.facility.id).subscribe( bansOnFacility => {
-      for(let ban : BanOnFacility in bansOnFacility) {
+    this.facilitiesManager.getBansForFacility(this.facility.id).subscribe(bansOnFacility => {
+      let listOfBans: BanOnFacility[] = bansOnFacility;
+      for (let ban: BanOnFacility in listOfBans) {
         if (bansOnFacility.hasOwnProperty(ban)) {
-          let user : User;
-          this.usersManager.getUserById(ban.userId).subscribe( subscriptionUser => {
+          let user: User;
+          this.usersManager.getUserById(ban.userId).subscribe(subscriptionUser => {
             user = subscriptionUser;
           });
-          this.bansOnFacilitiesWithUsers.push([ban, user])
+          this.bansOnFacilitiesWithUsers.push([ban, user]);
         }
       }
       this.selected.clear();

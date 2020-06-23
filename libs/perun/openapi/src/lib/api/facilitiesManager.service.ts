@@ -203,7 +203,7 @@ export class FacilitiesManagerService {
 
     /**
      * Add all contacts in the contact group
-     * @param inputAddFacilityContact 
+     * @param inputAddFacilityContact
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -265,7 +265,7 @@ export class FacilitiesManagerService {
 
     /**
      * Add all contacts in list of facilities contact groups
-     * @param inputAddFacilityContacts 
+     * @param inputAddFacilityContacts
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -1757,7 +1757,7 @@ export class FacilitiesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-            queryParameters = queryParameters.set('facility', <any>facility);
+            queryParameters = queryParameters.set('facilityId', <any>facility);
         }
 
         let headers = this.defaultHeaders;
@@ -2204,7 +2204,7 @@ export class FacilitiesManagerService {
     }
 
     /**
-     * Get list of all facility administrators for supported role and given facility. If onlyDirectAdmins is true, return only direct admins of the group for supported role. Supported roles: FacilityAdmin 
+     * Get list of all facility administrators for supported role and given facility. If onlyDirectAdmins is true, return only direct admins of the group for supported role. Supported roles: FacilityAdmin
      * @param facility id of Facility
      * @param onlyDirectAdmins if true, get only direct facility administrators (if false, get both direct and indirect)
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -3517,7 +3517,7 @@ export class FacilitiesManagerService {
 
     /**
      * Remove all contacts in the contact group
-     * @param inputRemoveFacilityContact 
+     * @param inputRemoveFacilityContact
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -3579,7 +3579,7 @@ export class FacilitiesManagerService {
 
     /**
      * Remove all contacts in list of facilities contact groups
-     * @param inputRemoveFacilityContacts 
+     * @param inputRemoveFacilityContacts
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -3900,7 +3900,7 @@ export class FacilitiesManagerService {
 
     /**
      * Set ban for user on facility.
-     * @param inputSetBanForUserOnFacility 
+     * @param inputSetBanForUserOnFacility
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -3962,7 +3962,7 @@ export class FacilitiesManagerService {
 
     /**
      * Updates a facility.
-     * @param inputUpdateFacility 
+     * @param inputUpdateFacility
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -4024,7 +4024,7 @@ export class FacilitiesManagerService {
 
     /**
      * Update existing ban (description, validation timestamp)
-     * @param inputUpdateBanForFacility 
+     * @param inputUpdateBanForFacility
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
