@@ -60,12 +60,7 @@ import { StringListComponent } from './components/string-list/string-list.compon
 import { RemoveAltPasswordDialogComponent } from './components/dialogs/remove-alt-password-dialog/remove-alt-password-dialog.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { RequestChangeDataQuotaDialogComponent } from './components/dialogs/request-change-data-quota-dialog/request-change-data-quota-dialog.component';
-import { UserExtSourcesListComponent } from './components/user-ext-sources-list/user-ext-sources-list.component';
-import { ParseLastAccessPipe } from './pipes/parse-last-access.pipe';
-import { GetMailFromAttributesPipe } from './pipes/get-mail-from-attributes.pipe';
-import { RemoveUserExtSourceDialogComponent } from './components/dialogs/remove-user-ext-source-dialog/remove-user-ext-source-dialog.component';
 import { PerunPipesModule, UserFullNamePipe } from '@perun-web-apps/perun/pipes';
-import { CustomTranslatePipe } from './pipes/custom-translate.pipe';
 import { MembershipListComponent } from './components/membership-list/membership-list.component';
 import { ValidateExpirationPipe } from './pipes/validate-expiration.pipe';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -129,11 +124,6 @@ const loadConfigs = (appConfig: UserProfileConfigService) => {
     StringListComponent,
     RemoveAltPasswordDialogComponent,
     RequestChangeDataQuotaDialogComponent,
-    UserExtSourcesListComponent,
-    ParseLastAccessPipe,
-    GetMailFromAttributesPipe,
-    RemoveUserExtSourceDialogComponent,
-    CustomTranslatePipe,
     MembershipListComponent,
     ValidateExpirationPipe,
     ShowSshDialogComponent,

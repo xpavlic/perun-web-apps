@@ -468,6 +468,11 @@ export class SideMenuItemService {
           activatedRegex: `${regex}/groups`
         },
         {
+          label: 'MENU_ITEMS.USER.IDENTITIES',
+          url: [`${path}/identities`],
+          activatedRegex: `${regex}/identities`
+        },
+        {
           label: 'MENU_ITEMS.ADMIN.SETTINGS',
           url: [`${path}/settings`],
           activatedRegex: `${regex}/settings$`,

@@ -1,0 +1,23 @@
+.column-size{
+  width: 10rem !important;
+  font-weight: bold;
+}
+
+.center-self{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.auto-width{
+  .mat-form-field {
+    width: auto !important;
+  }
+  .mat-select-value {
+    max-width: 100%;
+    width: auto;
+  }
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
+}

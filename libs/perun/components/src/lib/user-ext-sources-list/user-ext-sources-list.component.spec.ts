@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserExtSourcesListComponent } from './user-ext-sources-list.component';
+import { UserExtSourcesListComponent } from '@perun-web-apps/perun/components';
 
 describe('UserExtSourcesListComponent', () => {
   let component: UserExtSourcesListComponent;

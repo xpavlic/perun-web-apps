@@ -43,6 +43,8 @@ import { NotificationComponent } from './notification/notification.component';
 import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
 import { BugReportDialogComponent } from './bug-report-dialog/bug-report-dialog.component';
 import { AutoFocusDirective } from '@perun-web-apps/perun/directives';
+import { UserExtSourcesListComponent } from './user-ext-sources-list/user-ext-sources-list.component';
+import { RemoveUserExtSourceDialogComponent } from './remove-user-ext-source-dialog/remove-user-ext-source-dialog.component';
 
 
 @NgModule({
@@ -93,7 +95,9 @@ import { AutoFocusDirective } from '@perun-web-apps/perun/directives';
     NotificationComponent,
     NotificationDialogComponent,
     BugReportDialogComponent,
-    AutoFocusDirective
+    AutoFocusDirective,
+    UserExtSourcesListComponent,
+    RemoveUserExtSourceDialogComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -112,7 +116,9 @@ import { AutoFocusDirective } from '@perun-web-apps/perun/directives';
     ResourcesListComponent,
     MenuButtonsFieldComponent,
     NotificationComponent,
-    AutoFocusDirective
+    AutoFocusDirective,
+    UserExtSourcesListComponent,
+    RemoveUserExtSourceDialogComponent
   ]
 })
 export class PerunSharedComponentsModule {

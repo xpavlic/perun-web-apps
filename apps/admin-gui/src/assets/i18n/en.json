@@ -609,7 +609,8 @@
       "TITLE": "User - ",
       "ROLES": "Roles",
       "GUI_CONFIG": "Gui configuration",
-      "SERVICE_IDENTITIES": "Service Identities"
+      "SERVICE_IDENTITIES": "Service Identities",
+      "IDENTITIES": "Identities"
     }
   },
   "DIALOGS": {
@@ -1168,6 +1169,16 @@
       "CANCEL": "Cancel",
       "ADD": "Add",
       "SUCCESS": "Resources successfully added"
+    },
+    "ADD_USER_EXT_SOURCE": {
+      "TITLE": "Add user ext source",
+      "ADD": "Add",
+      "CANCEL": "Cancel",
+      "SUCCESS": "User external source has been added",
+      "LOGIN": "Login:",
+      "LOA": "Level of assurance:",
+      "EXT_SOURCE": "External source:",
+      "LOA_INFO": "0 - not verified = default\n1 - verified email\n2 - verified identity\n3 - verified identity, strict password strength"
     }
   },
   "MEMBERS_LIST": {
@@ -1274,6 +1285,11 @@
       "MY_GROUPS": "Your groups",
       "MY_FACILITIES": "Your facilities",
       "FILTER": "Filter"
+    },
+    "IDENTITIES": {
+      "TITLE": "Identities",
+      "ADD": "Add",
+      "REMOVE": "Remove"
     },
     "SETTINGS": {
       "ATTRIBUTES": {
@@ -1451,6 +1467,15 @@
             "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed."
           }
         },
+        "USER_EXT_SOURCES_LIST": {
+          "MAIL": "Email",
+          "EXT_SOURCE_NAME": "Federated identity",
+          "LOGIN": "Login",
+          "LAST_ACCESS": "Last access",
+          "NO_IDENTITIES": "No external identities found",
+          "ID": "Id",
+          "LOA": "Level of assurance"
+        },
         "BUG_REPORT": {
           "TITLE": "Report a bug",
           "SUBJECT": "Subject",
@@ -1462,6 +1487,14 @@
           "CANCEL": "Cancel",
           "SEND": "Send",
           "SUCCESS": "Bug report send"
+        },
+        "REMOVE_USER_EXT_SOURCE": {
+          "TITLE": "Remove user's external identity",
+          "DESCRIPTION": "Following external identity will be removed",
+          "ASK": "Are you sure you want to continue?",
+          "CANCEL": "Cancel",
+          "REMOVE": "Remove",
+          "SUCCESS": "User external source successfully removed"
         }
       },
       "ORGANIZATIONS": {
