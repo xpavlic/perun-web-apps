@@ -13,7 +13,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
-  selector: 'perun-web-apps-facility-settings-blacklist',
+  selector: 'app-perun-web-apps-facility-settings-blacklist',
   templateUrl: './facility-settings-blacklist.component.html',
   styleUrls: ['./facility-settings-blacklist.component.scss']
 })
@@ -51,20 +51,17 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
   refreshTable() {
     this.loading = true;
     this.facilitiesManager.getBansForFacility(this.facility.id).subscribe(bansOnFacility => {
-      let listOfBans: BanOnFacility[] = bansOnFacility;
-      for (let ban: BanOnFacility in listOfBans) {
-        if (bansOnFacility.hasOwnProperty(ban)) {
-          let user: User;
-          this.usersManager.getUserById(ban.userId).subscribe(subscriptionUser => {
-            user = subscriptionUser;
-          });
-          this.bansOnFacilitiesWithUsers.push([ban, user]);
-        }
+      const listOfBans: BanOnFacility[] = bansOnFacility;
+      for (const ban of listOfBans) {
+        let user: User;
+        this.usersManager.getUserById(ban.userId).subscribe(subscriptionUser => {
+          user = subscriptionUser;
+        });
+        this.bansOnFacilitiesWithUsers.push([ban, user]);
       }
       this.selected.clear();
       this.loading = false;
     });
-    this.loading = false;
   }
 
   applyFilter(filterValue: string) {

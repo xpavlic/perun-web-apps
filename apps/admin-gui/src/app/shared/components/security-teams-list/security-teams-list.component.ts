@@ -8,24 +8,21 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
+import { SecurityTeam } from '@perun-web-apps/perun/openapi';
 import { MatSort } from '@angular/material/sort';
-import { BanOnFacility, User } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { parseFullName, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
-  selector: 'app-perun-web-apps-blacklist-list',
-  templateUrl: './blacklist-list.component.html',
-  styleUrls: ['./blacklist-list.component.scss']
+  selector: 'app-security-teams-list',
+  templateUrl: './security-teams-list.component.html',
+  styleUrls: ['./security-teams-list.component.scss']
 })
-export class BlacklistListComponent implements AfterViewInit, OnChanges {
+export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
 
-  private sort: MatSort;
-
-  constructor() {
-  }
+  constructor() { }
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -33,20 +30,21 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
   }
 
   @Input()
-  bansOnFacilitiesWithUsers: [BanOnFacility, User][] = [];
+  securityTeams: SecurityTeam[] = [];
   @Input()
-  selection = new SelectionModel<[BanOnFacility, User]>(true, []);
+  selection = new SelectionModel<SecurityTeam>(true, []);
   @Input()
   filterValue: string;
-
   @Input()
   pageSize = 10;
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
-  displayedColumns: string[] = ['select', 'userId', 'name', 'reason'];
-  dataSource: MatTableDataSource<[BanOnFacility, User]>;
+  private sort: MatSort;
+
+  displayedColumns: string[] = ['select', 'id', "name", "description"];
+  dataSource: MatTableDataSource<SecurityTeam>;
 
   exporting = false;
 
@@ -54,7 +52,7 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges(changes: SimpleChanges) {
-    this.dataSource = new MatTableDataSource<[BanOnFacility, User]>(this.bansOnFacilitiesWithUsers);
+    this.dataSource = new MatTableDataSource<SecurityTeam>(this.securityTeams);
     this.setDataSource();
     this.dataSource.filter = this.filterValue;
   }
@@ -82,19 +80,14 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: [BanOnFacility, User]): string {
+  checkboxLabel(row?: SecurityTeam): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row[0].userId + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
-
-  parseFullName = (user: User) => {
-    return parseFullName(user);
-  };
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 }
-
