@@ -131,7 +131,13 @@
       "TITLE": "Hosts",
       "ADD": "Add",
       "REMOVE": "Remove",
-      "FILTER": "Filter"
+      "FILTER": "Filter",
+      "HOSTS_DETAIL": {
+        "TITLE": "Host detail - ",
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "SAVE": "Save"
+      }
     },
     "SECURITY_TEAMS": {
       "TITLE": "Security teams",
@@ -552,7 +558,7 @@
       "MANAGERS": "Managers",
       "SERVICES_DESTINATIONS": "Services destinations",
       "HOSTS": "Hosts",
-      "SECURITY_TEAMS":  "Security teams"
+      "SECURITY_TEAMS": "Security teams"
     },
     "RESOURCE": {
       "OVERVIEW": "Overview",

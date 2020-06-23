@@ -28,6 +28,7 @@ export class FacilityHostsComponent implements OnInit {
   }
 
   facility: Facility;
+  facilityId: number
   hosts: Host[] = [];
   selected = new SelectionModel<Host>(true, []);
   loading: boolean;
@@ -38,8 +39,8 @@ export class FacilityHostsComponent implements OnInit {
   ngOnInit(): void {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
-      const facilityId = parentParams['facilityId'];
-      this.facilitiesManager.getFacilityById(facilityId).subscribe(facility => {
+      this.facilityId = parentParams['facilityId'];
+      this.facilitiesManager.getFacilityById(this.facilityId).subscribe(facility => {
         this.facility = facility;
         this.refreshTable();
       });
@@ -48,7 +49,7 @@ export class FacilityHostsComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.facilitiesManager.getHosts(this.facility.id).subscribe(hosts => {
+    this.facilitiesManager.getHosts(this.facilityId).subscribe(hosts => {
       this.hosts = hosts;
       this.selected.clear();
       this.loading = false;
