@@ -707,6 +707,64 @@ export class UsersManagerService {
     }
 
     /**
+     * Return list of email addresses of user, which are awaiting validation and are inside time window for validation. If there is no preferred email change request pending or requests are outside time window for validation, returns empty list.
+     * @param user id of User
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getPendingPreferredEmailChanges(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
+    public getPendingPreferredEmailChanges(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
+    public getPendingPreferredEmailChanges(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
+    public getPendingPreferredEmailChanges(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (user === null || user === undefined) {
+            throw new Error('Required parameter user was null or undefined when calling getPendingPreferredEmailChanges.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (user !== undefined && user !== null) {
+            queryParameters = queryParameters.set('user', <any>user);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<string>>(`${this.configuration.basePath}/json/usersManager/getPendingPreferredEmailChanges`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Gets list of all user\&#39;s external sources with attributes.
      * @param user id of User
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -1251,6 +1309,79 @@ export class UsersManagerService {
 
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/requestPreferredEmailChange`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Validate new preferred email address. Request to validate is determined based on encrypted parameters sent in email notice by requestPreferredEmailChange() method.
+     * @param i encrypted request parameter
+     * @param m encrypted request parameter
+     * @param u id of user you want to validate preferred email request
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public validatePreferredEmailChange(i: string, m: string, u: number, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public validatePreferredEmailChange(i: string, m: string, u: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public validatePreferredEmailChange(i: string, m: string, u: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public validatePreferredEmailChange(i: string, m: string, u: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (i === null || i === undefined) {
+            throw new Error('Required parameter i was null or undefined when calling validatePreferredEmailChange.');
+        }
+        if (m === null || m === undefined) {
+            throw new Error('Required parameter m was null or undefined when calling validatePreferredEmailChange.');
+        }
+        if (u === null || u === undefined) {
+            throw new Error('Required parameter u was null or undefined when calling validatePreferredEmailChange.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (i !== undefined && i !== null) {
+            queryParameters = queryParameters.set('i', <any>i);
+        }
+        if (m !== undefined && m !== null) {
+            queryParameters = queryParameters.set('m', <any>m);
+        }
+        if (u !== undefined && u !== null) {
+            queryParameters = queryParameters.set('u', <any>u);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<string>(`${this.configuration.basePath}/urlinjsonout/usersManager/validatePreferredEmailChange`,
             null,
             {
                 params: queryParameters,
