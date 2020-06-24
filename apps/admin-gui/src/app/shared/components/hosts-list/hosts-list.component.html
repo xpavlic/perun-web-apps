@@ -43,6 +43,7 @@
       <tr
         mat-row
         *matRowDef="let host; columns: displayedColumns;"
+        (click)="selectHost(host)"
         >
       </tr>
     </table>

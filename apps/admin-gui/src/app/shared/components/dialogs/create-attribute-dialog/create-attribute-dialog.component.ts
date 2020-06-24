@@ -252,6 +252,14 @@ export class CreateAttributeDialogComponent implements OnInit {
           this.handleSuccess();
         });
         break;
+      case 'host':
+        this.attributesManager.setHostAttributes({
+          host: this.data.entityId,
+          attributes: this.selected.selected
+        }).subscribe(() => {
+          this.handleSuccess();
+        });
+        break;
     }
   }
 
