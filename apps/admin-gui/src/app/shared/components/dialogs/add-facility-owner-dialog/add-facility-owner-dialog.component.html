@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>{{'DIALOGS.ADD_OWNERS.TITLE' | translate}}</h1>
+<div class="{{theme}}">
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+
+  <div *ngIf="!loading">
+    <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'DIALOGS.ADD_OWNERS.FILTER'"
+                                     class="font-size-1rem"></perun-web-apps-immediate-filter>
+
+    <div mat-dialog-content>
+      <app-owners-list [filterValue]="filterValue" [owners]="owners" [selection]="selection"></app-owners-list>
+    </div>
+
+
+    <div mat-dialog-actions>
+      <button
+        (click)="onCancel()"
+        class="ml-auto"
+        mat-flat-button>
+        {{'DIALOGS.ADD_OWNERS.CANCEL' | translate}}
+      </button>
+
+      <button
+        (click)="onAdd()"
+        [disabled]="selection.selected.length === 0"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.ADD_OWNERS.ADD' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

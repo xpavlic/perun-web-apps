@@ -125,6 +125,12 @@
         "CANCEL": "Cancel",
         "SUCCESS_DELETE": "Attributes deleted successfully",
         "SUCCESS_SAVE": "Attributes saved successfully"
+      },
+      "OWNERS": {
+        "TITLE": "Owners",
+        "ADD": "Add",
+        "DELETE": "Delete",
+        "NO_OWNERS": "This facility does not have any owners"
       }
     },
     "HOSTS": {
@@ -1197,6 +1203,21 @@
       "CANCEL": "Cancel",
       "ASK": "Do you want to proceed?",
       "SUCCESS": "Removed hosts."
+    },
+    "ADD_OWNERS": {
+      "TITLE": "Add facility owners",
+      "FILTER": "Filter by id, name, contact or type",
+      "CANCEL": "Cancel",
+      "ADD": "Add",
+      "SUCCESS": "Owners were successfully added"
+    },
+    "REMOVE_OWNERS": {
+      "TITLE": "Remove facility owners",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete",
+      "DESCRIPTION": "Following facility owners will be removed.",
+      "ASK": "Are you sure you want to proceed?",
+      "SUCCESS": "Owners were successfully removed"
     }
   },
   "MEMBERS_LIST": {
@@ -1391,6 +1412,13 @@
         "TABLE_HOST_ID": "Host ID",
         "TABLE_HOST_NAME": "Host name",
         "NO_HOST_WARNING": "No hosts found"
+      },
+      "OWNERS_LIST": {
+        "ID": "Id",
+        "NAME": "Name",
+        "CONTACT": "Contact",
+        "TYPE": "Type",
+        "NO_OWNERS": "No owners match the given filter"
       },
       "SECURITY_TEAMS_LIST": {
         "ID": "id",
