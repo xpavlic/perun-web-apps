@@ -79,11 +79,6 @@ const routes: Routes = [
             data: { animation: 'UserRolesPage' }
           },
           {
-            path: 'service-identities',
-            component: UserSettingsServiceIdentitiesComponent,
-            data: {animation: 'UserServiceIdentities'}
-          },
-          {
             path: 'gui-config',
             component: UserSettingsAppConfigurationComponent,
             data: {animation: 'UserAppConfigurationPage'}
