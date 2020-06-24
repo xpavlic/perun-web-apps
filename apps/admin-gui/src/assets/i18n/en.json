@@ -1179,6 +1179,24 @@
       "LOA": "Level of assurance:",
       "EXT_SOURCE": "External source:",
       "LOA_INFO": "0 - not verified = default\n1 - verified email\n2 - verified identity\n3 - verified identity, strict password strength"
+    },
+    "ADD_HOST": {
+      "TITLE": "Add hosts",
+      "ADD": "Add",
+      "CANCEL": "Cancel",
+      "SUBTITLE": "Hostnames",
+      "HINT": "Enter one host per line. You can use \"[x-y]\" in hostname to generate hosts with numbers from x to y. This replacer can be specified multiple times in one hostname to generate MxN combinations.",
+      "WARNING": "Please enter at least one hostname to add it to facility.",
+      "SUCCESS": "Added hosts."
+    },
+    "REMOVE_HOST": {
+      "TITLE": "Confirm removal",
+      "WARNING": "Removing host(s) won't stop services propagation. For this please remove proper 'Services destinations'.",
+      "DESCRIPTION": "Following hosts will be removed from facility.",
+      "CONFIRM": "Delete",
+      "CANCEL": "Cancel",
+      "ASK": "Do you want to proceed?",
+      "SUCCESS": "Removed hosts."
     }
   },
   "MEMBERS_LIST": {

@@ -164,6 +164,8 @@ import { UserSettingsServiceIdentitiesComponent } from './components/user-detail
 import { UserIdentitiesComponent } from './components/user-detail-page/user-identities/user-identities.component';
 import { AddUserExtSourceDialogComponent } from './components/dialogs/add-user-ext-source-dialog/add-user-ext-source-dialog.component';
 import { SecurityTeamsListComponent } from './components/security-teams-list/security-teams-list.component';
+import { AddHostDialogComponent } from './components/dialogs/add-host-dialog/add-host-dialog.component';
+import { RemoveHostDialogComponent } from './components/dialogs/remove-host-dialog/remove-host-dialog.component';
 
 @NgModule({
   imports: [
@@ -407,7 +409,9 @@ import { SecurityTeamsListComponent } from './components/security-teams-list/sec
     HostsListComponent,
     UserIdentitiesComponent,
     AddUserExtSourceDialogComponent,
-    SecurityTeamsListComponent
+    SecurityTeamsListComponent,
+    AddHostDialogComponent,
+    RemoveHostDialogComponent
   ],
   providers: [
     AnyToStringPipe,
