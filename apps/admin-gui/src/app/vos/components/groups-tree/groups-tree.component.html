@@ -18,6 +18,18 @@
           #{{group.id}}
         </div>
       </div>
+      <div
+          #tooltip="matTooltip"
+          [matTooltip]="group | groupSyncToolTip | translate"
+          [matTooltipPosition]="'above'">
+        <button mat-icon-button
+            [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
+            (click)="onSyncDetail(group)">
+          <mat-icon class="{{group | groupSyncIconColor}}">
+            {{group | groupSyncIcon}}
+          </mat-icon>
+        </button>
+      </div>
       <perun-web-apps-group-menu
         [disabled]="group.fullName === 'members'"
         (moveGroup)="onMoveGroup(group)"
@@ -47,6 +59,18 @@
         <div class="text-muted">
           #{{group.id}}
         </div>
+      </div>
+      <div
+        #tooltip="matTooltip"
+        [matTooltip]="group | groupSyncToolTip | translate"
+        [matTooltipPosition]="'above'">
+        <button mat-icon-button
+                [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
+                (click)="onSyncDetail(group)">
+          <mat-icon class="{{group | groupSyncIconColor}}">
+            {{group | groupSyncIcon}}
+          </mat-icon>
+        </button>
       </div>
       <perun-web-apps-group-menu
         [disabled]="group.fullName === 'members'"

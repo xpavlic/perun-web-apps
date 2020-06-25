@@ -220,7 +220,12 @@
       "TITLE_SUBGROUPS": "Subgroups",
       "LIST_VIEW": "List view",
       "FILTER": "Filter",
-      "NO_GROUPS": "No groups found"
+      "NO_GROUPS": "No groups found",
+      "GROUP_SYNCED": "Synchronized",
+      "GROUP_NOT_SYNCED": "Not synchronized",
+      "GROUP_SYNC_FAILED": "Last synchronization failed",
+      "GROUP_NOT_YET_SYNCED": "Not yet synced",
+      "GROUP_STRUCTURE_SYNCED": "Group structure synchronized"
     },
     "MEMBERS": {
       "TITLE": "Members",
@@ -626,6 +631,18 @@
     }
   },
   "DIALOGS": {
+    "GROUP_SYNC_DETAIL": {
+      "TITLE": "Group synchronization detail",
+      "FORCE": "Force synchronization",
+      "FORCE_SUCCESS": "Synchronization forced",
+      "CANCEL": "Close",
+      "NORMAL_SYNC": "Basic synchronization",
+      "STRUCT_SYNC": "Structured synchronization",
+      "GROUP_NAME": "Group name: ",
+      "SYNCHRONIZATION": "Synchronization: ",
+      "LAST_SYNC_STATE": "Last synchronization state: ",
+      "LAST_SYNC_TIME": "Last synchronization time: "
+    },
     "IMPORT_ATTRIBUTE": {
       "INFO": "To import an attribute, you have to paste the content, which you copied on the attribute definitions detail dialog.",
       "HINT": "Paste the copied content here",
