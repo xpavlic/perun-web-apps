@@ -23,6 +23,11 @@ import { ApiModule, Configuration, ConfigurationParameters } from '@perun-web-ap
 import { StoreService } from '@perun-web-apps/perun/services';
 import { ApiInterceptor } from '@perun-web-apps/perun/services';
 import { GeneralModule } from '@perun-web-apps/general';
+import {
+  PERFECT_SCROLLBAR_CONFIG,
+  PerfectScrollbarConfigInterface,
+  PerfectScrollbarModule
+} from 'ngx-perfect-scrollbar';
 
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
@@ -55,6 +60,10 @@ const loadConfigs = (appConfig: AdminGuiConfigService) => {
   };
 };
 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +85,8 @@ const loadConfigs = (appConfig: AdminGuiConfigService) => {
         deps: [HttpClient]
       }
     }),
-    ApiModule
+    ApiModule,
+    PerfectScrollbarModule
   ],
   providers: [
     AdminGuiConfigService,
@@ -106,7 +116,11 @@ const loadConfigs = (appConfig: AdminGuiConfigService) => {
       useClass: ApiService
     },
     ApiInterceptor,
-    API_INTERCEPTOR_PROVIDER
+    API_INTERCEPTOR_PROVIDER,
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ],
   bootstrap: [AppComponent]
 })

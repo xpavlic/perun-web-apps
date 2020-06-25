@@ -163,7 +163,13 @@ import { HostsListComponent } from './components/hosts-list/hosts-list.component
 import { UserSettingsServiceIdentitiesComponent } from './components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
 import { BlacklistListComponent } from './components/blacklist-list/blacklist-list.component';
 import { SecurityTeamsListComponent } from './components/security-teams-list/security-teams-list.component';
-import { UserParseFullNamePipe } from './pipes/user-parse-full-name.pipe';
+import { UserIdentitiesComponent } from './components/user-detail-page/user-identities/user-identities.component';
+import { AddUserExtSourceDialogComponent } from './components/dialogs/add-user-ext-source-dialog/add-user-ext-source-dialog.component';
+import { AddHostDialogComponent } from './components/dialogs/add-host-dialog/add-host-dialog.component';
+import { RemoveHostDialogComponent } from './components/dialogs/remove-host-dialog/remove-host-dialog.component';
+import { OwnersListComponent } from './components/owners-list/owners-list.component';
+import { AddFacilityOwnerDialogComponent } from './components/dialogs/add-facility-owner-dialog/add-facility-owner-dialog.component';
+import { RemoveFacilityOwnerDialogComponent } from './components/dialogs/remove-facility-owner-dialog/remove-facility-owner-dialog.component';
 
 @NgModule({
   imports: [
@@ -296,7 +302,8 @@ import { UserParseFullNamePipe } from './pipes/user-parse-full-name.pipe';
     FacilitySelectTableComponent,
     HostsListComponent,
     BlacklistListComponent,
-    SecurityTeamsListComponent
+    SecurityTeamsListComponent,
+    OwnersListComponent
   ],
   declarations: [
     PerunNavComponent,
@@ -409,7 +416,14 @@ import { UserParseFullNamePipe } from './pipes/user-parse-full-name.pipe';
     BlacklistListComponent,
     SecurityTeamsListComponent,
     HostsListComponent,
-    UserParseFullNamePipe
+    UserIdentitiesComponent,
+    AddUserExtSourceDialogComponent,
+    SecurityTeamsListComponent,
+    AddHostDialogComponent,
+    RemoveHostDialogComponent,
+    OwnersListComponent,
+    AddFacilityOwnerDialogComponent,
+    RemoveFacilityOwnerDialogComponent
   ],
   providers: [
     AnyToStringPipe,

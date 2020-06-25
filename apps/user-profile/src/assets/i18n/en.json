@@ -56,13 +56,6 @@
     "USER_INFO": "User information",
     "DATA": "Data for "
   },
-  "USER_EXT_SOURCES_LIST": {
-    "MAIL": "Email",
-    "EXT_SOURCE_NAME": "Federated identity",
-    "LOGIN": "Login",
-    "LAST_ACCESS": "Last access",
-    "NO_IDENTITIES": "No external identities found"
-  },
   "MEMBERSHIP_LIST": {
     "NAME": "Name",
     "DESCRIPTION": "Description",
@@ -171,13 +164,6 @@
       "CANCEL": "Cancel",
       "SUCCESS": "Request for changing the data quota has been sent"
     },
-    "REMOVE_USER_EXT_SOURCE": {
-      "TITLE": "Remove user's external identity",
-      "DESCRIPTION": "Following external identity will be removed",
-      "ASK": "Are you sure you want to continue?",
-      "CANCEL": "Cancel",
-      "REMOVE": "Remove"
-    },
     "SHOW_SSH": {
       "CLOSE": "Cancel"
     }
@@ -252,6 +238,15 @@
             "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed."
           }
         },
+        "USER_EXT_SOURCES_LIST": {
+          "MAIL": "Email",
+          "EXT_SOURCE_NAME": "Federated identity",
+          "LOGIN": "Login",
+          "LAST_ACCESS": "Last access",
+          "NO_IDENTITIES": "No external identities found",
+          "ID": "Id",
+          "LOA": "Level of assurance"
+        },
         "BUG_REPORT": {
           "TITLE": "Report a bug",
           "SUBJECT": "Subject",
@@ -263,6 +258,14 @@
           "CANCEL": "Cancel",
           "SEND": "Send",
           "SUCCESS": "Bug report send"
+        },
+        "REMOVE_USER_EXT_SOURCE": {
+          "TITLE": "Remove user's external identity",
+          "DESCRIPTION": "Following external identity will be removed",
+          "ASK": "Are you sure you want to continue?",
+          "CANCEL": "Cancel",
+          "REMOVE": "Remove",
+          "SUCCESS": "User external source successfully removed"
         }
       },
       "ORGANIZATIONS": {

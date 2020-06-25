@@ -40,7 +40,6 @@ export class SideMenuComponent implements OnInit {
   mobileView = true;
   adminItemOpened = false;
   userItemOpened = false;
-  backgroundColor = this.store.get('theme', 'sidemenu_bg_color');
 
   ngOnInit(): void {
 

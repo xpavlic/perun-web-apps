@@ -36,7 +36,7 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
 
   private sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'mail', 'extSourceName', 'login', 'lastAccess'];
+  displayedColumns: string[] = ['select', 'id', 'mail', 'extSourceName', 'login','loa', 'lastAccess'];
   dataSource: MatTableDataSource<RichUserExtSource>;
   exporting = false;
 
@@ -51,6 +51,7 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
   }
 
   setDataSource() {
+    this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));
     if (!!this.dataSource) {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

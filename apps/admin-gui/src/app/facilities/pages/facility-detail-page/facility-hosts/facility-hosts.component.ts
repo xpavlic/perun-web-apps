@@ -8,12 +8,16 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { AddHostDialogComponent } from '../../../../shared/components/dialogs/add-host-dialog/add-host-dialog.component';
+import { RemoveHostDialogComponent } from '../../../../shared/components/dialogs/remove-host-dialog/remove-host-dialog.component';
 
 @Component({
   selector: 'app-facility-hosts',
   templateUrl: './facility-hosts.component.html',
   styleUrls: ['./facility-hosts.component.scss']
 })
+
 export class FacilityHostsComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
@@ -23,11 +27,10 @@ export class FacilityHostsComponent implements OnInit {
 
   }
 
-
   facility: Facility;
+  facilityId: number
   hosts: Host[] = [];
   selected = new SelectionModel<Host>(true, []);
-
   loading: boolean;
   filterValue = '';
   pageSize: number;
@@ -36,33 +39,60 @@ export class FacilityHostsComponent implements OnInit {
   ngOnInit(): void {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
-      const facilityId = parentParams['facilityId'];
-
-      this.facilitiesManager.getFacilityById(facilityId).subscribe(facility => {
+      this.facilityId = parentParams['facilityId'];
+      this.facilitiesManager.getFacilityById(this.facilityId).subscribe(facility => {
         this.facility = facility;
         this.refreshTable();
       });
     });
   }
 
-  refreshTable(){
+  refreshTable() {
     this.loading = true;
-    this.facilitiesManager.getHosts(this.facility.id).subscribe(hosts => {
+    this.facilitiesManager.getHosts(this.facilityId).subscribe(hosts => {
       this.hosts = hosts;
       this.selected.clear();
       this.loading = false;
     });
   }
 
-  addHost(){
-    //TODO
+  addHost() {
+    const config = getDefaultDialogConfig();
+    config.width = '600px';
+    config.data = {
+      facilityId: this.facility.id,
+      facilityName: this.facility.name,
+      theme: 'facility-theme'
+    };
+
+    const dialogRef = this.dialog.open(AddHostDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.refreshTable()
+      }
+    });
   }
 
-  removeHost(){
-    //TODO
+  removeHost() {
+    const config = getDefaultDialogConfig();
+    config.width = '600px';
+    config.data = {
+      facilityId: this.facility.id,
+      theme: 'facility-theme',
+      hosts: this.selected.selected
+    };
+
+    const dialogRef = this.dialog.open(RemoveHostDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.refreshTable()
+      }
+    });
   }
 
-  applyFilter(filterValue: string){
+  applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
 
@@ -70,6 +100,5 @@ export class FacilityHostsComponent implements OnInit {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
+
 }
-
-

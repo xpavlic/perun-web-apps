@@ -96,6 +96,11 @@ export class DeleteAttributeDialogComponent implements OnInit {
           this.onSuccess();
         });
         break;
+      case 'host':
+        this.attributesManager.removeHostAttributes(this.data.entityId, ids).subscribe(() => {
+          this.onSuccess();
+        });
+        break;
     }
   }
 

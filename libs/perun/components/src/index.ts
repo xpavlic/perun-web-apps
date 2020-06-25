@@ -7,5 +7,5 @@ export * from './lib/attributes-list/attribute-value/attribute-value-map/attribu
 export * from './lib/attributes-list/attribute-value/attribute-value-string/attribute-value-string.component';
 export * from './lib/resources-list/resources-list.component';
 export * from './lib/notification/notification.component';
-// export * from './lib/notification-dialog/notification-dialog.component';
-// export * from './lib/bug-report-dialog/bug-report-dialog.component';
+export * from './lib/user-ext-sources-list/user-ext-sources-list.component';
+export * from './lib/remove-user-ext-source-dialog/remove-user-ext-source-dialog.component';

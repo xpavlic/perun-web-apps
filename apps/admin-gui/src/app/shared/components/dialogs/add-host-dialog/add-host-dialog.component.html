@@ -1,0 +1,31 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{this.facilityName}}: {{'DIALOGS.ADD_HOST.TITLE' | translate}}</h1>
+  <h1 class="page-subtitle">{{'DIALOGS.ADD_HOST.SUBTITLE' | translate}}:</h1>
+  <div mat-dialog-content class="dialog-container">
+    <mat-form-field>
+      <textarea
+        class="md-textarea form-control"
+        id="facilityAddHost"
+        name="facilityAddHost"
+        rows="8"
+        cols="50"
+        matInput
+        [(ngModel)]="hosts"></textarea>
+    </mat-form-field>
+    <div class="text-muted">{{'DIALOGS.ADD_HOST.HINT'| translate}}</div>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      class="ml-auto"
+      (click)="onCancel()">
+      {{'DIALOGS.ADD_HOST.CANCEL' | translate}}</button>
+    <button
+      mat-flat-button
+      class="ml-2"
+      color="accent"
+      [disabled]="hosts.trim().length === 0"
+      (click)="onAdd()">
+      {{'DIALOGS.ADD_HOST.ADD' | translate}}</button>
+  </div>
+</div>

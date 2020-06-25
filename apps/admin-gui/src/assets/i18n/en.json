@@ -129,13 +129,25 @@
       "BLACKLIST": {
         "TITLE": "Blacklist",
         "FILTER": "Filter"
+      },
+      "OWNERS": {
+        "TITLE": "Owners",
+        "ADD": "Add",
+        "DELETE": "Delete",
+        "NO_OWNERS": "This facility does not have any owners"
       }
     },
     "HOSTS": {
       "TITLE": "Hosts",
       "ADD": "Add",
       "REMOVE": "Remove",
-      "FILTER": "Filter"
+      "FILTER": "Filter",
+      "HOSTS_DETAIL": {
+        "TITLE": "Host detail - ",
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "SAVE": "Save"
+      }
     },
     "SECURITY_TEAMS": {
       "TITLE": "Security teams",
@@ -557,7 +569,7 @@
       "SERVICES_DESTINATIONS": "Services destinations",
       "HOSTS": "Hosts",
       "BLACKLIST": "Blacklist",
-      "SECURITY_TEAMS":  "Security teams"
+      "SECURITY_TEAMS": "Security teams"
     },
     "RESOURCE": {
       "OVERVIEW": "Overview",
@@ -614,7 +626,8 @@
       "TITLE": "User - ",
       "ROLES": "Roles",
       "GUI_CONFIG": "Gui configuration",
-      "SERVICE_IDENTITIES": "Service Identities"
+      "SERVICE_IDENTITIES": "Service Identities",
+      "IDENTITIES": "Identities"
     }
   },
   "DIALOGS": {
@@ -1173,6 +1186,49 @@
       "CANCEL": "Cancel",
       "ADD": "Add",
       "SUCCESS": "Resources successfully added"
+    },
+    "ADD_USER_EXT_SOURCE": {
+      "TITLE": "Add user ext source",
+      "ADD": "Add",
+      "CANCEL": "Cancel",
+      "SUCCESS": "User external source has been added",
+      "LOGIN": "Login:",
+      "LOA": "Level of assurance:",
+      "EXT_SOURCE": "External source:",
+      "LOA_INFO": "0 - not verified = default\n1 - verified email\n2 - verified identity\n3 - verified identity, strict password strength"
+    },
+    "ADD_HOST": {
+      "TITLE": "Add hosts",
+      "ADD": "Add",
+      "CANCEL": "Cancel",
+      "SUBTITLE": "Hostnames",
+      "HINT": "Enter one host per line. You can use \"[x-y]\" in hostname to generate hosts with numbers from x to y. This replacer can be specified multiple times in one hostname to generate MxN combinations.",
+      "WARNING": "Please enter at least one hostname to add it to facility.",
+      "SUCCESS": "Added hosts."
+    },
+    "REMOVE_HOST": {
+      "TITLE": "Confirm removal",
+      "WARNING": "Removing host(s) won't stop services propagation. For this please remove proper 'Services destinations'.",
+      "DESCRIPTION": "Following hosts will be removed from facility.",
+      "CONFIRM": "Delete",
+      "CANCEL": "Cancel",
+      "ASK": "Do you want to proceed?",
+      "SUCCESS": "Removed hosts."
+    },
+    "ADD_OWNERS": {
+      "TITLE": "Add facility owners",
+      "FILTER": "Filter by id, name, contact or type",
+      "CANCEL": "Cancel",
+      "ADD": "Add",
+      "SUCCESS": "Owners were successfully added"
+    },
+    "REMOVE_OWNERS": {
+      "TITLE": "Remove facility owners",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete",
+      "DESCRIPTION": "Following facility owners will be removed.",
+      "ASK": "Are you sure you want to proceed?",
+      "SUCCESS": "Owners were successfully removed"
     }
   },
   "MEMBERS_LIST": {
@@ -1280,6 +1336,11 @@
       "MY_FACILITIES": "Your facilities",
       "FILTER": "Filter"
     },
+    "IDENTITIES": {
+      "TITLE": "Identities",
+      "ADD": "Add",
+      "REMOVE": "Remove"
+    },
     "SETTINGS": {
       "ATTRIBUTES": {
         "TITLE": "Attributes",
@@ -1368,6 +1429,13 @@
         "NAME": "Name",
         "REASON": "Reason",
         "NO_BANS_WARNING": "No bans found"
+      },
+      "OWNERS_LIST": {
+        "ID": "Id",
+        "NAME": "Name",
+        "CONTACT": "Contact",
+        "TYPE": "Type",
+        "NO_OWNERS": "No owners match the given filter"
       },
       "SECURITY_TEAMS_LIST": {
         "ID": "id",
@@ -1462,6 +1530,15 @@
             "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed."
           }
         },
+        "USER_EXT_SOURCES_LIST": {
+          "MAIL": "Email",
+          "EXT_SOURCE_NAME": "Federated identity",
+          "LOGIN": "Login",
+          "LAST_ACCESS": "Last access",
+          "NO_IDENTITIES": "No external identities found",
+          "ID": "Id",
+          "LOA": "Level of assurance"
+        },
         "BUG_REPORT": {
           "TITLE": "Report a bug",
           "SUBJECT": "Subject",
@@ -1473,6 +1550,14 @@
           "CANCEL": "Cancel",
           "SEND": "Send",
           "SUCCESS": "Bug report send"
+        },
+        "REMOVE_USER_EXT_SOURCE": {
+          "TITLE": "Remove user's external identity",
+          "DESCRIPTION": "Following external identity will be removed",
+          "ASK": "Are you sure you want to continue?",
+          "CANCEL": "Cancel",
+          "REMOVE": "Remove",
+          "SUCCESS": "User external source successfully removed"
         }
       },
       "ORGANIZATIONS": {

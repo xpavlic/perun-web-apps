@@ -8,12 +8,13 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { Host } from '@perun-web-apps/perun/openapi';
+import { Facility, Host } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hosts-list',
@@ -22,7 +23,7 @@ import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 })
 export class HostsListComponent implements AfterViewInit, OnChanges {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -37,6 +38,8 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
   filterValue: string;
   @Input()
   pageSize = 10;
+  @Input()
+  facilityId: number;
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
@@ -96,6 +99,10 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  selectHost(host: Host){
+    this.router.navigate(['/facilities', this.facilityId, 'hosts', host.id])
   }
 
   ngAfterViewInit(): void {

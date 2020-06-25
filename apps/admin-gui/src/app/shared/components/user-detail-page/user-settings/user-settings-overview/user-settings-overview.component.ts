@@ -39,15 +39,10 @@ export class UserSettingsOverviewComponent implements OnInit {
         url: `roles`,
         label: 'MENU_ITEMS.USER.ROLES',
         style: 'user-btn'
-      },
-      {
-        cssIcon: 'perun-attributes',
-        url:`service-identities`,
-        label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
-        style: 'user-btn'
       }
     ];
     // if at user profile, add user gui config item
+    // if at admin profile, add service identities
     if (!window.location.pathname.startsWith('/admin')) {
       this.navItems.push({
           cssIcon: 'perun-settings2',
@@ -55,6 +50,13 @@ export class UserSettingsOverviewComponent implements OnInit {
           label: 'MENU_ITEMS.USER.GUI_CONFIG',
           style: 'user-btn'
         });
+    } else {
+      this.navItems.push({
+        cssIcon: 'perun-attributes',
+        url:`service-identities`,
+        label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
+        style: 'user-btn'
+      });
     }
   }
 }
