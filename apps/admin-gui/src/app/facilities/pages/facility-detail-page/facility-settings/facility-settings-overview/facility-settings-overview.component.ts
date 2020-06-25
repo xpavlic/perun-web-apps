@@ -53,7 +53,7 @@ export class FacilitySettingsOverviewComponent implements OnInit {
         style: 'facility-btn'
       },
       {
-        cssIcon: 'perun-user',
+        cssIcon: 'perun-black-list',
         url: `/facilities/${this.facility.id}/settings/blacklist`,
         label: 'MENU_ITEMS.FACILITY.BLACKLIST',
         style: 'facility-btn'

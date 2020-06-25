@@ -19,14 +19,12 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class FacilitySettingsBlacklistComponent implements OnInit {
 
-  constructor(private dialog: MatDialog,
-              private facilitiesManager: FacilitiesManagerService,
+  constructor(private facilitiesManager: FacilitiesManagerService,
               private usersManager: UsersManagerService,
               private tableConfigService: TableConfigService,
               private route: ActivatedRoute) {
   }
 
-  facility: Facility;
   bansOnFacilitiesWithUsers: [BanOnFacility, User][] = [];
   selected = new SelectionModel<[BanOnFacility, User]>(true, []);
   filterValue = '';
@@ -37,30 +35,26 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-
-    this.route.parent.parent.params.subscribe(parentParentParams => {
-      const facilityId = parentParentParams['facilityId'];
-      this.facilitiesManager.getFacilityById(facilityId).subscribe(facility => {
-        this.facility = facility;
-
-        this.refreshTable();
-      });
-    });
+    this.refreshTable();
   }
 
   refreshTable() {
     this.loading = true;
-    this.facilitiesManager.getBansForFacility(this.facility.id).subscribe(bansOnFacility => {
-      const listOfBans: BanOnFacility[] = bansOnFacility;
-      for (const ban of listOfBans) {
-        let user: User;
-        this.usersManager.getUserById(ban.userId).subscribe(subscriptionUser => {
-          user = subscriptionUser;
-        });
-        this.bansOnFacilitiesWithUsers.push([ban, user]);
-      }
-      this.selected.clear();
-      this.loading = false;
+    this.route.parent.parent.params.subscribe(parentParentParams => {
+      const facilityId = parentParentParams['facilityId'];
+
+      this.facilitiesManager.getBansForFacility(facilityId).subscribe(bansOnFacility => {
+        const listOfBans: BanOnFacility[] = bansOnFacility;
+        for (const ban of listOfBans) {
+          let user: User;
+          this.usersManager.getUserById(ban.userId).subscribe(subscriptionUser => {
+            user = subscriptionUser;
+          });
+          this.bansOnFacilitiesWithUsers.push([ban, user]);
+        }
+        this.selected.clear();
+        this.loading = false;
+      });
     });
   }
 

@@ -89,10 +89,6 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row[0].userId + 1}`;
   }
 
-  parseFullName = (user: User) => {
-    return parseFullName(user);
-  };
-
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }

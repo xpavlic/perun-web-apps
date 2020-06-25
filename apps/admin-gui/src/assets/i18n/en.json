@@ -1366,7 +1366,8 @@
       "BLACKLIST_LIST": {
         "USER_ID": "User ID",
         "NAME": "Name",
-        "REASON": "Reason"
+        "REASON": "Reason",
+        "NO_BANS_WARNING": "No bans found"
       },
       "SECURITY_TEAMS_LIST": {
         "ID": "id",

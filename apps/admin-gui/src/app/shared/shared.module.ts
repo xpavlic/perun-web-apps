@@ -163,6 +163,7 @@ import { HostsListComponent } from './components/hosts-list/hosts-list.component
 import { UserSettingsServiceIdentitiesComponent } from './components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
 import { BlacklistListComponent } from './components/blacklist-list/blacklist-list.component';
 import { SecurityTeamsListComponent } from './components/security-teams-list/security-teams-list.component';
+import { UserParseFullNamePipe } from './pipes/user-parse-full-name.pipe';
 
 @NgModule({
   imports: [
@@ -407,7 +408,8 @@ import { SecurityTeamsListComponent } from './components/security-teams-list/sec
     HostsListComponent,
     BlacklistListComponent,
     SecurityTeamsListComponent,
-    HostsListComponent
+    HostsListComponent,
+    UserParseFullNamePipe
   ],
   providers: [
     AnyToStringPipe,
