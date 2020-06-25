@@ -1,4 +1,4 @@
-<div class="card mt-2" [class.hide-table]="exporting">
+<div [class.hide-table]="exporting" [hidden]="!dataSource.filteredData.length" class="card mt-2">
   <div class="card-body table-theme">
     <perun-web-apps-table-options (exportEnd)="exporting = false" (exportStart)="exporting = true" [exporter]="exporter"></perun-web-apps-table-options>
     <table
@@ -49,5 +49,5 @@
     </mat-paginator>
   </div>
 </div>
-
+<app-alert *ngIf="!dataSource.filteredData.length" color="warn">{{'MEMBERSHIP_LIST.NO_MEMBERSHIPS' | customTranslate | translate}}</app-alert>
 <mat-spinner *ngIf="exporting" class="ml-auto mr-auto"></mat-spinner>
