@@ -17,8 +17,11 @@ export interface ChangeEmailDialogData {
 export class ChangeEmailDialogComponent implements OnInit {
 
   successMessage: string;
-
+  pendingMails: string[] = [];
   emailControl: FormControl;
+  pendingEmailsMessageStart: string;
+  pendingEmailsMessageEnd: string;
+  pendingEmailsMessage: string;
 
   constructor(private dialogRef: MatDialogRef<ChangeEmailDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: ChangeEmailDialogData,
@@ -27,12 +30,17 @@ export class ChangeEmailDialogComponent implements OnInit {
               private usersManagerService: UsersManagerService
   ) {
     translate.get('DIALOGS.CHANGE_EMAIL.SUCCESS').subscribe(res => this.successMessage = res);
+    translate.get('DIALOGS.CHANGE_EMAIL.PENDING_MAILS_BEGIN').subscribe(res => this.pendingEmailsMessageStart = res);
+    translate.get('DIALOGS.CHANGE_EMAIL.PENDING_MAILS_END').subscribe(res => this.pendingEmailsMessageEnd = res);
   }
 
   ngOnInit() {
     this.emailControl = new FormControl(null, [Validators.required,
       Validators.pattern(/^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i)]);
-
+    this.usersManagerService.getPendingPreferredEmailChanges(this.data.userId).subscribe(mails => {
+      this.pendingMails = mails;
+      this.pendingEmailsMessage = this.pendingEmailsMessageStart + (mails.map(mail => mail === mails[0] ? '' : ', ' + mail)) + this.pendingEmailsMessageEnd;
+    });
   }
 
   onCancel() {
@@ -40,10 +48,10 @@ export class ChangeEmailDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.usersManagerService.requestPreferredEmailChange(this.data.userId,this.emailControl.value, this.translate.currentLang).subscribe(() => {
+    this.usersManagerService.requestPreferredEmailChange(this.data.userId, this.emailControl.value, this.translate.currentLang).subscribe(() => {
       this.notificator.showSuccess(this.successMessage);
       this.dialogRef.close();
-    })
+    });
 
   }
 }

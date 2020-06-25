@@ -128,7 +128,9 @@
       "INPUT_PLACEHOLDER": "Nový email",
       "CANCEL": "Zrušit",
       "CHANGE": "Změnit",
-      "SUCCESS": "Žádost o změnu preferovaného emailu byla odeslána na zadanou adresu."
+      "SUCCESS": "Žádost o změnu preferovaného emailu byla odeslána na zadanou adresu.",
+      "PENDING_MAILS_BEGIN": "Potvrzovací email byl odoslán na ",
+      "PENDING_MAILS_END": ". Podívejte se do své mailové schránky a dokončete validaci kliknutím na link v emailu."
     },
     "ADD_SSH": {
       "TITLE": "Přidat nový SSH klíč",

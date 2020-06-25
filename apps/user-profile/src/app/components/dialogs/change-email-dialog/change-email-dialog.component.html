@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>{{'DIALOGS.CHANGE_EMAIL.TITLE'|customTranslate | translate}}</h1>
 <div mat-dialog-content class="dialog-container user-theme">
+  <app-alert *ngIf="pendingMails.length" color="warn">{{pendingEmailsMessage}}</app-alert>
   <mat-form-field>
     <label>
       <input
@@ -18,12 +19,12 @@
     (click)="onCancel()">
     {{'DIALOGS.CHANGE_EMAIL.CANCEL'|customTranslate | translate}}
   </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="accent"
-      [disabled]="!emailControl.valid"
-      (click)="onSubmit()">
-      {{'DIALOGS.CHANGE_EMAIL.CHANGE'|customTranslate | translate}}
-    </button>
+  <button
+    (click)="onSubmit()"
+    [disabled]="!emailControl.valid"
+    class="ml-2"
+    color="accent"
+    mat-flat-button>
+    {{'DIALOGS.CHANGE_EMAIL.CHANGE'|customTranslate | translate}}
+  </button>
 </div>

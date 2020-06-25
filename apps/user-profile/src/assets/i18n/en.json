@@ -128,7 +128,9 @@
       "INPUT_PLACEHOLDER": "New email",
       "CANCEL": "Cancel",
       "CHANGE": "Change",
-      "SUCCESS": "Request for changing preferred email has been sent. Please check your mailbox."
+      "SUCCESS": "Request for changing preferred email has been sent. Please check your mailbox.",
+      "PENDING_MAILS_BEGIN": "Validation e-mail has been sent to ",
+      "PENDING_MAILS_END": ". Check your inbox and complete validation by clicking on link in received e-mail."
     },
     "ADD_SSH": {
       "TITLE": "Add new ssh key",
