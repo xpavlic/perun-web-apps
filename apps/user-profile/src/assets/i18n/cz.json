@@ -45,7 +45,8 @@
     "PREFERRED_LANGUAGE": "Preferovaný jazyk",
     "EMAIL": "Preferovaný email",
     "TIMEZONE": "Časová zóna",
-    "CHANGE_EMAIL": "Aktualizovat"
+    "CHANGE_EMAIL": "Aktualizovat",
+    "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn"
   },
   "IDENTITIES": {
     "IDP": "Moje identity",

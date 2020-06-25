@@ -39,7 +39,10 @@ export class ChangeEmailDialogComponent implements OnInit {
       Validators.pattern(/^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i)]);
     this.usersManagerService.getPendingPreferredEmailChanges(this.data.userId).subscribe(mails => {
       this.pendingMails = mails;
-      this.pendingEmailsMessage = this.pendingEmailsMessageStart + (mails.map(mail => mail === mails[0] ? '' : ', ' + mail)) + this.pendingEmailsMessageEnd;
+      let result = '';
+      mails.forEach(mail => result += `${mail === mails[0] ? '' : ', '}${mail}`);
+      console.log(result);
+      this.pendingEmailsMessage = this.pendingEmailsMessageStart + result + this.pendingEmailsMessageEnd;
     });
   }
 

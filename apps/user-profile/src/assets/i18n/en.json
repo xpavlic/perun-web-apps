@@ -45,7 +45,8 @@
     "PREFERRED_LANGUAGE": "Preferred language",
     "EMAIL": "Preferred e-mail",
     "TIMEZONE": "Timezone",
-    "CHANGE_EMAIL": "Change"
+    "CHANGE_EMAIL": "Change",
+    "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed"
   },
   "IDENTITIES": {
     "IDP": "My identities",
