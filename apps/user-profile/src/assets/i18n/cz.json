@@ -19,7 +19,11 @@
   },
   "ORGANIZATIONS": {
     "FILTER": "Filtrovat dle jména",
-    "NO_VOS_ALERT": "Žádné virtuální organizace nebyly nalezeny"
+    "NO_VOS_ALERT": "Žádné virtuální organizace nebyly nalezeny",
+    "TITLE": "Uživatelské organizace",
+    "IS_ADMIN": "Organizace, kde jste administrátorem",
+    "IS_MEMBER": "Organizace, kde jste členem",
+    "EXTEND": "Prodloužit členství"
   },
   "GROUPS": {
     "TITLE": "Moje Skupiny",
@@ -41,7 +45,8 @@
     "PREFERRED_LANGUAGE": "Preferovaný jazyk",
     "EMAIL": "Preferovaný email",
     "TIMEZONE": "Časová zóna",
-    "CHANGE_EMAIL": "Aktualizovat"
+    "CHANGE_EMAIL": "Aktualizovat",
+    "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn"
   },
   "IDENTITIES": {
     "IDP": "Moje identity",
@@ -59,7 +64,8 @@
   "MEMBERSHIP_LIST": {
     "NAME": "Jméno",
     "DESCRIPTION": "Popis",
-    "EXPIRATION": "Expirace členství"
+    "EXPIRATION": "Expirace členství",
+    "NO_MEMBERSHIPS": "Žádné výsledky nesplňují zadané vyhledávací parametry."
   },
   "SSH_KEYS": {
     "SSH_KEYS_TITLE": "SSH klíče",
@@ -123,7 +129,9 @@
       "INPUT_PLACEHOLDER": "Nový email",
       "CANCEL": "Zrušit",
       "CHANGE": "Změnit",
-      "SUCCESS": "Žádost o změnu preferovaného emailu byla odeslána na zadanou adresu."
+      "SUCCESS": "Žádost o změnu preferovaného emailu byla odeslána na zadanou adresu.",
+      "PENDING_MAILS_BEGIN": "Potvrzovací email byl odoslán na ",
+      "PENDING_MAILS_END": ". Podívejte se do své mailové schránky a dokončete validaci kliknutím na link v emailu."
     },
     "ADD_SSH": {
       "TITLE": "Přidat nový SSH klíč",
@@ -156,10 +164,10 @@
     },
     "REQUEST_DATA_QUOTA_CHANGE": {
       "TITLE": "Žádost o změnu datové kvóty",
-      "RESOURCE": "Zdroj:",
-      "CURRENT_QUOTA": "Momentální kvóta:",
-      "REQUESTED_QUOTA": "Požadovaná kvóta:",
-      "REASON": "Důvod:",
+      "RESOURCE": "Zdroj",
+      "CURRENT_QUOTA": "Momentální kvóta",
+      "REQUESTED_QUOTA": "Požadovaná kvóta",
+      "REASON": "Důvod",
       "SEND": "Poslat",
       "CANCEL": "Zrušit",
       "SUCCESS": "Žádost o změnu datové kvóty byla odeslána"

@@ -13,13 +13,17 @@
     "DATA_QUOTAS": "Data quotas",
     "MAILING_LISTS": "Opt-out from mailing lists",
     "PREFERRED_SHELLS": "Preferred shells",
-    "PREFERRED_UNIX_GROUP_NAMES": "Preferred unix group",
+    "PREFERRED_UNIX_GROUP_NAMES": "Preferred unix group names",
     "SAMBA_PASSWORD": "Samba password",
     "SSH_KEYS": "SSH keys"
   },
   "ORGANIZATIONS": {
     "FILTER": "Filter by name",
-    "NO_VOS_ALERT": "No virtual organizations found"
+    "NO_VOS_ALERT": "No organizations found",
+    "TITLE": "User organizations",
+    "IS_ADMIN": "Organizations where you are admin",
+    "IS_MEMBER": "Organizations where you are member",
+    "EXTEND": "Extend"
   },
   "GROUPS": {
     "TITLE": "Groups",
@@ -41,7 +45,8 @@
     "PREFERRED_LANGUAGE": "Preferred language",
     "EMAIL": "Preferred e-mail",
     "TIMEZONE": "Timezone",
-    "CHANGE_EMAIL": "Change"
+    "CHANGE_EMAIL": "Change",
+    "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed"
   },
   "IDENTITIES": {
     "IDP": "My identities",
@@ -59,7 +64,8 @@
   "MEMBERSHIP_LIST": {
     "NAME": "Name",
     "DESCRIPTION": "Description",
-    "EXPIRATION": "Expiration"
+    "EXPIRATION": "Expiration",
+    "NO_MEMBERSHIPS": "No results match current filter"
   },
   "SSH_KEYS": {
     "SSH_KEYS_TITLE": "SSH keys",
@@ -123,7 +129,9 @@
       "INPUT_PLACEHOLDER": "New email",
       "CANCEL": "Cancel",
       "CHANGE": "Change",
-      "SUCCESS": "Request for changing preferred email has been sent. Please check your mailbox."
+      "SUCCESS": "Request for changing preferred email has been sent. Please check your mailbox.",
+      "PENDING_MAILS_BEGIN": "Validation e-mail has been sent to ",
+      "PENDING_MAILS_END": ". Check your inbox and complete validation by clicking on link in received e-mail."
     },
     "ADD_SSH": {
       "TITLE": "Add new ssh key",
@@ -156,10 +164,10 @@
     },
     "REQUEST_DATA_QUOTA_CHANGE": {
       "TITLE": "Data quota change request",
-      "RESOURCE": "Resource:",
-      "CURRENT_QUOTA": "Current quota:",
-      "REQUESTED_QUOTA": "Requested quota:",
-      "REASON": "Reason:",
+      "RESOURCE": "Resource",
+      "CURRENT_QUOTA": "Current quota",
+      "REQUESTED_QUOTA": "Requested quota",
+      "REASON": "Reason",
       "SEND": "Send",
       "CANCEL": "Cancel",
       "SUCCESS": "Request for changing the data quota has been sent"

@@ -83,18 +83,19 @@ export class IdentitiesPageComponent implements OnInit {
 
   }
 
-  removeIdentity(selected: UserExtSource[]) {
+  removeIdentity(selection: SelectionModel<UserExtSource>) {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
       theme: 'user-theme',
       userId: this.userId,
-      extSources: selected
+      extSources: selection.selected
     };
 
     const dialogRef = this.dialog.open(RemoveUserExtSourceDialogComponent,config);
     dialogRef.afterClosed().subscribe((success) => {
       if (success){
+        selection.clear();
         this.refreshTables();
       }
     })
