@@ -45,6 +45,7 @@
     "footer_headers_text_color": "#ffffff",
     "footer_links_text_color": "#e0e0e0",
     "footer_copyright_text_color": "#9e9e9e",
+    "sidemenu_divider_color": "#263238",
     "sidemenu_bg_color": "#263238",
     "sidemenu_border_color": "#071e24",
     "sidemenu_item_links_bg_color": "#1b2428",
