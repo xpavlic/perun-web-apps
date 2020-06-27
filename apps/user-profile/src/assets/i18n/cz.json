@@ -15,7 +15,8 @@
     "PREFERRED_SHELLS": "Preferované shelly",
     "PREFERRED_UNIX_GROUP_NAMES": "Preferovaná jména Unixových skupin",
     "SAMBA_PASSWORD": "Heslo pro službu SAMBA",
-    "SSH_KEYS": "SSH klíče"
+    "SSH_KEYS": "SSH klíče",
+    "PASSWORD_RESET": "Změna hesla"
   },
   "ORGANIZATIONS": {
     "FILTER": "Filtrovat dle jména",

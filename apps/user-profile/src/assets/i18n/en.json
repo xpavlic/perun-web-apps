@@ -15,7 +15,8 @@
     "PREFERRED_SHELLS": "Preferred shells",
     "PREFERRED_UNIX_GROUP_NAMES": "Preferred unix group names",
     "SAMBA_PASSWORD": "Samba password",
-    "SSH_KEYS": "SSH keys"
+    "SSH_KEYS": "SSH keys",
+    "PASSWORD_RESET": "Password reset"
   },
   "ORGANIZATIONS": {
     "FILTER": "Filter by name",
