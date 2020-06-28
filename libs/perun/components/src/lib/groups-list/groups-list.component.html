@@ -42,7 +42,7 @@
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef
             mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_DESCRIPTION' | translate}}</th>
-        <td mat-cell *matCellDef="let group">{{group.description}}</td>
+        <td mat-cell *matCellDef="let group" class="wrap-content">{{group.description}}</td>
       </ng-container>
       <ng-container matColumnDef="menu">
         <th mat-header-cell *matHeaderCellDef></th>
@@ -50,6 +50,8 @@
           <perun-web-apps-group-menu
             [disabled]="group.name === 'members'"
             (moveGroup)="onMoveGroup(group)"
+            (click)="disabledRouting = true"
+            (onClose)="disabledRouting = disableRouting"
             [group]="group">
           </perun-web-apps-group-menu>
         </td>
@@ -60,8 +62,9 @@
       <tr
         mat-row
         *matRowDef="let group; columns: displayedColumns;"
-        [class.disable-outline]="disableRouting"
-        [routerLink]="disableRouting ? null : ['/organizations', group.voId, 'groups', group.id]">
+        class="dark-hover-list-item"
+        [class.disable-outline]="disabledRouting"
+        [routerLink]="disabledRouting ? null : ['/organizations', group.voId, 'groups', group.id]">
       </tr>
     </table>
     <mat-paginator

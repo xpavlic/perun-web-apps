@@ -16,6 +16,8 @@ export class GroupMenuComponent implements OnInit {
 
   @Output() moveGroup: EventEmitter<void> = new EventEmitter<void>();
 
+  @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>()
+
   ngOnInit() {
   }
 
