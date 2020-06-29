@@ -1,0 +1,31 @@
+<h1 class="page-subtitle">{{'MEMBER_DETAIL.APPLICATIONS.TITLE' | translate}}</h1>
+<div>
+  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+  <button mat-stroked-button *ngIf="!showAllDetails" (click)="this.showAllDetails = true">
+    {{'MEMBER_DETAIL.APPLICATIONS.SHOW_ALL_DETAILS' | translate}}
+  </button>
+  <button mat-stroked-button *ngIf="showAllDetails" (click)="this.showAllDetails = false">
+    {{'MEMBER_DETAIL.APPLICATIONS.SHOW_LESS_DETAILS' | translate}}
+  </button>
+  <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'MEMBER_DETAIL.APPLICATIONS.FILTER'"></perun-web-apps-immediate-filter>
+</div>
+<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading">
+  <app-applications-list
+    [pageSize]="pageSize"
+    (page)="pageChanged($event)"
+    *ngIf="!showAllDetails"
+    [filterValue]="filterValue"
+    [applications]="applications"
+    [member]="member"
+    [displayedColumns]="displayedColumns">
+  </app-applications-list>
+  <app-perun-web-apps-application-list-details
+    [pageSize]="detailPageSize"
+    (page)="detailPageChanged($event)"
+    [filterValue]="filterValue"
+    [applications]="applications"
+    [member]="member"
+    *ngIf="showAllDetails">
+  </app-perun-web-apps-application-list-details>
+</div>

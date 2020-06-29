@@ -61,6 +61,12 @@ export class MemberOverviewComponent implements OnInit {
         style: 'member-btn'
       },
       {
+        cssIcon: 'perun-applications',
+        url: `/organizations/${this.member.voId}/members/${this.member.id}/applications`,
+        label: 'MENU_ITEMS.MEMBER.APPLICATIONS',
+        style: 'member-btn'
+      },
+      {
         cssIcon: 'perun-settings2',
         url: `/organizations/${this.member.voId}/members/${this.member.id}/settings`,
         label: 'MENU_ITEMS.MEMBER.SETTINGS',

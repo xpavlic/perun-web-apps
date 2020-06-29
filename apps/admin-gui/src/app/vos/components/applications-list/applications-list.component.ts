@@ -12,7 +12,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {Router} from '@angular/router';
-import { Application, Group } from '@perun-web-apps/perun/openapi';
+import { Application, Group, Member } from '@perun-web-apps/perun/openapi';
 import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -34,6 +34,9 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
 
   @Input()
   group: Group;
+
+  @Input()
+  member: Member;
 
   @Input()
   displayedColumns: string[] = [];
@@ -116,6 +119,8 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   selectApplication(application: Application) {
     if (this.group) {
       this.router.navigate(['/organizations', application.vo.id, 'groups', this.group.id, 'applications', application.id]);
+    } else if(this.member) {
+      this.router.navigate(['/organizations', application.vo.id, 'members', this.member.id, 'applications', application.id])
     } else {
       this.router.navigate(['/organizations', application.vo.id, 'applications', application.id]);
     }
