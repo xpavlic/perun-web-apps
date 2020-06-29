@@ -2143,6 +2143,64 @@ export class AttributesManagerService {
     }
 
     /**
+     * Get all users logins as Attributes. Meaning it returns all non-empty User attributes with URN starting with: \&quot;urn:perun:user:attribute-def:def:login-namespace:\&quot;.
+     * @param user id of User
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getLogins(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getLogins(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getLogins(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getLogins(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (user === null || user === undefined) {
+            throw new Error('Required parameter user was null or undefined when calling getLogins.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (user !== undefined && user !== null) {
+            queryParameters = queryParameters.set('user', <any>user);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getLogins`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Get all non-empty attributes associated with the member and if workWithUserAttributes is true, get all non-empty attributes associated with user, who is this member. 
      * @param member id of Member
      * @param workWithUserAttributes flag to work with user attributes
