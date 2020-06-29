@@ -161,9 +161,10 @@ import { FacilitySelectTableComponent } from './components/facility-select-table
 import { UserDashboardComponent } from './components/user-detail-page/user-dashboard/user-dashboard.component';
 import { HostsListComponent } from './components/hosts-list/hosts-list.component';
 import { UserSettingsServiceIdentitiesComponent } from './components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
+import { BlacklistListComponent } from './components/blacklist-list/blacklist-list.component';
+import { SecurityTeamsListComponent } from './components/security-teams-list/security-teams-list.component';
 import { UserIdentitiesComponent } from './components/user-detail-page/user-identities/user-identities.component';
 import { AddUserExtSourceDialogComponent } from './components/dialogs/add-user-ext-source-dialog/add-user-ext-source-dialog.component';
-import { SecurityTeamsListComponent } from './components/security-teams-list/security-teams-list.component';
 import { AddHostDialogComponent } from './components/dialogs/add-host-dialog/add-host-dialog.component';
 import { RemoveHostDialogComponent } from './components/dialogs/remove-host-dialog/remove-host-dialog.component';
 import { OwnersListComponent } from './components/owners-list/owners-list.component';
@@ -301,6 +302,7 @@ import { GroupSyncDetailDialogComponent } from './components/dialogs/group-sync-
     TwoEntityAttributePageComponent,
     FacilitySelectTableComponent,
     HostsListComponent,
+    BlacklistListComponent,
     SecurityTeamsListComponent,
     OwnersListComponent
   ],
@@ -411,6 +413,9 @@ import { GroupSyncDetailDialogComponent } from './components/dialogs/group-sync-
     FacilitySelectTableComponent,
     UserDashboardComponent,
     UserSettingsServiceIdentitiesComponent,
+    HostsListComponent,
+    BlacklistListComponent,
+    SecurityTeamsListComponent,
     HostsListComponent,
     UserIdentitiesComponent,
     AddUserExtSourceDialogComponent,

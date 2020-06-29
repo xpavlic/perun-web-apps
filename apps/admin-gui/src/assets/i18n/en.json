@@ -126,6 +126,10 @@
         "SUCCESS_DELETE": "Attributes deleted successfully",
         "SUCCESS_SAVE": "Attributes saved successfully"
       },
+      "BLACKLIST": {
+        "TITLE": "Blacklist",
+        "FILTER": "Filter"
+      },
       "OWNERS": {
         "TITLE": "Owners",
         "ADD": "Add",
@@ -569,6 +573,7 @@
       "MANAGERS": "Managers",
       "SERVICES_DESTINATIONS": "Services destinations",
       "HOSTS": "Hosts",
+      "BLACKLIST": "Blacklist",
       "SECURITY_TEAMS": "Security teams"
     },
     "RESOURCE": {
@@ -1435,6 +1440,12 @@
         "TABLE_HOST_ID": "Host ID",
         "TABLE_HOST_NAME": "Host name",
         "NO_HOST_WARNING": "No hosts found"
+      },
+      "BLACKLIST_LIST": {
+        "USER_ID": "User ID",
+        "NAME": "Name",
+        "REASON": "Reason",
+        "NO_BANS_WARNING": "No bans found"
       },
       "OWNERS_LIST": {
         "ID": "Id",
