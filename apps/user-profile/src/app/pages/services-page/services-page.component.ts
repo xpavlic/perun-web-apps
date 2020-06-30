@@ -25,7 +25,6 @@ export class ServicesPageComponent implements OnInit {
   resources: RichResource[] = [];
   filteredVos: Vo[] = [];
   loading: boolean;
-  hiddenColumns: string[] = ['select', 'id', 'facility', 'tags'];
 
   ngOnInit() {
     this.userId = this.storage.getPerunPrincipal().userId;

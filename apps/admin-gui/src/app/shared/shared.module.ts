@@ -173,6 +173,7 @@ import { GroupSyncDetailDialogComponent } from './components/dialogs/group-sync-
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
 import { DeleteServiceDialogComponent } from './components/dialogs/delete-service-dialog/delete-service-dialog.component';
+import { UserResourcesComponent } from './components/user-detail-page/user-resources/user-resources.component';
 
 @NgModule({
   imports: [
@@ -430,7 +431,8 @@ import { DeleteServiceDialogComponent } from './components/dialogs/delete-servic
     GroupSyncDetailDialogComponent,
     NotFoundPageComponent,
     CreateServiceDialogComponent,
-    DeleteServiceDialogComponent
+    DeleteServiceDialogComponent,
+    UserResourcesComponent
   ],
   providers: [
     AnyToStringPipe,

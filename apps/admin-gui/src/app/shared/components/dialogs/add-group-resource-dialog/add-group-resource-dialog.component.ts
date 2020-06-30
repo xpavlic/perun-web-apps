@@ -29,7 +29,6 @@ export class AddGroupResourceDialogComponent implements OnInit {
   loading: boolean;
   filterValue = '';
   resources: RichResource[] = [];
-  hiddenColumns = ['tags', 'facility'];
   selection = new SelectionModel<RichResource>(true, []);
   theme = '';
 

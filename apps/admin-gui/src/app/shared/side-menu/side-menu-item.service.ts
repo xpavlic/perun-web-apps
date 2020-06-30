@@ -488,6 +488,11 @@ export class SideMenuItemService {
           activatedRegex: `${regex}/identities`
         },
         {
+          label: 'MENU_ITEMS.USER.RESOURCES',
+          url: [`${path}/resources`],
+          activatedRegex: `${regex}/resources`
+        },
+        {
           label: 'MENU_ITEMS.ADMIN.SETTINGS',
           url: [`${path}/settings`],
           activatedRegex: `${regex}/settings$`,
