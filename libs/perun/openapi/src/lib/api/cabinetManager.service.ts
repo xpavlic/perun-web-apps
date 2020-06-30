@@ -47,10 +47,10 @@ import { Configuration }                                     from '../configurat
 })
 export class CabinetManagerService {
 
+    protected basePath = 'https://perun.cesnet.cz/krb/rpc';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
-    protected basePath = 'https://perun.cesnet.cz/krb/rpc';
 
     constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (configuration) {
@@ -68,8 +68,8 @@ export class CabinetManagerService {
 
 
     /**
-     * Creates Authorship. Everything except current date must be already set in Authorship object. Authorship is checked for existence before creation, if exists, existing object is returned. When authorship is successfully created, users priority coefficient is updated.
-     * @param inputCreateAuthorship
+     * Creates Authorship. Everything except current date must be already set in Authorship object. Authorship is checked for existence before creation, if exists, existing object is returned. When authorship is successfully created, users priority coefficient is updated. 
+     * @param inputCreateAuthorship 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -130,8 +130,8 @@ export class CabinetManagerService {
     }
 
     /**
-     * Creates new Category for Publications with specified name and rank. Category object\&#39;s parameter name must be non-empty, max 128 chars long and rank must be double with single digit after decimal point. Other parameters are ignored.
-     * @param inputCreateCategory
+     * Creates new Category for Publications with specified name and rank. Category object\&#39;s parameter name must be non-empty, max 128 chars long and rank must be double with single digit after decimal point. Other parameters are ignored. 
+     * @param inputCreateCategory 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -193,7 +193,7 @@ export class CabinetManagerService {
 
     /**
      * Creates new Category for Publications with specified name and rank.
-     * @param inputCreateCategory1
+     * @param inputCreateCategory1 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -254,8 +254,8 @@ export class CabinetManagerService {
     }
 
     /**
-     * Create Publication. If exists by its ID or EXT_ID,PUB_SYS_ID then existing publication is returned.
-     * @param inputCreatePublication
+     * Create Publication. If exists by its ID or EXT_ID,PUB_SYS_ID then existing publication is returned. 
+     * @param inputCreatePublication 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -317,7 +317,7 @@ export class CabinetManagerService {
 
     /**
      * Creates new PublicationSystem.
-     * @param inputCreatePublicationSystem
+     * @param inputCreatePublicationSystem 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -379,7 +379,7 @@ export class CabinetManagerService {
 
     /**
      * Creates new Thanks for Publication
-     * @param inputCreateThanks
+     * @param inputCreateThanks 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -565,7 +565,7 @@ export class CabinetManagerService {
     }
 
     /**
-     * Delete publication by its ID. Only Author of the record or PerunAdmin can do this. - Author deletes Authorships and Thanks from publication. - PerunAdmin also delete publication record.
+     * Delete publication by its ID. Only Author of the record or PerunAdmin can do this. - Author deletes Authorships and Thanks from publication. - PerunAdmin also delete publication record. 
      * @param id numeric id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -848,7 +848,7 @@ export class CabinetManagerService {
     }
 
     /**
-     * Finds publications of perun\&#39;s user specified in param Search is done in external publication systems (MU, ZCU) All parameters are required.
+     * Finds publications of perun\&#39;s user specified in param Search is done in external publication systems (MU, ZCU) All parameters are required. 
      * @param user id of User
      * @param yearSince Year since
      * @param yearTill Year till
@@ -927,7 +927,7 @@ export class CabinetManagerService {
     }
 
     /**
-     * Find new Authors for Publication. Empty list of none found. Used by users to search for colleagues to add them as co-authors.
+     * Find new Authors for Publication. Empty list of none found. Used by users to search for colleagues to add them as co-authors. 
      * @param searchString Text to search by
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -985,7 +985,7 @@ export class CabinetManagerService {
     }
 
     /**
-     * Return Publication by its ID.
+     * Return Publication by its ID. 
      * @param id numeric id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -1109,7 +1109,7 @@ export class CabinetManagerService {
     }
 
     /**
-     * Finds rich publications in Cabinet by GUI filter: id &#x3D; exact match (used when search for publication of authors) title &#x3D; if \&quot;like\&quot; this substring year &#x3D; exact match isbn &#x3D; if \&quot;like\&quot; this substring category &#x3D; exact match yearSince &#x3D; if year &gt;&#x3D; yearSince yearTill &#x3D; if year &lt;&#x3D; yearTill userId &#x3D; exact match or 0 If you don\&#39;t want to filter by publication params, do not include the attribute in the query.
+     * Finds rich publications in Cabinet by GUI filter: id &#x3D; exact match (used when search for publication of authors) title &#x3D; if \&quot;like\&quot; this substring year &#x3D; exact match isbn &#x3D; if \&quot;like\&quot; this substring category &#x3D; exact match yearSince &#x3D; if year &gt;&#x3D; yearSince yearTill &#x3D; if year &lt;&#x3D; yearTill userId &#x3D; exact match or 0 If you don\&#39;t want to filter by publication params, do not include the attribute in the query. 
      * @param title Title
      * @param isbn ISBN
      * @param doi DOI
@@ -1472,7 +1472,7 @@ export class CabinetManagerService {
 
     /**
      * (Un)Lock passed Publications for changes.
-     * @param inputLockPublications
+     * @param inputLockPublications 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -1533,8 +1533,8 @@ export class CabinetManagerService {
     }
 
     /**
-     * Updates publications category in Perun. Category to update is found by ID. When category rank is changed, priorityCoefficient for all authors of books from this category, is recalculated.
-     * @param inputUpdateCategory
+     * Updates publications category in Perun. Category to update is found by ID. When category rank is changed, priorityCoefficient for all authors of books from this category, is recalculated. 
+     * @param inputUpdateCategory 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -1596,7 +1596,7 @@ export class CabinetManagerService {
 
     /**
      * Update existing publication by its ID.
-     * @param inputUpdatePublication
+     * @param inputUpdatePublication 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -1658,7 +1658,7 @@ export class CabinetManagerService {
 
     /**
      * Updates PublicationSystem by its ID.
-     * @param inputUpdatePublicationSystem
+     * @param inputUpdatePublicationSystem 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
