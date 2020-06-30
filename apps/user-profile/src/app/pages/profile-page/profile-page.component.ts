@@ -11,7 +11,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { UserFullNamePipe } from '@perun-web-apps/perun/pipes';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -37,6 +37,7 @@ export class ProfilePageComponent implements OnInit {
     private attributesManagerService: AttributesManagerService,
     private usersManagerService: UsersManagerService,
     private route: ActivatedRoute,
+    private router: Router,
     private translate: TranslateService,
     private notificator: NotificatorService
   ) {
@@ -54,7 +55,6 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit() {
     const params = this.route.snapshot.queryParamMap;
-    console.log(params);
     const i = params.get('i');
     const m = params.get('m');
     const u = params.get('u');
@@ -62,6 +62,7 @@ export class ProfilePageComponent implements OnInit {
     if (i && m && u) {
       this.usersManagerService.validatePreferredEmailChange(i, m, Number.parseInt(u, 10)).subscribe(() => {
         this.notificator.showSuccess(this.successMessage);
+        this.router.navigate([], { replaceUrl: true});
         this.getData();
       });
     } else {
