@@ -169,6 +169,7 @@ import { RemoveHostDialogComponent } from './components/dialogs/remove-host-dial
 import { OwnersListComponent } from './components/owners-list/owners-list.component';
 import { AddFacilityOwnerDialogComponent } from './components/dialogs/add-facility-owner-dialog/add-facility-owner-dialog.component';
 import { RemoveFacilityOwnerDialogComponent } from './components/dialogs/remove-facility-owner-dialog/remove-facility-owner-dialog.component';
+import { GroupSyncDetailDialogComponent } from './components/dialogs/group-sync-detail-dialog/group-sync-detail-dialog.component';
 
 @NgModule({
   imports: [
@@ -418,7 +419,8 @@ import { RemoveFacilityOwnerDialogComponent } from './components/dialogs/remove-
     RemoveHostDialogComponent,
     OwnersListComponent,
     AddFacilityOwnerDialogComponent,
-    RemoveFacilityOwnerDialogComponent
+    RemoveFacilityOwnerDialogComponent,
+    GroupSyncDetailDialogComponent
   ],
   providers: [
     AnyToStringPipe,

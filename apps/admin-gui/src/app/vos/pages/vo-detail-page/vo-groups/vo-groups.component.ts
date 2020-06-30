@@ -8,10 +8,11 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { applyFilter, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { Group, GroupsManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, GroupsManagerService, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-vo-groups',
@@ -36,11 +37,11 @@ export class VoGroupsComponent implements OnInit {
   @Input()
   vo: Vo;
 
-  groups: Group[] = [];
-  filteredGroups: Group[] = [];
-  filteredTreeGroups: Group[] = [];
+  groups: RichGroup[] = [];
+  filteredGroups: RichGroup[] = [];
+  filteredTreeGroups: RichGroup[] = [];
   showGroupList = false;
-  selected = new SelectionModel<Group>(true, []);
+  selected = new SelectionModel<RichGroup>(true, []);
   loading: boolean;
   filtering = false;
   tableId = TABLE_VO_GROUPS;
@@ -123,7 +124,14 @@ export class VoGroupsComponent implements OnInit {
 
   loadAllGroups() {
     this.loading = true;
-    this.groupService.getAllGroups(this.vo.id).subscribe(groups => {
+    this.groupService.getAllRichGroupsWithAttributesByNames(this.vo.id, [
+      Urns.GROUP_SYNC_ENABLED,
+      Urns.GROUP_LAST_SYNC_STATE,
+      Urns.GROUP_LAST_SYNC_TIMESTAMP,
+      Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+      Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+      Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
+    ]).subscribe(groups => {
       this.groups = groups;
       this.filteredGroups = groups;
       this.filteredTreeGroups = groups;

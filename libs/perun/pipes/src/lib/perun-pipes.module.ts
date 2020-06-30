@@ -6,6 +6,9 @@ import { UserFullNamePipe } from './user-full-name.pipe';
 import { ParseLastAccessPipe } from './parse-last-access.pipe';
 import { GetMailFromAttributesPipe } from './get-mail-from-attributes.pipe';
 import { CustomTranslatePipe } from './custom-translate.pipe';
+import { GroupSyncIconPipe } from './group-sync-icon.pipe';
+import { GroupSyncToolTipPipe } from './group-sync-tool-tip.pipe';
+import { GroupSyncIconColorPipe } from './group-sync-icon-color.pipe';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { CustomTranslatePipe } from './custom-translate.pipe';
     UserFullNamePipe,
     ParseLastAccessPipe,
     GetMailFromAttributesPipe,
-    CustomTranslatePipe
+    CustomTranslatePipe,
+    GroupSyncIconPipe,
+    GroupSyncToolTipPipe,
+    GroupSyncIconColorPipe
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -22,7 +28,10 @@ import { CustomTranslatePipe } from './custom-translate.pipe';
     UserFullNamePipe,
     ParseLastAccessPipe,
     GetMailFromAttributesPipe,
-    CustomTranslatePipe
+    CustomTranslatePipe,
+    GroupSyncIconPipe,
+    GroupSyncToolTipPipe,
+    GroupSyncIconColorPipe
   ],
   imports: [CommonModule],
 })

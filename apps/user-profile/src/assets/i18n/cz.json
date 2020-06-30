@@ -15,7 +15,8 @@
     "PREFERRED_SHELLS": "Preferované shelly",
     "PREFERRED_UNIX_GROUP_NAMES": "Preferovaná jména Unixových skupin",
     "SAMBA_PASSWORD": "Heslo pro službu SAMBA",
-    "SSH_KEYS": "SSH klíče"
+    "SSH_KEYS": "SSH klíče",
+    "PASSWORD_RESET": "Změna hesla"
   },
   "ORGANIZATIONS": {
     "FILTER": "Filtrovat dle jména",
@@ -81,7 +82,8 @@
     "TITLE": "Heslo pro službu SAMBA",
     "INPUT_PLACEHOLDER": "Zadejte nové heslo",
     "SET_PASSWORD": "Nastavit heslo",
-    "SUCCESS_MESSAGE": "Heslo pro službu SAMBA bylo nastaveno"
+    "SUCCESS_MESSAGE": "Heslo pro službu SAMBA bylo nastaveno",
+    "PASSWORD_VALIDATION": "Heslo musí obsahovat alespoň 3 ze 4 skupin znaků: malá písmena, velká písmena, číslice, speciální znaky"
   },
   "PREFERRED_UNIX_GROUP_NAMES": {
     "TITLE": "Preferovaná jména Unixových skupin",

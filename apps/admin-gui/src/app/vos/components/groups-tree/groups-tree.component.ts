@@ -3,8 +3,11 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
-import { Group } from '@perun-web-apps/perun/openapi';
+import { RichGroup } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
+import { MatDialog } from '@angular/material/dialog';
+import { GroupSyncDetailDialogComponent } from '../../../shared/components/dialogs/group-sync-detail-dialog/group-sync-detail-dialog.component';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-groups-tree',
@@ -14,6 +17,7 @@ import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
 export class GroupsTreeComponent implements OnChanges {
 
   constructor(
+    private dialog: MatDialog
   ) { }
 
   private transformer = (node: TreeGroup, level: number) => {
@@ -24,9 +28,9 @@ export class GroupsTreeComponent implements OnChanges {
       parentGroupId: node.parentGroupId,
       level: level,
       id: node.id,
-      voId: node.voId
+      voId: node.voId,
+      attributes: node.attributes
     };
-    // tslint:disable-next-line
   };
 
 
@@ -34,7 +38,7 @@ export class GroupsTreeComponent implements OnChanges {
   moveGroup = new EventEmitter<GroupFlatNode>();
 
   @Input()
-  groups: Group[];
+  groups: RichGroup[];
 
   @Input()
   expandAll = false;
@@ -57,7 +61,14 @@ export class GroupsTreeComponent implements OnChanges {
     }
   }
 
-  createGroupTrees(groups: Group[]) {
+  onSyncDetail(rg: RichGroup) {
+    const config = getDefaultDialogConfig();
+    config.data = rg;
+    config.autoFocus = false;
+    this.dialog.open(GroupSyncDetailDialogComponent, config);
+  }
+
+  createGroupTrees(groups: RichGroup[]) {
     const idGroupMap: Map<number, TreeGroup> = new Map<number, TreeGroup>();
 
     for (const group of groups) {

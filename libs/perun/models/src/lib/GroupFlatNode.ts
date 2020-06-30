@@ -1,3 +1,5 @@
+import { Attribute } from '@perun-web-apps/perun/openapi';
+
 export interface GroupFlatNode {
   expandable: boolean;
   parentGroupId: number;
@@ -5,4 +7,5 @@ export interface GroupFlatNode {
   level: number;
   id: number;
   voId: number;
+  attributes: Attribute[];
 }
