@@ -51,7 +51,7 @@ export class ChangeEmailDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.usersManagerService.requestPreferredEmailChange(this.data.userId, this.emailControl.value, this.translate.currentLang, 'https://profile-dev.perun-aai.org/').subscribe(() => {
+    this.usersManagerService.requestPreferredEmailChange(this.data.userId, this.emailControl.value, this.translate.currentLang, '').subscribe(() => {
       this.notificator.showSuccess(this.successMessage);
       this.dialogRef.close();
     });
