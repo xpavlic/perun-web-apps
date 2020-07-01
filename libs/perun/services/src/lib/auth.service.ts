@@ -43,7 +43,7 @@ export class AuthService {
       response_type: 'id_token token',
       scope: 'openid profile perun_api perun_admin',
       filterProtocolClaims: true,
-      loadUserInfo: true,
+      loadUserInfo: this.store.get('oidc_client', 'oauth_load_user_info'),
       automaticSilentRenew: true,
       silent_redirect_uri: this.store.get('oidc_client', 'oauth_silent_redirect_uri')
     };
