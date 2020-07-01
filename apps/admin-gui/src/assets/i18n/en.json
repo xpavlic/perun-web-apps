@@ -183,6 +183,7 @@
   },
   "VO_DETAIL": {
     "TITLE": "Organization - ",
+    "SUB_TITLE": "Short name",
     "BACK": "Back",
     "RESOURCES": {
       "LIST": {
