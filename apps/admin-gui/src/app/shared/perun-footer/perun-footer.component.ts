@@ -30,6 +30,7 @@ export class PerunFooterComponent implements OnInit {
   footerCopyrightTextColor = this.store.get('theme', 'footer_copyright_text_color');
   linksTextColor = this.store.get('theme', 'footer_links_text_color');
   footerHeadersTextColor = this.store.get('theme', 'footer_headers_text_color');
+  githubRepository = this.storeService.get('footer_github_releases');
 
   currentYear = (new Date()).getFullYear();
 

@@ -9,13 +9,15 @@
     <span class="text-muted">
       &nbsp;#{{vo.id}}
     </span>
+    <br>
+    <span class="text-muted mt-1 shortname">
+      {{'VO_DETAIL.SUB_TITLE' | translate}}:
+      <span class="vo-text">
+        {{vo.shortName}}
+      </span>
+    </span>
   </h1>
-  <h1 class="page-subtitle">
-    Short name:
-    <span class="vo-text">
-    {{vo.shortName}}
-  </span>
-  </h1>
+
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>
 

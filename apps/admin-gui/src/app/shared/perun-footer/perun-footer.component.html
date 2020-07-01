@@ -84,7 +84,7 @@
     <span *ngFor="let item of this.copyright">
       <a target="_blank" [href]="item.webpage"> {{item.name}}</a>,
     </span>
-    Version {{version}}
+    Version <a target="_blank" [href]="githubRepository">{{version}}</a>
   </div>
   <!-- Copyright -->
 

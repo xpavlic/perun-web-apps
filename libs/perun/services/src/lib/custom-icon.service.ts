@@ -147,6 +147,14 @@ export class CustomIconService {
     {
       url: 'assets/img/PerunWebImages/black_list-white.svg',
       name: 'perun-black-list'
+    },
+    {
+      url: 'assets/img/PerunWebImages/facility-white.svg',
+      name: 'perun-facility-white'
+    },
+    {
+      url: 'assets/img/PerunWebImages/resource-white.svg',
+      name: 'perun-resource-white'
     }
   ];
 
