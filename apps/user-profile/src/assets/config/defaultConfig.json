@@ -11,8 +11,8 @@
   "login_namespace_attributes": [
     "urn:perun:user:attribute-def:def:login-namespace:einfra",
     "urn:perun:user:attribute-def:def:login-namespace:einfra-services",
-    "urn:perun:user:attribute-def:def:login-namespace:cesnet",
-    "urn:perun:user:attribute-def:def:login-namespace:mu"
+    "urn:perun:user:attribute-def:def:login-namespace:egi-ui",
+    "urn:perun:user:attribute-def:def:login-namespace:sitola"
   ],
   "consolidator_base_url": "https://perun-dev.cesnet.cz/",
   "registrar_base_url": "https://perun-dev.cesnet.cz/fed/registrar/",

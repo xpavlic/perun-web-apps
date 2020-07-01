@@ -149,11 +149,15 @@ export class AuthService {
     return this.completeAuthentication().then(() => {
       const redirectUrl = sessionStorage.getItem('auth:redirect');
       const params = sessionStorage.getItem('auth:queryParams').split('&');
-      const queryParams: Params = {
-        i: params[0].substr(2),
-        m: params[1].substr(2),
-        u: params[2].substr(2)
+      let queryParams: Params = {};
+      if(params.length === 3 && (redirectUrl === '/' || redirectUrl === '/profile')){
+        queryParams = {
+          i: params[0].substr(2),
+          m: params[1].substr(2),
+          u: params[2].substr(2)
+        }
       }
+
 
       if (redirectUrl) {
         sessionStorage.removeItem('auth:redirect');
