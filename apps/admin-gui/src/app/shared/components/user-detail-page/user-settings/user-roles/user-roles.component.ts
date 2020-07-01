@@ -26,11 +26,11 @@ export class UserRolesComponent implements OnInit {
   ngOnInit() {
     this.route.parent.parent.params.subscribe(params => {
       let userId: number;
-      if (params['home']) {
+      if (params['userId']) {
+        userId = params['userId'];
+      } else {
         this.principal = this.store.getPerunPrincipal();
         userId = this.principal.userId;
-      } else {
-        userId = params['userId'];
       }
 
       this.authzResolverService.getUserRoleNames(userId).subscribe(roleNames => {

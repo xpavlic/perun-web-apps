@@ -38,7 +38,7 @@ export class SideMenuItemService {
     return {
       label: 'MAIN_MENU.FACILITIES',
       colorClass: 'base-item-color-activated',
-      icon: 'perun-manage-facility',
+      icon: 'perun-facility-white',
       baseLink: ['/facilities'],
       links: [],
       baseColorClass: 'base-item-color',
@@ -251,7 +251,7 @@ export class SideMenuItemService {
         }
       ],
       colorClass: 'facility-item',
-      icon: 'perun-manage-facility',
+      icon: 'perun-facility-white',
       // labelClass: 'facility-text',
       activatedClass: 'dark-item-activated',
       linksClass: 'dark-item-links'
@@ -290,7 +290,7 @@ export class SideMenuItemService {
         }
       ],
       colorClass: 'resource-item',
-      icon: 'perun-manage-facility',
+      icon: 'perun-resource-white',
       // labelClass: 'resource-text',
       activatedClass: 'dark-item-activated',
       linksClass: 'dark-item-links',

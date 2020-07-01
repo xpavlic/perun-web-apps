@@ -12,8 +12,8 @@ import {UserSettingsAttributesComponent} from './shared/components/user-detail-p
 import { UserRolesComponent } from './shared/components/user-detail-page/user-settings/user-roles/user-roles.component';
 import { UserSettingsAppConfigurationComponent } from './shared/components/user-detail-page/user-settings/user-settings-app-configuration/user-settings-app-configuration.component';
 import { UserDashboardComponent } from './shared/components/user-detail-page/user-dashboard/user-dashboard.component';
-import { UserSettingsServiceIdentitiesComponent } from './shared/components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
 import { UserSettingsFacilityAttributesComponent } from './shared/components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
+import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {
@@ -36,7 +36,7 @@ const routes: Routes = [
     loadChildren: () => import('./facilities/facilities.module').then(m => m.FacilitiesModule),
   },
   {
-    path: ':home',
+    path: 'home',
     component: UserProfileComponent,
     children: [
       {
@@ -86,6 +86,9 @@ const routes: Routes = [
         ]
       }
     ]
+  },
+  { path: '**',
+    component: NotFoundPageComponent
   }
 ];
 

@@ -4,6 +4,9 @@
       "TITLE": "Server down error",
       "MESSAGE": "The server is probably being restarted. Please, try it again later.",
       "ACTION": "Refresh"
+    },
+    "PAGE_NOT_FOUND": {
+      "TITLE": "404: Page not found"
     }
   },
   "NAV": {
