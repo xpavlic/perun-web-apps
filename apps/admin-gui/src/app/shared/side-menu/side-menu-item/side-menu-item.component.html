@@ -2,7 +2,7 @@
   <div class="entity-menu-item-header"
        matRipple
        [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
-       [ngStyle]="{'background': item.backgroundColorCss}"
+       [ngStyle]="{'background': item.backgroundColorCss, 'border-top': index ? dividerStyle: 'none'}"
        (click)="toggle()">
     <div class="entity-menu-item-link {{item.labelClass}}" matRipple>
       <a class="entity-menu-item-label" [ngStyle]="{'color': item.textColorCss}">

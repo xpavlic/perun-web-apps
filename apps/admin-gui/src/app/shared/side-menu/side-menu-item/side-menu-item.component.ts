@@ -16,7 +16,7 @@ import { StoreService } from '@perun-web-apps/perun/services';
 })
 export class SideMenuItemComponent implements OnInit, OnChanges {
 
-  private currentUrl: string;
+  currentUrl: string;
 
   constructor(
     private router: Router,
@@ -46,6 +46,7 @@ export class SideMenuItemComponent implements OnInit, OnChanges {
   linkBgColor = this.store.get('theme', 'sidemenu_item_links_bg_color');
   linkTextColor = this.store.get('theme', 'sidemenu_item_links_text_color');
   iconColor = this.store.get('theme', 'sidemenu_item_icon_color');
+  dividerStyle = '1px solid ' + this.store.get('theme', 'sidemenu_divider_color');
 
   @Input()
   sideNav: MatSidenav;
