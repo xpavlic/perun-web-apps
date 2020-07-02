@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { Attribute, AttributesManagerService} from '@perun-web-apps/perun/openapi';
 import { StoreService } from '@perun-web-apps/perun/services';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'perun-web-apps-settings-password-reset',
@@ -13,6 +14,9 @@ export class SettingsPasswordResetComponent implements OnInit {
 
   nameSpaces: string[] = [];
   logins: Attribute[] = [];
+
+  displayedColumns: string[] = ['namespace', 'login', 'change'];
+  dataSource: MatTableDataSource<Attribute>;
 
   constructor(private attributesManagerService: AttributesManagerService,
               private store: StoreService) {
@@ -28,6 +32,7 @@ export class SettingsPasswordResetComponent implements OnInit {
       });
 
       this.logins = logins.filter(login => parsedNamespaces.includes(login.friendlyNameParameter));
+      this.dataSource = new MatTableDataSource<Attribute>(logins);
     });
   }
 

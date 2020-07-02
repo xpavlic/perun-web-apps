@@ -126,7 +126,10 @@
     "NO_MAILING_LISTS_ALERT": "You have no mailing lists assigned under this virtual organization"
   },
   "PASSWORD_RESET": {
-    "CHANGE_PASSWORD": "Change password"
+    "TITLE": "Password reset",
+    "CHANGE_PASSWORD": "Change password",
+    "NAMESPACE": "Namespace",
+    "LOGIN": "Login"
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {
