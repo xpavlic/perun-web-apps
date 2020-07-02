@@ -98,7 +98,16 @@
         ]
       }
     ],
-    "copyright": "© 2020 Copyright: CESNET, CERIT-SC, Version 0.0.0"
+    "copyright_items": [
+      {
+        "name": "CESNET",
+        "url": "https://www.cesnet.cz/"
+      },
+      {
+        "name": "CERIT-SC",
+        "url": "https://www.cerit-sc.cz/"
+      }
+    ]
   },
   "theme": {
     "content_bg_color": "",
