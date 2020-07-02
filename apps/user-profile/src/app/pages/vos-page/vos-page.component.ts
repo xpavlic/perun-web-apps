@@ -23,7 +23,7 @@ export class VosPageComponent implements OnInit {
   userId: number;
   filterValue = '';
   selection = new SelectionModel<Membership>(false, []);
-  displayedColumns = ['checkbox','id', 'name'];
+  displayedColumns = ['checkbox', 'id', 'name'];
 
   userMemberships: Membership[] = [];
   adminMemberships: Membership[] = [];
@@ -52,35 +52,33 @@ export class VosPageComponent implements OnInit {
     this.filterValue = filterValue;
   }
 
+  isEverythingLoaded() {
+    this.vosCount--;
+    this.loading = this.vosCount !== 0;
+  }
 
   private fillMemberships(vos: Array<Vo>, memberships: Membership[]) {
-
-    vos.forEach(vo =>{
-      this.membersService.getMembers(vo.id).subscribe(members =>{
-        const member = members.find(userMember => userMember.userId === this.userId);
-        if(!member){
+    this.membersService.getMembersByUser(this.userId).subscribe(members => {
+      vos.forEach(vo => {
+        const member = members.find(mem => mem.voId === vo.id);
+        if (!member) {
           memberships.push({
             entity: vo,
             expirationAttribute: null
           });
-         this.isEverythingLoaded();
+          this.isEverythingLoaded();
         } else {
-          this.membersService.getRichMemberWithAttributes(member.id).subscribe(richMember =>{
+          this.membersService.getRichMemberWithAttributes(member.id).subscribe(richMember => {
             const expirationAtt = richMember.memberAttributes.find(att => att.friendlyName === 'membershipExpiration');
             memberships.push({
               entity: vo,
               expirationAttribute: expirationAtt
             });
-            this.isEverythingLoaded()
-          })
+            this.isEverythingLoaded();
+          });
         }
       });
     });
-  }
-
-  isEverythingLoaded(){
-    this.vosCount--;
-    this.loading = this.vosCount !== 0;
   }
 
   extendMembership() {

@@ -125,6 +125,9 @@
     "OPT_OUT_LABEL": "Vyřadit mě z tohoto seznamu adresátů",
     "NO_MAILING_LISTS_ALERT": "Nemáte žádné seznamy adresátů v této organizaci"
   },
+  "PASSWORD_RESET": {
+    "CHANGE_PASSWORD": "Změnit heslo"
+  },
   "DIALOGS": {
     "CHANGE_EMAIL": {
       "TITLE": "Aktualizovat email",
@@ -132,7 +135,7 @@
       "CANCEL": "Zrušit",
       "CHANGE": "Změnit",
       "SUCCESS": "Žádost o změnu preferovaného emailu byla odeslána na zadanou adresu.",
-      "PENDING_MAILS_BEGIN": "Potvrzovací email byl odoslán na ",
+      "PENDING_MAILS_BEGIN": "Potvrzovací email byl odeslán na ",
       "PENDING_MAILS_END": ". Podívejte se do své mailové schránky a dokončete validaci kliknutím na link v emailu."
     },
     "ADD_SSH": {

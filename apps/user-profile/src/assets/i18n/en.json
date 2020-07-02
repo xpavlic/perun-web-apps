@@ -125,6 +125,9 @@
     "OPT_OUT_LABEL": "Exclude me from this mailing list",
     "NO_MAILING_LISTS_ALERT": "You have no mailing lists assigned under this virtual organization"
   },
+  "PASSWORD_RESET": {
+    "CHANGE_PASSWORD": "Change password"
+  },
   "DIALOGS": {
     "CHANGE_EMAIL": {
       "TITLE": "Change email",
