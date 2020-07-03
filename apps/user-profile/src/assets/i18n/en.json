@@ -54,7 +54,10 @@
     "CERT": "My certificates",
     "OTHER": "Other",
     "ADD": "Add",
-    "REMOVE": "Remove"
+    "REMOVE": "Remove",
+    "EXT_SOURCE_NAME_CERT": "Certificate issuer",
+    "EXT_SOURCE_NAME_OTHER": "External source name",
+    "LOGIN_CERT": "Identity"
   },
   "PRIVACY": {
     "TITLE": "Privacy",

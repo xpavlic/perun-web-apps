@@ -54,7 +54,10 @@
     "CERT": "Moje certifikáty",
     "OTHER": "Ostatní",
     "ADD": "Přidat",
-    "REMOVE": "Odstranit"
+    "REMOVE": "Odstranit",
+    "EXT_SOURCE_NAME_CERT": "Poskytovatel certifikátu",
+    "EXT_SOURCE_NAME_OTHER": "Jméno externího zdroje",
+    "LOGIN_CERT": "Identita"
   },
   "PRIVACY": {
     "TITLE": "Soukromí",
@@ -128,8 +131,8 @@
   "PASSWORD_RESET": {
     "TITLE": "Změna hesla",
     "CHANGE_PASSWORD": "Změnit heslo",
-    "NAMESPACE": "Jmený prostor",
-    "LOGIN": "Přihlasovací jméno"
+    "NAMESPACE": "Jmenný prostor",
+    "LOGIN": "Přihlašovací jméno"
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {

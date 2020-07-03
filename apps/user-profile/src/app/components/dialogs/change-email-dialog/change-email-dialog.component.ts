@@ -38,9 +38,9 @@ export class ChangeEmailDialogComponent implements OnInit {
     this.emailControl = new FormControl(null, [Validators.required,
       Validators.pattern(/^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i)]);
     this.usersManagerService.getPendingPreferredEmailChanges(this.data.userId).subscribe(mails => {
-      this.pendingMails = mails;
+      this.pendingMails = mails.filter((el, i, a) => i === a.indexOf(el));
       let result = '';
-      mails.forEach(mail => result += `${mail === mails[0] ? '' : ', '}${mail}`);
+      this.pendingMails.forEach(mail => result += `${mail === this.pendingMails[0] ? '' : ', '}${mail}`);
       console.log(result);
       this.pendingEmailsMessage = this.pendingEmailsMessageStart + result + this.pendingEmailsMessageEnd;
     });

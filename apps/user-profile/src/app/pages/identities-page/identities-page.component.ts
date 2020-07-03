@@ -32,6 +32,10 @@ export class IdentitiesPageComponent implements OnInit {
   certSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(false, []);
   otherSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(false, []);
 
+  extSourceNameCert = 'IDENTITIES.EXT_SOURCE_NAME_CERT';
+  loginCert = 'IDENTITIES.LOGIN_CERT';
+  extSourceNameOther = 'IDENTITIES.EXT_SOURCE_NAME_OTHER';
+
   userId: number;
   loading: boolean;
 
