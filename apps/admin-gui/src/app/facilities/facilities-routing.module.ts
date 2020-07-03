@@ -31,6 +31,7 @@ import { FacilitySettingsBlacklistComponent } from './pages/facility-detail-page
 import { FacilityHostsDetailComponent } from './pages/facility-detail-page/facility-hosts/facility-hosts-detail/facility-hosts-detail.component';
 import { FacilitySecurityTeamsComponent } from './pages/facility-detail-page/facility-security-teams/facility-security-teams.component';
 import { ResourceSettingsManagersComponent } from './pages/resource-detail-page/resource-settings/resource-settings-managers/resource-settings-managers.component';
+import { ResourceAssignedServicesComponent } from './pages/resource-detail-page/resource-assigned-services/resource-assigned-services.component';
 
 const routes: Routes = [
   {
@@ -126,6 +127,11 @@ const routes: Routes = [
         path: 'groups',
         component: ResourceGroupsComponent,
         data: {animation: 'ResourceGroupsComponent'}
+      },
+      {
+        path: 'services',
+        component: ResourceAssignedServicesComponent,
+        data: {animation: 'ResourceAssignedServicesComponent'}
       },
       {
         path: 'settings',

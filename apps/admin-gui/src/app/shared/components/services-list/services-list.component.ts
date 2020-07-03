@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
   ViewChild
@@ -12,6 +11,7 @@ import {
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Service } from '@perun-web-apps/perun/openapi';
+import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
@@ -20,10 +20,9 @@ import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
   templateUrl: './services-list.component.html',
   styleUrls: ['./services-list.component.scss']
 })
-export class ServicesListComponent implements OnChanges,  AfterViewInit {
+export class ServicesListComponent implements AfterViewInit, OnChanges {
 
-  constructor() {
-  }
+  constructor() { }
 
   @ViewChild(MatSort, {static: true}) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -33,10 +32,8 @@ export class ServicesListComponent implements OnChanges,  AfterViewInit {
   @Input()
   services: Service[] = [];
 
-  private sort: MatSort;
-
   @Input()
-  filterValue: string;
+  filterValue = '';
 
   @Input()
   pageSize = 10;
@@ -44,31 +41,33 @@ export class ServicesListComponent implements OnChanges,  AfterViewInit {
   @Input()
   hideColumns: string[] = [];
 
-  displayedColumns: string[] = ['select', 'id', 'name', 'enabled', 'script', 'description'];
-  dataSource: MatTableDataSource<Service>;
-  exporting = false;
-
   @Input()
-  selection;
+  selection = new SelectionModel<Service>(true, []);
 
   @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+  page = new EventEmitter<PageEvent>();
+
+  private sort: MatSort;
+
+  displayedColumns: string[] = ['select', 'id', 'name', 'enabled', 'script', 'description'];
+  dataSource: MatTableDataSource<Service>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
+  exporting = false
 
   ngOnChanges(changes: SimpleChanges) {
     this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));
     this.dataSource = new MatTableDataSource<Service>(this.services);
     this.setDataSource();
-    this.dataSource.filter = this.filterValue;
   }
 
   setDataSource() {
     if (!!this.dataSource) {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.dataSource.filter = this.filterValue;
     }
   }
 
@@ -96,5 +95,9 @@ export class ServicesListComponent implements OnChanges,  AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
   }
 }

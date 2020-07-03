@@ -48,6 +48,12 @@ export class ResourceOverviewComponent implements OnInit {
         style: 'resource-btn'
       },
       {
+        cssIcon: 'perun-service',
+        url: `/facilities/${this.resource.facilityId}/resources/${this.resource.id}/services`,
+        label: 'MENU_ITEMS.RESOURCE.ASSIGNED_SERVICES',
+        style: 'resource-btn'
+      },
+      {
         cssIcon: 'perun-settings2',
         url: `${urlStart}/resources/${this.resource.id}/settings`,
         label: 'MENU_ITEMS.RESOURCE.SETTINGS',

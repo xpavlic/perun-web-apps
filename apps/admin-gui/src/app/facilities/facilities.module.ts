@@ -39,6 +39,7 @@ import { FacilityHostsDetailComponent } from './pages/facility-detail-page/facil
 import { FacilitySecurityTeamsComponent } from './pages/facility-detail-page/facility-security-teams/facility-security-teams.component';
 import { PerunPipesModule, UserFullNamePipe } from '@perun-web-apps/perun/pipes';
 import { ResourceSettingsManagersComponent } from './pages/resource-detail-page/resource-settings/resource-settings-managers/resource-settings-managers.component';
+import { ResourceAssignedServicesComponent } from './pages/resource-detail-page/resource-assigned-services/resource-assigned-services.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { ResourceSettingsManagersComponent } from './pages/resource-detail-page/
     FacilitySettingsBlacklistComponent,
     FacilityHostsDetailComponent,
     FacilitySecurityTeamsComponent,
-    ResourceSettingsManagersComponent
+    ResourceSettingsManagersComponent,
+    ResourceAssignedServicesComponent
   ],
   imports: [
     CommonModule,

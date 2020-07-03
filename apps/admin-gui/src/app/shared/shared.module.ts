@@ -178,6 +178,8 @@ import { AddMemberToResourceDialogComponent } from './components/dialogs/add-mem
 import { CreateFacilityDialogComponent } from './components/dialogs/create-facility-dialog/create-facility-dialog.component';
 import { DeleteFacilityDialogComponent } from './components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
 import { IdentityDetailComponent } from './components/identity-detail/identity-detail.component';
+import { AssignServiceToResourceDialogComponent } from './components/dialogs/assign-service-to-resource-dialog/assign-service-to-resource-dialog.component';
+import { RemoveServiceFromResourceDialogComponent } from './components/dialogs/remove-service-from-resource-dialog/remove-service-from-resource-dialog.component';
 
 @NgModule({
   imports: [
@@ -440,7 +442,9 @@ import { IdentityDetailComponent } from './components/identity-detail/identity-d
     AddMemberToResourceDialogComponent,
     CreateFacilityDialogComponent,
     DeleteFacilityDialogComponent,
-    IdentityDetailComponent
+    IdentityDetailComponent,
+    AssignServiceToResourceDialogComponent,
+    RemoveServiceFromResourceDialogComponent
   ],
   providers: [
     AnyToStringPipe,
