@@ -23,15 +23,13 @@
     "NO_VOS_ALERT": "Žádné virtuální organizace nebyly nalezeny",
     "TITLE": "Uživatelské organizace",
     "IS_ADMIN": "Organizace, kde jste administrátorem",
-    "IS_MEMBER": "Organizace, kde jste členem",
-    "EXTEND": "Prodloužit členství"
+    "IS_MEMBER": "Organizace, kde jste členem"
   },
   "GROUPS": {
     "TITLE": "Moje Skupiny",
     "SELECT_VO": "Filtrovat dle organizace",
     "ALL": "Všechny organizace",
     "FILTER": "Filtrovat dle jména",
-    "EXTEND": "Prodloužit členství",
     "MEMBER_GROUPS": "Skupiny ve kterých jste členem",
     "ADMINS_GROUPS": "Skupiny ve kterých jste administrátorem",
     "NO_GROUPS": "Nenalezeny žádné skupiny."
@@ -69,7 +67,8 @@
     "NAME": "Jméno",
     "DESCRIPTION": "Popis",
     "EXPIRATION": "Expirace členství",
-    "NO_MEMBERSHIPS": "Žádné výsledky nesplňují zadané vyhledávací parametry."
+    "NO_MEMBERSHIPS": "Žádné výsledky nesplňují zadané vyhledávací parametry.",
+    "EXTEND": "Prodloužit členství"
   },
   "SSH_KEYS": {
     "SSH_KEYS_TITLE": "SSH klíče",
@@ -198,7 +197,7 @@
     "NO_SSH_KEYS": "Nemáte žádné SSH klíče",
     "NO_SAMBA": "Dosud nemáte heslo pro službu SAMBA.",
     "SAMBA_EXISTS": "Heslo pro službu SAMBA již máte nastaveno. Můžete je změnit zadáním nového hesla.",
-    "NO_PREFERRED_UNIX_GROUPS": "Nemáte nastaveny žádné preferované jména Unixových skupin pro vybraný jmenný prostor",
+    "NO_PREFERRED_UNIX_GROUPS": "Nemáte nastaveny žádné preferované jména Unixových skupin pro tento jmenný prostor",
     "NO_ALT_PASSWORDS": "Nemáte žádná alternativní hesla"
   },
   "SHARED_LIB": {

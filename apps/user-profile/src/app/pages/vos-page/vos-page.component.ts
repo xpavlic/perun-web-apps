@@ -23,7 +23,6 @@ export class VosPageComponent implements OnInit {
   userId: number;
   filterValue = '';
   selection = new SelectionModel<Membership>(false, []);
-  displayedColumns = ['checkbox', 'id', 'name'];
 
   userMemberships: Membership[] = [];
   adminMemberships: Membership[] = [];
@@ -81,8 +80,8 @@ export class VosPageComponent implements OnInit {
     });
   }
 
-  extendMembership() {
+  extendMembership(membership: Membership) {
     const registrarUrl = this.store.get('registrar_base_url');
-    window.location.href = `${registrarUrl}?vo=${this.selection.selected[0].entity.shortName}`;
+    window.location.href = `${registrarUrl}?vo=${membership.entity.shortName}`;
   }
 }

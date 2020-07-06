@@ -28,9 +28,9 @@ export class IdentitiesPageComponent implements OnInit {
   idpExtSources: RichUserExtSource[] = [];
   certExtSources: RichUserExtSource[] = [];
   otherExtSources: RichUserExtSource[] = [];
-  idpSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(false, []);
-  certSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(false, []);
-  otherSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(false, []);
+  idpSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(true, []);
+  certSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(true, []);
+  otherSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(true, []);
 
   extSourceNameCert = 'IDENTITIES.EXT_SOURCE_NAME_CERT';
   loginCert = 'IDENTITIES.LOGIN_CERT';
@@ -111,7 +111,7 @@ export class IdentitiesPageComponent implements OnInit {
     }
     else if(ues.userExtSource.extSource.type.endsWith('X509')){
       this.certExtSources.push(ues)
-    } else {
+      console.log(ues)    } else {
       this.otherExtSources.push(ues)
     }
   }

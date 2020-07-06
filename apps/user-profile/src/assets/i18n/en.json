@@ -23,15 +23,13 @@
     "NO_VOS_ALERT": "No organizations found",
     "TITLE": "User organizations",
     "IS_ADMIN": "Organizations where you are admin",
-    "IS_MEMBER": "Organizations where you are member",
-    "EXTEND": "Extend"
+    "IS_MEMBER": "Organizations where you are member"
   },
   "GROUPS": {
     "TITLE": "Groups",
     "SELECT_VO": "Filter by organization",
     "ALL": "All organizations",
     "FILTER": "Filter by name",
-    "EXTEND": "Extend",
     "MEMBER_GROUPS": "Groups where you are member",
     "ADMINS_GROUPS": "Groups where you are admin",
     "NO_GROUPS": "No groups found"
@@ -69,7 +67,8 @@
     "NAME": "Name",
     "DESCRIPTION": "Description",
     "EXPIRATION": "Expiration",
-    "NO_MEMBERSHIPS": "No results match current filter"
+    "NO_MEMBERSHIPS": "No results match current filter",
+    "EXTEND": "Extend"
   },
   "SSH_KEYS": {
     "SSH_KEYS_TITLE": "SSH keys",

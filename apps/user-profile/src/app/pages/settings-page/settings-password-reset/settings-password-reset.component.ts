@@ -15,7 +15,7 @@ export class SettingsPasswordResetComponent implements OnInit {
   nameSpaces: string[] = [];
   logins: Attribute[] = [];
 
-  displayedColumns: string[] = ['namespace', 'login', 'change'];
+  displayedColumns: string[] = ['namespace', 'value', 'change'];
   dataSource: MatTableDataSource<Attribute>;
 
   constructor(private attributesManagerService: AttributesManagerService,
