@@ -33,12 +33,6 @@ export class UserSettingsOverviewComponent implements OnInit {
         url: `facilityAttributes`,
         label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
         style: 'user-btn'
-      },
-      {
-        cssIcon: 'perun-group',
-        url: `roles`,
-        label: 'MENU_ITEMS.USER.ROLES',
-        style: 'user-btn'
       }
     ];
     // if at user profile, add user gui config item
@@ -55,6 +49,12 @@ export class UserSettingsOverviewComponent implements OnInit {
         cssIcon: 'perun-attributes',
         url:`service-identities`,
         label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
+        style: 'user-btn'
+      });
+      this.navItems.push({
+        cssIcon: 'perun-group',
+        url: `roles`,
+        label: 'MENU_ITEMS.USER.ROLES',
         style: 'user-btn'
       });
     }

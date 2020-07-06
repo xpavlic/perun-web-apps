@@ -9,7 +9,6 @@ import {
   UserSettingsOverviewComponent
 } from './shared/components/user-detail-page/user-settings/user-settings-overview/user-settings-overview.component';
 import {UserSettingsAttributesComponent} from './shared/components/user-detail-page/user-settings/user-settings-attributes/user-settings-attributes.component';
-import { UserRolesComponent } from './shared/components/user-detail-page/user-settings/user-roles/user-roles.component';
 import { UserSettingsAppConfigurationComponent } from './shared/components/user-detail-page/user-settings/user-settings-app-configuration/user-settings-app-configuration.component';
 import { UserDashboardComponent } from './shared/components/user-detail-page/user-dashboard/user-dashboard.component';
 import { UserSettingsFacilityAttributesComponent } from './shared/components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
@@ -72,11 +71,6 @@ const routes: Routes = [
             path: 'facilityAttributes',
             component: UserSettingsFacilityAttributesComponent,
             data: {animation: 'UserSettingsFacilityAttributesPage', showPrincipal: true}
-          },
-          {
-            path: 'roles',
-            component: UserRolesComponent,
-            data: { animation: 'UserRolesPage' }
           },
           {
             path: 'gui-config',
