@@ -29,6 +29,7 @@ import { UserRolesComponent } from '../shared/components/user-detail-page/user-s
 import { UserSettingsFacilityAttributesComponent } from '../shared/components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
 import { UserSettingsServiceIdentitiesComponent } from '../shared/components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
 import { UserIdentitiesComponent } from '../shared/components/user-detail-page/user-identities/user-identities.component';
+import { AdminServicesComponent } from './pages/admin-page/admin-services/admin-services.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
         path: 'users',
         component: AdminUsersComponent,
         data: {animation: 'AdminUsersPage'}
+      },
+      {
+        path: 'services',
+        component: AdminServicesComponent,
+        data: {animation: 'AdminServicesPage'}
       },
       {
         path: 'visualizer',
