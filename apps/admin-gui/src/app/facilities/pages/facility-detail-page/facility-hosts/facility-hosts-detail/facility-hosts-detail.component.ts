@@ -30,7 +30,7 @@ export class FacilityHostsDetailComponent implements OnInit {
   attributes: Attribute[] = [];
   selected = new SelectionModel<Attribute>(true, []);
   hostId: number;
-  host: Host;
+  host: Host = { beanName: '', id: 0 };
   loading: boolean;
   tableId = TABLE_ATTRIBUTES_SETTINGS;
   pageSize: number;
