@@ -25,7 +25,7 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'MEMBERSHIP_LIST.NAME' | customTranslate | translate}}</th>
+          <th *matHeaderCellDef mat-header-cell>{{'MEMBERSHIP_LIST.NAME' | customTranslate | translate}}</th>
           <td mat-cell class="static-column-size" *matCellDef="let member">{{member.entity.name}}</td>
         </ng-container>
         <ng-container matColumnDef="description">
