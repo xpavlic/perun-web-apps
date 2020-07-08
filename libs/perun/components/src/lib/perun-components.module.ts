@@ -47,6 +47,7 @@ import { UserExtSourcesListComponent } from './user-ext-sources-list/user-ext-so
 import { RemoveUserExtSourceDialogComponent } from './remove-user-ext-source-dialog/remove-user-ext-source-dialog.component';
 import { EditAttributeDialogComponent } from './attributes-list/edit-attribute-dialog/edit-attribute-dialog.component';
 import { CreateAttributeDialogComponent } from './create-attribute-dialog/create-attribute-dialog.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 
 @NgModule({
@@ -103,7 +104,8 @@ import { CreateAttributeDialogComponent } from './create-attribute-dialog/create
     AutoFocusDirective,
     AttributeValueIntegerComponent,
     EditAttributeDialogComponent,
-    CreateAttributeDialogComponent
+    CreateAttributeDialogComponent,
+    PasswordResetComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -128,7 +130,8 @@ import { CreateAttributeDialogComponent } from './create-attribute-dialog/create
     AutoFocusDirective,
     MenuButtonsFieldComponent,
     EditAttributeDialogComponent,
-    CreateAttributeDialogComponent
+    CreateAttributeDialogComponent,
+    PasswordResetComponent
   ]
 })
 export class PerunSharedComponentsModule {

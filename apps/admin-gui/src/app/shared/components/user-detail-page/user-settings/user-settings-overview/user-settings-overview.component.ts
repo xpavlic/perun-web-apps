@@ -38,12 +38,20 @@ export class UserSettingsOverviewComponent implements OnInit {
     // if at user profile, add user gui config item
     // if at admin profile, add service identities
     if (!window.location.pathname.startsWith('/admin')) {
-      this.navItems.push({
+      this.navItems.push(
+        {
           cssIcon: 'perun-settings2',
           url: 'gui-config',
           label: 'MENU_ITEMS.USER.GUI_CONFIG',
           style: 'user-btn'
-        });
+        },
+        {
+          cssIcon: 'perun-settings2',
+          url: 'passwordReset',
+          label: 'MENU_ITEMS.USER.PASSWORD_RESET',
+          style: 'user-btn'
+        }
+        );
     } else {
       this.navItems.push({
         cssIcon: 'perun-attributes',

@@ -4,11 +4,11 @@ import { StoreService } from '@perun-web-apps/perun/services';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'perun-web-apps-settings-password-reset',
-  templateUrl: './settings-password-reset.component.html',
-  styleUrls: ['./settings-password-reset.component.scss']
+  selector: 'perun-web-apps-password-reset',
+  templateUrl: './password-reset.component.html',
+  styleUrls: ['./password-reset.component.scss']
 })
-export class SettingsPasswordResetComponent implements OnInit {
+export class PasswordResetComponent implements OnInit {
 
   userId: number;
 
@@ -24,7 +24,7 @@ export class SettingsPasswordResetComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.store.getPerunPrincipal().userId;
-    this.nameSpaces = this.store.get('login_namespace_attributes');
+    this.nameSpaces = this.store.get('password_namespace_attributes');
     this.attributesManagerService.getLogins(this.userId).subscribe(logins => {
       const parsedNamespaces = this.nameSpaces.map(nameSpace => {
         const elems = nameSpace.split(':');

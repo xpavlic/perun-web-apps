@@ -17,6 +17,13 @@
     "urn:perun:user:attribute-def:def:login-namespace:cesnet",
     "urn:perun:user:attribute-def:def:login-namespace:mu"
   ],
+  "password_namespace_attributes": [
+    "urn:perun:user:attribute-def:def:login-namespace:einfra",
+    "urn:perun:user:attribute-def:def:login-namespace:einfra-services",
+    "urn:perun:user:attribute-def:def:login-namespace:egi-ui",
+    "urn:perun:user:attribute-def:def:login-namespace:sitola"
+  ],
+  "pwd_reset_base_url": "https://perun-dev.cesnet.cz/fed/pwd-reset/",
   "skip_oidc": false,
   "footer_perun_web_web": "https://perun-aai.org/",
   "footer_perun_team_web": "https://perun-aai.org/team",
