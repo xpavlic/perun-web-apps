@@ -99,7 +99,7 @@ export function parseUserLogins(richUser: RichUser): string {
       .filter(attr => attr.baseFriendlyName === 'login-namespace')
       .filter(attr => attr.value !== null)
       .forEach(attr => {
-        logins += attr.friendlyNameParameter + ": " + attr.value + ", ";
+        logins += attr.FriendlyNameParameter + ": " + attr.value + ", ";
     })
   }
 
@@ -119,7 +119,7 @@ export function parseLogins(richMember: RichMember|RichUser): string {
 
   richMember.userAttributes.forEach(attr => {
     if (attr.baseFriendlyName === 'login-namespace') {
-      logins += attr.friendlyNameParameter + ': ' + attr.value + ' ';
+      logins += attr.FriendlyNameParameter + ': ' + attr.value + ' ';
     }
   });
 

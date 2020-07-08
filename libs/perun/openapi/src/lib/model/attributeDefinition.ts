@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
+import { AttributeDefinitionAllOf } from './attributeDefinitionAllOf';
 
 
 export interface AttributeDefinition extends Auditable { 
@@ -20,7 +21,7 @@ export interface AttributeDefinition extends Auditable {
     displayName?: string;
     writable?: boolean;
     unique?: boolean;
-    readonly friendlyNameParameter?: string;
+    readonly FriendlyNameParameter?: string;
     readonly baseFriendlyName?: string;
     readonly entity?: string;
 }

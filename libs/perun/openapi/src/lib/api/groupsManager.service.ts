@@ -17,9 +17,9 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { Group } from '../model/group';
-import { PerunException } from '../model/perunException';
-import { RichGroup } from '../model/richGroup';
+import { Group } from '../model/models';
+import { PerunException } from '../model/models';
+import { RichGroup } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -58,10 +58,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addMembers(group: number, members: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addMembers(group: number, members: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addMembers(group: number, members: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addMembers(group: number, members: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addMembers(group: number, members: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public addMembers(group: number, members: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public addMembers(group: number, members: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public addMembers(group: number, members: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling addMembers.');
         }
@@ -71,19 +74,24 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>group, 'group');
         }
         if (members) {
             members.forEach((element) => {
-                queryParameters = queryParameters.append('members[]', <any>element);
+                queryParameters = this.addToHttpParams(queryParameters,
+                  <any>element, 'members[]');
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -97,20 +105,29 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/addMembers`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -126,10 +143,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createGroupUnion(resultGroup: number, operandGroup: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createGroupUnion(resultGroup: number, operandGroup: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createGroupUnion(resultGroup: number, operandGroup: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public createGroupUnion(resultGroup: number, operandGroup: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createGroupUnion(resultGroup: number, operandGroup: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public createGroupUnion(resultGroup: number, operandGroup: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public createGroupUnion(resultGroup: number, operandGroup: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public createGroupUnion(resultGroup: number, operandGroup: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (resultGroup === null || resultGroup === undefined) {
             throw new Error('Required parameter resultGroup was null or undefined when calling createGroupUnion.');
         }
@@ -139,17 +159,22 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resultGroup !== undefined && resultGroup !== null) {
-            queryParameters = queryParameters.set('resultGroup', <any>resultGroup);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>resultGroup, 'resultGroup');
         }
         if (operandGroup !== undefined && operandGroup !== null) {
-            queryParameters = queryParameters.set('operandGroup', <any>operandGroup);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>operandGroup, 'operandGroup');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -163,20 +188,29 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/createGroupUnion`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -193,10 +227,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createGroupWithParentGroupNameDescription(parentGroup: number, name: string, description: string, observe?: 'body', reportProgress?: boolean): Observable<Group>;
-    public createGroupWithParentGroupNameDescription(parentGroup: number, name: string, description: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Group>>;
-    public createGroupWithParentGroupNameDescription(parentGroup: number, name: string, description: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Group>>;
-    public createGroupWithParentGroupNameDescription(parentGroup: number, name: string, description: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createGroupWithParentGroupNameDescription(parentGroup: number, name: string, description: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Group>;
+
+    public createGroupWithParentGroupNameDescription(parentGroup: number, name: string, description: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Group>>;
+
+    public createGroupWithParentGroupNameDescription(parentGroup: number, name: string, description: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Group>>;
+
+    public createGroupWithParentGroupNameDescription(parentGroup: number, name: string, description: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (parentGroup === null || parentGroup === undefined) {
             throw new Error('Required parameter parentGroup was null or undefined when calling createGroupWithParentGroupNameDescription.');
         }
@@ -209,20 +246,26 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (parentGroup !== undefined && parentGroup !== null) {
-            queryParameters = queryParameters.set('parentGroup', <any>parentGroup);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>parentGroup, 'parentGroup');
         }
         if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>name, 'name');
         }
         if (description !== undefined && description !== null) {
-            queryParameters = queryParameters.set('description', <any>description);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>description, 'description');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -236,20 +279,29 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<Group>(`${this.configuration.basePath}/urlinjsonout/groupsManager/createGroup/pg-n-d`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -266,10 +318,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createGroupWithVoNameDescription(vo: number, name: string, description: string, observe?: 'body', reportProgress?: boolean): Observable<Group>;
-    public createGroupWithVoNameDescription(vo: number, name: string, description: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Group>>;
-    public createGroupWithVoNameDescription(vo: number, name: string, description: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Group>>;
-    public createGroupWithVoNameDescription(vo: number, name: string, description: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createGroupWithVoNameDescription(vo: number, name: string, description: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Group>;
+
+    public createGroupWithVoNameDescription(vo: number, name: string, description: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Group>>;
+
+    public createGroupWithVoNameDescription(vo: number, name: string, description: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Group>>;
+
+    public createGroupWithVoNameDescription(vo: number, name: string, description: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling createGroupWithVoNameDescription.');
         }
@@ -282,20 +337,26 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-            queryParameters = queryParameters.set('vo', <any>vo);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>vo, 'vo');
         }
         if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>name, 'name');
         }
         if (description !== undefined && description !== null) {
-            queryParameters = queryParameters.set('description', <any>description);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>description, 'description');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -309,20 +370,29 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<Group>(`${this.configuration.basePath}/urlinjsonout/groupsManager/createGroup/v-n-d`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -338,10 +408,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (groups === null || groups === undefined) {
             throw new Error('Required parameter groups was null or undefined when calling deleteGroups.');
         }
@@ -352,18 +425,23 @@ export class GroupsManagerService {
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (groups) {
             groups.forEach((element) => {
-                queryParameters = queryParameters.append('groups[]', <any>element);
+                queryParameters = this.addToHttpParams(queryParameters,
+                  <any>element, 'groups[]');
             })
         }
         if (forceDelete !== undefined && forceDelete !== null) {
-            queryParameters = queryParameters.set('forceDelete', <any>forceDelete);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>forceDelete, 'forceDelete');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -377,20 +455,104 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/deleteGroups`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Force synchronization for all subgroups (recursively - whole tree) of the group (useful for group structure).
+     * @param group id of Group
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public forceAllSubGroupsSynchronization(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public forceAllSubGroupsSynchronization(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public forceAllSubGroupsSynchronization(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public forceAllSubGroupsSynchronization(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (group === null || group === undefined) {
+            throw new Error('Required parameter group was null or undefined when calling forceAllSubGroupsSynchronization.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (group !== undefined && group !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>group, 'group');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/forceAllSubGroupsSynchronization`,
+            null,
+            {
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -405,24 +567,31 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public forceGroupStructureSynchronization(group: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public forceGroupStructureSynchronization(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public forceGroupStructureSynchronization(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public forceGroupStructureSynchronization(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public forceGroupStructureSynchronization(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public forceGroupStructureSynchronization(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public forceGroupStructureSynchronization(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public forceGroupStructureSynchronization(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling forceGroupStructureSynchronization.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>group, 'group');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -436,20 +605,29 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/forceGroupStructureSynchronization`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -464,24 +642,31 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public forceGroupSynchronization(group: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public forceGroupSynchronization(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public forceGroupSynchronization(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public forceGroupSynchronization(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public forceGroupSynchronization(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public forceGroupSynchronization(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public forceGroupSynchronization(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public forceGroupSynchronization(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling forceGroupSynchronization.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>group, 'group');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -495,20 +680,29 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/forceGroupSynchronization`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -523,24 +717,31 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllGroups(vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
-    public getAllGroups(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
-    public getAllGroups(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
-    public getAllGroups(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllGroups(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Group>>;
+
+    public getAllGroups(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Group>>>;
+
+    public getAllGroups(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Group>>>;
+
+    public getAllGroups(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getAllGroups.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-            queryParameters = queryParameters.set('vo', <any>vo);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>vo, 'vo');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -554,19 +755,102 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/groupsManager/getAllGroups`,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Returns all groups for a member including group \&#39;members\&#39;
+     * @param member id of Member
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllMemberGroups(member: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Group>>;
+
+    public getAllMemberGroups(member: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Group>>>;
+
+    public getAllMemberGroups(member: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Group>>>;
+
+    public getAllMemberGroups(member: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (member === null || member === undefined) {
+            throw new Error('Required parameter member was null or undefined when calling getAllMemberGroups.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (member !== undefined && member !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>member, 'member');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/groupsManager/getAllMemberGroups`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -582,10 +866,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllRichGroupsWithAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<RichGroup>>;
-    public getAllRichGroupsWithAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichGroup>>>;
-    public getAllRichGroupsWithAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichGroup>>>;
-    public getAllRichGroupsWithAttributesByNames(vo: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllRichGroupsWithAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<RichGroup>>;
+
+    public getAllRichGroupsWithAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<RichGroup>>>;
+
+    public getAllRichGroupsWithAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<RichGroup>>>;
+
+    public getAllRichGroupsWithAttributesByNames(vo: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getAllRichGroupsWithAttributesByNames.');
         }
@@ -595,19 +882,24 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-            queryParameters = queryParameters.set('vo', <any>vo);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>vo, 'vo');
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = queryParameters.append('attrNames[]', <any>element);
+                queryParameters = this.addToHttpParams(queryParameters,
+                  <any>element, 'attrNames[]');
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -621,19 +913,28 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.get<Array<RichGroup>>(`${this.configuration.basePath}/json/groupsManager/getAllRichGroupsWithAttributesByNames`,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -649,29 +950,37 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllRichSubGroupsWithGroupAttributesByNames(group: number, attrNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<RichGroup>>;
-    public getAllRichSubGroupsWithGroupAttributesByNames(group: number, attrNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichGroup>>>;
-    public getAllRichSubGroupsWithGroupAttributesByNames(group: number, attrNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichGroup>>>;
-    public getAllRichSubGroupsWithGroupAttributesByNames(group: number, attrNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllRichSubGroupsWithGroupAttributesByNames(group: number, attrNames?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<RichGroup>>;
+
+    public getAllRichSubGroupsWithGroupAttributesByNames(group: number, attrNames?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<RichGroup>>>;
+
+    public getAllRichSubGroupsWithGroupAttributesByNames(group: number, attrNames?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<RichGroup>>>;
+
+    public getAllRichSubGroupsWithGroupAttributesByNames(group: number, attrNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getAllRichSubGroupsWithGroupAttributesByNames.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>group, 'group');
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = queryParameters.append('attrNames[]', <any>element);
+                queryParameters = this.addToHttpParams(queryParameters,
+                  <any>element, 'attrNames[]');
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -685,19 +994,28 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.get<Array<RichGroup>>(`${this.configuration.basePath}/json/groupsManager/getAllRichSubGroupsWithAttributesByNames`,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -713,24 +1031,31 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupById(id: number, observe?: 'body', reportProgress?: boolean): Observable<Group>;
-    public getGroupById(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Group>>;
-    public getGroupById(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Group>>;
-    public getGroupById(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getGroupById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Group>;
+
+    public getGroupById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Group>>;
+
+    public getGroupById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Group>>;
+
+    public getGroupById(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getGroupById.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>id, 'id');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -744,19 +1069,28 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.get<Group>(`${this.configuration.basePath}/json/groupsManager/getGroupById`,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -766,16 +1100,19 @@ export class GroupsManagerService {
     }
 
     /**
-     * Returns a group by VO and Group name. IMPORTANT: need to use full name of group (ex. \&#39;toplevel:a:b\&#39;, not the shortname which is in this example \&#39;b\&#39;) Throws GroupNotExistsException when the group doesn\&#39;t exist. 
+     * Returns a group by VO and Group name. IMPORTANT: need to use full name of group (ex. \&#39;toplevel:a:b\&#39;, not the shortname which is in this example \&#39;b\&#39;) Throws GroupNotExistsException when the group doesn\&#39;t exist.
      * @param vo id of Vo
      * @param name name of entity
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupByName(vo: number, name: string, observe?: 'body', reportProgress?: boolean): Observable<Group>;
-    public getGroupByName(vo: number, name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Group>>;
-    public getGroupByName(vo: number, name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Group>>;
-    public getGroupByName(vo: number, name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getGroupByName(vo: number, name: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Group>;
+
+    public getGroupByName(vo: number, name: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Group>>;
+
+    public getGroupByName(vo: number, name: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Group>>;
+
+    public getGroupByName(vo: number, name: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getGroupByName.');
         }
@@ -785,17 +1122,22 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-            queryParameters = queryParameters.set('vo', <any>vo);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>vo, 'vo');
         }
         if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>name, 'name');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -809,19 +1151,28 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.get<Group>(`${this.configuration.basePath}/json/groupsManager/getGroupByName`,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -837,10 +1188,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getGroupUnions(group: number, reverseDirection: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public getGroupUnions(group: number, reverseDirection: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupUnions.');
         }
@@ -850,17 +1204,22 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>group, 'group');
         }
         if (reverseDirection !== undefined && reverseDirection !== null) {
-            queryParameters = queryParameters.set('reverseDirection', <any>reverseDirection);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>reverseDirection, 'reverseDirection');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -874,19 +1233,28 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.get<any>(`${this.configuration.basePath}/json/groupsManager/getGroupUnions`,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -901,24 +1269,31 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberGroups(member: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
-    public getMemberGroups(member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
-    public getMemberGroups(member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
-    public getMemberGroups(member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getMemberGroups(member: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Group>>;
+
+    public getMemberGroups(member: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Group>>>;
+
+    public getMemberGroups(member: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Group>>>;
+
+    public getMemberGroups(member: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberGroups.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-            queryParameters = queryParameters.set('member', <any>member);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>member, 'member');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -932,19 +1307,113 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/groupsManager/getMemberGroups`,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Returns RichGroup selected by id containing selected attributes
+     * Throws GroupNotExistsException when the group doesn\&#39;t exist.
+     * @param groupId id of Group
+     * @param attrNames list of attribute names List&lt;String&gt;
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<RichGroup>;
+
+    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<RichGroup>>;
+
+    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<RichGroup>>;
+
+    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (groupId === null || groupId === undefined) {
+            throw new Error('Required parameter groupId was null or undefined when calling getRichGroupByIdWithAttributesByNames.');
+        }
+        if (attrNames === null || attrNames === undefined) {
+            throw new Error('Required parameter attrNames was null or undefined when calling getRichGroupByIdWithAttributesByNames.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (groupId !== undefined && groupId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>groupId, 'groupId');
+        }
+        if (attrNames) {
+            attrNames.forEach((element) => {
+                queryParameters = this.addToHttpParams(queryParameters,
+                  <any>element, 'attrNames[]');
+            })
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<RichGroup>(`${this.configuration.basePath}/json/groupsManager/getRichGroupByIdWithAttributesByNames`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -960,10 +1429,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public isGroupMember(member: number, group: number, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public isGroupMember(member: number, group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public isGroupMember(member: number, group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public isGroupMember(member: number, group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public isGroupMember(member: number, group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<boolean>;
+
+    public isGroupMember(member: number, group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<boolean>>;
+
+    public isGroupMember(member: number, group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<boolean>>;
+
+    public isGroupMember(member: number, group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling isGroupMember.');
         }
@@ -973,17 +1445,22 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-            queryParameters = queryParameters.set('member', <any>member);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>member, 'member');
         }
         if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>group, 'group');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -997,19 +1474,28 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.get<boolean>(`${this.configuration.basePath}/json/groupsManager/isGroupMember`,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1025,27 +1511,35 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public moveGroupWithDestinationGroupMovingGroup(movingGroup: number, destinationGroup?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public moveGroupWithDestinationGroupMovingGroup(movingGroup: number, destinationGroup?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public moveGroupWithDestinationGroupMovingGroup(movingGroup: number, destinationGroup?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public moveGroupWithDestinationGroupMovingGroup(movingGroup: number, destinationGroup?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public moveGroupWithDestinationGroupMovingGroup(movingGroup: number, destinationGroup?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public moveGroupWithDestinationGroupMovingGroup(movingGroup: number, destinationGroup?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public moveGroupWithDestinationGroupMovingGroup(movingGroup: number, destinationGroup?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public moveGroupWithDestinationGroupMovingGroup(movingGroup: number, destinationGroup?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (movingGroup === null || movingGroup === undefined) {
             throw new Error('Required parameter movingGroup was null or undefined when calling moveGroupWithDestinationGroupMovingGroup.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (destinationGroup !== undefined && destinationGroup !== null) {
-            queryParameters = queryParameters.set('destinationGroup', <any>destinationGroup);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>destinationGroup, 'destinationGroup');
         }
         if (movingGroup !== undefined && movingGroup !== null) {
-            queryParameters = queryParameters.set('movingGroup', <any>movingGroup);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>movingGroup, 'movingGroup');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -1059,20 +1553,29 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/moveGroup/dg-mg`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1088,10 +1591,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupUnion(resultGroup: number, operandGroup: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeGroupUnion(resultGroup: number, operandGroup: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeGroupUnion(resultGroup: number, operandGroup: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeGroupUnion(resultGroup: number, operandGroup: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public removeGroupUnion(resultGroup: number, operandGroup: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public removeGroupUnion(resultGroup: number, operandGroup: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public removeGroupUnion(resultGroup: number, operandGroup: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public removeGroupUnion(resultGroup: number, operandGroup: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (resultGroup === null || resultGroup === undefined) {
             throw new Error('Required parameter resultGroup was null or undefined when calling removeGroupUnion.');
         }
@@ -1101,17 +1607,22 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resultGroup !== undefined && resultGroup !== null) {
-            queryParameters = queryParameters.set('resultGroup', <any>resultGroup);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>resultGroup, 'resultGroup');
         }
         if (operandGroup !== undefined && operandGroup !== null) {
-            queryParameters = queryParameters.set('operandGroup', <any>operandGroup);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>operandGroup, 'operandGroup');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -1125,20 +1636,29 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/removeGroupUnion`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1154,10 +1674,13 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeMembers(group: number, members: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeMembers(group: number, members: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeMembers(group: number, members: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeMembers(group: number, members: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public removeMembers(group: number, members: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+
+    public removeMembers(group: number, members: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+
+    public removeMembers(group: number, members: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+
+    public removeMembers(group: number, members: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling removeMembers.');
         }
@@ -1167,19 +1690,24 @@ export class GroupsManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>group, 'group');
         }
         if (members) {
             members.forEach((element) => {
-                queryParameters = queryParameters.append('members[]', <any>element);
+                queryParameters = this.addToHttpParams(queryParameters,
+                  <any>element, 'members[]');
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        if (this.configuration.apiKeys) {
+            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
+            if (key) {
+                headers = headers.set('Authorization', key);
+            }
         }
 
         // authentication (BasicAuth) required
@@ -1193,26 +1721,71 @@ export class GroupsManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/removeMembers`,
             null,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
         );
+    }
+
+    private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+        if (typeof value === "object" && value instanceof Date === false) {
+            httpParams = this.addToHttpParamsRecursive(httpParams, value);
+        } else {
+            httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
+        }
+        return httpParams;
+    }
+
+    private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
+        if (value == null) {
+            return httpParams;
+        }
+
+        if (typeof value === "object") {
+            if (Array.isArray(value)) {
+                (value as any[]).forEach( elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
+            } else if (value instanceof Date) {
+                if (key != null) {
+                    httpParams = httpParams.append(key,
+                        (value as Date).toISOString().substr(0, 10));
+                } else {
+                   throw Error("key may not be null if value is Date");
+                }
+            } else {
+                Object.keys(value).forEach( k => httpParams = this.addToHttpParamsRecursive(
+                    httpParams, value[k], key != null ? `${key}.${k}` : k));
+            }
+        } else if (key != null) {
+            httpParams = httpParams.append(key, value);
+        } else {
+            throw Error("key may not be null if value is not object or array");
+        }
+        return httpParams;
     }
 
 }
