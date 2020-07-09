@@ -39,6 +39,7 @@
         (page)="pageChanged($event)"
         [inDialog]="true"
         [selection]="selection"
+        [displayedColumns]="['select', 'id', 'name', 'email', 'logins', 'organization']"
         [users]="users"
         *ngIf="users.length !== 0">
       </app-users-list>
