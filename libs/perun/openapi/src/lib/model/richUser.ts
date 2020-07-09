@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { RichUserAllOf } from './richUserAllOf';
 import { User } from './user';
 import { Attribute } from './attribute';
 import { UserExtSource } from './userExtSource';

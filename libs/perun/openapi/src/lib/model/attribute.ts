@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AttributeAllOf } from './attributeAllOf';
 import { AttributeDefinition } from './attributeDefinition';
 
 

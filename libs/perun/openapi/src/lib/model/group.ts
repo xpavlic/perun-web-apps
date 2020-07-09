@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { GroupAllOf } from './groupAllOf';
 
 
 export interface Group extends Auditable { 

@@ -11,7 +11,6 @@
  */
 import { User } from './user';
 import { UserExtSource } from './userExtSource';
-import { CandidateAllOf } from './candidateAllOf';
 
 
 export interface Candidate extends User { 

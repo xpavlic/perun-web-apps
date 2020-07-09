@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { ResourceAllOf } from './resourceAllOf';
 
 
 export interface Resource extends Auditable { 

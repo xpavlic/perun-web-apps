@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { PerunBean } from './perunBean';
-import { PublicationAllOf } from './publicationAllOf';
 import { Author } from './author';
 
 

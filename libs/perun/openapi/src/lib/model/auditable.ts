@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { PerunBean } from './perunBean';
-import { AuditableAllOf } from './auditableAllOf';
 
 
 export interface Auditable extends PerunBean { 

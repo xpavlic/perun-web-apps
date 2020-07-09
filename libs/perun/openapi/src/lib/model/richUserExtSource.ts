@@ -11,9 +11,10 @@
  */
 import { Attribute } from './attribute';
 import { UserExtSource } from './userExtSource';
-import { RichUserExtSourceAllOf } from './richUserExtSourceAllOf';
 
 
-export interface RichUserExtSource extends RichUserExtSourceAllOf { 
+export interface RichUserExtSource { 
+    userExtSource: UserExtSource;
+    attributes: Array<Attribute>;
 }
 

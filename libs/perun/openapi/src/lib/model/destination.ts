@@ -11,7 +11,6 @@
  */
 import { Auditable } from './auditable';
 import { DestinationPropagationType } from './destinationPropagationType';
-import { DestinationAllOf } from './destinationAllOf';
 import { DestinationType } from './destinationType';
 
 

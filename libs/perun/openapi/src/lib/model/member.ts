@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { MemberAllOf } from './memberAllOf';
 
 
 export interface Member extends Auditable { 

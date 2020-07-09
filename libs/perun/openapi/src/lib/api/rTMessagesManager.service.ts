@@ -17,8 +17,8 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { PerunException } from '../model/models';
-import { RTMessage } from '../model/models';
+import { PerunException } from '../model/perunException';
+import { RTMessage } from '../model/rTMessage';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -59,13 +59,10 @@ export class RTMessagesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sentMessageToRTWithMemberQueue(memberId: number, queue: string, subject: string, text: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<RTMessage>;
-
-    public sentMessageToRTWithMemberQueue(memberId: number, queue: string, subject: string, text: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<RTMessage>>;
-
-    public sentMessageToRTWithMemberQueue(memberId: number, queue: string, subject: string, text: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<RTMessage>>;
-
-    public sentMessageToRTWithMemberQueue(memberId: number, queue: string, subject: string, text: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public sentMessageToRTWithMemberQueue(memberId: number, queue: string, subject: string, text: string, observe?: 'body', reportProgress?: boolean): Observable<RTMessage>;
+    public sentMessageToRTWithMemberQueue(memberId: number, queue: string, subject: string, text: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RTMessage>>;
+    public sentMessageToRTWithMemberQueue(memberId: number, queue: string, subject: string, text: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RTMessage>>;
+    public sentMessageToRTWithMemberQueue(memberId: number, queue: string, subject: string, text: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (memberId === null || memberId === undefined) {
             throw new Error('Required parameter memberId was null or undefined when calling sentMessageToRTWithMemberQueue.');
         }
@@ -81,30 +78,23 @@ export class RTMessagesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (memberId !== undefined && memberId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>memberId, 'memberId');
+            queryParameters = queryParameters.set('memberId', <any>memberId);
         }
         if (queue !== undefined && queue !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>queue, 'queue');
+            queryParameters = queryParameters.set('queue', <any>queue);
         }
         if (subject !== undefined && subject !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>subject, 'subject');
+            queryParameters = queryParameters.set('subject', <any>subject);
         }
         if (text !== undefined && text !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>text, 'text');
+            queryParameters = queryParameters.set('text', <any>text);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -118,29 +108,20 @@ export class RTMessagesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<RTMessage>(`${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/m-q`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -157,13 +138,10 @@ export class RTMessagesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sentMessageToRTWithQueue(queue: string, subject: string, text: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<RTMessage>;
-
-    public sentMessageToRTWithQueue(queue: string, subject: string, text: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<RTMessage>>;
-
-    public sentMessageToRTWithQueue(queue: string, subject: string, text: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<RTMessage>>;
-
-    public sentMessageToRTWithQueue(queue: string, subject: string, text: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public sentMessageToRTWithQueue(queue: string, subject: string, text: string, observe?: 'body', reportProgress?: boolean): Observable<RTMessage>;
+    public sentMessageToRTWithQueue(queue: string, subject: string, text: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RTMessage>>;
+    public sentMessageToRTWithQueue(queue: string, subject: string, text: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RTMessage>>;
+    public sentMessageToRTWithQueue(queue: string, subject: string, text: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (queue === null || queue === undefined) {
             throw new Error('Required parameter queue was null or undefined when calling sentMessageToRTWithQueue.');
         }
@@ -176,26 +154,20 @@ export class RTMessagesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (queue !== undefined && queue !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>queue, 'queue');
+            queryParameters = queryParameters.set('queue', <any>queue);
         }
         if (subject !== undefined && subject !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>subject, 'subject');
+            queryParameters = queryParameters.set('subject', <any>subject);
         }
         if (text !== undefined && text !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>text, 'text');
+            queryParameters = queryParameters.set('text', <any>text);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -209,29 +181,20 @@ export class RTMessagesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<RTMessage>(`${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/q`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -248,13 +211,10 @@ export class RTMessagesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sentMessageToRTWithVo(voId: number, subject: string, text: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<RTMessage>;
-
-    public sentMessageToRTWithVo(voId: number, subject: string, text: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<RTMessage>>;
-
-    public sentMessageToRTWithVo(voId: number, subject: string, text: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<RTMessage>>;
-
-    public sentMessageToRTWithVo(voId: number, subject: string, text: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public sentMessageToRTWithVo(voId: number, subject: string, text: string, observe?: 'body', reportProgress?: boolean): Observable<RTMessage>;
+    public sentMessageToRTWithVo(voId: number, subject: string, text: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RTMessage>>;
+    public sentMessageToRTWithVo(voId: number, subject: string, text: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RTMessage>>;
+    public sentMessageToRTWithVo(voId: number, subject: string, text: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (voId === null || voId === undefined) {
             throw new Error('Required parameter voId was null or undefined when calling sentMessageToRTWithVo.');
         }
@@ -267,26 +227,20 @@ export class RTMessagesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (voId !== undefined && voId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>voId, 'voId');
+            queryParameters = queryParameters.set('voId', <any>voId);
         }
         if (subject !== undefined && subject !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>subject, 'subject');
+            queryParameters = queryParameters.set('subject', <any>subject);
         }
         if (text !== undefined && text !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>text, 'text');
+            queryParameters = queryParameters.set('text', <any>text);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -300,29 +254,20 @@ export class RTMessagesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<RTMessage>(`${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/v`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -340,13 +285,10 @@ export class RTMessagesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sentMessageToRTWithVoQueue(voId: number, queue: string, subject: string, text: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<RTMessage>;
-
-    public sentMessageToRTWithVoQueue(voId: number, queue: string, subject: string, text: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<RTMessage>>;
-
-    public sentMessageToRTWithVoQueue(voId: number, queue: string, subject: string, text: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<RTMessage>>;
-
-    public sentMessageToRTWithVoQueue(voId: number, queue: string, subject: string, text: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public sentMessageToRTWithVoQueue(voId: number, queue: string, subject: string, text: string, observe?: 'body', reportProgress?: boolean): Observable<RTMessage>;
+    public sentMessageToRTWithVoQueue(voId: number, queue: string, subject: string, text: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RTMessage>>;
+    public sentMessageToRTWithVoQueue(voId: number, queue: string, subject: string, text: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RTMessage>>;
+    public sentMessageToRTWithVoQueue(voId: number, queue: string, subject: string, text: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (voId === null || voId === undefined) {
             throw new Error('Required parameter voId was null or undefined when calling sentMessageToRTWithVoQueue.');
         }
@@ -362,30 +304,23 @@ export class RTMessagesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (voId !== undefined && voId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>voId, 'voId');
+            queryParameters = queryParameters.set('voId', <any>voId);
         }
         if (queue !== undefined && queue !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>queue, 'queue');
+            queryParameters = queryParameters.set('queue', <any>queue);
         }
         if (subject !== undefined && subject !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>subject, 'subject');
+            queryParameters = queryParameters.set('subject', <any>subject);
         }
         if (text !== undefined && text !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>text, 'text');
+            queryParameters = queryParameters.set('text', <any>text);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -399,71 +334,26 @@ export class RTMessagesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<RTMessage>(`${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/v-q`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
         );
-    }
-
-    private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
-        if (typeof value === "object" && value instanceof Date === false) {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value);
-        } else {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
-        }
-        return httpParams;
-    }
-
-    private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
-        if (value == null) {
-            return httpParams;
-        }
-
-        if (typeof value === "object") {
-            if (Array.isArray(value)) {
-                (value as any[]).forEach( elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
-            } else if (value instanceof Date) {
-                if (key != null) {
-                    httpParams = httpParams.append(key,
-                        (value as Date).toISOString().substr(0, 10));
-                } else {
-                   throw Error("key may not be null if value is Date");
-                }
-            } else {
-                Object.keys(value).forEach( k => httpParams = this.addToHttpParamsRecursive(
-                    httpParams, value[k], key != null ? `${key}.${k}` : k));
-            }
-        } else if (key != null) {
-            httpParams = httpParams.append(key, value);
-        } else {
-            throw Error("key may not be null if value is not object or array");
-        }
-        return httpParams;
     }
 
 }

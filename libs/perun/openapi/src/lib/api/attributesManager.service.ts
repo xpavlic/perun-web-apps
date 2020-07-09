@@ -17,47 +17,47 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { Attribute } from '../model/models';
-import { AttributeDefinition } from '../model/models';
-import { AttributeRights } from '../model/models';
-import { InlineResponse200 } from '../model/models';
-import { InputAttributeDefinition } from '../model/models';
-import { InputAttributeRights } from '../model/models';
-import { InputCreateAttributeDefinition } from '../model/models';
-import { InputEntitylessAttribute } from '../model/models';
-import { InputSetFacilityAttribute } from '../model/models';
-import { InputSetFacilityAttributes } from '../model/models';
-import { InputSetFacilityResourceGroupUserMemberAttributes } from '../model/models';
-import { InputSetFacilityResourceUserMemberAttributes } from '../model/models';
-import { InputSetFacilityUserAttributes } from '../model/models';
-import { InputSetGroupAttribute } from '../model/models';
-import { InputSetGroupAttributes } from '../model/models';
-import { InputSetGroupResourceAttribute } from '../model/models';
-import { InputSetGroupResourceAttributes } from '../model/models';
-import { InputSetHostAttribute } from '../model/models';
-import { InputSetHostAttributes } from '../model/models';
-import { InputSetMemberAttribute } from '../model/models';
-import { InputSetMemberAttributes } from '../model/models';
-import { InputSetMemberGroupAttribute } from '../model/models';
-import { InputSetMemberGroupAttributes } from '../model/models';
-import { InputSetMemberGroupWithUserAttributes } from '../model/models';
-import { InputSetMemberResourceAndUserAttributes } from '../model/models';
-import { InputSetMemberResourceAttribute } from '../model/models';
-import { InputSetMemberResourceAttributes } from '../model/models';
-import { InputSetMemberWithUserAttributes } from '../model/models';
-import { InputSetResourceAttribute } from '../model/models';
-import { InputSetResourceAttributes } from '../model/models';
-import { InputSetResourceGroupAttributes } from '../model/models';
-import { InputSetResourceGroupWithGroupAttributes } from '../model/models';
-import { InputSetUserAttribute } from '../model/models';
-import { InputSetUserAttributes } from '../model/models';
-import { InputSetUserExtSourceAttribute } from '../model/models';
-import { InputSetUserExtSourceAttributes } from '../model/models';
-import { InputSetUserFacilityAttribute } from '../model/models';
-import { InputSetUserFacilityAttributes } from '../model/models';
-import { InputSetVoAttribute } from '../model/models';
-import { InputSetVoAttributes } from '../model/models';
-import { PerunException } from '../model/models';
+import { Attribute } from '../model/attribute';
+import { AttributeDefinition } from '../model/attributeDefinition';
+import { AttributeRights } from '../model/attributeRights';
+import { InlineResponse200 } from '../model/inlineResponse200';
+import { InputAttributeDefinition } from '../model/inputAttributeDefinition';
+import { InputAttributeRights } from '../model/inputAttributeRights';
+import { InputCreateAttributeDefinition } from '../model/inputCreateAttributeDefinition';
+import { InputEntitylessAttribute } from '../model/inputEntitylessAttribute';
+import { InputSetFacilityAttribute } from '../model/inputSetFacilityAttribute';
+import { InputSetFacilityAttributes } from '../model/inputSetFacilityAttributes';
+import { InputSetFacilityResourceGroupUserMemberAttributes } from '../model/inputSetFacilityResourceGroupUserMemberAttributes';
+import { InputSetFacilityResourceUserMemberAttributes } from '../model/inputSetFacilityResourceUserMemberAttributes';
+import { InputSetFacilityUserAttributes } from '../model/inputSetFacilityUserAttributes';
+import { InputSetGroupAttribute } from '../model/inputSetGroupAttribute';
+import { InputSetGroupAttributes } from '../model/inputSetGroupAttributes';
+import { InputSetGroupResourceAttribute } from '../model/inputSetGroupResourceAttribute';
+import { InputSetGroupResourceAttributes } from '../model/inputSetGroupResourceAttributes';
+import { InputSetHostAttribute } from '../model/inputSetHostAttribute';
+import { InputSetHostAttributes } from '../model/inputSetHostAttributes';
+import { InputSetMemberAttribute } from '../model/inputSetMemberAttribute';
+import { InputSetMemberAttributes } from '../model/inputSetMemberAttributes';
+import { InputSetMemberGroupAttribute } from '../model/inputSetMemberGroupAttribute';
+import { InputSetMemberGroupAttributes } from '../model/inputSetMemberGroupAttributes';
+import { InputSetMemberGroupWithUserAttributes } from '../model/inputSetMemberGroupWithUserAttributes';
+import { InputSetMemberResourceAndUserAttributes } from '../model/inputSetMemberResourceAndUserAttributes';
+import { InputSetMemberResourceAttribute } from '../model/inputSetMemberResourceAttribute';
+import { InputSetMemberResourceAttributes } from '../model/inputSetMemberResourceAttributes';
+import { InputSetMemberWithUserAttributes } from '../model/inputSetMemberWithUserAttributes';
+import { InputSetResourceAttribute } from '../model/inputSetResourceAttribute';
+import { InputSetResourceAttributes } from '../model/inputSetResourceAttributes';
+import { InputSetResourceGroupAttributes } from '../model/inputSetResourceGroupAttributes';
+import { InputSetResourceGroupWithGroupAttributes } from '../model/inputSetResourceGroupWithGroupAttributes';
+import { InputSetUserAttribute } from '../model/inputSetUserAttribute';
+import { InputSetUserAttributes } from '../model/inputSetUserAttributes';
+import { InputSetUserExtSourceAttribute } from '../model/inputSetUserExtSourceAttribute';
+import { InputSetUserExtSourceAttributes } from '../model/inputSetUserExtSourceAttributes';
+import { InputSetUserFacilityAttribute } from '../model/inputSetUserFacilityAttribute';
+import { InputSetUserFacilityAttributes } from '../model/inputSetUserFacilityAttributes';
+import { InputSetVoAttribute } from '../model/inputSetVoAttribute';
+import { InputSetVoAttributes } from '../model/inputSetVoAttributes';
+import { PerunException } from '../model/perunException';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -91,17 +91,14 @@ export class AttributesManagerService {
 
     /**
      * Creates AttributeDefinition.
-     * @param inputCreateAttributeDefinition
+     * @param inputCreateAttributeDefinition 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createAttributeDefinition(inputCreateAttributeDefinition: InputCreateAttributeDefinition, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<AttributeDefinition>;
-
-    public createAttributeDefinition(inputCreateAttributeDefinition: InputCreateAttributeDefinition, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<AttributeDefinition>>;
-
-    public createAttributeDefinition(inputCreateAttributeDefinition: InputCreateAttributeDefinition, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<AttributeDefinition>>;
-
-    public createAttributeDefinition(inputCreateAttributeDefinition: InputCreateAttributeDefinition, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public createAttributeDefinition(inputCreateAttributeDefinition: InputCreateAttributeDefinition, observe?: 'body', reportProgress?: boolean): Observable<AttributeDefinition>;
+    public createAttributeDefinition(inputCreateAttributeDefinition: InputCreateAttributeDefinition, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AttributeDefinition>>;
+    public createAttributeDefinition(inputCreateAttributeDefinition: InputCreateAttributeDefinition, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AttributeDefinition>>;
+    public createAttributeDefinition(inputCreateAttributeDefinition: InputCreateAttributeDefinition, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputCreateAttributeDefinition === null || inputCreateAttributeDefinition === undefined) {
             throw new Error('Required parameter inputCreateAttributeDefinition was null or undefined when calling createAttributeDefinition.');
         }
@@ -109,11 +106,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -127,14 +121,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -149,15 +140,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<AttributeDefinition>(`${this.configuration.basePath}/json/attributesManager/createAttribute`,
             inputCreateAttributeDefinition,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -172,31 +157,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteAttributeDefinition(attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public deleteAttributeDefinition(attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public deleteAttributeDefinition(attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public deleteAttributeDefinition(attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public deleteAttributeDefinition(attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteAttributeDefinition(attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteAttributeDefinition(attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteAttributeDefinition(attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (attribute === null || attribute === undefined) {
             throw new Error('Required parameter attribute was null or undefined when calling deleteAttributeDefinition.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -210,29 +188,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/deleteAttribute`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -247,13 +216,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteAttributeDefinitions(attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public deleteAttributeDefinitions(attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public deleteAttributeDefinitions(attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public deleteAttributeDefinitions(attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public deleteAttributeDefinitions(attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteAttributeDefinitions(attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteAttributeDefinitions(attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteAttributeDefinitions(attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (attributes === null || attributes === undefined) {
             throw new Error('Required parameter attributes was null or undefined when calling deleteAttributeDefinitions.');
         }
@@ -261,19 +227,15 @@ export class AttributesManagerService {
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -287,29 +249,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/deleteAttributes`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -323,22 +276,16 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllAttributeDefinitions(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<AttributeDefinition>>;
-
-    public getAllAttributeDefinitions(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<AttributeDefinition>>>;
-
-    public getAllAttributeDefinitions(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<AttributeDefinition>>>;
-
-    public getAllAttributeDefinitions(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAllAttributeDefinitions(observe?: 'body', reportProgress?: boolean): Observable<Array<AttributeDefinition>>;
+    public getAllAttributeDefinitions(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AttributeDefinition>>>;
+    public getAllAttributeDefinitions(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AttributeDefinition>>>;
+    public getAllAttributeDefinitions(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -352,27 +299,18 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<AttributeDefinition>>(`${this.configuration.basePath}/json/attributesManager/getAttributesDefinition`,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -383,7 +321,7 @@ export class AttributesManagerService {
 
     /**
      * Returns an Attribute by its name or id.
-     * This method cannot be fully described correctly in OpenID, because it cannot describe allowed combinations of parameters. One of attributeName, attributeId is required. The other parameters specify ids that can be combined in the following ways:  (facility), (user), (user,facility), (vo), (member), (group), (resource),  (member,group), (member,resource), (group,resource),(userExtSource), (host), (key) Use the specialized methods getFacilityAttributeByName(), getMemberResourceAttributeById() etc.
+     * This method cannot be fully described correctly in OpenID, because it cannot describe allowed combinations of parameters. One of attributeName, attributeId is required. The other parameters specify ids that can be combined in the following ways:  (facility), (user), (user,facility), (vo), (member), (group), (resource),  (member,group), (member,resource), (group,resource),(userExtSource), (host), (key) Use the specialized methods getFacilityAttributeByName(), getMemberResourceAttributeById() etc. 
      * @param attributeName full name of attribute (namespace + \&#39;:\&#39; + friendlyName)
      * @param attributeId id of attribute
      * @param facility id of Facility
@@ -398,68 +336,51 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAttribute(attributeName?: string, attributeId?: number, facility?: number, user?: number, vo?: number, resource?: number, member?: number, group?: number, host?: number, userExtSource?: number, key?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getAttribute(attributeName?: string, attributeId?: number, facility?: number, user?: number, vo?: number, resource?: number, member?: number, group?: number, host?: number, userExtSource?: number, key?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getAttribute(attributeName?: string, attributeId?: number, facility?: number, user?: number, vo?: number, resource?: number, member?: number, group?: number, host?: number, userExtSource?: number, key?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getAttribute(attributeName?: string, attributeId?: number, facility?: number, user?: number, vo?: number, resource?: number, member?: number, group?: number, host?: number, userExtSource?: number, key?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAttribute(attributeName?: string, attributeId?: number, facility?: number, user?: number, vo?: number, resource?: number, member?: number, group?: number, host?: number, userExtSource?: number, key?: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getAttribute(attributeName?: string, attributeId?: number, facility?: number, user?: number, vo?: number, resource?: number, member?: number, group?: number, host?: number, userExtSource?: number, key?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getAttribute(attributeName?: string, attributeId?: number, facility?: number, user?: number, vo?: number, resource?: number, member?: number, group?: number, host?: number, userExtSource?: number, key?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getAttribute(attributeName?: string, attributeId?: number, facility?: number, user?: number, vo?: number, resource?: number, member?: number, group?: number, host?: number, userExtSource?: number, key?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (host !== undefined && host !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>host, 'host');
+            queryParameters = queryParameters.set('host', <any>host);
         }
         if (userExtSource !== undefined && userExtSource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userExtSource, 'userExtSource');
+            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
         }
         if (key !== undefined && key !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>key, 'key');
+            queryParameters = queryParameters.set('key', <any>key);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -473,28 +394,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/any`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -509,31 +421,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAttributeDefinitionById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<AttributeDefinition>;
-
-    public getAttributeDefinitionById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<AttributeDefinition>>;
-
-    public getAttributeDefinitionById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<AttributeDefinition>>;
-
-    public getAttributeDefinitionById(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAttributeDefinitionById(id: number, observe?: 'body', reportProgress?: boolean): Observable<AttributeDefinition>;
+    public getAttributeDefinitionById(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AttributeDefinition>>;
+    public getAttributeDefinitionById(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AttributeDefinition>>;
+    public getAttributeDefinitionById(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getAttributeDefinitionById.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -547,28 +452,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<AttributeDefinition>(`${this.configuration.basePath}/json/attributesManager/getAttributeDefinitionById`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -583,31 +479,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAttributeDefinitionByName(attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<AttributeDefinition>;
-
-    public getAttributeDefinitionByName(attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<AttributeDefinition>>;
-
-    public getAttributeDefinitionByName(attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<AttributeDefinition>>;
-
-    public getAttributeDefinitionByName(attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAttributeDefinitionByName(attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<AttributeDefinition>;
+    public getAttributeDefinitionByName(attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AttributeDefinition>>;
+    public getAttributeDefinitionByName(attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AttributeDefinition>>;
+    public getAttributeDefinitionByName(attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (attributeName === null || attributeName === undefined) {
             throw new Error('Required parameter attributeName was null or undefined when calling getAttributeDefinitionByName.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -621,28 +510,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<AttributeDefinition>(`${this.configuration.basePath}/json/attributesManager/getAttributeDefinition`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -656,22 +536,16 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAttributeDefinitionsByNamespace(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<AttributeDefinition>>;
-
-    public getAttributeDefinitionsByNamespace(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<AttributeDefinition>>>;
-
-    public getAttributeDefinitionsByNamespace(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<AttributeDefinition>>>;
-
-    public getAttributeDefinitionsByNamespace(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAttributeDefinitionsByNamespace(observe?: 'body', reportProgress?: boolean): Observable<Array<AttributeDefinition>>;
+    public getAttributeDefinitionsByNamespace(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AttributeDefinition>>>;
+    public getAttributeDefinitionsByNamespace(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AttributeDefinition>>>;
+    public getAttributeDefinitionsByNamespace(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -685,27 +559,18 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<AttributeDefinition>>(`${this.configuration.basePath}/json/attributesManager/getAttributesDefinitionByNamespace`,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -715,19 +580,16 @@ export class AttributesManagerService {
     }
 
     /**
-     * Generates text file describing dependencies between attribute modules. The format of text file can be specified by parameter. Modules that has no dependency relations are omitted.
+     * Generates text file describing dependencies between attribute modules. The format of text file can be specified by parameter. Modules that has no dependency relations are omitted. 
      * @param format Currently supported formats are DOT and TGF.
      * @param attrName Attribute name which dependencies will be found.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAttributeModulesDependenciesForAttributeGraphText(format: 'DOT' | 'TGF', attrName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<InlineResponse200>;
-
-    public getAttributeModulesDependenciesForAttributeGraphText(format: 'DOT' | 'TGF', attrName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<InlineResponse200>>;
-
-    public getAttributeModulesDependenciesForAttributeGraphText(format: 'DOT' | 'TGF', attrName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<InlineResponse200>>;
-
-    public getAttributeModulesDependenciesForAttributeGraphText(format: 'DOT' | 'TGF', attrName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAttributeModulesDependenciesForAttributeGraphText(format: 'DOT' | 'TGF', attrName: string, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse200>;
+    public getAttributeModulesDependenciesForAttributeGraphText(format: 'DOT' | 'TGF', attrName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse200>>;
+    public getAttributeModulesDependenciesForAttributeGraphText(format: 'DOT' | 'TGF', attrName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse200>>;
+    public getAttributeModulesDependenciesForAttributeGraphText(format: 'DOT' | 'TGF', attrName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (format === null || format === undefined) {
             throw new Error('Required parameter format was null or undefined when calling getAttributeModulesDependenciesForAttributeGraphText.');
         }
@@ -737,22 +599,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (format !== undefined && format !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>format, 'format');
+            queryParameters = queryParameters.set('format', <any>format);
         }
         if (attrName !== undefined && attrName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attrName, 'attrName');
+            queryParameters = queryParameters.set('attrName', <any>attrName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -766,28 +623,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<InlineResponse200>(`${this.configuration.basePath}/json/attributesManager/getAttributeModulesDependenciesGraphText/for-attribute`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -797,36 +645,29 @@ export class AttributesManagerService {
     }
 
     /**
-     * Generates text file describing dependencies between attribute modules. The format of text file can be specified by parameter. Modules that has no dependency relations are omitted.
+     * Generates text file describing dependencies between attribute modules. The format of text file can be specified by parameter. Modules that has no dependency relations are omitted. 
      * @param format Currently supported formats are DOT and TGF.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAttributeModulesDependenciesGraphText(format: 'DOT' | 'TGF', observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<InlineResponse200>;
-
-    public getAttributeModulesDependenciesGraphText(format: 'DOT' | 'TGF', observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<InlineResponse200>>;
-
-    public getAttributeModulesDependenciesGraphText(format: 'DOT' | 'TGF', observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<InlineResponse200>>;
-
-    public getAttributeModulesDependenciesGraphText(format: 'DOT' | 'TGF', observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAttributeModulesDependenciesGraphText(format: 'DOT' | 'TGF', observe?: 'body', reportProgress?: boolean): Observable<InlineResponse200>;
+    public getAttributeModulesDependenciesGraphText(format: 'DOT' | 'TGF', observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse200>>;
+    public getAttributeModulesDependenciesGraphText(format: 'DOT' | 'TGF', observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse200>>;
+    public getAttributeModulesDependenciesGraphText(format: 'DOT' | 'TGF', observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (format === null || format === undefined) {
             throw new Error('Required parameter format was null or undefined when calling getAttributeModulesDependenciesGraphText.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (format !== undefined && format !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>format, 'format');
+            queryParameters = queryParameters.set('format', <any>format);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -840,28 +681,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<InlineResponse200>(`${this.configuration.basePath}/json/attributesManager/getAttributeModulesDependenciesGraphText`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -876,31 +708,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAttributeRights(attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<AttributeRights>>;
-
-    public getAttributeRights(attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<AttributeRights>>>;
-
-    public getAttributeRights(attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<AttributeRights>>>;
-
-    public getAttributeRights(attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAttributeRights(attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<AttributeRights>>;
+    public getAttributeRights(attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AttributeRights>>>;
+    public getAttributeRights(attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AttributeRights>>>;
+    public getAttributeRights(attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (attributeId === null || attributeId === undefined) {
             throw new Error('Required parameter attributeId was null or undefined when calling getAttributeRights.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -914,28 +739,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<AttributeRights>>(`${this.configuration.basePath}/json/attributesManager/getAttributeRights`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -957,56 +773,42 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAttributesDefinitionWithRights(member?: number, user?: number, vo?: number, group?: number, resource?: number, facility?: number, host?: number, userExtSource?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<AttributeDefinition>>;
-
-    public getAttributesDefinitionWithRights(member?: number, user?: number, vo?: number, group?: number, resource?: number, facility?: number, host?: number, userExtSource?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<AttributeDefinition>>>;
-
-    public getAttributesDefinitionWithRights(member?: number, user?: number, vo?: number, group?: number, resource?: number, facility?: number, host?: number, userExtSource?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<AttributeDefinition>>>;
-
-    public getAttributesDefinitionWithRights(member?: number, user?: number, vo?: number, group?: number, resource?: number, facility?: number, host?: number, userExtSource?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAttributesDefinitionWithRights(member?: number, user?: number, vo?: number, group?: number, resource?: number, facility?: number, host?: number, userExtSource?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<AttributeDefinition>>;
+    public getAttributesDefinitionWithRights(member?: number, user?: number, vo?: number, group?: number, resource?: number, facility?: number, host?: number, userExtSource?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AttributeDefinition>>>;
+    public getAttributesDefinitionWithRights(member?: number, user?: number, vo?: number, group?: number, resource?: number, facility?: number, host?: number, userExtSource?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AttributeDefinition>>>;
+    public getAttributesDefinitionWithRights(member?: number, user?: number, vo?: number, group?: number, resource?: number, facility?: number, host?: number, userExtSource?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (host !== undefined && host !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>host, 'host');
+            queryParameters = queryParameters.set('host', <any>host);
         }
         if (userExtSource !== undefined && userExtSource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userExtSource, 'userExtSource');
+            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1020,28 +822,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<AttributeDefinition>>(`${this.configuration.basePath}/urlinjsonout/attributesManager/getAttributesDefinitionWithRights`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1058,13 +851,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getEntitylessAttributeByName(key: string, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getEntitylessAttributeByName(key: string, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getEntitylessAttributeByName(key: string, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getEntitylessAttributeByName(key: string, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getEntitylessAttributeByName(key: string, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getEntitylessAttributeByName(key: string, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getEntitylessAttributeByName(key: string, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getEntitylessAttributeByName(key: string, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (key === null || key === undefined) {
             throw new Error('Required parameter key was null or undefined when calling getEntitylessAttributeByName.');
         }
@@ -1074,22 +864,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (key !== undefined && key !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>key, 'key');
+            queryParameters = queryParameters.set('key', <any>key);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1103,28 +888,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-entityless`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1134,36 +910,29 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all entityless attributes with subject equaled String key.
+     * Get all entityless attributes with subject equaled String key. 
      * @param key key for entityless attributes
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getEntitylessAttributesByKey(key: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getEntitylessAttributesByKey(key: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getEntitylessAttributesByKey(key: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getEntitylessAttributesByKey(key: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getEntitylessAttributesByKey(key: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getEntitylessAttributesByKey(key: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getEntitylessAttributesByKey(key: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getEntitylessAttributesByKey(key: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (key === null || key === undefined) {
             throw new Error('Required parameter key was null or undefined when calling getEntitylessAttributesByKey.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (key !== undefined && key !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>key, 'key');
+            queryParameters = queryParameters.set('key', <any>key);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1177,28 +946,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/key`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1213,31 +973,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getEntitylessAttributesByName(attrName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getEntitylessAttributesByName(attrName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getEntitylessAttributesByName(attrName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getEntitylessAttributesByName(attrName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getEntitylessAttributesByName(attrName: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getEntitylessAttributesByName(attrName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getEntitylessAttributesByName(attrName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getEntitylessAttributesByName(attrName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (attrName === null || attrName === undefined) {
             throw new Error('Required parameter attrName was null or undefined when calling getEntitylessAttributesByName.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (attrName !== undefined && attrName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attrName, 'attrName');
+            queryParameters = queryParameters.set('attrName', <any>attrName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1251,28 +1004,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getEntitylessAttributes`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1287,31 +1031,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getEntitylessKeys(attributeDefinition: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<string>>;
-
-    public getEntitylessKeys(attributeDefinition: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<string>>>;
-
-    public getEntitylessKeys(attributeDefinition: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<string>>>;
-
-    public getEntitylessKeys(attributeDefinition: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getEntitylessKeys(attributeDefinition: number, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
+    public getEntitylessKeys(attributeDefinition: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
+    public getEntitylessKeys(attributeDefinition: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
+    public getEntitylessKeys(attributeDefinition: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (attributeDefinition === null || attributeDefinition === undefined) {
             throw new Error('Required parameter attributeDefinition was null or undefined when calling getEntitylessKeys.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (attributeDefinition !== undefined && attributeDefinition !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeDefinition, 'attributeDefinition');
+            queryParameters = queryParameters.set('attributeDefinition', <any>attributeDefinition);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1325,28 +1062,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<string>>(`${this.configuration.basePath}/json/attributesManager/getEntitylessKeys`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1363,13 +1091,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFacilityAttributeById(facility: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getFacilityAttributeById(facility: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getFacilityAttributeById(facility: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getFacilityAttributeById(facility: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFacilityAttributeById(facility: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getFacilityAttributeById(facility: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getFacilityAttributeById(facility: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getFacilityAttributeById(facility: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling getFacilityAttributeById.');
         }
@@ -1379,22 +1104,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1408,28 +1128,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-facility`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1446,13 +1157,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFacilityAttributeByName(facility: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getFacilityAttributeByName(facility: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getFacilityAttributeByName(facility: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getFacilityAttributeByName(facility: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFacilityAttributeByName(facility: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getFacilityAttributeByName(facility: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getFacilityAttributeByName(facility: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getFacilityAttributeByName(facility: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling getFacilityAttributeByName.');
         }
@@ -1462,22 +1170,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1491,28 +1194,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-facility`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1527,31 +1221,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFacilityAttributes(facility: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getFacilityAttributes(facility: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getFacilityAttributes(facility: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getFacilityAttributes(facility: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFacilityAttributes(facility: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getFacilityAttributes(facility: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getFacilityAttributes(facility: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getFacilityAttributes(facility: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling getFacilityAttributes.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1565,28 +1252,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/f`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1602,13 +1280,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFacilityAttributesByNames(facility: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getFacilityAttributesByNames(facility: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getFacilityAttributesByNames(facility: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getFacilityAttributesByNames(facility: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFacilityAttributesByNames(facility: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getFacilityAttributesByNames(facility: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getFacilityAttributesByNames(facility: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getFacilityAttributesByNames(facility: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling getFacilityAttributesByNames.');
         }
@@ -1618,24 +1293,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1649,28 +1319,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/f-names`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1688,13 +1349,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFacilityResourceUserMemberAttributes(facility: number, resource: number, user: number, member: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getFacilityResourceUserMemberAttributes(facility: number, resource: number, user: number, member: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getFacilityResourceUserMemberAttributes(facility: number, resource: number, user: number, member: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getFacilityResourceUserMemberAttributes(facility: number, resource: number, user: number, member: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFacilityResourceUserMemberAttributes(facility: number, resource: number, user: number, member: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getFacilityResourceUserMemberAttributes(facility: number, resource: number, user: number, member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getFacilityResourceUserMemberAttributes(facility: number, resource: number, user: number, member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getFacilityResourceUserMemberAttributes(facility: number, resource: number, user: number, member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling getFacilityResourceUserMemberAttributes.');
         }
@@ -1710,30 +1368,23 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1747,28 +1398,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/f-r-u-m`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1784,13 +1426,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFacilityUserAttributes(facility: number, user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getFacilityUserAttributes(facility: number, user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getFacilityUserAttributes(facility: number, user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getFacilityUserAttributes(facility: number, user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFacilityUserAttributes(facility: number, user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getFacilityUserAttributes(facility: number, user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getFacilityUserAttributes(facility: number, user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getFacilityUserAttributes(facility: number, user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling getFacilityUserAttributes.');
         }
@@ -1800,22 +1439,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1829,28 +1463,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/f-u`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1867,13 +1492,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupAttributeById(group: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getGroupAttributeById(group: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getGroupAttributeById(group: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getGroupAttributeById(group: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getGroupAttributeById(group: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getGroupAttributeById(group: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getGroupAttributeById(group: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getGroupAttributeById(group: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupAttributeById.');
         }
@@ -1883,22 +1505,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1912,28 +1529,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-group`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1950,13 +1558,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupAttributeByName(group: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getGroupAttributeByName(group: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getGroupAttributeByName(group: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getGroupAttributeByName(group: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getGroupAttributeByName(group: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getGroupAttributeByName(group: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getGroupAttributeByName(group: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getGroupAttributeByName(group: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupAttributeByName.');
         }
@@ -1966,22 +1571,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1995,28 +1595,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-group`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2026,36 +1617,29 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all non-empty attributes associated with the group.
+     * Get all non-empty attributes associated with the group. 
      * @param group id of Group
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupAttributes(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getGroupAttributes(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getGroupAttributes(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getGroupAttributes(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getGroupAttributes(group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getGroupAttributes(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getGroupAttributes(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getGroupAttributes(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupAttributes.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2069,28 +1653,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/g`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2100,19 +1675,16 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes associated with the group which have name in list attrNames (empty too). Virtual attribute too.
+     * Get all attributes associated with the group which have name in list attrNames (empty too). Virtual attribute too. 
      * @param group id of Group
      * @param attrNames list of attribute names List&lt;String&gt;
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupAttributesByNames(group: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getGroupAttributesByNames(group: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getGroupAttributesByNames(group: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getGroupAttributesByNames(group: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getGroupAttributesByNames(group: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getGroupAttributesByNames(group: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getGroupAttributesByNames(group: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getGroupAttributesByNames(group: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupAttributesByNames.');
         }
@@ -2122,24 +1694,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2153,28 +1720,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/g-names`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2192,13 +1750,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupResourceAttributeById(group: number, resource: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getGroupResourceAttributeById(group: number, resource: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getGroupResourceAttributeById(group: number, resource: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getGroupResourceAttributeById(group: number, resource: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getGroupResourceAttributeById(group: number, resource: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getGroupResourceAttributeById(group: number, resource: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getGroupResourceAttributeById(group: number, resource: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getGroupResourceAttributeById(group: number, resource: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupResourceAttributeById.');
         }
@@ -2211,26 +1766,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2244,28 +1793,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-group-resource`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2283,13 +1823,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupResourceAttributeByName(group: number, resource: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getGroupResourceAttributeByName(group: number, resource: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getGroupResourceAttributeByName(group: number, resource: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getGroupResourceAttributeByName(group: number, resource: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getGroupResourceAttributeByName(group: number, resource: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getGroupResourceAttributeByName(group: number, resource: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getGroupResourceAttributeByName(group: number, resource: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getGroupResourceAttributeByName(group: number, resource: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupResourceAttributeByName.');
         }
@@ -2302,26 +1839,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2335,28 +1866,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-group-resource`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2372,13 +1894,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupResourceAttributes(group: number, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getGroupResourceAttributes(group: number, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getGroupResourceAttributes(group: number, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getGroupResourceAttributes(group: number, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getGroupResourceAttributes(group: number, resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getGroupResourceAttributes(group: number, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getGroupResourceAttributes(group: number, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getGroupResourceAttributes(group: number, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupResourceAttributes.');
         }
@@ -2388,22 +1907,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2417,28 +1931,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/group-resource`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2455,13 +1960,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getHostAttributeById(host: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getHostAttributeById(host: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getHostAttributeById(host: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getHostAttributeById(host: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getHostAttributeById(host: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getHostAttributeById(host: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getHostAttributeById(host: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getHostAttributeById(host: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (host === null || host === undefined) {
             throw new Error('Required parameter host was null or undefined when calling getHostAttributeById.');
         }
@@ -2471,22 +1973,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (host !== undefined && host !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>host, 'host');
+            queryParameters = queryParameters.set('host', <any>host);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2500,28 +1997,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-host`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2538,13 +2026,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getHostAttributeByName(host: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getHostAttributeByName(host: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getHostAttributeByName(host: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getHostAttributeByName(host: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getHostAttributeByName(host: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getHostAttributeByName(host: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getHostAttributeByName(host: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getHostAttributeByName(host: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (host === null || host === undefined) {
             throw new Error('Required parameter host was null or undefined when calling getHostAttributeByName.');
         }
@@ -2554,22 +2039,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (host !== undefined && host !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>host, 'host');
+            queryParameters = queryParameters.set('host', <any>host);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2583,28 +2063,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-host`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2614,36 +2085,29 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all non-empty attributes associated with the host.
+     * Get all non-empty attributes associated with the host. 
      * @param host id of Host
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getHostAttributes(host: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getHostAttributes(host: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getHostAttributes(host: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getHostAttributes(host: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getHostAttributes(host: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getHostAttributes(host: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getHostAttributes(host: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getHostAttributes(host: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (host === null || host === undefined) {
             throw new Error('Required parameter host was null or undefined when calling getHostAttributes.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (host !== undefined && host !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>host, 'host');
+            queryParameters = queryParameters.set('host', <any>host);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2657,28 +2121,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/h`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2693,31 +2148,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getLogins(user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getLogins(user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getLogins(user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getLogins(user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getLogins(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getLogins(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getLogins(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getLogins(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getLogins.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2731,28 +2179,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getLogins`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2762,19 +2201,16 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all non-empty attributes associated with the member and if workWithUserAttributes is true, get all non-empty attributes associated with user, who is this member.
+     * Get all non-empty attributes associated with the member and if workWithUserAttributes is true, get all non-empty attributes associated with user, who is this member. 
      * @param member id of Member
      * @param workWithUserAttributes flag to work with user attributes
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberAndUserAttributes(member: number, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberAndUserAttributes(member: number, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberAndUserAttributes(member: number, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberAndUserAttributes(member: number, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberAndUserAttributes(member: number, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberAndUserAttributes(member: number, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberAndUserAttributes(member: number, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberAndUserAttributes(member: number, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberAndUserAttributes.');
         }
@@ -2784,22 +2220,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2813,28 +2244,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-wu`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2844,20 +2266,17 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes associated with the member which have name in list attrNames (empty too). Virtual attributes too. If workWithUserAttribute is true, return also all user attributes in list of attrNames (with virtual attributes too).
+     * Get all attributes associated with the member which have name in list attrNames (empty too). Virtual attributes too. If workWithUserAttribute is true, return also all user attributes in list of attrNames (with virtual attributes too). 
      * @param member id of Member
      * @param attrNames list of attribute names List&lt;String&gt;
      * @param workWithUserAttributes flag to work with user attributes
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberAndUserAttributesByNames(member: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberAndUserAttributesByNames(member: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberAndUserAttributesByNames(member: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberAndUserAttributesByNames(member: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberAndUserAttributesByNames(member: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberAndUserAttributesByNames(member: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberAndUserAttributesByNames(member: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberAndUserAttributesByNames(member: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberAndUserAttributesByNames.');
         }
@@ -2870,28 +2289,22 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2905,28 +2318,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-names-wu`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2943,13 +2347,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberAttributeById(member: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getMemberAttributeById(member: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getMemberAttributeById(member: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getMemberAttributeById(member: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberAttributeById(member: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getMemberAttributeById(member: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getMemberAttributeById(member: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getMemberAttributeById(member: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberAttributeById.');
         }
@@ -2959,22 +2360,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2988,28 +2384,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-member`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3026,13 +2413,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberAttributeByName(member: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getMemberAttributeByName(member: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getMemberAttributeByName(member: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getMemberAttributeByName(member: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberAttributeByName(member: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getMemberAttributeByName(member: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getMemberAttributeByName(member: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getMemberAttributeByName(member: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberAttributeByName.');
         }
@@ -3042,22 +2426,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3071,28 +2450,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-member`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3102,36 +2472,29 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all non-empty attributes associated with the member.
+     * Get all non-empty attributes associated with the member. 
      * @param member id of Member
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberAttributes(member: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberAttributes(member: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberAttributes(member: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberAttributes(member: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberAttributes(member: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberAttributes(member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberAttributes(member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberAttributes(member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberAttributes.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3145,28 +2508,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3176,19 +2530,16 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes associated with the member which have name in list attrNames (empty too). Virtual attribute too.
+     * Get all attributes associated with the member which have name in list attrNames (empty too). Virtual attribute too. 
      * @param member id of Member
      * @param attrNames list of attribute names List&lt;String&gt;
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberAttributesByNames(member: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberAttributesByNames(member: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberAttributesByNames(member: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberAttributesByNames(member: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberAttributesByNames(member: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberAttributesByNames(member: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberAttributesByNames(member: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberAttributesByNames(member: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberAttributesByNames.');
         }
@@ -3198,24 +2549,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3229,28 +2575,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-names`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3260,7 +2597,7 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes associated with the member in the group which have name in list attrNames (empty too). If workWithUserAttribute is true, return also all user attributes in list of attrNames (with virtual attributes too).
+     * Get all attributes associated with the member in the group which have name in list attrNames (empty too). If workWithUserAttribute is true, return also all user attributes in list of attrNames (with virtual attributes too). 
      * @param member id of Member
      * @param group id of Group
      * @param attrNames list of attribute names List&lt;String&gt;
@@ -3268,13 +2605,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberGroupAndUserAttributesByNames(member: number, group: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberGroupAndUserAttributesByNames(member: number, group: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberGroupAndUserAttributesByNames(member: number, group: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberGroupAndUserAttributesByNames(member: number, group: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberGroupAndUserAttributesByNames(member: number, group: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberGroupAndUserAttributesByNames(member: number, group: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberGroupAndUserAttributesByNames(member: number, group: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberGroupAndUserAttributesByNames(member: number, group: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberGroupAndUserAttributesByNames.');
         }
@@ -3290,32 +2624,25 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3329,28 +2656,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-g-names-wu`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3368,13 +2686,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberGroupAttributeById(member: number, group: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getMemberGroupAttributeById(member: number, group: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getMemberGroupAttributeById(member: number, group: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getMemberGroupAttributeById(member: number, group: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberGroupAttributeById(member: number, group: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getMemberGroupAttributeById(member: number, group: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getMemberGroupAttributeById(member: number, group: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getMemberGroupAttributeById(member: number, group: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberGroupAttributeById.');
         }
@@ -3387,26 +2702,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3420,28 +2729,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-member-group`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3459,13 +2759,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberGroupAttributeByName(member: number, group: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getMemberGroupAttributeByName(member: number, group: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getMemberGroupAttributeByName(member: number, group: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getMemberGroupAttributeByName(member: number, group: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberGroupAttributeByName(member: number, group: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getMemberGroupAttributeByName(member: number, group: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getMemberGroupAttributeByName(member: number, group: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getMemberGroupAttributeByName(member: number, group: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberGroupAttributeByName.');
         }
@@ -3478,26 +2775,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3511,28 +2802,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-member-group`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3542,19 +2824,16 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all non-empty attributes associated with the member in the group.
+     * Get all non-empty attributes associated with the member in the group. 
      * @param member id of Member
      * @param group id of Group
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberGroupAttributes(member: number, group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberGroupAttributes(member: number, group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberGroupAttributes(member: number, group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberGroupAttributes(member: number, group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberGroupAttributes(member: number, group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberGroupAttributes(member: number, group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberGroupAttributes(member: number, group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberGroupAttributes(member: number, group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberGroupAttributes.');
         }
@@ -3564,22 +2843,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3593,28 +2867,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-g`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3624,20 +2889,17 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes (empty and virtual too)associated with the member in the group which have name in list attrNames.
+     * Get all attributes (empty and virtual too)associated with the member in the group which have name in list attrNames. 
      * @param member id of Member
      * @param group id of Group
      * @param attrNames list of attribute names List&lt;String&gt;
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberGroupAttributesByNames(member: number, group: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberGroupAttributesByNames(member: number, group: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberGroupAttributesByNames(member: number, group: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberGroupAttributesByNames(member: number, group: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberGroupAttributesByNames(member: number, group: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberGroupAttributesByNames(member: number, group: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberGroupAttributesByNames(member: number, group: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberGroupAttributesByNames(member: number, group: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberGroupAttributesByNames.');
         }
@@ -3650,28 +2912,22 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3685,28 +2941,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-g-names`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3716,20 +2963,17 @@ export class AttributesManagerService {
     }
 
     /**
-     * Gets all non-empty attributes associated with the member on the resource and if workWithUserAttributes is true, gets also all non-empty user, user-facility and member attributes.
+     * Gets all non-empty attributes associated with the member on the resource and if workWithUserAttributes is true, gets also all non-empty user, user-facility and member attributes. 
      * @param member id of Member
      * @param resource id of Resource
      * @param workWithUserAttributes flag to work with user attributes
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberResourceAndUserFacilityAttributes(member: number, resource: number, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberResourceAndUserFacilityAttributes(member: number, resource: number, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberResourceAndUserFacilityAttributes(member: number, resource: number, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberResourceAndUserFacilityAttributes(member: number, resource: number, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberResourceAndUserFacilityAttributes(member: number, resource: number, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberResourceAndUserFacilityAttributes(member: number, resource: number, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberResourceAndUserFacilityAttributes(member: number, resource: number, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberResourceAndUserFacilityAttributes(member: number, resource: number, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberResourceAndUserFacilityAttributes.');
         }
@@ -3742,26 +2986,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3775,28 +3013,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-r-wu`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3806,7 +3035,7 @@ export class AttributesManagerService {
     }
 
     /**
-     * Gets selected non-empty attributes associated with the member and the resource. It returns member and member-resource attributes and also user and user-facility attributes if workWithUserAttributes is true. Attributes are selected by list of attr_names. Empty list means all attributes.
+     * Gets selected non-empty attributes associated with the member and the resource. It returns member and member-resource attributes and also user and user-facility attributes if workWithUserAttributes is true. Attributes are selected by list of attr_names. Empty list means all attributes. 
      * @param member id of Member
      * @param resource id of Resource
      * @param attrNames list of attribute names List&lt;String&gt;
@@ -3814,13 +3043,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberResourceAndUserFacilityAttributesByNames(member: number, resource: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberResourceAndUserFacilityAttributesByNames(member: number, resource: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberResourceAndUserFacilityAttributesByNames(member: number, resource: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberResourceAndUserFacilityAttributesByNames(member: number, resource: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberResourceAndUserFacilityAttributesByNames(member: number, resource: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberResourceAndUserFacilityAttributesByNames(member: number, resource: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberResourceAndUserFacilityAttributesByNames(member: number, resource: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberResourceAndUserFacilityAttributesByNames(member: number, resource: number, attrNames: Array<string>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberResourceAndUserFacilityAttributesByNames.');
         }
@@ -3836,32 +3062,25 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3875,28 +3094,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-r-names-wu`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3914,13 +3124,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberResourceAttributeById(member: number, resource: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getMemberResourceAttributeById(member: number, resource: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getMemberResourceAttributeById(member: number, resource: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getMemberResourceAttributeById(member: number, resource: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberResourceAttributeById(member: number, resource: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getMemberResourceAttributeById(member: number, resource: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getMemberResourceAttributeById(member: number, resource: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getMemberResourceAttributeById(member: number, resource: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberResourceAttributeById.');
         }
@@ -3933,26 +3140,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3966,28 +3167,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-member-resource`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4005,13 +3197,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberResourceAttributeByName(member: number, resource: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getMemberResourceAttributeByName(member: number, resource: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getMemberResourceAttributeByName(member: number, resource: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getMemberResourceAttributeByName(member: number, resource: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberResourceAttributeByName(member: number, resource: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getMemberResourceAttributeByName(member: number, resource: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getMemberResourceAttributeByName(member: number, resource: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getMemberResourceAttributeByName(member: number, resource: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberResourceAttributeByName.');
         }
@@ -4024,26 +3213,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4057,28 +3240,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-member-resource`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4094,13 +3268,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMemberResourceAttributes(member: number, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getMemberResourceAttributes(member: number, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getMemberResourceAttributes(member: number, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getMemberResourceAttributes(member: number, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getMemberResourceAttributes(member: number, resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getMemberResourceAttributes(member: number, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getMemberResourceAttributes(member: number, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getMemberResourceAttributes(member: number, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getMemberResourceAttributes.');
         }
@@ -4110,22 +3281,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4139,28 +3305,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-r`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4175,31 +3332,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesFacility(facility: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesFacility(facility: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesFacility(facility: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesFacility(facility: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesFacility(facility: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesFacility(facility: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesFacility(facility: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesFacility(facility: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling getRequiredAttributesFacility.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4213,28 +3363,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/f`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4250,13 +3391,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesFacilityService(service: number, facility: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesFacilityService(service: number, facility: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesFacilityService(service: number, facility: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesFacilityService(service: number, facility: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesFacilityService(service: number, facility: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesFacilityService(service: number, facility: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesFacilityService(service: number, facility: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesFacilityService(service: number, facility: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (service === null || service === undefined) {
             throw new Error('Required parameter service was null or undefined when calling getRequiredAttributesFacilityService.');
         }
@@ -4266,22 +3404,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4295,28 +3428,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-f`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4332,13 +3456,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesFacilityServices(services: Array<number>, facility: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesFacilityServices(services: Array<number>, facility: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesFacilityServices(services: Array<number>, facility: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesFacilityServices(services: Array<number>, facility: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesFacilityServices(services: Array<number>, facility: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesFacilityServices(services: Array<number>, facility: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesFacilityServices(services: Array<number>, facility: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesFacilityServices(services: Array<number>, facility: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (services === null || services === undefined) {
             throw new Error('Required parameter services was null or undefined when calling getRequiredAttributesFacilityServices.');
         }
@@ -4349,23 +3470,18 @@ export class AttributesManagerService {
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (services) {
             services.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'services[]');
+                queryParameters = queryParameters.append('services[]', <any>element);
             })
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4379,28 +3495,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/ss-f`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4417,13 +3524,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesGroupResourceService(service: number, resource: number, group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesGroupResourceService(service: number, resource: number, group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesGroupResourceService(service: number, resource: number, group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesGroupResourceService(service: number, resource: number, group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesGroupResourceService(service: number, resource: number, group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesGroupResourceService(service: number, resource: number, group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesGroupResourceService(service: number, resource: number, group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesGroupResourceService(service: number, resource: number, group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (service === null || service === undefined) {
             throw new Error('Required parameter service was null or undefined when calling getRequiredAttributesGroupResourceService.');
         }
@@ -4436,26 +3540,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4469,28 +3567,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r-g`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4506,13 +3595,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesHostService(service: number, host: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesHostService(service: number, host: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesHostService(service: number, host: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesHostService(service: number, host: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesHostService(service: number, host: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesHostService(service: number, host: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesHostService(service: number, host: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesHostService(service: number, host: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (service === null || service === undefined) {
             throw new Error('Required parameter service was null or undefined when calling getRequiredAttributesHostService.');
         }
@@ -4522,22 +3608,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
         if (host !== undefined && host !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>host, 'host');
+            queryParameters = queryParameters.set('host', <any>host);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4551,28 +3632,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-h`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4588,35 +3660,27 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesMember(member: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesMember(member: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesMember(member: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesMember(member: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesMember(member: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesMember(member: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesMember(member: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesMember(member: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getRequiredAttributesMember.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4630,28 +3694,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/m`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4668,13 +3723,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesMemberGroup(member: number, group: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesMemberGroup(member: number, group: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberGroup(member: number, group: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberGroup(member: number, group: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesMemberGroup(member: number, group: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesMemberGroup(member: number, group: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesMemberGroup(member: number, group: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesMemberGroup(member: number, group: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getRequiredAttributesMemberGroup.');
         }
@@ -4684,26 +3736,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4717,28 +3763,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/m-g`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4757,13 +3794,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesMemberGroupResourceService(service: number, resource: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesMemberGroupResourceService(service: number, resource: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberGroupResourceService(service: number, resource: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberGroupResourceService(service: number, resource: number, group: number, member: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesMemberGroupResourceService(service: number, resource: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesMemberGroupResourceService(service: number, resource: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesMemberGroupResourceService(service: number, resource: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesMemberGroupResourceService(service: number, resource: number, group: number, member: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (service === null || service === undefined) {
             throw new Error('Required parameter service was null or undefined when calling getRequiredAttributesMemberGroupResourceService.');
         }
@@ -4779,34 +3813,26 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4820,28 +3846,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r-g-m`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4859,13 +3876,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesMemberGroupService(service: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesMemberGroupService(service: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberGroupService(service: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberGroupService(service: number, group: number, member: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesMemberGroupService(service: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesMemberGroupService(service: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesMemberGroupService(service: number, group: number, member: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesMemberGroupService(service: number, group: number, member: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (service === null || service === undefined) {
             throw new Error('Required parameter service was null or undefined when calling getRequiredAttributesMemberGroupService.');
         }
@@ -4878,30 +3892,23 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4915,28 +3922,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-g-m`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4953,13 +3951,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesMemberResource(member: number, resource: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesMemberResource(member: number, resource: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberResource(member: number, resource: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberResource(member: number, resource: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesMemberResource(member: number, resource: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesMemberResource(member: number, resource: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesMemberResource(member: number, resource: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesMemberResource(member: number, resource: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getRequiredAttributesMemberResource.');
         }
@@ -4969,26 +3964,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5002,28 +3991,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/m-r`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5041,13 +4021,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesMemberResourceService(service: number, resource: number, member: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesMemberResourceService(service: number, resource: number, member: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberResourceService(service: number, resource: number, member: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesMemberResourceService(service: number, resource: number, member: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesMemberResourceService(service: number, resource: number, member: number, workWithUserAttributes?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesMemberResourceService(service: number, resource: number, member: number, workWithUserAttributes?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesMemberResourceService(service: number, resource: number, member: number, workWithUserAttributes?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesMemberResourceService(service: number, resource: number, member: number, workWithUserAttributes?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (service === null || service === undefined) {
             throw new Error('Required parameter service was null or undefined when calling getRequiredAttributesMemberResourceService.');
         }
@@ -5060,30 +4037,23 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5097,28 +4067,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r-m`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5133,31 +4094,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesResource(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesResource(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesResource(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesResource(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesResource(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesResource(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesResource(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesResource(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getRequiredAttributesResource.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5171,28 +4125,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/r`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5208,13 +4153,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesResourceService(service: number, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesResourceService(service: number, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesResourceService(service: number, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesResourceService(service: number, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesResourceService(service: number, resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesResourceService(service: number, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesResourceService(service: number, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesResourceService(service: number, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (service === null || service === undefined) {
             throw new Error('Required parameter service was null or undefined when calling getRequiredAttributesResourceService.');
         }
@@ -5224,22 +4166,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5253,28 +4190,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5290,13 +4218,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesResourceServices(services: Array<number>, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesResourceServices(services: Array<number>, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesResourceServices(services: Array<number>, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesResourceServices(services: Array<number>, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesResourceServices(services: Array<number>, resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesResourceServices(services: Array<number>, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesResourceServices(services: Array<number>, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesResourceServices(services: Array<number>, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (services === null || services === undefined) {
             throw new Error('Required parameter services was null or undefined when calling getRequiredAttributesResourceServices.');
         }
@@ -5307,23 +4232,18 @@ export class AttributesManagerService {
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (services) {
             services.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'services[]');
+                queryParameters = queryParameters.append('services[]', <any>element);
             })
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5337,28 +4257,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/ss-r`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5373,31 +4284,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesUser(user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesUser(user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesUser(user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesUser(user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesUser(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesUser(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesUser(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesUser(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getRequiredAttributesUser.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5411,28 +4315,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/u`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5448,13 +4343,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesUserFacility(user: number, facility: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesUserFacility(user: number, facility: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesUserFacility(user: number, facility: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesUserFacility(user: number, facility: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesUserFacility(user: number, facility: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesUserFacility(user: number, facility: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesUserFacility(user: number, facility: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesUserFacility(user: number, facility: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getRequiredAttributesUserFacility.');
         }
@@ -5464,22 +4356,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5493,28 +4380,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/u-f`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5530,13 +4408,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRequiredAttributesVoService(service: number, vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getRequiredAttributesVoService(service: number, vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getRequiredAttributesVoService(service: number, vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getRequiredAttributesVoService(service: number, vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRequiredAttributesVoService(service: number, vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getRequiredAttributesVoService(service: number, vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getRequiredAttributesVoService(service: number, vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getRequiredAttributesVoService(service: number, vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (service === null || service === undefined) {
             throw new Error('Required parameter service was null or undefined when calling getRequiredAttributesVoService.');
         }
@@ -5546,22 +4421,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5575,28 +4445,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-v`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5613,13 +4474,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceAttributeById(resource: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getResourceAttributeById(resource: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getResourceAttributeById(resource: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getResourceAttributeById(resource: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceAttributeById(resource: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getResourceAttributeById(resource: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getResourceAttributeById(resource: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getResourceAttributeById(resource: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getResourceAttributeById.');
         }
@@ -5629,22 +4487,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5658,28 +4511,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-resource`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5696,13 +4540,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceAttributeByName(resource: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getResourceAttributeByName(resource: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getResourceAttributeByName(resource: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getResourceAttributeByName(resource: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceAttributeByName(resource: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getResourceAttributeByName(resource: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getResourceAttributeByName(resource: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getResourceAttributeByName(resource: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getResourceAttributeByName.');
         }
@@ -5712,22 +4553,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5741,28 +4577,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-resource`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5777,31 +4604,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceAttributes(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getResourceAttributes(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getResourceAttributes(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getResourceAttributes(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceAttributes(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getResourceAttributes(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getResourceAttributes(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getResourceAttributes(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getResourceAttributes.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5815,28 +4635,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/r`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5846,19 +4657,16 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes associated with the resource which have name in list attrNames (empty too). Virtual attributes too.
+     * Get all attributes associated with the resource which have name in list attrNames (empty too). Virtual attributes too. 
      * @param resource id of Resource
      * @param attrNames list of attribute names List&lt;String&gt;
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceAttributesByNames(resource: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getResourceAttributesByNames(resource: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getResourceAttributesByNames(resource: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getResourceAttributesByNames(resource: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceAttributesByNames(resource: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getResourceAttributesByNames(resource: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getResourceAttributesByNames(resource: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getResourceAttributesByNames(resource: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getResourceAttributesByNames.');
         }
@@ -5868,24 +4676,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5899,28 +4702,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/r-names`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5930,20 +4724,17 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all non-empty attributes associated with the group and resource. Virtual attributes too. If workWithGroupAttributes is true, return also all group attributes.
+     * Get all non-empty attributes associated with the group and resource. Virtual attributes too. If workWithGroupAttributes is true, return also all group attributes. 
      * @param resource id of Resource
      * @param group id of Group
      * @param workWithGroupAttributes flag to work with group attributes
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceGroupAndGroupAttributes(resource: number, group: number, workWithGroupAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getResourceGroupAndGroupAttributes(resource: number, group: number, workWithGroupAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getResourceGroupAndGroupAttributes(resource: number, group: number, workWithGroupAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getResourceGroupAndGroupAttributes(resource: number, group: number, workWithGroupAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceGroupAndGroupAttributes(resource: number, group: number, workWithGroupAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getResourceGroupAndGroupAttributes(resource: number, group: number, workWithGroupAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getResourceGroupAndGroupAttributes(resource: number, group: number, workWithGroupAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getResourceGroupAndGroupAttributes(resource: number, group: number, workWithGroupAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getResourceGroupAndGroupAttributes.');
         }
@@ -5956,26 +4747,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (workWithGroupAttributes !== undefined && workWithGroupAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithGroupAttributes, 'workWithGroupAttributes');
+            queryParameters = queryParameters.set('workWithGroupAttributes', <any>workWithGroupAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5989,28 +4774,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/r-g-wg`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6020,7 +4796,7 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes associated with the group and the resource which have their name in list attrNames (empty too). Virtual attributes too. If workWithGroupAttributes is true, return also all group attributes in list of attrNames (with virtual attributes too).
+     * Get all attributes associated with the group and the resource which have their name in list attrNames (empty too). Virtual attributes too. If workWithGroupAttributes is true, return also all group attributes in list of attrNames (with virtual attributes too). 
      * @param resource id of Resource
      * @param group id of Group
      * @param attrNames list of attribute names List&lt;String&gt;
@@ -6028,13 +4804,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceGroupAndGroupAttributesByNames(resource: number, group: number, attrNames: Array<string>, workWithGroupAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getResourceGroupAndGroupAttributesByNames(resource: number, group: number, attrNames: Array<string>, workWithGroupAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getResourceGroupAndGroupAttributesByNames(resource: number, group: number, attrNames: Array<string>, workWithGroupAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getResourceGroupAndGroupAttributesByNames(resource: number, group: number, attrNames: Array<string>, workWithGroupAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceGroupAndGroupAttributesByNames(resource: number, group: number, attrNames: Array<string>, workWithGroupAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getResourceGroupAndGroupAttributesByNames(resource: number, group: number, attrNames: Array<string>, workWithGroupAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getResourceGroupAndGroupAttributesByNames(resource: number, group: number, attrNames: Array<string>, workWithGroupAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getResourceGroupAndGroupAttributesByNames(resource: number, group: number, attrNames: Array<string>, workWithGroupAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getResourceGroupAndGroupAttributesByNames.');
         }
@@ -6050,32 +4823,25 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
         if (workWithGroupAttributes !== undefined && workWithGroupAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithGroupAttributes, 'workWithGroupAttributes');
+            queryParameters = queryParameters.set('workWithGroupAttributes', <any>workWithGroupAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6089,28 +4855,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/r-g-names-wg`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6126,13 +4883,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceGroupAttributes(resource: number, group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getResourceGroupAttributes(resource: number, group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getResourceGroupAttributes(resource: number, group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getResourceGroupAttributes(resource: number, group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceGroupAttributes(resource: number, group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getResourceGroupAttributes(resource: number, group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getResourceGroupAttributes(resource: number, group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getResourceGroupAttributes(resource: number, group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getResourceGroupAttributes.');
         }
@@ -6142,22 +4896,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6171,28 +4920,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/r-g`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6202,7 +4942,7 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes by the list of attrNames if they are in one of these namespaces: - member - group - member-group - resource - member-resource - group-resource - user (get from member object) - facility (get from resource object) - user-facility Returns all attributes even if they are empty or virtual.
+     * Get all attributes by the list of attrNames if they are in one of these namespaces: - member - group - member-group - resource - member-resource - group-resource - user (get from member object) - facility (get from resource object) - user-facility Returns all attributes even if they are empty or virtual. 
      * @param resource id of Resource
      * @param group id of Group
      * @param member id of Member
@@ -6210,13 +4950,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceGroupMemberAttributesByNames(resource: number, group: number, member: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getResourceGroupMemberAttributesByNames(resource: number, group: number, member: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getResourceGroupMemberAttributesByNames(resource: number, group: number, member: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getResourceGroupMemberAttributesByNames(resource: number, group: number, member: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceGroupMemberAttributesByNames(resource: number, group: number, member: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getResourceGroupMemberAttributesByNames(resource: number, group: number, member: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getResourceGroupMemberAttributesByNames(resource: number, group: number, member: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getResourceGroupMemberAttributesByNames(resource: number, group: number, member: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getResourceGroupMemberAttributesByNames.');
         }
@@ -6232,32 +4969,25 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6271,28 +5001,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/r-g-m-names`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6309,13 +5030,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserAttributeById(user: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getUserAttributeById(user: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getUserAttributeById(user: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getUserAttributeById(user: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserAttributeById(user: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getUserAttributeById(user: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getUserAttributeById(user: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getUserAttributeById(user: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getUserAttributeById.');
         }
@@ -6325,22 +5043,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6354,28 +5067,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-user`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6392,13 +5096,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserAttributeByName(user: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getUserAttributeByName(user: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getUserAttributeByName(user: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getUserAttributeByName(user: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserAttributeByName(user: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getUserAttributeByName(user: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getUserAttributeByName(user: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getUserAttributeByName(user: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getUserAttributeByName.');
         }
@@ -6408,22 +5109,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6437,28 +5133,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-user`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6468,36 +5155,29 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all non-empty attributes associated with the user.
+     * Get all non-empty attributes associated with the user. 
      * @param user id of User
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserAttributes(user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getUserAttributes(user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getUserAttributes(user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getUserAttributes(user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserAttributes(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getUserAttributes(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getUserAttributes(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getUserAttributes(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getUserAttributes.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6511,28 +5191,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/u`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6542,19 +5213,16 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes associated with the user which have name in list attrNames (empty too).
+     * Get all attributes associated with the user which have name in list attrNames (empty too). 
      * @param user id of User
      * @param attrNames list of attribute names List&lt;String&gt;
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserAttributesByNames(user: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getUserAttributesByNames(user: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getUserAttributesByNames(user: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getUserAttributesByNames(user: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserAttributesByNames(user: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getUserAttributesByNames(user: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getUserAttributesByNames(user: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getUserAttributesByNames(user: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getUserAttributesByNames.');
         }
@@ -6564,24 +5232,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6595,28 +5258,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/u-names`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6633,13 +5287,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserExtSourceAttributeById(userExtSource: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getUserExtSourceAttributeById(userExtSource: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getUserExtSourceAttributeById(userExtSource: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getUserExtSourceAttributeById(userExtSource: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserExtSourceAttributeById(userExtSource: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getUserExtSourceAttributeById(userExtSource: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getUserExtSourceAttributeById(userExtSource: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getUserExtSourceAttributeById(userExtSource: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (userExtSource === null || userExtSource === undefined) {
             throw new Error('Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributeById.');
         }
@@ -6649,22 +5300,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (userExtSource !== undefined && userExtSource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userExtSource, 'userExtSource');
+            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6678,28 +5324,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-ues`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6716,13 +5353,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserExtSourceAttributeByName(userExtSource: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getUserExtSourceAttributeByName(userExtSource: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getUserExtSourceAttributeByName(userExtSource: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getUserExtSourceAttributeByName(userExtSource: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserExtSourceAttributeByName(userExtSource: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getUserExtSourceAttributeByName(userExtSource: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getUserExtSourceAttributeByName(userExtSource: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getUserExtSourceAttributeByName(userExtSource: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (userExtSource === null || userExtSource === undefined) {
             throw new Error('Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributeByName.');
         }
@@ -6732,22 +5366,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (userExtSource !== undefined && userExtSource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userExtSource, 'userExtSource');
+            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6761,28 +5390,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-ues`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6792,36 +5412,29 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all non-empty attributes associated with the UserExtSource.
+     * Get all non-empty attributes associated with the UserExtSource. 
      * @param userExtSource id of UserExtSource
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserExtSourceAttributes(userExtSource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getUserExtSourceAttributes(userExtSource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getUserExtSourceAttributes(userExtSource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getUserExtSourceAttributes(userExtSource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserExtSourceAttributes(userExtSource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getUserExtSourceAttributes(userExtSource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getUserExtSourceAttributes(userExtSource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getUserExtSourceAttributes(userExtSource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (userExtSource === null || userExtSource === undefined) {
             throw new Error('Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributes.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (userExtSource !== undefined && userExtSource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userExtSource, 'userExtSource');
+            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6835,28 +5448,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/ues`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6866,19 +5470,16 @@ export class AttributesManagerService {
     }
 
     /**
-     * Get all attributes associated with the userExtSource which have name in list attrNames (empty too).
+     * Get all attributes associated with the userExtSource which have name in list attrNames (empty too). 
      * @param userExtSource id of UserExtSource
      * @param attrNames list of attribute names List&lt;String&gt;
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserExtSourceAttributesByNames(userExtSource: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getUserExtSourceAttributesByNames(userExtSource: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getUserExtSourceAttributesByNames(userExtSource: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getUserExtSourceAttributesByNames(userExtSource: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserExtSourceAttributesByNames(userExtSource: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getUserExtSourceAttributesByNames(userExtSource: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getUserExtSourceAttributesByNames(userExtSource: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getUserExtSourceAttributesByNames(userExtSource: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (userExtSource === null || userExtSource === undefined) {
             throw new Error('Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributesByNames.');
         }
@@ -6888,24 +5489,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (userExtSource !== undefined && userExtSource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userExtSource, 'userExtSource');
+            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -6919,28 +5515,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/ues-names`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -6958,13 +5545,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserFacilityAttributeById(user: number, facility: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getUserFacilityAttributeById(user: number, facility: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getUserFacilityAttributeById(user: number, facility: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getUserFacilityAttributeById(user: number, facility: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserFacilityAttributeById(user: number, facility: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getUserFacilityAttributeById(user: number, facility: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getUserFacilityAttributeById(user: number, facility: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getUserFacilityAttributeById(user: number, facility: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getUserFacilityAttributeById.');
         }
@@ -6977,26 +5561,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7010,28 +5588,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-user_facility`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7049,13 +5618,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserFacilityAttributeByName(user: number, facility: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getUserFacilityAttributeByName(user: number, facility: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getUserFacilityAttributeByName(user: number, facility: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getUserFacilityAttributeByName(user: number, facility: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserFacilityAttributeByName(user: number, facility: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getUserFacilityAttributeByName(user: number, facility: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getUserFacilityAttributeByName(user: number, facility: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getUserFacilityAttributeByName(user: number, facility: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getUserFacilityAttributeByName.');
         }
@@ -7068,26 +5634,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7101,28 +5661,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-user_facility`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7138,13 +5689,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserFacilityAttributes(user: number, facility: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getUserFacilityAttributes(user: number, facility: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getUserFacilityAttributes(user: number, facility: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getUserFacilityAttributes(user: number, facility: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getUserFacilityAttributes(user: number, facility: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getUserFacilityAttributes(user: number, facility: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getUserFacilityAttributes(user: number, facility: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getUserFacilityAttributes(user: number, facility: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getUserFacilityAttributes.');
         }
@@ -7154,22 +5702,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7183,28 +5726,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/user-facility`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7221,13 +5755,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getVoAttributeById(vo: number, attributeId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getVoAttributeById(vo: number, attributeId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getVoAttributeById(vo: number, attributeId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getVoAttributeById(vo: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getVoAttributeById(vo: number, attributeId: number, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getVoAttributeById(vo: number, attributeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getVoAttributeById(vo: number, attributeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getVoAttributeById(vo: number, attributeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getVoAttributeById.');
         }
@@ -7237,22 +5768,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (attributeId !== undefined && attributeId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeId, 'attributeId');
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7266,28 +5792,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/id-vo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7304,13 +5821,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getVoAttributeByName(vo: number, attributeName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Attribute>;
-
-    public getVoAttributeByName(vo: number, attributeName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Attribute>>;
-
-    public getVoAttributeByName(vo: number, attributeName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Attribute>>;
-
-    public getVoAttributeByName(vo: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getVoAttributeByName(vo: number, attributeName: string, observe?: 'body', reportProgress?: boolean): Observable<Attribute>;
+    public getVoAttributeByName(vo: number, attributeName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Attribute>>;
+    public getVoAttributeByName(vo: number, attributeName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Attribute>>;
+    public getVoAttributeByName(vo: number, attributeName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getVoAttributeByName.');
         }
@@ -7320,22 +5834,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (attributeName !== undefined && attributeName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attributeName, 'attributeName');
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7349,28 +5858,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Attribute>(`${this.configuration.basePath}/json/attributesManager/getAttribute/name-vo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7385,31 +5885,24 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getVoAttributes(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getVoAttributes(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getVoAttributes(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getVoAttributes(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getVoAttributes(vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getVoAttributes(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getVoAttributes(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getVoAttributes(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getVoAttributes.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7423,28 +5916,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/vo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7460,13 +5944,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getVoAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Attribute>>;
-
-    public getVoAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Attribute>>>;
-
-    public getVoAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Attribute>>>;
-
-    public getVoAttributesByNames(vo: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getVoAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Attribute>>;
+    public getVoAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Attribute>>>;
+    public getVoAttributesByNames(vo: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Attribute>>>;
+    public getVoAttributesByNames(vo: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getVoAttributesByNames.');
         }
@@ -7476,24 +5957,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (attrNames) {
             attrNames.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attrNames[]');
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7507,28 +5983,19 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/vo-names`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7548,13 +6015,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeAttributesForFacilityResourceGroupUserMember(facility: number, resource: number, group: number, user: number, member: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeAttributesForFacilityResourceGroupUserMember(facility: number, resource: number, group: number, user: number, member: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeAttributesForFacilityResourceGroupUserMember(facility: number, resource: number, group: number, user: number, member: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeAttributesForFacilityResourceGroupUserMember(facility: number, resource: number, group: number, user: number, member: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeAttributesForFacilityResourceGroupUserMember(facility: number, resource: number, group: number, user: number, member: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeAttributesForFacilityResourceGroupUserMember(facility: number, resource: number, group: number, user: number, member: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeAttributesForFacilityResourceGroupUserMember(facility: number, resource: number, group: number, user: number, member: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeAttributesForFacilityResourceGroupUserMember(facility: number, resource: number, group: number, user: number, member: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.');
         }
@@ -7576,40 +6040,31 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7623,29 +6078,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/f-r-g-u-m`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7664,13 +6110,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeAttributesForFacilityResourceUserMember(facility: number, resource: number, user: number, member: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeAttributesForFacilityResourceUserMember(facility: number, resource: number, user: number, member: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeAttributesForFacilityResourceUserMember(facility: number, resource: number, user: number, member: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeAttributesForFacilityResourceUserMember(facility: number, resource: number, user: number, member: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeAttributesForFacilityResourceUserMember(facility: number, resource: number, user: number, member: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeAttributesForFacilityResourceUserMember(facility: number, resource: number, user: number, member: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeAttributesForFacilityResourceUserMember(facility: number, resource: number, user: number, member: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeAttributesForFacilityResourceUserMember(facility: number, resource: number, user: number, member: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling removeAttributesForFacilityResourceUserMember.');
         }
@@ -7689,36 +6132,28 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7732,29 +6167,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/f-r-u-m`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7770,13 +6196,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeEntitylessAttribute(key: string, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeEntitylessAttribute(key: string, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeEntitylessAttribute(key: string, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeEntitylessAttribute(key: string, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeEntitylessAttribute(key: string, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeEntitylessAttribute(key: string, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeEntitylessAttribute(key: string, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeEntitylessAttribute(key: string, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (key === null || key === undefined) {
             throw new Error('Required parameter key was null or undefined when calling removeEntitylessAttribute.');
         }
@@ -7786,22 +6209,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (key !== undefined && key !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>key, 'key');
+            queryParameters = queryParameters.set('key', <any>key);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7815,29 +6233,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/e`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7853,13 +6262,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeFacilityAttribute(facility: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeFacilityAttribute(facility: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeFacilityAttribute(facility: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeFacilityAttribute(facility: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeFacilityAttribute(facility: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeFacilityAttribute(facility: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeFacilityAttribute(facility: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeFacilityAttribute(facility: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling removeFacilityAttribute.');
         }
@@ -7869,22 +6275,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7898,29 +6299,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/f`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -7936,13 +6328,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeFacilityAttributes(facility: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeFacilityAttributes(facility: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeFacilityAttributes(facility: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeFacilityAttributes(facility: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeFacilityAttributes(facility: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeFacilityAttributes(facility: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeFacilityAttributes(facility: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeFacilityAttributes(facility: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling removeFacilityAttributes.');
         }
@@ -7952,24 +6341,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -7983,29 +6367,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/f`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8021,13 +6396,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupAttribute(group: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeGroupAttribute(group: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeGroupAttribute(group: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeGroupAttribute(group: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeGroupAttribute(group: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupAttribute(group: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupAttribute(group: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupAttribute(group: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling removeGroupAttribute.');
         }
@@ -8037,22 +6409,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8066,29 +6433,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/g`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8104,13 +6462,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupAttributes(group: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeGroupAttributes(group: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeGroupAttributes(group: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeGroupAttributes(group: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeGroupAttributes(group: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupAttributes(group: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupAttributes(group: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupAttributes(group: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling removeGroupAttributes.');
         }
@@ -8120,24 +6475,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8151,29 +6501,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8190,13 +6531,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupResourceAttribute(group: number, resource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling removeGroupResourceAttribute.');
         }
@@ -8209,26 +6547,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8242,29 +6574,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/g-r`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8281,13 +6604,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupResourceAttributes(group: number, resource: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeGroupResourceAttributes(group: number, resource: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeGroupResourceAttributes(group: number, resource: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeGroupResourceAttributes(group: number, resource: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeGroupResourceAttributes(group: number, resource: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupResourceAttributes(group: number, resource: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupResourceAttributes(group: number, resource: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupResourceAttributes(group: number, resource: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling removeGroupResourceAttributes.');
         }
@@ -8300,28 +6620,22 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8335,29 +6649,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g-r`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8375,13 +6680,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupResourceAttributesWorkWithGroupAttributes(group: number, resource: number, attributes: Array<number>, workWithGroupAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeGroupResourceAttributesWorkWithGroupAttributes(group: number, resource: number, attributes: Array<number>, workWithGroupAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeGroupResourceAttributesWorkWithGroupAttributes(group: number, resource: number, attributes: Array<number>, workWithGroupAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeGroupResourceAttributesWorkWithGroupAttributes(group: number, resource: number, attributes: Array<number>, workWithGroupAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeGroupResourceAttributesWorkWithGroupAttributes(group: number, resource: number, attributes: Array<number>, workWithGroupAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupResourceAttributesWorkWithGroupAttributes(group: number, resource: number, attributes: Array<number>, workWithGroupAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupResourceAttributesWorkWithGroupAttributes(group: number, resource: number, attributes: Array<number>, workWithGroupAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupResourceAttributesWorkWithGroupAttributes(group: number, resource: number, attributes: Array<number>, workWithGroupAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling removeGroupResourceAttributesWorkWithGroupAttributes.');
         }
@@ -8397,32 +6699,25 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
         if (workWithGroupAttributes !== undefined && workWithGroupAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithGroupAttributes, 'workWithGroupAttributes');
+            queryParameters = queryParameters.set('workWithGroupAttributes', <any>workWithGroupAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8436,29 +6731,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g-r-workWithGroupAttributes`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8474,13 +6760,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeHostAttribute(host: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeHostAttribute(host: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeHostAttribute(host: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeHostAttribute(host: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeHostAttribute(host: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeHostAttribute(host: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeHostAttribute(host: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeHostAttribute(host: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (host === null || host === undefined) {
             throw new Error('Required parameter host was null or undefined when calling removeHostAttribute.');
         }
@@ -8490,22 +6773,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (host !== undefined && host !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>host, 'host');
+            queryParameters = queryParameters.set('host', <any>host);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8519,29 +6797,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/h`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8557,13 +6826,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeHostAttributes(host: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeHostAttributes(host: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeHostAttributes(host: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeHostAttributes(host: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeHostAttributes(host: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeHostAttributes(host: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeHostAttributes(host: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeHostAttributes(host: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (host === null || host === undefined) {
             throw new Error('Required parameter host was null or undefined when calling removeHostAttributes.');
         }
@@ -8573,24 +6839,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (host !== undefined && host !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>host, 'host');
+            queryParameters = queryParameters.set('host', <any>host);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8604,29 +6865,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/h`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8642,13 +6894,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeMemberAttribute(member: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeMemberAttribute(member: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeMemberAttribute(member: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeMemberAttribute(member: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeMemberAttribute(member: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberAttribute(member: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberAttribute(member: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberAttribute(member: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling removeMemberAttribute.');
         }
@@ -8658,22 +6907,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8687,29 +6931,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8725,13 +6960,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeMemberAttributes(member: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeMemberAttributes(member: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeMemberAttributes(member: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeMemberAttributes(member: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeMemberAttributes(member: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberAttributes(member: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberAttributes(member: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberAttributes(member: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling removeMemberAttributes.');
         }
@@ -8741,24 +6973,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8772,29 +6999,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8811,13 +7029,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeMemberAttributesWorkWithUserAttributes(member: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeMemberAttributesWorkWithUserAttributes(member: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeMemberAttributesWorkWithUserAttributes(member: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeMemberAttributesWorkWithUserAttributes(member: number, attributes: Array<number>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeMemberAttributesWorkWithUserAttributes(member: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberAttributesWorkWithUserAttributes(member: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberAttributesWorkWithUserAttributes(member: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberAttributesWorkWithUserAttributes(member: number, attributes: Array<number>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling removeMemberAttributesWorkWithUserAttributes.');
         }
@@ -8830,28 +7045,22 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8865,29 +7074,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-workWithUserAttributes`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8904,13 +7104,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberGroupAttribute(member: number, group: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling removeMemberGroupAttribute.');
         }
@@ -8923,26 +7120,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -8956,29 +7147,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m-g`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -8995,13 +7177,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeMemberGroupAttributes(member: number, group: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeMemberGroupAttributes(member: number, group: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeMemberGroupAttributes(member: number, group: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeMemberGroupAttributes(member: number, group: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeMemberGroupAttributes(member: number, group: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberGroupAttributes(member: number, group: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberGroupAttributes(member: number, group: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberGroupAttributes(member: number, group: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling removeMemberGroupAttributes.');
         }
@@ -9014,28 +7193,22 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9049,29 +7222,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-g`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9089,13 +7253,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeMemberGroupAttributesWorkWithUserAttributes(member: number, group: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeMemberGroupAttributesWorkWithUserAttributes(member: number, group: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeMemberGroupAttributesWorkWithUserAttributes(member: number, group: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeMemberGroupAttributesWorkWithUserAttributes(member: number, group: number, attributes: Array<number>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeMemberGroupAttributesWorkWithUserAttributes(member: number, group: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberGroupAttributesWorkWithUserAttributes(member: number, group: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberGroupAttributesWorkWithUserAttributes(member: number, group: number, attributes: Array<number>, workWithUserAttributes: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberGroupAttributesWorkWithUserAttributes(member: number, group: number, attributes: Array<number>, workWithUserAttributes: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling removeMemberGroupAttributesWorkWithUserAttributes.');
         }
@@ -9111,32 +7272,25 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
         if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>workWithUserAttributes, 'workWithUserAttributes');
+            queryParameters = queryParameters.set('workWithUserAttributes', <any>workWithUserAttributes);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9150,29 +7304,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-g-workWithUserAttributes`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9189,13 +7334,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberResourceAttribute(member: number, resource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling removeMemberResourceAttribute.');
         }
@@ -9208,26 +7350,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9241,29 +7377,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m-r`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9280,13 +7407,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeMemberResourceAttributes(member: number, resource: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeMemberResourceAttributes(member: number, resource: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeMemberResourceAttributes(member: number, resource: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeMemberResourceAttributes(member: number, resource: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeMemberResourceAttributes(member: number, resource: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMemberResourceAttributes(member: number, resource: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMemberResourceAttributes(member: number, resource: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMemberResourceAttributes(member: number, resource: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling removeMemberResourceAttributes.');
         }
@@ -9299,28 +7423,22 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9334,29 +7452,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-r`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9372,13 +7481,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeResourceAttribute(resource: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeResourceAttribute(resource: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeResourceAttribute(resource: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeResourceAttribute(resource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeResourceAttribute(resource: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeResourceAttribute(resource: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeResourceAttribute(resource: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeResourceAttribute(resource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeResourceAttribute.');
         }
@@ -9388,22 +7494,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9417,29 +7518,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/r`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9455,13 +7547,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeResourceAttributes(resource: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeResourceAttributes(resource: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeResourceAttributes(resource: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeResourceAttributes(resource: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeResourceAttributes(resource: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeResourceAttributes(resource: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeResourceAttributes(resource: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeResourceAttributes(resource: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeResourceAttributes.');
         }
@@ -9471,24 +7560,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9502,29 +7586,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/r`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9540,13 +7615,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeUesAttributes(userExtSource: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeUesAttributes(userExtSource: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeUesAttributes(userExtSource: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeUesAttributes(userExtSource: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeUesAttributes(userExtSource: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUesAttributes(userExtSource: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUesAttributes(userExtSource: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUesAttributes(userExtSource: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (userExtSource === null || userExtSource === undefined) {
             throw new Error('Required parameter userExtSource was null or undefined when calling removeUesAttributes.');
         }
@@ -9556,24 +7628,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (userExtSource !== undefined && userExtSource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userExtSource, 'userExtSource');
+            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9587,29 +7654,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/ues`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9625,13 +7683,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeUserAttribute(user: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeUserAttribute(user: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeUserAttribute(user: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeUserAttribute(user: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeUserAttribute(user: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserAttribute(user: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserAttribute(user: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserAttribute(user: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling removeUserAttribute.');
         }
@@ -9641,22 +7696,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9670,29 +7720,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/u`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9708,13 +7749,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeUserAttributes(user: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeUserAttributes(user: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeUserAttributes(user: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeUserAttributes(user: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeUserAttributes(user: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserAttributes(user: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserAttributes(user: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserAttributes(user: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling removeUserAttributes.');
         }
@@ -9724,24 +7762,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9755,29 +7788,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/u`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9793,13 +7817,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserExtSourceAttribute(userExtSource: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (userExtSource === null || userExtSource === undefined) {
             throw new Error('Required parameter userExtSource was null or undefined when calling removeUserExtSourceAttribute.');
         }
@@ -9809,22 +7830,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (userExtSource !== undefined && userExtSource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userExtSource, 'userExtSource');
+            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9838,29 +7854,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/ues`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9877,13 +7884,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeUserFacilityAttribute(user: number, facility: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeUserFacilityAttribute(user: number, facility: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeUserFacilityAttribute(user: number, facility: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeUserFacilityAttribute(user: number, facility: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeUserFacilityAttribute(user: number, facility: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserFacilityAttribute(user: number, facility: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserFacilityAttribute(user: number, facility: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserFacilityAttribute(user: number, facility: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling removeUserFacilityAttribute.');
         }
@@ -9896,26 +7900,20 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -9929,29 +7927,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/u-f`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -9968,13 +7957,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeUserFacilityAttributes(user: number, facility: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeUserFacilityAttributes(user: number, facility: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeUserFacilityAttributes(user: number, facility: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeUserFacilityAttributes(user: number, facility: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeUserFacilityAttributes(user: number, facility: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserFacilityAttributes(user: number, facility: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserFacilityAttributes(user: number, facility: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserFacilityAttributes(user: number, facility: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling removeUserFacilityAttributes.');
         }
@@ -9987,28 +7973,22 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10022,29 +8002,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/u-f`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10060,13 +8031,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeVoAttribute(vo: number, attribute: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeVoAttribute(vo: number, attribute: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeVoAttribute(vo: number, attribute: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeVoAttribute(vo: number, attribute: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeVoAttribute(vo: number, attribute: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeVoAttribute(vo: number, attribute: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeVoAttribute(vo: number, attribute: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeVoAttribute(vo: number, attribute: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling removeVoAttribute.');
         }
@@ -10076,22 +8044,17 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (attribute !== undefined && attribute !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>attribute, 'attribute');
+            queryParameters = queryParameters.set('attribute', <any>attribute);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10105,29 +8068,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/v`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10143,13 +8097,10 @@ export class AttributesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeVoAttributes(vo: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public removeVoAttributes(vo: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public removeVoAttributes(vo: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public removeVoAttributes(vo: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeVoAttributes(vo: number, attributes: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeVoAttributes(vo: number, attributes: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeVoAttributes(vo: number, attributes: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeVoAttributes(vo: number, attributes: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling removeVoAttributes.');
         }
@@ -10159,24 +8110,19 @@ export class AttributesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (attributes) {
             attributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'attributes[]');
+                queryParameters = queryParameters.append('attributes[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10190,29 +8136,20 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/v`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10223,17 +8160,14 @@ export class AttributesManagerService {
 
     /**
      * Sets all AttributeRights in the list given as a parameter. Allowed Roles to set rights for are: VOADMIN, GROUPADMIN, FACILITYADMIN, SELF.
-     * @param inputAttributeRights
+     * @param inputAttributeRights 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setAttributeRights(inputAttributeRights: InputAttributeRights, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setAttributeRights(inputAttributeRights: InputAttributeRights, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setAttributeRights(inputAttributeRights: InputAttributeRights, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setAttributeRights(inputAttributeRights: InputAttributeRights, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setAttributeRights(inputAttributeRights: InputAttributeRights, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setAttributeRights(inputAttributeRights: InputAttributeRights, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setAttributeRights(inputAttributeRights: InputAttributeRights, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setAttributeRights(inputAttributeRights: InputAttributeRights, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputAttributeRights === null || inputAttributeRights === undefined) {
             throw new Error('Required parameter inputAttributeRights was null or undefined when calling setAttributeRights.');
         }
@@ -10241,11 +8175,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10259,14 +8190,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10281,15 +8209,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributeRights`,
             inputAttributeRights,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10300,17 +8222,14 @@ export class AttributesManagerService {
 
     /**
      * Sets entityless Attribute.
-     * @param inputEntitylessAttribute
+     * @param inputEntitylessAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setEntitylessAttribute(inputEntitylessAttribute: InputEntitylessAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setEntitylessAttribute(inputEntitylessAttribute: InputEntitylessAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setEntitylessAttribute(inputEntitylessAttribute: InputEntitylessAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setEntitylessAttribute(inputEntitylessAttribute: InputEntitylessAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setEntitylessAttribute(inputEntitylessAttribute: InputEntitylessAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setEntitylessAttribute(inputEntitylessAttribute: InputEntitylessAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setEntitylessAttribute(inputEntitylessAttribute: InputEntitylessAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setEntitylessAttribute(inputEntitylessAttribute: InputEntitylessAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputEntitylessAttribute === null || inputEntitylessAttribute === undefined) {
             throw new Error('Required parameter inputEntitylessAttribute was null or undefined when calling setEntitylessAttribute.');
         }
@@ -10318,11 +8237,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10336,14 +8252,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10358,15 +8271,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/entityless`,
             inputEntitylessAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10377,17 +8284,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for Facility.
-     * @param inputSetFacilityAttribute
+     * @param inputSetFacilityAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setFacilityAttribute(inputSetFacilityAttribute: InputSetFacilityAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setFacilityAttribute(inputSetFacilityAttribute: InputSetFacilityAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setFacilityAttribute(inputSetFacilityAttribute: InputSetFacilityAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setFacilityAttribute(inputSetFacilityAttribute: InputSetFacilityAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setFacilityAttribute(inputSetFacilityAttribute: InputSetFacilityAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setFacilityAttribute(inputSetFacilityAttribute: InputSetFacilityAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setFacilityAttribute(inputSetFacilityAttribute: InputSetFacilityAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setFacilityAttribute(inputSetFacilityAttribute: InputSetFacilityAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetFacilityAttribute === null || inputSetFacilityAttribute === undefined) {
             throw new Error('Required parameter inputSetFacilityAttribute was null or undefined when calling setFacilityAttribute.');
         }
@@ -10395,11 +8299,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10413,14 +8314,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10435,15 +8333,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/facility`,
             inputSetFacilityAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10453,18 +8345,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the facility. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetFacilityAttributes
+     * Store the attributes associated with the facility. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetFacilityAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setFacilityAttributes(inputSetFacilityAttributes: InputSetFacilityAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setFacilityAttributes(inputSetFacilityAttributes: InputSetFacilityAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setFacilityAttributes(inputSetFacilityAttributes: InputSetFacilityAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setFacilityAttributes(inputSetFacilityAttributes: InputSetFacilityAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setFacilityAttributes(inputSetFacilityAttributes: InputSetFacilityAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setFacilityAttributes(inputSetFacilityAttributes: InputSetFacilityAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setFacilityAttributes(inputSetFacilityAttributes: InputSetFacilityAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setFacilityAttributes(inputSetFacilityAttributes: InputSetFacilityAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetFacilityAttributes === null || inputSetFacilityAttributes === undefined) {
             throw new Error('Required parameter inputSetFacilityAttributes was null or undefined when calling setFacilityAttributes.');
         }
@@ -10472,11 +8361,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10490,14 +8376,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10512,15 +8395,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/f`,
             inputSetFacilityAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10530,18 +8407,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the member, user, member-group, member-resource and user-facility attributes. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). Group and group-resource attributes are not supported in this context.
-     * @param inputSetFacilityResourceGroupUserMemberAttributes
+     * Store the member, user, member-group, member-resource and user-facility attributes. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). Group and group-resource attributes are not supported in this context. 
+     * @param inputSetFacilityResourceGroupUserMemberAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setFacilityResourceGroupUserMemberAttributes(inputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setFacilityResourceGroupUserMemberAttributes(inputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setFacilityResourceGroupUserMemberAttributes(inputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setFacilityResourceGroupUserMemberAttributes(inputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setFacilityResourceGroupUserMemberAttributes(inputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setFacilityResourceGroupUserMemberAttributes(inputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setFacilityResourceGroupUserMemberAttributes(inputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setFacilityResourceGroupUserMemberAttributes(inputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetFacilityResourceGroupUserMemberAttributes === null || inputSetFacilityResourceGroupUserMemberAttributes === undefined) {
             throw new Error('Required parameter inputSetFacilityResourceGroupUserMemberAttributes was null or undefined when calling setFacilityResourceGroupUserMemberAttributes.');
         }
@@ -10549,11 +8423,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10567,14 +8438,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10589,15 +8457,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/f-r-g-u-m`,
             inputSetFacilityResourceGroupUserMemberAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10607,18 +8469,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the member, user, member-resource and user-facility attributes. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetFacilityResourceUserMemberAttributes
+     * Store the member, user, member-resource and user-facility attributes. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetFacilityResourceUserMemberAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setFacilityResourceUserMemberAttributes(inputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setFacilityResourceUserMemberAttributes(inputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setFacilityResourceUserMemberAttributes(inputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setFacilityResourceUserMemberAttributes(inputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setFacilityResourceUserMemberAttributes(inputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setFacilityResourceUserMemberAttributes(inputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setFacilityResourceUserMemberAttributes(inputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setFacilityResourceUserMemberAttributes(inputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetFacilityResourceUserMemberAttributes === null || inputSetFacilityResourceUserMemberAttributes === undefined) {
             throw new Error('Required parameter inputSetFacilityResourceUserMemberAttributes was null or undefined when calling setFacilityResourceUserMemberAttributes.');
         }
@@ -10626,11 +8485,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10644,14 +8500,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10666,15 +8519,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/f-r-u-m`,
             inputSetFacilityResourceUserMemberAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10684,18 +8531,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the facility and user combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetFacilityUserAttributes
+     * Store the attributes associated with the facility and user combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetFacilityUserAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setFacilityUserAttributes(inputSetFacilityUserAttributes: InputSetFacilityUserAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setFacilityUserAttributes(inputSetFacilityUserAttributes: InputSetFacilityUserAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setFacilityUserAttributes(inputSetFacilityUserAttributes: InputSetFacilityUserAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setFacilityUserAttributes(inputSetFacilityUserAttributes: InputSetFacilityUserAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setFacilityUserAttributes(inputSetFacilityUserAttributes: InputSetFacilityUserAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setFacilityUserAttributes(inputSetFacilityUserAttributes: InputSetFacilityUserAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setFacilityUserAttributes(inputSetFacilityUserAttributes: InputSetFacilityUserAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setFacilityUserAttributes(inputSetFacilityUserAttributes: InputSetFacilityUserAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetFacilityUserAttributes === null || inputSetFacilityUserAttributes === undefined) {
             throw new Error('Required parameter inputSetFacilityUserAttributes was null or undefined when calling setFacilityUserAttributes.');
         }
@@ -10703,11 +8547,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10721,14 +8562,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10743,15 +8581,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/f-u`,
             inputSetFacilityUserAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10762,17 +8594,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for Group.
-     * @param inputSetGroupAttribute
+     * @param inputSetGroupAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setGroupAttribute(inputSetGroupAttribute: InputSetGroupAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setGroupAttribute(inputSetGroupAttribute: InputSetGroupAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setGroupAttribute(inputSetGroupAttribute: InputSetGroupAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setGroupAttribute(inputSetGroupAttribute: InputSetGroupAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setGroupAttribute(inputSetGroupAttribute: InputSetGroupAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setGroupAttribute(inputSetGroupAttribute: InputSetGroupAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setGroupAttribute(inputSetGroupAttribute: InputSetGroupAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setGroupAttribute(inputSetGroupAttribute: InputSetGroupAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetGroupAttribute === null || inputSetGroupAttribute === undefined) {
             throw new Error('Required parameter inputSetGroupAttribute was null or undefined when calling setGroupAttribute.');
         }
@@ -10780,11 +8609,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10798,14 +8624,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10820,15 +8643,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/group`,
             inputSetGroupAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10838,18 +8655,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the group. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetGroupAttributes
+     * Store the attributes associated with the group. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetGroupAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setGroupAttributes(inputSetGroupAttributes: InputSetGroupAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setGroupAttributes(inputSetGroupAttributes: InputSetGroupAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setGroupAttributes(inputSetGroupAttributes: InputSetGroupAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setGroupAttributes(inputSetGroupAttributes: InputSetGroupAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setGroupAttributes(inputSetGroupAttributes: InputSetGroupAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setGroupAttributes(inputSetGroupAttributes: InputSetGroupAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setGroupAttributes(inputSetGroupAttributes: InputSetGroupAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setGroupAttributes(inputSetGroupAttributes: InputSetGroupAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetGroupAttributes === null || inputSetGroupAttributes === undefined) {
             throw new Error('Required parameter inputSetGroupAttributes was null or undefined when calling setGroupAttributes.');
         }
@@ -10857,11 +8671,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10875,14 +8686,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10897,15 +8705,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/g`,
             inputSetGroupAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10916,17 +8718,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for Group and Resource.
-     * @param inputSetGroupResourceAttribute
+     * @param inputSetGroupResourceAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setGroupResourceAttribute(inputSetGroupResourceAttribute: InputSetGroupResourceAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setGroupResourceAttribute(inputSetGroupResourceAttribute: InputSetGroupResourceAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setGroupResourceAttribute(inputSetGroupResourceAttribute: InputSetGroupResourceAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setGroupResourceAttribute(inputSetGroupResourceAttribute: InputSetGroupResourceAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setGroupResourceAttribute(inputSetGroupResourceAttribute: InputSetGroupResourceAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setGroupResourceAttribute(inputSetGroupResourceAttribute: InputSetGroupResourceAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setGroupResourceAttribute(inputSetGroupResourceAttribute: InputSetGroupResourceAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setGroupResourceAttribute(inputSetGroupResourceAttribute: InputSetGroupResourceAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetGroupResourceAttribute === null || inputSetGroupResourceAttribute === undefined) {
             throw new Error('Required parameter inputSetGroupResourceAttribute was null or undefined when calling setGroupResourceAttribute.');
         }
@@ -10934,11 +8733,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -10952,14 +8748,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -10974,15 +8767,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/group-resource`,
             inputSetGroupResourceAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -10993,17 +8780,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attributes for Group and Resource.
-     * @param inputSetGroupResourceAttributes
+     * @param inputSetGroupResourceAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setGroupResourceAttributes(inputSetGroupResourceAttributes: InputSetGroupResourceAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setGroupResourceAttributes(inputSetGroupResourceAttributes: InputSetGroupResourceAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setGroupResourceAttributes(inputSetGroupResourceAttributes: InputSetGroupResourceAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setGroupResourceAttributes(inputSetGroupResourceAttributes: InputSetGroupResourceAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setGroupResourceAttributes(inputSetGroupResourceAttributes: InputSetGroupResourceAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setGroupResourceAttributes(inputSetGroupResourceAttributes: InputSetGroupResourceAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setGroupResourceAttributes(inputSetGroupResourceAttributes: InputSetGroupResourceAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setGroupResourceAttributes(inputSetGroupResourceAttributes: InputSetGroupResourceAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetGroupResourceAttributes === null || inputSetGroupResourceAttributes === undefined) {
             throw new Error('Required parameter inputSetGroupResourceAttributes was null or undefined when calling setGroupResourceAttributes.');
         }
@@ -11011,11 +8795,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11029,14 +8810,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11051,15 +8829,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/group-resource`,
             inputSetGroupResourceAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11070,17 +8842,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for Host.
-     * @param inputSetHostAttribute
+     * @param inputSetHostAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setHostAttribute(inputSetHostAttribute: InputSetHostAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setHostAttribute(inputSetHostAttribute: InputSetHostAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setHostAttribute(inputSetHostAttribute: InputSetHostAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setHostAttribute(inputSetHostAttribute: InputSetHostAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setHostAttribute(inputSetHostAttribute: InputSetHostAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setHostAttribute(inputSetHostAttribute: InputSetHostAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setHostAttribute(inputSetHostAttribute: InputSetHostAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setHostAttribute(inputSetHostAttribute: InputSetHostAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetHostAttribute === null || inputSetHostAttribute === undefined) {
             throw new Error('Required parameter inputSetHostAttribute was null or undefined when calling setHostAttribute.');
         }
@@ -11088,11 +8857,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11106,14 +8872,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11128,15 +8891,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/host`,
             inputSetHostAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11146,18 +8903,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the host. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetHostAttributes
+     * Store the attributes associated with the host. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetHostAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setHostAttributes(inputSetHostAttributes: InputSetHostAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setHostAttributes(inputSetHostAttributes: InputSetHostAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setHostAttributes(inputSetHostAttributes: InputSetHostAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setHostAttributes(inputSetHostAttributes: InputSetHostAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setHostAttributes(inputSetHostAttributes: InputSetHostAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setHostAttributes(inputSetHostAttributes: InputSetHostAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setHostAttributes(inputSetHostAttributes: InputSetHostAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setHostAttributes(inputSetHostAttributes: InputSetHostAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetHostAttributes === null || inputSetHostAttributes === undefined) {
             throw new Error('Required parameter inputSetHostAttributes was null or undefined when calling setHostAttributes.');
         }
@@ -11165,11 +8919,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11183,14 +8934,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11205,15 +8953,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/h`,
             inputSetHostAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11224,17 +8966,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for Member.
-     * @param inputSetMemberAttribute
+     * @param inputSetMemberAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setMemberAttribute(inputSetMemberAttribute: InputSetMemberAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setMemberAttribute(inputSetMemberAttribute: InputSetMemberAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setMemberAttribute(inputSetMemberAttribute: InputSetMemberAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setMemberAttribute(inputSetMemberAttribute: InputSetMemberAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setMemberAttribute(inputSetMemberAttribute: InputSetMemberAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setMemberAttribute(inputSetMemberAttribute: InputSetMemberAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setMemberAttribute(inputSetMemberAttribute: InputSetMemberAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setMemberAttribute(inputSetMemberAttribute: InputSetMemberAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetMemberAttribute === null || inputSetMemberAttribute === undefined) {
             throw new Error('Required parameter inputSetMemberAttribute was null or undefined when calling setMemberAttribute.');
         }
@@ -11242,11 +8981,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11260,14 +8996,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11282,15 +9015,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/member`,
             inputSetMemberAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11300,18 +9027,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the member. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetMemberAttributes
+     * Store the attributes associated with the member. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetMemberAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setMemberAttributes(inputSetMemberAttributes: InputSetMemberAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setMemberAttributes(inputSetMemberAttributes: InputSetMemberAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setMemberAttributes(inputSetMemberAttributes: InputSetMemberAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setMemberAttributes(inputSetMemberAttributes: InputSetMemberAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setMemberAttributes(inputSetMemberAttributes: InputSetMemberAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setMemberAttributes(inputSetMemberAttributes: InputSetMemberAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setMemberAttributes(inputSetMemberAttributes: InputSetMemberAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setMemberAttributes(inputSetMemberAttributes: InputSetMemberAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetMemberAttributes === null || inputSetMemberAttributes === undefined) {
             throw new Error('Required parameter inputSetMemberAttributes was null or undefined when calling setMemberAttributes.');
         }
@@ -11319,11 +9043,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11337,14 +9058,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11359,15 +9077,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/m`,
             inputSetMemberAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11378,17 +9090,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for Member and Group.
-     * @param inputSetMemberGroupAttribute
+     * @param inputSetMemberGroupAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setMemberGroupAttribute(inputSetMemberGroupAttribute: InputSetMemberGroupAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setMemberGroupAttribute(inputSetMemberGroupAttribute: InputSetMemberGroupAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setMemberGroupAttribute(inputSetMemberGroupAttribute: InputSetMemberGroupAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setMemberGroupAttribute(inputSetMemberGroupAttribute: InputSetMemberGroupAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setMemberGroupAttribute(inputSetMemberGroupAttribute: InputSetMemberGroupAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setMemberGroupAttribute(inputSetMemberGroupAttribute: InputSetMemberGroupAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setMemberGroupAttribute(inputSetMemberGroupAttribute: InputSetMemberGroupAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setMemberGroupAttribute(inputSetMemberGroupAttribute: InputSetMemberGroupAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetMemberGroupAttribute === null || inputSetMemberGroupAttribute === undefined) {
             throw new Error('Required parameter inputSetMemberGroupAttribute was null or undefined when calling setMemberGroupAttribute.');
         }
@@ -11396,11 +9105,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11414,14 +9120,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11436,15 +9139,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/member-group`,
             inputSetMemberGroupAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11454,18 +9151,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the member and group combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetMemberGroupAttributes
+     * Store the attributes associated with the member and group combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetMemberGroupAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setMemberGroupAttributes(inputSetMemberGroupAttributes: InputSetMemberGroupAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setMemberGroupAttributes(inputSetMemberGroupAttributes: InputSetMemberGroupAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setMemberGroupAttributes(inputSetMemberGroupAttributes: InputSetMemberGroupAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setMemberGroupAttributes(inputSetMemberGroupAttributes: InputSetMemberGroupAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setMemberGroupAttributes(inputSetMemberGroupAttributes: InputSetMemberGroupAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setMemberGroupAttributes(inputSetMemberGroupAttributes: InputSetMemberGroupAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setMemberGroupAttributes(inputSetMemberGroupAttributes: InputSetMemberGroupAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setMemberGroupAttributes(inputSetMemberGroupAttributes: InputSetMemberGroupAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetMemberGroupAttributes === null || inputSetMemberGroupAttributes === undefined) {
             throw new Error('Required parameter inputSetMemberGroupAttributes was null or undefined when calling setMemberGroupAttributes.');
         }
@@ -11473,11 +9167,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11491,14 +9182,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11513,15 +9201,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/m-g`,
             inputSetMemberGroupAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11531,18 +9213,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the member and group combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). If workWithUserAttributes is true, the method stores also the attributes associated with user and member.
-     * @param inputSetMemberGroupWithUserAttributes
+     * Store the attributes associated with the member and group combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). If workWithUserAttributes is true, the method stores also the attributes associated with user and member. 
+     * @param inputSetMemberGroupWithUserAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setMemberGroupWithUserAttributes(inputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setMemberGroupWithUserAttributes(inputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setMemberGroupWithUserAttributes(inputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setMemberGroupWithUserAttributes(inputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setMemberGroupWithUserAttributes(inputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setMemberGroupWithUserAttributes(inputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setMemberGroupWithUserAttributes(inputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setMemberGroupWithUserAttributes(inputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetMemberGroupWithUserAttributes === null || inputSetMemberGroupWithUserAttributes === undefined) {
             throw new Error('Required parameter inputSetMemberGroupWithUserAttributes was null or undefined when calling setMemberGroupWithUserAttributes.');
         }
@@ -11550,11 +9229,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11568,14 +9244,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11590,15 +9263,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/m-g-wu`,
             inputSetMemberGroupWithUserAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11608,18 +9275,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the resource and member combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). If workWithUserAttributes is true, the method stores also the attributes associated with user, user-facility and member.
-     * @param inputSetMemberResourceAndUserAttributes
+     * Store the attributes associated with the resource and member combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). If workWithUserAttributes is true, the method stores also the attributes associated with user, user-facility and member. 
+     * @param inputSetMemberResourceAndUserAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setMemberResourceAndUserAttributes(inputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setMemberResourceAndUserAttributes(inputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setMemberResourceAndUserAttributes(inputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setMemberResourceAndUserAttributes(inputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setMemberResourceAndUserAttributes(inputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setMemberResourceAndUserAttributes(inputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setMemberResourceAndUserAttributes(inputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setMemberResourceAndUserAttributes(inputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetMemberResourceAndUserAttributes === null || inputSetMemberResourceAndUserAttributes === undefined) {
             throw new Error('Required parameter inputSetMemberResourceAndUserAttributes was null or undefined when calling setMemberResourceAndUserAttributes.');
         }
@@ -11627,11 +9291,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11645,14 +9306,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11667,15 +9325,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/m-r-wu`,
             inputSetMemberResourceAndUserAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11686,17 +9338,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for Member and Resource.
-     * @param inputSetMemberResourceAttribute
+     * @param inputSetMemberResourceAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setMemberResourceAttribute(inputSetMemberResourceAttribute: InputSetMemberResourceAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setMemberResourceAttribute(inputSetMemberResourceAttribute: InputSetMemberResourceAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setMemberResourceAttribute(inputSetMemberResourceAttribute: InputSetMemberResourceAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setMemberResourceAttribute(inputSetMemberResourceAttribute: InputSetMemberResourceAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setMemberResourceAttribute(inputSetMemberResourceAttribute: InputSetMemberResourceAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setMemberResourceAttribute(inputSetMemberResourceAttribute: InputSetMemberResourceAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setMemberResourceAttribute(inputSetMemberResourceAttribute: InputSetMemberResourceAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setMemberResourceAttribute(inputSetMemberResourceAttribute: InputSetMemberResourceAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetMemberResourceAttribute === null || inputSetMemberResourceAttribute === undefined) {
             throw new Error('Required parameter inputSetMemberResourceAttribute was null or undefined when calling setMemberResourceAttribute.');
         }
@@ -11704,11 +9353,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11722,14 +9368,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11744,15 +9387,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/member-resource`,
             inputSetMemberResourceAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11762,18 +9399,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the resource and member combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetMemberResourceAttributes
+     * Store the attributes associated with the resource and member combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetMemberResourceAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setMemberResourceAttributes(inputSetMemberResourceAttributes: InputSetMemberResourceAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setMemberResourceAttributes(inputSetMemberResourceAttributes: InputSetMemberResourceAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setMemberResourceAttributes(inputSetMemberResourceAttributes: InputSetMemberResourceAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setMemberResourceAttributes(inputSetMemberResourceAttributes: InputSetMemberResourceAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setMemberResourceAttributes(inputSetMemberResourceAttributes: InputSetMemberResourceAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setMemberResourceAttributes(inputSetMemberResourceAttributes: InputSetMemberResourceAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setMemberResourceAttributes(inputSetMemberResourceAttributes: InputSetMemberResourceAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setMemberResourceAttributes(inputSetMemberResourceAttributes: InputSetMemberResourceAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetMemberResourceAttributes === null || inputSetMemberResourceAttributes === undefined) {
             throw new Error('Required parameter inputSetMemberResourceAttributes was null or undefined when calling setMemberResourceAttributes.');
         }
@@ -11781,11 +9415,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11799,14 +9430,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11821,15 +9449,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/m-r`,
             inputSetMemberResourceAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11839,18 +9461,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with member and user (which we get from this member) if workWithUserAttributes is true.
-     * @param inputSetMemberWithUserAttributes
+     * Store the attributes associated with member and user (which we get from this member) if workWithUserAttributes is true. 
+     * @param inputSetMemberWithUserAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setMemberWithUserAttributes(inputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setMemberWithUserAttributes(inputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setMemberWithUserAttributes(inputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setMemberWithUserAttributes(inputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setMemberWithUserAttributes(inputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setMemberWithUserAttributes(inputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setMemberWithUserAttributes(inputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setMemberWithUserAttributes(inputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetMemberWithUserAttributes === null || inputSetMemberWithUserAttributes === undefined) {
             throw new Error('Required parameter inputSetMemberWithUserAttributes was null or undefined when calling setMemberWithUserAttributes.');
         }
@@ -11858,11 +9477,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11876,14 +9492,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11898,15 +9511,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/m-wu`,
             inputSetMemberWithUserAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11917,17 +9524,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for Resource.
-     * @param inputSetResourceAttribute
+     * @param inputSetResourceAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setResourceAttribute(inputSetResourceAttribute: InputSetResourceAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setResourceAttribute(inputSetResourceAttribute: InputSetResourceAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setResourceAttribute(inputSetResourceAttribute: InputSetResourceAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setResourceAttribute(inputSetResourceAttribute: InputSetResourceAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setResourceAttribute(inputSetResourceAttribute: InputSetResourceAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setResourceAttribute(inputSetResourceAttribute: InputSetResourceAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setResourceAttribute(inputSetResourceAttribute: InputSetResourceAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setResourceAttribute(inputSetResourceAttribute: InputSetResourceAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetResourceAttribute === null || inputSetResourceAttribute === undefined) {
             throw new Error('Required parameter inputSetResourceAttribute was null or undefined when calling setResourceAttribute.');
         }
@@ -11935,11 +9539,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -11953,14 +9554,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -11975,15 +9573,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/resource`,
             inputSetResourceAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -11993,18 +9585,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the resource.
-     * @param inputSetResourceAttributes
+     * Store the attributes associated with the resource. 
+     * @param inputSetResourceAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setResourceAttributes(inputSetResourceAttributes: InputSetResourceAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setResourceAttributes(inputSetResourceAttributes: InputSetResourceAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setResourceAttributes(inputSetResourceAttributes: InputSetResourceAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setResourceAttributes(inputSetResourceAttributes: InputSetResourceAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setResourceAttributes(inputSetResourceAttributes: InputSetResourceAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setResourceAttributes(inputSetResourceAttributes: InputSetResourceAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setResourceAttributes(inputSetResourceAttributes: InputSetResourceAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setResourceAttributes(inputSetResourceAttributes: InputSetResourceAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetResourceAttributes === null || inputSetResourceAttributes === undefined) {
             throw new Error('Required parameter inputSetResourceAttributes was null or undefined when calling setResourceAttributes.');
         }
@@ -12012,11 +9601,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12030,14 +9616,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12052,15 +9635,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/r`,
             inputSetResourceAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12070,18 +9647,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the group on resource.
-     * @param inputSetResourceGroupAttributes
+     * Store the attributes associated with the group on resource. 
+     * @param inputSetResourceGroupAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setResourceGroupAttributes(inputSetResourceGroupAttributes: InputSetResourceGroupAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setResourceGroupAttributes(inputSetResourceGroupAttributes: InputSetResourceGroupAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setResourceGroupAttributes(inputSetResourceGroupAttributes: InputSetResourceGroupAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setResourceGroupAttributes(inputSetResourceGroupAttributes: InputSetResourceGroupAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setResourceGroupAttributes(inputSetResourceGroupAttributes: InputSetResourceGroupAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setResourceGroupAttributes(inputSetResourceGroupAttributes: InputSetResourceGroupAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setResourceGroupAttributes(inputSetResourceGroupAttributes: InputSetResourceGroupAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setResourceGroupAttributes(inputSetResourceGroupAttributes: InputSetResourceGroupAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetResourceGroupAttributes === null || inputSetResourceGroupAttributes === undefined) {
             throw new Error('Required parameter inputSetResourceGroupAttributes was null or undefined when calling setResourceGroupAttributes.');
         }
@@ -12089,11 +9663,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12107,14 +9678,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12129,15 +9697,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/r-g`,
             inputSetResourceGroupAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12147,18 +9709,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with group and resource, if workWithUserAttributes is true then also from group itself. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetResourceGroupWithGroupAttributes
+     * Store the attributes associated with group and resource, if workWithUserAttributes is true then also from group itself. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetResourceGroupWithGroupAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setResourceGroupWithGroupAttributes(inputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setResourceGroupWithGroupAttributes(inputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setResourceGroupWithGroupAttributes(inputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setResourceGroupWithGroupAttributes(inputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setResourceGroupWithGroupAttributes(inputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setResourceGroupWithGroupAttributes(inputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setResourceGroupWithGroupAttributes(inputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setResourceGroupWithGroupAttributes(inputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetResourceGroupWithGroupAttributes === null || inputSetResourceGroupWithGroupAttributes === undefined) {
             throw new Error('Required parameter inputSetResourceGroupWithGroupAttributes was null or undefined when calling setResourceGroupWithGroupAttributes.');
         }
@@ -12166,11 +9725,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12184,14 +9740,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12206,15 +9759,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/r-g-wg`,
             inputSetResourceGroupWithGroupAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12225,17 +9772,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for User.
-     * @param inputSetUserAttribute
+     * @param inputSetUserAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setUserAttribute(inputSetUserAttribute: InputSetUserAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setUserAttribute(inputSetUserAttribute: InputSetUserAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setUserAttribute(inputSetUserAttribute: InputSetUserAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setUserAttribute(inputSetUserAttribute: InputSetUserAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setUserAttribute(inputSetUserAttribute: InputSetUserAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setUserAttribute(inputSetUserAttribute: InputSetUserAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setUserAttribute(inputSetUserAttribute: InputSetUserAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setUserAttribute(inputSetUserAttribute: InputSetUserAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetUserAttribute === null || inputSetUserAttribute === undefined) {
             throw new Error('Required parameter inputSetUserAttribute was null or undefined when calling setUserAttribute.');
         }
@@ -12243,11 +9787,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12261,14 +9802,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12283,15 +9821,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/user`,
             inputSetUserAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12301,18 +9833,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the user. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetUserAttributes
+     * Store the attributes associated with the user. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetUserAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setUserAttributes(inputSetUserAttributes: InputSetUserAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setUserAttributes(inputSetUserAttributes: InputSetUserAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setUserAttributes(inputSetUserAttributes: InputSetUserAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setUserAttributes(inputSetUserAttributes: InputSetUserAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setUserAttributes(inputSetUserAttributes: InputSetUserAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setUserAttributes(inputSetUserAttributes: InputSetUserAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setUserAttributes(inputSetUserAttributes: InputSetUserAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setUserAttributes(inputSetUserAttributes: InputSetUserAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetUserAttributes === null || inputSetUserAttributes === undefined) {
             throw new Error('Required parameter inputSetUserAttributes was null or undefined when calling setUserAttributes.');
         }
@@ -12320,11 +9849,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12338,14 +9864,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12360,15 +9883,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/u`,
             inputSetUserAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12379,17 +9896,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for UserExtSource.
-     * @param inputSetUserExtSourceAttribute
+     * @param inputSetUserExtSourceAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setUserExtSourceAttribute(inputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setUserExtSourceAttribute(inputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setUserExtSourceAttribute(inputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setUserExtSourceAttribute(inputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setUserExtSourceAttribute(inputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setUserExtSourceAttribute(inputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setUserExtSourceAttribute(inputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setUserExtSourceAttribute(inputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetUserExtSourceAttribute === null || inputSetUserExtSourceAttribute === undefined) {
             throw new Error('Required parameter inputSetUserExtSourceAttribute was null or undefined when calling setUserExtSourceAttribute.');
         }
@@ -12397,11 +9911,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12415,14 +9926,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12437,15 +9945,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/userExtSource`,
             inputSetUserExtSourceAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12455,18 +9957,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the UserExtSource. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetUserExtSourceAttributes
+     * Store the attributes associated with the UserExtSource. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetUserExtSourceAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setUserExtSourceAttributes(inputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setUserExtSourceAttributes(inputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setUserExtSourceAttributes(inputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setUserExtSourceAttributes(inputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setUserExtSourceAttributes(inputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setUserExtSourceAttributes(inputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setUserExtSourceAttributes(inputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setUserExtSourceAttributes(inputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetUserExtSourceAttributes === null || inputSetUserExtSourceAttributes === undefined) {
             throw new Error('Required parameter inputSetUserExtSourceAttributes was null or undefined when calling setUserExtSourceAttributes.');
         }
@@ -12474,11 +9973,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12492,14 +9988,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12514,15 +10007,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/ues`,
             inputSetUserExtSourceAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12533,17 +10020,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for User and Facility.
-     * @param inputSetUserFacilityAttribute
+     * @param inputSetUserFacilityAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setUserFacilityAttribute(inputSetUserFacilityAttribute: InputSetUserFacilityAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setUserFacilityAttribute(inputSetUserFacilityAttribute: InputSetUserFacilityAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setUserFacilityAttribute(inputSetUserFacilityAttribute: InputSetUserFacilityAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setUserFacilityAttribute(inputSetUserFacilityAttribute: InputSetUserFacilityAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setUserFacilityAttribute(inputSetUserFacilityAttribute: InputSetUserFacilityAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setUserFacilityAttribute(inputSetUserFacilityAttribute: InputSetUserFacilityAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setUserFacilityAttribute(inputSetUserFacilityAttribute: InputSetUserFacilityAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setUserFacilityAttribute(inputSetUserFacilityAttribute: InputSetUserFacilityAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetUserFacilityAttribute === null || inputSetUserFacilityAttribute === undefined) {
             throw new Error('Required parameter inputSetUserFacilityAttribute was null or undefined when calling setUserFacilityAttribute.');
         }
@@ -12551,11 +10035,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12569,14 +10050,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12591,15 +10069,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/facility-user`,
             inputSetUserFacilityAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12610,17 +10082,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attributes for User and Facility.
-     * @param inputSetUserFacilityAttributes
+     * @param inputSetUserFacilityAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setUserFacilityAttributes(inputSetUserFacilityAttributes: InputSetUserFacilityAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setUserFacilityAttributes(inputSetUserFacilityAttributes: InputSetUserFacilityAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setUserFacilityAttributes(inputSetUserFacilityAttributes: InputSetUserFacilityAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setUserFacilityAttributes(inputSetUserFacilityAttributes: InputSetUserFacilityAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setUserFacilityAttributes(inputSetUserFacilityAttributes: InputSetUserFacilityAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setUserFacilityAttributes(inputSetUserFacilityAttributes: InputSetUserFacilityAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setUserFacilityAttributes(inputSetUserFacilityAttributes: InputSetUserFacilityAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setUserFacilityAttributes(inputSetUserFacilityAttributes: InputSetUserFacilityAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetUserFacilityAttributes === null || inputSetUserFacilityAttributes === undefined) {
             throw new Error('Required parameter inputSetUserFacilityAttributes was null or undefined when calling setUserFacilityAttributes.');
         }
@@ -12628,11 +10097,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12646,14 +10112,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12668,15 +10131,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/facility-user`,
             inputSetUserFacilityAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12687,17 +10144,14 @@ export class AttributesManagerService {
 
     /**
      * Sets Attribute for Vo.
-     * @param inputSetVoAttribute
+     * @param inputSetVoAttribute 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setVoAttribute(inputSetVoAttribute: InputSetVoAttribute, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setVoAttribute(inputSetVoAttribute: InputSetVoAttribute, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setVoAttribute(inputSetVoAttribute: InputSetVoAttribute, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setVoAttribute(inputSetVoAttribute: InputSetVoAttribute, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setVoAttribute(inputSetVoAttribute: InputSetVoAttribute, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setVoAttribute(inputSetVoAttribute: InputSetVoAttribute, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setVoAttribute(inputSetVoAttribute: InputSetVoAttribute, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setVoAttribute(inputSetVoAttribute: InputSetVoAttribute, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetVoAttribute === null || inputSetVoAttribute === undefined) {
             throw new Error('Required parameter inputSetVoAttribute was null or undefined when calling setVoAttribute.');
         }
@@ -12705,11 +10159,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12723,14 +10174,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12745,15 +10193,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttribute/vo`,
             inputSetVoAttribute,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12763,18 +10205,15 @@ export class AttributesManagerService {
     }
 
     /**
-     * Store the attributes associated with the vo. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
-     * @param inputSetVoAttributes
+     * Store the attributes associated with the vo. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). 
+     * @param inputSetVoAttributes 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setVoAttributes(inputSetVoAttributes: InputSetVoAttributes, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-
-    public setVoAttributes(inputSetVoAttributes: InputSetVoAttributes, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-
-    public setVoAttributes(inputSetVoAttributes: InputSetVoAttributes, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-
-    public setVoAttributes(inputSetVoAttributes: InputSetVoAttributes, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setVoAttributes(inputSetVoAttributes: InputSetVoAttributes, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setVoAttributes(inputSetVoAttributes: InputSetVoAttributes, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setVoAttributes(inputSetVoAttributes: InputSetVoAttributes, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setVoAttributes(inputSetVoAttributes: InputSetVoAttributes, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetVoAttributes === null || inputSetVoAttributes === undefined) {
             throw new Error('Required parameter inputSetVoAttributes was null or undefined when calling setVoAttributes.');
         }
@@ -12782,11 +10221,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12800,14 +10236,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12822,15 +10255,9 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/attributesManager/setAttributes/vo`,
             inputSetVoAttributes,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -12841,17 +10268,14 @@ export class AttributesManagerService {
 
     /**
      * Updates AttributeDefinition in Perun based on provided object. Update is done on AttributeDefinition selected by its &lt;code&gt;id&lt;/code&gt;.
-     * @param inputAttributeDefinition
+     * @param inputAttributeDefinition 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateAttributeDefinition(inputAttributeDefinition: InputAttributeDefinition, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<AttributeDefinition>;
-
-    public updateAttributeDefinition(inputAttributeDefinition: InputAttributeDefinition, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<AttributeDefinition>>;
-
-    public updateAttributeDefinition(inputAttributeDefinition: InputAttributeDefinition, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<AttributeDefinition>>;
-
-    public updateAttributeDefinition(inputAttributeDefinition: InputAttributeDefinition, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public updateAttributeDefinition(inputAttributeDefinition: InputAttributeDefinition, observe?: 'body', reportProgress?: boolean): Observable<AttributeDefinition>;
+    public updateAttributeDefinition(inputAttributeDefinition: InputAttributeDefinition, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AttributeDefinition>>;
+    public updateAttributeDefinition(inputAttributeDefinition: InputAttributeDefinition, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AttributeDefinition>>;
+    public updateAttributeDefinition(inputAttributeDefinition: InputAttributeDefinition, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputAttributeDefinition === null || inputAttributeDefinition === undefined) {
             throw new Error('Required parameter inputAttributeDefinition was null or undefined when calling updateAttributeDefinition.');
         }
@@ -12859,11 +10283,8 @@ export class AttributesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -12877,14 +10298,11 @@ export class AttributesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -12899,57 +10317,15 @@ export class AttributesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<AttributeDefinition>(`${this.configuration.basePath}/json/attributesManager/updateAttributeDefinition`,
             inputAttributeDefinition,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
         );
-    }
-
-    private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
-        if (typeof value === "object" && value instanceof Date === false) {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value);
-        } else {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
-        }
-        return httpParams;
-    }
-
-    private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
-        if (value == null) {
-            return httpParams;
-        }
-
-        if (typeof value === "object") {
-            if (Array.isArray(value)) {
-                (value as any[]).forEach( elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
-            } else if (value instanceof Date) {
-                if (key != null) {
-                    httpParams = httpParams.append(key,
-                        (value as Date).toISOString().substr(0, 10));
-                } else {
-                   throw Error("key may not be null if value is Date");
-                }
-            } else {
-                Object.keys(value).forEach( k => httpParams = this.addToHttpParamsRecursive(
-                    httpParams, value[k], key != null ? `${key}.${k}` : k));
-            }
-        } else if (key != null) {
-            httpParams = httpParams.append(key, value);
-        } else {
-            throw Error("key may not be null if value is not object or array");
-        }
-        return httpParams;
     }
 
 }

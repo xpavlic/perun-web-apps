@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { ExtSourceAllOf } from './extSourceAllOf';
 
 
 export interface ExtSource extends Auditable { 
