@@ -35,7 +35,7 @@ export class ApplicationStatePipe implements PipeTransform {
       }
       case 'VERIFIED': {
         this.translate.get('VO_DETAIL.APPLICATION.STATE.VERIFIED').subscribe(response => {
-          this.returnData = `<i class="material-icons blue">find_replace</i>${response}`;
+          this.returnData = `<i class="material-icons blue">gavel</i>${response}`;
         });
         break;
       }
