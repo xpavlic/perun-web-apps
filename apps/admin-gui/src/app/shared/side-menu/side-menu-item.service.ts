@@ -5,6 +5,7 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { Facility, Group, Resource, RichMember, User, Vo } from '@perun-web-apps/perun/openapi';
 import { parseFullName } from '@perun-web-apps/perun/utils';
 import { StoreService } from '@perun-web-apps/perun/services';
+import { GetResourceRoutePipe } from '@perun-web-apps/perun/pipes';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class SideMenuItemService {
   constructor(
     private translate: TranslateService,
     private authResolver: GuiAuthResolver,
-    private store: StoreService,
+    private store: StoreService
   ) {
   }
 
@@ -123,8 +124,8 @@ export class SideMenuItemService {
             }
           ],
           showChildrenRegex: `^/home/settings`
-        },
-      ],
+        }
+      ]
     };
   }
 
@@ -227,7 +228,7 @@ export class SideMenuItemService {
           activatedRegex: 'facilities/\\d+/hosts'
         },
         {
-          label: "MENU_ITEMS.FACILITY.SECURITY_TEAMS",
+          label: 'MENU_ITEMS.FACILITY.SECURITY_TEAMS',
           url: [`/facilities/${facility.id}/security-teams`],
           activatedRegex: 'facilities/\\d+/security-teams'
         },
@@ -268,42 +269,44 @@ export class SideMenuItemService {
     };
   }
 
-  parseResource(resource: Resource): SideMenuItem {
+  parseResource(resource: Resource, underVo: boolean): SideMenuItem {
+    const baseUrl = new GetResourceRoutePipe().transform(resource, underVo);
+    const regexStart = underVo ? '/organizations' : '/facilities';
     return {
       label: resource.name,
-      baseLink: ['/facilities', resource.facilityId, 'resources', resource.id],
+      baseLink: [baseUrl],
       backgroundColorCss: this.resourceBgColor,
       textColorCss: this.resourceTextColor,
       links: [
         {
           label: 'MENU_ITEMS.RESOURCE.OVERVIEW',
-          url: ['/facilities', resource.facilityId, 'resources', resource.id],
-          activatedRegex: '/facilities/\\d+/resources/\\d+$'
+          url: [baseUrl],
+          activatedRegex: `${regexStart}/\\d+/resources/\\d+$`
         },
         {
           label: 'MENU_ITEMS.RESOURCE.ASSIGNED_GROUPS',
-          url: [`/facilities/${resource.facilityId}/resources/${resource.id}/groups`],
-          activatedRegex: '/facilities/\\d+/resources/\\d+/groups$'
+          url: [baseUrl, 'groups'],
+          activatedRegex: `${regexStart}/\\d+/resources/\\d+/groups$`
         },
         {
           label: 'MENU_ITEMS.RESOURCE.SETTINGS',
-          url: [`/facilities/${resource.facilityId}/resources/${resource.id}/settings`],
-          activatedRegex: '/facilities/\\d+/resources/\\d+/settings$',
+          url: [baseUrl, `settings`],
+          activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings$`,
           children: [
             {
               label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
-              url: [`/facilities/${resource.facilityId}/resources/${resource.id}/settings/attributes`],
-              activatedRegex: '/facilities/\\d+/resources/\\d+/settings/attributes$'
+              url: [baseUrl, `settings`,`attributes`],
+              activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings/attributes$`
             }
           ],
-          showChildrenRegex: '/facilities/\\d+/resources/\\d+/settings'
+          showChildrenRegex: `${regexStart}/\\d+/resources/\\d+/settings`
         }
       ],
       colorClass: 'resource-item',
       icon: 'perun-resource-white',
       // labelClass: 'resource-text',
       activatedClass: 'dark-item-activated',
-      linksClass: 'dark-item-links',
+      linksClass: 'dark-item-links'
     };
   }
 
@@ -402,7 +405,7 @@ export class SideMenuItemService {
       activatedClass: 'dark-item-activated',
       linksClass: 'dark-item-links',
       backgroundColorCss: this.voBgColor,
-      textColorCss: this.voTextColor,
+      textColorCss: this.voTextColor
     };
   }
 
@@ -452,7 +455,7 @@ export class SideMenuItemService {
               label: 'MENU_ITEMS.MEMBER.GROUP_ATTRIBUTES',
               url: [`/organizations/${member.voId}/members/${member.id}/settings/groupAttributes`],
               activatedRegex: '/organizations/\\d+/members/\\d+/settings/groupAttributes$'
-            },
+            }
           ],
           showChildrenRegex: '/organizations/\\d+/members/\\d+/settings'
         }
@@ -518,13 +521,13 @@ export class SideMenuItemService {
               activatedRegex: `^${path}/settings/roles`
             },
             {
-             label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
-             url:[`${path}/settings/service-identities`],
-             activatedRegex: `^${path}/settings/service-identities`
+              label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
+              url: [`${path}/settings/service-identities`],
+              activatedRegex: `^${path}/settings/service-identities`
             }
           ],
           showChildrenRegex: `${regex}/settings`
-        },
+        }
       ],
       colorClass: 'user-bg-color',
       icon: 'perun-user',

@@ -1,6 +1,6 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {MenuItem} from '@perun-web-apps/perun/models';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MenuItem } from '@perun-web-apps/perun/models';
 import { Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -27,16 +27,20 @@ export class ResourceSettingsOverviewComponent implements OnInit {
       this.resourceManager.getResourceById(resourceId).subscribe(resource => {
         this.resource = resource;
 
-        this.initItems();
+        if (this.route.parent.parent.parent.snapshot.url[0].path === 'facilities') {
+          this.initItems(false);
+        } else {
+          this.initItems(true);
+        }
       });
     });
   }
 
-  private initItems() {
+  private initItems(inVo: boolean) {
     this.items = [
       {
         cssIcon: 'perun-attributes',
-        url: `/facilities/${this.resource.facilityId}/resources/${this.resource.id}/settings/attributes`,
+        url: `${inVo ? `/organizations/${this.resource.voId}` : `/facilities/${this.resource.facilityId}`}/resources/${this.resource.id}/settings/attributes`,
         label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
         style: 'resource-btn'
       }

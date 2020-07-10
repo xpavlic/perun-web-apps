@@ -1,9 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {fadeIn} from '@perun-web-apps/perun/animations';
-import {SideMenuService} from '../../../core/services/common/side-menu.service';
-import {SideMenuItemService} from '../../../shared/side-menu/side-menu-item.service';
-import { FacilitiesManagerService, Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { fadeIn } from '@perun-web-apps/perun/animations';
+import { SideMenuService } from '../../../core/services/common/side-menu.service';
+import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
+import {
+  FacilitiesManagerService,
+  Resource,
+  ResourcesManagerService,
+  VosManagerService
+} from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-resource-detail-page',
@@ -18,6 +23,7 @@ export class ResourceDetailPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private facilityManager: FacilitiesManagerService,
+    private vosManagerService: VosManagerService,
     private resourcesManager: ResourcesManagerService,
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService
@@ -32,12 +38,20 @@ export class ResourceDetailPageComponent implements OnInit {
       this.resourcesManager.getResourceById(resourceId).subscribe(resource => {
         this.resource = resource;
 
-        this.facilityManager.getFacilityById(resource.facilityId).subscribe(facility => {
-          const facilityItem = this.sideMenuItemService.parseFacility(facility);
-          const resourceItem = this.sideMenuItemService.parseResource(resource);
+        if (this.route.parent.snapshot.url[0].path === 'facilities') {
+          this.facilityManager.getFacilityById(resource.facilityId).subscribe(facility => {
+            const facilityItem = this.sideMenuItemService.parseFacility(facility);
+            const resourceItem = this.sideMenuItemService.parseResource(resource, false);
+            this.sideMenuService.setFacilityMenuItems([facilityItem, resourceItem]);
+          });
+        } else {
+          this.vosManagerService.getVoById(resource.voId).subscribe(vo => {
+            const voItem = this.sideMenuItemService.parseVo(vo);
+            const resourceItem = this.sideMenuItemService.parseResource(resource, true);
 
-          this.sideMenuService.setFacilityMenuItems([facilityItem, resourceItem]);
-        });
+            this.sideMenuService.setAccessMenuItems([voItem, resourceItem]);
+          });
+        }
       });
     });
   }

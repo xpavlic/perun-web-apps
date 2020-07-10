@@ -40,13 +40,15 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   @Input()
   disableRouting = false;
   @Input()
+  routingVo = false;
+  @Input()
   displayedColumns: string[] = ['select', 'id', 'name', 'vo', 'facility', 'tags', 'description'];
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   private sort: MatSort;
-  
+
   dataSource: MatTableDataSource<RichResource>;
 
   exporting = false;

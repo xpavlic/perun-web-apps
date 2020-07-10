@@ -4,7 +4,8 @@
   <button mat-flat-button color="warn" [disabled]="selected.selected.length === 0" (click)="deleteSelectedResources()">
     {{'VO_DETAIL.RESOURCES.LIST.DELETE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
+                                   [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
 
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-resources-list
@@ -13,6 +14,7 @@
     [pageSize]="pageSize"
     [filterValue]="filterValue"
     [resources]="resources"
+    [routingVo]="true"
     [selection]="selected"
     [displayedColumns]="['select', 'id', 'name', 'facility', 'tags', 'description']">
   </perun-web-apps-resources-list>
