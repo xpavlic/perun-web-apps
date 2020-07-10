@@ -65,6 +65,7 @@ import { GroupSettingsRelationsComponent } from './pages/group-detail-page/group
 import { MemberSettingsResourceAttributesComponent } from './pages/member-detail-page/member-settings/member-settings-resource-attributes/member-settings-resource-attributes.component';
 import { GroupSettingsResourceAttributesComponent } from './pages/group-detail-page/group-settings/group-settings-resource-attributes/group-settings-resource-attributes.component';
 import { MemberSettingsGroupAttributesComponent } from './pages/member-detail-page/member-settings/member-settings-group-attributes/member-settings-group-attributes.component';
+import { MemberApplicationsComponent } from './pages/member-detail-page/member-applications/member-applications.component';
 
 const routes: Routes = [
   {
@@ -187,6 +188,16 @@ const routes: Routes = [
         path: 'groups',
         component: MemberGroupsComponent,
         data: {animation: 'MemberGroupsPage'}
+      },
+      {
+        path: 'applications',
+        component: MemberApplicationsComponent,
+        data: {animation: 'MemberApplicationsPage'}
+      },
+      {
+        path: 'applications/:applicationId',
+        component: ApplicationDetailComponent,
+        data: {animation: 'MemberApplicationDetailPage'}
       },
       {
         path: 'settings',

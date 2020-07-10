@@ -528,6 +528,12 @@
       "TABLE_GROUP_ID": "Id",
       "TABLE_GROUP_NAME": "Name"
     },
+    "APPLICATIONS": {
+      "TITLE": "Application",
+      "SHOW_ALL_DETAILS": "Show more details",
+      "SHOW_LESS_DETAILS": "Show less details",
+      "FILTER": "Filter"
+    },
     "SETTINGS": {
       "ATTRIBUTES": {
         "TITLE": "Attributes",
@@ -609,7 +615,8 @@
       "SETTINGS": "Settings",
       "ATTRIBUTES": "Attributes",
       "RESOURCE_ATTRIBUTES": "Resource attributes",
-      "GROUP_ATTRIBUTES": "Group attributes"
+      "GROUP_ATTRIBUTES": "Group attributes",
+      "APPLICATIONS": "Applications"
     },
     "ADMIN": {
       "TITLE": "Perun admin",

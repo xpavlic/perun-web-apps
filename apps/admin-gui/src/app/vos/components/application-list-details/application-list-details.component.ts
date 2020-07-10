@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Application, Group, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import { Application, Group, Member, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -20,6 +20,9 @@ export class ApplicationListDetailsComponent implements OnChanges {
 
   @Input()
   group: Group;
+
+  @Input()
+  member: Member;
 
   @Input()
   filterValue: string;
@@ -48,6 +51,7 @@ export class ApplicationListDetailsComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.loading = true;
+    this.table = []
     this.getApplicationsData(0);
   }
 
@@ -115,8 +119,11 @@ export class ApplicationListDetailsComponent implements OnChanges {
   }
 
   selectApplication(application: Application) {
+    console.log(this.member)
     if (this.group) {
       this.router.navigate(['/organizations', application.vo.id, 'groups', this.group.id, 'applications', application.id]);
+    } else if(this.member) {
+      this.router.navigate(['/organizations', application.vo.id, 'members', this.member.id, 'applications', application.id])
     } else {
       this.router.navigate(['/organizations', application.vo.id, 'applications', application.id]);
     }
