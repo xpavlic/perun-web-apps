@@ -83,6 +83,7 @@ import { MemberSettingsResourceAttributesComponent } from './pages/member-detail
 import { GroupSettingsResourceAttributesComponent } from './pages/group-detail-page/group-settings/group-settings-resource-attributes/group-settings-resource-attributes.component';
 import { MemberSettingsGroupAttributesComponent } from './pages/member-detail-page/member-settings/member-settings-group-attributes/member-settings-group-attributes.component';
 import { MemberApplicationsComponent } from './pages/member-detail-page/member-applications/member-applications.component';
+import { MemberResourcesComponent } from './pages/member-detail-page/member-resources/member-resources.component';
 
 @NgModule({
   imports: [
@@ -156,7 +157,8 @@ import { MemberApplicationsComponent } from './pages/member-detail-page/member-a
     MemberSettingsResourceAttributesComponent,
     GroupSettingsResourceAttributesComponent,
     MemberSettingsGroupAttributesComponent,
-    MemberApplicationsComponent
+    MemberApplicationsComponent,
+    MemberResourcesComponent
   ],
 })
 export class VosModule {
