@@ -1220,6 +1220,6 @@ button:focus {
   word-break: break-all;
 }
 
-.table-min-size {
-  min-width:fit-content !important;
+th, td {
+  padding: 0.25rem !important;
 }

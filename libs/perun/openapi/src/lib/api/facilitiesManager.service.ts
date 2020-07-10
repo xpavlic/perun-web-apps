@@ -1743,21 +1743,21 @@ export class FacilitiesManagerService {
 
     /**
      * Get all bans for user on the facility.
-     * @param facility id of Facility
+     * @param facilityId id of Facility
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getBansForFacility(facility: number, observe?: 'body', reportProgress?: boolean): Observable<Array<BanOnFacility>>;
-    public getBansForFacility(facility: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BanOnFacility>>>;
-    public getBansForFacility(facility: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BanOnFacility>>>;
-    public getBansForFacility(facility: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (facility === null || facility === undefined) {
-            throw new Error('Required parameter facility was null or undefined when calling getBansForFacility.');
+    public getBansForFacility(facilityId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<BanOnFacility>>;
+    public getBansForFacility(facilityId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BanOnFacility>>>;
+    public getBansForFacility(facilityId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BanOnFacility>>>;
+    public getBansForFacility(facilityId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (facilityId === null || facilityId === undefined) {
+            throw new Error('Required parameter facilityId was null or undefined when calling getBansForFacility.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (facility !== undefined && facility !== null) {
-            queryParameters = queryParameters.set('facility', <any>facility);
+        if (facilityId !== undefined && facilityId !== null) {
+            queryParameters = queryParameters.set('facilityId', <any>facilityId);
         }
 
         let headers = this.defaultHeaders;

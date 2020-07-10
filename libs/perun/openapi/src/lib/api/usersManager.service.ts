@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 import { AddUserExtSourceInput } from '../model/addUserExtSourceInput';
 import { Group } from '../model/group';
 import { PerunException } from '../model/perunException';
+import { RichResource } from '../model/richResource';
 import { RichUser } from '../model/richUser';
 import { RichUserExtSource } from '../model/richUserExtSource';
 import { User } from '../model/user';
@@ -441,6 +442,64 @@ export class UsersManagerService {
 
 
         return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/json/usersManager/findUsers`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get all rich resources which have the user assigned.
+     * @param user id of User
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAssignedRichResourcesForUser(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<RichResource>>;
+    public getAssignedRichResourcesForUser(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichResource>>>;
+    public getAssignedRichResourcesForUser(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichResource>>>;
+    public getAssignedRichResourcesForUser(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (user === null || user === undefined) {
+            throw new Error('Required parameter user was null or undefined when calling getAssignedRichResourcesForUser.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (user !== undefined && user !== null) {
+            queryParameters = queryParameters.set('user', <any>user);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<RichResource>>(`${this.configuration.basePath}/json/usersManager/getAssignedRichResources`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
