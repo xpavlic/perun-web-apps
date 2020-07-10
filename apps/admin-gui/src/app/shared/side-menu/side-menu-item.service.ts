@@ -107,11 +107,6 @@ export class SideMenuItemService {
               activatedRegex: `^/home/settings/facilityAttributes`
             },
             {
-              label: 'MENU_ITEMS.USER.ROLES',
-              url: [`/home/settings/roles`],
-              activatedRegex: `^/home/settings/roles`
-            },
-            {
               label: 'MENU_ITEMS.USER.GUI_CONFIG',
               url: ['/home/settings/gui-config'],
               activatedRegex: '/home/settings/gui-config'
