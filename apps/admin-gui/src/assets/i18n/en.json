@@ -1282,7 +1282,9 @@
     "NAME": "Name",
     "ORGANIZATION": "Organization",
     "EMAIL": "Email",
-    "LOGINS": "Logins"
+    "LOGINS": "Logins",
+    "PERSON": "Person",
+    "SERVICE": "Service"
   },
   "ADMIN_USER": {
     "TITLE": "User - "

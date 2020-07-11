@@ -29,21 +29,19 @@ export class UsersListComponent implements OnChanges {
   private sort: MatSort;
 
   @Input()
-  hideColumns: string[] = [];
-
-  @Input()
   selection = new SelectionModel<RichUser>(true, []);
 
   @Input()
   inDialog: boolean;
 
   @Input()
+  displayedColumns: string[] = ['select', 'user', 'id', 'name', 'email', 'logins', 'organization'];
+
+  @Input()
   pageSize = 10;
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
-
-  displayedColumns: string[] = ['select', 'id', 'name', 'email', 'logins', 'organization'];
 
   dataSource: MatTableDataSource<RichUser>;
 
@@ -69,7 +67,6 @@ export class UsersListComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));
     this.dataSource = new MatTableDataSource<RichUser>(this.users);
     this.dataSource.paginator = this.paginator;
     this.setDataSource();
