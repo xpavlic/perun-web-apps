@@ -63,7 +63,7 @@ export class GroupsTreeComponent implements OnChanges {
 
   onSyncDetail(rg: RichGroup) {
     const config = getDefaultDialogConfig();
-    config.data = rg;
+    config.data = rg.id;
     config.autoFocus = false;
     this.dialog.open(GroupSyncDetailDialogComponent, config);
   }

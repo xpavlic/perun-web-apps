@@ -652,7 +652,9 @@
     "GROUP_SYNC_DETAIL": {
       "TITLE": "Group synchronization detail",
       "FORCE": "Force synchronization",
+      "FORCE_STRUCTURE": "Force subgroups synchronizations",
       "FORCE_SUCCESS": "Synchronization forced",
+      "STRUCT_FORCE_SUCCESS": "Synchronizations for subgroups forced.",
       "CANCEL": "Close",
       "NORMAL_SYNC": "Basic synchronization",
       "STRUCT_SYNC": "Structured synchronization",

@@ -22,28 +22,47 @@ export class GroupSyncDetailDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<GroupSyncDetailDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public group: RichGroup,
+    @Inject(MAT_DIALOG_DATA) public groupId: number,
     private groupService: GroupsManagerService,
     private notificator: NotificatorService
   ) { }
 
   private type: SyncType;
-  loading = false;
+  loading = true;
+
+  group: RichGroup;
 
   ngOnInit(): void {
-    this.syncEnabled = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_SYNC_ENABLED).value;
-    this.lastSyncState = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_STATE).value;
-    this.lastSyncTime = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP).value;
-    this.structSyncEnabled = <boolean><unknown>getAttribute(this.group.attributes, Urns.GROUP_STRUCTURE_SYNC_ENABLED).value;
-    this.lastStructSyncState = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_STATE).value;
-    this.lastStructSyncTime = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP).value;
+    this.loadGroup();
+  }
 
-    if (this.syncEnabled !== null && this.syncEnabled === 'true') {
-      this.type = 'BASIC';
-    }
-    if (this.structSyncEnabled !== null && this.structSyncEnabled) {
-      this.type = 'STRUCTURED';
-    }
+  private loadGroup() {
+    this.loading = true;
+    this.groupService.getRichGroupByIdWithAttributesByNames(this.groupId, [
+      Urns.GROUP_SYNC_ENABLED,
+      Urns.GROUP_LAST_SYNC_STATE,
+      Urns.GROUP_LAST_SYNC_TIMESTAMP,
+      Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+      Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+      Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
+    ]).subscribe(richGroup => {
+      this.group = richGroup;
+
+      this.syncEnabled = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_SYNC_ENABLED).value;
+      this.lastSyncState = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_STATE).value;
+      this.lastSyncTime = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP).value;
+      this.structSyncEnabled = <boolean><unknown>getAttribute(this.group.attributes, Urns.GROUP_STRUCTURE_SYNC_ENABLED).value;
+      this.lastStructSyncState = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_STATE).value;
+      this.lastStructSyncTime = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP).value;
+
+      if (this.syncEnabled !== null && this.syncEnabled === 'true') {
+        this.type = 'BASIC';
+      }
+      if (this.structSyncEnabled !== null && this.structSyncEnabled) {
+        this.type = 'STRUCTURED';
+      }
+      this.loading = false;
+    });
   }
 
   onCancel() {
@@ -55,15 +74,23 @@ export class GroupSyncDetailDialogComponent implements OnInit {
     if (this.isBasic()) {
       this.groupService.forceGroupSynchronization(this.group.id).subscribe(() => {
         this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.FORCE_SUCCESS');
-        this.dialogRef.close();
+        this.refresh();
       }, () => this.loading = false);
     }
     if (this.isStructured()) {
       this.groupService.forceGroupStructureSynchronization(this.group.id).subscribe(() => {
         this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.FORCE_SUCCESS');
-        this.dialogRef.close();
+        this.refresh();
       }, () => this.loading = false);
     }
+  }
+
+  onForceStructure() {
+    this.loading = true;
+    this.groupService.forceGroupStructureSynchronization(this.groupId).subscribe(() => {
+      this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.STRUCT_FORCE_SUCCESS');
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   getSynchronizationType() : string {
@@ -102,5 +129,9 @@ export class GroupSyncDetailDialogComponent implements OnInit {
       return this.lastStructSyncTime;
     }
     return 'N/A';
+  }
+
+  refresh() {
+    this.loadGroup();
   }
 }

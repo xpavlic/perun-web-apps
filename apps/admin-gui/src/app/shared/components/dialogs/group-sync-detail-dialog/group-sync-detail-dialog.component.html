@@ -23,19 +23,33 @@
     </span>
   </div>
   <div mat-dialog-actions>
-    <button
-      [disabled]="this.loading"
-      *ngIf="this.isBasic() || this.isStructured()"
-      mat-flat-button
-      class="ml-auto"
-      (click)="onForce()">
-      {{'DIALOGS.GROUP_SYNC_DETAIL.FORCE' | translate}}
-    </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      (click)="onCancel()">
-      {{'DIALOGS.GROUP_SYNC_DETAIL.CANCEL' | translate}}
-    </button>
+    <div class="ml-auto">
+      <button mat-icon-button (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button
+        class="ml-2"
+        [disabled]="this.loading"
+        *ngIf="this.isStructured()"
+        mat-flat-button
+        (click)="onForceStructure()"
+      >
+        {{'DIALOGS.GROUP_SYNC_DETAIL.FORCE_STRUCTURE' | translate}}
+      </button>
+      <button
+        [disabled]="this.loading"
+        *ngIf="this.isBasic() || this.isStructured()"
+        mat-flat-button
+        class="ml-2"
+        (click)="onForce()">
+        {{'DIALOGS.GROUP_SYNC_DETAIL.FORCE' | translate}}
+      </button>
+      <button
+        mat-flat-button
+        class="ml-2"
+        (click)="onCancel()">
+        {{'DIALOGS.GROUP_SYNC_DETAIL.CANCEL' | translate}}
+      </button>
+    </div>
   </div>
 </div>
