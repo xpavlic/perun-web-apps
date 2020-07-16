@@ -7,7 +7,8 @@
     <perun-web-apps-user-ext-sources-list
       [userExtSources]="idpExtSources"
       [selection]="idpSelection"
-      [hideColumns]="hiddenColumns"
+      [hideColumns]="hiddenColumnsIdp"
+      [loginHeader]="loginIdp"
     ></perun-web-apps-user-ext-sources-list>
 
     <h1 class="page-title mt-5">{{'IDENTITIES.CERT' | customTranslate | translate}}</h1>
@@ -18,6 +19,7 @@
       [selection]="certSelection"
       [extSourceNameHeader]="extSourceNameCert"
       [loginHeader]="loginCert"
+      [hideColumns]="hiddenColumnsCert"
     ></perun-web-apps-user-ext-sources-list>
 
     <h1 class="page-title mt-5">{{'IDENTITIES.OTHER' | customTranslate | translate}}</h1>
@@ -26,6 +28,7 @@
       [userExtSources]="otherExtSources"
       [selection]="otherSelection"
       [extSourceNameHeader]="extSourceNameOther"
+      [hideColumns]="hiddenColumnsOther"
     ></perun-web-apps-user-ext-sources-list>
   </div>
 </div>

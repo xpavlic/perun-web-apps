@@ -4,7 +4,7 @@
 <mat-list>
   <mat-list-item *ngFor="let key of userKeys" class="dark-hover-list-item" matRipple style="width: auto">
     <p (click)="showWholeKey(key)" class="truncate center-content">{{key}}</p>
-    <button mat-icon-button color="accent" class="ml-auto center-content" [cdkCopyToClipboard]="key">
+    <button [cdkCopyToClipboard]="key" class="ml-auto center-content" color="accent" mat-icon-button matTooltip="{{'SSH_KEYS.COPY_TOOLTIP'}}">
       <mat-icon>
         file_copy
       </mat-icon>

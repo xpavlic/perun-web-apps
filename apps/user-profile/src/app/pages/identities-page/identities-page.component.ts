@@ -32,6 +32,7 @@ export class IdentitiesPageComponent implements OnInit {
   certSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(true, []);
   otherSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(true, []);
 
+  loginIdp = 'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.ID';
   extSourceNameCert = 'IDENTITIES.EXT_SOURCE_NAME_CERT';
   loginCert = 'IDENTITIES.LOGIN_CERT';
   extSourceNameOther = 'IDENTITIES.EXT_SOURCE_NAME_OTHER';
@@ -39,7 +40,9 @@ export class IdentitiesPageComponent implements OnInit {
   userId: number;
   loading: boolean;
 
-  hiddenColumns = ['loa', 'id'];
+  hiddenColumnsIdp = ['loa', 'id'];
+  hiddenColumnsCert = ['loa', 'id', 'mail'];
+  hiddenColumnsOther = ['mail', 'id'];
 
   ngOnInit() {
     this.userId = this.storage.getPerunPrincipal().userId;
@@ -111,7 +114,7 @@ export class IdentitiesPageComponent implements OnInit {
     }
     else if(ues.userExtSource.extSource.type.endsWith('X509')){
       this.certExtSources.push(ues)
-      console.log(ues)    } else {
+      } else {
       this.otherExtSources.push(ues)
     }
   }

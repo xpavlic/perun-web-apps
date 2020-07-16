@@ -28,7 +28,7 @@
   <div *ngIf="!loading && adminMemberships.length !== 0" class="mt-5">
     <h4 class="page-subtitle">{{'GROUPS.ADMINS_GROUPS' | customTranslate | translate}}</h4>
     <perun-web-apps-membership-list [members]="adminMemberships"
-                                    [hideColumns]="['checkbox', 'expiration', 'extend']"></perun-web-apps-membership-list>
+                                    [hideColumns]="['checkbox', 'expirationAttribute', 'extend']"></perun-web-apps-membership-list>
   </div>
 
 </div>

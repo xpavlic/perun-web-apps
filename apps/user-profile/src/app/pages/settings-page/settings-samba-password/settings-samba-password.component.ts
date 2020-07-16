@@ -11,18 +11,24 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SettingsSambaPasswordComponent implements OnInit {
 
+  showPassword: boolean;
+
+  sambaExists: boolean;
+  sambaAttribute: Attribute;
+  sambaControl: FormControl;
+  userId: number;
+  showPwdTooltip: string;
+  hidePwdTooltip: string;
+
   constructor(private attributesManagerService: AttributesManagerService,
               private store: StoreService,
               private usersManagerService:UsersManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService) {
     translate.get('SAMBA_PASSWORD.SUCCESS_MESSAGE').subscribe(res => this.successMessage = res);
+    translate.get('SAMBA_PASSWORD.SHOW_PWD_TOOLTIP').subscribe(res => this.showPwdTooltip = res);
+    translate.get('SAMBA_PASSWORD.HIDE_PWD_TOOLTIP').subscribe(res => this.hidePwdTooltip = res);
   }
-
-  sambaExists: boolean;
-  sambaAttribute: Attribute;
-  sambaControl: FormControl;
-  userId: number;
 
   successMessage: string;
 
