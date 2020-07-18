@@ -645,7 +645,8 @@
       "ROLES": "Roles",
       "GUI_CONFIG": "Gui configuration",
       "SERVICE_IDENTITIES": "Service Identities",
-      "IDENTITIES": "Identities"
+      "IDENTITIES": "Identities",
+      "PASSWORD_RESET": "Password reset"
     }
   },
   "DIALOGS": {
@@ -1592,6 +1593,12 @@
           "CANCEL": "Cancel",
           "REMOVE": "Remove",
           "SUCCESS": "User external source successfully removed"
+        },
+        "PASSWORD_RESET": {
+          "TITLE": "Password reset",
+          "CHANGE_PASSWORD": "Change password",
+          "NAMESPACE": "Namespace",
+          "LOGIN": "Login"
         }
       },
       "ORGANIZATIONS": {

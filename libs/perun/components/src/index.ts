@@ -10,4 +10,5 @@ export * from './lib/resources-list/resources-list.component';
 export * from './lib/notification/notification.component';
 export * from './lib/user-ext-sources-list/user-ext-sources-list.component';
 export * from './lib/remove-user-ext-source-dialog/remove-user-ext-source-dialog.component';
-export * from './lib/create-attribute-dialog/create-attribute-dialog.component'
+export * from './lib/create-attribute-dialog/create-attribute-dialog.component';
+export * from './lib/password-reset/password-reset.component';

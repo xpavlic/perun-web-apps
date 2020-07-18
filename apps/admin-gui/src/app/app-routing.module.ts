@@ -13,6 +13,8 @@ import { UserSettingsAppConfigurationComponent } from './shared/components/user-
 import { UserDashboardComponent } from './shared/components/user-detail-page/user-dashboard/user-dashboard.component';
 import { UserSettingsFacilityAttributesComponent } from './shared/components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
 import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
+import { PasswordResetComponent } from '@perun-web-apps/perun/components';
+import { UserRolesComponent } from './shared/components/user-detail-page/user-settings/user-roles/user-roles.component';
 
 const routes: Routes = [
   {
@@ -71,6 +73,16 @@ const routes: Routes = [
             path: 'facilityAttributes',
             component: UserSettingsFacilityAttributesComponent,
             data: {animation: 'UserSettingsFacilityAttributesPage', showPrincipal: true}
+          },
+          {
+            path: 'roles',
+            component: UserRolesComponent,
+            data: { animation: 'UserRolesPage' }
+          },
+          {
+            path: 'passwordReset',
+            component: PasswordResetComponent,
+            data: { animation: 'PasswordResetPage' }
           },
           {
             path: 'gui-config',

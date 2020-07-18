@@ -16,7 +16,7 @@ import { SettingsSambaPasswordComponent } from './pages/settings-page/settings-s
 import { SettingsSSHKeysComponent } from './pages/settings-page/settings-ssh-keys/settings-ssh-keys.component';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
-import { SettingsPasswordResetComponent } from './pages/settings-page/settings-password-reset/settings-password-reset.component';
+import { PasswordResetComponent } from '@perun-web-apps/perun/components';
 
 const routes: Routes = [
   {
@@ -106,7 +106,7 @@ const routes: Routes = [
           },
           {
             path: 'passwordReset',
-            component: SettingsPasswordResetComponent,
+            component: PasswordResetComponent,
             data: { breadcrumb: 'SETTINGS.PASSWORD_RESET'}
           },
         ]
