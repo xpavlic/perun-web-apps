@@ -177,6 +177,7 @@ import { UserResourcesComponent } from './components/user-detail-page/user-resou
 import { AddMemberToResourceDialogComponent } from './components/dialogs/add-member-to-resource-dialog/add-member-to-resource-dialog.component';
 import { CreateFacilityDialogComponent } from './components/dialogs/create-facility-dialog/create-facility-dialog.component';
 import { DeleteFacilityDialogComponent } from './components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
+import { IdentityDetailComponent } from './components/identity-detail/identity-detail.component';
 
 @NgModule({
   imports: [
@@ -438,7 +439,8 @@ import { DeleteFacilityDialogComponent } from './components/dialogs/delete-facil
     UserResourcesComponent,
     AddMemberToResourceDialogComponent,
     CreateFacilityDialogComponent,
-    DeleteFacilityDialogComponent
+    DeleteFacilityDialogComponent,
+    IdentityDetailComponent
   ],
   providers: [
     AnyToStringPipe,
