@@ -1,0 +1,34 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.EDIT_GROUP.TITLE' | translate}}</h1>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading">
+    <div class="col pr-0" mat-dialog-content>
+      <mat-form-field class="w-100">
+        <label class="w-100">
+          <input [formControl]="nameControl" matInput placeholder="{{'DIALOGS.EDIT_GROUP.NAME' | translate}}">
+        </label>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <label class="w-100">
+          <textarea [formControl]="descriptionControl" class="overflow-hidden" mat-autosize matInput placeholder="{{'DIALOGS.EDIT_GROUP.DESCRIPTION' | translate}}"></textarea>
+        </label>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button
+          (click)="onCancel()"
+          class="ml-auto"
+          mat-flat-button>
+          {{'DIALOGS.EDIT_GROUP.CANCEL' | translate}}
+        </button>
+        <button
+          [disabled]="nameControl.invalid || descriptionControl.invalid"
+          (click)="onSave()"
+          class="ml-2"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.EDIT_GROUP.SAVE' | translate}}
+        </button>
+    </div>
+  </div>
+</div>

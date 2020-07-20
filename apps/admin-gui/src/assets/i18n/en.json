@@ -235,6 +235,7 @@
       "DELETE_GROUP": "Delete",
       "TITLE_SUBGROUPS": "Subgroups",
       "LIST_VIEW": "List view",
+      "TREE_VIEW": "Tree view",
       "FILTER": "Filter",
       "NO_GROUPS": "No groups found",
       "GROUP_SYNCED": "Synchronized",
@@ -445,9 +446,10 @@
       "TITLE": "Subgroups",
       "CREATE_GROUP": "Create subgroup",
       "DELETE_GROUP": "Delete subgroup",
-      "SHOW_LIST": "List view",
       "NO_SUBGROUPS": "This group has no subgroups.",
-      "FILTER": "Filter"
+      "FILTER": "Filter",
+      "LIST_VIEW": "List view",
+      "TREE_VIEW": "Tree view"
     },
     "SUBGROUP_INFO": "This group is a subgroup of ",
     "MEMBERS": {
@@ -1397,6 +1399,14 @@
       "REMOVE": "Remove",
       "CANCEL": "Cancel",
       "SUCCESS": "Required attributes were removed."
+    },
+    "EDIT_GROUP": {
+      "SUCCESS": "Changes were successfully saved",
+      "TITLE": "Edit group",
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "SAVE": "Save",
+      "CANCEL": "Cancel"
     }
   },
   "MEMBERS_LIST": {
@@ -1665,7 +1675,8 @@
         },
         "GROUP_MENU": {
           "MOVE": "Move group",
-          "RENAME": "Update name/description"
+          "RENAME": "Update name/description",
+          "COPY": "Copy group name to clipboard"
         },
         "VO_SELECT_TABLE": {
           "ID": "Id",

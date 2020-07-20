@@ -1,27 +1,29 @@
 <div>
   <h1 class="page-subtitle">{{'GROUP_DETAIL.SUBGROUPS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button mat-flat-button color="accent" (click)="onCreateGroup()">
+  <button (click)="onCreateGroup()" class="mr-2" color="accent" mat-flat-button>
     {{'GROUP_DETAIL.SUBGROUPS.CREATE_GROUP' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0" (click)="deleteGroup()">
+  <button (click)="deleteGroup()" [disabled]="selected.selected.length === 0" class="mr-2" color="warn" mat-flat-button>
     {{'GROUP_DETAIL.SUBGROUPS.DELETE_GROUP' | translate}}
   </button>
   <app-debounce-filter
     [placeholder]="'GROUP_DETAIL.SUBGROUPS.FILTER'"
     (filter)="applyFilter($event)">
   </app-debounce-filter>
-  <mat-checkbox color="primary" class="ml-3" [(ngModel)]="showGroupList" #checkbox>
-    {{'GROUP_DETAIL.SUBGROUPS.SHOW_LIST' | translate}}
-  </mat-checkbox>
+  <mat-slide-toggle #toggle (change)="selected.clear()" [(ngModel)]="showGroupList" class="mr-1" color="primary"
+                    labelPosition="before">{{'GROUP_DETAIL.SUBGROUPS.TREE_VIEW' | translate}}</mat-slide-toggle>
+  <label [attr.for]="toggle.inputId">{{'GROUP_DETAIL.SUBGROUPS.LIST_VIEW' | translate}}</label>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div class="mt-3" *ngIf="!loading">
-    <app-groups-tree
+    <perun-web-apps-groups-tree
       *ngIf="!showGroupList"
       [groups]="filteredTreeGroups"
       [expandAll]="filtering"
+      (moveGroup)="onMoveGroup($event)"
+      (refreshTable)="refreshTable()"
       [selection]="selected">
-    </app-groups-tree>
+    </perun-web-apps-groups-tree>
     <perun-web-apps-groups-list
       (page)="pageChanged($event)"
       [pageSize]="pageSize"
@@ -29,6 +31,8 @@
       [selection]="selected"
       [disableMembers]="true"
       [hideColumns]="['vo']"
+      (moveGroup)="onMoveGroup($event)"
+      (refreshTable)="refreshTable()"
       *ngIf="showGroupList">
     </perun-web-apps-groups-list>
   </div>

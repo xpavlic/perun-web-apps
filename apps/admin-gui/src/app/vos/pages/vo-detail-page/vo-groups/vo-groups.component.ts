@@ -6,7 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { applyFilter, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import {
   Group,
@@ -21,6 +20,7 @@ import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/tabl
 import { PageEvent } from '@angular/material/paginator';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-vo-groups',
@@ -55,8 +55,8 @@ export class VoGroupsComponent implements OnInit {
   tableId = TABLE_VO_GROUPS;
   pageSize: number;
 
-  @ViewChild('checkbox', {static: true})
-  checkbox: MatCheckbox;
+  @ViewChild('toggle', {static: true})
+  toggle: MatSlideToggle;
 
   onCreateGroup() {
     const config = getDefaultDialogConfig();
@@ -76,13 +76,14 @@ export class VoGroupsComponent implements OnInit {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     if (localStorage.getItem('preferedValue') === 'list') {
-      this.checkbox.toggle();
+      this.toggle.toggle();
       this.selected.clear();
       this.showGroupList = true;
     }
-    this.checkbox.change.subscribe(() => {
-      const value = this.checkbox.checked ? 'list' : 'tree';
+    this.toggle.change.subscribe(() => {
+      const value = this.toggle.checked ? 'list' : 'tree';
       localStorage.setItem('preferedValue', value);
+      this.loadAllGroups();
     });
 
     this.route.parent.params.subscribe(parentParams => {
@@ -115,7 +116,6 @@ export class VoGroupsComponent implements OnInit {
   }
 
   onMoveGroup(group: GroupFlatNode | Group) {
-    console.log('Vo - ' + group);
     const config = getDefaultDialogConfig();
     config.width = '550px';
     config.data = {

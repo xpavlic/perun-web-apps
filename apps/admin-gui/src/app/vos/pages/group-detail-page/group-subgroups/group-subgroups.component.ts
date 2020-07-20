@@ -4,12 +4,14 @@ import { CreateGroupDialogComponent } from '../../../../shared/components/dialog
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { applyFilter, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_GROUP_SUBGROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { GroupFlatNode } from '@perun-web-apps/perun/models';
+import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
 
 @Component({
   selector: 'app-group-subgroups',
@@ -41,13 +43,13 @@ export class GroupSubgroupsComponent implements OnInit {
   tableId = TABLE_GROUP_SUBGROUPS;
   pageSize: number;
 
-  @ViewChild('checkbox', {static: true})
-  checkbox: MatCheckbox;
+  @ViewChild('toggle', { static: true })
+  toggle: MatSlideToggle;
 
   onCreateGroup() {
     const config = getDefaultDialogConfig();
-    config.width = '450px';
-    config.data = {parentGroup: this.group};
+    config.width = '350px';
+    config.data = { parentGroup: this.group };
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
 
@@ -59,12 +61,12 @@ export class GroupSubgroupsComponent implements OnInit {
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     if (localStorage.getItem('preferedValue') === 'list') {
-      this.checkbox.toggle();
+      this.toggle.toggle();
       this.selected.clear();
       this.showGroupList = true;
     }
-    this.checkbox.change.subscribe(() => {
-      const value = this.checkbox.checked ? 'list' : 'tree';
+    this.toggle.change.subscribe(() => {
+      const value = this.toggle.checked ? 'list' : 'tree';
       localStorage.setItem('preferedValue', value);
     });
 
@@ -82,7 +84,7 @@ export class GroupSubgroupsComponent implements OnInit {
   deleteGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.group.id, groups: this.selected.selected};
+    config.data = { voId: this.group.id, groups: this.selected.selected };
 
     const dialogRef = this.dialog.open(DeleteGroupDialogComponent, config);
 
@@ -95,7 +97,16 @@ export class GroupSubgroupsComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.groupService.getAllRichSubGroupsWithGroupAttributesByNames(this.group.id, [Urns.GROUP_DEF_MAIL_FOOTER]).subscribe(groups => {
+    this.groupService.getAllRichSubGroupsWithGroupAttributesByNames(this.group.id,
+      [
+        Urns.GROUP_DEF_MAIL_FOOTER,
+        Urns.GROUP_SYNC_ENABLED,
+        Urns.GROUP_LAST_SYNC_STATE,
+        Urns.GROUP_LAST_SYNC_TIMESTAMP,
+        Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+        Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+        Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
+      ]).subscribe(groups => {
       this.groups = groups;
       this.filteredTreeGroups = this.groups;
       this.filteredGroups = this.groups;
@@ -114,5 +125,21 @@ export class GroupSubgroupsComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  }
+
+  onMoveGroup(group: GroupFlatNode | Group) {
+    const config = getDefaultDialogConfig();
+    config.width = '550px';
+    config.data = {
+      group: group,
+      theme: 'group-theme'
+    };
+
+    const dialogRef = this.dialog.open(MoveGroupDialogComponent, config);
+    dialogRef.afterClosed().subscribe(groupMoved => {
+      if (groupMoved) {
+        this.refreshTable();
+      }
+    });
   }
 }

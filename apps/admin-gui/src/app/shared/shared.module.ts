@@ -169,7 +169,6 @@ import { RemoveHostDialogComponent } from './components/dialogs/remove-host-dial
 import { OwnersListComponent } from './components/owners-list/owners-list.component';
 import { AddFacilityOwnerDialogComponent } from './components/dialogs/add-facility-owner-dialog/add-facility-owner-dialog.component';
 import { RemoveFacilityOwnerDialogComponent } from './components/dialogs/remove-facility-owner-dialog/remove-facility-owner-dialog.component';
-import { GroupSyncDetailDialogComponent } from './components/dialogs/group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CreateEditServiceDialogComponent } from './components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
 import { DeleteServiceDialogComponent } from './components/dialogs/delete-service-dialog/delete-service-dialog.component';
@@ -438,7 +437,6 @@ import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.co
     OwnersListComponent,
     AddFacilityOwnerDialogComponent,
     RemoveFacilityOwnerDialogComponent,
-    GroupSyncDetailDialogComponent,
     NotFoundPageComponent,
     CreateEditServiceDialogComponent,
     DeleteServiceDialogComponent,
@@ -451,7 +449,9 @@ import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.co
     RemoveMemberGroupDialogComponent,
     AddRequiredAttributesDialogComponent,
     RemoveRequiredAttributesDialogComponent,
-    AttrDefListComponent
+    AttrDefListComponent,
+    AddMemberToResourceDialogComponent,
+    NotFoundPageComponent
   ],
   providers: [
     AnyToStringPipe,

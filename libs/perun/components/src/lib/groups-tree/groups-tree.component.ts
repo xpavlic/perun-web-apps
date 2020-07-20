@@ -1,16 +1,18 @@
 /* tslint:disable:member-ordering */
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
 import { RichGroup } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
-import { GroupSyncDetailDialogComponent } from '../../../shared/components/dialogs/group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
+import { EditGroupDialogComponent } from '../edit-group-dialog/edit-group-dialog.component';
+
 
 @Component({
-  selector: 'app-groups-tree',
+  selector: 'perun-web-apps-groups-tree',
   templateUrl: './groups-tree.component.html',
   styleUrls: ['./groups-tree.component.scss']
 })
@@ -33,9 +35,20 @@ export class GroupsTreeComponent implements OnChanges {
     };
   };
 
+  displayButtons = true;
+  @Input()
+  theme = 'group-theme';
+
+  @HostListener('window:resize', ['$event'])
+  shouldHideButtons() {
+   this.displayButtons = window.innerWidth > 600;
+  }
 
   @Output()
   moveGroup = new EventEmitter<GroupFlatNode>();
+
+  @Output()
+  refreshTable = new EventEmitter<void>();
 
   @Input()
   groups: RichGroup[];
@@ -63,9 +76,26 @@ export class GroupsTreeComponent implements OnChanges {
 
   onSyncDetail(rg: RichGroup) {
     const config = getDefaultDialogConfig();
-    config.data = rg.id;
-    config.autoFocus = false;
+    config.data = {
+      groupId: rg.id,
+      theme: this.theme
+    };
     this.dialog.open(GroupSyncDetailDialogComponent, config);
+  }
+
+  onChangeNameDescription(rg: RichGroup) {
+    const config = getDefaultDialogConfig();
+    config.data = {
+      groupId: rg.id,
+      theme: this.theme
+    }
+    const dialogRef = this.dialog.open(EditGroupDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res){
+        this.refreshTable.emit();
+      }
+    })
   }
 
   createGroupTrees(groups: RichGroup[]) {
