@@ -73,6 +73,7 @@ import { ResourceGroupsComponent } from '../facilities/pages/resource-detail-pag
 import { ResourceSettingsComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings.component';
 import { ResourceSettingsOverviewComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
 import { ResourceSettingsAttributesComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-attributes/resource-settings-attributes.component';
+import { ResourceSettingsManagersComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-managers/resource-settings-managers.component';
 
 const routes: Routes = [
   {
@@ -357,6 +358,11 @@ const routes: Routes = [
             path: 'attributes',
             component: ResourceSettingsAttributesComponent,
             data: {animation: 'ResourceSettingsAttributesPage'}
+          },
+          {
+            path: 'managers',
+            component: ResourceSettingsManagersComponent,
+            data: { animation: 'ResourceSettingsManagersPage' }
           }
         ]
       },

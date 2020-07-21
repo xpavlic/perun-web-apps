@@ -5,7 +5,7 @@ import { AddManagerDialogComponent } from '../dialogs/add-manager-dialog/add-man
 import { RemoveManagerDialogComponent } from '../dialogs/remove-manager-dialog/remove-manager-dialog.component';
 import { RemoveGroupManagerDialogComponent } from '../dialogs/remove-group-manager-dialog/remove-group-manager-dialog.component';
 import { AddGroupManagerDialogComponent } from '../dialogs/add-group-manager-dialog/add-group-manager-dialog.component';
-import { AuthzResolverService, Facility, Group, RichUser, Vo } from '@perun-web-apps/perun/openapi';
+import { AuthzResolverService, Facility, Group, Resource, RichUser, Vo } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Role } from '@perun-web-apps/perun/models';
 import { TABLE_GROUP_MANAGERS_PAGE, TableConfigService } from '@perun-web-apps/config/table-config';
@@ -35,7 +35,7 @@ export class ManagersPageComponent implements OnInit {
   managers: RichUser[] = null;
 
   @Input()
-  complementaryObject: Group | Vo | Facility;
+  complementaryObject: Group | Vo | Facility | Resource;
 
   @Input()
   availableRoles: Role[];

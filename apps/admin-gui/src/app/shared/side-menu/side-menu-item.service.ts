@@ -297,6 +297,11 @@ export class SideMenuItemService {
               label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
               url: [baseUrl, `settings`,`attributes`],
               activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings/attributes$`
+            },
+            {
+              label: 'MENU_ITEMS.RESOURCE.MANAGERS',
+              url: [baseUrl, `settings`, `managers`],
+              activatedRegex: `${regexStart}\\d+/resources/\\d+/settings/managers$`
             }
           ],
           showChildrenRegex: `${regexStart}/\\d+/resources/\\d+/settings`

@@ -597,7 +597,8 @@
       "OVERVIEW": "Overview",
       "ASSIGNED_GROUPS": "Assigned groups",
       "SETTINGS": "Settings",
-      "ATTRIBUTES": "Attributes"
+      "ATTRIBUTES": "Attributes",
+      "MANAGERS": "Managers"
     },
     "GROUP": {
       "OVERVIEW": "Overview",
@@ -1555,7 +1556,8 @@
     "PERUN_ADMIN": "Perun admin",
     "SELF": "Self",
     "FACILITYADMIN": "Facility admin",
-    "GROUPADMIN": "Group admin"
+    "GROUPADMIN": "Group admin",
+    "RESOURCEADMIN": "Resource admin"
   },
   "SHARED_LIB": {
     "PERUN": {
