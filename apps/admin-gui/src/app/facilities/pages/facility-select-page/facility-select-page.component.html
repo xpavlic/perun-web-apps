@@ -4,12 +4,25 @@
 
   <h1 class="page-title">{{'FACILITY_MANAGEMENT.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
+  <button
+    *ngIf="!loading"
+    mat-flat-button
+    (click)="onCreate()"
+    color="accent">{{'FACILITY_MANAGEMENT.CREATE' | translate}}</button>
+  <button
+    *ngIf="!loading"
+    mat-flat-button
+    class="ml-2"
+    [disabled]="selection.selected.length === 0"
+    (click)="onDelete()"
+    color="warn">{{'FACILITY_MANAGEMENT.DELETE' | translate}}</button>
   <perun-web-apps-immediate-filter (filter)="applyFilter($event)" *ngIf="!loading" [placeholder]="'FACILITY_MANAGEMENT.FILTER_PLACEHOLDER'"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <app-facility-select-table
     [pageSize]="pageSize"
     (page)="pageChanged($event)"
     *ngIf="!loading"
+    [selection]="selection"
     [filterValue]="filterValue"
     [facilities]="facilities"
     [recentIds]="recentIds">
