@@ -174,6 +174,7 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
 import { DeleteServiceDialogComponent } from './components/dialogs/delete-service-dialog/delete-service-dialog.component';
 import { UserResourcesComponent } from './components/user-detail-page/user-resources/user-resources.component';
+import { AddMemberToResourceDialogComponent } from './components/dialogs/add-member-to-resource-dialog/add-member-to-resource-dialog.component';
 
 @NgModule({
   imports: [
@@ -432,7 +433,8 @@ import { UserResourcesComponent } from './components/user-detail-page/user-resou
     NotFoundPageComponent,
     CreateServiceDialogComponent,
     DeleteServiceDialogComponent,
-    UserResourcesComponent
+    UserResourcesComponent,
+    AddMemberToResourceDialogComponent
   ],
   providers: [
     AnyToStringPipe,

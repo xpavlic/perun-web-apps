@@ -534,6 +534,11 @@
       "SHOW_LESS_DETAILS": "Show less details",
       "FILTER": "Filter"
     },
+    "RESOURCES": {
+      "TITLE": "Resources",
+      "FILTER": "Filter",
+      "ADD": "Add"
+    },
     "SETTINGS": {
       "ATTRIBUTES": {
         "TITLE": "Attributes",
@@ -616,7 +621,8 @@
       "ATTRIBUTES": "Attributes",
       "RESOURCE_ATTRIBUTES": "Resource attributes",
       "GROUP_ATTRIBUTES": "Group attributes",
-      "APPLICATIONS": "Applications"
+      "APPLICATIONS": "Applications",
+      "RESOURCES": "Resources"
     },
     "ADMIN": {
       "TITLE": "Perun admin",
@@ -1289,6 +1295,21 @@
       "CANCEL": "Cancel",
       "DELETE": "Delete",
       "SUCCESS": "Service deleted"
+    },
+    "ADD_MEMBER_TO_RESOURCE": {
+      "TITLE": "Add member to resource",
+      "CONTINUE": "Continue",
+      "CANCEL": "Cancel",
+      "BACK": "Back",
+      "SUBMIT": "Submit",
+      "FILTER": "Filter by facility:",
+      "SELECTED": "Selected resource:",
+      "DESCRIPTION": "Description:",
+      "SERVICES": "Services on resource:",
+      "SUCCESS": "Member was added to resource",
+      "NO_GROUPS": "Resource has no groups assigned",
+      "ADD_GROUP": "Add group",
+      "SELECT_RESOURCE": "Select resource"
     }
   },
   "MEMBERS_LIST": {
