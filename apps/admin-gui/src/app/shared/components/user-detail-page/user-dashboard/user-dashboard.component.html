@@ -58,6 +58,25 @@
       </mat-card-content>
     </mat-card>
   </div>
+
+  <div *ngIf="this.adminResource.length !== 0">
+    <mat-card class="card-container">
+      <mat-card-header>
+        <mat-icon mat-card-avatar svgIcon='perun-resource-black' class="cover-image"></mat-icon>
+        <mat-card-title>{{'USER_DETAIL.OVERVIEW.MY_RESOURCES' | translate}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <perun-web-apps-immediate-filter (filter)="this.resourceFilterValue = $event"
+                                         [placeholder]="'USER_DETAIL.OVERVIEW.FILTER'"></perun-web-apps-immediate-filter>
+        <perun-web-apps-resources-list (page)="pageChanged($event, resourceTableId, resourcePageSize)"
+                                   [pageSize]="resourcePageSize"
+                                   [resources]="this.adminResource"
+                                   [displayedColumns]="['id', 'name']"
+                                   [filterValue]="resourceFilterValue">
+        </perun-web-apps-resources-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 
 

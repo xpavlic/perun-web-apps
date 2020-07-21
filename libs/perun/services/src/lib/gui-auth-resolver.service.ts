@@ -66,6 +66,10 @@ export class GuiAuthResolver {
     return (this.editableFacilities.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
   }
 
+  public isResourceAdmin(): boolean {
+    return this.hasAtLeasOne(Role.PERUNADMIN, Role.RESOURCEADMIN);
+  }
+
   isVoObserver(): boolean {
     return (this.hasAtLeasOne(Role.PERUNADMIN, Role.VOOBSERVER));
   }
