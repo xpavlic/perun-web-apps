@@ -32,8 +32,6 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   @Input()
   resources: RichResource[] = [];
   @Input()
-  hideColumns: string[] = [];
-  @Input()
   selection = new SelectionModel<RichResource>(true, []);
   @Input()
   filterValue: string;
@@ -41,13 +39,14 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   pageSize = 10;
   @Input()
   disableRouting = false;
+  @Input()
+  displayedColumns: string[] = ['select', 'id', 'name', 'vo', 'facility', 'tags', 'description'];
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   private sort: MatSort;
-
-  displayedColumns: string[] = ['select', 'id', 'name', 'facility', 'tags', 'description'];
+  
   dataSource: MatTableDataSource<RichResource>;
 
   exporting = false;
@@ -57,7 +56,6 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges(changes: SimpleChanges) {
-    this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));
     this.dataSource = new MatTableDataSource<RichResource>(this.resources);
     this.setDataSource();
     this.dataSource.filter = this.filterValue;

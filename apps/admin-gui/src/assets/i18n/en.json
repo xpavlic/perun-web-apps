@@ -647,7 +647,8 @@
       "GUI_CONFIG": "Gui configuration",
       "SERVICE_IDENTITIES": "Service Identities",
       "IDENTITIES": "Identities",
-      "PASSWORD_RESET": "Password reset"
+      "PASSWORD_RESET": "Password reset",
+      "RESOURCES": "Resources"
     }
   },
   "DIALOGS": {
@@ -1408,6 +1409,9 @@
       "ADD": "Add",
       "REMOVE": "Remove"
     },
+    "RESOURCES": {
+      "TITLE": "Resources"
+    },
     "SETTINGS": {
       "ATTRIBUTES": {
         "TITLE": "Attributes",
@@ -1424,7 +1428,6 @@
         "CREATE": "Add",
         "DELETE": "Remove"
       },
-
       "GUI_CONFIG": {
         "PREF_TABLE_PAGE_SIZE": "Preferred table page size"
       }
@@ -1558,6 +1561,7 @@
           "DELETE": "Remove selected",
           "TABLE_RESOURCE_ID": "id",
           "TABLE_RESOURCE_NAME": "Name",
+          "TABLE_VO_NAME": "Organization",
           "TABLE_FACILITY_NAME": "Facility name",
           "TABLE_RESOURCE_TAGS": "Tags",
           "TABLE_SEARCH": "Filter by name, description or ID",

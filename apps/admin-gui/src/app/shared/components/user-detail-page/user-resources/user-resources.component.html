@@ -1,0 +1,12 @@
+<div>
+  <h1 class="page-subtitle">{{'USER_DETAIL.RESOURCES.TITLE' | translate}}</h1>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <perun-web-apps-resources-list
+    [pageSize]="pageSize"
+    (page)="pageChanged($event)"
+    *ngIf="!loading"
+    [resources]="resources"
+    [filterValue]="filterValue"
+    [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']">
+  </perun-web-apps-resources-list>
+</div>

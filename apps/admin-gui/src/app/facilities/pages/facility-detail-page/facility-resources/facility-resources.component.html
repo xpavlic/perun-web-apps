@@ -17,6 +17,7 @@
     *ngIf="!loading"
     [filterValue]="filterValue"
     [resources]="resources"
-    [selection]="selected">
+    [selection]="selected"
+    [displayedColumns]="['select', 'id', 'name', 'facility', 'tags', 'description']">
   </perun-web-apps-resources-list>
 </div>
