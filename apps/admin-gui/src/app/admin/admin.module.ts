@@ -26,6 +26,7 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { AdminExtSourcesComponent } from './pages/admin-page/admin-ext-sources/admin-ext-sources.component';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
+import { AdminServicesComponent } from './pages/admin-page/admin-services/admin-services.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
     UserDestinationGraphComponent,
     AdminUsersComponent,
     AdminUserDetailPageComponent,
-    AdminExtSourcesComponent
+    AdminExtSourcesComponent,
+    AdminServicesComponent
   ],
   imports: [
     NgxGraphModule,

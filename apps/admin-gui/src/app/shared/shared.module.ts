@@ -171,6 +171,8 @@ import { AddFacilityOwnerDialogComponent } from './components/dialogs/add-facili
 import { RemoveFacilityOwnerDialogComponent } from './components/dialogs/remove-facility-owner-dialog/remove-facility-owner-dialog.component';
 import { GroupSyncDetailDialogComponent } from './components/dialogs/group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
+import { DeleteServiceDialogComponent } from './components/dialogs/delete-service-dialog/delete-service-dialog.component';
 
 @NgModule({
   imports: [
@@ -304,7 +306,8 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
     HostsListComponent,
     BlacklistListComponent,
     SecurityTeamsListComponent,
-    OwnersListComponent
+    OwnersListComponent,
+    ServicesListComponent
   ],
   declarations: [
     PerunNavComponent,
@@ -425,7 +428,9 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
     AddFacilityOwnerDialogComponent,
     RemoveFacilityOwnerDialogComponent,
     GroupSyncDetailDialogComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    CreateServiceDialogComponent,
+    DeleteServiceDialogComponent
   ],
   providers: [
     AnyToStringPipe,

@@ -627,7 +627,8 @@
       "EXT_SOURCES": "External sources",
       "GROUPS": "Groups",
       "SETTINGS": "Settings",
-      "ORGANIZATIONS": "Organizations"
+      "ORGANIZATIONS": "Organizations",
+      "SERVICES": "Services"
     },
     "VISUALIZER": {
       "ATTR_DEPENDENCIES": "Modules dependencies",
@@ -1262,6 +1263,31 @@
       "DESCRIPTION": "Following facility owners will be removed.",
       "ASK": "Are you sure you want to proceed?",
       "SUCCESS": "Owners were successfully removed"
+    },
+    "CREATE_SERVICE": {
+      "TITLE": "Create service",
+      "CREATE": "Create",
+      "CANCEL": "Cancel",
+      "NAME": "Name:",
+      "DESCRIPTION": "Description:",
+      "STATUS": "Status:",
+      "DELAY": "Delay:",
+      "RECURRENCE": "Recurrence:",
+      "PATH": "Script path:",
+      "STATUS_HINT": "Enabled/Disabled",
+      "REQUIRE_NAME": "Name cannot be empty",
+      "REQUIRE_PATH": "Script path cannot be empty",
+      "INVALID_DELAY": "Delay must be a number",
+      "INVALID_RECURRENCE": "Recurrence must be a number",
+      "SUCCESS": "Created service"
+    },
+    "DELETE_SERVICE": {
+      "TITLE": "Delete service",
+      "DESCRIPTION": "Following items will be removed",
+      "ASK": "Do you want to proceed?",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete",
+      "SUCCESS": "Service deleted"
     }
   },
   "MEMBERS_LIST": {
@@ -1357,6 +1383,12 @@
       "LOAD": "Load External sources",
       "SEARCH": "Search by ID, Name or Type",
       "LOAD_SUCCESS": "External sources successfully loaded"
+    },
+    "SERVICES": {
+      "TITLE": "Services",
+      "CREATE": "Create service",
+      "DELETE": "Delete",
+      "FILTER": "Filter"
     }
   },
   "USER_DETAIL": {
@@ -1433,7 +1465,8 @@
         "ENABLED":"Enabled",
         "SCRIPT": "Script",
         "DESCRIPTION": "Description",
-        "NO_SERVICES_WARNING": "No services assigned."
+        "NO_SERVICES_WARNING": "No services assigned.",
+        "DISABLED": "Disabled"
       },
       "ENTITYLESS_ATTRIBUTES_LIST": {
         "CANCEL": "Back",
