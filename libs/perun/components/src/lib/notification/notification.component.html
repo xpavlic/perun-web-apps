@@ -9,7 +9,7 @@
       {{data.title | translate}}
     </div>
     <div class="ml-auto mr-5 mt-auto mb-auto" *ngIf="inDialog">
-      {{data.timeStamp}}
+      {{showTimestamp()}}
     </div>
     <div class="notification-action mt-auto mb-auto" (click)="waiting = true; doAction()" [hidden]="alreadyPressed">
       {{data.actionText}}

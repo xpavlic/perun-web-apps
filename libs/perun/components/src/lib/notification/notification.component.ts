@@ -76,4 +76,14 @@ export class NotificationComponent implements OnInit{
       }
     });
   }
+
+  showTimestamp(){
+    const [hours, minutes] = this.data.timeStamp.split(":");
+
+    if(minutes.length < 2){
+      return hours + ':0' + minutes;
+    }
+
+    return this.data.timeStamp;
+  }
 }
