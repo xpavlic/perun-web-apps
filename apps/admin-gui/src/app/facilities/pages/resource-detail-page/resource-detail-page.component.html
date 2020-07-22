@@ -2,14 +2,20 @@
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
   <h1 class="page-title">
-    {{'RESOURCE_DETAIL.TITLE' | translate}}
-    <a class="resource-link" [routerLink]="['/facilities', resource.facilityId, 'resources', resource.id]">
-      {{resource.name}}
-    </a>
-    <span class="text-muted">
-      &nbsp;#{{resource.id}}
-    </span>
-    <br>
+    <div class="d-flex align-items-center">
+      <div>
+        {{'RESOURCE_DETAIL.TITLE' | translate}}
+        <a class="resource-link" [routerLink]="['/facilities', resource.facilityId, 'resources', resource.id]">
+          {{resource.name}}
+        </a>
+        <span class="text-muted">
+        &nbsp;#{{resource.id}}
+      </span>
+      </div>
+      <button mat-icon-button aria-label="Edit resource" (click)="editResource()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
     <span class="text-muted mr-5 entity-info">
       {{'RESOURCE_DETAIL.FACILITY' | translate}}:
       <a class="resource-link" [routerLink]="['/facilities', resource.facilityId]">

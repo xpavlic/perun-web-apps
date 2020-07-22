@@ -9,6 +9,13 @@ import {
   RichResource,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  EditFacilityResourceGroupVoDialogComponent,
+  EditFacilityResourceGroupVoDialogOptions
+} from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+import { Resource } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-resource-detail-page',
@@ -26,8 +33,10 @@ export class ResourceDetailPageComponent implements OnInit {
     private vosManagerService: VosManagerService,
     private resourcesManager: ResourcesManagerService,
     private sideMenuService: SideMenuService,
-    private sideMenuItemService: SideMenuItemService
-  ) { }
+    private sideMenuItemService: SideMenuItemService,
+    private dialog: MatDialog
+  ) {
+  }
 
   resource: RichResource;
 
@@ -51,6 +60,27 @@ export class ResourceDetailPageComponent implements OnInit {
 
             this.sideMenuService.setAccessMenuItems([voItem, resourceItem]);
           });
+        }
+      });
+    });
+  }
+
+  editResource() {
+    let resourceForEdit: Resource;
+    this.resourcesManager.getResourceById(this.resource.id).subscribe(resource => {
+      resourceForEdit = resource;
+      const config = getDefaultDialogConfig();
+      config.width = '450px';
+      config.data = {
+        theme: 'resource-theme',
+        resource: resourceForEdit,
+        dialogType: EditFacilityResourceGroupVoDialogOptions.RESOURCE
+      };
+      const dialogRef = this.dialog.open(EditFacilityResourceGroupVoDialogComponent, config);
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.ngOnInit();
         }
       });
     });

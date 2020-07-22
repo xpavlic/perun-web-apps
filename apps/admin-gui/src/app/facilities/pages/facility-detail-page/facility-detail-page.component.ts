@@ -4,7 +4,12 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
-import { addRecentlyVisited } from '@perun-web-apps/perun/utils';
+import { addRecentlyVisited, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  EditFacilityResourceGroupVoDialogComponent,
+  EditFacilityResourceGroupVoDialogOptions
+} from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
 
 @Component({
   selector: 'app-facility-detail-page',
@@ -17,11 +22,13 @@ import { addRecentlyVisited } from '@perun-web-apps/perun/utils';
 export class FacilityDetailPageComponent implements OnInit {
 
   constructor(
+    private dialog: MatDialog,
     private facilityManager: FacilitiesManagerService,
     private route: ActivatedRoute,
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService
-  ) { }
+  ) {
+  }
 
   facility: Facility;
 
@@ -37,6 +44,23 @@ export class FacilityDetailPageComponent implements OnInit {
 
         addRecentlyVisited('facilities', this.facility);
       });
+    });
+  }
+
+  editFacility() {
+    const config = getDefaultDialogConfig();
+    config.width = '450px';
+    config.data = {
+      theme: 'facility-theme',
+      facility: this.facility,
+      dialogType: EditFacilityResourceGroupVoDialogOptions.FACILITY
+    };
+    const dialogRef = this.dialog.open(EditFacilityResourceGroupVoDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.ngOnInit();
+      }
     });
   }
 }

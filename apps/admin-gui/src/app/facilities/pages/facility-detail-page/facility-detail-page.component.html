@@ -2,17 +2,23 @@
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
   <h1 class="page-title">
-    {{'FACILITY_DETAIL.TITLE' | translate}}
-    <a class="facility-link" [routerLink]="['/facilities', facility.id]">{{facility.name}}</a>
-    <span class="text-muted">
-      &nbsp;#{{facility.id}}
-    </span>
-    <br>
+    <div class="d-flex align-items-center">
+      <div>
+        {{'FACILITY_DETAIL.TITLE' | translate}}
+        <a class="facility-link" [routerLink]="['/facilities', facility.id]">{{facility.name}}</a>
+        <span class="text-muted">
+          &nbsp;#{{facility.id}}
+        </span>
+      </div>
+      <button mat-icon-button aria-label="Edit facility" (click)="editFacility()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
     <span class="text-muted mt-1 entity-info">
-      {{'FACILITY_DETAIL.DESCRIPTION' | translate}}:
-      <span class="facility-text">
-        {{facility.description}}
-      </span>
+          {{'FACILITY_DETAIL.DESCRIPTION' | translate}}:
+          <span class="facility-text">
+            {{facility.description}}
+          </span>
     </span>
   </h1>
   <app-animated-router-outlet></app-animated-router-outlet>
