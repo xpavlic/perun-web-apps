@@ -18,7 +18,8 @@ export interface ServiceState {
     service?: Service;
     facility?: Facility;
     task?: Task;
-    isBlockedOnFacility?: boolean;
+    blockedOnFacility?: boolean;
+    readonly blockedGlobally?: boolean;
     hasDestinations?: boolean;
 }
 

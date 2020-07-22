@@ -9,13 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ApplicationForm } from './applicationForm';
 
 
 /**
- * input to updateForm
+ * input to deleteTaskObject
  */
-export interface InputUpdateForm { 
-    form?: ApplicationForm;
+export interface TaskIdObject { 
+    /**
+     * task id
+     */
+    task: number;
 }
 

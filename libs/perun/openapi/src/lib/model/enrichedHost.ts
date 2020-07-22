@@ -9,13 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ApplicationForm } from './applicationForm';
+import { Attribute } from './attribute';
+import { Host } from './host';
 
 
-/**
- * input to updateForm
- */
-export interface InputUpdateForm { 
-    form?: ApplicationForm;
+export interface EnrichedHost { 
+    host?: Host;
+    hostAttributes?: Array<Attribute>;
 }
 
