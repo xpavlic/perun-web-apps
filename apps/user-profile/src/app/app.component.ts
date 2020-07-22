@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,12 +10,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
 
+  public static minWidth = 992;
+  sidebarMode: 'over' | 'push' | 'side' = 'side';
+
   constructor(private store:StoreService,
               private attributesManagerService: AttributesManagerService,
               private translateService:TranslateService) {
+    this.getScreenSize();
   }
-
-  public static minWidth = 992;
 
   sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color');
   contentBackgroundColor = this.store.get('theme', 'content_bg_color');
@@ -29,6 +31,15 @@ export class AppComponent implements OnInit {
         this.translateService.use(prefLang.value);
       }
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize() {
+    this.sidebarMode = this.isMobile() ? 'over' : 'side';
+  }
+
+  isMobile(): boolean {
+    return window.innerWidth <= AppComponent.minWidth;
   }
 
   getContentHeight() {

@@ -1,15 +1,15 @@
 <div class="user-theme">
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" class="col ml-2 mt-3">
-    <div class="row row-size">
+    <div class="row">
       <p class="column-size center-self">{{'PROFILE_PAGE.NAME'|customTranslate | translate}}</p>
       <p class="center-self">{{fullName}}</p>
     </div>
-    <div class="row row-size center-self">
+    <div class="row center-self">
       <p class="column-size center-self">{{'PROFILE_PAGE.ORGANIZATION'|customTranslate | translate}}</p>
       <p class="center-self">{{organization}}</p>
     </div>
-    <div class="row row-size">
+    <div class="row">
       <p class="column-size center-self">{{'PROFILE_PAGE.PREFERRED_LANGUAGE'|customTranslate | translate}}</p>
       <mat-form-field class="lang-field-width center-self">
         <mat-select [(value)]="currentLang" class="mb-auto ">
@@ -19,12 +19,12 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="row row-size mt-2">
+    <div class="row mt-2">
       <p class="column-size center-self">{{'PROFILE_PAGE.EMAIL'|customTranslate | translate}}</p>
       <p class="center-self">{{email}}</p>
       <button (click)="changeEmail()" class="ml-2" mat-stroked-button>{{'PROFILE_PAGE.CHANGE_EMAIL'|customTranslate | translate}}</button>
     </div>
-    <div class="row row-size">
+    <div class="row">
       <p class="column-size center-self">{{'PROFILE_PAGE.TIMEZONE'|customTranslate | translate}}</p>
       <mat-form-field class="center-self">
         <mat-select [(value)]="currentTimezone">

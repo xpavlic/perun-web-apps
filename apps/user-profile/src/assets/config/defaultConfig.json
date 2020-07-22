@@ -6,7 +6,8 @@
     "oauth_callback": "http://gui-dev.org/api-callback",
     "oauth_client_id": "411471d9-5e3d-48bd-9717-25f1fa634d20",
     "oauth_post_logout_redirect_uri": "",
-    "oauth_redirect_uri": "http://gui-dev.org/api-callback"
+    "oauth_redirect_uri": "http://gui-dev.org/api-callback",
+    "oauth_scopes": "openid profile perun_api"
   },
   "password_namespace_attributes": [
     "urn:perun:user:attribute-def:def:login-namespace:einfra",
@@ -70,7 +71,7 @@
             "label_cz": "Perun tým"
           },
           {
-            "link": "https://pernhub.org/",
+            "link": "https://perun-aai.org/",
             "label_en": "Privacy policy",
             "label_cz": "Ochrana osobních údajů"
           }

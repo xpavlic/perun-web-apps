@@ -70,6 +70,7 @@ import { ApiInterceptor } from '@perun-web-apps/perun/services';
 import { NotificatorComponent } from './components/notificator/notificator.component';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { ApiService } from '@perun-web-apps/perun/services';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -167,7 +168,8 @@ const loadConfigs = (appConfig: UserProfileConfigService) => {
     ClipboardModule,
     PerunPipesModule,
     MatAutocompleteModule,
-    MatRippleModule
+    MatRippleModule,
+    MatTooltipModule
   ],
   providers: [
     CustomIconService,

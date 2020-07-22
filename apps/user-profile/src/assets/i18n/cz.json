@@ -48,14 +48,14 @@
     "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn"
   },
   "IDENTITIES": {
-    "IDP": "Moje identity",
+    "IDP": "Moje federované identity",
     "CERT": "Moje certifikáty",
     "OTHER": "Ostatní",
     "ADD": "Přidat",
     "REMOVE": "Odstranit",
     "EXT_SOURCE_NAME_CERT": "Poskytovatel certifikátu",
     "EXT_SOURCE_NAME_OTHER": "Jméno externího zdroje",
-    "LOGIN_CERT": "Identita"
+    "LOGIN_CERT": "DN"
   },
   "PRIVACY": {
     "TITLE": "Soukromí",
@@ -85,7 +85,9 @@
     "INPUT_PLACEHOLDER": "Zadejte nové heslo",
     "SET_PASSWORD": "Nastavit heslo",
     "SUCCESS_MESSAGE": "Heslo pro službu SAMBA bylo nastaveno",
-    "PASSWORD_VALIDATION": "Heslo musí obsahovat alespoň 3 ze 4 skupin znaků: malá písmena, velká písmena, číslice, speciální znaky"
+    "PASSWORD_VALIDATION": "Heslo musí obsahovat alespoň 3 ze 4 skupin znaků: malá písmena, velká písmena, číslice, speciální znaky",
+    "SHOW_PWD_TOOLTIP": "Ukázat heslo",
+    "HIDE_PWD_TOOLTIP": "Schovat heslo"
   },
   "PREFERRED_UNIX_GROUP_NAMES": {
     "TITLE": "Preferovaná jména Unixových skupin",
@@ -176,13 +178,6 @@
       "CANCEL": "Zrušit",
       "SUCCESS": "Žádost o změnu datové kvóty byla odeslána"
     },
-    "REMOVE_USER_EXT_SOURCE": {
-      "TITLE": "Odstranění externí identity",
-      "DESCRIPTION": "Nasledující externí identita bude odstraněna",
-      "ASK": "Jste si jistí, že chcete pokračovat?",
-      "CANCEL": "Zrušit",
-      "REMOVE": "Odstranit"
-    },
     "SHOW_SSH": {
       "CLOSE": "Zrušit"
     }
@@ -191,7 +186,7 @@
     "NO_SSH_KEYS": "Nemáte žádné SSH klíče",
     "NO_SAMBA": "Dosud nemáte heslo pro službu SAMBA.",
     "SAMBA_EXISTS": "Heslo pro službu SAMBA již máte nastaveno. Můžete je změnit zadáním nového hesla.",
-    "NO_PREFERRED_UNIX_GROUPS": "Nemáte nastaveny žádné preferované jména Unixových skupin pro tento jmenný prostor",
+    "NO_PREFERRED_UNIX_GROUPS": "Nemáte nastaveny žádná preferovaná jména Unixových skupin pro tento jmenný prostor",
     "NO_ALT_PASSWORDS": "Nemáte žádná alternativní hesla"
   },
   "SHARED_LIB": {

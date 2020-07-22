@@ -48,14 +48,14 @@
     "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed"
   },
   "IDENTITIES": {
-    "IDP": "My identities",
+    "IDP": "My federated identities",
     "CERT": "My certificates",
     "OTHER": "Other",
     "ADD": "Add",
     "REMOVE": "Remove",
     "EXT_SOURCE_NAME_CERT": "Certificate issuer",
     "EXT_SOURCE_NAME_OTHER": "External source name",
-    "LOGIN_CERT": "Identity"
+    "LOGIN_CERT": "DN"
   },
   "PRIVACY": {
     "TITLE": "Privacy",
@@ -85,7 +85,9 @@
     "INPUT_PLACEHOLDER": "Enter new password",
     "SET_PASSWORD": "Set password",
     "SUCCESS_MESSAGE": "SAMBA password has been set",
-    "PASSWORD_VALIDATION": "The password must consist of at least 3 out of 4 character groups: lower-case letters, upper-case letters, digits, special characters"
+    "PASSWORD_VALIDATION": "The password must consist of at least 3 out of 4 character groups: lower-case letters, upper-case letters, digits, special characters",
+    "SHOW_PWD_TOOLTIP": "Show password",
+    "HIDE_PWD_TOOLTIP": "Hide password"
   },
   "PREFERRED_UNIX_GROUP_NAMES": {
     "TITLE": "Preferred unix group names",

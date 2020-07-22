@@ -41,7 +41,7 @@ export class AuthService {
       redirect_uri: this.store.get('oidc_client', 'oauth_redirect_uri'),
       post_logout_redirect_uri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
       response_type: 'id_token token',
-      scope: 'openid profile perun_api perun_admin',
+      scope: this.store.get('oidc_client', 'oauth_scopes'),
       filterProtocolClaims: true,
       loadUserInfo: this.store.get('oidc_client', 'oauth_load_user_info'),
       automaticSilentRenew: true,

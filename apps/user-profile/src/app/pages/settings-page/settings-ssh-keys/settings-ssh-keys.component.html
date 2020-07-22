@@ -3,8 +3,8 @@
 <button mat-flat-button color="accent" (click)="addKey(false)">{{'SSH_KEYS.NEW_KEY'|customTranslate | translate}}</button>
 <mat-list>
   <mat-list-item *ngFor="let key of userKeys" class="dark-hover-list-item" matRipple style="width: auto">
-    <label class="truncate center-content" (click)="showWholeKey(key)">{{key}}</label>
-    <button mat-icon-button color="accent" class="ml-auto center-content" [cdkCopyToClipboard]="key">
+    <p (click)="showWholeKey(key)" class="truncate center-content">{{key}}</p>
+    <button [cdkCopyToClipboard]="key" class="ml-auto center-content" color="accent" mat-icon-button matTooltip="{{'SSH_KEYS.COPY_TOOLTIP'}}">
       <mat-icon>
         file_copy
       </mat-icon>
