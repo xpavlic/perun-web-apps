@@ -46,7 +46,7 @@ export class GroupSubgroupsComponent implements OnInit {
 
   onCreateGroup() {
     const config = getDefaultDialogConfig();
-    config.width = '350px';
+    config.width = '450px';
     config.data = {parentGroup: this.group};
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
