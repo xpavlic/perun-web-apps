@@ -1223,3 +1223,7 @@ button:focus {
 th, td {
   padding: 0.25rem !important;
 }
+
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+}

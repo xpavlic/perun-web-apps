@@ -48,6 +48,8 @@ import { RemoveUserExtSourceDialogComponent } from './remove-user-ext-source-dia
 import { EditAttributeDialogComponent } from './attributes-list/edit-attribute-dialog/edit-attribute-dialog.component';
 import { CreateAttributeDialogComponent } from './create-attribute-dialog/create-attribute-dialog.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { ShowValueDialogComponent } from './show-value-dialog/show-value-dialog.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 @NgModule({
@@ -74,7 +76,8 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     MatInputModule,
     MatRippleModule,
     PerunPipesModule,
-    MatDialogModule
+    MatDialogModule,
+    ClipboardModule
   ],
   declarations: [
     VoSelectTableComponent,
@@ -105,7 +108,8 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     AttributeValueIntegerComponent,
     EditAttributeDialogComponent,
     CreateAttributeDialogComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    ShowValueDialogComponent
   ],
   exports: [
     VoSelectTableComponent,

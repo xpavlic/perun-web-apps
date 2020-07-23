@@ -1331,6 +1331,10 @@
       "CANCEL": "Cancel",
       "CONFIRM": "Delete",
       "SUCCESS": "Facility deleted."
+    },
+    "SHOW_VALUE": {
+      "CLOSE": "Close",
+      "COPY": "Copy to clipboard"
     }
   },
   "MEMBERS_LIST": {
