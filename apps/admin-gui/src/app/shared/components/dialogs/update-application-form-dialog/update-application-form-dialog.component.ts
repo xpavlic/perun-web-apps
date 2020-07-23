@@ -33,7 +33,7 @@ export class UpdateApplicationFormDialogComponent implements OnInit {
     this.applicationForm.moduleClassName = this.moduleName;
     this.applicationForm.automaticApproval = this.initialState === 'auto';
     this.applicationForm.automaticApprovalExtension = this.extensionState === 'auto';
-    this.registrarManager.updateForm({applicationForm: this.applicationForm}).subscribe( updatedForm => {
+    this.registrarManager.updateForm({form: this.applicationForm}).subscribe( updatedForm => { 
       this.dialogRef.close(updatedForm);
     });
   }

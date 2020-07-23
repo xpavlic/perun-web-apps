@@ -9,13 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ApplicationForm } from './applicationForm';
+import { Group } from './group';
 
 
 /**
- * input to updateForm
+ * input to updateGroup
  */
-export interface InputUpdateForm { 
-    form?: ApplicationForm;
+export interface InputUpdateGroup { 
+    group: Group;
 }
 

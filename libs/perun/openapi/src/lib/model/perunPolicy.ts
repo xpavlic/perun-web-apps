@@ -9,13 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ApplicationForm } from './applicationForm';
 
 
-/**
- * input to updateForm
- */
-export interface InputUpdateForm { 
-    form?: ApplicationForm;
+export interface PerunPolicy { 
+    policyName: string;
+    includePolicies: Array<string>;
+    perunRoles: Array<{ [key: string]: string; }>;
 }
 
