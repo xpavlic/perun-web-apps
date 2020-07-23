@@ -14,7 +14,8 @@
         matTableExporter>
         <ng-container matColumnDef="select">
           <th *matHeaderCellDef mat-header-cell>
-            <mat-checkbox (change)="$event ? masterToggle() : null"
+            <mat-checkbox *ngIf="selection.isMultipleSelection()"
+                          (change)="$event ? masterToggle() : null"
                           [aria-label]="checkboxLabel()"
                           [checked]="selection.hasValue() && isAllSelected()"
                           [indeterminate]="selection.hasValue() && !isAllSelected()"
@@ -73,7 +74,7 @@
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr
           *matRowDef="let user; columns: displayedColumns;"
-          [routerLink]="inDialog ? null : ['/admin/users', user.id]"
+          [perunWebAppsForceRouterLink]="inDialog ? null : ['/admin/users', user.id]"
           class="dark-hover-list-item"
           mat-row>
         </tr>

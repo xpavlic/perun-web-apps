@@ -64,6 +64,8 @@ import { ServicesStatusListComponent } from './services-status-list/services-sta
 import { ChangeExpirationDialogComponent } from './change-expiration-dialog/change-expiration-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
+import { ForceRouterLinkDirective } from '@perun-web-apps/perun/directives';
+import { RedirectPageComponent } from './redirect-page/redirect-page.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -157,7 +159,9 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     GroupSyncDetailDialogComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent,
-    ChangeExpirationDialogComponent
+    ChangeExpirationDialogComponent,
+    ForceRouterLinkDirective,
+    RedirectPageComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -185,7 +189,9 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     GroupSyncDetailDialogComponent,
     EditGroupDialogComponent,
     GroupsTreeComponent,
-    ServicesStatusListComponent
+    ServicesStatusListComponent,
+    ForceRouterLinkDirective,
+    RedirectPageComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

@@ -1,0 +1,53 @@
+<div class="{{theme}}" (keyup)="onKeyInput($event)">
+  <h1 mat-dialog-title>{{'DIALOGS.CONNECT_IDENTITY.TITLE' | translate}}</h1>
+  <div mat-dialog-content class="dialog-container">
+    <mat-form-field class="mr-2 search-field no-border-mat-input">
+      <label>
+        <input matInput autocomplete="false" placeholder="{{'DIALOGS.CONNECT_IDENTITY.SEARCH' | translate}}" [(ngModel)]="searchString">
+      </label>
+    </mat-form-field>
+    <button
+      mat-flat-button
+      color="primary"
+      class="mr-2 search-btn"
+      [disabled]="searchString.length === 0"
+      (click)="onSearchByString()">
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
+    </mat-spinner>
+    <div *ngIf="!loading">
+      <app-users-list
+        (page)="pageChanged($event)"
+        [pageSize]="pageSize"
+        [displayedColumns]="displayedColumns"
+        *ngIf="identities !== undefined && identities.length > 0"
+        [users]="identities"
+        [inDialog]="true"
+        [selection]="selection">
+      </app-users-list>
+    </div>
+    <app-alert *ngIf="!firstSearchDone" [color]="'info'">
+      {{'DIALOGS.CONNECT_IDENTITY.SEARCH_HINT' | translate}}
+    </app-alert>
+    <app-alert *ngIf="!loading && firstSearchDone && identities.length === 0" color="warn">
+      {{'DIALOGS.CONNECT_IDENTITY.NO_IDENTITIES' | translate}}
+    </app-alert>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      (click)="onCancel()"
+      class="ml-auto">
+      {{'DIALOGS.CONNECT_IDENTITY.CANCEL' | translate}}
+    </button>
+    <button
+      mat-flat-button
+      (click)="onAdd()"
+      [disabled]="selection.selected.length === 0"
+      color="accent"
+      class="ml-2">
+      {{'DIALOGS.CONNECT_IDENTITY.CONNECT' | translate}}
+    </button>
+  </div>
+</div>

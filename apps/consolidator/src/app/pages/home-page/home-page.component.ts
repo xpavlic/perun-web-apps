@@ -32,10 +32,10 @@ export class HomePageComponent implements OnInit {
 
     this.authzService.getPerunPrincipal().subscribe(principal => {
       this.usersService.getRichUserExtSources(principal.userId).subscribe(userExtSources => {
-        this.knownIdentities = userExtSources.map(rues => ({
-          login: rues.userExtSource.login,
-          rues: rues
-        }));
+        // this.knownIdentities = userExtSources.map(rues => ({
+        //   login: rues.userExtSource.login,
+        //   rues: rues
+        // }));
       });
     });
   }
@@ -48,6 +48,6 @@ export class HomePageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-    })
+    });
   }
 }

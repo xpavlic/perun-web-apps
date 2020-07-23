@@ -35,6 +35,8 @@ import { IdentityDetailComponent } from '../shared/components/identity-detail/id
 import { ServiceDetailPageComponent } from './pages/admin-page/admin-services/service-detail-page/service-detail-page.component';
 import { ServiceOverviewComponent } from './pages/admin-page/admin-services/service-detail-page/service-overview/service-overview.component';
 import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-services/service-detail-page/service-required-attributes/service-required-attributes.component';
+import { UserSettingsAssociatedUsersComponent } from '../shared/components/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -155,6 +157,11 @@ const routes: Routes = [
             path: 'service-identities',
             component: UserSettingsServiceIdentitiesComponent,
             data: {animation: 'UserServiceIdentities'}
+          },
+          {
+            path: 'associated-users',
+            component: UserSettingsAssociatedUsersComponent,
+            data: {animation: 'AssociatedUsersPage'}
           }
         ]
       }

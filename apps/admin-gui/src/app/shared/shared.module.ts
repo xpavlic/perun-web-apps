@@ -186,6 +186,9 @@ import { RemoveRequiredAttributesDialogComponent } from './components/dialogs/re
 import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.component';
 import { TransformMemberStatusPipe } from './pipes/transform-member-status.pipe';
 import { MemberStatusTooltipPipe } from './pipes/member-status-tooltip.pipe';
+import { ConnectIdentity } from './components/dialogs/connect-identity/connect-identity';
+import { DisconnectIdentity } from './components/dialogs/disconnect-identity/disconnect-identity';
+import { UserSettingsAssociatedUsersComponent } from './components/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 
 @NgModule({
   imports: [
@@ -443,7 +446,11 @@ import { MemberStatusTooltipPipe } from './pipes/member-status-tooltip.pipe';
     RemoveRequiredAttributesDialogComponent,
     AttrDefListComponent,
     TransformMemberStatusPipe,
-    MemberStatusTooltipPipe
+    MemberStatusTooltipPipe,
+    IdentityDetailComponent,
+    ConnectIdentity,
+    DisconnectIdentity,
+    UserSettingsAssociatedUsersComponent
   ],
   providers: [
     AnyToStringPipe,

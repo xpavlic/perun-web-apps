@@ -1,5 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {MenuItem} from '@perun-web-apps/perun/models';
+import { ActivatedRoute } from '@angular/router';
+import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-user-settings-overview',
@@ -10,14 +12,27 @@ export class UserSettingsOverviewComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(
+  constructor(private route: ActivatedRoute,
+              private userManager: UsersManagerService
   ) { }
 
   navItems: MenuItem[] = [];
   path: string;
+  isServiceUser: boolean;
 
   ngOnInit() {
-    this.initNavItems();
+    if(window.location.pathname.startsWith('/admin')){
+      this.route.parent.parent.params.subscribe(params => {
+        const userId = params["userId"];
+
+        this.userManager.getUserById(userId).subscribe(user => {
+          this.isServiceUser = user.serviceUser;
+          this.initNavItems();
+        });
+      });
+    } else {
+      this.initNavItems();
+    }
   }
 
   private initNavItems() {
@@ -53,12 +68,21 @@ export class UserSettingsOverviewComponent implements OnInit {
         }
         );
     } else {
-      this.navItems.push({
-        cssIcon: 'perun-attributes',
-        url:`service-identities`,
-        label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
-        style: 'user-btn'
-      });
+      if(this.isServiceUser){
+        this.navItems.push({
+          cssIcon: 'perun-service-identity',
+          url:`associated-users`,
+          label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
+          style: 'user-btn'
+        });
+      } else {
+        this.navItems.push({
+          cssIcon: 'perun-service-identity',
+          url:`service-identities`,
+          label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
+          style: 'user-btn'
+        });
+      }
       this.navItems.push({
         cssIcon: 'perun-group',
         url: `roles`,
