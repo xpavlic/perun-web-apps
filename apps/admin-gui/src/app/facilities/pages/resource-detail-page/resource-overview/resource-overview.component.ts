@@ -1,6 +1,6 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {MenuItem} from '@perun-web-apps/perun/models';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MenuItem } from '@perun-web-apps/perun/models';
 import { Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -15,8 +15,9 @@ export class ResourceOverviewComponent implements OnInit {
 
   constructor(
     private resourcesManager: ResourcesManagerService,
-    private route: ActivatedRoute,
-  ) { }
+    private route: ActivatedRoute
+  ) {
+  }
 
   navItems: MenuItem[] = [];
   resource: Resource;
@@ -28,22 +29,27 @@ export class ResourceOverviewComponent implements OnInit {
       this.resourcesManager.getResourceById(resourceId).subscribe(resource => {
         this.resource = resource;
 
-        this.initItems();
+        if (this.route.parent.parent.snapshot.url[0].path === 'facilities') {
+          this.initItems(false);
+        } else {
+          this.initItems(true);
+        }
       });
     });
   }
 
-  private initItems() {
+  private initItems(inVo: boolean) {
+    const urlStart = inVo ? `/organizations/${this.resource.voId}` : `/facilities/${this.resource.facilityId}`;
     this.navItems = [
       {
         cssIcon: 'perun-group',
-        url: `/facilities/${this.resource.facilityId}/resources/${this.resource.id}/groups`,
+        url: `${urlStart}/resources/${this.resource.id}/groups`,
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_GROUPS',
         style: 'resource-btn'
       },
       {
         cssIcon: 'perun-settings2',
-        url: `/facilities/${this.resource.facilityId}/resources/${this.resource.id}/settings`,
+        url: `${urlStart}/resources/${this.resource.id}/settings`,
         label: 'MENU_ITEMS.RESOURCE.SETTINGS',
         style: 'resource-btn'
       }

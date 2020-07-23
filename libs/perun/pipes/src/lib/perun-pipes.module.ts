@@ -9,6 +9,7 @@ import { CustomTranslatePipe } from './custom-translate.pipe';
 import { GroupSyncIconPipe } from './group-sync-icon.pipe';
 import { GroupSyncToolTipPipe } from './group-sync-tool-tip.pipe';
 import { GroupSyncIconColorPipe } from './group-sync-icon-color.pipe';
+import { GetResourceRoutePipe } from './get-resource-route.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { GroupSyncIconColorPipe } from './group-sync-icon-color.pipe';
     CustomTranslatePipe,
     GroupSyncIconPipe,
     GroupSyncToolTipPipe,
-    GroupSyncIconColorPipe
+    GroupSyncIconColorPipe,
+    GetResourceRoutePipe
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -31,7 +33,8 @@ import { GroupSyncIconColorPipe } from './group-sync-icon-color.pipe';
     CustomTranslatePipe,
     GroupSyncIconPipe,
     GroupSyncToolTipPipe,
-    GroupSyncIconColorPipe
+    GroupSyncIconColorPipe,
+    GetResourceRoutePipe
   ],
   imports: [CommonModule],
 })

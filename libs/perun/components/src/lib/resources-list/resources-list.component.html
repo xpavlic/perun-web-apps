@@ -58,17 +58,17 @@
           <td mat-cell *matCellDef="let resource">{{resource.description}}</td>
         </ng-container>
 
-        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-        <tr
-          *matRowDef="let resource; columns: displayedColumns;"
-          [class.cursor-pointer]="!disableRouting"
-          [class.disable-outline]="disableRouting"
-          [routerLink]="disableRouting ? null : ['/facilities', resource.facilityId, 'resources', resource.id]"
-          class="dark-hover-list-item"
-          mat-row>
-        </tr>
-      </table>
-    </div>
+       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+       <tr
+         *matRowDef="let resource; columns: displayedColumns;"
+         [class.cursor-pointer]="!disableRouting"
+         [class.disable-outline]="disableRouting"
+         [routerLink]="disableRouting ? null : (resource | getResourceRoute: routingVo)"
+         class="dark-hover-list-item"
+         mat-row>
+       </tr>
+     </table>
+   </div>
 
     <mat-paginator
       [length]="this.resources.length"

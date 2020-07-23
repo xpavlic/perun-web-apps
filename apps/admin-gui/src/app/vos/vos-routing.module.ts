@@ -67,6 +67,12 @@ import { GroupSettingsResourceAttributesComponent } from './pages/group-detail-p
 import { MemberSettingsGroupAttributesComponent } from './pages/member-detail-page/member-settings/member-settings-group-attributes/member-settings-group-attributes.component';
 import { MemberApplicationsComponent } from './pages/member-detail-page/member-applications/member-applications.component';
 import { MemberResourcesComponent } from './pages/member-detail-page/member-resources/member-resources.component';
+import { ResourceDetailPageComponent } from '../facilities/pages/resource-detail-page/resource-detail-page.component';
+import { ResourceOverviewComponent } from '../facilities/pages/resource-detail-page/resource-overview/resource-overview.component';
+import { ResourceGroupsComponent } from '../facilities/pages/resource-detail-page/resource-groups/resource-groups.component';
+import { ResourceSettingsComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings.component';
+import { ResourceSettingsOverviewComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
+import { ResourceSettingsAttributesComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-attributes/resource-settings-attributes.component';
 
 const routes: Routes = [
   {
@@ -322,6 +328,38 @@ const routes: Routes = [
         component: ApplicationDetailComponent,
         data: {animation: 'GroupApplicationDetailPage'}
       }
+    ]
+  },
+  {
+    path: ':voId/resources/:resourceId',
+    component: ResourceDetailPageComponent,
+    children: [
+      {
+        path: '',
+        component: ResourceOverviewComponent,
+        data: {animation: 'ResourceOverviewPage'}
+      },
+      {
+        path: 'groups',
+        component: ResourceGroupsComponent,
+        data: {animation: 'ResourceGroupsComponent'}
+      },
+      {
+        path: 'settings',
+        component: ResourceSettingsComponent,
+        children: [
+          {
+            path: '',
+            component: ResourceSettingsOverviewComponent,
+            data: {animation: 'ResourceSettingsOverviewPage'}
+          },
+          {
+            path: 'attributes',
+            component: ResourceSettingsAttributesComponent,
+            data: {animation: 'ResourceSettingsAttributesPage'}
+          }
+        ]
+      },
     ]
   }
 ];
