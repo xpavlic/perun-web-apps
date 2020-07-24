@@ -28,6 +28,7 @@
       mat-flat-button
       class="ml-2"
       color="accent"
+      [disabled]="loading"
       (click)="onSubmit()">
       {{'DIALOGS.CREATE_RELATION.CREATE' | translate}}
     </button>

@@ -6,6 +6,7 @@ import {TranslateService} from '@ngx-translate/core';
 import { ApplicationMail, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DeleteApplicationFormMailDialogData {
+  theme: string;
   voId: number;
   groupId: number;
   mails: ApplicationMail[];
@@ -26,8 +27,11 @@ export class DeleteNotificationDialogComponent implements OnInit {
 
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<ApplicationMail>;
+  theme: string;
+  loading = false;
 
   ngOnInit() {
+    this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<ApplicationMail>(this.data.mails);
   }
 
@@ -36,17 +40,18 @@ export class DeleteNotificationDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     if (this.data.groupId) {
       for (const mail of this.data.mails) {
         this.registrarService.deleteApplicationMailForGroup(this.data.groupId, mail.id).subscribe(() => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       }
     } else {
       for (const mail of this.data.mails) {
         this.registrarService.deleteApplicationMailForVo(this.data.voId, mail.id).subscribe( () => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       }
     }
   }

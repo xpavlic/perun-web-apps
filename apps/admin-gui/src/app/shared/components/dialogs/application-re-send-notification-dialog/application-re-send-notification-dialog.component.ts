@@ -6,6 +6,7 @@ import { MailType, RegistrarManagerService } from '@perun-web-apps/perun/openapi
 
 export interface DialogData {
   applicationId: number;
+  theme: string;
 }
 
 @Component({
@@ -23,8 +24,11 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
 
   mailType: MailType = 'APP_CREATED_USER';
   reason = '';
+  loading = false;
+  theme: string;
 
   ngOnInit() {
+    this.theme = this.data.theme;
   }
 
   onCancel() {
@@ -32,6 +36,7 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     if (this.mailType === 'APP_REJECTED_USER') {
       this.registrarManager.sendMessage(
         {applicationId: this.data.applicationId, mailType: this.mailType, reason: this.reason}).subscribe( () => {
@@ -39,7 +44,7 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close();
         });
-      });
+      }, () => this.loading = false);
     } else {
       this.registrarManager.sendMessage(
         {applicationId: this.data.applicationId, mailType: this.mailType}).subscribe( () => {
@@ -47,7 +52,7 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close();
         });
-      });
+      }, () => this.loading = false);
     }
   }
 }

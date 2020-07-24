@@ -67,7 +67,8 @@ export class FacilitySettingsAttributesComponent implements OnInit {
     config.data = {
       entityId: this.facilityId,
       entity: 'facility',
-      attributes: this.selection.selected
+      attributes: this.selection.selected,
+      theme: 'facility-theme'
     };
 
     const dialogRef = this.dialog.open(DeleteAttributeDialogComponent, config);

@@ -33,6 +33,7 @@
       mat-flat-button
       class="ml-2"
       color="warn"
+      [disabled]="loading"
       (click)="onSubmit()">
       {{'DIALOGS.REMOVE_MANAGERS.DELETE' | translate}}
     </button>

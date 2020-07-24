@@ -7,6 +7,7 @@ import { NotificatorService } from '@perun-web-apps/perun/services';
 
 
 export interface InviteMemberDialogData {
+  theme: string;
   voId: number;
 }
 
@@ -20,6 +21,8 @@ export class InviteMemberDialogComponent implements OnInit {
   emailForm = new FormControl('', [Validators.required, Validators.email]);
   language = 'en';
   name = '';
+  loading = false;
+  theme: string;
 
   constructor(public dialogRef: MatDialogRef<InviteMemberDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: InviteMemberDialogData,
@@ -28,6 +31,7 @@ export class InviteMemberDialogComponent implements OnInit {
               private translate: TranslateService) { }
 
   ngOnInit() {
+    this.theme = this.data.theme;
   }
 
   onCancel() {
@@ -38,12 +42,13 @@ export class InviteMemberDialogComponent implements OnInit {
     if (this.emailForm.invalid || this.name === '') {
       return;
     } else {
+      this.loading = true;
       this.registrarManager.sendInvitation(this.emailForm.value, this.language, this.data.voId).subscribe(() => {
         this.translate.get('DIALOGS.INVITE_MEMBER.SUCCESS').subscribe(successMessage => {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close(true);
         });
-      });
+      }, () => this.loading = false);
     }
   }
 

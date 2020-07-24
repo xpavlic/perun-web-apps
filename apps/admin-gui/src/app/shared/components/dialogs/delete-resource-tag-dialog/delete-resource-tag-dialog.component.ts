@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ResourcesManagerService, ResourceTag } from '@perun-web-apps/perun/openapi';
 
 export interface DeleteResourceTagDialogDialogData {
+  theme: string;
   voId: number;
   tagsForDelete: ResourceTag[];
 }
@@ -21,8 +22,11 @@ export class DeleteResourceTagDialogComponent implements OnInit {
 
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<ResourceTag>;
+  theme: string;
+  loading = false;
 
   ngOnInit() {
+    this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource(this.data.tagsForDelete);
   }
 
@@ -31,6 +35,7 @@ export class DeleteResourceTagDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     for (const resourceTag of this.data.tagsForDelete) {
       this.resourceManager.deleteResourceTag({resourceTag: resourceTag}).subscribe( () => {
         this.dialogRef.close(true);

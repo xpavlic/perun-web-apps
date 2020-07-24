@@ -100,7 +100,8 @@ export class FacilityHostsDetailComponent implements OnInit {
     config.data = {
       entityId: this.hostId,
       entity: 'host',
-      attributes: this.selected.selected
+      attributes: this.selected.selected,
+      theme: 'facility-theme'
     };
 
     const dialogRef = this.dialog.open(DeleteAttributeDialogComponent, config);

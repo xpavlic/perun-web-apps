@@ -45,7 +45,7 @@
       {{'DIALOGS.MOVE_GROUP.CANCEL' | translate}}
     </button>
     <button
-      [disabled]="!this.otherGroupsCtrl.value && moveOption !== 'toRoot' && !loading"
+      [disabled]="(!this.otherGroupsCtrl.value && moveOption !== 'toRoot') || loading"
       mat-flat-button
       class="ml-2"
       (click)="confirm()"

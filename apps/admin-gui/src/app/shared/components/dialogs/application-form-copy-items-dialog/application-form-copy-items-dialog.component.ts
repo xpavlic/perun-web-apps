@@ -16,6 +16,7 @@ import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-a
 export interface ApplicationFormCopyItemsDialogData {
   voId: number;
   groupId: number;
+  theme: string;
 }
 
 @Component({
@@ -36,6 +37,8 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
   filteredGroups: Observable<Group[]>;
   emptyFormMessage: string;
   noFormMessage: string;
+  theme: string;
+  loading = false;
 
   constructor(private dialogRef: MatDialogRef<ApplicationFormCopyItemsDialogComponent>,
               private voService: VosManagerService,
@@ -51,7 +54,9 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.NO_GROUP_SELECTED').subscribe(text => {
+    this.loading = true;
+    this.theme = this.data.theme;
+    this.translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.NO_GROUP_SELECTED').subscribe( text => {
       this.fakeGroup = {
         id: -1,
         name: text,
@@ -85,8 +90,9 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
 
           return 0;
         }));
-      });
-    });
+      }, () => this.loading = false);
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   cancel() {
@@ -111,6 +117,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
 
   submit() {
     this.apiRequest.dontHandleErrorForNext();
+    this.loading = true;
     if (this.data.groupId) { // checking if the dialog is for group or Vo
       if (this.groupControl.value === this.fakeGroup) {   // no group selected
         this.registrarManager.getFormItemsForVo(this.voControl.value.id).subscribe(formItems => {
@@ -122,10 +129,12 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
           } else {
             this.notificatorService.showError(this.emptyFormMessage);
           }
+          this.loading = false;
         }, error => {
           if(error.error.name === 'FormNotExistsException'){
             this.notificatorService.showError(this.noFormMessage);
           }
+          this.loading = false;
         });
       } else {
         this.registrarManager.getFormItemsForGroup(this.groupControl.value.id).subscribe(formItems => {
@@ -137,10 +146,12 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
           } else {
             this.notificatorService.showError(this.emptyFormMessage);
           }
+          this.loading = false;
         }, error => {
           if(error.error.name === 'FormNotExistsException'){
             this.notificatorService.showError(this.noFormMessage);
           }
+          this.loading = false;
         });
       }
     } else {
@@ -154,10 +165,12 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
           } else {
             this.notificatorService.showError(this.emptyFormMessage);
           }
+          this.loading = false;
         }, error => {
           if(error.error.name === 'FormNotExistsException'){
             this.notificatorService.showError(this.noFormMessage);
           }
+          this.loading = false;
         });
       } else {
         this.registrarManager.getFormItemsForGroup(this.groupControl.value.id).subscribe(formItems => {
@@ -169,10 +182,12 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
           } else {
             this.notificatorService.showError(this.emptyFormMessage);
           }
+          this.loading = false;
         }, error => {
           if(error.error.name === 'FormNotExistsException'){
             this.notificatorService.showError(this.noFormMessage);
           }
+          this.loading = false;
         });
       }
     }

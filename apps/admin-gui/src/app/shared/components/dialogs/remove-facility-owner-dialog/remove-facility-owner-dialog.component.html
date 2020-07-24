@@ -30,6 +30,7 @@
         {{'DIALOGS.REMOVE_OWNERS.CANCEL' | translate}}
       </button>
       <button
+        [disabled]="loading"
         (click)="onSubmit()"
         class="ml-2"
         color="warn"

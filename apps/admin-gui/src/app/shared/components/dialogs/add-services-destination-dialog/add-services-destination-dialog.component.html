@@ -1,7 +1,7 @@
 <div class="{{data.theme}}">
-
   <h1 mat-dialog-title>{{'DIALOGS.ADD_SERVICE_DESTINATION.TITLE' | translate}}</h1>
-  <div mat-dialog-content>
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <div [@openClose]="isInvalid() ? 'open' : 'closed'">
       <app-alert color="error">{{'DIALOGS.ADD_SERVICE_DESTINATION.' + invalidNotification | translate}}</app-alert>
     </div>
@@ -87,7 +87,7 @@
       mat-flat-button
       class="ml-2"
       color="accent"
-      [disabled]="isInvalid()"
+      [disabled]="isInvalid() || loading"
       (click)="onSubmit()">
       {{'DIALOGS.ADD_SERVICE_DESTINATION.ADD' | translate}}
     </button>

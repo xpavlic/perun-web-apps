@@ -1,14 +1,14 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import {
   AddEditNotificationDialogComponent
 } from '../../../shared/components/dialogs/add-edit-notification-dialog/add-edit-notification-dialog.component';
-import {TranslateService} from '@ngx-translate/core';
-import {NotificatorService} from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService } from '@perun-web-apps/perun/services';
 import { ApplicationMail, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
@@ -42,6 +42,8 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
   selection = new SelectionModel<ApplicationMail>(true, []);
   @Input()
   pageSize = 10;
+  @Input()
+  theme: string;
 
   @Output()
   selectionChange = new EventEmitter<SelectionModel<ApplicationMail>>();
@@ -89,11 +91,11 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
 
   changeSending(applicationMail: ApplicationMail) {
     if (applicationMail.send) {
-      this.registrarService.setSendingEnabled( { mails: [applicationMail], enabled: false }).subscribe( () => {
+      this.registrarService.setSendingEnabled({ mails: [applicationMail], enabled: false }).subscribe(() => {
         applicationMail.send = false;
       });
     } else {
-      this.registrarService.setSendingEnabled({ mails: [applicationMail], enabled: true}).subscribe( () => {
+      this.registrarService.setSendingEnabled({ mails: [applicationMail], enabled: true }).subscribe(() => {
         applicationMail.send = true;
       });
     }
@@ -103,12 +105,18 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     const config = getDefaultDialogConfig();
     config.width = '1400px';
     config.height = '700px';
-    config.data = {voId: this.voId, groupId: this.groupId, createMailNotification: false, applicationMail: applicationMail};
+    config.data = {
+      theme: this.theme,
+      voId: this.voId,
+      groupId: this.groupId,
+      createMailNotification: false,
+      applicationMail: applicationMail
+    };
 
     const dialog = this.dialog.open(AddEditNotificationDialogComponent, config);
-    dialog.afterClosed().subscribe( success => {
+    dialog.afterClosed().subscribe(success => {
       if (success) {
-        this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.EDIT_SUCCESS').subscribe( text => {
+        this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.EDIT_SUCCESS').subscribe(text => {
           this.notificator.showSuccess(text);
         });
         this.selection.clear();
@@ -124,7 +132,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     if (applicationMail.mailType === undefined || applicationMail.mailType === null || applicationMail.mailType === '') {
       value = '';
     } else {
-      this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.MAIL_TYPE_' + applicationMail.mailType).subscribe( text => {
+      this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.MAIL_TYPE_' + applicationMail.mailType).subscribe(text => {
         value = text;
       });
     }
@@ -133,11 +141,11 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
 
   update() {
     if (this.groupId) {
-      this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe( mails => {
+      this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe(mails => {
         this.updateTable(mails);
       });
     } else {
-      this.registrarService.getApplicationMailsForVo(this.voId).subscribe( mails => {
+      this.registrarService.getApplicationMailsForVo(this.voId).subscribe(mails => {
         this.updateTable(mails);
       });
     }

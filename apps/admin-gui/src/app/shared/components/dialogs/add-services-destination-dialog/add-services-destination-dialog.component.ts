@@ -44,13 +44,16 @@ export class AddServicesDestinationDialogComponent implements OnInit {
   destination = '';
   useFacilityHost = false;
   invalidNotification = '';
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.facilitiesManager.getHosts(this.data.facility.id).subscribe( hosts => {
       this.hosts = hosts;
       this.servicesOnFacility = true;
       this.getServices();
-    });
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   onCancel() {
@@ -58,20 +61,21 @@ export class AddServicesDestinationDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     // @ts-ignore
     if (this.selectedService === 'all') {
       if (this.useFacilityHost) {
         this.servicesManager.addDestinationsDefinedByHostsOnFacilityWithListOfServiceAndFacility(
           {services: this.services, facility: this.data.facility.id}).subscribe( destination => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       }
       else {
         this.servicesManager.addDestinationToMultipleServices({services: this.services, facility: this.data.facility.id,
         destination: this.destination, type: this.selectedType as DestinationType,
           propagationType: this.selectedPropagation as DestinationPropagationType}).subscribe( destination => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       }
     } else {
       if (this.useFacilityHost) {
@@ -79,29 +83,30 @@ export class AddServicesDestinationDialogComponent implements OnInit {
           this.selectedService.id, this.data.facility.id
         ).subscribe( destination => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       }
       else {
         this.servicesManager.addDestination(this.selectedService.id, this.data.facility.id,
           this.destination, this.selectedType as DestinationType,
           this.selectedPropagation as DestinationPropagationType).subscribe( destination => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       }
     }
   }
 
   getServices() {
+    this.loading = true;
     if (this.servicesOnFacility) {
       this.servicesManager.getAssignedServices(this.data.facility.id).subscribe( services => {
         this.services = services;
-
-      });
+      }, () => this.loading = false);
     } else {
       this.servicesManager.getServices().subscribe( services => {
         this.services = services;
-      })
+      }, () => this.loading = false);
     }
+    this.loading = false;
     this.selectedService = undefined;
   }
 

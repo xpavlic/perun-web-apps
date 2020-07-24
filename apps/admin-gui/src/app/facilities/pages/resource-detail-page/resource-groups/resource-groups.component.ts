@@ -71,7 +71,7 @@ export class ResourceGroupsComponent implements OnInit {
   removeGroups() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {resourceId: this.resourceId, groups: this.selected.selected};
+    config.data = {resourceId: this.resourceId, groups: this.selected.selected, theme: 'resource-theme'};
 
     const dialogRef = this.dialog.open(RemoveGroupFromResourceDialogComponent, config);
     dialogRef.afterClosed().subscribe((success) => {

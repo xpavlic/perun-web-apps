@@ -8,6 +8,7 @@ import { FormControl, Validators } from '@angular/forms';
 export interface CreateGroupDialogData {
   parentGroup: Group;
   voId: number;
+  theme: string;
 }
 
 @Component({
@@ -18,6 +19,7 @@ export interface CreateGroupDialogData {
 export class CreateGroupDialogComponent implements OnInit{
 
   loading: boolean;
+  theme: string;
 
   isNotSubGroup: boolean;
   invalidNameMessage = this.store.get('groupNameErrorMessage');
@@ -51,6 +53,7 @@ export class CreateGroupDialogComponent implements OnInit{
   successSubGroupMessage: string;
 
   ngOnInit() {
+    this.theme = this.data.theme;
     this.invalidNameMessage = this.invalidNameMessage && this.secondaryRegex ? this.invalidNameMessage : '';
     this.nameControl = new FormControl('', [Validators.required, Validators.pattern(this.secondaryRegex ? this.secondaryRegex : '')]);
     this.descriptionControl = new FormControl('', [Validators.required]);
@@ -67,13 +70,13 @@ export class CreateGroupDialogComponent implements OnInit{
         this.notificator.showSuccess(this.successMessage);
         this.loading = false;
         this.dialogRef.close(true);
-      }, ()=> this.loading = false);
+      }, () => this.loading = false);
     } else {
       this.groupService.createGroupWithParentGroupNameDescription(this.data.parentGroup.id, this.nameControl.value, this.descriptionControl.value).subscribe(() => {
         this.notificator.showSuccess(this.successSubGroupMessage);
         this.loading = false;
         this.dialogRef.close(true);
-      }, () => this.loading= false);
+      }, () => this.loading = false);
     }
   }
 }

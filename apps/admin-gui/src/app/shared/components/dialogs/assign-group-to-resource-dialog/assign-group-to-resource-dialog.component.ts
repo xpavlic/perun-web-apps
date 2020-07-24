@@ -59,9 +59,9 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
             }
           }
           this.loading = false;
-        });
-      });
-    });
+        }, () => this.loading = false);
+      }, () => this.loading = false);
+    }, () => this.loading = false);
   }
 
   onCancel() {
@@ -82,7 +82,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
           this.notificator.showSuccess(message);
           this.dialogRef.close(true);
         });
-      });
+      }, () => this.loading = false);
     }
   }
 

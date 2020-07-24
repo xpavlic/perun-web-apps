@@ -72,7 +72,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '1400px';
     config.height = '700px';
-    config.data = {voId: this.voId, createMailNotification: true, applicationMail: applicationMail, applicationMails: this.applicationMails};
+    config.data = { theme: 'vo-theme', voId: this.voId, createMailNotification: true, applicationMail: applicationMail, applicationMails: this.applicationMails};
 
     const dialog = this.dialog.open(AddEditNotificationDialogComponent, config);
     dialog.afterClosed().subscribe( success => {
@@ -89,7 +89,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   remove() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, mails: this.selection.selected};
+    config.data = {voId: this.voId, mails: this.selection.selected, theme: 'vo-theme'};
 
     const dialog = this.dialog.open(DeleteNotificationDialogComponent, config);
     dialog.afterClosed().subscribe( success => {
@@ -106,7 +106,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId};
+    config.data = {voId: this.voId, theme: 'vo-theme'};
 
     const dialog = this.dialog.open(NotificationsCopyMailsDialogComponent, config);
     dialog.afterClosed().subscribe( copyFrom => {
@@ -128,7 +128,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   changeEmailFooter() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId};
+    config.data = {voId: this.voId, theme: 'vo-theme'};
 
     this.dialog.open(EditEmailFooterDialogComponent, config);
   }

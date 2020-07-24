@@ -45,7 +45,6 @@ export class TwoEntityAttributePageComponent implements OnChanges {
   @Input()
   entityValues: Resource[] | Facility[] | Group[];
 
-
   attributes: Attribute[] = [];
   selection = new SelectionModel<Attribute>(true, []);
 
@@ -109,7 +108,7 @@ export class TwoEntityAttributePageComponent implements OnChanges {
       entity: this.firstEntity,
       secondEntity: this.secondEntity,
       secondEntityId: entityId,
-      attributes: this.selection.selected
+      attributes: this.selection.selected,
     };
 
     const dialogRef = this.dialog.open(EditAttributeDialogComponent, config);
@@ -130,7 +129,8 @@ export class TwoEntityAttributePageComponent implements OnChanges {
       entity: this.firstEntity,
       secondEntity: this.secondEntity,
       secondEntityId: entityId,
-      attributes: this.selection.selected
+      attributes: this.selection.selected,
+      theme: `${this.firstEntity}-theme`
     };
 
     const dialogRef = this.dialog.open(DeleteAttributeDialogComponent, config);

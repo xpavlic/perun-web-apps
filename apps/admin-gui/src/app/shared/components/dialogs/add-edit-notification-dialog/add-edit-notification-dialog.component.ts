@@ -4,6 +4,7 @@ import {openClose, tagsOpenClose} from '@perun-web-apps/perun/animations';
 import { ApplicationMail, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface ApplicationFormAddEditMailDialogData {
+  theme: string;
   voId: number;
   groupId: number;
   createMailNotification: boolean;
@@ -31,9 +32,12 @@ export class AddEditNotificationDialogComponent implements OnInit {
   isTextFocused = true;
   invalidNotification = false;
   language = 'en';
+  loading = false;
+  theme: string;
 
   ngOnInit() {
     this.applicationMail = this.data.applicationMail;
+    this.theme = this.data.theme;
   }
 
   cancel() {
@@ -45,21 +49,23 @@ export class AddEditNotificationDialogComponent implements OnInit {
     if (this.invalidNotification) {
       return;
     }
+    this.loading = true;
     if (this.data.groupId) {
       this.registrarService.addApplicationMailForGroup({ group: this.data.groupId, mail: this.applicationMail }).subscribe( () => {
         this.dialogRef.close(true);
-      });
+      }, () => this.loading = false);
     } else {
       this.registrarService.addApplicationMailForVo({ vo: this.data.voId, mail: this.applicationMail }).subscribe( () => {
         this.dialogRef.close(true);
-      });
+      }, () => this.loading = false);
     }
   }
 
   save() {
+    this.loading = true;
     this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe( () => {
       this.dialogRef.close(true);
-    });
+    }, () => this.loading = false);
   }
 
   addTag(input: HTMLInputElement, textarea: HTMLTextAreaElement, language: string, tag: string) {

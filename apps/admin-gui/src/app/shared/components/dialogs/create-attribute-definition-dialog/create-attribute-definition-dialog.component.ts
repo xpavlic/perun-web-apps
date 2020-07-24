@@ -19,6 +19,8 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
               private attributesManager: AttributesManagerService) {
   }
 
+  loading = false;
+
   attDef: AttributeDefinition;
   entities: string[] = ['facility', 'resource', 'group', 'group_resource', 'host', 'member', 'member_group',
     'member_resource', 'user', 'user_ext_source', 'user_facility', 'vo', 'entityless'];
@@ -61,6 +63,7 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     this.attDef.namespace = 'urn:perun:' + this.entity + ':attribute-def:' + this.definitionType;
     this.readValueType();
     this.attributesManager.createAttributeDefinition({attribute: this.attDef}).subscribe(attDef => {
@@ -70,8 +73,8 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close(true);
         });
-      });
-    });
+      }, () => this.loading = false);
+    }, () => this.loading = false);
   }
 
   onCancel() {
@@ -191,7 +194,7 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
 
   disableConfirmButton(): boolean {
     return (this.attDef.friendlyName === '' || this.attDef.displayName === '' || this.attDef.description === '' ||
-      this.entity === '' || this.definitionType === '' || this.valueType === '');
+      this.entity === '' || this.definitionType === '' || this.valueType === '' || this.loading);
   }
 
   disableUniqueToggle(): boolean {

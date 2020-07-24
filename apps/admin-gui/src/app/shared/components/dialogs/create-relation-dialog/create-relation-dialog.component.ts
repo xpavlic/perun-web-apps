@@ -55,8 +55,8 @@ export class CreateRelationDialogComponent implements OnInit {
         const groupIds = unionGroups.map(elem => elem.id);
         this.groups = allGroups.filter(group => !groupIds.includes(group.id) && group.id !== this.data.groupId);
         this.loading = false;
-      });
-    });
+      }, () => this.loading = false);
+    }, () => this.loading = false);
     this.theme = this.data.theme;
   }
 

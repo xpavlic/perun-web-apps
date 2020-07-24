@@ -89,7 +89,9 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
         config.height = '600px';
         config.data = {voId: this.voId,
           groupId: this.groupId,
-          applicationFormItem: success[1]};
+          applicationFormItem: success[1],
+          theme: 'group-theme'
+        };
 
         this.dialog.open(EditApplicationFormItemDialogComponent, config);
         this.itemsChanged = true;
@@ -100,7 +102,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, groupId: this.groupId};
+    config.data = {voId: this.voId, groupId: this.groupId, theme: 'group-theme'};
 
     const dialog = this.dialog.open(ApplicationFormCopyItemsDialogComponent, config);
     dialog.afterClosed().subscribe( copyFrom => {
@@ -113,7 +115,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   settings() {
     const config = getDefaultDialogConfig();
     config.width = '400px';
-    config.data = {applicationForm: this.applicationForm};
+    config.data = {applicationForm: this.applicationForm, theme: 'group-theme'};
 
     const dialog = this.dialog.open(UpdateApplicationFormDialogComponent, config);
     dialog.afterClosed().subscribe( newForm => {

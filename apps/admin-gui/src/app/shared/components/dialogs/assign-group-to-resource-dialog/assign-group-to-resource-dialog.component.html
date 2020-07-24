@@ -35,7 +35,7 @@
       class="ml-2"
       color="accent"
       (click)="onAdd()"
-      [disabled]="selection.selected.length === 0">
+      [disabled]="selection.selected.length === 0 || loading">
       {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_BUTTON' | translate}}
     </button>
   </div>

@@ -29,6 +29,7 @@ export class RemoveHostDialogComponent implements OnInit {
   hosts: Host[];
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<Host>;
+  loading = false;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -37,10 +38,11 @@ export class RemoveHostDialogComponent implements OnInit {
   }
 
   onConfirm(){
+    this.loading = true;
     this.facilitiesManager.removeHosts(this.data.facilityId, this.hosts.map(m => m.id)).subscribe(() => {
       this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_HOST.SUCCESS'));
       this.dialogRef.close(true);
-    });
+    }, () => this.loading = false);
   }
 
   onCancel(){

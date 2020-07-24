@@ -50,7 +50,7 @@
       class="ml-2"
       color="accent"
       (click)="onSubmit()"
-      [disabled]="selection.selected.length === 0">
+      [disabled]="selection.selected.length === 0 || loading">
       {{'DIALOGS.ADD_MANAGERS.CREATE' | translate}}
     </button>
   </div>

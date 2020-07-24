@@ -65,7 +65,8 @@ export class ResourceSettingsAttributesComponent implements OnInit {
     config.data = {
       entityId: this.resourceId,
       entity: 'resource',
-      attributes: this.selection.selected
+      attributes: this.selection.selected,
+      theme: 'resource-theme'
     };
 
     const dialogRef = this.dialog.open(DeleteAttributeDialogComponent, config);

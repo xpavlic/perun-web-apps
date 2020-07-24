@@ -50,6 +50,7 @@ export class MoveGroupDialogComponent implements OnInit {
   loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.groupService.getAllGroups(this.data.group.voId).subscribe(allGroups => {
       this.otherGroups = allGroups.filter(group => group.id !== this.data.group.id && group.name !== 'members');
       if (this.data.group.parentGroupId === null) {
@@ -61,7 +62,8 @@ export class MoveGroupDialogComponent implements OnInit {
           startWith(''),
           map(group => group ? this._filterGroups(group) : this.otherGroups.slice())
         );
-    });
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   // Hack that ensures proper autocomplete value displaying

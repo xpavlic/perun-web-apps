@@ -41,7 +41,7 @@
   </button>
   <button
     (click)="onAdd()"
-    [disabled]="loginControl.invalid"
+    [disabled]="loginControl.invalid || loading"
     class="ml-2"
     color="accent"
     mat-flat-button>

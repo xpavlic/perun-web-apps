@@ -1,61 +1,64 @@
-<h1 mat-dialog-title>{{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.TITLE' | translate}}</h1>
-<div mat-dialog-content class="dialog-container">
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.TITLE' | translate}}</h1>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
 
-  <div class="mb-2 font-italic">{{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.DESCRIPTION' | translate}}</div>
-  {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SOURCE_VO' | translate}}:
+    <div class="mb-2 font-italic">{{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.DESCRIPTION' | translate}}</div>
+    {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SOURCE_VO' | translate}}:
 
-  <mat-form-field>
-    <input matInput type="text"
-           [formControl]="voControl"
-           [matAutocomplete]="auto">
-    <mat-error *ngIf="voControl.hasError('invalidVo')">
-      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_INVALID_VO' | translate}}
-    </mat-error>
-    <mat-error *ngIf="voControl.hasError('required')">
-      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_NO_VO' | translate}}
-    </mat-error>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="getGroups()" [displayWith]="displayFn">
-      <mat-option *ngFor="let vo of filteredVos | async" [value]="vo">
-        {{vo.name}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text"
+             [formControl]="voControl"
+             [matAutocomplete]="auto">
+      <mat-error *ngIf="voControl.hasError('invalidVo')">
+        {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_INVALID_VO' | translate}}
+      </mat-error>
+      <mat-error *ngIf="voControl.hasError('required')">
+        {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_NO_VO' | translate}}
+      </mat-error>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let vo of filteredVos | async" [value]="vo">
+          {{vo.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
 
-  {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SOURCE_GROUP' | translate}}:
+    {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SOURCE_GROUP' | translate}}:
 
-  <mat-form-field>
-    <input matInput
-           type="text"
-           [formControl]="groupControl"
-           [matAutocomplete]="group">
-    <mat-error *ngIf="groupControl.hasError('required')">
-      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_NO_GROUP' | translate}}
-    </mat-error>
-    <mat-error *ngIf="groupControl.hasError('invalidGroup')">
-      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_INVALID_GROUP' | translate}}
-    </mat-error>
-    <mat-autocomplete #group="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let group of filteredGroups | async" [value]="group">
-        {{group.name}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput
+             type="text"
+             [formControl]="groupControl"
+             [matAutocomplete]="group"
+             (focus)="getGroups()">
+      <mat-error *ngIf="groupControl.hasError('required')">
+        {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_NO_GROUP' | translate}}
+      </mat-error>
+      <mat-error *ngIf="groupControl.hasError('invalidGroup')">
+        {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_INVALID_GROUP' | translate}}
+      </mat-error>
+      <mat-autocomplete #group="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let group of filteredGroups | async" [value]="group">
+          {{group.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
 
-</div>
-
-<div mat-dialog-actions>
-  <button
-    mat-flat-button
-    class="ml-auto"
-    (click)="cancel()">
-    {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.CANCEL_BUTTON' | translate}}
-  </button>
-  <button
-    mat-flat-button
-    class="ml-2"
-    color="accent"
-    [disabled]="voControl.invalid || groupControl.invalid"
-    (click)="submit()">
-    {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SUBMIT_BUTTON' | translate}}
-  </button>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      class="ml-auto"
+      (click)="cancel()">
+      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.CANCEL_BUTTON' | translate}}
+    </button>
+    <button
+      mat-flat-button
+      class="ml-2"
+      color="accent"
+      [disabled]="voControl.invalid || groupControl.invalid || loading"
+      (click)="submit()">
+      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SUBMIT_BUTTON' | translate}}
+    </button>
+  </div>
 </div>

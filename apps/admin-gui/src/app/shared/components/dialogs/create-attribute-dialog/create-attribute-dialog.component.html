@@ -33,7 +33,7 @@
       class="ml-2"
       color="accent"
       (click)="onSave()"
-      [disabled]="selected.selected.length === 0">
+      [disabled]="selected.selected.length === 0 || loading">
       {{'DIALOGS.CREATE_ATTRIBUTE.SAVE' | translate}}
     </button>
   </div>

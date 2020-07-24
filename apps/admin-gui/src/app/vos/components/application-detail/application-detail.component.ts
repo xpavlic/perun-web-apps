@@ -38,10 +38,19 @@ export class ApplicationDetailComponent implements OnInit {
   displayedColumns: string[] = ['label', 'value'];
   dataSource: MatTableDataSource<ApplicationFormItemData>;
   loading = true;
+  dialogTheme: string;
 
   ngOnInit() {
     this.loading = true;
     this.route.params.subscribe(parentParams => {
+
+      if (parentParams['groupId']) {
+        this.dialogTheme = 'group-theme'
+      } else if (parentParams['memberId']) {
+        this.dialogTheme = 'member-theme'
+      } else {
+        this.dialogTheme = 'vo-theme'
+      }
       const applicationId = parentParams['applicationId'];
       this.registrarManager.getApplicationById(applicationId).subscribe(application => {
         this.application = application;
@@ -82,7 +91,7 @@ export class ApplicationDetailComponent implements OnInit {
   resendNotification() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {applicationId: this.application.id};
+    config.data = { applicationId: this.application.id, theme: this.dialogTheme };
 
     this.dialog.open(ApplicationReSendNotificationDialogComponent, config);
   }
@@ -99,7 +108,7 @@ export class ApplicationDetailComponent implements OnInit {
   rejectApplication() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {applicationId: this.application.id};
+    config.data = { applicationId: this.application.id, theme: this.dialogTheme };
 
     const dialogRef = this.dialog.open(ApplicationRejectDialogComponent, config);
 

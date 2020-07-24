@@ -1,9 +1,9 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
-import {NotificatorService} from '@perun-web-apps/perun/services';
-import {SelectionModel} from '@angular/cdk/collections';
+import { NotificatorService } from '@perun-web-apps/perun/services';
+import { SelectionModel } from '@angular/cdk/collections';
 import {
   AddEditNotificationDialogComponent
 } from '../../../../../shared/components/dialogs/add-edit-notification-dialog/add-edit-notification-dialog.component';
@@ -65,9 +65,9 @@ export class GroupSettingsNotificationsComponent implements OnInit {
 
       // FIXME this might not work in case of some race condition (other request finishes sooner)
       this.apiRequest.dontHandleErrorForNext();
-      this.registrarService.getGroupApplicationForm(this.groupId).subscribe( form => {
+      this.registrarService.getGroupApplicationForm(this.groupId).subscribe(form => {
         this.applicationForm = form;
-        this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe( mails => {
+        this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe(mails => {
           this.applicationMails = mails;
           this.loading = false;
         });
@@ -89,16 +89,19 @@ export class GroupSettingsNotificationsComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '1400px';
     config.height = '700px';
-    config.data = {voId: this.voId,
+    config.data = {
+      theme: 'group-theme',
+      voId: this.voId,
       groupId: this.groupId,
       createMailNotification: true,
       applicationMail: applicationMail,
-      applicationMails: this.applicationMails};
+      applicationMails: this.applicationMails
+    };
 
     const dialog = this.dialog.open(AddEditNotificationDialogComponent, config);
-    dialog.afterClosed().subscribe( success => {
+    dialog.afterClosed().subscribe(success => {
       if (success) {
-        this.translate.get('GROUP_DETAIL.SETTINGS.NOTIFICATIONS.ADD_SUCCESS').subscribe( text => {
+        this.translate.get('GROUP_DETAIL.SETTINGS.NOTIFICATIONS.ADD_SUCCESS').subscribe(text => {
           this.notificator.showSuccess(text);
         });
         this.selection.clear();
@@ -110,12 +113,12 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   remove() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, groupId: this.groupId, mails: this.selection.selected};
+    config.data = { voId: this.voId, groupId: this.groupId, mails: this.selection.selected, theme: 'group-theme' };
 
     const dialog = this.dialog.open(DeleteNotificationDialogComponent, config);
-    dialog.afterClosed().subscribe( success => {
+    dialog.afterClosed().subscribe(success => {
       if (success) {
-        this.translate.get('GROUP_DETAIL.SETTINGS.NOTIFICATIONS.DELETE_SUCCESS').subscribe( text => {
+        this.translate.get('GROUP_DETAIL.SETTINGS.NOTIFICATIONS.DELETE_SUCCESS').subscribe(text => {
           this.notificator.showSuccess(text);
         });
         this.selection.clear();
@@ -127,10 +130,10 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, groupId: this.groupId};
+    config.data = { voId: this.voId, groupId: this.groupId, theme: 'group-theme' };
 
     const dialog = this.dialog.open(NotificationsCopyMailsDialogComponent, config);
-    dialog.afterClosed().subscribe( copyFrom => {
+    dialog.afterClosed().subscribe(copyFrom => {
       if (copyFrom) {
         this.selection.clear();
         this.updateTable();
@@ -140,7 +143,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
 
   updateTable() {
     this.loading = true;
-    this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe( mails => {
+    this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe(mails => {
       this.applicationMails = mails;
       this.loading = false;
     });
@@ -149,7 +152,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   changeEmailFooter() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, groupId: this.groupId};
+    config.data = { voId: this.voId, groupId: this.groupId, theme: 'group-theme' };
 
     this.dialog.open(EditEmailFooterDialogComponent, config);
   }
@@ -159,7 +162,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   }
 
   createEmptyApplicationForm() {
-    this.registrarService.createApplicationFormInGroup(this.groupId).subscribe( () => {
+    this.registrarService.createApplicationFormInGroup(this.groupId).subscribe(() => {
       this.noApplicationForm = false;
       this.ngOnInit();
     });

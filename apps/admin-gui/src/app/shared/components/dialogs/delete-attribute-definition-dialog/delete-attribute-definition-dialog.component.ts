@@ -8,6 +8,7 @@ import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DeleteAttributeDefinitionDialogData {
   attributes: AttributeDefinition[];
+  theme: string;
 }
 
 @Component({
@@ -26,8 +27,11 @@ export class DeleteAttributeDefinitionDialogComponent implements OnInit {
 
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<AttributeDefinition>;
+  loading = false;
+  theme: string;
 
   ngOnInit() {
+    this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<AttributeDefinition>(this.data.attributes);
   }
 
@@ -36,6 +40,7 @@ export class DeleteAttributeDefinitionDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     const ids: number[] = [];
     for (const attr of this.data.attributes) {
       ids.push(attr.id);
@@ -46,6 +51,6 @@ export class DeleteAttributeDefinitionDialogComponent implements OnInit {
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close(true);
       });
-    });
+    }, () => this.loading = false);
   }
 }

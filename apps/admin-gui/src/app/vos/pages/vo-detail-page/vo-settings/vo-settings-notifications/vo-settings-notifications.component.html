@@ -46,6 +46,7 @@
     (page)="pageChanged($event)"
     [voId]="voId"
     [selection]="selection"
+    [theme]="'vo-theme'"
     (selectionChange)="changeSelection($event)"></app-notification-list>
 </div>
 <app-alert *ngIf="this.applicationMails.length === 0 && !loading" [color]="'warn'">

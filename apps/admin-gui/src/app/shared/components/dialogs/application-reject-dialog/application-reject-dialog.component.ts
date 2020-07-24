@@ -6,6 +6,7 @@ import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DialogData {
   applicationId: number;
+  theme: string;
 }
 
 @Component({
@@ -22,8 +23,11 @@ export class ApplicationRejectDialogComponent implements OnInit {
               private registrarManager: RegistrarManagerService) { }
 
   reason = '';
+  loading = false;
+  theme: string;
 
   ngOnInit() {
+    this.theme = this.data.theme;
   }
 
   onCancel() {
@@ -31,12 +35,13 @@ export class ApplicationRejectDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     this.registrarManager.rejectApplication(this.data.applicationId, this.reason).subscribe( () => {
       this.translate.get('DIALOGS.REJECT_APPLICATION.SUCCESS').subscribe(successMessage => {
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close();
       });
-    });
+    }, () => this.loading = false);
   }
 
 }

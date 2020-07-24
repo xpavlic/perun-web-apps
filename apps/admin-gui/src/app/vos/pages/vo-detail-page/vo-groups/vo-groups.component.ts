@@ -61,7 +61,7 @@ export class VoGroupsComponent implements OnInit {
   onCreateGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.vo.id, parentGroup: null};
+    config.data = {voId: this.vo.id, parentGroup: null, theme: 'vo-theme'};
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
 
@@ -100,7 +100,7 @@ export class VoGroupsComponent implements OnInit {
   deleteGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.vo.id, groups: this.selected.selected};
+    config.data = {voId: this.vo.id, groups: this.selected.selected, theme: 'vo-theme'};
 
     const dialogRef = this.dialog.open(DeleteGroupDialogComponent, config);
 

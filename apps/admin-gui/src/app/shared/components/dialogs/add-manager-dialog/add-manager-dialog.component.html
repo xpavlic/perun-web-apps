@@ -22,7 +22,7 @@
       mat-flat-button
       class="ml-auto"
       color="accent"
-      [disabled]="searchString.length === 0"
+      [disabled]="searchString.length === 0 || loading"
       (click)="onSearchByString()">
       {{'DIALOGS.ADD_MANAGERS.SEARCH' | translate}}
     </button>
@@ -60,7 +60,7 @@
       class="ml-2"
       color="accent"
       (click)="onSubmit()"
-      [disabled]="selection.selected.length === 0 || selectedRole === undefined">
+      [disabled]="selection.selected.length === 0 || selectedRole === undefined || loading">
       {{'DIALOGS.ADD_MANAGERS.CREATE' | translate}}
     </button>
   </div>

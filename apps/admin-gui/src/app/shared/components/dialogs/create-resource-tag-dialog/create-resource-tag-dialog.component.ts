@@ -4,6 +4,7 @@ import { ResourcesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface CreateResourceTagDialogDialogData {
   voId: number;
+  theme: string;
 }
 
 @Component({
@@ -18,8 +19,11 @@ export class CreateResourceTagDialogComponent implements OnInit {
               private resourceManager: ResourcesManagerService) { }
 
   name = '';
+  theme: string;
+  loading = false;
 
   ngOnInit() {
+    this.theme = this.data.theme;
   }
 
   onCancel() {
@@ -28,9 +32,10 @@ export class CreateResourceTagDialogComponent implements OnInit {
 
   onSubmit() {
     if (this.name !== '') {
+      this.loading = true;
       this.resourceManager.createResourceTagWithTagName(this.name, this.data.voId).subscribe( () => {
         this.dialogRef.close(true);
-      });
+      }, () => this.loading = false);
     }
 
   }

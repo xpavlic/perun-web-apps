@@ -93,6 +93,7 @@ export class AddGroupManagerDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.availableRoles = this.data.availableRoles;
     this.selectedRole = this.data.selectedRole;
     this.theme = this.data.theme;
@@ -104,7 +105,8 @@ export class AddGroupManagerDialogComponent implements OnInit {
         );
 
       this.vos = vos;
-    });
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   private _filter(value: string | Vo): Vo[] {

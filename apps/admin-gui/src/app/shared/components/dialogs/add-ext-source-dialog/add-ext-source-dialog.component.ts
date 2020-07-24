@@ -32,19 +32,20 @@ export class AddExtSourceDialogComponent implements OnInit {
   theme: string;
   extSources: ExtSource[] = [];
   selection = new SelectionModel<ExtSource>(true, []);
-  loading: boolean;
+  loading = false;
   filterValue = '';
-  processing: boolean;
   successMessage: string;
   pageSize: number;
   tableId = TABLE_ADD_EXTSOURCE_DIALOG;
 
   ngOnInit() {
+    this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.extSourceService.getExtSources().subscribe(sources => {
       this.extSources = sources.filter(source => !this.data.voExtSources.includes(source));
-    });
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   applyFilter(filterValue: string) {
@@ -52,11 +53,12 @@ export class AddExtSourceDialogComponent implements OnInit {
   }
 
   onAdd() {
+    this.loading = true;
     for (const source of this.selection.selected) {
       this.extSourceService.addExtSourceWithVoSource(this.data.voId, source.id).subscribe(_ => {
         this.notificator.showSuccess(this.successMessage + source.name);
         this.dialogRef.close(true);
-      });
+      }, () => this.loading = false);
     }
   }
 
