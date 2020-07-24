@@ -28,7 +28,7 @@ export class MemberResourcesComponent implements OnInit {
 
   filterValue: String = "";
   loading = false;
-  hideColumns: String[] = ["select"];
+  displayedColumns: String[] = ['id', 'name', 'vo', 'facility', 'tags', 'description'];
 
   pageSize: number;
   tableId = TABLE_MEMBER_RESOURCE_LIST;

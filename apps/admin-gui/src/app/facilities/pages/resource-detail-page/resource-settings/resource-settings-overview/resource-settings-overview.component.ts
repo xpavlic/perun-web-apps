@@ -43,6 +43,12 @@ export class ResourceSettingsOverviewComponent implements OnInit {
         url: `${inVo ? `/organizations/${this.resource.voId}` : `/facilities/${this.resource.facilityId}`}/resources/${this.resource.id}/settings/attributes`,
         label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
         style: 'resource-btn'
+      },
+      {
+        cssIcon: 'perun-manager',
+        url: `${inVo ? `/organizations/${this.resource.voId}` : `/facilities/${this.resource.facilityId}`}/resources/${this.resource.id}/settings/managers`,
+        label: 'MENU_ITEMS.RESOURCE.MANAGERS',
+        style: 'resource-btn'
       }
     ];
   }

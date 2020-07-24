@@ -20,7 +20,8 @@
     (page)="pageChanged($event)"
     *ngIf="!loading"
     [filterValue]="filterValue"
-    [hideColumns]="hideColumns"
+    [displayedColumns]="displayedColumns"
+    [routingVo]="true"
     [resources]="resources">
   </perun-web-apps-resources-list>
 </div>
