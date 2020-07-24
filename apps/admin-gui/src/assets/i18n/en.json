@@ -538,8 +538,8 @@
     },
     "GROUPS": {
       "TITLE": "Member groups",
-      "TABLE_GROUP_ID": "Id",
-      "TABLE_GROUP_NAME": "Name"
+      "ADD": "Add",
+      "REMOVE": "Remove"
     },
     "APPLICATIONS": {
       "TITLE": "Application",
@@ -1350,6 +1350,21 @@
     "SHOW_VALUE": {
       "CLOSE": "Close",
       "COPY": "Copy to clipboard"
+    },
+    "ADD_MEMBER_GROUP": {
+      "TITLE": "Add groups",
+      "ADD": "Add",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Groups added",
+      "FILTER": "Filter"
+    },
+    "REMOVE_MEMBER_GROUP": {
+      "TITLE": "Remove groups",
+      "CANCEL": "Cancel",
+      "REMOVE": "Remove",
+      "DESCRIPTION": "Following groups will be removed.",
+      "ASK": "Do you want to proceed?",
+      "SUCCESS": "Groups were removed"
     }
   },
   "MEMBERS_LIST": {

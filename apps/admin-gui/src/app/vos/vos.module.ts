@@ -23,7 +23,6 @@ import {VoSettingsOverviewComponent} from './pages/vo-detail-page/vo-settings/vo
 import {VoSettingsExpirationComponent} from './pages/vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
 import {ApplicationsListComponent} from './components/applications-list/applications-list.component';
 import {GroupApplicationsComponent} from './pages/group-detail-page/group-applications/group-applications.component';
-import {MemberGroupListComponent} from './components/member-group-list/member-group-list.component';
 import {VoSettingsManagersComponent} from './pages/vo-detail-page/vo-settings/vo-settings-managers/vo-settings-managers.component';
 import {ApplicationDetailComponent} from './components/application-detail/application-detail.component';
 import {GroupMembersComponent} from './pages/group-detail-page/group-members/group-members.component';
@@ -121,7 +120,6 @@ import { MemberResourcesComponent } from './pages/member-detail-page/member-reso
     VoSettingsExpirationComponent,
     ApplicationsListComponent,
     GroupApplicationsComponent,
-    MemberGroupListComponent,
     VoSettingsManagersComponent,
     ApplicationDetailComponent,
     GroupMembersComponent,
