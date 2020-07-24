@@ -60,6 +60,8 @@
   "FACILITY_MANAGEMENT": {
     "TITLE": "Select facility",
     "FILTER_PLACEHOLDER": "Filter by name, id, description or owner",
+    "CREATE": "Create",
+    "DELETE": "Delete",
     "TABLE": {
       "ID": "Id",
       "NAME": "Name",
@@ -1310,6 +1312,24 @@
       "NO_GROUPS": "Resource has no groups assigned",
       "ADD_GROUP": "Add group",
       "SELECT_RESOURCE": "Select resource"
+    },
+    "CREATE_FACILITY": {
+      "TITLE": "Create facility",
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "AS_COPY": "As copy of",
+      "CREATE": "Create",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Created facility.",
+      "REQUIRE_NAME": "Facility name can't be empty."
+    },
+    "DELETE_FACILITY": {
+      "TITLE": "Delete facility",
+      "DESCRIPTION": "Following facility will be removed.",
+      "ASK": "Are you sure you want to proceed?",
+      "CANCEL": "Cancel",
+      "CONFIRM": "Delete",
+      "SUCCESS": "Facility deleted."
     }
   },
   "MEMBERS_LIST": {

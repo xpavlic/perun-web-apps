@@ -11,8 +11,9 @@ import {
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { RichFacility } from '@perun-web-apps/perun/openapi';
+import { Host, RichFacility } from '@perun-web-apps/perun/openapi';
 import { parseTechnicalOwnersNames, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-facility-select-table',
@@ -35,7 +36,10 @@ export class FacilitySelectTableComponent implements AfterViewInit, OnChanges {
   pageSize = 10;
 
   @Input()
-  displayedColumns: string[] = ['id', 'recent', 'name', 'description', 'technicalOwners'];
+  displayedColumns: string[] = ['select', 'id', 'recent', 'name', 'description', 'technicalOwners'];
+
+  @Input()
+  selection: SelectionModel<RichFacility>;
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
@@ -85,6 +89,28 @@ export class FacilitySelectTableComponent implements AfterViewInit, OnChanges {
         return false;
       });
     }
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: RichFacility): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
   pageChanged(event: PageEvent) {
