@@ -608,6 +608,9 @@ button:focus {
 .member-text {
   color: var(--member-color) !important;
 }
+.user-text {
+  color: var(--user-color) !important;
+}
 
 .router-component {
   padding-bottom: 5rem;
@@ -1222,4 +1225,8 @@ button:focus {
 
 th, td {
   padding: 0.25rem !important;
+}
+
+.entity-info{
+  font-size: medium;
 }

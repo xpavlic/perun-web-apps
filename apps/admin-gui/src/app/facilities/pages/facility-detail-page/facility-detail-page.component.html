@@ -7,6 +7,13 @@
     <span class="text-muted">
       &nbsp;#{{facility.id}}
     </span>
+    <br>
+    <span class="text-muted mt-1 entity-info">
+      {{'FACILITY_DETAIL.DESCRIPTION' | translate}}:
+      <span class="facility-text">
+        {{facility.description}}
+      </span>
+    </span>
   </h1>
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>

@@ -75,6 +75,7 @@
   },
   "FACILITY_DETAIL": {
     "TITLE": "Facility - ",
+    "DESCRIPTION": "Description",
     "BACK": "Back",
     "RESOURCES": {
       "TITLE": "Resources",
@@ -163,6 +164,9 @@
   },
   "RESOURCE_DETAIL": {
     "TITLE": "Resource - ",
+    "DESCRIPTION": "Description",
+    "VO": "Vo",
+    "FACILITY": "Facility",
     "ASSIGNED_GROUPS": {
       "TITLE": "Assigned groups",
       "ADD_GROUP": "Add..",
@@ -431,6 +435,7 @@
   },
   "GROUP_DETAIL": {
     "TITLE": "Group - ",
+    "DESCRIPTION": "Description",
     "SUBGROUPS": {
       "TITLE": "Subgroups",
       "CREATE_GROUP": "Create subgroup",
@@ -518,6 +523,7 @@
   },
   "MEMBER_DETAIL": {
     "TITLE": "Member - ",
+    "USER_ID": "User ID",
     "USER_LINK": "See user detail",
     "OVERVIEW": {
       "NEVER_EXPIRES": "never",
@@ -1338,7 +1344,8 @@
     "SERVICE": "Service"
   },
   "ADMIN_USER": {
-    "TITLE": "User - "
+    "TITLE": "User - ",
+    "USER_TYPE": "User type"
   },
   "ADMIN": {
     "TITLE": "Perun admin",
