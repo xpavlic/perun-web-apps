@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import {
   FacilitiesManagerService,
   Facility,
-  Group,
+  Group, Resource, ResourcesManagerService,
   User,
   UsersManagerService,
   Vo
@@ -10,7 +10,7 @@ import {
 import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import {
   TABLE_USER_PROFILE_DASHBOARD_FACILITY,
-  TABLE_USER_PROFILE_DASHBOARD_GROUP,
+  TABLE_USER_PROFILE_DASHBOARD_GROUP, TABLE_USER_PROFILE_DASHBOARD_RESOURCE,
   TABLE_USER_PROFILE_DASHBOARD_VO,
   TableConfigService
 } from '@perun-web-apps/config/table-config';
@@ -30,7 +30,8 @@ export class UserDashboardComponent implements OnInit {
               private storeService: StoreService,
               private guiAuthResolver: GuiAuthResolver,
               private tableConfigService: TableConfigService,
-              private facilitiesService: FacilitiesManagerService) { }
+              private facilitiesService: FacilitiesManagerService,
+              private resourcesService: ResourcesManagerService) { }
 
   navItems: MenuItem[] = [];
   user: User;
@@ -51,12 +52,19 @@ export class UserDashboardComponent implements OnInit {
   facilityPageSize: number;
   facilityFilterValue = '';
 
+  adminResource: Resource[] = [];
+  resourceTableId = TABLE_USER_PROFILE_DASHBOARD_RESOURCE;
+  resourcePageSize: number;
+  resourceFilterValue = '';
+
   ngOnInit() {
     this.user = this.storeService.getPerunPrincipal().user;
     this.voPageSize = this.tableConfigService.getTablePageSize(this.voTableId);
     this.groupPageSize = this.tableConfigService.getTablePageSize(this.groupTableId);
     this.facilityPageSize = this.tableConfigService.getTablePageSize(this.facilityTableId);
+    this.resourcePageSize = this.tableConfigService.getTablePageSize(this.resourceTableId);
     this.getAdminVoGroup();
+    this.getAdminResource();
   }
 
   getAdminVoGroup() {
@@ -73,6 +81,14 @@ export class UserDashboardComponent implements OnInit {
     if (this.guiAuthResolver.isFacilityAdmin()) {
       this.facilitiesService.getAllFacilities().subscribe(facilities => {
         this.adminFacility = facilities;
+      });
+    }
+  }
+
+  getAdminResource() {
+    if (this.guiAuthResolver.isResourceAdmin()) {
+      this.resourcesService.getAllResourcesWhereUserIsAdmin(this.user.id).subscribe(resources => {
+        this.adminResource = resources;
       });
     }
   }
