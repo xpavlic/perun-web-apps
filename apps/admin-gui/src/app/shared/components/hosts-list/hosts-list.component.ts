@@ -8,7 +8,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { Facility, Host } from '@perun-web-apps/perun/openapi';
+import {  Host } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -102,7 +102,7 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
   }
 
   selectHost(host: Host){
-    this.router.navigate(['/facilities', this.facilityId, 'hosts', host.id])
+    this.router.navigate(['/facilities', this.facilityId, 'hosts', host.id]);
   }
 
   ngAfterViewInit(): void {

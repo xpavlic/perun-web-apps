@@ -4,6 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'perun-web-apps-user-ext-sources-list',
@@ -12,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
   }
 
   @Input()
@@ -43,8 +44,12 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
   displayedColumns: string[] = ['select', 'id', 'mail', 'extSourceName', 'login','loa', 'lastAccess'];
   dataSource: MatTableDataSource<RichUserExtSource>;
   exporting = false;
+  userId: number;
 
   ngAfterViewInit() {
+    this.route.parent.params.subscribe(params => {
+      this.userId = params["userId"];
+    });
     this.setDataSource();
   }
 

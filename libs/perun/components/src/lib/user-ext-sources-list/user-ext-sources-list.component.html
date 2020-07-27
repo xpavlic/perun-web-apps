@@ -43,8 +43,10 @@
 
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr
-          *matRowDef="let userExtSource; columns: displayedColumns;"
+          *matRowDef="let richUserExtSource; columns: displayedColumns;"
+          [routerLink]="['/admin', 'users', userId, 'identities', richUserExtSource.userExtSource.id]"
           class="dark-hover-list-item"
+          [class.cursor-pointer]="true"
           mat-row>
         </tr>
       </table>

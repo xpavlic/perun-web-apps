@@ -141,6 +141,14 @@ export class EditAttributeDialogComponent implements OnInit {
           this.onSuccess();
         });
         break;
+      case 'ues':
+        this.attributesManager.setUserExtSourceAttributes({
+          userExtSource: this.data.entityId,
+          attributes: this.data.attributes
+        }).subscribe(() => {
+          this.onSuccess();
+        });
+        break;
     }
   }
 

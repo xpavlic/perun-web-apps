@@ -1568,6 +1568,12 @@
       "ADMINISTRATOR_DOCUMENTATION": "API Documentation",
       "REPORT_ISSUE": "Report Issue",
       "PRIVACY_POLICY": "Privacy Policy"
+    },
+    "IDENTITY_DETAIL": {
+      "TITLE": "Identity detail",
+      "ADD": "Add",
+      "REMOVE": "Remove",
+      "SAVE": "Save"
     }
   },
   "ROLES": {
@@ -1630,7 +1636,8 @@
           "ID": "Id",
           "NAME": "Name",
           "VALUE": "Value",
-          "DESCRIPTION": "Description"
+          "DESCRIPTION": "Description",
+          "EMPTY": "No settings found. Use 'Add' button to add new setting."
         },
         "USER_DONT_EXIST": {
           "TITLE": "Requested user (by ID or external identity) doesn't exist."

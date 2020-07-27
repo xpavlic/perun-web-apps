@@ -31,6 +31,7 @@ import { UserSettingsServiceIdentitiesComponent } from '../shared/components/use
 import { UserIdentitiesComponent } from '../shared/components/user-detail-page/user-identities/user-identities.component';
 import { AdminServicesComponent } from './pages/admin-page/admin-services/admin-services.component';
 import { UserResourcesComponent } from '../shared/components/user-detail-page/user-resources/user-resources.component';
+import { IdentityDetailComponent } from '../shared/components/identity-detail/identity-detail.component';
 
 const routes: Routes = [
   {
@@ -118,6 +119,11 @@ const routes: Routes = [
         path: 'resources',
         component: UserResourcesComponent,
         data: {animation: 'UserRoles'}
+      },
+      {
+        path: 'identities/:identityId',
+        component: IdentityDetailComponent,
+        data: {animation: 'UserIdentityDetailPage'}
       },
       {
         path: 'settings',
