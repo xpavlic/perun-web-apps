@@ -147,4 +147,9 @@ export class VoSettingsApplicationFormComponent implements OnInit {
       this.updateFormItems();
     });
   }
+
+  clear() {
+    this.applicationFormItems = [];
+    this.itemsChanged = true;
+  }
 }

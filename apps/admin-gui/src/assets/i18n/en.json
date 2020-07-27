@@ -263,7 +263,7 @@
         "TITLE": "Application form",
         "DRAG_AND_DROP_INFO": "You can move the table items by dragging them with the handle on the left side.",
         "ADD_BUTTON": "Add",
-        "COPY_VO_BUTTON": "Copy from VO",
+        "COPY_VO_BUTTON": "Copy from VO/Group",
         "PREVIEW_BUTTON": "Preview",
         "SETTINGS_BUTTON": "Change Settings",
         "NO_APPLICATION_FORM": "Application form have no items.",
@@ -285,6 +285,8 @@
         "SAVE_BUTTON": "Save Application Form",
         "MARK_DELETE": "Marked for deletion",
         "REVERT_DELETE": "Restore",
+        "CLEAR": "Clear form",
+        "CLEAR_TOOLTIP": "Removes all form items",
         "TYPES": {
           "HEADER": "Header",
           "SUBMIT_BUTTON": "Submit button",
@@ -493,7 +495,9 @@
         "PREVIEW_BUTTON": "Preview",
         "DRAG_AND_DROP_INFO": "You can move with table items by dragging and dropping",
         "NO_APPLICATION_FORM": "Application form doesn't exists",
-        "CREATE_APPLICATION_FORM": "Create empty form"
+        "CREATE_APPLICATION_FORM": "Create empty form",
+        "CLEAR": "Clear form",
+        "CLEAR_TOOLTIP": "Removes all form items"
       },
       "NOTIFICATIONS": {
         "TITLE": "Email notifications",
@@ -883,11 +887,14 @@
       "CANCEL_BUTTON": "Cancel",
       "SUBMIT_BUTTON": "Submit",
       "NO_GROUP_SELECTED": "Not selected",
-      "DESCRIPTION": "All form items will be added to yours.",
+      "DESCRIPTION": "All form items from selected Group or VO will be added to yours.",
       "ERROR_INVALID_VO": "Please choose Vo from options",
       "ERROR_NO_VO": "Please choose Vo",
       "ERROR_INVALID_GROUP": "Please choose group from options",
-      "ERROR_NO_GROUP": "Please choose group"
+      "ERROR_NO_GROUP": "Please choose group",
+      "SUCCESS": "Form items copied",
+      "EMPTY": "Selected entity's form has no items",
+      "NO_FORM": "Selected entity has no form"
     },
     "APPLICATION_FORM_ADD_ITEM": {
       "TITLE": "Add form item",

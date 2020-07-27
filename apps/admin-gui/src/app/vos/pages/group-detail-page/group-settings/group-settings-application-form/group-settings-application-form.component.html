@@ -70,6 +70,15 @@
       <i class="material-icons">search</i>
       {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_BUTTON' | translate}}
     </button>
+
+    <button
+      (click)="clear()"
+      class="ml-2"
+      mat-stroked-button
+      matTooltip="{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR_TOOLTIP' | translate}}"
+      matTooltipPosition="above">
+      {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR' | translate}}
+    </button>
   </div>
 
   <app-alert color="info">
