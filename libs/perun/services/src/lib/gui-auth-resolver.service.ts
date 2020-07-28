@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
+import { PerunBean, PerunPolicy, PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class GuiAuthResolver {
   }
 
   private principal: PerunPrincipal;
+  private perunPolicies: PerunPolicy[];
 
   private principalRoles: Set<Role> = new Set<Role>();
 
@@ -26,6 +28,117 @@ export class GuiAuthResolver {
     this.principal = principal;
     this.initData(principal);
   }
+
+  setPerunPolicies(policies: PerunPolicy[]): void {
+    this.perunPolicies =  policies;
+  }
+
+  getPerunPolicies(): PerunPolicy[] {
+    return this.perunPolicies;
+  }
+
+  isAuthorized(policy: string, objects: PerunBean[]): boolean {
+    if (this.principal.roles === null) {
+      return false;
+    }
+
+    const allPolicies: PerunPolicy[] = this.fetchPolicyWithAllIncludedPolicies(policy);
+    let policyRoles: Array<{ [key: string]: string; }> = [];
+    for (const policy of allPolicies) policyRoles = policy.perunRoles;
+
+    //Fetch super objects like Vo for group etc.
+    let mapOfBeans: { [key: string]: number[]; } = this.fetchAllRelatedObjects(objects);
+
+    return this.resolveAuthorization(policyRoles, mapOfBeans);
+  }
+
+  private resolveAuthorization(policyRoles:Array<{ [key: string]: string; }>, mapOfBeans: { [key: string]: number[]; }) : boolean {
+    //Traverse through outer role list which works like logical OR
+    for (const roleArray of policyRoles) {
+      let authorized = true;
+      //Traverse through inner role list which works like logical AND
+      for (const role in roleArray) {
+        const roleObject = roleArray[role];
+        if (roleObject === null) {
+          if (!this.principalRoles.has(role as Role)) authorized = false;
+        } else if (mapOfBeans[roleObject] === null) authorized = false;
+        else {
+          for (const objectId of mapOfBeans[roleObject]) {
+            if (!this.principalHasRole(role, roleObject, objectId)) {
+              authorized = false;
+              break;
+            }
+          }
+        }
+        if (!authorized) break;
+      }
+      if (authorized) return true;
+    }
+    return false;
+  }
+
+  private fetchAllRelatedObjects(objects: PerunBean[]): {[key: string]: number[];} {
+    let relatedObjects: PerunBean[] = [];
+    //Create a map from objects for easier manipulation and duplicity prevention
+    let mapOfBeans: { [key: string]: number[]; } = {};
+    //Map<String, Set<Integer>> mapOfBeans = new HashMap<>();
+
+    for (const object of objects) {
+      relatedObjects.push(object);
+      let retrievedObjects: PerunBean[] = RelatedObjectsResolver.getValue(object.getBeanName()).apply(object);
+      relatedObjects.addAll(retrievedObjects);
+    }
+
+    //Fill map with PerunBean names as keys and a set of unique ids as value for each bean name
+    for (PerunBean object : relatedObjects) {
+      if (!mapOfBeans.containsKey(object.getBeanName())) mapOfBeans.put(object.getBeanName(), new HashSet<>());
+      mapOfBeans.get(object.getBeanName()).add(object.getId());
+    }
+
+    return mapOfBeans;
+  }
+
+  private principalHasRole(role: string, perunBeanName: string, id: number): boolean {
+    let convertedBeanName = perunBeanName;
+    if (perunBeanName.startsWith('Rich')) {
+      convertedBeanName = perunBeanName.substring(5);
+    }
+    return this.principal.roles[role] !== null && this.principal.roles[role][convertedBeanName]
+      && this.principal.roles[role][convertedBeanName].indexOf(id) !== -1;
+  }
+
+  private fetchPolicyWithAllIncludedPolicies(policyName: string): PerunPolicy[] {
+    const allIncludedPolicies: Map<string, PerunPolicy> = new Map();
+    const policiesToCheck: string[] = [];
+    policiesToCheck.push(policyName);
+
+    while (policiesToCheck.length !== 0) {
+      const policy = policiesToCheck.shift();
+      if (allIncludedPolicies.has(policy)) {
+        console.log("Policy {} creates a cycle in the included policies of the policy {}", policy, policyName);
+        continue;
+      }
+      const policyToCheck = this.getPerunPolicy(policy);
+      allIncludedPolicies.set(policy, policyToCheck);
+      policiesToCheck.concat(policyToCheck.includePolicies);
+    }
+
+    let includedPolicies = [];
+    for (const value of allIncludedPolicies.values()) {
+      includedPolicies.push(value);
+    }
+
+    return includedPolicies;
+  }
+
+  private getPerunPolicy(policyName: string): PerunPolicy {
+    for (const policy of this.perunPolicies) {
+      if (policy.policyName === policyName) {
+        return policy;
+      }
+    }
+  }
+
   public canManageFacilities(): boolean {
     return this.hasAtLeasOne(Role.PERUNADMIN, Role.FACILITYADMIN);
   }

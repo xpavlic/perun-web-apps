@@ -13,6 +13,7 @@ import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-groups',
@@ -32,6 +33,7 @@ export class VoGroupsComponent implements OnInit {
     private voService: VosManagerService,
     private route: ActivatedRoute,
     private tableConfigService: TableConfigService,
+    private guiAuthResolver: GuiAuthResolver
   ) { }
 
   @Input()

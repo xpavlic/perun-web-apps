@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  GuiAuthResolver,
   InitAuthService, StoreService
 } from '@perun-web-apps/perun/services';
 import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
@@ -21,7 +22,8 @@ export class AdminGuiConfigService {
     private store: StoreService,
     private authzSevice: AuthzResolverService,
     private dialog: MatDialog,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private guiAuthResolver: GuiAuthResolver
   ) {}
 
   entityColorConfigs: EntityColorConfig[] = [
@@ -93,8 +95,9 @@ export class AdminGuiConfigService {
         if (isAuthenticated !== true) {
           return new Promise<void>(resolve => resolve());
         }
+        this.loadPolicies();
         return this.initAuthService.loadPrincipal();
-      }).catch(err => this.handlePrincipalErr(err));
+      }).catch(err => this.handlePrincipalErr(err))
   }
 
   /**
@@ -119,5 +122,11 @@ export class AdminGuiConfigService {
 
     this.dialog.open(ServerDownDialogComponent, config);
     throw err;
+  }
+
+  private loadPolicies() {
+      this.authzSevice.getAllPolicies().subscribe( policies => {
+        this.guiAuthResolver.setPerunPolicies(policies);
+      });
   }
 }
