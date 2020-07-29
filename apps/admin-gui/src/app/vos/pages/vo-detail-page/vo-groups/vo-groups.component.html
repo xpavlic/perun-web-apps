@@ -1,7 +1,11 @@
 <div>
   <h1 class="page-subtitle">{{'VO_DETAIL.GROUPS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="loadAllGroups()"></perun-web-apps-refresh-button>
-  <button mat-flat-button color="accent" (click)="onCreateGroup()">
+  <button
+    *ngIf="isAuthorized('createGroup_Vo_Group_policy', [vo])"
+    mat-flat-button
+    color="accent"
+    (click)="onCreateGroup()">
     {{'VO_DETAIL.GROUPS.CREATE_GROUP' | translate}}
   </button>
   <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0" (click)="deleteGroup()">

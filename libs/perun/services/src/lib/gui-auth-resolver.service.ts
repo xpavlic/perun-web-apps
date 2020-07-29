@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PerunBean, PerunPolicy, PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -44,10 +43,12 @@ export class GuiAuthResolver {
 
     const allPolicies: PerunPolicy[] = this.fetchPolicyWithAllIncludedPolicies(policy);
     let policyRoles: Array<{ [key: string]: string; }> = [];
-    for (const policy of allPolicies) policyRoles = policy.perunRoles;
+    for (const policyItem of allPolicies) policyRoles = policyItem.perunRoles;
 
     //Fetch super objects like Vo for group etc.
-    let mapOfBeans: { [key: string]: number[]; } = this.fetchAllRelatedObjects(objects);
+    const mapOfBeans: { [key: string]: number[]; } = this.fetchAllRelatedObjects(objects);
+    console.log('this is map of beans');
+    console.log(mapOfBeans);
 
     return this.resolveAuthorization(policyRoles, mapOfBeans);
   }
@@ -77,24 +78,62 @@ export class GuiAuthResolver {
     return false;
   }
 
-  private fetchAllRelatedObjects(objects: PerunBean[]): {[key: string]: number[];} {
-    let relatedObjects: PerunBean[] = [];
-    //Create a map from objects for easier manipulation and duplicity prevention
-    let mapOfBeans: { [key: string]: number[]; } = {};
-    //Map<String, Set<Integer>> mapOfBeans = new HashMap<>();
+  private fetchAllRelatedObjects(objects: any[]): {[key: string]: number[];} {
+    const mapOfBeans: { [key: string]: number[]; } = {};
 
     for (const object of objects) {
-      relatedObjects.push(object);
-      let retrievedObjects: PerunBean[] = RelatedObjectsResolver.getValue(object.getBeanName()).apply(object);
-      relatedObjects.addAll(retrievedObjects);
+      if (!mapOfBeans[object.beanName]) {
+        mapOfBeans[object.beanName] = [object.id];
+      } else {
+        mapOfBeans[object.beanName].push(object.id);
+      }
+      switch (object.beanName) {
+        case 'Member' || 'RichMember': {
+          if (!mapOfBeans['User']) {
+            mapOfBeans['User'] = [object.userId];
+          } else {
+            mapOfBeans['User'].push(object.userId);
+          }
+          if (!mapOfBeans['Vo']) {
+            mapOfBeans['Vo'] = [object.voId];
+          } else {
+            mapOfBeans['Vo'].push(object.voId);
+          }
+          break;
+        }
+        case 'Group' || 'RichGroup': {
+          if (!mapOfBeans['Vo']) {
+            mapOfBeans['Vo'] = [object.voId];
+          } else {
+            mapOfBeans['Vo'].push(object.voId);
+          }
+          break;
+        }
+        case 'Resource' || 'RichResource': {
+          if (!mapOfBeans['Facility']) {
+            mapOfBeans['Facility'] = [object.facilityId];
+          } else {
+            mapOfBeans['Facility'].push(object.facilityId);
+          }
+          if (!mapOfBeans['Vo']) {
+            mapOfBeans['Vo'] = [object.voId];
+          } else {
+            mapOfBeans['Vo'].push(object.voId);
+          }
+          break;
+        }
+        case 'ResourceTag': {
+          if (!mapOfBeans['Vo']) {
+            mapOfBeans['Vo'] = [object.voId];
+          } else {
+            mapOfBeans['Vo'].push(object.voId);
+          }
+          break;
+        }
+        default:
+          break;
+      }
     }
-
-    //Fill map with PerunBean names as keys and a set of unique ids as value for each bean name
-    for (PerunBean object : relatedObjects) {
-      if (!mapOfBeans.containsKey(object.getBeanName())) mapOfBeans.put(object.getBeanName(), new HashSet<>());
-      mapOfBeans.get(object.getBeanName()).add(object.getId());
-    }
-
     return mapOfBeans;
   }
 
@@ -103,13 +142,20 @@ export class GuiAuthResolver {
     if (perunBeanName.startsWith('Rich')) {
       convertedBeanName = perunBeanName.substring(5);
     }
-    return this.principal.roles[role] !== null && this.principal.roles[role][convertedBeanName]
-      && this.principal.roles[role][convertedBeanName].indexOf(id) !== -1;
+    console.log(this.principal.roles[role]);
+    if (this.principal.roles[role]) {
+      console.log(this.principal.roles[role]);
+      if (this.principal.roles[role][convertedBeanName]) {
+        console.log(this.principal.roles[role][convertedBeanName]);
+        return this.principal.roles[role][convertedBeanName].indexOf(id) !== -1;
+      }
+    }
+    return false;
   }
 
   private fetchPolicyWithAllIncludedPolicies(policyName: string): PerunPolicy[] {
     const allIncludedPolicies: Map<string, PerunPolicy> = new Map();
-    const policiesToCheck: string[] = [];
+    let policiesToCheck: string[] = [];
     policiesToCheck.push(policyName);
 
     while (policiesToCheck.length !== 0) {
@@ -120,10 +166,10 @@ export class GuiAuthResolver {
       }
       const policyToCheck = this.getPerunPolicy(policy);
       allIncludedPolicies.set(policy, policyToCheck);
-      policiesToCheck.concat(policyToCheck.includePolicies);
+      //policiesToCheck = policiesToCheck.concat(policyToCheck.includePolicies);
     }
 
-    let includedPolicies = [];
+    const includedPolicies = [];
     for (const value of allIncludedPolicies.values()) {
       includedPolicies.push(value);
     }
