@@ -3,17 +3,17 @@ import { APP_INITIALIZER, forwardRef, NgModule, Provider } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {SharedModule} from './shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { MainMenuPageComponent } from './main-menu-page/main-menu-page.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CoreModule} from './core/core.module';
-import {RouteReuseStrategy} from '@angular/router';
-import {CacheRouteReuseStrategy} from './core/services/common/cache-route-reuse-strategy';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from './core/core.module';
+import { RouteReuseStrategy } from '@angular/router';
+import { CacheRouteReuseStrategy } from './core/services/common/cache-route-reuse-strategy';
 import { MatIconModule } from '@angular/material/icon';
-import {CustomIconService} from '@perun-web-apps/perun/services';
+import { CustomIconService } from '@perun-web-apps/perun/services';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { ApiService } from '@perun-web-apps/perun/services';
 import { AdminGuiConfigService } from './core/services/common/admin-gui-config.service';
@@ -107,8 +107,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       deps: [StoreService]
     },
     {
-    provide: RouteReuseStrategy,
-    useClass: CacheRouteReuseStrategy
+      provide: RouteReuseStrategy,
+      useClass: CacheRouteReuseStrategy
     },
     CustomIconService,
     {
