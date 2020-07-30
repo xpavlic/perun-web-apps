@@ -33,7 +33,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ResourcesListComponent } from './resources-list/resources-list.component';
 import { MenuButtonsFieldComponent } from './menu-buttons-field/menu-buttons-field.component';
-import { MatRippleModule } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MatDateFormats,
+  MatRippleModule,
+  NativeDateAdapter
+} from '@angular/material/core';
 import { AttributeValueListEditDialogComponent } from './attributes-list/attribute-value/attribute-value-list/attribute-value-list-edit-dialog/attribute-value-list-edit-dialog.component';
 import { AttributeValueListDeleteDialogComponent } from './attributes-list/attribute-value/attribute-value-list/attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
@@ -55,7 +61,36 @@ import { GroupSyncDetailDialogComponent } from './group-sync-detail-dialog/group
 import { GroupsTreeComponent } from './groups-tree/groups-tree.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { ServicesStatusListComponent } from './services-status-list/services-status-list.component';
+import { ChangeExpirationDialogComponent } from './change-expiration-dialog/change-expiration-dialog.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
+export class AppDateAdapter extends NativeDateAdapter {
+  format(date: Date, displayFormat: Object): string {
+    if (displayFormat === 'input') {
+      let day: string = date.getDate().toString();
+      day = +day < 10 ? '0' + day : day;
+      let month: string = (date.getMonth() + 1).toString();
+      month = +month < 10 ? '0' + month : month;
+      const year = date.getFullYear();
+      return `${year}-${month}-${day}`;
+    }
+    return date.toDateString();
+  }
+}
+
+export const APP_DATE_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+  },
+  display: {
+    dateInput: 'input',
+    monthYearLabel: { year: 'numeric', month: 'numeric' },
+    dateA11yLabel: {
+      year: 'numeric', month: 'long', day: 'numeric'
+    },
+    monthYearA11yLabel: { year: 'numeric', month: 'long' }
+  }
+};
 
 @NgModule({
   imports: [
@@ -83,7 +118,8 @@ import { ServicesStatusListComponent } from './services-status-list/services-sta
     PerunPipesModule,
     MatDialogModule,
     ClipboardModule,
-    MatTreeModule
+    MatTreeModule,
+    MatDatepickerModule
   ],
   declarations: [
     VoSelectTableComponent,
@@ -117,7 +153,8 @@ import { ServicesStatusListComponent } from './services-status-list/services-sta
     EditGroupDialogComponent,
     GroupSyncDetailDialogComponent,
     GroupsTreeComponent,
-    ServicesStatusListComponent
+    ServicesStatusListComponent,
+    ChangeExpirationDialogComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -146,6 +183,10 @@ import { ServicesStatusListComponent } from './services-status-list/services-sta
     EditGroupDialogComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
   ]
 })
 export class PerunSharedComponentsModule {
