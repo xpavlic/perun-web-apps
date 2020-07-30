@@ -1,0 +1,33 @@
+<div class="member-theme">
+  <h1 mat-dialog-title>{{'TITLE' | translate}}</h1>
+  <div *ngIf="!loading">
+    <div mat-dialog-content>
+      <p><strong>CURRENT EXPIRATION:</strong> {{currentExpiration}}</p>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'CHOOSE A DATE'}}</mat-label>
+        <input (dateChange)="setExpiration()" [formControl]="expirationControl" [matDatepicker]="picker" matInput>
+        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="expirationControl.hasError('matDatepickerParse')">{{'WRONG FORMAT' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <div mat-dialog-actions>
+      <button
+        (click)="onCancel()"
+        class="ml-auto"
+        mat-flat-button>
+        {{'CANCEL' | translate}}
+      </button>
+      <button
+        (click)="onChange()"
+        [disabled]="expirationControl.invalid"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'CHANGE' | translate}}
+      </button>
+    </div>
+  </div>
+
+</div>
