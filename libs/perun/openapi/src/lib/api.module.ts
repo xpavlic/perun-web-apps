@@ -10,6 +10,7 @@ import { CabinetManagerService } from './api/cabinetManager.service';
 import { DatabaseManagerService } from './api/databaseManager.service';
 import { ExtSourcesManagerService } from './api/extSourcesManager.service';
 import { FacilitiesManagerService } from './api/facilitiesManager.service';
+import { FacilitiesManagerByFacilityNameService } from './api/facilitiesManagerByFacilityName.service';
 import { GroupsManagerService } from './api/groupsManager.service';
 import { MembersManagerService } from './api/membersManager.service';
 import { OwnersManagerService } from './api/ownersManager.service';
@@ -34,6 +35,7 @@ import { VosManagerService } from './api/vosManager.service';
     DatabaseManagerService,
     ExtSourcesManagerService,
     FacilitiesManagerService,
+    FacilitiesManagerByFacilityNameService,
     GroupsManagerService,
     MembersManagerService,
     OwnersManagerService,
