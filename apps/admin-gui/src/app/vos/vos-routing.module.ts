@@ -76,6 +76,8 @@ import { ResourceAttributesComponent } from '../facilities/pages/resource-detail
 import { ResourceSettingsManagersComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-managers/resource-settings-managers.component';
 import { ResourceAssignedServicesComponent } from '../facilities/pages/resource-detail-page/resource-assigned-services/resource-assigned-services.component';
 import { ResourceAssignedMembersComponent } from '../facilities/pages/resource-detail-page/resource-assigned-members/resource-assigned-members.component';
+import { VoSettingsSponsoredUserComponent } from './pages/vo-detail-page/vo-settings/vo-settings-sponsored-user/vo-settings-sponsored-user.component';
+import { VoSettingsSponsorsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-sponsors/vo-settings-sponsors.component';
 
 const routes: Routes = [
   {
@@ -185,6 +187,16 @@ const routes: Routes = [
             path: 'extsources',
             component: VoSettingsExtsourcesComponent,
             data: {animation: 'VoSettingsExtSourcesPage'}
+          },
+          {
+            path: 'sponsors',
+            component: VoSettingsSponsorsComponent,
+            data: {animation: 'VoSettingsSponsorsPage'}
+          },
+          {
+            path: 'sponsoredUsers',
+            component: VoSettingsSponsoredUserComponent,
+            data: {animation: 'VoSettingsSponsoredUserPage'}
           }
         ]
       }

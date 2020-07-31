@@ -170,6 +170,8 @@ import { EditApplicationFormItemDataDialogComponent } from './components/dialogs
 import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { CreateAttributeDialogComponent } from './components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
+import { CreateSponsoredUserDialogComponent } from './components/dialogs/create-sponsored-user-dialog/create-sponsored-user-dialog.component';
+import { DeleteSponsoredUserDialogComponent } from './components/dialogs/delete-sponsored-user-dialog/delete-sponsored-user-dialog.component';
 
 @NgModule({
   imports: [
@@ -413,7 +415,10 @@ import { CreateAttributeDialogComponent } from './components/dialogs/create-attr
     EditApplicationFormItemDataDialogComponent,
     CreateServiceDialogComponent,
     UsersListComponent,
-    CreateAttributeDialogComponent
+    CreateAttributeDialogComponent,
+    EditUserDialogComponent,
+    CreateSponsoredUserDialogComponent,
+    DeleteSponsoredUserDialogComponent
   ],
   providers: [
     AnyToStringPipe,

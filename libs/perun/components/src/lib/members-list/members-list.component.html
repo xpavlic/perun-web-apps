@@ -1,4 +1,4 @@
-<div [class.hide-table]="exporting" [hidden]="dataSource.filteredData.length === 0" class="card mt-2">
+<div [class.hide-table]="exporting" [hidden]="this.members.length === 0 || dataSource.filteredData.length === 0" class="card mt-2">
   <div class="card-body table-theme">
     <perun-web-apps-table-options (exportEnd)="exporting = false" (exportStart)="exporting = true" [exporter]="exporter"></perun-web-apps-table-options>
     <div class="overflow-auto">
