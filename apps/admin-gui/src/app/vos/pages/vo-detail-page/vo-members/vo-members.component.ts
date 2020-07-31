@@ -113,8 +113,8 @@ export class VoMembersComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddMemberDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(() => {
-      if (this.firstSearchDone) {
+    dialogRef.afterClosed().subscribe((success) => {
+      if (this.firstSearchDone || success) {
         this.refreshTable();
       }
     });

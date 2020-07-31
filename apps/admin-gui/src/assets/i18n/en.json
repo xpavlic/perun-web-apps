@@ -816,6 +816,7 @@
       "INVITE": "Invite",
       "SUCCESS": "Selected members were added",
       "SUCCESS_INVITE": "Invite was send to given user",
+      "VALIDATION_SUCCESS": "Member validation was successful",
       "NO_USERS_FOUND": "No users found"
     },
     "ADD_GROUPS": {

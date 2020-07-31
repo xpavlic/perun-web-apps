@@ -39,7 +39,7 @@
     </span>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="['/profile']">{{'NAV.PROFILE' | translate}}</button>
+    <button [routerLink]="['/home']" mat-menu-item>{{'NAV.PROFILE' | translate}}</button>
     <button mat-menu-item *ngIf="authResolver.isPerunAdmin()" (click)="reloadRoles()">
       {{'NAV.RELOAD_ROLES' | translate}}
     </button>
