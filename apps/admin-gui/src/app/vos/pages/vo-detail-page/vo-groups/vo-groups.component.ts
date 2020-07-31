@@ -52,7 +52,7 @@ export class VoGroupsComponent implements OnInit {
 
   onCreateGroup() {
     const config = getDefaultDialogConfig();
-    config.width = '350px';
+    config.width = '450px';
     config.data = {voId: this.vo.id, parentGroup: null};
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
