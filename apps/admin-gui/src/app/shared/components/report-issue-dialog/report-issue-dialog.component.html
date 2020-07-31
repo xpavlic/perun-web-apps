@@ -2,25 +2,22 @@
 <div mat-dialog-content class="dialog-container">
   <mat-form-field>
     <mat-label>{{'DIALOGS.REPORT_ISSUE.SUBJECT' | translate}}</mat-label>
-      <input
-        matInput
-        required
-        type="text"
-        [(ngModel)]="subject"
-        #subjectModel=ngModel>
+    <input
+      matInput
+      required
+      type="text"
+      [(ngModel)]="subject"
+      #subjectModel=ngModel>
     <mat-error *ngIf="subjectModel.invalid">{{'DIALOGS.REPORT_ISSUE.SUBJECT_ERROR' | translate}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>{{'DIALOGS.REPORT_ISSUE.MESSAGE' | translate}}</mat-label>
     <textarea
-      #messageModel=ngModel
       matInput
-      required
-      minlength="60"
       placeholder="{{'DIALOGS.REPORT_ISSUE.MESSAGE_PLACEHOLDER' | translate}}"
       [(ngModel)]="message">
     </textarea>
-    <mat-error *ngIf="messageModel.invalid">{{'DIALOGS.REPORT_ISSUE.MESSAGE_ERROR' | translate}}</mat-error>
+    <mat-hint>{{'DIALOGS.REPORT_ISSUE.MESSAGE_HINT' | translate}}</mat-hint>
   </mat-form-field>
 </div>
 
@@ -31,7 +28,7 @@
     </button>
     <button
       (click)="sendBugReport()"
-      [disabled]="messageModel.invalid || subjectModel.invalid"
+      [disabled]="subjectModel.invalid"
       class="ml-2"
       mat-flat-button
       color="accent">

@@ -693,8 +693,8 @@
       "SUBJECT": "Subject",
       "SUBJECT_ERROR": "Subject cannot be empty.",
       "MESSAGE": "Message",
-      "MESSAGE_PLACEHOLDER": "You can describe an issue. (Minimal length is 60 characters)",
-      "MESSAGE_ERROR": "Minimal length is 60.",
+      "MESSAGE_PLACEHOLDER": "Please describe the issue",
+      "MESSAGE_HINT": "Please try to describe in detail the problem.",
       "CANCEL": "Cancel",
       "SEND": "Send",
       "SUCCESS": "Bug report send"
