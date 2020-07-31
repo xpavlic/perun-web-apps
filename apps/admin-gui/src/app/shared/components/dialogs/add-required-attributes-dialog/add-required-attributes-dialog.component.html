@@ -1,0 +1,34 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.TITLE' | translate}}</h1>
+  <div mat-dialog-content class="dialog-container">
+    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <perun-web-apps-immediate-filter
+      *ngIf="!loading"
+      (filter)="applyFilter($event)"
+      [placeholder]="'DIALOGS.ADD_REQUIRED_ATTRIBUTES.FILTER'">
+    </perun-web-apps-immediate-filter>
+    <app-attr-def-list
+      *ngIf="!loading"
+      [selection]="selection"
+      [definitions]="attrDefinitions"
+      [disableRouting]="true"
+      [filterValue]="filterValue">
+    </app-attr-def-list>
+  </div>
+  <div mat-dialog-actions *ngIf="!loading">
+    <button
+      mat-flat-button
+      class="ml-auto"
+      (click)="onCancel()">
+      {{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.CANCEL' | translate}}
+    </button>
+    <button
+      mat-flat-button
+      class="ml-2"
+      color="accent"
+      [disabled]="selection.selected.length === 0"
+      (click)="onAdd()">
+      {{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.ADD' | translate}}
+    </button>
+  </div>
+</div>

@@ -97,7 +97,10 @@
 
           <div class="mt-4">
             <p>{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SERVICES' | translate}}</p>
-            <app-services-list [services]="this.services" [hideColumns]="['select', 'description']">
+            <app-services-list
+              [services]="this.services"
+              [hideColumns]="['select', 'description']"
+              [disableRouting]="true">
             </app-services-list>
           </div>
 

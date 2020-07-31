@@ -61,6 +61,11 @@ export class AdminGuiConfigService {
       entity: 'admin',
       configValue: 'admin_color',
       cssVariable: '--admin-color'
+    },
+    {
+      entity: 'service',
+      configValue: 'service_color',
+      cssVariable: '--service-color'
     }
   ];
 

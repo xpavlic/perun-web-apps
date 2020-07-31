@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateServiceDialogComponent } from './create-service-dialog.component';
+import { CreateEditServiceDialogComponent } from './create-edit-service-dialog.component';
 
 describe('CreateServiceDialogComponent', () => {
-  let component: CreateServiceDialogComponent;
-  let fixture: ComponentFixture<CreateServiceDialogComponent>;
+  let component: CreateEditServiceDialogComponent;
+  let fixture: ComponentFixture<CreateEditServiceDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateServiceDialogComponent ]
+      declarations: [ CreateEditServiceDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateServiceDialogComponent);
+    fixture = TestBed.createComponent(CreateEditServiceDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -32,7 +32,9 @@ import { UserIdentitiesComponent } from '../shared/components/user-detail-page/u
 import { AdminServicesComponent } from './pages/admin-page/admin-services/admin-services.component';
 import { UserResourcesComponent } from '../shared/components/user-detail-page/user-resources/user-resources.component';
 import { IdentityDetailComponent } from '../shared/components/identity-detail/identity-detail.component';
-
+import { ServiceDetailPageComponent } from './pages/admin-page/admin-services/service-detail-page/service-detail-page.component';
+import { ServiceOverviewComponent } from './pages/admin-page/admin-services/service-detail-page/service-overview/service-overview.component';
+import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-services/service-detail-page/service-required-attributes/service-required-attributes.component';
 const routes: Routes = [
   {
     path: '',
@@ -155,6 +157,22 @@ const routes: Routes = [
             data: {animation: 'UserServiceIdentities'}
           }
         ]
+      }
+    ]
+  },
+  {
+    path: 'services/:serviceId',
+    component: ServiceDetailPageComponent,
+    children: [
+      {
+        path: '',
+        component: ServiceOverviewComponent,
+        data: {animation: 'ServiceOverviewPage'}
+      },
+      {
+        path: 'required-attributes',
+        component: ServiceRequiredAttributesComponent,
+        data: {animation: 'ServiceRequiredAttributesPage'}
       }
     ]
   },

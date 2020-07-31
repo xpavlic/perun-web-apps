@@ -7,7 +7,6 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AdminOverviewComponent } from './pages/admin-page/admin-overview/admin-overview.component';
 import { AdminAttributesComponent } from './pages/admin-page/admin-attributes/admin-attributes.component';
-import { AttrDefListComponent } from './components/attr-def-list/attr-def-list.component';
 import { AdminVisualizerComponent } from './pages/admin-page/admin-visualizer/admin-visualizer.component';
 import {
   VisualizerAttrModulesComponent
@@ -27,13 +26,15 @@ import { AdminExtSourcesComponent } from './pages/admin-page/admin-ext-sources/a
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
 import { AdminServicesComponent } from './pages/admin-page/admin-services/admin-services.component';
+import { ServiceDetailPageComponent } from './pages/admin-page/admin-services/service-detail-page/service-detail-page.component';
+import { ServiceOverviewComponent } from './pages/admin-page/admin-services/service-detail-page/service-overview/service-overview.component';
+import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-services/service-detail-page/service-required-attributes/service-required-attributes.component';
 
 @NgModule({
   declarations: [
     AdminPageComponent,
     AdminOverviewComponent,
     AdminAttributesComponent,
-    AttrDefListComponent,
     AdminVisualizerComponent,
     VisualizerAttrModulesComponent,
     VisualizerOverviewComponent,
@@ -42,7 +43,10 @@ import { AdminServicesComponent } from './pages/admin-page/admin-services/admin-
     AdminUsersComponent,
     AdminUserDetailPageComponent,
     AdminExtSourcesComponent,
-    AdminServicesComponent
+    AdminServicesComponent,
+    ServiceDetailPageComponent,
+    ServiceOverviewComponent,
+    ServiceRequiredAttributesComponent
   ],
   imports: [
     NgxGraphModule,
