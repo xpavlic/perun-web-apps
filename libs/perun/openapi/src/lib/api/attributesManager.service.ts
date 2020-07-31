@@ -1026,6 +1026,70 @@ export class AttributesManagerService {
     }
 
     /**
+     * Get entityless attributes mapped by their keys.
+     * @param attrName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+     * @param keys key for entityless attribute
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getEntitylessAttributesWithKeys(attrName: string, keys?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: Attribute; }>;
+    public getEntitylessAttributesWithKeys(attrName: string, keys?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: Attribute; }>>;
+    public getEntitylessAttributesWithKeys(attrName: string, keys?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: Attribute; }>>;
+    public getEntitylessAttributesWithKeys(attrName: string, keys?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (attrName === null || attrName === undefined) {
+            throw new Error('Required parameter attrName was null or undefined when calling getEntitylessAttributesWithKeys.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (attrName !== undefined && attrName !== null) {
+            queryParameters = queryParameters.set('attrName', <any>attrName);
+        }
+        if (keys) {
+            keys.forEach((element) => {
+                queryParameters = queryParameters.append('keys[]', <any>element);
+            })
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<{ [key: string]: Attribute; }>(`${this.configuration.basePath}/json/attributesManager/getEntitylessAttributesWithKeys`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Returns list of Keys which fits the attributeDefinition.
      * @param attributeDefinition id of AttributeDefinition
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -3383,6 +3447,64 @@ export class AttributesManagerService {
 
 
         return this.httpClient.get<Array<Attribute>>(`${this.configuration.basePath}/json/attributesManager/getAttributes/m-r`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Returns required attributes definition for a Service.
+     * @param service id of Service
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getRequiredAttributesDefinition(service: number, observe?: 'body', reportProgress?: boolean): Observable<Array<AttributeDefinition>>;
+    public getRequiredAttributesDefinition(service: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AttributeDefinition>>>;
+    public getRequiredAttributesDefinition(service: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AttributeDefinition>>>;
+    public getRequiredAttributesDefinition(service: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (service === null || service === undefined) {
+            throw new Error('Required parameter service was null or undefined when calling getRequiredAttributesDefinition.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (service !== undefined && service !== null) {
+            queryParameters = queryParameters.set('service', <any>service);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<AttributeDefinition>>(`${this.configuration.basePath}/json/attributesManager/getRequiredAttributesDefinition`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
