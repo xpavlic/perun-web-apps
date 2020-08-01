@@ -42,8 +42,14 @@ export class GuiAuthResolver {
     }
 
     const allPolicies: PerunPolicy[] = this.fetchPolicyWithAllIncludedPolicies(policy);
+    console.log('all policies');
+    console.log(allPolicies);
     let policyRoles: Array<{ [key: string]: string; }> = [];
-    for (const policyItem of allPolicies) policyRoles = policyItem.perunRoles;
+    for (const policyItem of allPolicies){
+      policyRoles = policyRoles.concat(policyItem.perunRoles);
+    }
+    console.log('pollicy roles');
+    console.log(policyRoles);
 
     //Fetch super objects like Vo for group etc.
     const mapOfBeans: { [key: string]: number[]; } = this.fetchAllRelatedObjects(objects);
@@ -166,7 +172,7 @@ export class GuiAuthResolver {
       }
       const policyToCheck = this.getPerunPolicy(policy);
       allIncludedPolicies.set(policy, policyToCheck);
-      //policiesToCheck = policiesToCheck.concat(policyToCheck.includePolicies);
+      policiesToCheck = policiesToCheck.concat(policyToCheck.includePolicies);
     }
 
     const includedPolicies = [];

@@ -8,7 +8,13 @@
     (click)="onCreateGroup()">
     {{'VO_DETAIL.GROUPS.CREATE_GROUP' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0" (click)="deleteGroup()">
+  <button
+    *ngIf="isAuthorized('createGroup_Vo_Group_policy', [vo])"
+    mat-flat-button
+    color="warn"
+    class="ml-2"
+    [disabled]="selected.selected.length === 0"
+    (click)="deleteGroup()">
     {{'VO_DETAIL.GROUPS.DELETE_GROUP' | translate}}
   </button>
   <app-debounce-filter
