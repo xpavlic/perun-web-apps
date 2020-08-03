@@ -68,8 +68,9 @@ export class GuiAuthResolver {
         const roleObject = roleArray[role];
         if (roleObject === null) {
           if (!this.principalRoles.has(role as Role)) authorized = false;
-        } else if (mapOfBeans[roleObject] === null) authorized = false;
+        } else if (!mapOfBeans[roleObject]) authorized = false;
         else {
+          console.log(roleObject);
           for (const objectId of mapOfBeans[roleObject]) {
             if (!this.principalHasRole(role, roleObject, objectId)) {
               authorized = false;
@@ -88,10 +89,14 @@ export class GuiAuthResolver {
     const mapOfBeans: { [key: string]: number[]; } = {};
 
     for (const object of objects) {
-      if (!mapOfBeans[object.beanName]) {
-        mapOfBeans[object.beanName] = [object.id];
+      let convertedBeanName = object.beanName;
+      if (object.beanName.startsWith('Rich')) {
+        convertedBeanName = object.beanName.substring(4);
+      }
+      if (!mapOfBeans[convertedBeanName]) {
+        mapOfBeans[convertedBeanName] = [object.id];
       } else {
-        mapOfBeans[object.beanName].push(object.id);
+        mapOfBeans[convertedBeanName].push(object.id);
       }
       switch (object.beanName) {
         case 'Member' || 'RichMember': {
@@ -146,7 +151,7 @@ export class GuiAuthResolver {
   private principalHasRole(role: string, perunBeanName: string, id: number): boolean {
     let convertedBeanName = perunBeanName;
     if (perunBeanName.startsWith('Rich')) {
-      convertedBeanName = perunBeanName.substring(5);
+      convertedBeanName = perunBeanName.substring(4);
     }
     console.log(this.principal.roles[role]);
     if (this.principal.roles[role]) {
@@ -171,6 +176,7 @@ export class GuiAuthResolver {
         continue;
       }
       const policyToCheck = this.getPerunPolicy(policy);
+      if (!policyToCheck) return [];
       allIncludedPolicies.set(policy, policyToCheck);
       policiesToCheck = policiesToCheck.concat(policyToCheck.includePolicies);
     }
@@ -189,6 +195,8 @@ export class GuiAuthResolver {
         return policy;
       }
     }
+    console.log('policy with name' + policyName + 'was not found');
+    return null;
   }
 
   public canManageFacilities(): boolean {
@@ -233,6 +241,10 @@ export class GuiAuthResolver {
 
   public isResourceAdmin(): boolean {
     return this.hasAtLeasOne(Role.PERUNADMIN, Role.RESOURCEADMIN);
+  }
+
+  public isTopGroupCreator(): boolean {
+    return this.hasAtLeasOne(Role.PERUNADMIN, Role.TOPGROUPCREATOR);
   }
 
   isVoObserver(): boolean {

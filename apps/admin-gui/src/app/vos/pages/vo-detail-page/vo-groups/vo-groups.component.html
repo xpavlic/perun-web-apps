@@ -2,14 +2,13 @@
   <h1 class="page-subtitle">{{'VO_DETAIL.GROUPS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="loadAllGroups()"></perun-web-apps-refresh-button>
   <button
-    *ngIf="isAuthorized('createGroup_Vo_Group_policy', [vo])"
+    *ngIf="!loading && guiAuthResolver.isAuthorized('createGroup_Vo_Group_policy', [vo])"
     mat-flat-button
     color="accent"
     (click)="onCreateGroup()">
     {{'VO_DETAIL.GROUPS.CREATE_GROUP' | translate}}
   </button>
   <button
-    *ngIf="isAuthorized('createGroup_Vo_Group_policy', [vo])"
     mat-flat-button
     color="warn"
     class="ml-2"
@@ -41,6 +40,7 @@
       [selection]="selected"
       [disableMembers]="true"
       [hideColumns]="['vo']"
+      [disableRouting]="!guiAuthResolver.isAuthorized('getGroupById_int_policy', [vo, groups[0]])"
       *ngIf="showGroupList">
     </perun-web-apps-groups-list>
   </div>

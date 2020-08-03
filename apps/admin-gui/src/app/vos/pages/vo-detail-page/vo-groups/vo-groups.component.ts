@@ -40,7 +40,7 @@ export class VoGroupsComponent implements OnInit {
     private voService: VosManagerService,
     private route: ActivatedRoute,
     private tableConfigService: TableConfigService,
-    private guiAuthResolver: GuiAuthResolver
+    public guiAuthResolver: GuiAuthResolver
   ) { }
 
   vo: Vo;
@@ -159,12 +159,5 @@ export class VoGroupsComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
-  isAuthorized(policy: string, objects: PerunBean[]): boolean {
-    if (this.loading) {
-      return false;
-    }
-    return this.guiAuthResolver.isAuthorized(policy, objects);
   }
 }
