@@ -41,11 +41,13 @@ export class PerunNavComponent implements OnInit, AfterViewInit {
   principal: PerunPrincipal;
   logo: any;
   logoPadding = this.storeService.get('logo_padding');
+  isDevel = false;
 
   ngAfterViewInit(): void {
   }
 
   ngOnInit(): void {
+    this.isDevel = this.storeService.get('isDevel');
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.store.get('logo'));
     this.logoutEnabled = this.storeService.get('log_out_enabled');
   }
