@@ -37,4 +37,11 @@ export class AdminUserDetailPageComponent implements OnInit {
       });
     });
   }
+
+  getUserType(){
+    if (this.user.serviceUser){
+      return "Service";
+    }
+    return "Person";
+  }
 }

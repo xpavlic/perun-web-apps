@@ -608,6 +608,9 @@ button:focus {
 .member-text {
   color: var(--member-color) !important;
 }
+.user-text {
+  color: var(--user-color) !important;
+}
 
 .router-component {
   padding-bottom: 5rem;
@@ -1226,4 +1229,8 @@ th, td {
 
 .overflow-ellipsis {
   text-overflow: ellipsis;
+}
+
+.entity-info{
+  font-size: medium;
 }

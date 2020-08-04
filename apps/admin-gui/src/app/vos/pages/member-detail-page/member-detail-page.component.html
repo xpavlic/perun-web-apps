@@ -9,6 +9,13 @@
     <span class="text-muted">
       &nbsp;#{{member.id}}
     </span>
+    <br>
+    <span class="text-muted mt-1 entity-info">
+      {{'MEMBER_DETAIL.USER_ID' | translate}}:
+      <a class="member-link" [routerLink]="['/admin', 'users', member.userId]">
+        {{member.userId}}
+      </a>
+    </span>
   </h1>
   <div class="mb-5">
 <!--    TODO add link to user for admin view-->

@@ -77,6 +77,7 @@
   },
   "FACILITY_DETAIL": {
     "TITLE": "Facility - ",
+    "DESCRIPTION": "Description",
     "BACK": "Back",
     "RESOURCES": {
       "TITLE": "Resources",
@@ -165,6 +166,9 @@
   },
   "RESOURCE_DETAIL": {
     "TITLE": "Resource - ",
+    "DESCRIPTION": "Description",
+    "VO": "Vo",
+    "FACILITY": "Facility",
     "ASSIGNED_GROUPS": {
       "TITLE": "Assigned groups",
       "ADD_GROUP": "Add..",
@@ -247,7 +251,8 @@
       "LIST_MEMBERS": "List members",
       "SEARCH_ALERT": "You can search member by name, login and email. Also, you can list all valid members.",
       "NO_MEMBERS_ALERT": "No members found.",
-      "STATUS": "Status"
+      "STATUS": "Status",
+      "INVITE": "Invite"
     },
     "OVERVIEW": {
       "INVITE_MEMBER": "Invite member",
@@ -433,6 +438,7 @@
   },
   "GROUP_DETAIL": {
     "TITLE": "Group - ",
+    "DESCRIPTION": "Description",
     "SUBGROUPS": {
       "TITLE": "Subgroups",
       "CREATE_GROUP": "Create subgroup",
@@ -520,6 +526,7 @@
   },
   "MEMBER_DETAIL": {
     "TITLE": "Member - ",
+    "USER_ID": "User ID",
     "USER_LINK": "See user detail",
     "OVERVIEW": {
       "NEVER_EXPIRES": "never",
@@ -687,8 +694,8 @@
       "SUBJECT": "Subject",
       "SUBJECT_ERROR": "Subject cannot be empty.",
       "MESSAGE": "Message",
-      "MESSAGE_PLACEHOLDER": "You can describe an issue. (Minimal length is 60 characters)",
-      "MESSAGE_ERROR": "Minimal length is 60.",
+      "MESSAGE_PLACEHOLDER": "Please describe the issue",
+      "MESSAGE_HINT": "Please try to describe in detail the problem.",
       "CANCEL": "Cancel",
       "SEND": "Send",
       "SUCCESS": "Bug report send"
@@ -738,7 +745,7 @@
     },
     "INVITE_MEMBER": {
       "TITLE": "Invite member",
-      "DESCRIPTION": "The person you are inviting will receive an email with a link to VOs application form. You can set up an email template in: Vo manager (advanced) -> Application form -> Notifications.",
+      "DESCRIPTION": "The person you are inviting will receive an email with a link to VOs application form. You can set up an email template in: (Vo) Settings -> Notifications.",
       "INVITE": "Invite",
       "CANCEL": "Cancel",
       "NAME": "Name",
@@ -810,6 +817,7 @@
       "INVITE": "Invite",
       "SUCCESS": "Selected members were added",
       "SUCCESS_INVITE": "Invite was send to given user",
+      "VALIDATION_SUCCESS": "Member validation was successful",
       "NO_USERS_FOUND": "No users found"
     },
     "ADD_GROUPS": {
@@ -1363,7 +1371,8 @@
     "SERVICE": "Service"
   },
   "ADMIN_USER": {
-    "TITLE": "User - "
+    "TITLE": "User - ",
+    "USER_TYPE": "User type"
   },
   "ADMIN": {
     "TITLE": "Perun admin",

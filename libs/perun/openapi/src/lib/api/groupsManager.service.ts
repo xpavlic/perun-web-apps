@@ -53,6 +53,74 @@ export class GroupsManagerService {
 
 
     /**
+     * Add member to groups. If already a member of a group, the group will be skipped.
+     * @param groups list of Group ids List&lt;Integer&gt;
+     * @param member id of Member
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addMember(groups: Array<number>, member: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addMember(groups: Array<number>, member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addMember(groups: Array<number>, member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addMember(groups: Array<number>, member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (groups === null || groups === undefined) {
+            throw new Error('Required parameter groups was null or undefined when calling addMember.');
+        }
+        if (member === null || member === undefined) {
+            throw new Error('Required parameter member was null or undefined when calling addMember.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (groups) {
+            groups.forEach((element) => {
+                queryParameters = queryParameters.append('groups[]', <any>element);
+            })
+        }
+        if (member !== undefined && member !== null) {
+            queryParameters = queryParameters.set('member', <any>member);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/addMember`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Adds members to a group. If already a member of the group, the member will be skipped. Non-empty list of members expected, if empty, no member will be added.
      * @param group id of Group
      * @param members id of Member
@@ -1322,6 +1390,74 @@ export class GroupsManagerService {
 
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/removeGroupUnion`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Removes member from a groups. If a member is not in the group or is indirect, it is skipped without a warning, but the rest of groups are processed.
+     * @param groups list of Group ids List&lt;Integer&gt;
+     * @param member id of Member
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeMember(groups: Array<number>, member: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeMember(groups: Array<number>, member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeMember(groups: Array<number>, member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeMember(groups: Array<number>, member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (groups === null || groups === undefined) {
+            throw new Error('Required parameter groups was null or undefined when calling removeMember.');
+        }
+        if (member === null || member === undefined) {
+            throw new Error('Required parameter member was null or undefined when calling removeMember.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (groups) {
+            groups.forEach((element) => {
+                queryParameters = queryParameters.append('groups[]', <any>element);
+            })
+        }
+        if (member !== undefined && member !== null) {
+            queryParameters = queryParameters.set('member', <any>member);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/removeMember`,
             null,
             {
                 params: queryParameters,

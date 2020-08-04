@@ -5,8 +5,8 @@ import { SideMenuService } from '../../../core/services/common/side-menu.service
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import {
   FacilitiesManagerService,
-  Resource,
   ResourcesManagerService,
+  RichResource,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
 
@@ -29,13 +29,13 @@ export class ResourceDetailPageComponent implements OnInit {
     private sideMenuItemService: SideMenuItemService
   ) { }
 
-  resource: Resource;
+  resource: RichResource;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const resourceId = params['resourceId'];
 
-      this.resourcesManager.getResourceById(resourceId).subscribe(resource => {
+      this.resourcesManager.getRichResourceById(resourceId).subscribe(resource => {
         this.resource = resource;
 
         if (this.route.parent.snapshot.url[0].path === 'facilities') {

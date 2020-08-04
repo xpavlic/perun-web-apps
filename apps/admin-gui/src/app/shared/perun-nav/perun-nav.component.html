@@ -16,6 +16,18 @@
   </a>
 </div>
 
+<div id="nav-devel-info" *ngIf="isDevel">
+  <span class="text-warning">
+    ~ 🗲&nbsp;
+  </span>
+  <span class="text-danger">
+    DEVEL
+  </span>
+  <span class="text-warning">
+    &nbsp;🗲 ~
+  </span>
+</div>
+
 <div id="nav-menu-user-info" [ngStyle]="{'color': navTextColor}">
   <button mat-icon-button (click)="showNotificationHistory()" [matTooltip]="'NAV.NOTIFICATIONS_TOOLTIP'|translate">
     <mat-icon [ngStyle]="{'color': iconColor}"
@@ -39,7 +51,7 @@
     </span>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="['/profile']">{{'NAV.PROFILE' | translate}}</button>
+    <button [routerLink]="['/home']" mat-menu-item>{{'NAV.PROFILE' | translate}}</button>
     <button mat-menu-item *ngIf="authResolver.isPerunAdmin()" (click)="reloadRoles()">
       {{'NAV.RELOAD_ROLES' | translate}}
     </button>

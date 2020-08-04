@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { RtMessagesService } from '@perun-web-apps/perun/services';
+import { version } from '../../../../../../../package.json';
 
 @Component({
   selector: 'app-perun-web-apps-report-issue-dialog',
@@ -34,12 +35,9 @@ export class ReportIssueDialogComponent implements OnInit {
   getFullEmailBody(): string {
     return this.message + '\n' +
       '------------------------\n' +
-
       // TODO add instance
       'Perun instance: GENERIC\n' +
-
-      // TODO add version
-      'NEW GUI';
+      'Sended from new gui version:' + version;
 
   }
 

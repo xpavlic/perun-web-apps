@@ -75,11 +75,6 @@ const routes: Routes = [
             data: {animation: 'UserSettingsFacilityAttributesPage', showPrincipal: true}
           },
           {
-            path: 'roles',
-            component: UserRolesComponent,
-            data: { animation: 'UserRolesPage' }
-          },
-          {
             path: 'passwordReset',
             component: PasswordResetComponent,
             data: { animation: 'PasswordResetPage' }

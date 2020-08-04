@@ -8,7 +8,7 @@ import { MembersService } from '@perun-web-apps/perun/services';
 import {
   Group,
   GroupsManagerService,
-  MemberCandidate,
+  MemberCandidate, MembersManagerService,
   RegistrarManagerService,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
@@ -39,6 +39,7 @@ export class AddMemberDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddMemberDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddMemberDialogData,
     private memberService: MembersService,
+    private membersManagerService: MembersManagerService,
     private groupService: GroupsManagerService,
     private voService: VosManagerService,
     private registrarManager: RegistrarManagerService,
@@ -49,15 +50,10 @@ export class AddMemberDialogComponent implements OnInit {
     protected router: Router
   ) {
     translate.get('DIALOGS.ADD_MEMBERS.TITLE').subscribe(value => this.title = value);
-    translate.get('DIALOGS.ADD_MEMBERS.SUCCESS').subscribe(value => this.successMessage = value);
-    translate.get('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE').subscribe(value => this.successInviteMessage = value);
-
   }
 
   title: string;
   searchString = '';
-  successMessage: string;
-  successInviteMessage: string;
 
   selection = new SelectionModel<MemberCandidate>(false, []);
   loading: boolean;
@@ -71,7 +67,7 @@ export class AddMemberDialogComponent implements OnInit {
   tableId = TABLE_ADD_MEMBER_CANDIDATES_DIALOG;
 
   onCancel(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   onAdd(): void {
@@ -88,11 +84,9 @@ export class AddMemberDialogComponent implements OnInit {
     } else if (this.data.type === 'group') {
       if (!!selectedMemberCandidate.member) {
         this.addMemberToGroup(selectedMemberCandidate);
-      }
-      else if (!!selectedMemberCandidate.richUser) {
+      } else if (!!selectedMemberCandidate.richUser) {
         this.addUserToGroup(selectedMemberCandidate);
-      }
-      else if (!!selectedMemberCandidate.candidate) {
+      } else if (!!selectedMemberCandidate.candidate) {
         this.addCandidateToGroup(selectedMemberCandidate);
       }
     }
@@ -116,13 +110,13 @@ export class AddMemberDialogComponent implements OnInit {
         this.registrarManager.sendInvitation(
           // TODO allow to choose language
           getCandidateEmail(this.selection.selected[0].candidate), 'en', this.data.voId).subscribe(() => {
-            this.onInviteSuccess();
+          this.onInviteSuccess();
         });
       } else if (this.data.type === 'group') {
-          // TODO allow to choose language
+        // TODO allow to choose language
         this.registrarManager.sendInvitationForGroup(getCandidateEmail(this.selection.selected[0].candidate), 'en',
-          this.data.voId, this.data.group.id).subscribe( () => {
-            this.onInviteSuccess();
+          this.data.voId, this.data.group.id).subscribe(() => {
+          this.onInviteSuccess();
         });
       }
     }
@@ -138,75 +132,96 @@ export class AddMemberDialogComponent implements OnInit {
     if (this.data.type === 'vo') {
       this.voService.getCompleteCandidatesForVo(this.data.entityId,
         [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL],
-        this.searchString).subscribe( members => {
-          this.members = members;
-          this.loading = false;
-          this.firstSearchDone = true;
-      }, () => this.loading = false)
-    } else {
-      this.voService.getCompleteCandidatesForGroup(this.data.entityId,
-        [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL],
-        this.searchString).subscribe( members => {
+        this.searchString).subscribe(members => {
         this.members = members;
         this.loading = false;
         this.firstSearchDone = true;
-      }, () => this.loading = false)
+      }, () => this.loading = false);
+    } else {
+      this.voService.getCompleteCandidatesForGroup(this.data.entityId,
+        [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL],
+        this.searchString).subscribe(members => {
+        this.members = members;
+        this.loading = false;
+        this.firstSearchDone = true;
+      }, () => this.loading = false);
     }
   }
 
   ngOnInit(): void {
-    this.pageSize  = this.tableConfigService.getTablePageSize(this.tableId);
+    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
   }
 
   private addUserToVo(selectedMemberCandidate: MemberCandidate) {
-    this.memberService.createMember(this.data.entityId, selectedMemberCandidate.richUser.id).subscribe(() => {
+    this.memberService.createMember(this.data.entityId, selectedMemberCandidate.richUser.id).subscribe(member => {
       this.onAddSuccess();
+      this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
+        this.onValidateSuccess();
+      }, () => this.onCancel());
     }, () => this.onError());
   }
 
   private addCandidateToVo(selectedMemberCandidate: MemberCandidate) {
     this.memberService.createMemberForCandidate(
-      this.data.entityId, selectedMemberCandidate.candidate).subscribe(() => {
+      this.data.entityId, selectedMemberCandidate.candidate).subscribe(member => {
       this.onAddSuccess();
+      this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
+        this.onValidateSuccess();
+      }, () => this.onCancel());
     }, () => this.onError());
   }
 
   private addUserToGroup(selectedMemberCandidate: MemberCandidate) {
     this.memberService.createMemberWithGroups(
-      this.data.voId, selectedMemberCandidate.richUser.id, [this.data.group]).subscribe(() => {
+      this.data.voId, selectedMemberCandidate.richUser.id, [this.data.group]).subscribe(member => {
       this.onAddSuccess();
+      this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
+        this.onValidateSuccess();
+      }, () => this.onCancel());
     }, () => this.onError());
   }
 
   private addMemberToGroup(selectedMemberCandidate: MemberCandidate) {
     this.groupService.addMembers(this.data.entityId, [selectedMemberCandidate.member.id]).subscribe(() => {
       this.onAddSuccess();
+      this.membersManagerService.validateMemberAsync(selectedMemberCandidate.member.id).subscribe(() => {
+        this.onValidateSuccess();
+      }, () => this.onCancel());
     }, () => this.onError());
   }
 
   private addCandidateToGroup(selectedMemberCandidate: MemberCandidate) {
     this.memberService.createMemberForCandidateWithGroups(
-      this.data.voId, selectedMemberCandidate.candidate, [this.data.group]).subscribe(() => {
+      this.data.voId, selectedMemberCandidate.candidate, [this.data.group]).subscribe(member => {
       this.onAddSuccess();
+      this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
+        this.onValidateSuccess();
+      }, () => this.onCancel());
     }, () => this.onError());
   }
 
   private onAddSuccess() {
-    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS').subscribe(() => {
-      this.notificator.showSuccess(this.successMessage);
-      this.dialogRef.close();
+    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS').subscribe(msg => {
+      this.notificator.showSuccess(msg);
     });
   }
 
   private onError() {
-      this.processing = false;
+    this.processing = false;
   }
 
   private onInviteSuccess() {
-    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE').subscribe(() => {
-      this.notificator.showSuccess(this.successInviteMessage);
-      this.dialogRef.close();
+    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE').subscribe(msg => {
+      this.notificator.showSuccess(msg);
+      this.dialogRef.close(true);
+    });
+  }
+
+  private onValidateSuccess() {
+    this.translate.get('DIALOGS.ADD_MEMBERS.VALIDATION_SUCCESS').subscribe(msg => {
+      this.notificator.showSuccess(msg);
+      this.dialogRef.close(true);
     });
   }
 

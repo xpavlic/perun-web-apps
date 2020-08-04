@@ -1,6 +1,7 @@
 {
   "config": "default",
   "api_url": "http://localhost/krb/rpc",
+  "isDevel": false,
 
   "oidc_client" : {
     "oauth_authority": "https://login.cesnet.cz/oidc/",
@@ -10,7 +11,8 @@
     "oauth_redirect_uri": "http://gui-dev.org/api-callback",
     "oauth_silent_redirect_uri": "http://gui-dev.org/silent-refresh.html",
     "oauth_load_user_info": false,
-    "oauth_scopes": "openid profile perun_api perun_admin"
+    "oauth_scopes": "openid profile perun_api perun_admin",
+    "oauth_response_type": "id_token token"
   },
   "login_namespace_attributes": [
     "urn:perun:user:attribute-def:def:login-namespace:einfra",
@@ -26,6 +28,8 @@
   ],
   "pwd_reset_base_url": "https://perun-dev.cesnet.cz/fed/pwd-reset/",
   "skip_oidc": false,
+  "groupNameSecondaryRegex": "^[-a-zA-Z.0-9_ ]+$",
+  "groupNameErrorMessage": "Name cannot be empty and can contain only characters a-z, A-Z, numbers, spaces, dots, '_' and '-'",
   "footer_perun_web_web": "https://perun-aai.org/",
   "footer_perun_team_web": "https://perun-aai.org/team",
   "footer_privacy_policy_web": "https://perun-aai.org/",

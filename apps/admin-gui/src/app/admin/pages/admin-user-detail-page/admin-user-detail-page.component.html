@@ -9,6 +9,13 @@
     <span class="text-muted">
       &nbsp;#{{user.id}}
     </span>
+    <br>
+    <span class="text-muted mt-1 entity-info">
+      {{'ADMIN_USER.USER_TYPE' | translate}}:
+      <span class="user-text">
+        {{getUserType()}}
+      </span>
+    </span>
   </h1>
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>
