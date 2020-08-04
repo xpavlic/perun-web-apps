@@ -1223,7 +1223,7 @@ button:focus {
   word-break: break-all;
 }
 
-th, td {
+th[role=gridcell], td[role=gridcell] {
   padding: 0.25rem !important;
 }
 

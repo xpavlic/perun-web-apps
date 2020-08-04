@@ -33,7 +33,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ResourcesListComponent } from './resources-list/resources-list.component';
 import { MenuButtonsFieldComponent } from './menu-buttons-field/menu-buttons-field.component';
-import { MatRippleModule } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MatDateFormats,
+  MatRippleModule,
+  NativeDateAdapter
+} from '@angular/material/core';
 import { AttributeValueListEditDialogComponent } from './attributes-list/attribute-value/attribute-value-list/attribute-value-list-edit-dialog/attribute-value-list-edit-dialog.component';
 import { AttributeValueListDeleteDialogComponent } from './attributes-list/attribute-value/attribute-value-list/attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
@@ -48,7 +54,36 @@ import { RemoveUserExtSourceDialogComponent } from './remove-user-ext-source-dia
 import { EditAttributeDialogComponent } from './attributes-list/edit-attribute-dialog/edit-attribute-dialog.component';
 import { CreateAttributeDialogComponent } from './create-attribute-dialog/create-attribute-dialog.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { ChangeExpirationDialogComponent } from './change-expiration-dialog/change-expiration-dialog.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
+export class AppDateAdapter extends NativeDateAdapter {
+  format(date: Date, displayFormat: Object): string {
+    if (displayFormat === 'input') {
+      let day: string = date.getDate().toString();
+      day = +day < 10 ? '0' + day : day;
+      let month: string = (date.getMonth() + 1).toString();
+      month = +month < 10 ? '0' + month : month;
+      const year = date.getFullYear();
+      return `${year}-${month}-${day}`;
+    }
+    return date.toDateString();
+  }
+}
+
+export const APP_DATE_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+  },
+  display: {
+    dateInput: 'input',
+    monthYearLabel: { year: 'numeric', month: 'numeric' },
+    dateA11yLabel: {
+      year: 'numeric', month: 'long', day: 'numeric'
+    },
+    monthYearA11yLabel: { year: 'numeric', month: 'long' }
+  }
+};
 
 @NgModule({
   imports: [
@@ -74,7 +109,8 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     MatInputModule,
     MatRippleModule,
     PerunPipesModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule
   ],
   declarations: [
     VoSelectTableComponent,
@@ -105,7 +141,8 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     AttributeValueIntegerComponent,
     EditAttributeDialogComponent,
     CreateAttributeDialogComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    ChangeExpirationDialogComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -132,6 +169,10 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     EditAttributeDialogComponent,
     CreateAttributeDialogComponent,
     PasswordResetComponent
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
   ]
 })
 export class PerunSharedComponentsModule {

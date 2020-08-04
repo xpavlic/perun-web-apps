@@ -1339,6 +1339,17 @@
       "CANCEL": "Cancel",
       "CONFIRM": "Delete",
       "SUCCESS": "Facility deleted."
+    },
+    "CHANGE_EXPIRATION": {
+      "TITLE": "Change member expiration",
+      "CURRENT_EXPIRATION": "Current expiration: ",
+      "NEW_EXPIRATION": "New expiration:         ",
+      "DATE_LABEL": "Choose a date",
+      "EXPIRATION_NEVER": "Set expiration to 'never'",
+      "WRONG_FORMAT": "The date has to be in format yyyy-mm-dd",
+      "CANCEL": "Cancel",
+      "SAVE": "Save",
+      "SUCCESS": "Expiration successfully changed"
     }
   },
   "MEMBERS_LIST": {

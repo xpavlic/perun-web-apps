@@ -5,8 +5,10 @@ import {MenuItem} from '@perun-web-apps/perun/models';
 import { MembersService } from '@perun-web-apps/perun/services';
 import { RichMember } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { parseFullName, parseStatusColor, parseStatusIcon } from '@perun-web-apps/perun/utils';
+import { getDefaultDialogConfig, parseFullName, parseStatusColor, parseStatusIcon } from '@perun-web-apps/perun/utils';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangeExpirationDialogComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-member-overview',
@@ -22,7 +24,8 @@ export class MemberOverviewComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private membersService: MembersService,
     private translate: TranslateService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   fullName = '';
@@ -79,5 +82,13 @@ export class MemberOverviewComponent implements OnInit {
         style: 'member-btn'
       }
     ];
+  }
+
+  changeExpiration() {
+    const config = getDefaultDialogConfig();
+    config.width = '400px';
+    config.data = this.member;
+
+    const dialogRef = this.dialog.open(ChangeExpirationDialogComponent, config);
   }
 }

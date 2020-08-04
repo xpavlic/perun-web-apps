@@ -13,11 +13,14 @@
     </td>
   </tr>
   <tr>
-    <td>Expiration:</td>
+    <td class="vert-center">Expiration:</td>
     <td>
       <i>
         {{expiration}}
       </i>
+      <button (click)="changeExpiration()" mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
     </td>
   </tr>
   </tbody>
