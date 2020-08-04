@@ -15,8 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {AttributeValueComponent} from './attribute-value/attribute-value.component';
 import { Attribute } from '@perun-web-apps/perun/openapi';
-import { IsVirtualAttributePipe } from '@perun-web-apps/perun/pipes';
-import { filterCoreAttributes, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
+import { filterCoreAttributes, isVirtualAttribute, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'perun-web-apps-attributes-list',
@@ -72,8 +71,6 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   exporting = false;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  private isVirtualPipe = new IsVirtualAttributePipe();
-
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource<Attribute>(filterCoreAttributes(this.attributes));
     this.setDataSource();
@@ -94,7 +91,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.filter(attribute => !this.isVirtualPipe.transform(attribute)).length;
+    const numRows = this.dataSource.data.filter(attribute => !isVirtualAttribute(attribute)).length;
     return numSelected === numRows;
   }
 
@@ -102,7 +99,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => {
-        if(!this.isVirtualPipe.transform(row)) this.selection.select(row);
+        if(!isVirtualAttribute(row)) this.selection.select(row);
       });
   }
 
@@ -122,7 +119,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   }
 
   onValueChange(attribute: Attribute) {
-    if(!this.isVirtualPipe.transform(attribute)){
+    if(!isVirtualAttribute(attribute)){
       this.selection.select(attribute);
     }
   }
