@@ -174,7 +174,7 @@
     },
     "ASSIGNED_SERVICES": {
       "TITLE": "Assigned services",
-      "ADD_SERVICE": "Add..",
+      "ADD_SERVICE": "Add",
       "REMOVE_SERVICE": "Remove services",
       "FILTER_SERVICES": "Filter services",
       "NO_SERVICES": "No services."
