@@ -169,4 +169,9 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
       this.updateFormItems();
     });
   }
+
+  clear() {
+    this.applicationFormItems = [];
+    this.itemsChanged = true;
+  }
 }
