@@ -64,13 +64,12 @@ export class GuiAuthResolver {
     for (const roleArray of policyRoles) {
       let authorized = true;
       //Traverse through inner role list which works like logical AND
-      for (const role in roleArray) {
+      for (const role of Object.keys(roleArray)) {
         const roleObject = roleArray[role];
         if (roleObject === null) {
           if (!this.principalRoles.has(role as Role)) authorized = false;
         } else if (!mapOfBeans[roleObject]) authorized = false;
         else {
-          console.log(roleObject);
           for (const objectId of mapOfBeans[roleObject]) {
             if (!this.principalHasRole(role, roleObject, objectId)) {
               authorized = false;
@@ -153,7 +152,6 @@ export class GuiAuthResolver {
     if (perunBeanName.startsWith('Rich')) {
       convertedBeanName = perunBeanName.substring(4);
     }
-    console.log(this.principal.roles[role]);
     if (this.principal.roles[role]) {
       console.log(this.principal.roles[role]);
       if (this.principal.roles[role][convertedBeanName]) {
