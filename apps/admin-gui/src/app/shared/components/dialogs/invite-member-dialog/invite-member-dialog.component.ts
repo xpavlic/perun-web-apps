@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import { NotificatorService } from '@perun-web-apps/perun/services';
 
 
 export interface InviteMemberDialogData {
@@ -24,24 +24,24 @@ export class InviteMemberDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<InviteMemberDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: InviteMemberDialogData,
               private registrarManager: RegistrarManagerService,
-              private snackBar: MatSnackBar,
+              private notificator: NotificatorService,
               private translate: TranslateService) { }
 
   ngOnInit() {
   }
 
   onCancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   onSubmit() {
     if (this.emailForm.invalid || this.name === '') {
       return;
     } else {
-      this.registrarManager.sendInvitation(this.emailForm.value, 'en', this.data.voId).subscribe(() => {
+      this.registrarManager.sendInvitation(this.emailForm.value, this.language, this.data.voId).subscribe(() => {
         this.translate.get('DIALOGS.INVITE_MEMBER.SUCCESS').subscribe(successMessage => {
-          this.snackBar.open(successMessage, null, {duration: 5000});
-          this.dialogRef.close();
+          this.notificator.showSuccess(successMessage);
+          this.dialogRef.close(true);
         });
       });
     }

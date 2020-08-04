@@ -14,6 +14,7 @@ import { FormControl } from '@angular/forms';
 import { TABLE_VO_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 
 @Component({
   selector: 'app-vo-members',
@@ -135,6 +136,20 @@ export class VoMembersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(wereMembersDeleted => {
       if (wereMembersDeleted) {
+        this.refreshTable();
+      }
+    });
+  }
+
+  onInviteMember(){
+    const config = getDefaultDialogConfig();
+    config.width = '650px';
+    config.data = { voId: this.vo.id };
+
+    const dialogRef = this.dialog.open(InviteMemberDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(inviteSent => {
+      if (inviteSent) {
         this.refreshTable();
       }
     });

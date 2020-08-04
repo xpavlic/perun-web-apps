@@ -4,6 +4,9 @@
     <button mat-flat-button color="accent" class="mr-2" (click)="onAddMember()">
       {{'VO_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
     </button>
+    <button mat-flat-button color="accent" class="mr-2" (click)="onInviteMember()">
+      {{'VO_DETAIL.MEMBERS.INVITE' | translate}}
+    </button>
     <button mat-flat-button color="warn" class="mr-2" [disabled]="selection.isEmpty()" (click)="onRemoveMembers()">
       {{'VO_DETAIL.MEMBERS.REMOVE_MEMBERS' | translate}}
     </button>
