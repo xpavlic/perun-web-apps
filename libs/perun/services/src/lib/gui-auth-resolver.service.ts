@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
+import { PerunBean, PerunPolicy, PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class GuiAuthResolver {
   }
 
   private principal: PerunPrincipal;
+  private perunPolicies: PerunPolicy[];
 
   private principalRoles: Set<Role> = new Set<Role>();
 
@@ -26,6 +27,176 @@ export class GuiAuthResolver {
     this.principal = principal;
     this.initData(principal);
   }
+
+  setPerunPolicies(policies: PerunPolicy[]): void {
+    this.perunPolicies =  policies;
+  }
+
+  getPerunPolicies(): PerunPolicy[] {
+    return this.perunPolicies;
+  }
+
+  isAuthorized(policy: string, objects: PerunBean[]): boolean {
+    if (this.principal.roles === null) {
+      return false;
+    }
+
+    const allPolicies: PerunPolicy[] = this.fetchPolicyWithAllIncludedPolicies(policy);
+    console.log('all policies');
+    console.log(allPolicies);
+    let policyRoles: Array<{ [key: string]: string; }> = [];
+    for (const policyItem of allPolicies){
+      policyRoles = policyRoles.concat(policyItem.perunRoles);
+    }
+    console.log('pollicy roles');
+    console.log(policyRoles);
+
+    //Fetch super objects like Vo for group etc.
+    const mapOfBeans: { [key: string]: number[]; } = this.fetchAllRelatedObjects(objects);
+    console.log('this is map of beans');
+    console.log(mapOfBeans);
+
+    return this.resolveAuthorization(policyRoles, mapOfBeans);
+  }
+
+  private resolveAuthorization(policyRoles:Array<{ [key: string]: string; }>, mapOfBeans: { [key: string]: number[]; }) : boolean {
+    //Traverse through outer role list which works like logical OR
+    for (const roleArray of policyRoles) {
+      let authorized = true;
+      //Traverse through inner role list which works like logical AND
+      for (const role of Object.keys(roleArray)) {
+        const roleObject = roleArray[role];
+        if (roleObject === null) {
+          if (!this.principalRoles.has(role as Role)) authorized = false;
+        } else if (!mapOfBeans[roleObject]) authorized = false;
+        else {
+          for (const objectId of mapOfBeans[roleObject]) {
+            if (!this.principalHasRole(role, roleObject, objectId)) {
+              authorized = false;
+              break;
+            }
+          }
+        }
+        if (!authorized) break;
+      }
+      if (authorized) return true;
+    }
+    return false;
+  }
+
+  private fetchAllRelatedObjects(objects: any[]): {[key: string]: number[];} {
+    const mapOfBeans: { [key: string]: number[]; } = {};
+
+    for (const object of objects) {
+      let convertedBeanName = object.beanName;
+      if (object.beanName.startsWith('Rich')) {
+        convertedBeanName = object.beanName.substring(4);
+      }
+      if (!mapOfBeans[convertedBeanName]) {
+        mapOfBeans[convertedBeanName] = [object.id];
+      } else {
+        mapOfBeans[convertedBeanName].push(object.id);
+      }
+      switch (object.beanName) {
+        case 'Member' || 'RichMember': {
+          if (!mapOfBeans['User']) {
+            mapOfBeans['User'] = [object.userId];
+          } else {
+            mapOfBeans['User'].push(object.userId);
+          }
+          if (!mapOfBeans['Vo']) {
+            mapOfBeans['Vo'] = [object.voId];
+          } else {
+            mapOfBeans['Vo'].push(object.voId);
+          }
+          break;
+        }
+        case 'Group' || 'RichGroup': {
+          if (!mapOfBeans['Vo']) {
+            mapOfBeans['Vo'] = [object.voId];
+          } else {
+            mapOfBeans['Vo'].push(object.voId);
+          }
+          break;
+        }
+        case 'Resource' || 'RichResource': {
+          if (!mapOfBeans['Facility']) {
+            mapOfBeans['Facility'] = [object.facilityId];
+          } else {
+            mapOfBeans['Facility'].push(object.facilityId);
+          }
+          if (!mapOfBeans['Vo']) {
+            mapOfBeans['Vo'] = [object.voId];
+          } else {
+            mapOfBeans['Vo'].push(object.voId);
+          }
+          break;
+        }
+        case 'ResourceTag': {
+          if (!mapOfBeans['Vo']) {
+            mapOfBeans['Vo'] = [object.voId];
+          } else {
+            mapOfBeans['Vo'].push(object.voId);
+          }
+          break;
+        }
+        default:
+          break;
+      }
+    }
+    return mapOfBeans;
+  }
+
+  private principalHasRole(role: string, perunBeanName: string, id: number): boolean {
+    let convertedBeanName = perunBeanName;
+    if (perunBeanName.startsWith('Rich')) {
+      convertedBeanName = perunBeanName.substring(4);
+    }
+    if (this.principal.roles[role]) {
+      console.log(this.principal.roles[role]);
+      if (this.principal.roles[role][convertedBeanName]) {
+        console.log(this.principal.roles[role][convertedBeanName]);
+        return this.principal.roles[role][convertedBeanName].indexOf(id) !== -1;
+      }
+    }
+    return false;
+  }
+
+  private fetchPolicyWithAllIncludedPolicies(policyName: string): PerunPolicy[] {
+    const allIncludedPolicies: Map<string, PerunPolicy> = new Map();
+    let policiesToCheck: string[] = [];
+    policiesToCheck.push(policyName);
+
+    while (policiesToCheck.length !== 0) {
+      const policy = policiesToCheck.shift();
+      if (allIncludedPolicies.has(policy)) {
+        console.log("Policy {} creates a cycle in the included policies of the policy {}", policy, policyName);
+        continue;
+      }
+      const policyToCheck = this.getPerunPolicy(policy);
+      if (!policyToCheck) return [];
+      allIncludedPolicies.set(policy, policyToCheck);
+      policiesToCheck = policiesToCheck.concat(policyToCheck.includePolicies);
+    }
+
+    const includedPolicies = [];
+    for (const value of allIncludedPolicies.values()) {
+      includedPolicies.push(value);
+    }
+
+    return includedPolicies;
+  }
+
+  private getPerunPolicy(policyName: string): PerunPolicy {
+    for (const policy of this.perunPolicies) {
+      if (policy.policyName === policyName) {
+        return policy;
+      }
+    }
+    console.log('policy with name' + policyName + 'was not found');
+    return null;
+  }
+
   public canManageFacilities(): boolean {
     return this.hasAtLeasOne(Role.PERUNADMIN, Role.FACILITYADMIN);
   }
@@ -68,6 +239,10 @@ export class GuiAuthResolver {
 
   public isResourceAdmin(): boolean {
     return this.hasAtLeasOne(Role.PERUNADMIN, Role.RESOURCEADMIN);
+  }
+
+  public isTopGroupCreator(): boolean {
+    return this.hasAtLeasOne(Role.PERUNADMIN, Role.TOPGROUPCREATOR);
   }
 
   isVoObserver(): boolean {

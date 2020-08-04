@@ -8,11 +8,19 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { applyFilter, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { Group, GroupsManagerService, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  Group,
+  GroupsManagerService,
+  PerunBean,
+  RichGroup,
+  Vo,
+  VosManagerService
+} from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-groups',
@@ -32,9 +40,9 @@ export class VoGroupsComponent implements OnInit {
     private voService: VosManagerService,
     private route: ActivatedRoute,
     private tableConfigService: TableConfigService,
+    public guiAuthResolver: GuiAuthResolver
   ) { }
 
-  @Input()
   vo: Vo;
 
   groups: RichGroup[] = [];
@@ -65,6 +73,7 @@ export class VoGroupsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     if (localStorage.getItem('preferedValue') === 'list') {
       this.checkbox.toggle();
