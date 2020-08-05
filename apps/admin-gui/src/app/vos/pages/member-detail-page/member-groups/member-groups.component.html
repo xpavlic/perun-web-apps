@@ -1,17 +1,34 @@
 <h1 class="page-subtitle">{{'MEMBER_DETAIL.GROUPS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
+<button
+  *ngIf="!loading"
+  mat-flat-button
+  color="accent"
+  (click)="addGroup()"
+  class="ml-2">
+  {{'MEMBER_DETAIL.GROUPS.ADD' | translate}}
+</button>
+<button
+  *ngIf="!loading"
+  mat-flat-button
+  color="warn"
+  (click)="removeGroup()"
+  [disabled]="selection.selected.length === 0"
+  class="ml-2">
+  {{'MEMBER_DETAIL.GROUPS.REMOVE' | translate}}
+</button>
 <perun-web-apps-immediate-filter
   (filter)="applyFilter($event)"
   *ngIf="!loading"
   [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
 </perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-<!--this list is duplicated because it might contain
-other data than the one displayed in vo detail(e.g. members status-->
-<app-member-group-list
+<perun-web-apps-groups-list
   [pageSize]="pageSize"
   (page)="pageChanged($event)"
   [groups]="groups"
-  [filterValue]="filterValue"
+  [hideColumns]="[ 'vo', 'menu']"
+  [selection]="selection"
+  [filter]="filterValue"
   *ngIf="!loading">
-</app-member-group-list>
+</perun-web-apps-groups-list>

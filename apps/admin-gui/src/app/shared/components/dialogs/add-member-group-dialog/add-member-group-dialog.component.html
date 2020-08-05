@@ -1,0 +1,38 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBER_GROUP.TITLE' | translate}}</h1>
+  <div mat-dialog-content class="dialog-container">
+    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <perun-web-apps-immediate-filter
+      (filter)="applyFilter($event)"
+      *ngIf="!loading"
+      [placeholder]="'DIALOGS.ADD_MEMBER_GROUP.FILTER'">
+    </perun-web-apps-immediate-filter>
+    <perun-web-apps-groups-list
+      *ngIf="!loading"
+      [groups]="groups"
+      [selection]="selection"
+      [hideColumns]="hideColumns"
+      [filter]="filterValue"
+      [disableRouting]="true"
+      [disableMembers]="true">
+    </perun-web-apps-groups-list>
+  </div>
+  <div mat-dialog-actions *ngIf="!loading">
+    <button
+      mat-flat-button
+      (click)="onCancel()"
+      class="ml-auto">
+      {{'DIALOGS.ADD_MEMBER_GROUP.CANCEL' | translate}}
+    </button>
+    <button
+      mat-flat-button
+      (click)="onAdd()"
+      class="ml-2"
+      color="accent"
+      [disabled]="selection.selected.length === 0">
+      {{'DIALOGS.ADD_MEMBER_GROUP.ADD' | translate}}
+    </button>
+  </div>
+
+</div>
+
