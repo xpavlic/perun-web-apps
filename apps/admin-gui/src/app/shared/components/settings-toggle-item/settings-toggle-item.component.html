@@ -6,7 +6,7 @@
       [class.unselected-setting]="!toggle.checked">
       {{title}}
     </label>
-    <mat-slide-toggle class="ml-4" color="primary" #toggle [checked]="model">
+    <mat-slide-toggle class="ml-4" color="primary" #toggle [(ngModel)]="modelValue">
     </mat-slide-toggle>
   </div>
   <div class="ml-1" [@openClose]="toggle.checked ? 'open' : 'closed'">
