@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { RtMessagesService } from '@perun-web-apps/perun/services';
 import { version } from '../../../../../../../package.json';
 
@@ -14,20 +14,22 @@ export class ReportIssueDialogComponent implements OnInit {
 
   message = '';
   subject = '';
+  instanceName = '';
 
   constructor(private dialogRef: MatDialogRef<ReportIssueDialogComponent>,
               private translate: TranslateService,
               private notificator: NotificatorService,
-              private rtMessages: RtMessagesService) { }
+              private rtMessages: RtMessagesService,
+              private storeService: StoreService) { }
 
   ngOnInit() {
+    this.instanceName = this.storeService.get('config');
   }
 
   sendBugReport() {
-    this.rtMessages.sendMessageToRT('perun', this.subject, this.getFullEmailBody()).subscribe(() => {
-      // TODO show ticket number and email
+    this.rtMessages.sendMessageToRT('perun', this.subject, this.getFullEmailBody()).subscribe(message  => {
       this.dialogRef.afterClosed()
-        .subscribe(() => this.notificator.showSuccess(this.translate.instant('DIALOGS.REPORT_ISSUE.SUCCESS')));
+        .subscribe(() => this.notificator.showSuccess(this.translate.instant('DIALOGS.REPORT_ISSUE.SUCCESS') + message.ticketNumber));
       this.dialogRef.close();
     });
   }
@@ -35,8 +37,7 @@ export class ReportIssueDialogComponent implements OnInit {
   getFullEmailBody(): string {
     return this.message + '\n' +
       '------------------------\n' +
-      // TODO add instance
-      'Perun instance: GENERIC\n' +
+      'Perun instance: ' + this.instanceName + '\n' +
       'Sended from new gui version:' + version;
 
   }

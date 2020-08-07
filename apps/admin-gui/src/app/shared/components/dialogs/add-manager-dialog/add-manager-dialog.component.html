@@ -13,6 +13,7 @@
       <mat-form-field class="mr-2 w-100">
         <label>
           <input matInput autocomplete="false" placeholder="{{'DIALOGS.ADD_MANAGERS.DESCRIPTION' | translate}}"
+                 (keyup.enter)="onSearchByString()"
                  [(ngModel)]="searchString">
         </label>
       </mat-form-field>

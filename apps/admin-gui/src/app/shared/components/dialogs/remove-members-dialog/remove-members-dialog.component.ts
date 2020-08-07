@@ -9,6 +9,7 @@ import { MembersService } from '@perun-web-apps/perun/services';
 export interface RemoveMembersDialogData {
   members: RichMember[];
   groupId?: number;
+  theme: string;
 }
 @Component({
   selector: 'app-remove-members-dialog',
@@ -28,11 +29,13 @@ export class RemoveMembersDialogComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name'];
   dataSource: MatTableDataSource<RichMember>;
+  theme: string;
 
   loading: boolean;
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<RichMember>(this.data.members);
+    this.theme = this.data.theme;
   }
 
   onCancel() {

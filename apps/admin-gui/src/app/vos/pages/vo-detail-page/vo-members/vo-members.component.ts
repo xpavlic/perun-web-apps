@@ -130,7 +130,10 @@ export class VoMembersComponent implements OnInit {
   onRemoveMembers() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = { members: this.selection.selected };
+    config.data = {
+      members: this.selection.selected,
+      theme: 'vo-theme'
+    };
 
     const dialogRef = this.dialog.open(RemoveMembersDialogComponent, config);
 

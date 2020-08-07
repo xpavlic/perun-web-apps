@@ -702,7 +702,7 @@
       "MESSAGE_HINT": "Please try to describe in detail the problem.",
       "CANCEL": "Cancel",
       "SEND": "Send",
-      "SUCCESS": "Bug report send"
+      "SUCCESS": "Issue report was sended and got ticket number: "
     },
     "MOVE_GROUP": {
       "TITLE": "Move group - ",
@@ -1685,7 +1685,8 @@
             "DEFAULT_ACTION": "Show",
             "DIALOG_CLOSE": "Close",
             "DIALOG_BUG_REPORT": "Report a bug",
-            "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed."
+            "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed.",
+            "PRIVILEGE_EXCEPTION": "You are not authorized to perform this action"
           }
         },
         "USER_EXT_SOURCES_LIST": {
