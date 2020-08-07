@@ -1,6 +1,7 @@
 {
   "config": "default",
   "api_url": "http://localhost/krb/rpc",
+  "document_title": "Perun Web Gui",
   "isDevel": false,
 
   "oidc_client" : {

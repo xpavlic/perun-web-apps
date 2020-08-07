@@ -45,7 +45,13 @@ export class NotificatorService {
    * @param errorMessage - custom message that will be displayed
    */
   showRPCError(rpcError: RPCError, errorMessage = this.getDefaultRpcMessage()): void {
-    this.showError(errorMessage + '\n' + rpcError.name, rpcError, rpcError.message);
+    if (rpcError.name === 'PrivilegeException') {
+      this.showError(this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.PRIVILEGE_EXCEPTION'),
+        rpcError,
+        rpcError.message);
+    } else {
+      this.showError(errorMessage + '\n' + rpcError.name, rpcError, rpcError.message);
+    }
   }
 
   /**

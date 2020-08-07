@@ -110,7 +110,8 @@ export class GroupMembersComponent implements OnInit {
     config.width = '450px';
     config.data = {
       groupId: this.group.id,
-      members: this.selection.selected
+      members: this.selection.selected,
+      theme: 'group-theme'
     };
 
     const dialogRef = this.dialog.open(RemoveMembersDialogComponent, config);

@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ServerDownDialogComponent } from '@perun-web-apps/general';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { Title } from '@angular/platform-browser';
 
 
 @Injectable({
@@ -23,7 +24,8 @@ export class AdminGuiConfigService {
     private authzSevice: AuthzResolverService,
     private dialog: MatDialog,
     private translate: TranslateService,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
+    private titleService: Title
   ) {}
 
   entityColorConfigs: EntityColorConfig[] = [
@@ -106,6 +108,7 @@ export class AdminGuiConfigService {
   private setApiUrl() {
     return new Promise((resolve) => {
       this.authzSevice.configuration.basePath = this.store.get('api_url');
+      this.titleService.setTitle(this.store.get('document_title'));
       resolve();
     });
   }
