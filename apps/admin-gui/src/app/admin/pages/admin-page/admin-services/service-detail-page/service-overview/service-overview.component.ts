@@ -1,0 +1,30 @@
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from '@perun-web-apps/perun/models';
+
+@Component({
+  selector: 'app-service-overview',
+  templateUrl: './service-overview.component.html',
+  styleUrls: ['./service-overview.component.scss']
+})
+export class ServiceOverviewComponent implements OnInit {
+
+  constructor() { }
+
+  navItems: MenuItem[] = [];
+
+  ngOnInit(): void {
+    this.initNavItems();
+  }
+
+  private initNavItems() {
+    this.navItems = [
+      {
+        cssIcon: 'perun-attributes',
+        url: 'required-attributes',
+        label: 'MENU_ITEMS.SERVICE.REQUIRED_ATTRIBUTES',
+        style: 'service-btn'
+      }
+    ];
+  }
+
+}

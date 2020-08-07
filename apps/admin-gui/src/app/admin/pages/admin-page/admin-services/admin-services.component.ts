@@ -5,7 +5,7 @@ import { TABLE_ADMIN_SERVICES, TableConfigService } from '@perun-web-apps/config
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateServiceDialogComponent } from '../../../../shared/components/dialogs/create-service-dialog/create-service-dialog.component';
+import { CreateEditServiceDialogComponent } from '../../../../shared/components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
 import { DeleteServiceDialogComponent } from '../../../../shared/components/dialogs/delete-service-dialog/delete-service-dialog.component';
 
 
@@ -45,7 +45,7 @@ export class AdminServicesComponent implements OnInit {
       theme: 'admin-theme'
     };
 
-    const dialogRef = this.dialog.open(CreateServiceDialogComponent, config);
+    const dialogRef = this.dialog.open(CreateEditServiceDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

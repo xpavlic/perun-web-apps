@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityMenuLink, SideMenuItem } from './side-menu.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { Facility, Group, Resource, RichMember, User, Vo } from '@perun-web-apps/perun/openapi';
+import { Facility, Group, Resource, RichMember, Service, User, Vo } from '@perun-web-apps/perun/openapi';
 import { parseFullName } from '@perun-web-apps/perun/utils';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { GetResourceRoutePipe } from '@perun-web-apps/perun/pipes';
@@ -26,6 +26,7 @@ export class SideMenuItemService {
   facilityBgColor = this.store.get('theme', 'sidemenu_facility_bg_color');
   resourceBgColor = this.store.get('theme', 'sidemenu_resource_bg_color');
   userBgColor = this.store.get('theme', 'sidemenu_user_bg_color');
+  serviceBgColor = this.store.get('theme', 'sidemenu_service_bg_color');
 
   baseItemTextColor = this.store.get('theme', 'sidemenu_text_color');
   voTextColor = this.store.get('theme', 'sidemenu_vo_text_color');
@@ -34,6 +35,7 @@ export class SideMenuItemService {
   facilityTextColor = this.store.get('theme', 'sidemenu_facility_text_color');
   resourceTextColor = this.store.get('theme', 'sidemenu_resource_text_color');
   userTextColor = this.store.get('theme', 'sidemenu_user_text_color');
+  serviceTextColor = this.store.get('theme', 'sidemenu_service_text_color');
 
   getFacilitiesManagementItem(): SideMenuItem {
     return {
@@ -533,6 +535,31 @@ export class SideMenuItemService {
       icon: 'perun-user',
       activatedClass: 'dark-item-activated',
       linksClass: 'dark-item-links'
+    };
+  }
+
+  parseService(service: Service): SideMenuItem {
+    return {
+      label: service.name,
+      baseLink: [`/admin/services/${service.id}`],
+      backgroundColorCss: this.serviceBgColor,
+      textColorCss: this.serviceTextColor,
+      links: [
+        {
+          label: 'MENU_ITEMS.SERVICE.OVERVIEW',
+          url: [`/admin/services/${service.id}`],
+          activatedRegex: '/admin/services/\\d+$'
+        },
+        {
+          label: 'MENU_ITEMS.SERVICE.REQUIRED_ATTRIBUTES',
+          url: [`/admin/services/${service.id}/required-attributes`],
+          activatedRegex: '/admin/services/\\d+/required-attributes'
+        },
+      ],
+      colorClass: 'service-item',
+      icon: 'perun-service',
+      activatedClass: 'dark-item-activated',
+      linksClass: 'dark-item-links',
     };
   }
 

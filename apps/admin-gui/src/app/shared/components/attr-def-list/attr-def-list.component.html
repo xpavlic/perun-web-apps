@@ -54,6 +54,7 @@
         <tr
           (click)="onRowClick(attrDef)"
           *matRowDef="let attrDef; columns: displayedColumns;"
+          [class.cursor-pointer]="!disableRouting"
           class="dark-hover-list-item"
           mat-row>
         </tr>

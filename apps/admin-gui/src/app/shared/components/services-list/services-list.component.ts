@@ -51,6 +51,9 @@ export class ServicesListComponent implements OnChanges,  AfterViewInit {
   @Input()
   selection;
 
+  @Input()
+  disableRouting = false;
+
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 

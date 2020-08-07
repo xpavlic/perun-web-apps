@@ -574,6 +574,16 @@
       }
     }
   },
+  "SERVICE_DETAIL": {
+    "TITLE": "Service - ",
+    "DESCRIPTION": "Description",
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "Required attributes",
+      "ADD": "Add",
+      "REMOVE": "Remove",
+      "FILTER": "Filter"
+    }
+  },
   "MENU_ITEMS": {
     "VO": {
       "OVERVIEW": "Overview",
@@ -669,6 +679,10 @@
       "IDENTITIES": "Identities",
       "PASSWORD_RESET": "Password reset",
       "RESOURCES": "Resources"
+    },
+    "SERVICE": {
+      "OVERVIEW": "Overview",
+      "REQUIRED_ATTRIBUTES": "Required attributes"
     }
   },
   "DIALOGS": {
@@ -1094,7 +1108,7 @@
       "SUCCESS": "Attribute imported."
     },
     "CREATE_ATTRIBUTE_DEFINITION": {
-      "TITLE":"Create Attribute Definition",
+      "TITLE": "Create Attribute Definition",
       "FRIENDLY_NAME": "Friendly name",
       "DISPLAY_NAME": "Display name",
       "DESCRIPTION": "Description",
@@ -1289,9 +1303,11 @@
       "ASK": "Are you sure you want to proceed?",
       "SUCCESS": "Owners were successfully removed"
     },
-    "CREATE_SERVICE": {
-      "TITLE": "Create service",
+    "CREATE_EDIT_SERVICE": {
+      "CREATE_TITLE": "Create service",
+      "EDIT_TITLE": "Edit service",
       "CREATE": "Create",
+      "EDIT": "Edit",
       "CANCEL": "Cancel",
       "NAME": "Name:",
       "DESCRIPTION": "Description:",
@@ -1304,7 +1320,8 @@
       "REQUIRE_PATH": "Script path cannot be empty",
       "INVALID_DELAY": "Delay must be a number",
       "INVALID_RECURRENCE": "Recurrence must be a number",
-      "SUCCESS": "Created service"
+      "CREATE_SUCCESS": "Created service",
+      "EDIT_SUCCESS": "Service was edited"
     },
     "DELETE_SERVICE": {
       "TITLE": "Delete service",
@@ -1365,6 +1382,21 @@
       "DESCRIPTION": "Following groups will be removed.",
       "ASK": "Do you want to proceed?",
       "SUCCESS": "Groups were removed"
+    },
+    "ADD_REQUIRED_ATTRIBUTES": {
+      "TITLE": "Add required attributes",
+      "ADD": "Add",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Required attributes were added.",
+      "FILTER": "Filter"
+    },
+    "REMOVE_REQUIRED_ATTRIBUTES": {
+      "TITLE": "Remove required attributes",
+      "DESCRIPTION": "Following items will be removed:",
+      "ASK": "Do you want to proceed?",
+      "REMOVE": "Remove",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Required attributes were removed."
     }
   },
   "MEMBERS_LIST": {

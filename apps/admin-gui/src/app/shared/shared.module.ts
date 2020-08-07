@@ -171,7 +171,7 @@ import { AddFacilityOwnerDialogComponent } from './components/dialogs/add-facili
 import { RemoveFacilityOwnerDialogComponent } from './components/dialogs/remove-facility-owner-dialog/remove-facility-owner-dialog.component';
 import { GroupSyncDetailDialogComponent } from './components/dialogs/group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
-import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
+import { CreateEditServiceDialogComponent } from './components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
 import { DeleteServiceDialogComponent } from './components/dialogs/delete-service-dialog/delete-service-dialog.component';
 import { UserResourcesComponent } from './components/user-detail-page/user-resources/user-resources.component';
 import { AddMemberToResourceDialogComponent } from './components/dialogs/add-member-to-resource-dialog/add-member-to-resource-dialog.component';
@@ -180,6 +180,9 @@ import { DeleteFacilityDialogComponent } from './components/dialogs/delete-facil
 import { IdentityDetailComponent } from './components/identity-detail/identity-detail.component';
 import { AddMemberGroupDialogComponent } from './components/dialogs/add-member-group-dialog/add-member-group-dialog.component';
 import { RemoveMemberGroupDialogComponent } from './components/dialogs/remove-member-group-dialog/remove-member-group-dialog.component';
+import { AddRequiredAttributesDialogComponent } from './components/dialogs/add-required-attributes-dialog/add-required-attributes-dialog.component';
+import { RemoveRequiredAttributesDialogComponent } from './components/dialogs/remove-required-attributes-dialog/remove-required-attributes-dialog.component';
+import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.component';
 
 @NgModule({
   imports: [
@@ -314,7 +317,8 @@ import { RemoveMemberGroupDialogComponent } from './components/dialogs/remove-me
     BlacklistListComponent,
     SecurityTeamsListComponent,
     OwnersListComponent,
-    ServicesListComponent
+    ServicesListComponent,
+    AttrDefListComponent
   ],
   declarations: [
     PerunNavComponent,
@@ -436,7 +440,7 @@ import { RemoveMemberGroupDialogComponent } from './components/dialogs/remove-me
     RemoveFacilityOwnerDialogComponent,
     GroupSyncDetailDialogComponent,
     NotFoundPageComponent,
-    CreateServiceDialogComponent,
+    CreateEditServiceDialogComponent,
     DeleteServiceDialogComponent,
     UserResourcesComponent,
     AddMemberToResourceDialogComponent,
@@ -444,7 +448,10 @@ import { RemoveMemberGroupDialogComponent } from './components/dialogs/remove-me
     DeleteFacilityDialogComponent,
     IdentityDetailComponent,
     AddMemberGroupDialogComponent,
-    RemoveMemberGroupDialogComponent
+    RemoveMemberGroupDialogComponent,
+    AddRequiredAttributesDialogComponent,
+    RemoveRequiredAttributesDialogComponent,
+    AttrDefListComponent
   ],
   providers: [
     AnyToStringPipe,
