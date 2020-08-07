@@ -4,7 +4,11 @@
         [class.unselected-setting]="!mainToggle.checked">
       {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.TITLE' | translate}}
     </h1>
-    <mat-slide-toggle class="ml-4" color="primary" #mainToggle [(ngModel)]="currentConfiguration.enabled">
+    <mat-slide-toggle
+      #mainToggle
+      class="ml-4"
+      color="primary"
+      [(ngModel)]="currentConfiguration.enabled">
     </mat-slide-toggle>
   </div>
 
@@ -157,8 +161,17 @@
     </app-settings-toggle-item>
   </div>
 
-  <div class="w-100 d-flex mt-3 mb-3">
-    <button [disabled]="!areChangesMade()" mat-flat-button color="primary" class="ml-auto" (click)="saveChanges()">
+  <div
+    class="ml-auto"
+    [matTooltipDisabled]="expirationAttribute.writable"
+    [matTooltipPosition]="'above'"
+    matTooltip="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERMISSION_DENIED_HINT' | translate}}">
+    <button
+      [disabled]="!areChangesMade() || !expirationAttribute.writable"
+      mat-flat-button
+      color="primary"
+      class="ml-auto"
+      (click)="saveChanges()">
       {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.SAVE' | translate}}
     </button>
   </div>

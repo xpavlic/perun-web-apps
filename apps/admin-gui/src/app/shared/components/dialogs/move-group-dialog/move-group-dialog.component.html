@@ -6,20 +6,28 @@
     </p>
     <mat-radio-group [(ngModel)]="moveOption">
       <mat-radio-button
+        *ngIf="!toRootOptionDisabled"
         color="primary"
         value="toRoot"
-        class="move-options"
-        [disabled]="toRootOptionDisabled">
+        class="move-options">
         {{'DIALOGS.MOVE_GROUP.NO_GROUP' | translate}}
       </mat-radio-button>
       <mat-radio-button
+        *ngIf="!toGroupOptionDisabled"
         value="toGroup"
-        color="primary"
-        [disabled]="toGroupOptionDisabled">
+        color="primary">
         {{'DIALOGS.MOVE_GROUP.TO_GROUP' | translate}}
       </mat-radio-button>
     </mat-radio-group>
-    <mat-form-field [@openClose]="moveOption === 'toGroup' ? 'open' : 'closed'" class="w-100 mt-2">
+    <app-alert
+      *ngIf="toRootOptionDisabled && toGroupOptionDisabled"
+      color="warn">
+      {{'DIALOGS.MOVE_GROUP.CANNOT_MOVE' | translate}}
+    </app-alert>
+    <mat-form-field
+      *ngIf="!toGroupOptionDisabled"
+      [@openClose]="moveOption === 'toGroup' ? 'open' : 'closed'"
+      class="w-100 mt-2">
       <input
         matInput
         placeholder="{{'DIALOGS.MOVE_GROUP.GROUP_SELECT' | translate}}"

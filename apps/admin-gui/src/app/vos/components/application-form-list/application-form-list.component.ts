@@ -36,13 +36,15 @@ export class ApplicationFormListComponent implements OnChanges {
   @Input()
   theme: string;
 
+  @Input()
+  displayedColumns: string[] = ['drag', 'shortname', 'type', 'preview', 'edit', 'delete'];
+
   @Output()
   applicationFormItemsChange = new EventEmitter<ApplicationFormItem[]>();
 
   itemsChanged: number[] = [];
 
   dataSource = this.applicationFormItems;
-  displayedColumns: string[] = ['drag', 'shortname', 'type', 'preview', 'edit', 'delete'];
   @ViewChild('table') table: MatTable<ApplicationFormItem>;
 
   mapForCombobox: Map<number, string> = new Map();

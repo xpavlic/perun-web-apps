@@ -19,6 +19,7 @@ export class TreeGroup implements Group {
     this.shortName = group.shortName;
     this.description = group.description;
     this.attributes = group.attributes;
+    this.beanName = group.beanName;
   }
 
   addChild(group: TreeGroup) {

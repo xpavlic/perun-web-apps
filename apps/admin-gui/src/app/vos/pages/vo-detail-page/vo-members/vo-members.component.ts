@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { SideMenuService } from '../../../../core/services/common/side-menu.service';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
@@ -35,7 +35,8 @@ export class VoMembersComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private tableConfigService: TableConfigService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authzService: GuiAuthResolver,
   ) { }
 
   vo: Vo;
@@ -61,6 +62,12 @@ export class VoMembersComponent implements OnInit {
   selectedStatuses: string[] = ['VALID', 'INVALID', 'SUSPENDED', 'EXPIRED', 'DISABLED'];
   pageSize: number;
   tableId = TABLE_VO_MEMBERS;
+  hideColumns = [];
+
+  addAuth: boolean;
+  removeAuth: boolean;
+  inviteAuth: boolean;
+  routeAuth: boolean;
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -70,8 +77,25 @@ export class VoMembersComponent implements OnInit {
 
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;
+
+        this.setAuthRights();
       });
     });
+  }
+
+  setAuthRights(){
+    this.addAuth = this.authzService.isAuthorized('createMember_Vo_User_List<Group>_policy', [this.vo]) &&
+      this.authzService.isAuthorized('createMember_Vo_Candidate_List<Group>_policy', [this.vo]);
+
+    this.removeAuth = this.authzService.isAuthorized('deleteMembers_List<Member>_policy', [this.vo]);
+
+    this.hideColumns = this.removeAuth ? ['groupStatus'] : ['checkbox', 'groupStatus'];
+
+    if(this.members !== null && this.members.length !== 0){
+      this.routeAuth = this.authzService.isAuthorized('getMemberById_int_policy', [this.vo, this.members[0]]);
+    }
+
+    this.inviteAuth = this.authzService.isAuthorized('vo-sendInvitation_Vo_Group_String_String_String_policy', [this.vo]);
   }
 
   onSearchByString() {
@@ -83,6 +107,7 @@ export class VoMembersComponent implements OnInit {
     this.membersService.findCompleteRichMembers(this.vo.id, this.searchString, this.attrNames, this.selectedStatuses).subscribe(
       members => {
         this.members = members;
+        this.setAuthRights();
         this.loading = false;
       },
       () => this.loading = false
@@ -97,6 +122,7 @@ export class VoMembersComponent implements OnInit {
     this.membersService.getCompleteRichMembers(this.vo.id, this.attrNames, this.selectedStatuses).subscribe(
       members => {
         this.members = members;
+        this.setAuthRights();
         this.loading = false;
       },
       () => this.loading = false

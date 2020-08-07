@@ -1,13 +1,29 @@
 <div (keyup)="onKeyInput($event)" class="vo-theme">
   <h1 class="page-subtitle">{{'VO_DETAIL.MEMBERS.TITLE' | translate}}</h1>
   <div class="align-elements">
-    <button mat-flat-button color="accent" class="mr-2" (click)="onAddMember()">
+    <button
+      *ngIf="addAuth"
+      mat-flat-button
+      color="accent"
+      class="mr-2"
+      (click)="onAddMember()">
       {{'VO_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
     </button>
-    <button mat-flat-button color="accent" class="mr-2" (click)="onInviteMember()">
+    <button
+      *ngIf="inviteAuth"
+      mat-flat-button
+      color="accent"
+      class="mr-2"
+      (click)="onInviteMember()">
       {{'VO_DETAIL.MEMBERS.INVITE' | translate}}
     </button>
-    <button mat-flat-button color="warn" class="mr-2" [disabled]="selection.isEmpty()" (click)="onRemoveMembers()">
+    <button
+      *ngIf="removeAuth"
+      mat-flat-button
+      color="warn"
+      class="mr-2"
+      [disabled]="selection.isEmpty()"
+      (click)="onRemoveMembers()">
       {{'VO_DETAIL.MEMBERS.REMOVE_MEMBERS' | translate}}
     </button>
     <button mat-stroked-button class="mr-2" (click)="onListAll()">
@@ -47,7 +63,8 @@
       (page)="pageChanged($event)"
       [selection]="selection"
       [members]="members"
-      [hideColumns]="['groupStatus']"
+      [disableRouting]="!routeAuth"
+      [hideColumns]="hideColumns"
       (updateTable)="refreshTable()"
       *ngIf="members.length !== 0">
     </app-members-list>

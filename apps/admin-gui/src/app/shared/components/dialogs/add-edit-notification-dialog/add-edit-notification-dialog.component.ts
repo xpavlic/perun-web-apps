@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {openClose, tagsOpenClose} from '@perun-web-apps/perun/animations';
-import { ApplicationMail, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import { ApplicationMail, RegistrarManagerService, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 export interface ApplicationFormAddEditMailDialogData {
   theme: string;
@@ -25,7 +26,8 @@ export class AddEditNotificationDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<AddEditNotificationDialogComponent>,
               private registrarService: RegistrarManagerService,
-              @Inject(MAT_DIALOG_DATA) public data: ApplicationFormAddEditMailDialogData) { }
+              @Inject(MAT_DIALOG_DATA) public data: ApplicationFormAddEditMailDialogData,
+              private authResolver: GuiAuthResolver) { }
 
   applicationMail: ApplicationMail;
   showTags = false;
@@ -34,10 +36,20 @@ export class AddEditNotificationDialogComponent implements OnInit {
   language = 'en';
   loading = false;
   theme: string;
+  editAuth: boolean;
 
   ngOnInit() {
     this.applicationMail = this.data.applicationMail;
     this.theme = this.data.theme;
+
+    if(this.data.voId){
+      const vo = {
+        id: this.data.voId,
+        beanName: "'Vo"
+      };
+
+      this.editAuth = this.authResolver.isAuthorized('vo-addMail_ApplicationForm_ApplicationMail_policy', [vo]);
+    }
   }
 
   cancel() {

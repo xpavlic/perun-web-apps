@@ -2,11 +2,11 @@ import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
   DeleteAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import {
   CreateAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {AttributesListComponent} from '@perun-web-apps/perun/components';
 import {NotificatorService} from '@perun-web-apps/perun/services';
@@ -21,11 +21,11 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-vo-settings-attributes',
-  templateUrl: './vo-settings-attributes.component.html',
-  styleUrls: ['./vo-settings-attributes.component.scss']
+  selector: 'app-vo-attributes',
+  templateUrl: './vo-attributes.component.html',
+  styleUrls: ['./vo-attributes.component.scss']
 })
-export class VoSettingsAttributesComponent implements OnInit {
+export class VoAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
@@ -55,7 +55,7 @@ export class VoSettingsAttributesComponent implements OnInit {
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-    this.route.parent.parent.params.subscribe(parentParams => {
+    this.route.parent.params.subscribe(parentParams => {
       this.voId = parentParams['voId'];
       this.refreshTable();
     });

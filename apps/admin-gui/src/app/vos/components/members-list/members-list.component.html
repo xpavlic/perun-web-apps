@@ -57,8 +57,9 @@
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr
           *matRowDef="let member; columns: displayedColumns;"
-          [routerLink]="['/organizations', member.voId, 'members', member.id]"
+          [routerLink]="disableRouting ? null : ['/organizations', member.voId, 'members', member.id]"
           class="dark-hover-list-item"
+          [class.cursor-pointer]="!disableRouting"
           mat-row>
         </tr>
       </table>

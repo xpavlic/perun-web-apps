@@ -3,7 +3,8 @@
     <mat-tree-node class="group-tree-node"
                    *matTreeNodeDef="let group" matTreeNodePadding>            <!--leaf-->
       <div class="group-item-content" [routerLink]="['/organizations', group.voId, 'groups', group.id]">
-        <mat-checkbox color="primary"
+        <mat-checkbox *ngIf="!hideCheckbox"
+                      color="primary"
                       [disabled]="group.fullName === 'members'"
                       class="no-label-margin-bottom ml-4"
                       [checked]="selection.isSelected(group)"
@@ -31,7 +32,8 @@
     <mat-tree-node
       class="group-tree-node"
       *matTreeNodeDef="let group;when: hasChild" matTreeNodePadding> <!--parent-->
-      <mat-checkbox color="primary" class="no-label-margin-bottom ml-4"
+      <mat-checkbox *ngIf="!hideCheckbox"
+                    color="primary" class="no-label-margin-bottom ml-4"
                     [disabled]="group.fullName === 'members'"
                     [checked]="selection.isSelected(group)"
                     [indeterminate]="descendantsPartiallySelected(group)"

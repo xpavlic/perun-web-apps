@@ -21,6 +21,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { GroupsTreeComponent} from '@perun-web-apps/perun/components';
+import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-vo-groups',
@@ -57,6 +59,15 @@ export class VoGroupsComponent implements OnInit {
 
   @ViewChild('toggle', {static: true})
   toggle: MatSlideToggle;
+
+  createAuth: boolean;
+  routeAuth: boolean;
+
+  @ViewChild('tree', {})
+  tree: GroupsTreeComponent;
+
+  @ViewChild('list', {})
+  list: GroupsListComponent;
 
   onCreateGroup() {
     const config = getDefaultDialogConfig();
@@ -95,6 +106,24 @@ export class VoGroupsComponent implements OnInit {
         this.loadAllGroups();
       });
     });
+  }
+
+  setAuthRights() {
+    this.createAuth = this.guiAuthResolver.isAuthorized('createGroup_Vo_Group_policy', [this.vo]);
+
+    if(this.groups.length !== 0){
+      this.routeAuth = this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.vo, this.groups[0]]);
+    }
+  }
+
+  disableRemove() {
+    return (this.tree !== undefined && !this.tree.removeAuth) ||
+      (this.list !== undefined && !this.list.deleteAuth);
+  }
+
+  disableTooltip(){
+    return (this.tree !== undefined && this.tree.removeAuth) ||
+      (this.list !== undefined && this.list.deleteAuth);
   }
 
   deleteGroup() {
@@ -145,6 +174,7 @@ export class VoGroupsComponent implements OnInit {
       this.filteredGroups = groups;
       this.filteredTreeGroups = groups;
       this.selected.clear();
+      this.setAuthRights();
       this.loading = false;
     });
   }

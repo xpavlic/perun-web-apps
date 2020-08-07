@@ -36,6 +36,8 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
   selection = new SelectionModel<ResourceTag>(true, []);
   @Input()
   pageSize = 10;
+  @Input()
+  displayedColumns = ['select', 'id', 'name', 'edit'];
 
   @Output()
   page = new EventEmitter<PageEvent>();
@@ -49,7 +51,6 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
 
   private sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'id', 'name', 'edit'];
   dataSource: MatTableDataSource<ResourceTag>;
 
 

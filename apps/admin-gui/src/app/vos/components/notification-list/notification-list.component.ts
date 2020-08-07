@@ -35,7 +35,12 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
   @Input()
   groupId: number;
 
+  @Input()
   displayedColumns: string[] = ['select', 'id', 'mailType', 'appType', 'send'];
+
+  @Input()
+  disableSend = false;
+
   dataSource: MatTableDataSource<ApplicationMail>;
 
   @Input()

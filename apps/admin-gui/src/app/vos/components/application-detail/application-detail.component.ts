@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApplicationReSendNotificationDialogComponent } from '../../../shared/components/dialogs/application-re-send-notification-dialog/application-re-send-notification-dialog.component';
 import { ApplicationRejectDialogComponent } from '../../../shared/components/dialogs/application-reject-dialog/application-reject-dialog.component';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import {
   Application,
   ApplicationFormItem,
@@ -30,7 +30,8 @@ export class ApplicationDetailComponent implements OnInit {
     private translate: TranslateService,
     private route: ActivatedRoute,
     private notificator: NotificatorService,
-    private router: Router) {
+    private router: Router,
+    private authResolver: GuiAuthResolver) {
   }
 
   application: Application;
@@ -39,6 +40,12 @@ export class ApplicationDetailComponent implements OnInit {
   dataSource: MatTableDataSource<ApplicationFormItemData>;
   loading = true;
   dialogTheme: string;
+
+  verifyAuth: boolean;
+  approveAuth: boolean;
+  rejectAuth: boolean;
+  deleteAuth: boolean;
+  resendAuth: boolean;
 
   ngOnInit() {
     this.loading = true;
@@ -57,10 +64,19 @@ export class ApplicationDetailComponent implements OnInit {
         this.registrarManager.getApplicationDataById(this.application.id).subscribe(value => {
           this.userData = value;
           this.dataSource = new MatTableDataSource<ApplicationFormItemData>(this.userData);
+          this.setAuthRights();
           this.loading = false;
         });
       });
     });
+  }
+
+  setAuthRights(){
+    this.verifyAuth = this.authResolver.isAuthorized('vo-verifyApplication_int_policy', [this.application.vo]);
+    this.approveAuth = this.authResolver.isAuthorized('vo-approveApplicationInternal_int_policy', [this.application.vo]);
+    this.rejectAuth = this.authResolver.isAuthorized('vo-rejectApplication_int_String_policy', [this.application.vo]);
+    this.deleteAuth = this.authResolver.isAuthorized('vo-deleteApplication_Application_policy', [this.application.vo]);
+    this.resendAuth = this.authResolver.isAuthorized('vo-sendMessage_Application_MailType_String_policy', [this.application.vo]);
   }
 
   getLabel(formItem: ApplicationFormItem) {

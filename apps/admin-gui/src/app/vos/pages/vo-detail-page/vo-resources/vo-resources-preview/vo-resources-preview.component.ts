@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TABLE_VO_RESOURCES_LIST, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-resources-preview',
@@ -23,7 +24,8 @@ export class VoResourcesPreviewComponent implements OnInit {
               private voService: VosManagerService,
               private route: ActivatedRoute,
               private tableConfigService: TableConfigService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private authResolver: GuiAuthResolver) {
   }
 
   vo: Vo;
@@ -33,8 +35,12 @@ export class VoResourcesPreviewComponent implements OnInit {
   loading: boolean;
   filterValue = '';
   pageSize: number;
+  displayedColumns = [];
 
   tableId = TABLE_VO_RESOURCES_LIST;
+
+  removeAuth: boolean;
+  routeAuth = false;
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -50,11 +56,22 @@ export class VoResourcesPreviewComponent implements OnInit {
     });
   }
 
+  setAuthRights() {
+    this.removeAuth = this.authResolver.isAuthorized('deleteResource_Resource_policy',[this.vo]);
+
+    if(this.resources.length !== 0){
+      this.routeAuth = this.authResolver.isAuthorized('getResourceById_int_policy', [this.vo, this.resources[0]]);
+    }
+
+    this.displayedColumns = this.removeAuth ? ['select', 'id', 'name', 'facility', 'tags', 'description'] : ['id', 'name', 'facility', 'tags', 'description'];
+  }
+
   refreshTable() {
     this.loading = true;
     this.resourcesManager.getRichResources(this.vo.id).subscribe(resources => {
       this.resources = resources;
       this.selected.clear();
+      this.setAuthRights();
       this.loading = false;
     });
   }

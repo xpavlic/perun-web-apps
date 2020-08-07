@@ -1,6 +1,7 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.RESOURCES.TAGS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="updateData()"></perun-web-apps-refresh-button>
 <button
+  *ngIf="createAuth"
   mat-flat-button
   class="mr-2"
   color="accent"
@@ -9,6 +10,7 @@
 </button>
 
 <button
+  *ngIf="deleteAuth"
   mat-flat-button
   color="warn"
   [disabled]="selection.selected.length === 0"
@@ -28,4 +30,5 @@
                          (page)="pageChanged($event)"
                          [resourceTags]="resourceTag"
                          [filterValue]="filterValue"
+                         [displayedColumns]="displayedColumns"
 ></app-resources-tags-list>

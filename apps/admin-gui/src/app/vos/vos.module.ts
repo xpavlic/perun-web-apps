@@ -17,7 +17,7 @@ import {GroupSubgroupsComponent} from './pages/group-detail-page/group-subgroups
 import {VoResourcesComponent} from './pages/vo-detail-page/vo-resources/vo-resources.component';
 import {VoApplicationsComponent} from './pages/vo-detail-page/vo-applications/vo-applications.component';
 import {VoSettingsComponent} from './pages/vo-detail-page/vo-settings/vo-settings.component';
-import {VoSettingsAttributesComponent} from './pages/vo-detail-page/vo-settings/vo-settings-attributes/vo-settings-attributes.component';
+import {VoAttributesComponent} from './pages/vo-detail-page/vo-attributes/vo-attributes.component';
 import {VoSettingsOverviewComponent} from './pages/vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
 import {VoSettingsExpirationComponent} from './pages/vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
 import {ApplicationsListComponent} from './components/applications-list/applications-list.component';
@@ -111,7 +111,7 @@ import { MemberResourcesComponent } from './pages/member-detail-page/member-reso
     VoResourcesComponent,
     VoApplicationsComponent,
     VoSettingsComponent,
-    VoSettingsAttributesComponent,
+    VoAttributesComponent,
     VoSettingsOverviewComponent,
     VoSettingsExpirationComponent,
     ApplicationsListComponent,

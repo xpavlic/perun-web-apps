@@ -2,21 +2,27 @@
   <h1 class="page-subtitle">{{'VO_DETAIL.GROUPS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="loadAllGroups()"></perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading && guiAuthResolver.isAuthorized('createGroup_Vo_Group_policy', [vo])"
+    *ngIf="!loading && createAuth"
     mat-flat-button
     color="accent"
     class="mr-2"
     (click)="onCreateGroup()">
     {{'VO_DETAIL.GROUPS.CREATE_GROUP' | translate}}
   </button>
-  <button
-    mat-flat-button
-    color="warn"
-    class="mr-2"
-    [disabled]="selected.selected.length === 0"
-    (click)="deleteGroup()">
-    {{'VO_DETAIL.GROUPS.DELETE_GROUP' | translate}}
-  </button>
+  <span
+    *ngIf="!loading"
+    [matTooltipDisabled]="(tree === undefined && list === undefined) || disableTooltip()"
+    matTooltip="{{'VO_DETAIL.GROUPS.DELETE_PERMISSION_HINT' | translate}}">
+    <button
+      *ngIf="!loading"
+      mat-flat-button
+      color="warn"
+      class="mr-2"
+      [disabled]="selected.selected.length === 0 || disableRemove()"
+      (click)="deleteGroup()">
+      {{'VO_DETAIL.GROUPS.DELETE_GROUP' | translate}}
+    </button>
+  </span>
   <app-debounce-filter
     [placeholder]="'VO_DETAIL.GROUPS.FILTER'"
     (filter)="applyFilter($event)">
@@ -27,15 +33,18 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div class="mt-3" *ngIf="!loading && groups.length !== 0">
     <perun-web-apps-groups-tree
+      #tree
       (moveGroup)="onMoveGroup($event)"
       *ngIf="!showGroupList"
       [groups]="filteredTreeGroups"
       [expandAll]="filtering"
+      [vo]="vo"
       [selection]="selected"
       (refreshTable)="loadAllGroups()"
       theme="vo-theme">
     </perun-web-apps-groups-tree>
     <perun-web-apps-groups-list
+      #list
       (page)="pageChanged($event)"
       [pageSize]="pageSize"
       (moveGroup)="onMoveGroup($event)"
@@ -43,7 +52,8 @@
       [selection]="selected"
       [disableMembers]="true"
       [hideColumns]="['vo']"
-      [disableRouting]="!guiAuthResolver.isAuthorized('getGroupById_int_policy', [vo, groups[0]])"
+      [disableRouting]="!routeAuth"
+      [policy]="'deleteGroup_Group_boolean_policy'"
       *ngIf="showGroupList"
       (refreshTable)="loadAllGroups()"
       theme="vo-theme">

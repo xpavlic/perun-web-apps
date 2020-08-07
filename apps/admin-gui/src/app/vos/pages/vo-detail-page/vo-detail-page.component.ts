@@ -10,6 +10,7 @@ import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
 } from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-detail-page',
@@ -27,11 +28,13 @@ export class VoDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private sideMenuItemService: SideMenuItemService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver
   ) {
   }
 
   vo: Vo;
+  editAuth: boolean;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -39,6 +42,7 @@ export class VoDetailPageComponent implements OnInit {
 
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;
+        this.editAuth = this.authResolver.isAuthorized('updateVo_Vo_policy', [this.vo]);
 
         const sideMenuItem = this.sideMenuItemService.parseVo(vo);
 

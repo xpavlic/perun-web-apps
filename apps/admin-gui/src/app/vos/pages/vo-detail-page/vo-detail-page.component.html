@@ -12,7 +12,11 @@
         &nbsp;#{{vo.id}}
         </span>
       </div>
-      <button mat-icon-button aria-label="Edit Vo" (click)="editVo()">
+      <button
+        *ngIf="editAuth"
+        mat-icon-button
+        aria-label="Edit Vo"
+        (click)="editVo()">
         <mat-icon>edit</mat-icon>
       </button>
     </div>

@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {
   UpdateApplicationFormDialogComponent
 } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
-import {NotificatorService} from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import {TranslateService} from '@ngx-translate/core';
 import {
   ApplicationFormCopyItemsDialogComponent
@@ -15,7 +15,13 @@ import {
 import {
   EditApplicationFormItemDialogComponent
 } from '../../../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
-import { ApplicationForm, ApplicationFormItem, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  ApplicationForm,
+  ApplicationFormItem,
+  RegistrarManagerService,
+  Vo,
+  VosManagerService
+} from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -35,7 +41,9 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private router: Router) {
+    private router: Router,
+    private authResolver: GuiAuthResolver,
+    private voService: VosManagerService) {
   }
 
   loading = false;
@@ -43,6 +51,11 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   applicationFormItems: ApplicationFormItem[] = [];
   itemsChanged = false;
   voId: number;
+  vo: Vo;
+
+  editAuth: boolean;
+  displayedColumns: String[] = [];
+
 
   ngOnInit() {
     this.loading = true;
@@ -53,10 +66,19 @@ export class VoSettingsApplicationFormComponent implements OnInit {
         this.applicationForm = form;
         this.registrarManager.getFormItemsForVo(voId).subscribe( formItems => {
           this.applicationFormItems = formItems;
-          this.loading = false;
+          this.voService.getVoById(this.voId).subscribe(vo => {
+            this.vo = vo;
+            this.setAuthRights();
+            this.loading = false;
+          });
         });
       });
     });
+  }
+
+  setAuthRights(){
+    this.editAuth = this.authResolver.isAuthorized('vo-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy', [this.vo]);
+    this.displayedColumns = this.editAuth ? ['drag', 'shortname', 'type', 'preview', 'edit', 'delete'] : ['shortname', 'type', 'preview',];
   }
 
   add() {

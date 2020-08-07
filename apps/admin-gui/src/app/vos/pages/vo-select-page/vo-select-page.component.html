@@ -3,10 +3,10 @@
   </perun-web-apps-back-button>
   <h1 class="page-title">{{'VO_MANAGEMENT.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
-  <button mat-flat-button color="accent" class="mr-2" (click)="onCreateVo()" *ngIf="!loading && isVoAdmin">
+  <button mat-flat-button color="accent" class="mr-2" (click)="onCreateVo()" *ngIf="!loading && createAuth">
     {{'VO_MANAGEMENT.CREATE_VO' | translate}}
   </button>
-  <button mat-flat-button color="warn" (click)="onRemoveVo()" *ngIf="!loading && isVoAdmin" [disabled]="selection.selected.length === 0">
+  <button mat-flat-button color="warn" (click)="onRemoveVo()" *ngIf="!loading && deleteAuth" [disabled]="selection.selected.length === 0">
     {{'VO_MANAGEMENT.REMOVE_VO' | translate}}
   </button>
   <perun-web-apps-immediate-filter (filter)="applyFilter($event)" *ngIf="!loading" [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'"></perun-web-apps-immediate-filter>

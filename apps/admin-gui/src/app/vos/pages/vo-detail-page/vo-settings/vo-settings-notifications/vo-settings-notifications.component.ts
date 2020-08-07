@@ -6,7 +6,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {
   DeleteNotificationDialogComponent
 } from '../../../../../shared/components/dialogs/delete-notification-dialog/delete-notification-dialog.component';
-import {NotificatorService} from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import {
   EditEmailFooterDialogComponent
 } from '../../../../../shared/components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
@@ -16,7 +16,13 @@ import {
 import {
   NotificationsCopyMailsDialogComponent
 } from '../../../../../shared/components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
-import { ApplicationForm, ApplicationMail, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  ApplicationForm,
+  ApplicationMail,
+  RegistrarManagerService,
+  VosManagerService,
+  Vo
+} from '@perun-web-apps/perun/openapi';
 import { createNewApplicationMail, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import {
   TABLE_VO_SETTINGS_NOTIFICATIONS,
@@ -39,16 +45,25 @@ export class VoSettingsNotificationsComponent implements OnInit {
     private translate: TranslateService,
     private dialog: MatDialog,
     private tableConfigService: TableConfigService,
-    private notificator: NotificatorService) {
+    private notificator: NotificatorService,
+    private authResolver: GuiAuthResolver,
+    private voService: VosManagerService) {
   }
 
   loading = false;
   voId: number;
+  vo: Vo;
   applicationForm: ApplicationForm;
   applicationMails: ApplicationMail[] = [];
   selection = new SelectionModel<ApplicationMail>(true, []);
   pageSize: number;
   tableId = TABLE_VO_SETTINGS_NOTIFICATIONS;
+  displayedColumns: String[] = [];
+
+  addAuth: boolean;
+  removeAuth: boolean;
+  copyAuth: boolean;
+
 
   ngOnInit() {
     this.loading = true;
@@ -59,10 +74,22 @@ export class VoSettingsNotificationsComponent implements OnInit {
         this.applicationForm = form;
         this.registrarService.getApplicationMailsForVo(this.voId).subscribe( mails => {
           this.applicationMails = mails;
-          this.loading = false;
+          this.voService.getVoById(this.voId).subscribe(vo => {
+            this.vo = vo;
+            this.setAuthRights();
+            this.loading = false;
+          });
         });
       });
     });
+  }
+
+  setAuthRights() {
+    this.addAuth = this.authResolver.isAuthorized('vo-addMail_ApplicationForm_ApplicationMail_policy', [this.vo]);
+    this.removeAuth = this.authResolver.isAuthorized('vo-deleteMailById_ApplicationForm_Integer_policy', [this.vo]);
+    this.copyAuth = this.authResolver.isAuthorized('copyMailsFromVoToVo_Vo_Vo_policy', [this.vo]);
+
+    this.displayedColumns = this.removeAuth ? ['select', 'id', 'mailType', 'appType', 'send'] : [ 'id', 'mailType', 'appType', 'send'];
   }
 
   add() {

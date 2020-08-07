@@ -423,10 +423,15 @@ export class SideMenuItemService {
       label: 'MENU_ITEMS.VO.OVERVIEW',
       url: [`/organizations/${vo.id}`],
       activatedRegex: '/organizations/\\d+$'
+    }, {
+      label: 'MENU_ITEMS.VO.ATTRIBUTES',
+      url: [`/organizations/${vo.id}/attributes`],
+      activatedRegex: '/organizations/\\d+/attributes$'
     });
 
+
     // Members
-    if (this.authResolver.isThisVoAdminOrObserver(vo.id)) {
+    if (this.authResolver.isAuthorized('getCompleteRichMembers_Vo_List<String>_policy', [vo])) {
       links.push({
         label: 'MENU_ITEMS.VO.MEMBERS',
         url: [`/organizations/${vo.id}/members`],
@@ -435,8 +440,7 @@ export class SideMenuItemService {
     }
 
     // Groups
-    if (this.authResolver.isThisVoAdminOrObserver(vo.id)
-      || this.authResolver.isGroupAdminInThisVo(vo.id)) {
+    if (this.authResolver.isAuthorized('getAllRichGroupsWithAttributesByNames_Vo_List<String>_policy', [vo])) {
       links.push({
         label: 'MENU_ITEMS.VO.GROUPS',
         url: [`/organizations/${vo.id}/groups`],
@@ -445,34 +449,43 @@ export class SideMenuItemService {
     }
 
     // Resource management
-    if (this.authResolver.isThisVoAdminOrObserver(vo.id)) {
+    if (this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo])) {
+      // Preview
+      const children = [{
+        label: 'MENU_ITEMS.VO.RESOURCE_PREVIEW',
+        url: [`/organizations/${vo.id}/resources/preview`],
+        activatedRegex: '/organizations/\\d+/resources/preview$'
+      }];
+
+      // Tags
+      if(this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [vo])){
+        children.push({
+          label: 'MENU_ITEMS.VO.RESOURCE_TAGS',
+          url: [`/organizations/${vo.id}/resources/tags`],
+          activatedRegex: '/organizations/\\d+/resources/tags$'
+        });
+      }
+
+      // States
+      if(this.authResolver.isAuthorized('getResourcesState_Vo_policy', [vo])){
+        children.push({
+          label: 'MENU_ITEMS.VO.RESOURCE_STATES',
+          url: [`/organizations/${vo.id}/resources/states`],
+          activatedRegex: '/organizations/\\d+/resources/states$'
+        });
+      }
+
       links.push({
         label: 'MENU_ITEMS.VO.RESOURCES',
         url: [`/organizations/${vo.id}/resources`],
         activatedRegex: '/organizations/\\d+/resources$',
-        children: [
-          {
-            label: 'MENU_ITEMS.VO.RESOURCE_PREVIEW',
-            url: [`/organizations/${vo.id}/resources/preview`],
-            activatedRegex: '/organizations/\\d+/resources/preview$'
-          },
-          {
-            label: 'MENU_ITEMS.VO.RESOURCE_TAGS',
-            url: [`/organizations/${vo.id}/resources/tags`],
-            activatedRegex: '/organizations/\\d+/resources/tags$'
-          },
-          {
-            label: 'MENU_ITEMS.VO.RESOURCE_STATES',
-            url: [`/organizations/${vo.id}/resources/states`],
-            activatedRegex: '/organizations/\\d+/resources/states$'
-          }
-        ],
+        children: children,
         showChildrenRegex: '/organizations/\\d+/resources'
       });
     }
 
     // Applications
-    if (this.authResolver.isThisVoAdminOrObserver(vo.id)) {
+    if (this.authResolver.isAuthorized('getApplicationsForVo_Vo_List<String>_policy',[vo])) {
       links.push({
         label: 'MENU_ITEMS.VO.APPLICATIONS',
         url: [`/organizations/${vo.id}/applications`],
@@ -481,43 +494,63 @@ export class SideMenuItemService {
     }
 
     // Settings
-    if (this.authResolver.isThisVoAdminOrObserver(vo.id)) {
+    const extSourcesAuth = this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [vo]);
+    const managersAuth = this.authResolver.isAuthorized('getRichAdmins_Vo_String_List<String>_boolean_boolean_policy', [vo]);
+    const adminOrObserver = this.authResolver.isThisVoAdminOrObserver(vo.id);
+
+    if (managersAuth || extSourcesAuth || adminOrObserver) {
+      const children = [];
+
+      // Membership
+      if(adminOrObserver){
+        children.push({
+          label: 'MENU_ITEMS.VO.EXPIRATION',
+          url: [`/organizations/${vo.id}/settings/expiration`],
+          activatedRegex: '/organizations/\\d+/settings/expiration$'
+        });
+      }
+
+      // Managers
+      if(managersAuth){
+        children.push({
+          label: 'MENU_ITEMS.VO.MANAGERS',
+          url: [`/organizations/${vo.id}/settings/managers`],
+          activatedRegex: '/organizations/\\d+/settings/managers$'
+        });
+      }
+
+      // Application form
+      if(adminOrObserver){
+        children.push({
+          label: 'MENU_ITEMS.VO.APPLICATION_FORM',
+            url: [`/organizations/${vo.id}/settings/applicationForm`],
+            activatedRegex: '/organizations/\\d+/settings/applicationForm$'
+        });
+      }
+
+      // Notifications
+      if(adminOrObserver){
+        children.push({
+          label: 'MENU_ITEMS.VO.NOTIFICATIONS',
+          url: [`/organizations/${vo.id}/settings/notifications`],
+          activatedRegex: '/organizations/\\d+/settings/notifications$'
+        });
+      }
+
+      // Ext. sources
+      if(extSourcesAuth){
+        children.push({
+          label: 'MENU_ITEMS.VO.EXTSOURCES',
+          url: [`/organizations/${vo.id}/settings/extsources`],
+          activatedRegex: '/organizations/\\d+/settings/extsources$'
+        });
+      }
+
       links.push({
         label: 'MENU_ITEMS.VO.SETTINGS',
         url: [`/organizations/${vo.id}/settings`],
         activatedRegex: '/organizations/\\d+/settings$',
-        children: [
-          {
-            label: 'MENU_ITEMS.VO.ATTRIBUTES',
-            url: [`/organizations/${vo.id}/settings/attributes`],
-            activatedRegex: '/organizations/\\d+/settings/attributes$'
-          },
-          {
-            label: 'MENU_ITEMS.VO.EXPIRATION',
-            url: [`/organizations/${vo.id}/settings/expiration`],
-            activatedRegex: '/organizations/\\d+/settings/expiration$'
-          },
-          {
-            label: 'MENU_ITEMS.VO.MANAGERS',
-            url: [`/organizations/${vo.id}/settings/managers`],
-            activatedRegex: '/organizations/\\d+/settings/managers$'
-          },
-          {
-            label: 'MENU_ITEMS.VO.APPLICATION_FORM',
-            url: [`/organizations/${vo.id}/settings/applicationForm`],
-            activatedRegex: '/organizations/\\d+/settings/applicationForm$'
-          },
-          {
-            label: 'MENU_ITEMS.VO.NOTIFICATIONS',
-            url: [`/organizations/${vo.id}/settings/notifications`],
-            activatedRegex: '/organizations/\\d+/settings/notifications$'
-          },
-          {
-            label: 'MENU_ITEMS.VO.EXTSOURCES',
-            url: [`/organizations/${vo.id}/settings/extsources`],
-            activatedRegex: '/organizations/\\d+/settings/extsources$'
-          }
-        ],
+        children: children,
         showChildrenRegex: '/organizations/\\d+/settings'
       });
     }
