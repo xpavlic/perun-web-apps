@@ -75,7 +75,11 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
       this.dataSource.sortingDataAccessor = (richMember, property) => {
         switch (property) {
           case 'fullName':
-            return parseFullName(richMember.user);
+            if (richMember.user.lastName) {
+              return richMember.user.lastName.toLowerCase();
+            } else {
+              return parseFullName(richMember.user);
+            }
           case 'email':
             return parseEmail(richMember);
           default:
