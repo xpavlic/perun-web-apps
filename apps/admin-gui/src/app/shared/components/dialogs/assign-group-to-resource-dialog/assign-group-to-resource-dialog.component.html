@@ -1,25 +1,28 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.TITLE' | translate}}</h1>
-  <app-debounce-filter
-    placeholder="{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
-    (filter)="applyFilter($event)">
-  </app-debounce-filter>
-  <mat-checkbox
-    color="primary"
-    [(ngModel)]="checkGroups">
-    {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CONFIGURE_GROUPS' | translate}}
-  </mat-checkbox>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-  <perun-web-apps-groups-list
-    (page)="pageChanged($event)"
-    [pageSize]="pageSize"
-    *ngIf="!loading"
-    [groups]="filteredGroups"
-    [selection]="selection"
-    [hideColumns]="['vo', 'menu']"
-    [disableRouting]="true"
-    [disableMembers]="false">
-  </perun-web-apps-groups-list>
+  <div mat-dialog-content class="dialog-container">
+    <app-debounce-filter
+      placeholder="{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
+      (filter)="applyFilter($event)">
+    </app-debounce-filter>
+<!-- first do the functionality to this checkbox then you can show it<mat-checkbox-->
+<!--      color="primary"-->
+<!--      [(ngModel)]="checkGroups">-->
+<!--      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CONFIGURE_GROUPS' | translate}}-->
+<!--    </mat-checkbox>-->
+    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <perun-web-apps-groups-list
+      (page)="pageChanged($event)"
+      [pageSize]="pageSize"
+      *ngIf="!loading"
+      [groups]="unAssignedGroups"
+      [selection]="selection"
+      [filter]="filterValue"
+      [hideColumns]="['vo', 'menu']"
+      [disableRouting]="true"
+      [disableMembers]="false">
+    </perun-web-apps-groups-list>
+  </div>
   <div mat-dialog-actions>
     <button
       mat-flat-button
