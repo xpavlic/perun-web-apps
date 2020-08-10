@@ -48,11 +48,22 @@ export class MemberOverviewComponent implements OnInit {
 
         this.initNavItems();
 
-        this.attributesManager.getMemberAttributeByName(this.member.id, Urns.MEMBER_DEF_EXPIRATION).subscribe(attr => {
-          this.expiration = attr.value === null ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') : attr.value;
-        });
+        this.getExpiration()
       });
     });
+  }
+
+  changeExpiration() {
+    const config = getDefaultDialogConfig();
+    config.width = '400px';
+    config.data = this.member;
+
+    const dialogRef = this.dialog.open(ChangeExpirationDialogComponent, config);
+    dialogRef.afterClosed().subscribe(success => {
+      if (success){
+        this.getExpiration();
+      }
+    })
   }
 
   private initNavItems() {
@@ -84,11 +95,9 @@ export class MemberOverviewComponent implements OnInit {
     ];
   }
 
-  changeExpiration() {
-    const config = getDefaultDialogConfig();
-    config.width = '400px';
-    config.data = this.member;
-
-    const dialogRef = this.dialog.open(ChangeExpirationDialogComponent, config);
+  private getExpiration() {
+    this.attributesManager.getMemberAttributeByName(this.member.id, Urns.MEMBER_DEF_EXPIRATION).subscribe(attr => {
+      this.expiration = attr.value === null ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') : attr.value;
+    });
   }
 }

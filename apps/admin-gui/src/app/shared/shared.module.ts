@@ -183,6 +183,8 @@ import { RemoveMemberGroupDialogComponent } from './components/dialogs/remove-me
 import { AddRequiredAttributesDialogComponent } from './components/dialogs/add-required-attributes-dialog/add-required-attributes-dialog.component';
 import { RemoveRequiredAttributesDialogComponent } from './components/dialogs/remove-required-attributes-dialog/remove-required-attributes-dialog.component';
 import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.component';
+import { TransformMemberStatusPipe } from './pipes/transform-member-status.pipe';
+import { GetMemberExpirationPipe } from './pipes/get-member-expiration.pipe';
 
 @NgModule({
   imports: [
@@ -318,7 +320,9 @@ import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.co
     SecurityTeamsListComponent,
     OwnersListComponent,
     ServicesListComponent,
-    AttrDefListComponent
+    AttrDefListComponent,
+    TransformMemberStatusPipe,
+    GetMemberExpirationPipe
   ],
   declarations: [
     PerunNavComponent,
@@ -451,7 +455,9 @@ import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.co
     RemoveMemberGroupDialogComponent,
     AddRequiredAttributesDialogComponent,
     RemoveRequiredAttributesDialogComponent,
-    AttrDefListComponent
+    AttrDefListComponent,
+    TransformMemberStatusPipe,
+    GetMemberExpirationPipe
   ],
   providers: [
     AnyToStringPipe,

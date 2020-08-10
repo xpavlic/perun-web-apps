@@ -63,7 +63,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
 
   exporting = false;
 
-  displayedColumns: string[] = ['checkbox', 'id', 'fullName', 'status', 'groupStatus', 'email'];
+  displayedColumns: string[] = ['checkbox', 'id', 'fullName', 'status', 'email'];
   dataSource: MatTableDataSource<RichMember>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 

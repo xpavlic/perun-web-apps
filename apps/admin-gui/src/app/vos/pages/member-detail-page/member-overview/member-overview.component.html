@@ -2,18 +2,18 @@
 <table *ngIf="member !== null" class="table table-bordered info-table col-3">
   <tbody>
   <tr>
-    <td>Status:</td>
+    <td>{{'MEMBER_DETAIL.OVERVIEW.STATUS' | translate}}</td>
     <td class="d-flex border-0">
       <mat-icon class="mr-1" [color]="statusIconColor">
         {{statusIcon}}
       </mat-icon>
       <b>
-        {{member.status}}
+        {{member.status | transformMemberStatus}}
       </b>
     </td>
   </tr>
   <tr>
-    <td>Expiration:</td>
+    <td class="vert-center">{{'MEMBER_DETAIL.OVERVIEW.EXPIRATION' | translate}}</td>
     <td>
       <i>
         {{expiration}}

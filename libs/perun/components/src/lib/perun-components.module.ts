@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
@@ -59,6 +59,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ChangeExpirationDialogComponent } from './change-expiration-dialog/change-expiration-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+@Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
     if (displayFormat === 'input') {
