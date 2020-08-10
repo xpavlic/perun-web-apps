@@ -18,21 +18,12 @@
           #{{group.id}}
         </div>
       </div>
-      <div
-          #tooltip="matTooltip"
-          [matTooltip]="group | groupSyncToolTip | translate"
-          [matTooltipPosition]="'above'">
-        <button mat-icon-button
-            [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
-            (click)="onSyncDetail(group)">
-          <mat-icon class="{{group | groupSyncIconColor}}">
-            {{group | groupSyncIcon}}
-          </mat-icon>
-        </button>
-      </div>
       <perun-web-apps-group-menu
         [disabled]="group.fullName === 'members'"
         (moveGroup)="onMoveGroup(group)"
+        (changeNameDescription)="onChangeNameDescription(group)"
+        (syncGroup)="onSyncDetail(group)"
+        [displayButtons]="displayButtons"
         [group]="group">
       </perun-web-apps-group-menu>
     </mat-tree-node>
@@ -53,28 +44,18 @@
             {{treeControl.isExpanded(group) ? 'expand_more' : 'chevron_right'}}
           </mat-icon>
         </button>
-        <div class="mr-2" >
+        <div class="mr-2">
           {{group.name}}
         </div>
         <div class="text-muted">
           #{{group.id}}
         </div>
       </div>
-      <div
-        #tooltip="matTooltip"
-        [matTooltip]="group | groupSyncToolTip | translate"
-        [matTooltipPosition]="'above'">
-        <button mat-icon-button
-                [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
-                (click)="onSyncDetail(group)">
-          <mat-icon class="{{group | groupSyncIconColor}}">
-            {{group | groupSyncIcon}}
-          </mat-icon>
-        </button>
-      </div>
       <perun-web-apps-group-menu
         [disabled]="group.fullName === 'members'"
         (moveGroup)="onMoveGroup(group)"
+        (syncGroup)="onSyncDetail(group)"
+        [displayButtons]="displayButtons"
         [group]="group">
       </perun-web-apps-group-menu>
     </mat-tree-node>

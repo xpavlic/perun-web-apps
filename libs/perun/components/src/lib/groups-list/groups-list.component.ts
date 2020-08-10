@@ -1,10 +1,23 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Group } from '@perun-web-apps/perun/openapi';
-import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
+import { Group, RichGroup } from '@perun-web-apps/perun/openapi';
+import { getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
+import { MatDialog } from '@angular/material/dialog';
+import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
+import { EditGroupDialogComponent } from '../edit-group-dialog/edit-group-dialog.component';
 
 @Component({
   selector: 'perun-web-apps-groups-list',
@@ -13,12 +26,16 @@ import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 })
 export class GroupsListComponent implements AfterViewInit, OnChanges {
 
-  constructor() { }
+  displayButtons: boolean;
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
+  @Input()
+  theme = 'group-theme';
+
+  constructor(private dialog: MatDialog) { }
 
   @Output()
   moveGroup = new EventEmitter<Group>();
@@ -59,6 +76,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   @Output()
   page = new EventEmitter<PageEvent>();
 
+  @Output()
+  refreshTable = new EventEmitter<void>();
+
   displayedColumns: string[] = ['select', 'id', 'vo', 'name', 'description', 'menu'];
   dataSource: MatTableDataSource<Group>;
 
@@ -67,6 +87,12 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+
+  @HostListener('window:resize', ['$event'])
+  shouldHideButtons() {
+    this.displayButtons = window.innerWidth > 1300;
+  }
+
 
   ngOnChanges(changes: SimpleChanges) {
     this.disabledRouting = this.disableRouting;
@@ -134,6 +160,30 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   onMoveGroup(group: Group) {
     this.moveGroup.emit(group);
     this.disabledRouting = false;
+  }
+
+  onSyncDetail(rg: RichGroup) {
+    const config = getDefaultDialogConfig();
+    config.data = {
+      groupId: rg.id,
+      theme: this.theme
+    };
+    this.dialog.open(GroupSyncDetailDialogComponent, config);
+  }
+
+  onChangeNameDescription(rg: RichGroup) {
+    const config = getDefaultDialogConfig();
+    config.data = {
+      groupId: rg.id,
+      theme: this.theme
+    }
+    const dialogRef = this.dialog.open(EditGroupDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res){
+        this.refreshTable.emit();
+      }
+    })
   }
 
   pageChanged(event: PageEvent) {

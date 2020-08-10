@@ -5,7 +5,6 @@ import {VosRoutingModule} from './vos-routing.module';
 import {SharedModule} from '../shared/shared.module';
 import {VoDetailPageComponent} from './pages/vo-detail-page/vo-detail-page.component';
 import {GroupDetailPageComponent} from './pages/group-detail-page/group-detail-page.component';
-import {GroupsTreeComponent} from './components/groups-tree/groups-tree.component';
 import {VoOverviewComponent} from './pages/vo-detail-page/vo-overview/vo-overview.component';
 import {VoGroupsComponent} from './pages/vo-detail-page/vo-groups/vo-groups.component';
 import {VoMembersComponent} from './pages/vo-detail-page/vo-members/vo-members.component';
@@ -48,7 +47,6 @@ import {
 import {
   MemberSettingsOverviewComponent
 } from './pages/member-detail-page/member-settings/member-settings-overview/member-settings-overview.component';
-import {AttributesListComponent} from '@perun-web-apps/perun/components';
 import {VoResourcesPreviewComponent} from './pages/vo-detail-page/vo-resources/vo-resources-preview/vo-resources-preview.component';
 import {VoResourcesTagsComponent} from './pages/vo-detail-page/vo-resources/vo-resources-tags/vo-resources-tags.component';
 import {VoResourcesStatesComponent} from './pages/vo-detail-page/vo-resources/vo-resources-states/vo-resources-states.component';
@@ -95,14 +93,12 @@ import { MemberResourcesComponent } from './pages/member-detail-page/member-reso
     PerunPipesModule
   ],
   exports: [
-    AttributesListComponent,
     MembersListComponent
   ],
   declarations: [
     VoSelectPageComponent,
     VoDetailPageComponent,
     GroupDetailPageComponent,
-    GroupsTreeComponent,
     VoOverviewComponent,
     VoGroupsComponent,
     VoMembersComponent,

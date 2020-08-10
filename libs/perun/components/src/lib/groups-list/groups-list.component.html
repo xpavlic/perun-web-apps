@@ -52,8 +52,11 @@
             <perun-web-apps-group-menu
               (click)="disabledRouting = true"
               (moveGroup)="onMoveGroup(group)"
+              (changeNameDescription)="onChangeNameDescription(group)"
+              (syncGroup)="onSyncDetail(group)"
               (whenClosed)="disabledRouting = disableRouting"
               [disabled]="group.name === 'members'"
+              [displayButtons]="displayButtons"
               [group]="group">
             </perun-web-apps-group-menu>
           </td>

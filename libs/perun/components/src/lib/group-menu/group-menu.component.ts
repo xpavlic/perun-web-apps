@@ -14,7 +14,13 @@ export class GroupMenuComponent implements OnInit {
 
   @Input() disabled = false;
 
+  @Input() displayButtons: boolean;
+
   @Output() moveGroup: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output() syncGroup: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output() changeNameDescription: EventEmitter<void> = new EventEmitter<void>();
 
   @Output() whenClosed: EventEmitter<boolean> = new EventEmitter<boolean>()
 
@@ -22,7 +28,14 @@ export class GroupMenuComponent implements OnInit {
   }
 
   onMoveGroup() {
-    console.log('Emit menu - ' + this.group);
     this.moveGroup.emit();
+  }
+
+  onSyncDetail() {
+    this.syncGroup.emit();
+  }
+
+  onChangeNameDescription() {
+    this.changeNameDescription.emit();
   }
 }

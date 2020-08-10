@@ -50,7 +50,10 @@ import { CreateAttributeDialogComponent } from './create-attribute-dialog/create
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { ShowValueDialogComponent } from './show-value-dialog/show-value-dialog.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-
+import { EditGroupDialogComponent } from './edit-group-dialog/edit-group-dialog.component';
+import { GroupSyncDetailDialogComponent } from './group-sync-detail-dialog/group-sync-detail-dialog.component';
+import { GroupsTreeComponent } from './groups-tree/groups-tree.component';
+import { MatTreeModule } from '@angular/material/tree';
 
 @NgModule({
   imports: [
@@ -77,7 +80,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     MatRippleModule,
     PerunPipesModule,
     MatDialogModule,
-    ClipboardModule
+    ClipboardModule,
+    MatTreeModule
   ],
   declarations: [
     VoSelectTableComponent,
@@ -109,7 +113,10 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     EditAttributeDialogComponent,
     CreateAttributeDialogComponent,
     PasswordResetComponent,
-    ShowValueDialogComponent
+    ShowValueDialogComponent,
+    EditGroupDialogComponent,
+    GroupSyncDetailDialogComponent,
+    GroupsTreeComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -135,7 +142,10 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     MenuButtonsFieldComponent,
     EditAttributeDialogComponent,
     CreateAttributeDialogComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    GroupSyncDetailDialogComponent,
+    EditGroupDialogComponent,
+    GroupsTreeComponent
   ]
 })
 export class PerunSharedComponentsModule {

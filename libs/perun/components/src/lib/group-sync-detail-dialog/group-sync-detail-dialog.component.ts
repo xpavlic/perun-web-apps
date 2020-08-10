@@ -7,8 +7,13 @@ import { NotificatorService } from '@perun-web-apps/perun/services';
 
 export type SyncType  = 'BASIC' | 'STRUCTURED';
 
+export interface GroupSyncDetailDialogData {
+  groupId: number;
+  theme: string;
+}
+
 @Component({
-  selector: 'app-group-sync-detail-dialog',
+  selector: 'perun-web-apps-group-sync-detail-dialog',
   templateUrl: './group-sync-detail-dialog.component.html',
   styleUrls: ['./group-sync-detail-dialog.component.scss']
 })
@@ -20,25 +25,54 @@ export class GroupSyncDetailDialogComponent implements OnInit {
   private lastStructSyncState: string;
   private lastStructSyncTime: string;
 
+  theme: string;
+  loading = true;
+  group: RichGroup;
+  private type: SyncType;
+
   constructor(
     public dialogRef: MatDialogRef<GroupSyncDetailDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public groupId: number,
+    @Inject(MAT_DIALOG_DATA) public data: GroupSyncDetailDialogData,
     private groupService: GroupsManagerService,
     private notificator: NotificatorService
   ) { }
 
-  private type: SyncType;
-  loading = true;
-
-  group: RichGroup;
-
   ngOnInit(): void {
+    this.theme = this.data.theme;
     this.loadGroup();
+  }
+
+  onForceStructure() {
+    this.loading = true;
+    this.groupService.forceGroupStructureSynchronization(this.data.groupId).subscribe(() => {
+      this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.STRUCT_FORCE_SUCCESS');
+      this.loading = false;
+    }, () => this.loading = false);
+  }
+
+  onCancel() {
+    this.dialogRef.close(null);
+  }
+
+  onForce() {
+    this.loading = true;
+    if (this.isBasic()) {
+      this.groupService.forceGroupSynchronization(this.group.id).subscribe(() => {
+        this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.FORCE_SUCCESS');
+        this.refresh();
+      }, () => this.loading = false);
+    }
+    if (this.isStructured()) {
+      this.groupService.forceGroupStructureSynchronization(this.group.id).subscribe(() => {
+        this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.FORCE_SUCCESS');
+        this.refresh();
+      }, () => this.loading = false);
+    }
   }
 
   private loadGroup() {
     this.loading = true;
-    this.groupService.getRichGroupByIdWithAttributesByNames(this.groupId, [
+    this.groupService.getRichGroupByIdWithAttributesByNames(this.data.groupId, [
       Urns.GROUP_SYNC_ENABLED,
       Urns.GROUP_LAST_SYNC_STATE,
       Urns.GROUP_LAST_SYNC_TIMESTAMP,
@@ -63,34 +97,6 @@ export class GroupSyncDetailDialogComponent implements OnInit {
       }
       this.loading = false;
     });
-  }
-
-  onCancel() {
-    this.dialogRef.close(null);
-  }
-
-  onForce() {
-    this.loading = true;
-    if (this.isBasic()) {
-      this.groupService.forceGroupSynchronization(this.group.id).subscribe(() => {
-        this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.FORCE_SUCCESS');
-        this.refresh();
-      }, () => this.loading = false);
-    }
-    if (this.isStructured()) {
-      this.groupService.forceGroupStructureSynchronization(this.group.id).subscribe(() => {
-        this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.FORCE_SUCCESS');
-        this.refresh();
-      }, () => this.loading = false);
-    }
-  }
-
-  onForceStructure() {
-    this.loading = true;
-    this.groupService.forceGroupStructureSynchronization(this.groupId).subscribe(() => {
-      this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.STRUCT_FORCE_SUCCESS');
-      this.loading = false;
-    }, () => this.loading = false);
   }
 
   getSynchronizationType() : string {
