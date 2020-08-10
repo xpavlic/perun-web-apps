@@ -1,6 +1,8 @@
 {
   "config": "default",
   "api_url": "http://localhost/krb/rpc",
+  "document_title": "Perun Web Gui",
+  "isDevel": false,
 
   "oidc_client" : {
     "oauth_authority": "https://login.cesnet.cz/oidc/",
@@ -10,7 +12,8 @@
     "oauth_redirect_uri": "http://gui-dev.org/api-callback",
     "oauth_silent_redirect_uri": "http://gui-dev.org/silent-refresh.html",
     "oauth_load_user_info": false,
-    "oauth_scopes": "openid profile perun_api perun_admin"
+    "oauth_scopes": "openid profile perun_api perun_admin",
+    "oauth_response_type": "id_token token"
   },
   "login_namespace_attributes": [
     "urn:perun:user:attribute-def:def:login-namespace:einfra",
@@ -26,6 +29,8 @@
   ],
   "pwd_reset_base_url": "https://perun-dev.cesnet.cz/fed/pwd-reset/",
   "skip_oidc": false,
+  "groupNameSecondaryRegex": "^[-a-zA-Z.0-9_ ]+$",
+  "groupNameErrorMessage": "Name cannot be empty and can contain only characters a-z, A-Z, numbers, spaces, dots, '_' and '-'",
   "footer_perun_web_web": "https://perun-aai.org/",
   "footer_perun_team_web": "https://perun-aai.org/team",
   "footer_privacy_policy_web": "https://perun-aai.org/",
@@ -71,6 +76,7 @@
     "sidemenu_facility_bg_color": "#d84315",
     "sidemenu_resource_bg_color":"#6a1b9a",
     "sidemenu_user_bg_color": "#00796b",
+    "sidemenu_service_bg_color": "#561335",
     "sidemenu_item_links_text_color": "#ffffff",
     "sidemenu_vo_text_color": "#ffffff",
     "sidemenu_member_text_color":"#ffffff",
@@ -78,12 +84,14 @@
     "sidemenu_facility_text_color":"#ffffff",
     "sidemenu_resource_text_color": "#ffffff",
     "sidemenu_user_text_color":"#ffffff",
+    "sidemenu_service_text_color": "#ffffff",
     "vo_color": "#283593",
     "group_color": "#33691e",
     "facility_color": "#d84315",
     "resource_color": "#6a1b9a",
     "user_color": "#00796b",
     "member_color": "#ad1457",
-    "admin_color": "#c62828"
+    "admin_color": "#c62828",
+    "service_color": "#561335"
   }
 }

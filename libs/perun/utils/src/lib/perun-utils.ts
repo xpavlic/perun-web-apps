@@ -565,3 +565,7 @@ export function createNewApplicationFormItem(): ApplicationFormItem {
           shortname: '',
           type: null };
 }
+
+export function isVirtualAttribute(attribute: Attribute): boolean {
+  return  attribute.namespace.split(':')[4] === 'virt';
+}

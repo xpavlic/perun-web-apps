@@ -1,0 +1,75 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div class="{{theme}}">
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+    <mat-form-field>
+      <input
+        matInput
+        required
+        (change)= "makePath()"
+        [formControl]="nameControl"
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}"
+      >
+      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_NAME' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        [(ngModel)]="description"
+        matInput
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DESCRIPTION' | translate}}"
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        required
+        [formControl]="delayControl"
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DELAY' | translate}}"
+      >
+      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_DELAY' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        required
+        [formControl]="recurrenceControl"
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.RECURRENCE' | translate}}"
+      >
+      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_RECURRENCE' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        required
+        [formControl]="pathControl"
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.PATH' | translate}}"
+      >
+      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_PATH' | translate}}</mat-error>
+    </mat-form-field>
+
+    <span>{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}</span>
+    <mat-checkbox
+      [(ngModel)]="status"
+      class="ml-5">{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox>
+  </div>
+  <div *ngIf="!loading" mat-dialog-actions>
+    <button
+      class="ml-auto"
+      (click)="onCancel()"
+      mat-flat-button>
+      {{'DIALOGS.CREATE_EDIT_SERVICE.CANCEL' | translate}}
+    </button>
+    <button
+      [disabled]="nameControl.invalid || delayControl.invalid || recurrenceControl.invalid || pathControl.invalid"
+      class="ml-2"
+      color="accent"
+      (click)="asEdit ? onEdit() : onCreate()"
+      mat-flat-button>
+      {{buttonText}}
+    </button>
+  </div>
+</div>

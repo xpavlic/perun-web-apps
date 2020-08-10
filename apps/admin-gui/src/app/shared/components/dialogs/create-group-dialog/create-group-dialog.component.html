@@ -1,42 +1,49 @@
 <h1 mat-dialog-title>{{title}}</h1>
-<div mat-dialog-content class="dialog-container">
+<div class="vo-theme">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading">
+    <div class="dialog-container" mat-dialog-content>
+      <mat-form-field>
+        <label class="w-100">
+          <input
+            [formControl]="nameControl"
+            matInput
+            placeholder="{{'DIALOGS.CREATE_GROUP.NAME' | translate}}"
+            required>
+        </label>
+        <mat-error>
+          {{invalidNameMessage.length ? invalidNameMessage : ('DIALOGS.CREATE_GROUP.FILL_VALUE' | translate)}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mt-4">
+        <label class="w-100">
+          <textarea
+            [formControl]="descriptionControl"
+            matInput
+            placeholder="{{'DIALOGS.CREATE_GROUP.DESCRIPTION' | translate}}"
+            required></textarea>
+        </label>
+        <mat-error>
+          {{'DIALOGS.CREATE_GROUP.FILL_VALUE' | translate}}
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field>
-    <input
-      matInput
-      required
-      placeholder="{{'DIALOGS.CREATE_GROUP.NAME' | translate}}"
-      [(ngModel)]="name">
-    <mat-error>
-      {{'DIALOGS.CREATE_GROUP.FILL_VALUE' | translate}}
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <textarea
-      matInput
-      required
-      placeholder="{{'DIALOGS.CREATE_GROUP.DESCRIPTION' | translate}}"
-      [(ngModel)]="description"></textarea>
-    <mat-error>
-      {{'DIALOGS.CREATE_GROUP.FILL_VALUE' | translate}}
-    </mat-error>
-  </mat-form-field>
-
-</div>
-<div mat-dialog-actions>
-  <button
-    mat-flat-button
-    required
-    class="ml-auto"
-    (click)="onCancel()">
-    {{'DIALOGS.CREATE_GROUP.CANCEL' | translate}}
-  </button>
-  <button
-    mat-flat-button
-    class="ml-2"
-    color="accent"
-    [disabled]="name == '' || description == ''"
-    (click)="onSubmit()">
-    {{'DIALOGS.CREATE_GROUP.CREATE' | translate}}
-  </button>
+    </div>
+    <div mat-dialog-actions>
+      <button
+        (click)="onCancel()"
+        class="ml-auto"
+        mat-flat-button>
+        {{'DIALOGS.CREATE_GROUP.CANCEL' | translate}}
+      </button>
+      <button
+        (click)="onSubmit()"
+        [disabled]="nameControl.invalid || descriptionControl.invalid"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.CREATE_GROUP.CREATE' | translate}}
+      </button>
+    </div>
+  </div>
 </div>

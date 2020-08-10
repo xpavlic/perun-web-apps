@@ -15,7 +15,8 @@
   <perun-web-apps-groups-list
     (page)="pageChanged($event)"
     [pageSize]="pageSize"
-    [groups]="filteredGroups"
+    [groups]="assignedGroups"
+    [filter]="filteredValue"
     [selection]="selected"
     [disableMembers]="false"
     [hideColumns]="['vo', 'menu']">

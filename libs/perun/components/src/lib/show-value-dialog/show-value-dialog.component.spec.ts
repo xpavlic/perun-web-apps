@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminServicesComponent } from './admin-services.component';
+import { ShowValueDialogComponent } from './show-value-dialog.component';
 
-describe('AdminServiciesComponent', () => {
-  let component: AdminServicesComponent;
-  let fixture: ComponentFixture<AdminServicesComponent>;
+describe('ShowValueDialogComponent', () => {
+  let component: ShowValueDialogComponent;
+  let fixture: ComponentFixture<ShowValueDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminServicesComponent ]
+      declarations: [ ShowValueDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminServicesComponent);
+    fixture = TestBed.createComponent(ShowValueDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

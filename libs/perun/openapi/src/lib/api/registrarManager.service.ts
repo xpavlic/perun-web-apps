@@ -27,6 +27,7 @@ import { InputAddApplicationMailForVo } from '../model/inputAddApplicationMailFo
 import { InputFormItemData } from '../model/inputFormItemData';
 import { InputSendMessage } from '../model/inputSendMessage';
 import { InputSetSendingEnabled } from '../model/inputSetSendingEnabled';
+import { InputSubmitApplication } from '../model/inputSubmitApplication';
 import { InputUpdateApplicationMail } from '../model/inputUpdateApplicationMail';
 import { InputUpdateForm } from '../model/inputUpdateForm';
 import { InputUpdateFormItemsForGroup } from '../model/inputUpdateFormItemsForGroup';
@@ -2381,6 +2382,68 @@ export class RegistrarManagerService {
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/registrarManager/setSendingEnabled`,
             inputSetSendingEnabled,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Creates a new application and if succeeds, trigger validation and approval. The method triggers approval for VOs with auto-approved applications.
+     * @param inputSubmitApplication 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe?: 'body', reportProgress?: boolean): Observable<Application>;
+    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
+    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
+    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (inputSubmitApplication === null || inputSubmitApplication === undefined) {
+            throw new Error('Required parameter inputSubmitApplication was null or undefined when calling submitApplication.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<Application>(`${this.configuration.basePath}/json/registrarManager/submitApplication`,
+            inputSubmitApplication,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

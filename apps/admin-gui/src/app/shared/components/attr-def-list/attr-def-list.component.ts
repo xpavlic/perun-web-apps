@@ -14,7 +14,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AttributeDefinition } from '@perun-web-apps/perun/openapi';
-import { EditAttributeDefinitionDialogComponent } from '../../../shared/components/dialogs/edit-attribute-definition-dialog/edit-attribute-definition-dialog.component';
+import { EditAttributeDefinitionDialogComponent } from '../dialogs/edit-attribute-definition-dialog/edit-attribute-definition-dialog.component';
 import { getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -36,6 +36,8 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   filterValue: string;
   @Input()
   pageSize = 10;
+  @Input()
+  disableRouting = false;
 
   @Output()
   refreshEvent = new EventEmitter<void>();
@@ -106,20 +108,22 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   }
 
   onRowClick(attDef: AttributeDefinition) {
-    const config = getDefaultDialogConfig();
-    config.width = '700px';
-    config.data = {
-      attDef: attDef
-    };
+    if(!this.disableRouting){
+      const config = getDefaultDialogConfig();
+      config.width = '700px';
+      config.data = {
+        attDef: attDef
+      };
 
-    const dialogRef = this.dialog.open(EditAttributeDefinitionDialogComponent, config);
+      const dialogRef = this.dialog.open(EditAttributeDefinitionDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.selection.clear();
-        this.refreshEvent.emit();
-      }
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.selection.clear();
+          this.refreshEvent.emit();
+        }
+      });
+    }
   }
 
   pageChanged(event: PageEvent) {

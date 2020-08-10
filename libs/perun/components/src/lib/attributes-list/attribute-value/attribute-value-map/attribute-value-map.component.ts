@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Attribute } from '@perun-web-apps/perun/openapi';
+import { MatDialog } from '@angular/material/dialog';
+import { ShowValueDialogComponent } from '../../../show-value-dialog/show-value-dialog.component';
+import { getDefaultDialogConfig, isVirtualAttribute } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'perun-web-apps-attribute-value-map',
@@ -8,7 +11,7 @@ import { Attribute } from '@perun-web-apps/perun/openapi';
 })
 export class AttributeValueMapComponent implements OnInit {
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
   }
 
   @Input()
@@ -28,6 +31,9 @@ export class AttributeValueMapComponent implements OnInit {
         this.keys.push(key);
         this.values.push(value);
       }
+    }
+    if(!this.readonly){
+      this.readonly = isVirtualAttribute(this.attribute);
     }
   }
 
@@ -55,6 +61,16 @@ export class AttributeValueMapComponent implements OnInit {
     } else {
       this.attribute.value = map;
     }
+  }
+
+  showValue(value: string, title: string) {
+    const config = getDefaultDialogConfig();
+    config.width = '350px';
+    config.data = {
+      value: value,
+      title: title
+    };
+    this.dialog.open(ShowValueDialogComponent, config);
   }
 }
 

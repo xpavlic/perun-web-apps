@@ -1,7 +1,10 @@
-<mat-form-field class="w-100" appearance="{{(attribute | isVirtualAttribute) || readonly ? 'none' : 'standard'}}">
+<mat-form-field appearance="{{readonly ? 'none' : 'standard'}}" class="w-100">
   <input
     matInput
-    [readonly]="(attribute | isVirtualAttribute) || readonly"
+    (click)="readonly && showValue(value, attribute.displayName)"
+    [class.cursor-pointer]="readonly"
+    [readonly]="readonly"
+    class="overflow-ellipsis"
     [(ngModel)]="attribute.value"
     type="text"
     (keydown)="_sendEventToParent()"/>

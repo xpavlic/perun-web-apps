@@ -29,7 +29,7 @@ export class ResourceGroupsComponent implements OnInit {
   assignedGroups: Group[] = [];
   selected = new SelectionModel<Group>(true, []);
   loading: boolean;
-  filteredGroups: Group[] = [];
+  filteredValue = '';
 
   tableId = TABLE_RESOURCE_ALLOWED_GROUPS;
   pageSize: number;
@@ -50,7 +50,6 @@ export class ResourceGroupsComponent implements OnInit {
     this.loading = true;
     this.resourcesManager.getAssignedGroups(this.resourceId).subscribe( assignedGroups => {
       this.assignedGroups = assignedGroups;
-      this.filteredGroups = assignedGroups;
       this.selected.clear();
       this.loading = false;
     });
@@ -83,7 +82,7 @@ export class ResourceGroupsComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
-    this.filteredGroups = this.assignedGroups.filter( option => option.name.toLowerCase().includes(filterValue.toLowerCase()));
+    this.filteredValue = filterValue;
   }
 
   pageChanged(event: PageEvent) {

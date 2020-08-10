@@ -44,6 +44,9 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
   @Input()
   selection = new SelectionModel<Service>(true, []);
 
+  @Input()
+  disableRouting = false;
+
   @Output()
   page = new EventEmitter<PageEvent>();
 

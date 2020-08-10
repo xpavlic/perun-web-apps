@@ -99,6 +99,7 @@ export * from './inputSetUserFacilityAttribute';
 export * from './inputSetUserFacilityAttributes';
 export * from './inputSetVoAttribute';
 export * from './inputSetVoAttributes';
+export * from './inputSubmitApplication';
 export * from './inputUpdateApplicationMail';
 export * from './inputUpdateBan';
 export * from './inputUpdateBanForFacility';

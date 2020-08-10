@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div class="dialog-container overflow-hidden" mat-dialog-content>
+<textarea
+  cdkTextareaAutosize
+  class="w-100 display-fix"
+  matInput
+  readonly>{{value}}</textarea>
+</div>
+<div mat-dialog-actions>
+  <button
+    (click)="onCancel()"
+    class="ml-auto"
+    mat-flat-button>
+    {{'DIALOGS.SHOW_VALUE.CLOSE' | translate}}
+  </button>
+  <button
+    [cdkCopyToClipboard]="value"
+    class="ml-2"
+    color="accent"
+    mat-flat-button>
+    {{'DIALOGS.SHOW_VALUE.COPY' | translate}}
+  </button>
+</div>

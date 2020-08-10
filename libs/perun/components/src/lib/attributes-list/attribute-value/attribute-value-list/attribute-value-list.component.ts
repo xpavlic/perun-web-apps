@@ -6,8 +6,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { AttributeValueListEditDialogComponent } from './attribute-value-list-edit-dialog/attribute-value-list-edit-dialog.component';
 import { AttributeValueListDeleteDialogComponent } from './attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
-import { IsVirtualAttributePipe } from '@perun-web-apps/perun/pipes';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { getDefaultDialogConfig, isVirtualAttribute } from '@perun-web-apps/perun/utils';
+import { ShowValueDialogComponent } from '../../../show-value-dialog/show-value-dialog.component';
 
 @Component({
   selector: 'perun-web-apps-attribute-value-list',
@@ -34,9 +34,12 @@ export class AttributeValueListComponent implements OnInit {
   readonly = false;
 
   ngOnInit() {
-    this.removable = ! new IsVirtualAttributePipe().transform(this.attribute) && !this.readonly;
+    this.removable = !isVirtualAttribute(this.attribute) && !this.readonly;
     if (this.attribute.value === undefined) {
       this.attribute.value = [];
+    }
+    if(!this.readonly){
+      this.readonly = isVirtualAttribute(this.attribute);
     }
   }
 
@@ -96,5 +99,15 @@ export class AttributeValueListComponent implements OnInit {
         this.sendEventToParent.emit();
       }
     });
+  }
+
+  showValue(value: string, title: string) {
+    const config = getDefaultDialogConfig();
+    config.width = '350px';
+    config.data = {
+      value: value,
+      title: title
+    };
+    this.dialog.open(ShowValueDialogComponent, config);
   }
 }

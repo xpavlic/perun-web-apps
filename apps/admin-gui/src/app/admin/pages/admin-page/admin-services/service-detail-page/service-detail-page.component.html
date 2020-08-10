@@ -1,0 +1,28 @@
+<div *ngIf="service !== undefined" class="container-fluid pl-xl-5 pr-xl-5 service-theme">
+  <perun-web-apps-back-button>
+  </perun-web-apps-back-button>
+  <h1 class="page-title">
+    <div class="d-flex align-items-center">
+      {{'SERVICE_DETAIL.TITLE' | translate}}
+      <a [routerLink]="['/admin/services', service.id]" class="service-link">
+        &nbsp;{{service.name}}
+      </a>
+      <span class="text-muted">
+      &nbsp;#{{service.id}}
+    </span>
+      <button
+        (click)="editService()"
+        aria-label="Edit service"
+        mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+    <span class="text-muted mt-1 entity-info">
+      {{'SERVICE_DETAIL.DESCRIPTION' | translate}}:
+      <span class="service-text">
+        {{service.description}}
+      </span>
+      </span>
+  </h1>
+  <app-animated-router-outlet></app-animated-router-outlet>
+</div>

@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import {openClose} from '@perun-web-apps/perun/animations';
 import { Attribute } from '@perun-web-apps/perun/openapi';
+import { createJestPreset } from 'ts-jest';
 
 export class ExpirationAttrValue {
   period: string;
@@ -41,7 +42,7 @@ export interface ExpirationConfiguration {
     openClose
   ]
 })
-export class ExpirationSettingsComponent implements OnInit {
+export class ExpirationSettingsComponent implements OnInit, OnChanges {
 
   constructor() { }
 
@@ -78,6 +79,12 @@ export class ExpirationSettingsComponent implements OnInit {
 
     this.initialConfiguration = this.unParseAttrValue(<ExpirationAttrValue>this.expirationAttribute.value);
     this.currentConfiguration = this.unParseAttrValue(<ExpirationAttrValue>this.expirationAttribute.value);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.expirationAttribute) {
+      this.initialConfiguration = this.unParseAttrValue(<ExpirationAttrValue>this.expirationAttribute.value);
+    }
   }
 
   saveChanges(): void {

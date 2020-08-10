@@ -40,7 +40,7 @@ export class AuthService {
       client_id: this.store.get('oidc_client', 'oauth_client_id'),
       redirect_uri: this.store.get('oidc_client', 'oauth_redirect_uri'),
       post_logout_redirect_uri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
-      response_type: 'id_token token',
+      response_type: this.store.get('oidc_client', 'oauth_response_type'),
       scope: this.store.get('oidc_client', 'oauth_scopes'),
       filterProtocolClaims: true,
       loadUserInfo: this.store.get('oidc_client', 'oauth_load_user_info'),
@@ -77,7 +77,7 @@ export class AuthService {
 
   isLoggedInPromise(): Observable<boolean> {
     return from(this.manager.getUser()).pipe(map<User, boolean>((user) => {
-      return !!user;
+      return !!user && !user.expired;
     }));
   }
 

@@ -35,9 +35,9 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
 
   resource: Resource;
   unAssignedGroups: Group[];
-  filteredGroups: Group[];
   checkGroups = false;
   selection = new SelectionModel<Group>(true, []);
+  filterValue = '';
 
   tableId = TABLE_ASSIGN_GROUP_TO_RESOURCE_DIALOG;
   pageSize: number;
@@ -58,7 +58,6 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
               }
             }
           }
-          this.filteredGroups = this.unAssignedGroups;
           this.loading = false;
         });
       });
@@ -88,7 +87,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
-    this.filteredGroups = this.unAssignedGroups.filter( option => option.name.toLowerCase().includes(filterValue.toLowerCase()));
+    this.filterValue = filterValue;
   }
 
   pageChanged(event: PageEvent) {

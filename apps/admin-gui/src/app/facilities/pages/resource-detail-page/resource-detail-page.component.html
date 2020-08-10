@@ -9,6 +9,31 @@
     <span class="text-muted">
       &nbsp;#{{resource.id}}
     </span>
+    <br>
+    <span class="text-muted mr-5 entity-info">
+      {{'RESOURCE_DETAIL.FACILITY' | translate}}:
+      <a class="resource-link" [routerLink]="['/facilities', resource.facilityId]">
+        {{resource.facility.name}}
+      </a>
+      <span class="text-muted">
+        &nbsp;#{{resource.facilityId}}
+      </span>
+    </span>
+    <span class="text-muted mr-5 entity-info break-line">
+      {{'RESOURCE_DETAIL.VO' | translate}}:
+      <a class="resource-link" [routerLink]="['/organizations', resource.vo.id]">
+        {{resource.vo.name}}
+      </a>
+      <span class="text-muted">
+        &nbsp;#{{resource.voId}}
+      </span>
+    </span>
+    <span class="text-muted mr-5 entity-info break-line">
+      {{'RESOURCE_DETAIL.DESCRIPTION' | translate}}:
+      <span class="resource-text">
+        {{resource.description}}
+      </span>
+    </span>
   </h1>
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>

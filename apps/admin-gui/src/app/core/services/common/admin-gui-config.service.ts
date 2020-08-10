@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  GuiAuthResolver,
   InitAuthService, StoreService
 } from '@perun-web-apps/perun/services';
 import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
@@ -8,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ServerDownDialogComponent } from '@perun-web-apps/general';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { Title } from '@angular/platform-browser';
 
 
 @Injectable({
@@ -21,7 +23,9 @@ export class AdminGuiConfigService {
     private store: StoreService,
     private authzSevice: AuthzResolverService,
     private dialog: MatDialog,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private guiAuthResolver: GuiAuthResolver,
+    private titleService: Title
   ) {}
 
   entityColorConfigs: EntityColorConfig[] = [
@@ -59,6 +63,11 @@ export class AdminGuiConfigService {
       entity: 'admin',
       configValue: 'admin_color',
       cssVariable: '--admin-color'
+    },
+    {
+      entity: 'service',
+      configValue: 'service_color',
+      cssVariable: '--service-color'
     }
   ];
 
@@ -93,8 +102,9 @@ export class AdminGuiConfigService {
         if (isAuthenticated !== true) {
           return new Promise<void>(resolve => resolve());
         }
+        this.loadPolicies();
         return this.initAuthService.loadPrincipal();
-      }).catch(err => this.handlePrincipalErr(err));
+      }).catch(err => this.handlePrincipalErr(err))
   }
 
   /**
@@ -103,6 +113,7 @@ export class AdminGuiConfigService {
   private setApiUrl() {
     return new Promise((resolve) => {
       this.authzSevice.configuration.basePath = this.store.get('api_url');
+      this.titleService.setTitle(this.store.get('document_title'));
       resolve();
     });
   }
@@ -119,5 +130,11 @@ export class AdminGuiConfigService {
 
     this.dialog.open(ServerDownDialogComponent, config);
     throw err;
+  }
+
+  private loadPolicies() {
+      this.authzSevice.getAllPolicies().subscribe( policies => {
+        this.guiAuthResolver.setPerunPolicies(policies);
+      });
   }
 }
