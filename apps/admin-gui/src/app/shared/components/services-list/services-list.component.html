@@ -49,11 +49,11 @@
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let service" mat-cell>
             <mat-icon
-            class="align-bottom"
-            *ngIf="service.enabled"
-            matTooltip="{{'SHARED.COMPONENTS.SERVICES_LIST.ENABLED' | translate}}">
-            check_circle_outline
-          </mat-icon>
+              class="align-bottom"
+              *ngIf="service.enabled"
+              matTooltip="{{'SHARED.COMPONENTS.SERVICES_LIST.ENABLED' | translate}}">
+              check_circle_outline
+            </mat-icon>
             <mat-icon
               class="align-bottom"
               *ngIf="!service.enabled"
@@ -88,16 +88,16 @@
         [pageSizeOptions]="pageSizeOptions">
       </mat-paginator>
     </div>
-
   </div>
 </div>
 
 <mat-spinner *ngIf="exporting" class="ml-auto mr-auto"></mat-spinner>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && (this.services !== undefined && this.services.length !== 0)" color="warn">
+<app-alert *ngIf="dataSource.filteredData.length === 0 && (this.services !== undefined && this.services.length !== 0)"
+           color="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 
-<div *ngIf="this.services === undefined || this.services.length === 0" class="perun-alert warn-alert">
-  {{'SHARED.COMPONENTS.SERVICES_LIST.NO_SERVICES_WARNING' | translate}}
-</div>
+<app-alert *ngIf="this.services === undefined || this.services.length === 0"
+           color="warn"> {{'SHARED.COMPONENTS.SERVICES_LIST.NO_SERVICES_WARNING' | translate}}
+</app-alert>

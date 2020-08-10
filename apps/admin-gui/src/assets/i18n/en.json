@@ -176,6 +176,13 @@
       "FILTER_GROUPS": "Filter groups",
       "NO_GROUPS": "No groups."
     },
+    "ASSIGNED_SERVICES": {
+      "TITLE": "Assigned services",
+      "ADD_SERVICE": "Add",
+      "REMOVE_SERVICE": "Remove services",
+      "FILTER_SERVICES": "Filter services",
+      "NO_SERVICES": "No services."
+    },
     "SETTINGS": {
       "ATTRIBUTES": {
         "TITLE": "Attributes",
@@ -623,7 +630,8 @@
       "ASSIGNED_GROUPS": "Assigned groups",
       "SETTINGS": "Settings",
       "ATTRIBUTES": "Attributes",
-      "MANAGERS": "Managers"
+      "MANAGERS": "Managers",
+      "ASSIGNED_SERVICES": "Assigned services"
     },
     "GROUP": {
       "OVERVIEW": "Overview",
@@ -1189,6 +1197,21 @@
       "SUCCESS_MESSAGE": "Selected groups were assigned to resource",
       "CONFIGURE_GROUPS": "Configure group(s) before assign"
     },
+    "ASSIGN_SERVICE_TO_RESOURCE": {
+      "TITLE": "Assign service",
+      "FILTER_DESCRIPTION": "Find service",
+      "ADD_BUTTON": "Add",
+      "CANCEL_BUTTON": "Cancel",
+      "SUCCESS_MESSAGE": "Selected services were assigned to resource"
+    },
+    "REMOVE_SERVICE_FROM_RESOURCE": {
+      "TITLE": "Confirm removal",
+      "DESCRIPTION": "Following services will be removed from resource.",
+      "ASK": "Do you want to proceed?",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete",
+      "SUCCESS": "Selected services were removed from resource"
+    },
     "CREATE_RESOURCE": {
       "NAME": "Name",
       "DESCRIPTION": "Description",
@@ -1583,7 +1606,7 @@
         "NO_FILTER_RESULTS": "There are no external sources matching your query"
       },
       "SERVICES_LIST": {
-        "ID": "Id",
+        "ID": "Service Id",
         "NAME": "Name",
         "ENABLED":"Enabled",
         "SCRIPT": "Script",

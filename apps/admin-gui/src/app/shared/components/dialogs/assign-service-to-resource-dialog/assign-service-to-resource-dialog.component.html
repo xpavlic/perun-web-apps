@@ -1,0 +1,34 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.TITLE' | translate}}</h1>
+  <div mat-dialog-content>
+    <app-debounce-filter
+      placeholder="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
+      (filter)="applyFilter($event)">
+    </app-debounce-filter>
+    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <app-services-list
+      (page)="pageChanged($event)"
+      [pageSize]="pageSize"
+      *ngIf="!loading"
+      [services]="unAssignedServices"
+      [filterValue]="filterValue"
+      [selection]="selection">
+    </app-services-list>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      class="ml-auto"
+      (click)="onCancel()">
+      {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.CANCEL_BUTTON' | translate}}
+    </button>
+    <button
+      mat-flat-button
+      class="ml-2"
+      color="accent"
+      (click)="onAdd()"
+      [disabled]="selection.selected.length === 0 || loading">
+      {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.ADD_BUTTON' | translate}}
+    </button>
+  </div>
+</div>

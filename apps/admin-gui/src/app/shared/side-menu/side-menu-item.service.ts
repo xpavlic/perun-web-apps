@@ -286,6 +286,11 @@ export class SideMenuItemService {
           activatedRegex: `${regexStart}/\\d+/resources/\\d+/groups$`
         },
         {
+          label: 'MENU_ITEMS.RESOURCE.ASSIGNED_SERVICES',
+          url: [`/facilities/${resource.facilityId}/resources/${resource.id}/services`],
+          activatedRegex: '/facilities/\\d+/resources/\\d+/services$'
+        },
+        {
           label: 'MENU_ITEMS.RESOURCE.SETTINGS',
           url: [baseUrl, `settings`],
           activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings$`,

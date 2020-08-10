@@ -177,6 +177,8 @@ import { AddMemberToResourceDialogComponent } from './components/dialogs/add-mem
 import { CreateFacilityDialogComponent } from './components/dialogs/create-facility-dialog/create-facility-dialog.component';
 import { DeleteFacilityDialogComponent } from './components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
 import { IdentityDetailComponent } from './components/identity-detail/identity-detail.component';
+import { AssignServiceToResourceDialogComponent } from './components/dialogs/assign-service-to-resource-dialog/assign-service-to-resource-dialog.component';
+import { RemoveServiceFromResourceDialogComponent } from './components/dialogs/remove-service-from-resource-dialog/remove-service-from-resource-dialog.component';
 import { AddMemberGroupDialogComponent } from './components/dialogs/add-member-group-dialog/add-member-group-dialog.component';
 import { RemoveMemberGroupDialogComponent } from './components/dialogs/remove-member-group-dialog/remove-member-group-dialog.component';
 import { AddRequiredAttributesDialogComponent } from './components/dialogs/add-required-attributes-dialog/add-required-attributes-dialog.component';
@@ -429,6 +431,8 @@ import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.co
     CreateFacilityDialogComponent,
     DeleteFacilityDialogComponent,
     IdentityDetailComponent,
+    AssignServiceToResourceDialogComponent,
+    RemoveServiceFromResourceDialogComponent,
     AddMemberGroupDialogComponent,
     RemoveMemberGroupDialogComponent,
     AddRequiredAttributesDialogComponent,
