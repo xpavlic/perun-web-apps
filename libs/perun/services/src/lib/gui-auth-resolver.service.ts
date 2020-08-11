@@ -97,8 +97,8 @@ export class GuiAuthResolver {
       } else {
         mapOfBeans[convertedBeanName].push(object.id);
       }
-      switch (object.beanName) {
-        case 'Member' || 'RichMember': {
+      switch (convertedBeanName) {
+        case 'Member': {
           if (!mapOfBeans['User']) {
             mapOfBeans['User'] = [object.userId];
           } else {
@@ -111,7 +111,7 @@ export class GuiAuthResolver {
           }
           break;
         }
-        case 'Group' || 'RichGroup': {
+        case 'Group': {
           if (!mapOfBeans['Vo']) {
             mapOfBeans['Vo'] = [object.voId];
           } else {
@@ -119,7 +119,7 @@ export class GuiAuthResolver {
           }
           break;
         }
-        case 'Resource' || 'RichResource': {
+        case 'Resource': {
           if (!mapOfBeans['Facility']) {
             mapOfBeans['Facility'] = [object.facilityId];
           } else {
@@ -153,9 +153,9 @@ export class GuiAuthResolver {
       convertedBeanName = perunBeanName.substring(4);
     }
     if (this.principal.roles[role]) {
-      console.log(this.principal.roles[role]);
+      //console.log(this.principal.roles[role]);
       if (this.principal.roles[role][convertedBeanName]) {
-        console.log(this.principal.roles[role][convertedBeanName]);
+        //console.log(this.principal.roles[role][convertedBeanName]);
         return this.principal.roles[role][convertedBeanName].indexOf(id) !== -1;
       }
     }
