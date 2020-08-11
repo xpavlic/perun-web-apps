@@ -569,3 +569,13 @@ export function createNewApplicationFormItem(): ApplicationFormItem {
 export function isVirtualAttribute(attribute: Attribute): boolean {
   return  attribute.namespace.split(':')[4] === 'virt';
 }
+
+export function parseMemberStatus(memberStatus: string, memberGroupStatus?:string): string {
+  if(memberStatus.toLowerCase() === 'valid' && (!memberGroupStatus || memberStatus.toLowerCase() === 'valid')){
+    return 'ACTIVE'
+  }
+  if(memberStatus.toLowerCase() === 'invalid'  ||  (memberGroupStatus && memberStatus.toLowerCase() === 'invalid')){
+    return 'INACTIVE'
+  }
+  return memberStatus;
+}

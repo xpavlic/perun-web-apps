@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
@@ -63,7 +63,9 @@ import { MatTreeModule } from '@angular/material/tree';
 import { ServicesStatusListComponent } from './services-status-list/services-status-list.component';
 import { ChangeExpirationDialogComponent } from './change-expiration-dialog/change-expiration-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatRadioModule } from '@angular/material/radio';
 
+@Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
     if (displayFormat === 'input') {
@@ -119,7 +121,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MatDialogModule,
     ClipboardModule,
     MatTreeModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatRadioModule
   ],
   declarations: [
     VoSelectTableComponent,
