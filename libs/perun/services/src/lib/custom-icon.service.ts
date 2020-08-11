@@ -163,6 +163,10 @@ export class CustomIconService {
     {
       url: 'assets/img/PerunWebImages/resource-black.svg',
       name: 'perun-resource-black'
+    },
+    {
+      url: 'assets/img/PerunWebImages/service_status-grey.svg',
+      name: 'perun-service-status'
     }
   ];
 

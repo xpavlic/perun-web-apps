@@ -54,6 +54,8 @@ import { EditGroupDialogComponent } from './edit-group-dialog/edit-group-dialog.
 import { GroupSyncDetailDialogComponent } from './group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { GroupsTreeComponent } from './groups-tree/groups-tree.component';
 import { MatTreeModule } from '@angular/material/tree';
+import { ServicesStatusListComponent } from './services-status-list/services-status-list.component';
+
 
 @NgModule({
   imports: [
@@ -108,15 +110,14 @@ import { MatTreeModule } from '@angular/material/tree';
     AutoFocusDirective,
     UserExtSourcesListComponent,
     RemoveUserExtSourceDialogComponent,
-    AutoFocusDirective,
-    AttributeValueIntegerComponent,
     EditAttributeDialogComponent,
     CreateAttributeDialogComponent,
     PasswordResetComponent,
     ShowValueDialogComponent,
     EditGroupDialogComponent,
     GroupSyncDetailDialogComponent,
-    GroupsTreeComponent
+    GroupsTreeComponent,
+    ServicesStatusListComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -138,14 +139,13 @@ import { MatTreeModule } from '@angular/material/tree';
     AutoFocusDirective,
     UserExtSourcesListComponent,
     RemoveUserExtSourceDialogComponent,
-    AutoFocusDirective,
-    MenuButtonsFieldComponent,
     EditAttributeDialogComponent,
     CreateAttributeDialogComponent,
     PasswordResetComponent,
     GroupSyncDetailDialogComponent,
     EditGroupDialogComponent,
-    GroupsTreeComponent
+    GroupsTreeComponent,
+    ServicesStatusListComponent
   ]
 })
 export class PerunSharedComponentsModule {
