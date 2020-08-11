@@ -206,13 +206,15 @@
         "VO_SELECT_TABLE": {
           "ID": "Id",
           "NAME": "Jméno",
-          "RECENT": "Nedávno navštívené"
+          "RECENT": "Nedávno navštívené",
+          "SHORTNAME": "Skrácené jméno"
         },
         "RESOURCES_LIST": {
           "TITLE": "Zdroje",
           "DELETE": "Odstranit vybrané",
           "TABLE_RESOURCE_ID": "id",
           "TABLE_RESOURCE_NAME": "Jméno",
+          "TABLE_VO_NAME": "Organizace",
           "TABLE_FACILITY_NAME": "Jméno zdroje z reálného světa",
           "TABLE_RESOURCE_TAGS": "Tagy",
           "TABLE_SEARCH": "Filtrovat dle jména, popisu nebo ID",
@@ -233,10 +235,12 @@
           }
         },
         "ATTRIBUTES_LIST": {
+          "FILTER": "Filtrovat dle id, jména, hodnoty nebo popisu",
           "ID": "Id",
           "NAME": "Jméno",
           "VALUE": "Hodnota",
-          "DESCRIPTION": "Popis"
+          "DESCRIPTION": "Popis",
+          "EMPTY": "Žádné nastavení nebyly nalezeny. Použijte tlačidlo 'Přidat' pro přidání nových nastavení."
         },
         "USER_DONT_EXIST": {
           "TITLE": "Požadovaný uživatel (dle ID nebo externí identity) neexistuje."
@@ -249,7 +253,8 @@
             "DEFAULT_ACTION": "Zobrazit",
             "DIALOG_CLOSE": "Zavřít",
             "DIALOG_BUG_REPORT": "Nahlásit chybu",
-            "DEFAULT_RPC_ERROR_MESSAGE": "Operace se nezdařila."
+            "DEFAULT_RPC_ERROR_MESSAGE": "Operace se nezdařila.",
+            "PRIVILEGE_EXCEPTION": "Nemáte práva na tuto operaci."
           }
         },
         "USER_EXT_SOURCES_LIST": {
@@ -286,19 +291,29 @@
           "CHANGE_PASSWORD": "Změnit heslo",
           "NAMESPACE": "Jmenný prostor",
           "LOGIN": "Přihlašovací jméno"
+        },
+        "SHOW_VALUE": {
+          "CLOSE": "Zrušit",
+          "COPY": "Zkopírovat hodnotu"
         }
       },
       "ORGANIZATIONS": {
         "TITLE": "Uživatelské organizace",
         "FILTER": "Filtrovat dle jména nebo ID",
-        "IS_ADMIN": "Organizace, kde jste administrátorem",
-        "IS_MEMBER": "Organizace, kde jste členem"
+        "YOU_ARE_ADMIN": "Organizace, kde jste administrátorem",
+        "YOU_ARE_MEMBER": "Organizace, kde jste členem",
+        "USER_IS_ADMIN": "Organizace, kde je uživatel administrátorem",
+        "USER_IS_MEMBER": "Organizace, kde je uživatel členem"
       },
       "GROUPS": {
         "MEMBER_GROUPS": "Členské skupiny",
         "ADMINS_GROUPS": "Skupiny, kde je uživatel administrátorem"
       },
-      "REFRESH_BUTTON": "Obnovit"
+      "REFRESH_BUTTON": "Obnovit",
+      "SERVICES_CONFIGURATIONS": {
+        "ADD": "Přidat",
+        "SAVE": "Uložit"
+      }
     },
     "UI": {
       "ALERTS": {

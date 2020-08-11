@@ -206,13 +206,15 @@
         "VO_SELECT_TABLE": {
           "ID": "Id",
           "NAME": "Name",
-          "RECENT": "Recently viewed"
+          "RECENT": "Recently viewed",
+          "SHORTNAME": "Short name"
         },
         "RESOURCES_LIST": {
           "TITLE": "Resources",
           "DELETE": "Remove selected",
           "TABLE_RESOURCE_ID": "id",
           "TABLE_RESOURCE_NAME": "Name",
+          "TABLE_VO_NAME": "Organization",
           "TABLE_FACILITY_NAME": "Facility name",
           "TABLE_RESOURCE_TAGS": "Tags",
           "TABLE_SEARCH": "Filter by name, description or ID",
@@ -233,10 +235,12 @@
           }
         },
         "ATTRIBUTES_LIST": {
+          "FILTER": "Filter by id, name, value or description",
           "ID": "Id",
           "NAME": "Name",
           "VALUE": "Value",
-          "DESCRIPTION": "Description"
+          "DESCRIPTION": "Description",
+          "EMPTY": "No settings found. Use 'Add' button to add new setting."
         },
         "USER_DONT_EXIST": {
           "TITLE": "Requested user (by ID or external identity) doesn't exist."
@@ -249,7 +253,8 @@
             "DEFAULT_ACTION": "Show",
             "DIALOG_CLOSE": "Close",
             "DIALOG_BUG_REPORT": "Report a bug",
-            "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed."
+            "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed.",
+            "PRIVILEGE_EXCEPTION": "You are not authorized to perform this action"
           }
         },
         "USER_EXT_SOURCES_LIST": {
@@ -286,19 +291,29 @@
           "CHANGE_PASSWORD": "Change password",
           "NAMESPACE": "Namespace",
           "LOGIN": "Login"
+        },
+        "SHOW_VALUE": {
+          "CLOSE": "Close",
+          "COPY": "Copy to clipboard"
         }
       },
       "ORGANIZATIONS": {
         "TITLE": "User organizations",
         "FILTER": "Filter by name or ID",
-        "IS_ADMIN": "Organizations where you are admin",
-        "IS_MEMBER": "Organizations where you are member"
+        "YOU_ARE_ADMIN": "Organizations where you are admin",
+        "YOU_ARE_MEMBER": "Organizations where you are member",
+        "USER_IS_ADMIN": "Organizations where user is admin",
+        "USER_IS_MEMBER": "Organizations where user is member"
       },
       "GROUPS": {
         "MEMBER_GROUPS": "Member groups",
         "ADMINS_GROUPS": "Groups where user is admin"
       },
-      "REFRESH_BUTTON": "Refresh"
+      "REFRESH_BUTTON": "Refresh",
+      "SERVICES_CONFIGURATIONS": {
+        "ADD": "Add",
+        "SAVE": "Save"
+      }
     },
     "UI": {
       "ALERTS": {

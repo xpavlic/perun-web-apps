@@ -1389,10 +1389,6 @@
       "CONFIRM": "Delete",
       "SUCCESS": "Facility deleted."
     },
-    "SHOW_VALUE": {
-      "CLOSE": "Close",
-      "COPY": "Copy to clipboard"
-    },
     "ADD_MEMBER_GROUP": {
       "TITLE": "Add groups",
       "ADD": "Add",
@@ -1726,7 +1722,7 @@
             "CANCEL_BUTTON": "Cancel"
           },
           "DELETE_DIALOG": {
-            "TITLE": "Delete attribue value",
+            "TITLE": "Delete attribute value",
             "DESCRIPTION": "Do you really want to delete this attribute list value from list?",
             "SUBMIT_BUTTON": "Delete",
             "CANCEL_BUTTON": "Cancel"
@@ -1789,6 +1785,10 @@
           "CHANGE_PASSWORD": "Change password",
           "NAMESPACE": "Namespace",
           "LOGIN": "Login"
+        },
+        "SHOW_VALUE": {
+          "CLOSE": "Close",
+          "COPY": "Copy to clipboard"
         }
       },
       "ORGANIZATIONS": {
