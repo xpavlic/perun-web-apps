@@ -78,7 +78,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   getAdminFacility() {
-    if (this.guiAuthResolver.isFacilityAdmin()) {
+    if (this.guiAuthResolver.isAuthorized('getFacilities_policy', [])) {
       this.facilitiesService.getAllFacilities().subscribe(facilities => {
         this.adminFacility = facilities;
       });
@@ -86,11 +86,9 @@ export class UserDashboardComponent implements OnInit {
   }
 
   getAdminResource() {
-    if (this.guiAuthResolver.isResourceAdmin()) {
       this.resourcesService.getAllResourcesWhereUserIsAdmin(this.user.id).subscribe(resources => {
         this.adminResource = resources;
       });
-    }
   }
 
   pageChanged($event: PageEvent, tableId: string, pagesize: number) {

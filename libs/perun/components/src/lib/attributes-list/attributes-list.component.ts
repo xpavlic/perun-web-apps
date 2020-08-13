@@ -99,7 +99,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => {
-        if(!isVirtualAttribute(row)) this.selection.select(row);
+        if(!isVirtualAttribute(row) && row.writable) this.selection.select(row);
       });
   }
 

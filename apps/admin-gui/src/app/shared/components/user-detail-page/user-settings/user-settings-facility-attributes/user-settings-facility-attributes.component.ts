@@ -19,7 +19,7 @@ export class UserSettingsFacilityAttributesComponent implements OnInit {
   userId: number;
   facilities: Facility[] = [];
   loading: boolean;
-  showPrincipal: boolean
+  showPrincipal: boolean;
 
 
   ngOnInit(): void {

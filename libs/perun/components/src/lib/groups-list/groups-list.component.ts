@@ -4,14 +4,13 @@ import {
   EventEmitter,
   HostListener,
   Input,
-  OnChanges,
-  Output,
+  OnChanges, Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Group, RichGroup } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
@@ -32,10 +31,12 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.sort = ms;
     this.setDataSource();
   }
+
   @Input()
   theme = 'group-theme';
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+  }
 
   @Output()
   moveGroup = new EventEmitter<Group>();
@@ -134,7 +135,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => {
-        if (row.name !== 'members' ) {
+        if (row.name !== 'members') {
           this.selection.select(row);
         } else if (!this.disableMembers) {
           this.selection.select(row);
@@ -176,14 +177,14 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     config.data = {
       groupId: rg.id,
       theme: this.theme
-    }
+    };
     const dialogRef = this.dialog.open(EditGroupDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(res => {
-      if(res){
+      if (res) {
         this.refreshTable.emit();
       }
-    })
+    });
   }
 
   pageChanged(event: PageEvent) {
