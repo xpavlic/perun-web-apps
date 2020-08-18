@@ -33,8 +33,11 @@
       mat-flat-button
       class="ml-2"
       color="accent"
+      [disabled]="selection.selected.length === 0 || !canAddGroups() || loading"
+      [matTooltipDisabled]="canAddGroups()"
+      matTooltip="{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_TOOLTIP'| translate}}"
       (click)="onAdd()"
-      [disabled]="selection.selected.length === 0 || loading">
+      matTooltipPosition="above">
       {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_BUTTON' | translate}}
     </button>
   </div>

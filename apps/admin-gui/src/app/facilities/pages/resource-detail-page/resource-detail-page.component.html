@@ -12,24 +12,30 @@
         &nbsp;#{{resource.id}}
       </span>
       </div>
-      <button mat-icon-button aria-label="Edit resource" (click)="editResource()">
+      <button mat-icon-button aria-label="Edit resource" *ngIf="editResourceAuth" (click)="editResource()">
         <mat-icon>edit</mat-icon>
       </button>
     </div>
     <span class="text-muted mr-5 entity-info">
       {{'RESOURCE_DETAIL.FACILITY' | translate}}:
-      <a class="resource-link" [routerLink]="['/facilities', resource.facilityId]">
+      <a class="resource-link" *ngIf="facilityLinkAuth" [routerLink]="['/facilities', resource.facilityId]">
         {{resource.facility.name}}
       </a>
+      <span class="resource-text" *ngIf="!facilityLinkAuth">
+        {{resource.facility.name}}
+      </span>
       <span class="text-muted">
         &nbsp;#{{resource.facilityId}}
       </span>
     </span>
     <span class="text-muted mr-5 entity-info break-line">
       {{'RESOURCE_DETAIL.VO' | translate}}:
-      <a class="resource-link" [routerLink]="['/organizations', resource.vo.id]">
+      <a *ngIf="voLinkAuth" [routerLink]="['/organizations', resource.vo.id]" class="resource-link">
         {{resource.vo.name}}
       </a>
+       <span *ngIf="!voLinkAuth" class="resource-text">
+        {{resource.vo.name}}
+      </span>
       <span class="text-muted">
         &nbsp;#{{resource.voId}}
       </span>

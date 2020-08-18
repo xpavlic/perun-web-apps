@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Group, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, Resource, ResourcesManagerService, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,6 +12,7 @@ import {
 } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-perun-web-apps-resource-groups',
@@ -20,10 +21,8 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 })
 export class ResourceGroupsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,
-              private resourcesManager: ResourcesManagerService,
-              private tableConfigService: TableConfigService,
-              private dialog: MatDialog) { }
+  @ViewChild('checkbox', { static: true })
+  checkbox: MatCheckbox;
 
   resourceId: number;
   assignedGroups: Group[] = [];
@@ -33,22 +32,30 @@ export class ResourceGroupsComponent implements OnInit {
 
   tableId = TABLE_RESOURCE_ALLOWED_GROUPS;
   pageSize: number;
+  resource: Resource;
+  loadingResource: boolean;
 
-  @ViewChild('checkbox', {static: true})
-  checkbox: MatCheckbox;
+  constructor(private route: ActivatedRoute,
+              private resourcesManager: ResourcesManagerService,
+              private vosManagerService: VosManagerService,
+              private tableConfigService: TableConfigService,
+              private dialog: MatDialog,
+              public guiAuthResolver: GuiAuthResolver) {
+  }
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loading = true;
     this.route.parent.params.subscribe(parentParams => {
       this.resourceId = parentParams['resourceId'];
-        this.loadAllGroups();
+      this.getDataForAuthorization();
+      this.loadAllGroups();
     });
   }
 
   loadAllGroups() {
     this.loading = true;
-    this.resourcesManager.getAssignedGroups(this.resourceId).subscribe( assignedGroups => {
+    this.resourcesManager.getAssignedGroups(this.resourceId).subscribe(assignedGroups => {
       this.assignedGroups = assignedGroups;
       this.selected.clear();
       this.loading = false;
@@ -58,7 +65,7 @@ export class ResourceGroupsComponent implements OnInit {
   addGroup() {
     const config = getDefaultDialogConfig();
     config.width = '800px';
-    config.data = {theme: 'resource-theme', resourceId: this.resourceId};
+    config.data = { theme: 'resource-theme', resource: this.resource };
 
     const dialogRef = this.dialog.open(AssignGroupToResourceDialogComponent, config);
     dialogRef.afterClosed().subscribe((success) => {
@@ -81,6 +88,16 @@ export class ResourceGroupsComponent implements OnInit {
     });
   }
 
+  canRemoveGroups() {
+    let canRemove = true;
+    this.selected.selected.forEach(group => {
+      if(!this.guiAuthResolver.isAuthorized('removeGroupsFromResource_List<Group>_Resource_policy',[this.resource, group])){
+        canRemove = false;
+      }
+    });
+    return canRemove;
+  }
+
   applyFilter(filterValue: string) {
     this.filteredValue = filterValue;
   }
@@ -88,5 +105,13 @@ export class ResourceGroupsComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  }
+
+  private getDataForAuthorization() {
+    this.loadingResource = true;
+    this.resourcesManager.getResourceById(this.resourceId).subscribe(resource => {
+      this.resource = resource;
+      this.loadingResource = false;
+    });
   }
 }

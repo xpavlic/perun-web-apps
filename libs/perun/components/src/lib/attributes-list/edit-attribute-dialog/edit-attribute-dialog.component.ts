@@ -149,6 +149,12 @@ export class EditAttributeDialogComponent implements OnInit {
           this.onSuccess();
         });
         break;
+      case 'resource':
+        this.attributesManager.setResourceAttributes({
+          resource: this.data.entityId,
+          attributes: this.data.attributes
+        }).subscribe( () => this.onSuccess());
+        break;
     }
   }
 

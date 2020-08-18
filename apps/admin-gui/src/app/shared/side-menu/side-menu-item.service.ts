@@ -15,7 +15,8 @@ export class SideMenuItemService {
   constructor(
     private translate: TranslateService,
     private authResolver: GuiAuthResolver,
-    private store: StoreService
+    private store: StoreService,
+    public guiAuthResolver:GuiAuthResolver
   ) {
   }
 
@@ -210,47 +211,55 @@ export class SideMenuItemService {
       baseLink: [baseUrl],
       backgroundColorCss: this.resourceBgColor,
       textColorCss: this.resourceTextColor,
-      links: [
-        {
-          label: 'MENU_ITEMS.RESOURCE.OVERVIEW',
-          url: [baseUrl],
-          activatedRegex: `${regexStart}/\\d+/resources/\\d+$`
-        },
-        {
-          label: 'MENU_ITEMS.RESOURCE.ASSIGNED_GROUPS',
-          url: [baseUrl, 'groups'],
-          activatedRegex: `${regexStart}/\\d+/resources/\\d+/groups$`
-        },
-        {
-          label: 'MENU_ITEMS.RESOURCE.ASSIGNED_SERVICES',
-          url: [`/facilities/${resource.facilityId}/resources/${resource.id}/services`],
-          activatedRegex: '/facilities/\\d+/resources/\\d+/services$'
-        },
-        {
-          label: 'MENU_ITEMS.RESOURCE.SETTINGS',
-          url: [baseUrl, `settings`],
-          activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings$`,
-          children: [
-            {
-              label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
-              url: [baseUrl, `settings`,`attributes`],
-              activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings/attributes$`
-            },
-            {
-              label: 'MENU_ITEMS.RESOURCE.MANAGERS',
-              url: [baseUrl, `settings`, `managers`],
-              activatedRegex: `${regexStart}\\d+/resources/\\d+/settings/managers$`
-            }
-          ],
-          showChildrenRegex: `${regexStart}/\\d+/resources/\\d+/settings`
-        }
-      ],
+      links: this.getResourceLinks(baseUrl, regexStart, resource),
       colorClass: 'resource-item',
       icon: 'perun-resource-white',
       // labelClass: 'resource-text',
       activatedClass: 'dark-item-activated',
       linksClass: 'dark-item-links'
     };
+  }
+
+  private getResourceLinks(baseUrl: string, regexStart: string, resource: Resource) {
+    const links: EntityMenuLink[] = [{
+      label: 'MENU_ITEMS.RESOURCE.OVERVIEW',
+      url: [baseUrl],
+      activatedRegex: `${regexStart}/\\d+/resources/\\d+$`
+    }];
+    if(this.guiAuthResolver.isAuthorized('getAssignedGroups_Resource_policy', [resource])){
+      links.push({
+        label: 'MENU_ITEMS.RESOURCE.ASSIGNED_GROUPS',
+        url: [baseUrl, 'groups'],
+        activatedRegex: `${regexStart}/\\d+/resources/\\d+/groups$`
+      })
+    }
+    if(this.guiAuthResolver.isAuthorized('getAssignedServices_Resource_policy', [resource])){
+      links.push({
+        label: 'MENU_ITEMS.RESOURCE.ASSIGNED_SERVICES',
+        url: [baseUrl, 'services'],
+        activatedRegex: `${regexStart}/\\d+/resources/\\d+/services$`
+      })
+    }
+    links.push( {
+      label: 'MENU_ITEMS.RESOURCE.SETTINGS',
+      url: [baseUrl, `settings`],
+      activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings$`,
+      children: [
+        {
+          label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
+          url: [baseUrl, `settings`,`attributes`],
+          activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings/attributes$`
+        },
+        {
+          label: 'MENU_ITEMS.RESOURCE.MANAGERS',
+          url: [baseUrl, `settings`, `managers`],
+          activatedRegex: `${regexStart}\\d+/resources/\\d+/settings/managers$`
+        }
+      ],
+      showChildrenRegex: `${regexStart}/\\d+/resources/\\d+/settings`
+    });
+
+    return links;
   }
 
   parseGroup(group: Group): SideMenuItem {

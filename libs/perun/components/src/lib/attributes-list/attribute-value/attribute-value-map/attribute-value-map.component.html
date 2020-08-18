@@ -10,7 +10,8 @@
                 matInput
                 required
                 type="text"
-                (click)="readonly && attribute.displayName !== undefined && showValue(keys[i], attribute.displayName)"
+                class="overflow-ellipsis"
+                (click)="readonly && attribute.displayName && showValue(keys[i], attribute.displayName)"
                 [class.cursor-pointer]="readonly && attribute.displayName !== undefined"
                 id="{{attribute.id}}-key-{{i}}"
                 [(ngModel)]="keys[i]"

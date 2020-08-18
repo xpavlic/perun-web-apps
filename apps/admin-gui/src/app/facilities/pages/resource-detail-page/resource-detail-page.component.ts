@@ -16,6 +16,7 @@ import {
   EditFacilityResourceGroupVoDialogOptions
 } from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
 import { Resource } from '@perun-web-apps/perun/openapi';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-resource-detail-page',
@@ -34,11 +35,15 @@ export class ResourceDetailPageComponent implements OnInit {
     private resourcesManager: ResourcesManagerService,
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public guiAuthResolver:GuiAuthResolver
   ) {
   }
 
   resource: RichResource;
+  facilityLinkAuth: boolean;
+  editResourceAuth: boolean;
+  voLinkAuth: boolean;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -46,7 +51,7 @@ export class ResourceDetailPageComponent implements OnInit {
 
       this.resourcesManager.getRichResourceById(resourceId).subscribe(resource => {
         this.resource = resource;
-
+        this.setAuth();
         if (this.route.parent.snapshot.url[0].path === 'facilities') {
           this.facilityManager.getFacilityById(resource.facilityId).subscribe(facility => {
             const facilityItem = this.sideMenuItemService.parseFacility(facility);
@@ -63,6 +68,12 @@ export class ResourceDetailPageComponent implements OnInit {
         }
       });
     });
+  }
+
+  private setAuth() {
+    this.facilityLinkAuth = this.guiAuthResolver.isAuthorized('getFacilityById_int_policy',[this.resource]);
+    this.editResourceAuth = this.guiAuthResolver.isAuthorized('updateResource_Resource_policy',[this.resource]);
+    this.voLinkAuth = this.guiAuthResolver.isAuthorized('getVoById_int_policy',[this.resource]);
   }
 
   editResource() {
