@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class UserProfileConfigService {
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
     private store: StoreService,
+    private location: Location,
     private authzSevice: AuthzResolverService
   ) {}
 
@@ -48,7 +50,26 @@ export class UserProfileConfigService {
       .then(() => this.setApiUrl())
       .then(() => this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs))
       .then(() => this.initAuthService.authenticateUser())
-      .then(() => this.initAuthService.loadPrincipal());
+      .catch(err => {
+        // if there is an error, it means user probably navigated to /api-callback without logging in
+        console.error(err);
+        this.location.go("/");
+        location.reload();
+        throw err;
+      })
+      .then(isAuthenticated => {
+        // if the authentication is successful, continue
+        if (isAuthenticated) {
+          return this.initAuthService.loadPrincipal()
+            // TODO
+            // .catch(err => this.handlePrincipalErr(err))
+            .then(() => this.initAuthService.redirectToOriginDestination())
+            // TODO
+            // .then(() => this.loadPolicies());
+            .then();
+        }
+        // if it was not, do nothing because it will do a redirect to oidc server
+      });
   }
 
   /**

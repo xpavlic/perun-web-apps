@@ -66,9 +66,10 @@ export class ApiInterceptor implements HttpInterceptor {
 
   private formatErrors(error: any, req: HttpRequest<any>) {
     let rpcError;
+    console.error(error);
     if (error.error.errorId) {
       rpcError = error.error;
-    } else {
+    } else if (error.errorId) {
       rpcError = JSON.parse(error.error) as RPCError;
     }
     if (rpcError === undefined) {

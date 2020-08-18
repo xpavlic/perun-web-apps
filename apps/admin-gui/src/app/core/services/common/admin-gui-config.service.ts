@@ -7,6 +7,7 @@ import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-app
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common';
 import { ServerDownDialogComponent } from '@perun-web-apps/general';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Title } from '@angular/platform-browser';
@@ -23,6 +24,7 @@ export class AdminGuiConfigService {
     private store: StoreService,
     private authzSevice: AuthzResolverService,
     private dialog: MatDialog,
+    private location: Location,
     private translate: TranslateService,
     private guiAuthResolver: GuiAuthResolver,
     private titleService: Title
@@ -96,15 +98,23 @@ export class AdminGuiConfigService {
       .then(() => this.setApiUrl())
       .then(() => this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs))
       .then(() => this.initAuthService.authenticateUser())
+      .catch(err => {
+        // if there is an error, it means user probably navigated to /api-callback without logging in
+        console.error(err);
+        this.location.go("/");
+        location.reload();
+        throw err;
+      })
       .then(isAuthenticated => {
-        // if the user is not authenticated, do not try to load principal
-        console.log(isAuthenticated);
-        if (isAuthenticated !== true) {
-          return new Promise<void>(resolve => resolve());
+        // if the authentication is successful, continue
+        if (isAuthenticated) {
+          return this.initAuthService.loadPrincipal()
+            .catch(err => this.handlePrincipalErr(err))
+            .then(() => this.initAuthService.redirectToOriginDestination())
+            .then(() => this.loadPolicies());
         }
-        this.loadPolicies();
-        return this.initAuthService.loadPrincipal();
-      }).catch(err => this.handlePrincipalErr(err))
+        // if it was not, do nothing because it will do a redirect to oidc server
+      });
   }
 
   /**
@@ -119,16 +129,16 @@ export class AdminGuiConfigService {
   }
 
   private handlePrincipalErr(err: any) {
-    this.translate.get('GENERAL.PRINCIPAL.ERROR.TITLE').subscribe(sdf => console.log(sdf));
-
     const config = getDefaultDialogConfig();
+    // FIXME: during initialization phase, it might happen that the translations are not loaded.
     config.data = {
-      title: this.translate.instant('GENERAL.PRINCIPAL_ERROR.TITLE'),
-        message: this.translate.instant('GENERAL.PRINCIPAL_ERROR.MESSAGE'),
-        action: this.translate.instant('GENERAL.PRINCIPAL_ERROR.ACTION'),
+      title: 'GENERAL.PRINCIPAL_ERROR.TITLE',
+      message: err.status === 0 ? 'GENERAL.PRINCIPAL_ERROR.MESSAGE' : err.message,
+      action: 'GENERAL.PRINCIPAL_ERROR.ACTION',
     };
 
     this.dialog.open(ServerDownDialogComponent, config);
+    console.error(err);
     throw err;
   }
 

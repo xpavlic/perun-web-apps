@@ -132,9 +132,10 @@ export class AuthService {
         if (!isLoggedIn) {
           sessionStorage.setItem('auth:redirect', path);
           sessionStorage.setItem('auth:queryParams', queryParams);
-          this.startAuthentication().then(r => console.log('R:' + r));
+          console.log("STARTED AUTH");
+          return this.startAuthentication().then(() => false);
         }
-        return isLoggedIn;
+        return true;
       });
   }
 
@@ -145,24 +146,32 @@ export class AuthService {
    * he wanted to visit.
    *
    */
-  private handleAuthCallback(): Promise<boolean> {
-    return this.completeAuthentication().then(() => {
-      const redirectUrl = sessionStorage.getItem('auth:redirect');
-      const params = sessionStorage.getItem('auth:queryParams').split('&');
-      const queryParams: Params = {};
-      params.forEach(param => {
-        const elements = param.split('=');
-        queryParams[elements[0]] = elements[1];
-      })
-      if (redirectUrl) {
-        sessionStorage.removeItem('auth:redirect');
-        sessionStorage.removeItem('auth:queryParams');
+  public handleAuthCallback(): Promise<boolean> {
+    return this.completeAuthentication()
+      .then(() => true);
+  }
 
-        this.router.navigate([redirectUrl], {queryParams: queryParams});
-      } else {
-        this.router.navigate(['/']);
-      }
-      return true;
-    });
+  public redirectToOriginDestination(): Promise<boolean> {
+    const redirectUrl = sessionStorage.getItem('auth:redirect');
+    const storageParams = sessionStorage.getItem('auth:queryParams');
+    let params: string[] = [];
+    if (!!storageParams) {
+      params = storageParams.split('&');
+    }
+    const queryParams: Params = {};
+    params.forEach(param => {
+      const elements = param.split('=');
+      queryParams[elements[0]] = elements[1];
+    })
+    if (!!redirectUrl) {
+      sessionStorage.removeItem('auth:redirect');
+      sessionStorage.removeItem('auth:queryParams');
+
+      return this.router.navigate([redirectUrl], {queryParams: queryParams, replaceUrl: true});
+    } else {
+      sessionStorage.removeItem('auth:redirect');
+      sessionStorage.removeItem('auth:queryParams');
+      return this.router.navigate(['/'], {replaceUrl: true});
+    }
   }
 }

@@ -53,4 +53,8 @@ export class InitAuthService {
         }
       });
   }
+
+  redirectToOriginDestination(): Promise<boolean> {
+    return this.authService.redirectToOriginDestination();
+  }
 }

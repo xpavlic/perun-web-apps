@@ -1,8 +1,8 @@
 {
   "GENERAL": {
     "PRINCIPAL_ERROR": {
-      "TITLE": "Server down error",
-      "MESSAGE": "The server is probably being restarted. Please, try it again later.",
+      "TITLE": "Server error",
+      "MESSAGE": "The server is not responding, because it is probably being restarted. Please, try it again later.",
       "ACTION": "Refresh"
     },
     "PAGE_NOT_FOUND": {
