@@ -31,7 +31,8 @@
       [selection]="selection"
       [members]="members"
       (updateTable)="refreshTable()"
-      *ngIf="members.length !== 0">
+      *ngIf="members.length !== 0"
+      [showGroupStatuses]="true">
     </app-members-list>
 
     <app-alert *ngIf="members.length === 0" color="warn">

@@ -49,7 +49,9 @@ export class GroupMembersComponent implements OnInit {
     Urns.MEMBER_DEF_ORGANIZATION,
     Urns.MEMBER_DEF_MAIL,
     Urns.USER_DEF_ORGANIZATION,
-    Urns.USER_DEF_PREFERRED_MAIL
+    Urns.USER_DEF_PREFERRED_MAIL,
+    Urns.MEMBER_DEF_EXPIRATION,
+    Urns.MEMBER_DEF_GROUP_EXPIRATION
   ];
   pageSize: number;
 

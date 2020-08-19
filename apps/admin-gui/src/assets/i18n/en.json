@@ -555,7 +555,9 @@
     "USER_LINK": "See user detail",
     "OVERVIEW": {
       "NEVER_EXPIRES": "never",
-      "MEMBERSHIP": "Membership"
+      "MEMBERSHIP": "Membership",
+      "STATUS": "Status:",
+      "EXPIRATION": "Expiration:"
     },
     "GROUPS": {
       "TITLE": "Member groups",
@@ -1431,6 +1433,17 @@
       "REMOVE": "Remove",
       "CANCEL": "Cancel",
       "SUCCESS": "Required attributes were removed."
+    },
+    "CHANGE_EXPIRATION": {
+      "TITLE": "Change member expiration",
+      "CURRENT_EXPIRATION": "Current expiration: ",
+      "NEW_EXPIRATION": "New expiration:         ",
+      "DATE_LABEL": "Expire to a date",
+      "EXPIRATION_NEVER": "Never expire",
+      "WRONG_FORMAT": "The date has to be in format yyyy-mm-dd",
+      "CANCEL": "Cancel",
+      "SAVE": "Save",
+      "SUCCESS": "Expiration successfully changed"
     },
     "EDIT_GROUP": {
       "SUCCESS": "Changes were successfully saved",

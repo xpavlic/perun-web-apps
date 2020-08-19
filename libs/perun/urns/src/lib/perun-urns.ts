@@ -2,6 +2,7 @@ export class Urns {
 
   // Member
   public static MEMBER_DEF_EXPIRATION = 'urn:perun:member:attribute-def:def:membershipExpiration';
+  public static MEMBER_DEF_GROUP_EXPIRATION = 'urn:perun:member_group:attribute-def:def:groupMembershipExpiration';
   public static MEMBER_DEF_ORGANIZATION = 'urn:perun:member:attribute-def:def:organization';
   public static MEMBER_DEF_MAIL = 'urn:perun:member:attribute-def:def:mail';
 

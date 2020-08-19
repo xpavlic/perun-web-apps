@@ -5,8 +5,10 @@ import {MenuItem} from '@perun-web-apps/perun/models';
 import { MembersService } from '@perun-web-apps/perun/services';
 import { RichMember } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { parseFullName, parseStatusColor, parseStatusIcon } from '@perun-web-apps/perun/utils';
+import { getDefaultDialogConfig, parseFullName, parseStatusColor, parseStatusIcon } from '@perun-web-apps/perun/utils';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangeExpirationDialogComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-member-overview',
@@ -22,7 +24,8 @@ export class MemberOverviewComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private membersService: MembersService,
     private translate: TranslateService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   fullName = '';
@@ -45,11 +48,22 @@ export class MemberOverviewComponent implements OnInit {
 
         this.initNavItems();
 
-        this.attributesManager.getMemberAttributeByName(this.member.id, Urns.MEMBER_DEF_EXPIRATION).subscribe(attr => {
-          this.expiration = attr.value === null ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') : attr.value;
-        });
+        this.refreshData()
       });
     });
+  }
+
+  changeExpiration() {
+    const config = getDefaultDialogConfig();
+    config.width = '400px';
+    config.data = this.member;
+
+    const dialogRef = this.dialog.open(ChangeExpirationDialogComponent, config);
+    dialogRef.afterClosed().subscribe(success => {
+      if (success){
+        this.refreshData();
+      }
+    })
   }
 
   private initNavItems() {
@@ -79,5 +93,14 @@ export class MemberOverviewComponent implements OnInit {
         style: 'member-btn'
       }
     ];
+  }
+
+  private refreshData() {
+    this.attributesManager.getMemberAttributeByName(this.member.id, Urns.MEMBER_DEF_EXPIRATION).subscribe(attr => {
+      this.expiration = !attr.value ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') : attr.value;
+    });
+    this.membersService.getRichMemberWithAttributes(this.member.id).subscribe(member => {
+      this.member = member;
+    });
   }
 }
