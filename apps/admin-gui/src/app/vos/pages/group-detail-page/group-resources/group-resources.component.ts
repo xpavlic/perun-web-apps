@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Group, GroupsManagerService, ResourcesManagerService, RichResource } from '@perun-web-apps/perun/openapi';
@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddGroupResourceDialogComponent } from '../../../../shared/components/dialogs/add-group-resource-dialog/add-group-resource-dialog.component';
 import { RemoveGroupResourceDialogComponent } from '../../../../shared/components/dialogs/remove-group-resource-dialog/remove-group-resource-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { ResourcesListComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-group-resources',
@@ -25,7 +27,8 @@ export class GroupResourcesComponent implements OnInit {
               private groupService: GroupsManagerService,
               private tableConfigService: TableConfigService,
               private route: ActivatedRoute,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private guiAuthResolver: GuiAuthResolver) {
   }
 
   group: Group;
@@ -39,6 +42,14 @@ export class GroupResourcesComponent implements OnInit {
 
   groupId: number;
   voId: number;
+
+  routingAuth: boolean;
+  addAuth = false;
+
+  @ViewChild('list', {})
+  list: ResourcesListComponent;
+
+
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -55,13 +66,23 @@ export class GroupResourcesComponent implements OnInit {
     });
   }
 
+  setAuthorization() {
+    if (this.resources !== null && this.resources.length !== 0) {
+      this.routingAuth = this.guiAuthResolver.isAuthorized('getResourceById_int_policy', [this.resources[0]]);
+    }
+    this.addAuth = this.guiAuthResolver.isAuthorized('getResources_Vo_policy', [this.group]);
+  }
+
   refreshTable() {
     this.loading = true;
+    this.setAuthorization()
     this.resourcesManager.getAssignedRichResourcesWithGroup(this.group.id).subscribe(resources => {
       this.resources = resources;
+      this.selected.clear();
       this.loading = false;
     });
   }
+
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
@@ -75,7 +96,7 @@ export class GroupResourcesComponent implements OnInit {
   addResource() {
     const config = getDefaultDialogConfig();
     config.width = '750px';
-    config.data = {theme: 'group-theme', groupId: this.groupId, voId: this.voId, unwantedResources: this.resources.map(res => res.id)};
+    config.data = {theme: 'group-theme', group: this.group, voId: this.voId, unwantedResources: this.resources.map(res => res.id)};
 
     const dialogRef = this.dialog.open(AddGroupResourceDialogComponent, config);
 

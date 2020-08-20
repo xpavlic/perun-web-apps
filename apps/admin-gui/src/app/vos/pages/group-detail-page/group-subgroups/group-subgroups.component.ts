@@ -12,6 +12,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GroupsTreeComponent } from '../../../../../../../../libs/perun/components/src/lib/groups-tree/groups-tree.component';
+import { GroupsListComponent } from '../../../../../../../../libs/perun/components/src/lib/groups-list/groups-list.component';
 
 @Component({
   selector: 'app-group-subgroups',
@@ -29,7 +32,8 @@ export class GroupSubgroupsComponent implements OnInit {
     private dialog: MatDialog,
     private groupService: GroupsManagerService,
     private tableConfigService: TableConfigService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private guiAuthResolver: GuiAuthResolver
   ) {
   }
   group: Group;
@@ -43,8 +47,20 @@ export class GroupSubgroupsComponent implements OnInit {
   tableId = TABLE_GROUP_SUBGROUPS;
   pageSize: number;
 
-  @ViewChild('toggle', { static: true })
+  createAuth: boolean;
+  deleteAuth: boolean;
+  routeAuth: boolean;
+  hideColumns: String[] = [];
+
+  @ViewChild('tree', {})
+  tree: GroupsTreeComponent;
+
+  @ViewChild('list', {})
+  list: GroupsListComponent;
+
+  @ViewChild('toggle', {static: true})
   toggle: MatSlideToggle;
+
 
   onCreateGroup() {
     const config = getDefaultDialogConfig();
@@ -83,6 +99,15 @@ export class GroupSubgroupsComponent implements OnInit {
     });
   }
 
+  setAuthRights() {
+    this.createAuth = this.guiAuthResolver.isAuthorized('createGroup_Group_Group_policy', [this.group]);
+    this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [this.group]);
+    if (this.groups.length !== 0) {
+      this.routeAuth = this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.groups[0]]);
+    }
+    this.hideColumns = this.deleteAuth ? ['vo'] : ['select', 'vo']
+  }
+
   deleteGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
@@ -113,6 +138,7 @@ export class GroupSubgroupsComponent implements OnInit {
       this.filteredTreeGroups = this.groups;
       this.filteredGroups = this.groups;
       this.selected.clear();
+      this.setAuthRights();
       this.loading = false;
     });
   }

@@ -13,7 +13,10 @@
           &nbsp;#{{group.id}}
         </span>
       </div>
-      <button *ngIf="group.name != 'members'" mat-icon-button aria-label="Edit group" (click)="editGroup()">
+      <button *ngIf="group.name != 'members' && editAuth"
+              mat-icon-button
+              aria-label="Edit group"
+              (click)="editGroup()">
         <mat-icon>edit</mat-icon>
       </button>
     </div>

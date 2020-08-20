@@ -4,21 +4,32 @@
   <button mat-flat-button class="mr-2" color="accent" (click)="onCreate()">
     {{'GROUP_DETAIL.SETTINGS.RELATIONS.CREATE' | translate}}
   </button>
-  <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="selection.selected.length === 0">
+  <button
+    mat-flat-button
+    color="warn"
+    (click)="onDelete()"
+    matTooltip="{{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE_TOOLTIP' | translate}}"
+    [matTooltipDisabled]="selection.selected.length === 0 || (this.list !== undefined && this.list.removeAuth)"
+    [disabled]="selection.selected.length === 0 || (this.list !== undefined && !this.list.removeAuth)">
     {{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-checkbox (change)="showReverseUnions()">{{'GROUP_DETAIL.SETTINGS.RELATIONS.REVERSE_UNIONS' | translate}}</mat-checkbox>
+  <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
+                                   [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
+  <mat-checkbox
+    (change)="showReverseUnions()">{{'GROUP_DETAIL.SETTINGS.RELATIONS.REVERSE_UNIONS' | translate}}</mat-checkbox>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 
   <perun-web-apps-groups-list
-      (page)="pageChanged($event)"
-      [pageSize]="pageSize"
-      *ngIf="!loading"
-      [groups]="groups"
-      [selection]="selection"
-      [filter]="filterValue"
-      [hideColumns]="['menu']"
-      [disableHeadCheckbox]="true"
+    #list
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize"
+    *ngIf="!loading"
+    [groups]="groups"
+    [parentGroup]="group"
+    [authType]="'group-relations'"
+    [selection]="selection"
+    [filter]="filterValue"
+    [hideColumns]="['menu']"
+    [disableHeadCheckbox]="true"
   ></perun-web-apps-groups-list>
 </div>

@@ -11,9 +11,10 @@ import {
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { RichResource } from '@perun-web-apps/perun/openapi';
+import { Group, RichResource } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-resources-list',
@@ -22,7 +23,7 @@ import { TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 })
 export class ResourcesListComponent implements AfterViewInit, OnChanges {
 
-  constructor() { }
+  constructor(private guiAuthResolver: GuiAuthResolver) { }
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -43,6 +44,8 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   routingVo = false;
   @Input()
   displayedColumns: string[] = ['select', 'id', 'name', 'vo', 'facility', 'tags', 'description'];
+  @Input()
+  groupToResource: Group;
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
@@ -53,6 +56,10 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
 
   exporting = false;
 
+  removeAuth = false;
+
+  addAuth = false;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -61,6 +68,7 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
     this.dataSource = new MatTableDataSource<RichResource>(this.resources);
     this.setDataSource();
     this.dataSource.filter = this.filterValue;
+    this.setAuth();
   }
 
   setDataSource() {
@@ -82,6 +90,7 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+    this.setAuth();
   }
 
   /** The label for the checkbox on the passed row */
@@ -94,5 +103,17 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  setAuth() {
+    this.removeAuth = this.selection.selected.reduce((acc, res) => acc &&
+      this.guiAuthResolver.isAuthorized('removeGroupFromResources_Group_List<Resource>_policy', [res, this.groupToResource]), true);
+    this.addAuth = this.selection.selected.reduce((acc, res) => acc &&
+      this.guiAuthResolver.isAuthorized('assignGroupToResources_Group_List<Resource>_policy', [res, this.groupToResource]), true);
+  }
+
+  itemSelectionToggle(item: RichResource) {
+    this.selection.toggle(item);
+    this.setAuth();
   }
 }

@@ -53,7 +53,7 @@
       [disableMembers]="true"
       [hideColumns]="['vo']"
       [disableRouting]="!routeAuth"
-      [policy]="'deleteGroup_Group_boolean_policy'"
+      [authType]="'vo-groups'"
       *ngIf="showGroupList"
       (refreshTable)="loadAllGroups()"
       theme="vo-theme">

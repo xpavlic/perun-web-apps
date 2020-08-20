@@ -7,6 +7,7 @@ import {
   TABLE_GROUP_APPLICATIONS_NORMAL,
   TableConfigService
 } from '@perun-web-apps/config/table-config';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-group-applications',
@@ -23,7 +24,8 @@ export class GroupApplicationsComponent implements OnInit {
   constructor(private groupService: GroupsManagerService,
               private registrarManager: RegistrarManagerService,
               private tableConfigService: TableConfigService,
-              protected route: ActivatedRoute) { }
+              protected route: ActivatedRoute,
+              private guiAuthResolver: GuiAuthResolver) { }
 
   state = 'pending';
   loading = false;
@@ -36,6 +38,7 @@ export class GroupApplicationsComponent implements OnInit {
   pageSize: number;
   detailTableId = TABLE_GROUP_APPLICATIONS_DETAILED;
   tableId = TABLE_GROUP_APPLICATIONS_NORMAL;
+  routeAuth = false;
 
   ngOnInit() {
     this.detailPageSize = this.tableConfigService.getTablePageSize(this.detailTableId);
@@ -46,8 +49,15 @@ export class GroupApplicationsComponent implements OnInit {
       this.groupService.getGroupById(groupId).subscribe( group => {
         this.group = group;
         this.setData(['NEW', 'VERIFIED']);
+        this.setAuth();
       });
     });
+  }
+
+  setAuth() {
+    if (this.applications.length !== 0) {
+      this.routeAuth = this.guiAuthResolver.isAuthorized('getApplicationById_int_policy', [this.group]);
+    }
   }
 
 

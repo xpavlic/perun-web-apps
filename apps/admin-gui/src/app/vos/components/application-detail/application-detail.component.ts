@@ -72,11 +72,19 @@ export class ApplicationDetailComponent implements OnInit {
   }
 
   setAuthRights(){
-    this.verifyAuth = this.authResolver.isAuthorized('vo-verifyApplication_int_policy', [this.application.vo]);
-    this.approveAuth = this.authResolver.isAuthorized('vo-approveApplicationInternal_int_policy', [this.application.vo]);
-    this.rejectAuth = this.authResolver.isAuthorized('vo-rejectApplication_int_String_policy', [this.application.vo]);
-    this.deleteAuth = this.authResolver.isAuthorized('vo-deleteApplication_Application_policy', [this.application.vo]);
-    this.resendAuth = this.authResolver.isAuthorized('vo-sendMessage_Application_MailType_String_policy', [this.application.vo]);
+    if (this.dialogTheme === 'group-theme') {
+      this.verifyAuth = this.authResolver.isAuthorized('group-verifyApplication_int_policy', [this.application.group]);
+      this.approveAuth = this.authResolver.isAuthorized('group-approveApplicationInternal_int_policy', [this.application.group]);
+      this.rejectAuth = this.authResolver.isAuthorized('group-rejectApplication_int_String_policy', [this.application.group]);
+      this.deleteAuth = this.authResolver.isAuthorized('group-deleteApplication_Application_policy', [this.application.group]);
+      this.resendAuth = this.authResolver.isAuthorized('group-sendMessage_Application_MailType_String_policy', [this.application.group]);
+    } else {
+      this.verifyAuth = this.authResolver.isAuthorized('vo-verifyApplication_int_policy', [this.application.vo]);
+      this.approveAuth = this.authResolver.isAuthorized('vo-approveApplicationInternal_int_policy', [this.application.vo]);
+      this.rejectAuth = this.authResolver.isAuthorized('vo-rejectApplication_int_String_policy', [this.application.vo]);
+      this.deleteAuth = this.authResolver.isAuthorized('vo-deleteApplication_Application_policy', [this.application.vo]);
+      this.resendAuth = this.authResolver.isAuthorized('vo-sendMessage_Application_MailType_String_policy', [this.application.vo]);
+    }
   }
 
   getLabel(formItem: ApplicationFormItem) {

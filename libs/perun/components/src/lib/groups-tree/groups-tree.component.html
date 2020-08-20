@@ -2,9 +2,9 @@
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <mat-tree-node class="group-tree-node"
                    *matTreeNodeDef="let group" matTreeNodePadding>            <!--leaf-->
-      <div class="group-item-content" [routerLink]="['/organizations', group.voId, 'groups', group.id]">
-        <mat-checkbox *ngIf="!hideCheckbox"
-                      color="primary"
+      <div class="group-item-content" [routerLink]="disableRouting ? null : ['/organizations', group.voId, 'groups', group.id]">
+        <mat-checkbox color="primary"
+                      *ngIf="!hideCheckbox"
                       [disabled]="group.fullName === 'members'"
                       class="no-label-margin-bottom ml-4"
                       [checked]="selection.isSelected(group)"
@@ -32,14 +32,15 @@
     <mat-tree-node
       class="group-tree-node"
       *matTreeNodeDef="let group;when: hasChild" matTreeNodePadding> <!--parent-->
-      <mat-checkbox *ngIf="!hideCheckbox"
-                    color="primary" class="no-label-margin-bottom ml-4"
+      <mat-checkbox color="primary"
+                    *ngIf="!hideCheckbox"
+                    class="no-label-margin-bottom ml-4"
                     [disabled]="group.fullName === 'members'"
                     [checked]="selection.isSelected(group)"
                     [indeterminate]="descendantsPartiallySelected(group)"
                     (change)="itemSelectionToggle(group)"
                     matTreeNodeToggle></mat-checkbox>
-      <div class="group-item-content" [routerLink]="['/organizations', group.voId, 'groups', group.id]">
+      <div class="group-item-content" [routerLink]="disableRouting ? null :['/organizations', group.voId, 'groups', group.id]">
         <button mat-icon-button matTreeNodeToggle
                 [attr.aria-label]="'toggle ' + group.name">
           <mat-icon class="mat-icon-rtl-mirror">

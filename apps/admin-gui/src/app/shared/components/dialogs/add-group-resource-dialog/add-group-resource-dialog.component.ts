@@ -1,14 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { ResourcesManagerService, RichResource } from '@perun-web-apps/perun/openapi';
+import { Group, ResourcesManagerService, RichResource } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ResourcesListComponent } from '@perun-web-apps/perun/components';
 
 export interface AddGroupResourceDialogData {
   theme: string;
   voId: number;
-  groupId: number;
+  group: Group
   unwantedResources: number[];
 }
 
@@ -25,6 +26,9 @@ export class AddGroupResourceDialogComponent implements OnInit {
               private translate: TranslateService,
               private resourcesManager: ResourcesManagerService) {
   }
+
+  @ViewChild('list', {})
+  list: ResourcesListComponent;
 
   loading: boolean;
   filterValue = '';
@@ -52,7 +56,7 @@ export class AddGroupResourceDialogComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     const resourceIds = this.selection.selected.map(res => res.id);
-    this.resourcesManager.assignGroupToResources(this.data.groupId, resourceIds).subscribe(() => {
+    this.resourcesManager.assignGroupToResources(this.data.group.id, resourceIds).subscribe(() => {
       this.translate.get('DIALOGS.ADD_GROUP_RESOURCES.SUCCESS').subscribe(successMessage => {
         this.loading = false;
         this.notificator.showSuccess(successMessage);

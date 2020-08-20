@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {NotificatorService} from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import {TranslateService} from '@ngx-translate/core';
 import {
   AddApplicationFormItemDialogComponent
@@ -15,7 +15,13 @@ import {
 import {
   UpdateApplicationFormDialogComponent
 } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
-import { ApplicationForm, ApplicationFormItem, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  ApplicationForm,
+  ApplicationFormItem,
+  Group,
+  GroupsManagerService,
+  RegistrarManagerService
+} from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
@@ -37,7 +43,9 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private apiRequest: ApiRequestConfigurationService,
-    private router: Router) {
+    private router: Router,
+    private guiAuthResolver: GuiAuthResolver,
+    private groupsManager: GroupsManagerService) {
   }
 
   loading = false;
@@ -47,6 +55,8 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   groupId: number;
   noApplicationForm = false;
   itemsChanged = false;
+  group: Group;
+  editAuth = false;
 
   ngOnInit() {
     this.loading = true;
@@ -59,7 +69,11 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
         this.applicationForm = form;
         this.registrarManager.getFormItemsForGroup(this.groupId).subscribe(formItems => {
           this.applicationFormItems = formItems;
-          this.loading = false;
+          this.groupsManager.getGroupById(this.groupId).subscribe(group => {
+            this.group = group;
+            this.setAuth();
+            this.loading = false;
+          });
         });
       }, error => {
         if (error.error.name === 'FormNotExistsException') {
@@ -70,6 +84,10 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
         }
       });
     });
+  }
+
+  setAuth() {
+    this.editAuth = this.guiAuthResolver.isAuthorized('group-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy', [this.group]);
   }
 
   add() {

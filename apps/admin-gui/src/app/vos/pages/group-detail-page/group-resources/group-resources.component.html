@@ -1,22 +1,39 @@
 <div>
   <h1 class="page-subtitle">{{'GROUP_DETAIL.RESOURCES.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button mat-flat-button color="accent" (click)="addResource()" class="mr-2">
+  <button
+    *ngIf="addAuth"
+    mat-flat-button
+    color="accent"
+    (click)="addResource()"
+    class="mr-2">
     {{'GROUP_DETAIL.RESOURCES.ADD' | translate}}
   </button>
-  <button mat-flat-button color="warn" [disabled]="selected.selected.length === 0" (click)="removeResource()">
+  <span
+    matTooltip="{{'GROUP_DETAIL.RESOURCES.DELETE_PERMISSION_HINT' | translate}}"
+    [matTooltipDisabled]="selected.selected.length === 0 || (list !== undefined && list.removeAuth)">
+    <button
+      mat-flat-button
+      color="warn"
+      [disabled]="selected.selected.length === 0 || (list !== undefined && !list.removeAuth)"
+      (click)="removeResource()">
     {{'GROUP_DETAIL.RESOURCES.DELETE' | translate}}
   </button>
+  </span>
   <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
                                    [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <perun-web-apps-resources-list *ngIf="resources && !loading"
-                                 (page)="pageChanged($event)"
-                                 [pageSize]="pageSize"
-                                 [filterValue]="filterValue"
-                                 [resources]="resources"
-                                 [routingVo]="true"
-                                 [selection]="selected"
-                                 [displayedColumns]="['select', 'id', 'name', 'facility', 'tags', 'description']">
+  <perun-web-apps-resources-list
+    #list
+    *ngIf="resources && !loading"
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize"
+    [filterValue]="filterValue"
+    [resources]="resources"
+    [routingVo]="true"
+    [disableRouting]="!routingAuth"
+    [selection]="selected"
+    [groupToResource]="group"
+    [displayedColumns]="['select', 'id', 'name', 'facility', 'tags', 'description']">
   </perun-web-apps-resources-list>
 </div>

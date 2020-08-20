@@ -476,7 +476,8 @@
       "NO_SUBGROUPS": "This group has no subgroups.",
       "FILTER": "Filter",
       "LIST_VIEW": "List view",
-      "TREE_VIEW": "Tree view"
+      "TREE_VIEW": "Tree view",
+      "DELETE_PERMISSION_HINT": "You don't have permission to delete some of the selected subgroups."
     },
     "SUBGROUP_INFO": "This group is a subgroup of ",
     "MEMBERS": {
@@ -492,6 +493,7 @@
       "TITLE": "Resources",
       "DELETE": "Remove selected",
       "ADD": "Add",
+      "DELETE_PERMISSION_HINT": "You don't have permission to remove some of the selected resources.",
       "NO_RESOURCES_WARNING": "Group has no resources assigned."
     },
     "SETTINGS": {
@@ -553,7 +555,8 @@
         "DELETE": "Remove selected",
         "CREATE": "Add",
         "FILTER": "Filter by name, id or description",
-        "REVERSE_UNIONS": "Show reverse unions"
+        "REVERSE_UNIONS": "Show reverse unions",
+        "DELETE_TOOLTIP": "You don't have permission to remove some of the selected relations."
       }
     }
   },
@@ -1313,6 +1316,7 @@
       "FILTER": "Filter by ID, name or description",
       "CANCEL": "Cancel",
       "ADD": "Add",
+      "ADD_PERMISSION_TOOLTIP": "You don't have permission to assign some of the selected resources.",
       "SUCCESS": "Resources successfully added"
     },
     "ADD_USER_EXT_SOURCE": {

@@ -10,7 +10,6 @@ import { applyFilter, getDefaultDialogConfig } from '@perun-web-apps/perun/utils
 import {
   Group,
   GroupsManagerService,
-  PerunBean,
   RichGroup,
   Vo,
   VosManagerService
@@ -118,12 +117,12 @@ export class VoGroupsComponent implements OnInit {
 
   disableRemove() {
     return (this.tree !== undefined && !this.tree.removeAuth) ||
-      (this.list !== undefined && !this.list.deleteAuth);
+      (this.list !== undefined && !this.list.removeAuth);
   }
 
   disableTooltip(){
     return (this.tree !== undefined && this.tree.removeAuth) ||
-      (this.list !== undefined && this.list.deleteAuth);
+      (this.list !== undefined && this.list.removeAuth);
   }
 
   deleteGroup() {

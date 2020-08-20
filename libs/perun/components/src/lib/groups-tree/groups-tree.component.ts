@@ -3,14 +3,12 @@ import { Component, EventEmitter, HostListener, Input, OnChanges, Output, Simple
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
-import { RichGroup, Vo } from '@perun-web-apps/perun/openapi';
+import { GroupsManagerService, RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { EditGroupDialogComponent } from '../edit-group-dialog/edit-group-dialog.component';
-
-import { GUIConfigService } from '@perun-web-apps/config/table-config';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -22,7 +20,7 @@ export class GroupsTreeComponent implements OnChanges {
 
   constructor(
     private dialog: MatDialog,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) { }
 
   private transformer = (node: TreeGroup, level: number) => {
@@ -61,6 +59,9 @@ export class GroupsTreeComponent implements OnChanges {
   expandAll = false;
 
   @Input()
+  disableRouting = false;
+
+  @Input()
   selection = new SelectionModel<GroupFlatNode>(true, []);
 
   @Input()
@@ -68,6 +69,8 @@ export class GroupsTreeComponent implements OnChanges {
 
   @Input()
   vo: Vo;
+
+  removeAuth: boolean;
 
   treeControl = new FlatTreeControl<GroupFlatNode>(
     node => node.level, node => node.expandable);
@@ -77,13 +80,13 @@ export class GroupsTreeComponent implements OnChanges {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  removeAuth = true;
 
   ngOnChanges(changes: SimpleChanges) {
     this.createGroupTrees(this.groups);
     if (this.expandAll) {
       this.treeControl.expandAll();
     }
+    this.removeAuth = this.setRemoveAuth();
   }
 
   onSyncDetail(rg: RichGroup) {
@@ -212,8 +215,12 @@ export class GroupsTreeComponent implements OnChanges {
   }
 
   setRemoveAuth(): boolean {
+    if (this.vo !== undefined) {
+      return this.selection.selected.reduce((acc, grp) => acc &&
+        this.authResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [this.vo, grp]), true);
+    }
     return this.selection.selected.reduce((acc, grp) => acc &&
-      this.authResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [this.vo, grp]), true);
+      this.authResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [grp]), true);
   }
 
   onMoveGroup(group: GroupFlatNode) {

@@ -2,8 +2,8 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { SelectionModel } from '@angular/cdk/collections';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import {SelectionModel} from '@angular/cdk/collections';
 import {
   AddEditNotificationDialogComponent
 } from '../../../../../shared/components/dialogs/add-edit-notification-dialog/add-edit-notification-dialog.component';
@@ -16,7 +16,13 @@ import {
 import {
   EditEmailFooterDialogComponent
 } from '../../../../../shared/components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
-import { ApplicationForm, ApplicationMail, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  ApplicationForm,
+  ApplicationMail, Attribute, AttributesManagerService,
+  Group,
+  GroupsManagerService,
+  RegistrarManagerService
+} from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
 import { createNewApplicationMail, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { PageEvent } from '@angular/material/paginator';
@@ -24,6 +30,7 @@ import {
   TABLE_GROUP_SETTINGS_NOTIFICATIONS,
   TableConfigService
 } from '@perun-web-apps/config/table-config';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-group-settings-notifications',
@@ -41,7 +48,10 @@ export class GroupSettingsNotificationsComponent implements OnInit {
     private dialog: MatDialog,
     private apiRequest: ApiRequestConfigurationService,
     private tableConfigService: TableConfigService,
-    private notificator: NotificatorService) {
+    private notificator: NotificatorService,
+    private groupsService: GroupsManagerService,
+    public guiAuthResolver: GuiAuthResolver,
+    private attributesService: AttributesManagerService) {
   }
 
   loading = false;
@@ -52,6 +62,13 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   selection = new SelectionModel<ApplicationMail>(true, []);
   noApplicationForm = false;
   pageSize: number;
+  group: Group;
+  editEmailFooterAuth = false;
+  addAuth = false;
+  removeAuth = false;
+  copyAuth = false;
+  createFormAuth = false;
+  displayedColumns: String[] = [];
 
   private tableId = TABLE_GROUP_SETTINGS_NOTIFICATIONS;
 
@@ -64,22 +81,46 @@ export class GroupSettingsNotificationsComponent implements OnInit {
       this.groupId = params['groupId'];
 
       // FIXME this might not work in case of some race condition (other request finishes sooner)
-      this.apiRequest.dontHandleErrorForNext();
-      this.registrarService.getGroupApplicationForm(this.groupId).subscribe(form => {
-        this.applicationForm = form;
-        this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe(mails => {
-          this.applicationMails = mails;
-          this.loading = false;
+      this.groupsService.getGroupById(this.groupId).subscribe(group => {
+        this.group = group;
+        this.apiRequest.dontHandleErrorForNext();
+        this.registrarService.getGroupApplicationForm(this.groupId).subscribe(form => {
+          this.applicationForm = form;
+          this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe(mails => {
+            this.applicationMails = mails;
+            //not implemented in authorization....probably must be hardcoded
+            this.apiRequest.dontHandleErrorForNext();
+            this.attributesService.getGroupAttributeByName(this.groupId, Urns.GROUP_DEF_EXPIRATION_RULES).subscribe(() => {
+              this.editEmailFooterAuth = true;
+              this.setAuthRights();
+              this.loading = false;
+            }, error => {
+              if (error.name !== 'HttpErrorResponse') {
+                this.notificator.showRPCError(error)
+              }
+              this.setAuthRights();
+              this.loading = false;
+            });
+          });
+        }, error => {
+          if (error.error.name === 'FormNotExistsException') {
+            this.noApplicationForm = true;
+            this.setAuthRights()
+            this.loading = false;
+          } else {
+            this.notificator.showRPCError(error);
+          }
         });
-      }, error => {
-        if (error.error.name === 'FormNotExistsException') {
-          this.noApplicationForm = true;
-          this.loading = false;
-        } else {
-          this.notificator.showRPCError(error);
-        }
       });
     });
+  }
+
+  setAuthRights() {
+    this.createFormAuth = this.guiAuthResolver.isAuthorized('createApplicationFormInGroup_Group_policy', [this.group]);
+    this.addAuth = this.guiAuthResolver.isAuthorized('group-addMail_ApplicationForm_ApplicationMail_policy', [this.group]);
+    this.removeAuth = this.guiAuthResolver.isAuthorized('group-deleteMailById_ApplicationForm_Integer_policy', [this.group])
+    this.copyAuth = this.guiAuthResolver.isAuthorized('copyMailsFromVoToGroup_Vo_Group_boolean_policy', [this.group]);
+    this.displayedColumns = this.removeAuth ? ['select', 'id', 'mailType', 'appType', 'send'] : ['id', 'mailType', 'appType', 'send'];
   }
 
   add() {

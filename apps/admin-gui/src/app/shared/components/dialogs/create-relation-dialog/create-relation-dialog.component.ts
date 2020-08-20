@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
   TABLE_CREATE_RELATION_GROUP_DIALOG,
@@ -13,7 +13,7 @@ import { PageEvent } from '@angular/material/paginator';
 export interface CreateRelationDialogData {
   theme: string,
   groups: Group[],
-  groupId: number,
+  group: Group,
   voId: number,
   reverse: boolean
 }
@@ -30,6 +30,7 @@ export class CreateRelationDialogComponent implements OnInit {
               private notificator: NotificatorService,
               private translate: TranslateService,
               private tableConfigService: TableConfigService,
+              private guiAuthResolver: GuiAuthResolver,
               @Inject(MAT_DIALOG_DATA) public data: CreateRelationDialogData
   ) {
     translate.get('DIALOGS.CREATE_RELATION.SUCCESS').subscribe(value => this.successMessage = value);
@@ -46,14 +47,17 @@ export class CreateRelationDialogComponent implements OnInit {
   tableId = TABLE_CREATE_RELATION_GROUP_DIALOG;
   pageSize: number;
 
+  groupsToDisable: Set<number> = new Set<number>();
+
   ngOnInit() {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-    this.groupService.getGroupUnions(this.data.groupId, !this.data.reverse).subscribe( unionGroups => {
+    this.groupService.getGroupUnions(this.data.group.id, !this.data.reverse).subscribe( unionGroups => {
       unionGroups = unionGroups.concat(this.data.groups);
       this.groupService.getAllGroups(this.data.voId).subscribe(allGroups => {
         const groupIds = unionGroups.map(elem => elem.id);
-        this.groups = allGroups.filter(group => !groupIds.includes(group.id) && group.id !== this.data.groupId);
+        this.groups = allGroups.filter(group => !groupIds.includes(group.id) && group.id !== this.data.group.id);
+        this.setGroupsToDisable();
         this.loading = false;
       }, () => this.loading = false);
     }, () => this.loading = false);
@@ -66,7 +70,7 @@ export class CreateRelationDialogComponent implements OnInit {
 
   onSubmit(): void {
     this.loading = true;
-    this.groupService.createGroupUnion(this.data.groupId, this.selection.selected[0].id).subscribe(() =>{
+    this.groupService.createGroupUnion(this.data.group.id, this.selection.selected[0].id).subscribe(() =>{
       this.notificator.showSuccess(this.successMessage);
       this.loading = false;
       this.dialogRef.close(true);
@@ -80,5 +84,13 @@ export class CreateRelationDialogComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  }
+
+  private setGroupsToDisable() {
+    for (const group of this.groups) {
+      if (!this.guiAuthResolver.isAuthorized('createGroupUnion_Group_Group_policy', [this.data.group, group])) {
+        this.groupsToDisable.add(group.id);
+      }
+    }
   }
 }
