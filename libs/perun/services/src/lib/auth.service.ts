@@ -62,7 +62,8 @@ export class AuthService {
     const queryParams = location.search.substr(1);
 
     if (currentPathname === '/api-callback') {
-      return this.handleAuthCallback();
+      return this.handleAuthCallback()
+        .then(() => this.redirectToOriginDestination())
     } else {
       return this.verifyAuthentication(currentPathname, queryParams);
     }
@@ -133,7 +134,8 @@ export class AuthService {
           sessionStorage.setItem('auth:redirect', path);
           sessionStorage.setItem('auth:queryParams', queryParams);
           console.log("STARTED AUTH");
-          return this.startAuthentication().then(() => false);
+          return this.startAuthentication()
+            .then(() => false);
         }
         return true;
       });

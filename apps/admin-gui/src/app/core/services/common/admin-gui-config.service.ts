@@ -110,7 +110,6 @@ export class AdminGuiConfigService {
         if (isAuthenticated) {
           return this.initAuthService.loadPrincipal()
             .catch(err => this.handlePrincipalErr(err))
-            .then(() => this.initAuthService.redirectToOriginDestination())
             .then(() => this.loadPolicies());
         }
         // if it was not, do nothing because it will do a redirect to oidc server
