@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-security-teams',
@@ -19,10 +20,11 @@ export class FacilitySecurityTeamsComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
               private tableConfigService: TableConfigService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private authResolver: GuiAuthResolver) { }
 
   facility: Facility;
-  securityTeams: SecurityTeam[]= []
+  securityTeams: SecurityTeam[]= [];
   selected = new SelectionModel<SecurityTeam>(true, []);
 
   filterValue = '';
@@ -30,6 +32,10 @@ export class FacilitySecurityTeamsComponent implements OnInit {
   loading: boolean;
   pageSize: number;
   tableId = TABLE_FACILITY_SECURITY_TEAMS_LIST;
+  displayedColumns: string[] = [];
+
+  addAuth: boolean;
+  removeAuth: boolean;
 
 
   ngOnInit() {
@@ -51,8 +57,16 @@ export class FacilitySecurityTeamsComponent implements OnInit {
     this.facilitiesManager.getAssignedSecurityTeams(this.facility.id).subscribe(securityTeams => {
       this.securityTeams = securityTeams;
       this.selected.clear();
+      this.setAuthRights();
       this.loading = false;
     });
+  }
+
+  setAuthRights(){
+    this.addAuth = this.authResolver.isAuthorized('assignSecurityTeam_Facility_SecurityTeam_policy', [this.facility]);
+    this.removeAuth = this.authResolver.isAuthorized('removeSecurityTeam_Facility_SecurityTeam_policy', [this.facility]);
+
+    this.displayedColumns = this.removeAuth ? ['select', 'id', "name", "description"] : ['id', "name", "description"];
   }
 
   applyFilter(filterValue: string) {

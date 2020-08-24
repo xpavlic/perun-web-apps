@@ -42,10 +42,13 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
   @Input()
   filterValue = '';
 
+  @Input()
+  displayedColumns: string[] = ['select', 'id', 'name', 'contact', 'type'];
+
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
-  displayedColumns: string[] = ['select', 'id', 'name', 'contact', 'type'];
+
   dataSource: MatTableDataSource<Owner>;
   exporting = false;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;

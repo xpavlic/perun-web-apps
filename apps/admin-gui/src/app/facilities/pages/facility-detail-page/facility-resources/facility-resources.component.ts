@@ -11,6 +11,7 @@ import {
   TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-resources',
@@ -27,7 +28,8 @@ export class FacilityResourcesComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
               private tableConfigService: TableConfigService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private authResolver: GuiAuthResolver) {
   }
 
   @Input()
@@ -40,6 +42,11 @@ export class FacilityResourcesComponent implements OnInit {
   loading: boolean;
   pageSize: number;
   tableId = TABLE_FACILITY_RESOURCES_LIST;
+  displayedColumns = ['id', 'name', 'facility', 'tags', 'description'];
+
+  addAuth: boolean;
+  removeAuth: boolean;
+  routeAuth: boolean;
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -74,8 +81,22 @@ export class FacilityResourcesComponent implements OnInit {
     this.facilitiesManager.getAssignedRichResourcesForFacility(this.facility.id).subscribe(resources => {
       this.resources = resources;
       this.selected.clear();
+      this.setAuthRights();
       this.loading = false;
     });
+  }
+
+  setAuthRights(){
+    this.addAuth = this.authResolver.isAuthorized('createResource_Resource_Vo_Facility_policy', [this.facility]);
+
+    this.removeAuth = this.authResolver.isAuthorized('deleteResource_Resource_policy', [this.facility]);
+    this.displayedColumns = this.removeAuth ?
+      ['select', 'id', 'name', 'facility', 'tags', 'description'] :
+      ['id', 'name', 'facility', 'tags', 'description'];
+
+    if(this.resources.length !== 0){
+      this.routeAuth = this.authResolver.isAuthorized('getRichResourceById_int_policy', [this.facility, this.resources[0]]);
+    }
   }
 
   applyFilter(filterValue: string) {

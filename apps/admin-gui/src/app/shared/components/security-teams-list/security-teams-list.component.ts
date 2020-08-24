@@ -37,13 +37,14 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
   filterValue: string;
   @Input()
   pageSize = 10;
+  @Input()
+  displayedColumns: string[] = ['select', 'id', "name", "description"];
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   private sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'id', "name", "description"];
   dataSource: MatTableDataSource<SecurityTeam>;
 
   exporting = false;

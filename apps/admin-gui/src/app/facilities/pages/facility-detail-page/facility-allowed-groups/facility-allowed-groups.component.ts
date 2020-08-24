@@ -6,6 +6,7 @@ import {
   TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-allowed-groups',
@@ -22,6 +23,7 @@ export class FacilityAllowedGroupsComponent implements OnInit {
     private facilityManager: FacilitiesManagerService,
     private route: ActivatedRoute,
     private tableConfigService: TableConfigService,
+    private authResolver: GuiAuthResolver
   ) { }
 
   facility: Facility;
@@ -40,6 +42,8 @@ export class FacilityAllowedGroupsComponent implements OnInit {
   tableId = TABLE_FACILITY_ALLOWED_GROUPS;
   pageSize: number;
 
+  groupsWithoutRouteAuth: Set<number> = new Set<number>();
+
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
@@ -47,7 +51,6 @@ export class FacilityAllowedGroupsComponent implements OnInit {
 
       this.facilityManager.getAllowedVos(this.facilityId).subscribe(vos => {
           this.vos = vos;
-
           this.refreshTable();
         });
     });
@@ -68,14 +71,22 @@ export class FacilityAllowedGroupsComponent implements OnInit {
     this.vos.forEach(vo => {
       this.facilityManager.getAllowedGroups(this.facilityId, vo.id).subscribe(group => {
         this.groups =  this.groups.concat(group);
-
         this.groupsToShow = this.groups;
+        this.setAuthRights(vo, group);
         this.loading = false;
       });
     });
     if (this.vos.length === 0) {
       this.loading = false;
     }
+  }
+
+  setAuthRights(vo: Vo, groups: Group[]){
+    groups.forEach(grp => {
+      if(!this.authResolver.isAuthorized('getGroupById_int_policy', [vo, grp])){
+        this.groupsWithoutRouteAuth.add(grp.id);
+      }
+    });
   }
 
   pageChanged(event: PageEvent) {

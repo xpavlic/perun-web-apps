@@ -65,9 +65,9 @@
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr
           *matRowDef="let group; columns: displayedColumns;"
-          [class.cursor-pointer]="!disabledRouting"
-          [class.disable-outline]="disabledRouting"
-          [routerLink]="disabledRouting ? null : ['/organizations', group.voId, 'groups', group.id]"
+          [class.cursor-pointer]="!disableRouting && !groupsToDisable.has(group.id)"
+          [class.disable-outline]="disabledRouting || groupsToDisable.has(group.id)"
+          [routerLink]="(disabledRouting || groupsToDisable.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
           class="dark-hover-list-item"
           mat-row>
         </tr>

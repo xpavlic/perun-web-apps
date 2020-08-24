@@ -11,7 +11,7 @@ import { Role } from '@perun-web-apps/perun/models';
 import { TABLE_GROUP_MANAGERS_PAGE, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-managers-page',
@@ -26,6 +26,7 @@ export class ManagersPageComponent implements OnInit {
     private dialog: MatDialog,
     private tableConfigService: TableConfigService,
     private authzService: AuthzResolverService,
+    private guiAuthResolver: GuiAuthResolver,
     private storeService: StoreService
   ) {
   }
@@ -57,9 +58,14 @@ export class ManagersPageComponent implements OnInit {
   tableId = TABLE_GROUP_MANAGERS_PAGE;
   pageSize: number;
 
+  isAuthorized = false;
+
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.selectedRole = this.availableRoles[0];
+    this.isAuthorized = this.guiAuthResolver.isPerunAdmin() ||
+      this.guiAuthResolver.isFacilityAdmin() ||
+      this.guiAuthResolver.isVoAdmin();
     this.changeUser();
   }
 
