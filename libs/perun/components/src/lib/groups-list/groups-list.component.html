@@ -15,12 +15,12 @@
             </mat-checkbox>
           </th>
           <td *matCellDef="let row" class="static-column-size" mat-cell>
-            <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+            <mat-checkbox (change)="$event ? itemSelectionToggle(row) : null"
                           (click)="$event.stopPropagation()"
                           [aria-label]="checkboxLabel(row)"
                           [checked]="selection.isSelected(row)"
                           [disabled]="(row.name === 'members' && disableMembers) || disableSelect(row.id)"
-                          matTooltip="Already member"
+                          matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.DISABLED_HINT' | translate}}"
                           [matTooltipDisabled]="!disableSelect(row.id)"
                           color="primary">
             </mat-checkbox>

@@ -12,13 +12,17 @@
       </b>
     </td>
   </tr>
-  <tr>
+  <!-- TODO fix authorization of expiration attribute when it is supported-->
+  <tr *ngIf="authResolver.isThisVoAdminOrObserver(vo.id)">
     <td class="vert-center">{{'MEMBER_DETAIL.OVERVIEW.EXPIRATION' | translate}}</td>
     <td>
       <i>
         {{expiration}}
       </i>
-      <button (click)="changeExpiration()" mat-icon-button>
+      <button
+        *ngIf="authResolver.isThisVoAdmin(vo.id)"
+        (click)="changeExpiration()"
+        mat-icon-button>
         <mat-icon>edit</mat-icon>
       </button>
     </td>

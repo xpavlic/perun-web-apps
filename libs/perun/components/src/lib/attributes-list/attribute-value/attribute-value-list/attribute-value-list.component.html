@@ -12,8 +12,8 @@
               [cdkDragData]="chip"
               [removable]="removable" (removed)="remove(chip); _sendEventToParent()">
       <mat-icon *ngIf="removable" class="handle-icon" (mousedown)="dragDisabled = false;">drag_indicator</mat-icon>
-      <div (click)="readonly && showValue(chip, attribute.displayName)"
-           [class.cursor-pointer]="readonly"
+      <div (click)="readonly && attribute.displayName !== undefined  && showValue(chip, attribute.displayName)"
+           [class.cursor-pointer]="readonly && attribute.displayName !== undefined"
            class="chip-text overflow-ellipsis">{{chip}}</div>
       <mat-icon *ngIf="removable" (click)="edit(chip)" class="edit-delete-icon ml-2">edit</mat-icon>
       <mat-icon *ngIf="removable" (click)="remove(chip)" class="edit-delete-icon">cancel</mat-icon>

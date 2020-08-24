@@ -2,7 +2,7 @@
   <h1 class="page-subtitle">{{ 'MEMBER_DETAIL.RESOURCES.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading"
+    *ngIf="!loading && addAuth"
     mat-flat-button
     color="accent"
     (click)="addResource()">
@@ -10,7 +10,7 @@
   </button>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
-    class="ml-2"
+    class="mr-2"
     *ngIf="!loading"
     [placeholder]="'MEMBER_DETAIL.RESOURCES.FILTER'"
   >
@@ -22,6 +22,7 @@
     [filterValue]="filterValue"
     [displayedColumns]="displayedColumns"
     [routingVo]="true"
+    [disableRouting]="!routeAuth"
     [resources]="resources">
   </perun-web-apps-resources-list>
 </div>

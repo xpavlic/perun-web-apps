@@ -1,8 +1,8 @@
 <mat-form-field appearance="{{readonly ? 'none' : 'standard'}}" class="w-100">
   <input
     matInput
-    (click)="readonly && showValue(attribute)"
-    [class.cursor-pointer]="readonly"
+    (click)="readonly && attribute.value !== undefined && showValue(attribute)"
+    [class.cursor-pointer]="readonly && attribute.value !== undefined"
     [readonly]="readonly"
     class="overflow-ellipsis"
     [(ngModel)]="attribute.value"

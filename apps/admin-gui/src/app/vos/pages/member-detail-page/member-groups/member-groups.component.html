@@ -1,20 +1,20 @@
 <h1 class="page-subtitle">{{'MEMBER_DETAIL.GROUPS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
 <button
-  *ngIf="!loading"
+  *ngIf="!loading && addAuth"
   mat-flat-button
   color="accent"
   (click)="addGroup()"
-  class="ml-2">
+  class="mr-2">
   {{'MEMBER_DETAIL.GROUPS.ADD' | translate}}
 </button>
 <button
-  *ngIf="!loading"
+  *ngIf="!loading && removeAuth"
   mat-flat-button
   color="warn"
   (click)="removeGroup()"
-  [disabled]="selection.selected.length === 0"
-  class="ml-2">
+  [disabled]="selection.selected.length === 0 || (list !== undefined && !list.deleteAuth)"
+  class="mr-2">
   {{'MEMBER_DETAIL.GROUPS.REMOVE' | translate}}
 </button>
 <perun-web-apps-immediate-filter
@@ -24,11 +24,14 @@
 </perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
 <perun-web-apps-groups-list
+  #list
   [pageSize]="pageSize"
   (page)="pageChanged($event)"
   [groups]="groups"
-  [hideColumns]="[ 'vo', 'menu']"
+  [hideColumns]="removeAuth ? [ 'vo', 'menu'] : ['select', 'vo', 'menu']"
   [selection]="selection"
   [filter]="filterValue"
+  [disableRouting]="!routeAuth"
+  [policy]="'removeMember_Member_List<Group>_policy'"
   *ngIf="!loading">
 </perun-web-apps-groups-list>

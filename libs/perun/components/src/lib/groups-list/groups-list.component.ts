@@ -12,11 +12,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Group, RichGroup } from '@perun-web-apps/perun/openapi';
+import { Group, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { EditGroupDialogComponent } from '../edit-group-dialog/edit-group-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-groups-list',
@@ -35,8 +36,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   @Input()
   theme = 'group-theme';
 
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog,
+              private authResolver: GuiAuthResolver) { }
 
   @Output()
   moveGroup = new EventEmitter<Group>();
@@ -74,6 +75,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   @Input()
   disableRouting = false;
 
+  @Input()
+  policy: string;
+
   @Output()
   page = new EventEmitter<PageEvent>();
 
@@ -85,6 +89,10 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
 
   exporting = false;
   disabledRouting: boolean;
+
+  deleteAuth = false;
+  removeAuth = false;
+  vo: Vo;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -141,6 +149,10 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
           this.selection.select(row);
         }
       });
+
+    if(this.policy){
+      this.deleteAuth = this.setDeleteAuth();
+    }
   }
 
   checkboxLabel(row?: Group): string {
@@ -155,6 +167,13 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
+    if(this.vo === undefined && this.groups.length !== 0) {
+      this.vo  = {
+        id: this.groups[0].voId,
+        beanName: "Vo"
+      };
+    }
+
     this.dataSource.paginator = this.paginator;
   }
 
@@ -185,6 +204,18 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
         this.refreshTable.emit();
       }
     });
+  }
+
+  itemSelectionToggle(item: Group) {
+    this.selection.toggle(item);
+    if(this.policy){
+      this.deleteAuth = this.setDeleteAuth();
+    }
+  }
+
+  setDeleteAuth(): boolean{
+    return this.selection.selected.reduce((acc, grp) => acc &&
+      this.authResolver.isAuthorized(this.policy, [this.vo, grp]), true);
   }
 
   pageChanged(event: PageEvent) {

@@ -42,8 +42,8 @@ import {ApplicationFormListComponent} from './components/application-form-list/a
 import {ApplicationFormPreviewComponent} from './components/application-form-preview/application-form-preview.component';
 import { MemberSettingsComponent } from './pages/member-detail-page/member-settings/member-settings.component';
 import {
-  MemberSettingsAttributesComponent
-} from './pages/member-detail-page/member-settings/member-settings-attributes/member-settings-attributes.component';
+  MemberAttributesComponent
+} from './pages/member-detail-page/member-attributes/member-attributes.component';
 import {
   MemberSettingsOverviewComponent
 } from './pages/member-detail-page/member-settings/member-settings-overview/member-settings-overview.component';
@@ -130,7 +130,7 @@ import { MemberResourcesComponent } from './pages/member-detail-page/member-reso
     ApplicationFormPreviewComponent,
     GroupSettingsOverviewComponent,
     MemberSettingsComponent,
-    MemberSettingsAttributesComponent,
+    MemberAttributesComponent,
     MemberSettingsOverviewComponent,
     VoResourcesPreviewComponent,
     VoResourcesTagsComponent,
