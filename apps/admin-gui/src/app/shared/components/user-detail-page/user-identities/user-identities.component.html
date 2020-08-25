@@ -6,8 +6,10 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 </div>
 
-<perun-web-apps-user-ext-sources-list
-  [hideColumns]="hiddenColumns"
-  [selection]="selection"
-  [userExtSources]="userExtSources"
-></perun-web-apps-user-ext-sources-list>
+<div *ngIf="!loading">
+  <perun-web-apps-user-ext-sources-list
+    [hideColumns]="hiddenColumns"
+    [selection]="selection"
+    [userExtSources]="userExtSources"
+  ></perun-web-apps-user-ext-sources-list>
+</div>
