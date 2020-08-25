@@ -29,6 +29,7 @@ export class DeleteFacilityDialogComponent implements OnInit {
   facility: Facility;
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<Facility>;
+  loading = false;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -37,10 +38,11 @@ export class DeleteFacilityDialogComponent implements OnInit {
   }
 
   onConfirm() {
+    this.loading = true;
     this.facilitiesManager.deleteFacility(this.facility.id).subscribe(() => {
       this.notificator.showSuccess(this.translate.instant('DIALOGS.DELETE_FACILITY.SUCCESS'));
       this.dialogRef.close(true);
-  });
+    }, () => this.loading = false);
   }
 
   onCancel() {

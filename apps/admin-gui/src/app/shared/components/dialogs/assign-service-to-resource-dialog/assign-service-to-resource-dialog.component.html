@@ -1,15 +1,14 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.TITLE' | translate}}</h1>
-  <div mat-dialog-content>
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <app-debounce-filter
       placeholder="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
       (filter)="applyFilter($event)">
     </app-debounce-filter>
-    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
     <app-services-list
       (page)="pageChanged($event)"
       [pageSize]="pageSize"
-      *ngIf="!loading"
       [services]="unAssignedServices"
       [filterValue]="filterValue"
       [selection]="selection">

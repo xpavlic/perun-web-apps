@@ -1,6 +1,7 @@
 <div class="{{theme}}">
   <h1 class="mat-dialog-title">{{'DIALOGS.CREATE_FACILITY.TITLE' | translate}}</h1>
-  <div class="dialog-container" mat-dialog-content>
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <mat-form-field>
       <input
         matInput
@@ -38,7 +39,7 @@
     <button
       mat-flat-button
       class="ml2"
-      [disabled]="nameControl.value.trim().length === 0"
+      [disabled]="nameControl.value.trim().length === 0 || loading"
       (click)="onCreate()"
       color="accent">{{"DIALOGS.CREATE_FACILITY.CREATE" | translate}}</button>
   </div>

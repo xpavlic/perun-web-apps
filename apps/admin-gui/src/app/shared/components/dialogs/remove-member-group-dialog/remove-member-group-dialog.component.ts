@@ -29,6 +29,7 @@ export class RemoveMemberGroupDialogComponent implements OnInit {
   theme: string;
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<Group>;
+  loading = false;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -36,12 +37,13 @@ export class RemoveMemberGroupDialogComponent implements OnInit {
   }
 
   onRemove() {
+    this.loading = true;
     const groupIds = this.dataSource.data.map(group => group.id);
 
     this.groupManager.removeMember(groupIds, this.data.memberId).subscribe(() => {
       this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_MEMBER_GROUP.SUCCESS'));
       this.dialogRef.close(true);
-    });
+    }, () => this.loading = false);
   }
 
   onCancel() {

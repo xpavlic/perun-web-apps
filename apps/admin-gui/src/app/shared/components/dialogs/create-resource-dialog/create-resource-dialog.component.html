@@ -1,4 +1,5 @@
 <div class="{{theme}}">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
 
     <mat-form-field class="long-input">
@@ -31,9 +32,6 @@
             [disabled]="nameCtrl.invalid || descriptionCtrl.invalid || selectedVo === null || loading"
             color="accent" (click)="onSubmit()">{{'DIALOGS.CREATE_RESOURCE.CREATE' | translate}}</button>
   </div>
-</div>
-<div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 </div>
 
 

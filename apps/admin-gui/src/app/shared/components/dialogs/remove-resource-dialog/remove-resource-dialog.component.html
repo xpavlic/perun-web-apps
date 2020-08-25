@@ -22,7 +22,7 @@
     </table>
 
   </div>
-  <div mat-dialog-actions *ngIf="!loading">
+  <div mat-dialog-actions>
     <button
       mat-flat-button
       class="ml-auto"
@@ -33,6 +33,7 @@
       mat-flat-button
       class="ml-2"
       color="warn"
+      [disabled]="loading"
       (click)="onSubmit()">
       {{'DIALOGS.REMOVE_RESOURCES.DELETE' | translate}}
     </button>

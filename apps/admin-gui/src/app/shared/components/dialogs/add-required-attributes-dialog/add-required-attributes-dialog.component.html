@@ -1,14 +1,12 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.TITLE' | translate}}</h1>
-  <div mat-dialog-content class="dialog-container">
-    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
     <perun-web-apps-immediate-filter
-      *ngIf="!loading"
       (filter)="applyFilter($event)"
       [placeholder]="'DIALOGS.ADD_REQUIRED_ATTRIBUTES.FILTER'">
     </perun-web-apps-immediate-filter>
     <app-attr-def-list
-      *ngIf="!loading"
       [selection]="selection"
       [definitions]="attrDefinitions"
       [disableRouting]="true"

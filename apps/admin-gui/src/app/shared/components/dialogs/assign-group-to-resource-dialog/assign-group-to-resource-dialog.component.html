@@ -1,6 +1,7 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.TITLE' | translate}}</h1>
-  <div mat-dialog-content class="dialog-container">
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
     <app-debounce-filter
       placeholder="{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
       (filter)="applyFilter($event)">
@@ -10,11 +11,9 @@
 <!--      [(ngModel)]="checkGroups">-->
 <!--      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CONFIGURE_GROUPS' | translate}}-->
 <!--    </mat-checkbox>-->
-    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
     <perun-web-apps-groups-list
       (page)="pageChanged($event)"
       [pageSize]="pageSize"
-      *ngIf="!loading"
       [groups]="unAssignedGroups"
       [selection]="selection"
       [filter]="filterValue"
