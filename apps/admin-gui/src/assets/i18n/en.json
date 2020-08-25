@@ -703,7 +703,8 @@
       "SERVICE_IDENTITIES": "Service Identities",
       "IDENTITIES": "Identities",
       "PASSWORD_RESET": "Password reset",
-      "RESOURCES": "Resources"
+      "RESOURCES": "Resources",
+      "ASSOCIATED_USERS": "Associated users"
     },
     "SERVICE": {
       "OVERVIEW": "Overview",
@@ -1452,6 +1453,23 @@
       "DESCRIPTION": "Description",
       "SAVE": "Save",
       "CANCEL": "Cancel"
+    },
+    "CONNECT_IDENTITY": {
+      "TITLE": "Connect identity",
+      "CONNECT": "Connect",
+      "CANCEL": "Cancel",
+      "SEARCH": "Search",
+      "SEARCH_HINT": "Type in user`s First name, Last name (or both) or Login or Email.",
+      "NO_IDENTITIES": "No user matching search criteria found.",
+      "SUCCESS": "Identity was connected."
+    },
+    "DISCONNECT_IDENTITY": {
+      "TITLE": "Disconnect identity",
+      "REMOVE": "Disconnect",
+      "CANCEL": "Cancel",
+      "DESCRIPTION": "Following identities will be disconnected from user.",
+      "ASK": "Do you want to proceed?",
+      "SUCCESS": "Identity was disconnected."
     }
   },
   "MEMBERS_LIST": {
@@ -1591,10 +1609,17 @@
       "SERVICE_IDENTITIES": {
         "TITLE": "Service identities",
         "CREATE": "Add",
-        "DELETE": "Remove"
+        "DELETE": "Remove",
+        "NO_IDENTITIES": "You have no service identities assigned."
       },
       "GUI_CONFIG": {
         "PREF_TABLE_PAGE_SIZE": "Preferred table page size"
+      },
+      "ASSOCIATED_USERS": {
+        "TITLE": "Associated users",
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "NO_ASSOCIATED_USERS": "You have no associated users assigned."
       }
     }
   },

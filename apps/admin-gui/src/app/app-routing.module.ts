@@ -15,10 +15,15 @@ import { UserSettingsFacilityAttributesComponent } from './shared/components/use
 import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
 import { PasswordResetComponent } from '@perun-web-apps/perun/components';
 import { UserRolesComponent } from './shared/components/user-detail-page/user-settings/user-roles/user-roles.component';
+import { RedirectPageComponent } from '@perun-web-apps/perun/components';
 
 const routes: Routes = [
   {
     path: '', redirectTo: '/home', pathMatch: 'full'
+  },
+  {
+    path: 'redirect',
+    component: RedirectPageComponent
   },
   {
     path: 'api-callback',

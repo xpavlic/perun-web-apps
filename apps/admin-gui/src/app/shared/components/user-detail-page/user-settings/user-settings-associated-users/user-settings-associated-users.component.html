@@ -1,5 +1,5 @@
 <div>
-  <h1 class="page-subtitle">{{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.TITLE' | translate}}</h1>
+  <h1 class="page-subtitle">{{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
   <button
     *ngIf="!loading"
@@ -7,7 +7,7 @@
     mat-flat-button
     class="mr-2"
     color="accent">
-    {{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.CREATE' | translate}}
+    {{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.ADD' | translate}}
   </button>
   <button
     *ngIf="!loading"
@@ -16,13 +16,13 @@
     mat-flat-button
     class="mr-2"
     color="warn">
-    {{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.DELETE' | translate}}
+    {{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.REMOVE' | translate}}
   </button>
   <app-users-list
     (page)="pageChanged($event)"
     [pageSize]="pageSize"
-    *ngIf="identities !== undefined && identities.length > 0"
-    [users]="identities"
+    *ngIf="associatedUsers !== undefined && associatedUsers.length > 0"
+    [users]="associatedUsers"
     [selection]="selection"
     [displayedColumns]="displayedColumns"
   >
@@ -30,11 +30,9 @@
 
   <app-alert
     color="warn"
-    *ngIf="!loading && (identities === undefined || identities.length === 0)">
-    {{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.NO_IDENTITIES' | translate}}
+    *ngIf="!loading && (associatedUsers === undefined || associatedUsers.length === 0)">
+    {{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.NO_ASSOCIATED_USERS' | translate}}
   </app-alert>
-
-
 </div>
 
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>

@@ -1,33 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
-import { ActivatedRoute,  Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { TABLE_USER_SERVICE_IDENTITIES, TableConfigService } from '@perun-web-apps/config/table-config';
+import {
+  TABLE_USER_ASSOCIATED_USERS,
+  TableConfigService
+} from '@perun-web-apps/config/table-config';
+import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
+import { SelectionModel } from '@angular/cdk/collections';
+import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ConnectIdentity } from '../../../dialogs/connect-identity/connect-identity';
 import { DisconnectIdentity } from '../../../dialogs/disconnect-identity/disconnect-identity';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-user-settings-service-identities',
-  templateUrl: './user-settings-service-identities.component.html',
-  styleUrls: ['./user-settings-service-identities.component.scss']
+  selector: 'app-user-settings-associated-users',
+  templateUrl: './user-settings-associated-users.component.html',
+  styleUrls: ['./user-settings-associated-users.component.scss']
 })
-export class UserSettingsServiceIdentitiesComponent implements OnInit {
+export class UserSettingsAssociatedUsersComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
               private router: Router,
               private tableConfigService: TableConfigService,
-              private userManager: UsersManagerService) { }
+              private userManager: UsersManagerService) {
+  }
 
   loading = false;
   selection = new SelectionModel<User>(false, []);
-  identities: User[] = [];
+  associatedUsers: User[] = [];
   pageSize: number;
   userId: number;
-  tableId = TABLE_USER_SERVICE_IDENTITIES;
+  tableId = TABLE_USER_ASSOCIATED_USERS;
   displayedColumns = [ 'select', 'id', 'user', 'name' ];
 
   ngOnInit(): void {
@@ -35,19 +39,19 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
     this.loading = true;
 
     this.route.parent.parent.params
-        .subscribe(params => {
-      this.userId = params["userId"];
-      this.userManager.getSpecificUsersByUser(this.userId).subscribe(identities => {
-        this.identities = identities;
-        this.loading = false;
+      .subscribe(params => {
+        this.userId = params["userId"];
+        this.userManager.getUsersBySpecificUser(this.userId).subscribe(associatedUsers => {
+          this.associatedUsers = associatedUsers;
+          this.loading = false;
+        });
       });
-    });
   }
 
   refreshTable(){
     this.loading = true;
-    this.userManager.getSpecificUsersByUser(this.userId).subscribe(identities => {
-      this.identities = identities;
+    this.userManager.getUsersBySpecificUser(this.userId).subscribe(associatedUsers => {
+      this.associatedUsers = associatedUsers;
       this.selection.clear();
       this.loading = false;
     });
@@ -59,7 +63,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
     config.data = {
       userId : this.userId,
       theme: "user-theme",
-      isService: false
+      isService: true
     };
 
     const dialogRef = this.dialog.open(ConnectIdentity, config);
@@ -78,6 +82,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
       identities: this.selection.selected,
       userId: this.userId,
       specificUser: this.selection.selected[0],
+      isService: true,
       theme: "user-theme"
     };
 

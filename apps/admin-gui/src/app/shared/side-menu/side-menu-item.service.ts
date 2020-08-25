@@ -486,61 +486,7 @@ export class SideMenuItemService {
       baseLink: [path],
       backgroundColorCss: this.userBgColor,
       textColorCss: this.userTextColor,
-      links: [
-        {
-          label: 'MENU_ITEMS.USER.OVERVIEW',
-          url: [path],
-          activatedRegex: `${regex}$`
-        },
-        {
-          label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
-          url: [`${path}/organizations`],
-          activatedRegex: `${regex}/organizations`
-        },
-        {
-          label: 'MENU_ITEMS.ADMIN.GROUPS',
-          url: [`${path}/groups`],
-          activatedRegex: `${regex}/groups`
-        },
-        {
-          label: 'MENU_ITEMS.USER.IDENTITIES',
-          url: [`${path}/identities`],
-          activatedRegex: `${regex}/identities`
-        },
-        {
-          label: 'MENU_ITEMS.USER.RESOURCES',
-          url: [`${path}/resources`],
-          activatedRegex: `${regex}/resources`
-        },
-        {
-          label: 'MENU_ITEMS.ADMIN.SETTINGS',
-          url: [`${path}/settings`],
-          activatedRegex: `${regex}/settings$`,
-          children: [
-            {
-              label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
-              url: [`${path}/settings/attributes`],
-              activatedRegex: `${regex}/settings/attributes`
-            },
-            {
-              label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
-              url: [`${path}/settings/facilityAttributes`],
-              activatedRegex: `^${path}/settings/facilityAttributes`
-            },
-            {
-              label: 'MENU_ITEMS.USER.ROLES',
-              url: [`${path}/settings/roles`],
-              activatedRegex: `^${path}/settings/roles`
-            },
-            {
-              label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
-              url: [`${path}/settings/service-identities`],
-              activatedRegex: `^${path}/settings/service-identities`
-            }
-          ],
-          showChildrenRegex: `${regex}/settings`
-        }
-      ],
+      links: this.getUserLinks(user, path ,regex),
       colorClass: 'user-bg-color',
       icon: 'perun-user',
       activatedClass: 'dark-item-activated',
@@ -677,6 +623,89 @@ export class SideMenuItemService {
           }
         ],
         showChildrenRegex: '/organizations/\\d+/settings'
+      });
+    }
+
+    return links;
+  }
+
+  getUserLinks(user: User, path: string, regex: string): EntityMenuLink[]{
+    const links: EntityMenuLink[] = [];
+
+    // Overview
+    links.push({
+      label: 'MENU_ITEMS.USER.OVERVIEW',
+        url: [path],
+      activatedRegex: `${regex}$`
+    });
+
+    // Organizations
+    links.push({
+      label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
+        url: [`${path}/organizations`],
+      activatedRegex: `${regex}/organizations`
+    });
+
+    // Groups
+    links.push({
+      label: 'MENU_ITEMS.ADMIN.GROUPS',
+        url: [`${path}/groups`],
+      activatedRegex: `${regex}/groups`
+    });
+
+    // Identities
+    links.push({
+      label: 'MENU_ITEMS.USER.IDENTITIES',
+        url: [`${path}/identities`],
+      activatedRegex: `${regex}/identities`
+    });
+
+    // Resources
+    links.push({
+      label: 'MENU_ITEMS.USER.RESOURCES',
+        url: [`${path}/resources`],
+      activatedRegex: `${regex}/resources`
+    });
+
+
+    // Settings
+    links.push({
+      label: 'MENU_ITEMS.ADMIN.SETTINGS',
+      url: [`${path}/settings`],
+      activatedRegex: `${regex}/settings$`,
+      children: [
+        {
+          label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
+          url: [`${path}/settings/attributes`],
+          activatedRegex: `${regex}/settings/attributes`
+        },
+        {
+          label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
+          url: [`${path}/settings/facilityAttributes`],
+          activatedRegex: `^${path}/settings/facilityAttributes`
+        },
+        {
+          label: 'MENU_ITEMS.USER.ROLES',
+          url: [`${path}/settings/roles`],
+          activatedRegex: `^${path}/settings/roles`
+        }
+        ],
+      showChildrenRegex: `${regex}/settings`
+    });
+
+    // Settings associated users if user is service
+    // Settings service identities if user is person
+    if(user.serviceUser){
+      links[links.length -1].children.push({
+        label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
+        url: [`${path}/settings/associated-users`],
+        activatedRegex: `^${path}/settings/associated-users`
+      });
+    } else {
+      links[links.length -1].children.push({
+        label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
+        url: [`${path}/settings/service-identities`],
+        activatedRegex: `^${path}/settings/service-identities`
       });
     }
 
