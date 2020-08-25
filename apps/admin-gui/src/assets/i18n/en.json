@@ -1470,6 +1470,23 @@
       "DESCRIPTION": "Following identities will be disconnected from user.",
       "ASK": "Do you want to proceed?",
       "SUCCESS": "Identity was disconnected."
+    },
+    "EDIT_FACILITY_RESOURCE_GROUP_VO": {
+      "EDIT_FACILITY": "Edit facility",
+      "EDIT_RESOURCE": "Edit resource",
+      "EDIT_VO": "Edit organization",
+      "EDIT_GROUP": "Edit group",
+      "SHORT_NAME": "Short name",
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "CANCEL_BUTTON": "Cancel",
+      "SUBMIT_BUTTON": "Submit",
+      "RESOURCE_SUCCESS": "Resource successfully updated",
+      "FACILITY_SUCCESS": "Facility successfully updated",
+      "GROUP_SUCCESS": "Group successfully updated",
+      "VO_SUCCESS": "Vo successfully updated",
+      "FILL_NAME": "Length of name has to be between 1 to 128 characters",
+      "FILL_DESCRIPTION": "Length of full name has to be between 1 to 128 characters"
     }
   },
   "MEMBERS_LIST": {

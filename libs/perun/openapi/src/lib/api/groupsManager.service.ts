@@ -952,7 +952,7 @@ export class GroupsManagerService {
     }
 
     /**
-     * Returns a group by VO and Group name. IMPORTANT: need to use full name of group (ex. \&#39;toplevel:a:b\&#39;, not the shortname which is in this example \&#39;b\&#39;) Throws GroupNotExistsException when the group doesn\&#39;t exist. 
+     * Returns a group by VO and Group name. IMPORTANT: need to use full name of group (ex. \&#39;toplevel:a:b\&#39;, not the shortname which is in this example \&#39;b\&#39;) Throws GroupNotExistsException when the group doesn\&#39;t exist.
      * @param vo id of Vo
      * @param name name of entity
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -1539,7 +1539,7 @@ export class GroupsManagerService {
 
     /**
      * Updates a group.
-     * @param inputUpdateGroup 
+     * @param inputUpdateGroup
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -1598,5 +1598,4 @@ export class GroupsManagerService {
             }
         );
     }
-
 }
