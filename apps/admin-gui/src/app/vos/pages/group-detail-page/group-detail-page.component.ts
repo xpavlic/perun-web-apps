@@ -64,7 +64,9 @@ export class GroupDetailPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        this.groupService.getGroupById(this.group.id).subscribe(group => {
+          this.group = group;
+        });
       }
     });
   }

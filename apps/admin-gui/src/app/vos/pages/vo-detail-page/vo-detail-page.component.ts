@@ -57,7 +57,9 @@ export class VoDetailPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        this.voService.getVoById(this.vo.id).subscribe(vo => {
+          this.vo = vo;
+        });
       }
     });
   }

@@ -59,7 +59,9 @@ export class FacilityDetailPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ngOnInit();
+        this.facilityManager.getFacilityById(this.facility.id).subscribe(facility => {
+          this.facility = facility;
+        });
       }
     });
   }

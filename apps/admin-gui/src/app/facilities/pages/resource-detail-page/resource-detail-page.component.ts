@@ -80,7 +80,9 @@ export class ResourceDetailPageComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.ngOnInit();
+          this.resourcesManager.getRichResourceById(this.resource.id).subscribe(newResource => {
+            this.resource = newResource;
+          });
         }
       });
     });
