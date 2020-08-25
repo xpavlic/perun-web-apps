@@ -7,12 +7,12 @@
       {{'DIALOGS.CREATE_ATTRIBUTE.ERROR_EMPTY_VALUE' | translate}}
     </app-alert>
   </div>
-  <div mat-dialog-content>
-    <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <perun-web-apps-attributes-list
       (page)="pageChanged($event)"
       [pageSize]="pageSize"
-      *ngIf="attributes !== undefined && !loading"
+      *ngIf="attributes !== undefined"
       #list
       [filterValue]="filterValue"
       [attributes]="attributes"
@@ -33,7 +33,7 @@
       class="ml-2"
       color="accent"
       (click)="onSave()"
-      [disabled]="selected.selected.length === 0">
+      [disabled]="selected.selected.length === 0 || loading">
       {{'DIALOGS.CREATE_ATTRIBUTE.SAVE' | translate}}
     </button>
   </div>

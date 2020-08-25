@@ -38,7 +38,7 @@ export class AddGroupResourceDialogComponent implements OnInit {
     this.resourcesManager.getResources(this.data.voId).subscribe(resources => {
       this.resources = resources.filter(res => !this.data.unwantedResources.includes(res.id));
       this.loading = false;
-    });
+    }, () => this.loading = false );
   }
 
   applyFilter(filterValue: string) {

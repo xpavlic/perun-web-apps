@@ -6,8 +6,8 @@
     <div *ngIf="!showKeys">
       <div class="width-650">
         <h1 mat-dialog-title>{{this.attDef.namespace + ':' + this.attDef.friendlyName}}</h1>
-
-        <div mat-dialog-content>
+        <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+        <div *ngIf="!loading" mat-dialog-content>
           <mat-form-field class="width-650">
             <label>
               <input class="width-650" matInput [(ngModel)]="attDef.displayName"
@@ -131,7 +131,7 @@
             class="ml-2"
             color="accent"
             (click)="onSubmit()"
-            [disabled]="disableConfirmButton()"
+            [disabled]="disableConfirmButton() || loading"
             matTooltip="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.TOOLTIP_CONFIRM' | translate}}"
             matTooltipPosition="above"
             [matTooltipDisabled]="!disableConfirmButton()">

@@ -48,8 +48,8 @@ export class GroupSubgroupsComponent implements OnInit {
 
   onCreateGroup() {
     const config = getDefaultDialogConfig();
-    config.width = '350px';
-    config.data = { parentGroup: this.group };
+    config.width = '450px';
+    config.data = {parentGroup: this.group, theme: 'group-theme'};
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
 
@@ -84,7 +84,7 @@ export class GroupSubgroupsComponent implements OnInit {
   deleteGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = { voId: this.group.id, groups: this.selected.selected };
+    config.data = {voId: this.group.id, groups: this.selected.selected, theme: 'group-theme'};
 
     const dialogRef = this.dialog.open(DeleteGroupDialogComponent, config);
 

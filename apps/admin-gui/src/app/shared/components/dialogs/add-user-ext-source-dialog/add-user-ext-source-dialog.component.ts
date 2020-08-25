@@ -41,6 +41,7 @@ export class AddUserExtSourceDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.loginControl = new FormControl(null, [Validators.required]);
     this.extSourcesControl = new FormControl('', [Validators.required]);
     this.filteredExtSources = this.extSourcesControl.valueChanges
@@ -56,7 +57,8 @@ export class AddUserExtSourceDialogComponent implements OnInit {
           startWith(''),
           map(value => this._filter(value))
         );
-    });
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   displayFn(extSource?: ExtSource): string | undefined {

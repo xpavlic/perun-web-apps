@@ -1,7 +1,8 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{this.facilityName}}: {{'DIALOGS.ADD_HOST.TITLE' | translate}}</h1>
   <h1 class="page-subtitle">{{'DIALOGS.ADD_HOST.SUBTITLE' | translate}}:</h1>
-  <div mat-dialog-content class="dialog-container">
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
     <mat-form-field>
       <textarea
         class="md-textarea form-control"
@@ -24,7 +25,7 @@
       mat-flat-button
       class="ml-2"
       color="accent"
-      [disabled]="hosts.trim().length === 0"
+      [disabled]="hosts.trim().length === 0 || loading"
       (click)="onAdd()">
       {{'DIALOGS.ADD_HOST.ADD' | translate}}</button>
   </div>

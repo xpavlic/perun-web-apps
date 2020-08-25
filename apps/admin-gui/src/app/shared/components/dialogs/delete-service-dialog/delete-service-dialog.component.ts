@@ -27,6 +27,7 @@ export class DeleteServiceDialogComponent implements OnInit {
   services: Service[];
   displayedColumns = ['name'];
   dataSource = new MatTableDataSource<Service>(this.data.services);
+  loading = false;
 
 
   ngOnInit(): void {
@@ -40,10 +41,11 @@ export class DeleteServiceDialogComponent implements OnInit {
       this.notificator.showSuccess(this.translate.instant('DIALOGS.DELETE_SERVICE.SUCCESS'));
       return;
     }
-
+    this.loading = true
     this.serviceManager.deleteService(this.services.pop().id).subscribe(() =>{
       this.recDelete();
-    });
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   onDelete() {

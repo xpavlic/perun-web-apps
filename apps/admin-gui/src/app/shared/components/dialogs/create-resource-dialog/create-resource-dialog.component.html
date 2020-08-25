@@ -1,5 +1,6 @@
-<div class="{{theme}}" *ngIf="!loading">
-  <div mat-dialog-content class="dialog-container">
+<div class="{{theme}}">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
 
     <mat-form-field class="long-input">
       <input type="text" placeholder="{{'DIALOGS.CREATE_RESOURCE.SELECT_VO' | translate}}" aria-label="Number" matInput
@@ -28,12 +29,9 @@
     <button mat-flat-button class="ml-auto"
             (click)="onCancel()">{{'DIALOGS.CREATE_RESOURCE.CANCEL' | translate}}</button>
     <button mat-flat-button class="ml-2"
-            [disabled]="nameCtrl.invalid || descriptionCtrl.invalid || selectedVo === null"
+            [disabled]="nameCtrl.invalid || descriptionCtrl.invalid || selectedVo === null || loading"
             color="accent" (click)="onSubmit()">{{'DIALOGS.CREATE_RESOURCE.CREATE' | translate}}</button>
   </div>
-</div>
-<div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 </div>
 
 

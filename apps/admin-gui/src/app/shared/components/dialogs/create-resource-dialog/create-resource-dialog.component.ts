@@ -41,6 +41,7 @@ export class CreateResourceDialogComponent implements OnInit {
   successMessage: string;
 
   ngOnInit() {
+    this.loading = true;
     this.theme = this.data.theme;
     this.voService.getAllVos().subscribe(vos => {
       this.vos = vos;
@@ -49,7 +50,8 @@ export class CreateResourceDialogComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
-    });
+      this.loading = false;
+    }, () => this.loading = false);
 
     this.nameCtrl = new FormControl(null, [Validators.required, Validators.pattern('.*[\\S]+.*')]);
     this.descriptionCtrl = new FormControl(null, [Validators.required, Validators.pattern('.*[\\S]+.*')]);

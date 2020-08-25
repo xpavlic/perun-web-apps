@@ -148,7 +148,7 @@ export class VoMembersComponent implements OnInit {
   onInviteMember(){
     const config = getDefaultDialogConfig();
     config.width = '650px';
-    config.data = { voId: this.vo.id };
+    config.data = { voId: this.vo.id, theme: 'vo-theme' };
 
     const dialogRef = this.dialog.open(InviteMemberDialogComponent, config);
 

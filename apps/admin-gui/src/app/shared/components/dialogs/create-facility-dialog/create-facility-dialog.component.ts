@@ -31,13 +31,16 @@ export class CreateFacilityDialogComponent implements OnInit {
   descControl = new FormControl('');
   facilities: Facility[];
   srcFacility: Facility = null;
+  loading = false;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
 
+    this.loading = true;
     this.facilitiesManager.getAllFacilities().subscribe(facilities => {
       this.facilities = facilities;
-    });
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   copyFacilitySettings(destFacility: number) {
@@ -45,12 +48,13 @@ export class CreateFacilityDialogComponent implements OnInit {
       this.facilitiesManager.copyManagers(this.srcFacility.id, destFacility).subscribe(() => {
         this.facilitiesManager.copyOwners(this.srcFacility.id, destFacility).subscribe(() => {
           this.handleSuccess();
-        });
-      });
-    });
+        }, () => this.loading = false);
+      }, () => this.loading = false);
+    }, () => this.loading = false);
   }
 
   onCreate(){
+    this.loading = true;
     this.facilitiesManager.createFacility(this.nameControl.value, this.descControl.value).subscribe(facility => {
       if(this.srcFacility !== null){
         this.copyFacilitySettings(facility.id);

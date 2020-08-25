@@ -47,7 +47,7 @@ export class VoResourcesTagsComponent implements OnInit {
   deleteTag() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {tagsForDelete: this.selection.selected};
+    config.data = {tagsForDelete: this.selection.selected, theme: 'vo-theme'};
 
     const dialogRef = this.dialog.open(DeleteResourceTagDialogComponent, config);
 
@@ -64,7 +64,7 @@ export class VoResourcesTagsComponent implements OnInit {
   create() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.voId};
+    config.data = {voId: this.voId, theme: 'vo-theme'};
 
     const dialogRef = this.dialog.open(CreateResourceTagDialogComponent, config);
 

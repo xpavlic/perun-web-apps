@@ -34,6 +34,8 @@ export class AddMemberToResourceDialogComponent implements OnInit {
   }
 
   theme: string;
+  loading = false;
+  processing = false;
   membersGroupsId: Set<number> = new Set<number>();
 
   facilityCtrl: FormControl = new FormControl();
@@ -53,12 +55,14 @@ export class AddMemberToResourceDialogComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loading = true;
     this.theme = this.data.theme;
 
     this.resourceManager.getRichResources(this.data.voId).subscribe(resources => {
       this.resources = resources;
       this.getResourceFacilities();
-    });
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   getResourceFacilities(){
@@ -97,31 +101,36 @@ export class AddMemberToResourceDialogComponent implements OnInit {
   }
 
   setResource(resource: RichResource){
+    this.processing = true;
     this.selectedResource = resource;
 
     this.resourceManager.getAssignedServicesToResource(this.selectedResource.id).subscribe(services => {
       this.services = services;
-    });
+      this.processing = false;
+    }, () => this.processing = false);
     this.description = this.selectedResource.description;
   }
 
   loadGroups(){
+    this.processing = true;
     this.resourceManager.getAssignedGroups(this.selectedResource.id).subscribe(groups =>{
       this.groups = groups;
     });
 
     this.groupManager.getAllMemberGroups(this.data.memberId).subscribe( groups => {
       this.membersGroupsId = new Set<number>(groups.map(group => group.id));
-    });
+      this.processing = false;
+    }, () => this.processing = false);
   }
 
   onFinish(){
+    this.processing = true;
     const groupId = this.selectedGroups.selected[0].id;
 
     this.groupManager.addMembers(groupId, [this.data.memberId]).subscribe(() => {
       this.notificator.showSuccess(this.translate.instant('DIALOGS.ADD_MEMBER_TO_RESOURCE.SUCCESS'));
       this.dialogRef.close(true);
-    });
+    }, () => this.processing = false);
   }
 
   onCancel(){

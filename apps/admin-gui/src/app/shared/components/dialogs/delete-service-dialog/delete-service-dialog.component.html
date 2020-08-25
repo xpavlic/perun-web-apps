@@ -1,6 +1,7 @@
 <h1 mat-dialog-title>{{'DIALOGS.DELETE_SERVICE.TITLE' | translate}}</h1>
 <div class="{{theme}}">
-  <div mat-dialog-content>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <p>{{'DIALOGS.DELETE_SERVICE.DESCRIPTION' | translate}}</p>
     <div class="font-weight-bold">
       {{'DIALOGS.DELETE_SERVICE.ASK' | translate}}
@@ -24,6 +25,7 @@
       mat-flat-button
       class="ml-2"
       color="warn"
+      [disabled]="loading"
       (click)="onDelete()">
       {{'DIALOGS.DELETE_SERVICE.DELETE' | translate}}</button>
   </div>

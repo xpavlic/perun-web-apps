@@ -28,6 +28,7 @@ export class AddHostDialogComponent implements OnInit {
   theme: string;
   facilityName: string;
   hosts = "";
+  loading = false;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -35,6 +36,7 @@ export class AddHostDialogComponent implements OnInit {
   }
 
   onAdd(){
+    this.loading = true;
     const hostNames = this.hosts.split("\n");
     let generatedHostNames: string[] = [];
 
@@ -45,7 +47,7 @@ export class AddHostDialogComponent implements OnInit {
     this.facilitiesManager.addHosts(this.data.facilityId, generatedHostNames).subscribe(() =>{
       this.notificator.showSuccess(this.translate.instant('DIALOGS.ADD_HOST.SUCCESS'));
       this.dialogRef.close(true);
-    });
+    }, () => this.loading = false);
   }
 
   onCancel() {

@@ -21,12 +21,15 @@ export class AttributeImportDialogComponent implements OnInit {
 
   value = "";
   attributeData: AttributeForExportData;
+  loading = false
+
   ngOnInit(): void {
 
   }
 
   create() {
     try {
+      this.loading = true;
       this.attributeData = JSON.parse(this.value);
       this.attributesManager.createAttributeDefinition({attribute: this.attributeData.attributeDefinition})
           .subscribe(attrDef => {
@@ -38,10 +41,11 @@ export class AttributeImportDialogComponent implements OnInit {
           this.notificator.showSuccess(this.translate.instant('DIALOGS.IMPORT_ATTRIBUTE_DEFINITION.SUCCESS'));
           this.dialogRef.close(true);
         });
-      });
+      }, () => this.loading = false);
     } catch (e) {
       console.log(e);
       this.notificator.showError(e);
+      this.loading = false;
     }
   }
 }

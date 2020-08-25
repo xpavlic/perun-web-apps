@@ -93,17 +93,17 @@ export class AddMemberDialogComponent implements OnInit {
   }
 
   onInvite(): void {
-
+    this.processing = true;
     // TODO Was not tested properly. Need to be tested on devel.
     if (this.selection.selected[0].richUser) {
       if (this.data.type === 'vo') {
         this.registrarManager.sendInvitationToExistingUser(this.selection.selected[0].richUser.id, this.data.entityId).subscribe(() => {
           this.onInviteSuccess();
-        });
+        }, () => this.onError());
       } else if (this.data.type === 'group') {
         this.registrarManager.sendInvitationGroupToExistingUser(this.selection.selected[0].richUser.id, this.data.voId, this.data.group.id).subscribe(() => {
           this.onInviteSuccess();
-        });
+        }, () => this.onError());
       }
     } else {
       if (this.data.type === 'vo') {
@@ -111,13 +111,13 @@ export class AddMemberDialogComponent implements OnInit {
           // TODO allow to choose language
           getCandidateEmail(this.selection.selected[0].candidate), 'en', this.data.voId).subscribe(() => {
           this.onInviteSuccess();
-        });
+        }, () => this.onError());
       } else if (this.data.type === 'group') {
         // TODO allow to choose language
         this.registrarManager.sendInvitationForGroup(getCandidateEmail(this.selection.selected[0].candidate), 'en',
           this.data.voId, this.data.group.id).subscribe(() => {
           this.onInviteSuccess();
-        });
+        }, () => this.onError());
       }
     }
 

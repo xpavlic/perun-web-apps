@@ -1,6 +1,7 @@
-<h1 mat-dialog-title>{{'DIALOGS.DELETE_FACILITY.TITLE' | translate}}</h1>
 <div class="{{theme}}">
-  <div mat-dialog-content>
+  <h1 mat-dialog-title>{{'DIALOGS.DELETE_FACILITY.TITLE' | translate}}</h1>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <p>{{'DIALOGS.DELETE_FACILITY.DESCRIPTION' | translate}}</p>
     <div class="font-weight-bold">
       {{'DIALOGS.DELETE_FACILITY.ASK' | translate}}
@@ -24,6 +25,7 @@
       mat-flat-button
       class="ml-2"
       color="warn"
+      [disabled]="loading"
       (click)="onConfirm()">
       {{'DIALOGS.DELETE_FACILITY.CONFIRM' | translate}}</button>
   </div>

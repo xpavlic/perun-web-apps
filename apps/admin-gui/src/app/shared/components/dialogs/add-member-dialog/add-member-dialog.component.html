@@ -15,7 +15,7 @@
       mat-flat-button
       class="ml-auto"
       color="accent"
-      [disabled]="searchString.length === 0"
+      [disabled]="searchString.length === 0 || loading"
       (click)="onSearchByString()">
       {{'DIALOGS.ADD_MEMBERS.SEARCH' | translate}}
     </button>
@@ -51,7 +51,7 @@
       class="ml-2"
       color="accent"
       (click)="onAdd()"
-      [disabled]="selection.selected.length === 0">
+      [disabled]="selection.selected.length === 0 || loading">
       {{'DIALOGS.ADD_MEMBERS.CREATE' | translate}}
     </button>
     <button
@@ -59,7 +59,7 @@
       class="ml-2"
       color="accent"
       (click)="onInvite()"
-      [disabled]="selection.selected.length === 0">
+      [disabled]="selection.selected.length === 0 || loading">
       {{'DIALOGS.ADD_MEMBERS.INVITE' | translate}}
     </button>
   </div>

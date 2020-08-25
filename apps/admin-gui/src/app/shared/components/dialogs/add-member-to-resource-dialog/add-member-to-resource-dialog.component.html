@@ -4,7 +4,8 @@
     <mat-horizontal-stepper #stepper [linear]="true">
       <mat-step completed=false>
         <ng-template matStepLabel>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECT_RESOURCE' | translate}}</ng-template>
-        <div>
+        <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+        <div *ngIf="!loading">
           <div>
             <mat-form-field class="input-style">
               <input [formControl]="facilityCtrl" [matAutocomplete]="autoFacility"
@@ -19,8 +20,6 @@
               </mat-autocomplete>
             </mat-form-field>
           </div>
-        </div>
-        <div>
           <div>
             <mat-form-field class="input-style">
               <mat-select
@@ -34,14 +33,14 @@
               </mat-select>
             </mat-form-field>
           </div>
-        </div>
-        <div>
-          <span class="font-weight-bold">{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.DESCRIPTION' | translate}}</span>
-          <div class="ml-5"> {{description}} </div>
-        </div>
-        <div>
-          <span class="font-weight-bold">{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SERVICES' | translate}}</span>
-          <div *ngFor="let service of services" class="ml-5">{{service.name}}</div>
+          <div>
+            <span class="font-weight-bold">{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.DESCRIPTION' | translate}}</span>
+            <div class="ml-5"> {{description}} </div>
+          </div>
+          <div>
+            <span class="font-weight-bold">{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SERVICES' | translate}}</span>
+            <div *ngFor="let service of services" class="ml-5">{{service.name}}</div>
+          </div>
         </div>
 
         <div mat-dialog-actions>
@@ -51,7 +50,7 @@
             mat-flat-button>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}</button>
           <button
             (click)="loadGroups()"
-            [disabled]="selectedResource == null"
+            [disabled]="selectedResource == null || processing || loading"
             class="ml-2"
             color="accent"
             mat-flat-button
@@ -61,7 +60,8 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.ADD_GROUP' | translate}}</ng-template>
-        <div *ngIf="groups.length !== 0">
+        <mat-spinner *ngIf="processing" class="mr-auto ml-auto"></mat-spinner>
+        <div *ngIf="groups.length !== 0 && !processing">
           <perun-web-apps-groups-list
             [disableGroups]="true"
             [disableHeadCheckbox]="true"
@@ -72,7 +72,7 @@
             [selection]="selectedGroups">
           </perun-web-apps-groups-list>
         </div>
-        <app-alert *ngIf="groups.length === 0" color="warn">
+        <app-alert *ngIf="groups.length === 0 && !processing" color="warn">
           {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.NO_GROUPS' | translate}}
         </app-alert>
         <div mat-dialog-actions>
@@ -84,7 +84,7 @@
             {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}</button>
           <button
             (click)="onFinish()"
-            [disabled]="selectedGroups.selected.length === 0"
+            [disabled]="selectedGroups.selected.length === 0 || processing"
             class="ml-2"
             color="accent"
             mat-flat-button

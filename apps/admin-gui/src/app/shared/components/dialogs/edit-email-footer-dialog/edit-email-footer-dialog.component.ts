@@ -6,6 +6,7 @@ import { Urns } from '@perun-web-apps/perun/urns';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface ApplicationFormEmailFooterDialogData {
+  theme: string;
   voId: number;
   groupId: number;
 }
@@ -25,24 +26,29 @@ export class EditEmailFooterDialogComponent implements OnInit {
 
   mailFooter = '';
   mailAttribute: Attribute;
+  theme: string;
+  loading = false;
 
   ngOnInit() {
+    this.theme = this.data.theme;
+    this.loading = true;
     this.data.groupId ? this.getFooterForGroup() : this.getFooterForVo();
+    this.loading = false;
   }
 
   submit() {
+    this.loading = true;
     // @ts-ignore
     this.mailAttribute.value = this.mailFooter;
     if (this.data.groupId) {
       this.attributesManager.setGroupAttribute({group: this.data.groupId, attribute: this.mailAttribute}).subscribe(() => {
         this.notificateSuccess();
-      });
+      }, () => this.loading = false);
     } else {
       this.attributesManager.setVoAttribute({vo: this.data.voId, attribute: this.mailAttribute}).subscribe(() => {
         this.notificateSuccess();
-      });
+      }, () => this.loading = false);
     }
-    this.dialogRef.close();
   }
 
   cancel() {
@@ -78,6 +84,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
   notificateSuccess() {
     this.translateService.get('DIALOGS.NOTIFICATIONS_EDIT_FOOTER.SUCCESS').subscribe( text => {
       this.notificator.showSuccess(text);
+      this.dialogRef.close();
     });
   }
 }

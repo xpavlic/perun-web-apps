@@ -21,7 +21,7 @@
 
       <button
         (click)="onAdd()"
-        [disabled]="selection.selected.length === 0"
+        [disabled]="selection.selected.length === 0 || loading"
         class="ml-2"
         color="accent"
         mat-flat-button>

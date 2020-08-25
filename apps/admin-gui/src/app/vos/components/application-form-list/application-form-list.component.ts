@@ -33,6 +33,9 @@ export class ApplicationFormListComponent implements OnChanges {
   @Input()
   applicationFormItems: ApplicationFormItem[] = [];
 
+  @Input()
+  theme: string;
+
   @Output()
   applicationFormItemsChange = new EventEmitter<ApplicationFormItem[]>();
 
@@ -56,7 +59,9 @@ export class ApplicationFormListComponent implements OnChanges {
     config.height = '600px';
     config.data = {voId: this.applicationForm.vo.id,
       group: this.applicationForm.group,
-      applicationFormItem: applicationFormItem};
+      applicationFormItem: applicationFormItem,
+      theme: this.theme
+    };
 
     const editDialog = this.dialog.open(EditApplicationFormItemDialogComponent, config);
     editDialog.afterClosed().subscribe((success) => {

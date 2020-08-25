@@ -69,17 +69,20 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   writeFacility = false;
   pageSize: number;
   tableId = TABLE_ENTITYLESS_ATTRIBUTE_KEYS;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.dialogRef.addPanelClass('mat-dialog-height-transition');
     this.attDef = this.data.attDef;
     this.serviceService.getServicesByAttributeDefinition(this.attDef.id).subscribe(response => {
       this.services = response;
-    });
-    this.attributesManager.getAttributeRights(this.attDef.id).subscribe(response => {
-      this.fromRightsToCheckboxes(response);
-    });
+      this.attributesManager.getAttributeRights(this.attDef.id).subscribe(attributeRightsResponse => {
+        this.fromRightsToCheckboxes(attributeRightsResponse);
+        this.loading = false;
+      }, () => this.loading = false);
+    }, () => this.loading = false);
   }
 
   disableConfirmButton(): boolean {
@@ -91,6 +94,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     this.attributesManager.updateAttributeDefinition({attributeDefinition: this.attDef}).subscribe(attDef => {
       this.attDef = attDef;
       this.attributesManager.setAttributeRights({rights: this.fromCheckboxesToRights()}).subscribe(() => {
@@ -98,8 +102,8 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close(true);
         });
-      });
-    });
+      }, () => this.loading = false);
+    }, () => this.loading = false);
   }
 
   onCancel() {

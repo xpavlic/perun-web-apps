@@ -35,6 +35,7 @@
       mat-flat-button
       class="ml-2"
       color="warn"
+      [disabled]="loading"
       (click)="onSubmit()">
       {{'DIALOGS.REMOVE_RESOURCES.DELETE' | translate}}
     </button>

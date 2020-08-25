@@ -46,6 +46,7 @@
       (page)="pageChanged($event)"
       [groupId]="groupId"
       [selection]="selection"
+      [theme]="'group-theme'"
       (selectionChange)="changeSelection($event)"></app-notification-list>
   </div>
   <app-alert *ngIf="this.applicationMails.length === 0" color="warn">

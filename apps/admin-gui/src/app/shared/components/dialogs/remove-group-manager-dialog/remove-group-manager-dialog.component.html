@@ -1,7 +1,8 @@
 <div class="{{theme}}">
 
   <h1 mat-dialog-title>{{'DIALOGS.REMOVE_GROUPS.TITLE' | translate}}</h1>
-  <div mat-dialog-content>
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <p>
       {{'DIALOGS.REMOVE_GROUPS.DESCRIPTION' | translate}}
     </p>
@@ -32,6 +33,7 @@
       mat-flat-button
       class="ml-2"
       color="warn"
+      [disabled]="loading"
       (click)="onSubmit()">
       {{'DIALOGS.REMOVE_GROUPS.DELETE' | translate}}
     </button>

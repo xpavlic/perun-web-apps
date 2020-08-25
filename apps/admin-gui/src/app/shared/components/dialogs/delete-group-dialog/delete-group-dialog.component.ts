@@ -6,6 +6,7 @@ import {NotificatorService} from '@perun-web-apps/perun/services';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DeleteGroupDialogData {
+  theme: string;
   voId: number;
   groups: Group[];
 }
@@ -25,8 +26,11 @@ export class DeleteGroupDialogComponent implements OnInit {
 
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<Group>;
+  theme: string;
+  loading = false;
 
   ngOnInit() {
+    this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<Group>(this.data.groups);
   }
 
@@ -35,11 +39,12 @@ export class DeleteGroupDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     this.groupService.deleteGroups(this.data.groups.map(elem => elem.id), true).subscribe( () => {
       this.translate.get('DIALOGS.DELETE_GROUP.SUCCESS').subscribe(successMessage => {
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close(true);
-      });
-    });
+      }, () => this.loading = false);
+    }, () => this.loading = false);
   }
 }

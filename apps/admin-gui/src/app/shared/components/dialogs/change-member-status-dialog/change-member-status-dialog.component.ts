@@ -48,6 +48,6 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
         this.notificatorService.showSuccess(success);
         this.dialogRef.close(true);
       });
-    });
+    }, () => this.loading = false);
   }
 }

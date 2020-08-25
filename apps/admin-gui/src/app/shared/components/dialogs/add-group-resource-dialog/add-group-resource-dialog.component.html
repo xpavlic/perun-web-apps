@@ -23,7 +23,7 @@
         mat-flat-button
         class="ml-2"
         color="accent"
-        [disabled]="selection.selected.length === 0"
+        [disabled]="selection.selected.length === 0 || loading"
         (click)="onSubmit()">
         {{'DIALOGS.ADD_GROUP_RESOURCES.ADD' | translate}}
       </button>

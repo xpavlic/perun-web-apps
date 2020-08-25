@@ -14,6 +14,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 
 export interface NotificationsCopyMailsDialogData {
+  theme: string;
   voId: number;
   groupId: number;
 }
@@ -42,8 +43,12 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
   filteredVos: Observable<Vo[]>;
   groupControl = new FormControl();
   filteredGroups: Observable<Group[]>;
+  theme: string;
+  loading = false;
 
   ngOnInit() {
+    this.theme = this.data.theme;
+    this.loading = true;
     this.translateService.get('DIALOGS.NOTIFICATIONS_COPY_MAILS.NO_GROUP_SELECTED').subscribe( text => {
       this.fakeGroup = {
         id: -1,
@@ -78,8 +83,9 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
 
           return 0;
         }));
+      this.loading = false;
       });
-    });
+    }, () => this.loading = false);
   }
 
   cancel() {
@@ -103,25 +109,26 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
   }
 
   submit() {
+    this.loading = true;
     if (this.data.groupId) {      // checking if the dialog is for group or Vo
       if (this.groupControl.value === this.fakeGroup) {
         this.registrarService.copyMailsFromVoToGroup(this.voControl.value.id, this.data.groupId).subscribe(() => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       } else {
         this.registrarService.copyMailsFromGroupToGroup(this.groupControl.value.id, this.data.groupId).subscribe(() => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       }
     } else {
       if (this.groupControl.value === this.fakeGroup) {
         this.registrarService.copyMailsFromVoToVo(this.voControl.value.id, this.data.voId).subscribe(() => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       } else {
         this.registrarService.copyMailsFromGroupToVo(this.groupControl.value.id, this.data.voId).subscribe(() => {
           this.dialogRef.close(true);
-        });
+        }, () => this.loading = false);
       }
     }
   }

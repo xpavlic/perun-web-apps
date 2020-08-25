@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 export interface RemoveGroupFromResourceDialogData {
   resourceId: number;
   groups: Group[];
+  theme: string;
 }
 
 @Component({
@@ -25,8 +26,11 @@ export class RemoveGroupFromResourceDialogComponent implements OnInit {
 
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<Group>;
+  loading = false;
+  theme: string;
 
   ngOnInit() {
+    this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<Group>(this.data.groups);
   }
 
@@ -39,11 +43,12 @@ export class RemoveGroupFromResourceDialogComponent implements OnInit {
     for (const group of this.data.groups) {
       groupsId.push(group.id);
     }
+    this.loading = true;
     this.resourceManager.removeGroupsFromResource(groupsId, this.data.resourceId).subscribe( () => {
       this.translate.get('DIALOGS.REMOVE_GROUP_FROM_RESOURCE.SUCCESS').subscribe(successMessage => {
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close(true);
       });
-    });
+    }, () => this.loading = false);
   }
 }

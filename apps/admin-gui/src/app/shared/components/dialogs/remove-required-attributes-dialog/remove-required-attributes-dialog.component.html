@@ -1,13 +1,12 @@
 <h1 mat-dialog-title>{{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.TITLE' | translate}}</h1>
 <div class="{{theme}}">
-  <div mat-dialog-content>
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <p>{{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.DESCRIPTION' | translate}}</p>
     <div class="font-weight-bold">
       {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.ASK' | translate}}
     </div>
-    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
     <table
-      *ngIf="!loading"
       mat-table
       [dataSource]="dataSource"
       class="w-100">
@@ -19,9 +18,7 @@
       <tr mat-row *matRowDef="let attrDefinition; columns: displayedColumns;"></tr>
     </table>
   </div>
-  <div
-    *ngIf="!loading"
-    mat-dialog-actions>
+  <div mat-dialog-actions>
     <button
       mat-flat-button
       class="ml-auto"
@@ -31,6 +28,7 @@
       mat-flat-button
       class="ml-2"
       color="warn"
+      [disabled]="loading"
       (click)="onConfirm()">
       {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.REMOVE' | translate}}</button>
   </div>

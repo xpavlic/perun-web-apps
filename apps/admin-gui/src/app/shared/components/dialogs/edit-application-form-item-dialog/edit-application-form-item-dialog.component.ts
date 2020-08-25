@@ -6,6 +6,7 @@ import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/p
 import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
 
 export interface EditApplicationFormItemDialogComponentData {
+  theme: string;
   voId: number;
   group: Group;
   applicationFormItem: ApplicationFormItem;
@@ -41,15 +42,20 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   destinationAttributes: SelectionItem[] = [];
   optionsEn: [string, string][] = [];
   optionsCs: [string, string][] = [];
+  theme: string;
+  loading = false;
 
 
   ngOnInit() {
+    this.theme = this.data.theme;
     this.applicationFormItem = createNewApplicationFormItem();
     this.copy(this.data.applicationFormItem, this.applicationFormItem);
+    this.loading = true;
     this.attributesManager.getAllAttributeDefinitions().subscribe( attributeDefinitions => {
       this.attributeDefinitions = attributeDefinitions;
       this.getDestinationAndSourceAttributes();
-    });
+      this.loading = false;
+    }, () => this.loading = false);
     this.getFederationAttributes();
     this.getFederationAttribute();
     if (this.applicationFormItem.perunDestinationAttribute === null) {

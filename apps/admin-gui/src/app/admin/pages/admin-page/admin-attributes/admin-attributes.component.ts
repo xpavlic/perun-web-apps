@@ -58,7 +58,8 @@ export class AdminAttributesComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
-      attributes: this.selected.selected
+      attributes: this.selected.selected,
+      theme: 'admin-theme'
     };
 
     const dialogRef = this.dialog.open(DeleteAttributeDefinitionDialogComponent, config);

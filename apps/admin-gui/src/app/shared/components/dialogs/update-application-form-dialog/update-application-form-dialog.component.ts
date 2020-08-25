@@ -17,8 +17,11 @@ export class UpdateApplicationFormDialogComponent implements OnInit {
   moduleName: string;
   initialState: string;
   extensionState: string;
+  loading = false;
+  theme: string;
 
   ngOnInit() {
+    this.theme = this.data.theme;
     this.applicationForm = this.data.applicationForm;
     this.moduleName = this.applicationForm.moduleClassName;
     this.initialState = this.applicationForm.automaticApproval ? 'auto' : 'manual';
@@ -30,11 +33,12 @@ export class UpdateApplicationFormDialogComponent implements OnInit {
   }
 
   submit() {
+    this.loading = true;
     this.applicationForm.moduleClassName = this.moduleName;
     this.applicationForm.automaticApproval = this.initialState === 'auto';
     this.applicationForm.automaticApprovalExtension = this.extensionState === 'auto';
     this.registrarManager.updateForm({form: this.applicationForm}).subscribe( updatedForm => {
       this.dialogRef.close(updatedForm);
-    });
+    }, () => this.loading = false);
   }
 }

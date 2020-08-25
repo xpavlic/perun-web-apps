@@ -52,7 +52,7 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
     this.ownersManagerService.getAllOwners().subscribe(owners => {
       this.owners = owners.filter(owner => !this.data.forbiddenOwners.includes(owner.id));
       this.loading = false;
-    });
+    }, () => this.loading = false);
   }
 
   applyFilter(filterValue: string) {

@@ -123,7 +123,7 @@ export class CreateAttributeDialogComponent implements OnInit {
         return !unWanted.includes(attribute.id) && this.twoEntityValid(attribute);
       });
       this.loading = false;
-    });
+    }, () => this.loading = false);
   }
 
   private twoEntityValid(attribute: Attribute) {
@@ -156,6 +156,7 @@ export class CreateAttributeDialogComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     switch (this.data.entity) {
       case 'facility':
         this.attributesManager.setFacilityAttributes({
@@ -163,7 +164,7 @@ export class CreateAttributeDialogComponent implements OnInit {
           attributes: this.selected.selected
         }).subscribe(() => {
           this.handleSuccess();
-        });
+        }, () => this.loading = false);
         break;
       case 'group':
         switch (this.data.secondEntity) {
@@ -174,7 +175,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            });
+            }, () => this.loading = false);
             break;
           default:
             this.attributesManager.setGroupAttributes({
@@ -182,7 +183,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            });
+            }, () => this.loading = false);
         }
         break;
       case 'member':
@@ -194,7 +195,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            });
+            }, () => this.loading = false);
             break;
           case 'group':
             this.attributesManager.setMemberGroupAttributes({
@@ -203,7 +204,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            });
+            }, () => this.loading = false);
             break;
           default:
             this.attributesManager.setMemberAttributes({
@@ -211,7 +212,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            });
+            }, () => this.loading = false);
         }
         break;
       case 'resource':
@@ -220,7 +221,7 @@ export class CreateAttributeDialogComponent implements OnInit {
           attributes: this.selected.selected
         }).subscribe(() => {
           this.handleSuccess();
-        });
+        }, () => this.loading = false);
         break;
       case 'user':
         switch (this.data.secondEntity) {
@@ -231,7 +232,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            });
+            }, () => this.loading = false);
             break;
           default:
             this.attributesManager.setUserAttributes({
@@ -239,7 +240,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            });
+            }, () => this.loading = false);
         }
         break;
       case 'vo':
@@ -248,7 +249,7 @@ export class CreateAttributeDialogComponent implements OnInit {
           attributes: this.selected.selected
         }).subscribe(() => {
           this.handleSuccess();
-        });
+        }, () => this.loading = false);
         break;
       case 'host':
         this.attributesManager.setHostAttributes({
@@ -256,7 +257,7 @@ export class CreateAttributeDialogComponent implements OnInit {
           attributes: this.selected.selected
         }).subscribe(() => {
           this.handleSuccess();
-        });
+        }, () => this.loading = false);
         break;
       case 'ues':
         this.attributesManager.setUserExtSourceAttributes({
