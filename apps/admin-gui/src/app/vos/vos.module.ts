@@ -8,7 +8,6 @@ import {GroupDetailPageComponent} from './pages/group-detail-page/group-detail-p
 import {VoOverviewComponent} from './pages/vo-detail-page/vo-overview/vo-overview.component';
 import {VoGroupsComponent} from './pages/vo-detail-page/vo-groups/vo-groups.component';
 import {VoMembersComponent} from './pages/vo-detail-page/vo-members/vo-members.component';
-import {MembersListComponent} from './components/members-list/members-list.component';
 import {MemberDetailPageComponent} from './pages/member-detail-page/member-detail-page.component';
 import {MemberOverviewComponent} from './pages/member-detail-page/member-overview/member-overview.component';
 import {MemberGroupsComponent} from './pages/member-detail-page/member-groups/member-groups.component';
@@ -93,7 +92,6 @@ import { MemberResourcesComponent } from './pages/member-detail-page/member-reso
     PerunPipesModule
   ],
   exports: [
-    MembersListComponent
   ],
   declarations: [
     VoSelectPageComponent,
@@ -102,7 +100,6 @@ import { MemberResourcesComponent } from './pages/member-detail-page/member-reso
     VoOverviewComponent,
     VoGroupsComponent,
     VoMembersComponent,
-    MembersListComponent,
     MemberDetailPageComponent,
     MemberOverviewComponent,
     MemberGroupsComponent,

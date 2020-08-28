@@ -69,11 +69,20 @@ export class ResourceOverviewComponent implements OnInit {
         style: 'resource-btn'
       });
     }
+    if(this.guiAuthResolver.isAuthorized('getAssignedMembers_Resource_policy', [this.resource])){
+      this.navItems.push({
+        cssIcon: 'perun-user',
+        url: `${urlStart}/resources/${this.resource.id}/members`,
+        label: 'MENU_ITEMS.RESOURCE.ASSIGNED_MEMBERS',
+        style: 'resource-btn'
+      });
+    }
+
     this.navItems.push({
-      cssIcon: 'perun-settings2',
-      url: `${urlStart}/resources/${this.resource.id}/settings`,
-      label: 'MENU_ITEMS.RESOURCE.SETTINGS',
-      style: 'resource-btn'
-    });
+        cssIcon: 'perun-settings2',
+        url: `${urlStart}/resources/${this.resource.id}/settings`,
+        label: 'MENU_ITEMS.RESOURCE.SETTINGS',
+        style: 'resource-btn'
+      });
   }
 }

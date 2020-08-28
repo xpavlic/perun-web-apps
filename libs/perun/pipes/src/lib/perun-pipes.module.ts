@@ -11,6 +11,10 @@ import { GroupSyncToolTipPipe } from './group-sync-tool-tip.pipe';
 import { GroupSyncIconColorPipe } from './group-sync-icon-color.pipe';
 import { GetResourceRoutePipe } from './get-resource-route.pipe';
 import { ServiceStateBlockedToStringPipe } from './service-state-blocked-to-string.pipe';
+import { MemberStatusIconColorPipe } from './member-status-icon-color.pipe';
+import { MemberStatusIconPipe } from './member-status-icon.pipe';
+import { MemberStatusTooltipPipe } from './member-status-tooltip.pipe';
+import { MemberEmailPipe } from './member-email.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { ServiceStateBlockedToStringPipe } from './service-state-blocked-to-stri
     GroupSyncIconColorPipe,
     GetResourceRoutePipe,
     GroupSyncIconColorPipe,
-    ServiceStateBlockedToStringPipe
+    ServiceStateBlockedToStringPipe,
+    MemberStatusIconColorPipe,
+    MemberStatusIconPipe,
+    MemberStatusTooltipPipe,
+    MemberEmailPipe
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -39,7 +47,11 @@ import { ServiceStateBlockedToStringPipe } from './service-state-blocked-to-stri
     GroupSyncIconColorPipe,
     GetResourceRoutePipe,
     GroupSyncIconColorPipe,
-    ServiceStateBlockedToStringPipe
+    ServiceStateBlockedToStringPipe,
+    MemberStatusIconColorPipe,
+    MemberStatusIconPipe,
+    MemberStatusTooltipPipe,
+    MemberEmailPipe
   ],
   imports: [CommonModule],
 })

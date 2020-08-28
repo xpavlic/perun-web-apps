@@ -69,6 +69,8 @@ import { RedirectPageComponent } from './redirect-page/redirect-page.component';
 import { VoSearchSelectComponent } from './vo-search-select/vo-search-select.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MembersListComponent } from './members-list/members-list.component';
+import { ChangeMemberStatusDialogComponent } from './change-member-status-dialog/change-member-status-dialog.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -168,7 +170,9 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ChangeExpirationDialogComponent,
     ForceRouterLinkDirective,
     RedirectPageComponent,
-    VoSearchSelectComponent
+    VoSearchSelectComponent,
+    MembersListComponent,
+    ChangeMemberStatusDialogComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -199,7 +203,9 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ServicesStatusListComponent,
     ForceRouterLinkDirective,
     RedirectPageComponent,
-    VoSearchSelectComponent
+    VoSearchSelectComponent,
+    MembersListComponent,
+    ChangeMemberStatusDialogComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

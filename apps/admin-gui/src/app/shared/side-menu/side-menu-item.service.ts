@@ -251,14 +251,21 @@ export class SideMenuItemService {
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_GROUPS',
         url: [baseUrl, 'groups'],
         activatedRegex: `${regexStart}/\\d+/resources/\\d+/groups$`
-      })
+      });
     }
     if(this.authResolver.isAuthorized('getAssignedServices_Resource_policy', [resource])){
       links.push({
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_SERVICES',
         url: [baseUrl, 'services'],
         activatedRegex: `${regexStart}/\\d+/resources/\\d+/services$`
-      })
+      });
+    }
+    if(this.authResolver.isAuthorized('getAssignedMembers_Resource_policy', [resource])){
+      links.push({
+        label: 'MENU_ITEMS.RESOURCE.ASSIGNED_MEMBERS',
+        url: [baseUrl, 'members'],
+        activatedRegex: `${regexStart}/\\d+/resources/\\d+/members$`
+      });
     }
     links.push( {
       label: 'MENU_ITEMS.RESOURCE.SETTINGS',

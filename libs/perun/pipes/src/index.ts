@@ -4,3 +4,7 @@ export * from './lib/user-full-name.pipe';
 export * from './lib/custom-translate.pipe';
 export * from './lib/get-resource-route.pipe';
 export * from './lib/service-state-blocked-to-string.pipe';
+export * from './lib/member-status-icon-color.pipe';
+export * from './lib/member-status-icon.pipe';
+export * from './lib/member-status-tooltip.pipe';
+export * from './lib/member-email.pipe';
