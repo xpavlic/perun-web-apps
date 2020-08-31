@@ -113,7 +113,7 @@ import {UserOverviewComponent} from './components/user-detail-page/user-overview
 import {UserGroupsComponent} from './components/user-detail-page/user-groups/user-groups.component';
 import {UserSettingsComponent} from './components/user-detail-page/user-settings/user-settings.component';
 import {UserOrganizationsComponent} from './components/user-detail-page/user-organizations/user-organizations.component';
-import {UserSettingsAttributesComponent} from './components/user-detail-page/user-settings/user-settings-attributes/user-settings-attributes.component';
+import {UserAttributesComponent} from './components/user-detail-page/user-attributes/user-attributes.component';
 import {
   UserSettingsOverviewComponent
 } from './components/user-detail-page/user-settings/user-settings-overview/user-settings-overview.component';
@@ -385,7 +385,7 @@ import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/e
     UserGroupsComponent,
     UserSettingsComponent,
     UserOrganizationsComponent,
-    UserSettingsAttributesComponent,
+    UserAttributesComponent,
     UserSettingsOverviewComponent,
     DebounceFilterComponent,
     UserProfileComponent,

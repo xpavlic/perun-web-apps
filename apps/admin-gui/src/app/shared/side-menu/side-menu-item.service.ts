@@ -3,7 +3,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { EntityMenuLink, SideMenuItem } from './side-menu.component';
 import { ApiRequestConfigurationService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import {
-  Attribute,
   AttributesManagerService,
   Facility,
   Group,
@@ -234,11 +233,19 @@ export class SideMenuItemService {
   }
 
   private getResourceLinks(baseUrl: string, regexStart: string, resource: Resource) {
-    const links: EntityMenuLink[] = [{
-      label: 'MENU_ITEMS.RESOURCE.OVERVIEW',
-      url: [baseUrl],
-      activatedRegex: `${regexStart}/\\d+/resources/\\d+$`
-    }];
+    const links: EntityMenuLink[] = [
+      {
+        label: 'MENU_ITEMS.RESOURCE.OVERVIEW',
+        url: [baseUrl],
+        activatedRegex: `${regexStart}/\\d+/resources/\\d+$`
+      },
+      {
+        label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
+        url: [baseUrl,`attributes`],
+        activatedRegex: `${regexStart}/\\d+/resources/\\d+/attributes$`
+      },
+    ];
+
     if(this.authResolver.isAuthorized('getAssignedGroups_Resource_policy', [resource])){
       links.push({
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_GROUPS',
@@ -258,11 +265,6 @@ export class SideMenuItemService {
       url: [baseUrl, `settings`],
       activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings$`,
       children: [
-        {
-          label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
-          url: [baseUrl, `settings`,`attributes`],
-          activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings/attributes$`
-        },
         {
           label: 'MENU_ITEMS.RESOURCE.MANAGERS',
           url: [baseUrl, `settings`, `managers`],
@@ -367,12 +369,14 @@ export class SideMenuItemService {
       label: 'MENU_ITEMS.VO.OVERVIEW',
       url: [`/organizations/${vo.id}`],
       activatedRegex: '/organizations/\\d+$'
-    }, {
+    });
+
+    //Attributes
+    links.push({
       label: 'MENU_ITEMS.VO.ATTRIBUTES',
       url: [`/organizations/${vo.id}/attributes`],
       activatedRegex: '/organizations/\\d+/attributes$'
     });
-
 
     // Members
     if (this.authResolver.isAuthorized('getCompleteRichMembers_Vo_List<String>_policy', [vo])) {
@@ -512,6 +516,13 @@ export class SideMenuItemService {
       activatedRegex: `${regex}$`
     });
 
+    // Attributes
+    links.push({
+      label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
+      url: [`${path}/attributes`],
+      activatedRegex: `${regex}/attributes`
+    });
+
     // Organizations
     links.push({
       label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
@@ -548,11 +559,6 @@ export class SideMenuItemService {
       activatedRegex: `${regex}/settings$`,
       children: [
         {
-          label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
-          url: [`${path}/settings/attributes`],
-          activatedRegex: `${regex}/settings/attributes`
-        },
-        {
           label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
           url: [`${path}/settings/facilityAttributes`],
           activatedRegex: `^${path}/settings/facilityAttributes`
@@ -585,7 +591,7 @@ export class SideMenuItemService {
     return links;
   }
 
-  getMemberLinks(member: RichMember, vo: Vo): EntityMenuLink[]{
+  getMemberLinks(member: RichMember, vo: Vo): EntityMenuLink[] {
     // Overview
     const links: EntityMenuLink[] = [{
       label: 'MENU_ITEMS.MEMBER.OVERVIEW',
@@ -601,7 +607,7 @@ export class SideMenuItemService {
     });
 
     // Groups
-    if(this.authResolver.isAuthorized('getMemberGroups_Member_policy', [vo])){
+    if (this.authResolver.isAuthorized('getMemberGroups_Member_policy', [vo])) {
       links.push({
         label: 'MENU_ITEMS.MEMBER.GROUPS',
         url: [`//organizations/${member.voId}/members/${member.id}/groups`],
@@ -609,7 +615,7 @@ export class SideMenuItemService {
       });
     }
     // Applications
-    if(this.authResolver.isAuthorized('vo-getApplicationsForMember_Group_Member_policy', [vo])){
+    if (this.authResolver.isAuthorized('vo-getApplicationsForMember_Group_Member_policy', [vo])) {
       links.push({
         label: 'MENU_ITEMS.MEMBER.APPLICATIONS',
         url: [`//organizations/${member.voId}/members/${member.id}/applications`],
@@ -617,7 +623,7 @@ export class SideMenuItemService {
       });
     }
     // Resources
-    if(this.authResolver.isAuthorized('getAssignedRichResources_Member_policy', [vo])){
+    if (this.authResolver.isAuthorized('getAssignedRichResources_Member_policy', [vo])) {
       links.push({
         label: 'MENU_ITEMS.MEMBER.RESOURCES',
         url: [`/organizations/${member.voId}/members/${member.id}/resources`],
@@ -629,12 +635,12 @@ export class SideMenuItemService {
     const resAttrAuth = this.authResolver.isAuthorized('getAllowedResources_Member_policy', [vo]);
     const grpAttrAuth = this.authResolver.isAuthorized('getMemberGroups_Member_policy', [vo]);
 
-    if( resAttrAuth || grpAttrAuth){
+    if (resAttrAuth || grpAttrAuth) {
 
       const children = [];
 
       // Resource attributes
-      if(resAttrAuth){
+      if (resAttrAuth) {
         children.push({
           label: 'MENU_ITEMS.MEMBER.RESOURCE_ATTRIBUTES',
           url: [`/organizations/${member.voId}/members/${member.id}/settings/resourceAttributes`],
@@ -643,7 +649,7 @@ export class SideMenuItemService {
       }
 
       // Group attributes
-      if(grpAttrAuth){
+      if (grpAttrAuth) {
         children.push({
           label: 'MENU_ITEMS.MEMBER.GROUP_ATTRIBUTES',
           url: [`/organizations/${member.voId}/members/${member.id}/settings/groupAttributes`],
@@ -663,11 +669,17 @@ export class SideMenuItemService {
   }
 
   getFacilityLinks(facility: Facility): EntityMenuLink[]{
-    const links: EntityMenuLink[] = [{
-      label: 'MENU_ITEMS.FACILITY.OVERVIEW',
-      url: [`/facilities/${facility.id}`],
-      activatedRegex: '/facilities/\\d+$'
-    }];
+    const links: EntityMenuLink[] = [
+      {
+        label: 'MENU_ITEMS.FACILITY.OVERVIEW',
+        url: [`/facilities/${facility.id}`],
+        activatedRegex: '/facilities/\\d+$'
+      },
+      {
+        label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
+        url: ['/facilities', facility.id, 'attributes'],
+        activatedRegex: '/facilities/\\d+/attributes$'
+      }];
 
     // Resources
     if(this.authResolver.isAuthorized('getAssignedRichResources_Facility_policy', [facility])){
@@ -741,11 +753,7 @@ export class SideMenuItemService {
     const ownersAuth = this.authResolver.isAuthorized('getOwners_Facility_policy', [facility]);
 
     if(bansAuth || managersAuth || ownersAuth){
-      const children = [{
-        label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
-        url: ['/facilities', facility.id, 'settings', 'attributes'],
-        activatedRegex: '/facilities/\\d+/settings/attributes$'
-      }];
+      const children = [];
 
       // Owners
       if(ownersAuth){
@@ -794,6 +802,13 @@ export class SideMenuItemService {
       activatedRegex: '/organizations/\\d+/groups/\\d+$'
     });
 
+    //Attributes
+    links.push({
+      label: 'MENU_ITEMS.GROUP.ATTRIBUTES',
+      url: [`/organizations/${group.voId}/groups/${group.id}/attributes`],
+      activatedRegex: '/organizations/\\d+/groups/\\d+/attributes$'
+    });
+
     //Members
     if (this.authResolver.isAuthorized('getCompleteRichMembers_Group_List<String>_boolean_policy', [group])) {
       links.push({
@@ -829,13 +844,6 @@ export class SideMenuItemService {
         activatedRegex: '/organizations/\\d+/groups/\\d+/applications$'
       });
     }
-
-    //SettingsAttributes
-    settingsChildrenLinks.push({
-      label: 'MENU_ITEMS.GROUP.ATTRIBUTES',
-      url: [`/organizations/${group.voId}/groups/${group.id}/settings/attributes`],
-      activatedRegex: '/organizations/\\d+/groups/\\d+/settings/attributes$'
-    });
 
     //SettingsResourceAttributes
     if (this.authResolver.isAuthorized('getAssignedResources_Group_policy', [group])) {

@@ -51,14 +51,23 @@ export class GroupOverviewComponent implements OnInit {
   }
 
   private initNavItems() {
-    this.navItems = [];
+    this.navItems = [
+      {
+      cssIcon: 'perun-attributes',
+      url: `/organizations/${this.group.voId}/groups/${this.group.id}/attributes`,
+      label: 'MENU_ITEMS.GROUP.ATTRIBUTES',
+      style: 'group-btn'
+      }
+    ];
+
     if (this.guiAuthResolver.isAuthorized('getCompleteRichMembers_Group_List<String>_boolean_policy', [this.group])) {
-      this.navItems.push({
-        cssIcon: 'perun-user',
-        url: `/organizations/${this.group.voId}/groups/${this.groupId}/members`,
-        label: 'MENU_ITEMS.GROUP.MEMBERS',
-        style: 'group-btn'
-      });
+      this.navItems.push(
+        {
+          cssIcon: 'perun-user',
+          url: `/organizations/${this.group.voId}/groups/${this.groupId}/members`,
+          label: 'MENU_ITEMS.GROUP.MEMBERS',
+          style: 'group-btn'
+        });
     }
 
     if (this.guiAuthResolver.isAuthorized('getAllRichSubGroupsWithAttributesByNames_Group_List<String>_policy', [this.group])) {

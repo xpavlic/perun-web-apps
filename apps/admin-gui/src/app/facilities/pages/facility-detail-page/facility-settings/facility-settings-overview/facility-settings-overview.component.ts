@@ -35,13 +35,7 @@ export class FacilitySettingsOverviewComponent implements OnInit {
   }
 
   private initItems() {
-    this.items = [
-      {
-        cssIcon: 'perun-attributes',
-        url: `/facilities/${this.facility.id}/settings/attributes`,
-        label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
-        style: 'facility-btn'
-      }];
+    this.items = [];
 
     // Owners
     if(this.authResolver.isAuthorized('getOwners_Facility_policy', [this.facility])){

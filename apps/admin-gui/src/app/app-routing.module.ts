@@ -8,13 +8,12 @@ import {UserSettingsComponent} from './shared/components/user-detail-page/user-s
 import {
   UserSettingsOverviewComponent
 } from './shared/components/user-detail-page/user-settings/user-settings-overview/user-settings-overview.component';
-import {UserSettingsAttributesComponent} from './shared/components/user-detail-page/user-settings/user-settings-attributes/user-settings-attributes.component';
+import {UserAttributesComponent} from './shared/components/user-detail-page/user-attributes/user-attributes.component';
 import { UserSettingsAppConfigurationComponent } from './shared/components/user-detail-page/user-settings/user-settings-app-configuration/user-settings-app-configuration.component';
 import { UserDashboardComponent } from './shared/components/user-detail-page/user-dashboard/user-dashboard.component';
 import { UserSettingsFacilityAttributesComponent } from './shared/components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
 import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
 import { PasswordResetComponent } from '@perun-web-apps/perun/components';
-import { UserRolesComponent } from './shared/components/user-detail-page/user-settings/user-roles/user-roles.component';
 import { RedirectPageComponent } from '@perun-web-apps/perun/components';
 
 const routes: Routes = [
@@ -71,7 +70,7 @@ const routes: Routes = [
           },
           {
             path: 'attributes',
-            component: UserSettingsAttributesComponent,
+            component: UserAttributesComponent,
             data: {animation: 'UserAttributesPage'}
           },
           {

@@ -12,15 +12,15 @@ import {
   FacilitySettingsOverviewComponent
 } from './pages/facility-detail-page/facility-settings/facility-settings-overview/facility-settings-overview.component';
 import {
-  FacilitySettingsAttributesComponent
-} from './pages/facility-detail-page/facility-settings/facility-settings-attributes/facility-settings-attributes.component';
+  FacilityAttributesComponent
+} from './pages/facility-detail-page/facility-attributes/facility-attributes.component';
 import {ResourceSettingsComponent} from './pages/resource-detail-page/resource-settings/resource-settings.component';
 import {
   ResourceSettingsOverviewComponent
 } from './pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
 import {
-  ResourceSettingsAttributesComponent
-} from './pages/resource-detail-page/resource-settings/resource-settings-attributes/resource-settings-attributes.component';
+  ResourceAttributesComponent
+} from './pages/resource-detail-page/resource-attributes/resource-attributes.component';
 import { ResourceGroupsComponent } from './pages/resource-detail-page/resource-groups/resource-groups.component';
 import { FacilityServiceConfigComponent } from './pages/facility-detail-page/facility-service-config/facility-service-config.component';
 import { FacilitySettingsManagersComponent } from './pages/facility-detail-page/facility-settings/facility-settings-managers/facility-settings-managers.component';
@@ -48,6 +48,11 @@ const routes: Routes = [
         path: '',
         component: FacilityOverviewComponent,
         data: {animation: 'FacilityOverviewPage'}
+      },
+      {
+        path: 'attributes',
+        component: FacilityAttributesComponent,
+        data: {animation: 'FacilityAttributesPage'}
       },
       {
         path: 'resources',
@@ -103,11 +108,6 @@ const routes: Routes = [
             data: {animation: 'FacilitySettingsOverviewPage'}
           },
           {
-            path: 'attributes',
-            component: FacilitySettingsAttributesComponent,
-            data: {animation: 'FacilitySettingsAttributesPage'}
-          },
-          {
             path: 'owners',
             component: FacilitySettingsOwnersComponent,
             data: {animation: 'FacilitySettingOwnersPage'}
@@ -136,6 +136,11 @@ const routes: Routes = [
         data: {animation: 'ResourceOverviewPage'}
       },
       {
+        path: 'attributes',
+        component: ResourceAttributesComponent,
+        data: {animation: 'ResourceAttributesPage'}
+      },
+      {
         path: 'groups',
         component: ResourceGroupsComponent,
         data: {animation: 'ResourceGroupsComponent'}
@@ -153,11 +158,6 @@ const routes: Routes = [
             path: '',
             component: ResourceSettingsOverviewComponent,
             data: {animation: 'ResourceSettingsOverviewPage'}
-          },
-          {
-            path: 'attributes',
-            component: ResourceSettingsAttributesComponent,
-            data: {animation: 'ResourceSettingsAttributesPage'}
           },
           {
             path: 'managers',

@@ -15,15 +15,15 @@ import {
   FacilitySettingsOverviewComponent
 } from './pages/facility-detail-page/facility-settings/facility-settings-overview/facility-settings-overview.component';
 import {
-  FacilitySettingsAttributesComponent
-} from './pages/facility-detail-page/facility-settings/facility-settings-attributes/facility-settings-attributes.component';
+  FacilityAttributesComponent
+} from './pages/facility-detail-page/facility-attributes/facility-attributes.component';
 import { ResourceSettingsComponent } from './pages/resource-detail-page/resource-settings/resource-settings.component';
 import {
   ResourceSettingsOverviewComponent
 } from './pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
 import {
-  ResourceSettingsAttributesComponent
-} from './pages/resource-detail-page/resource-settings/resource-settings-attributes/resource-settings-attributes.component';
+  ResourceAttributesComponent
+} from './pages/resource-detail-page/resource-attributes/resource-attributes.component';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { ResourceGroupsComponent } from './pages/resource-detail-page/resource-groups/resource-groups.component';
@@ -54,10 +54,10 @@ import { FacilityAllowedUsersComponent } from './pages/facility-detail-page/faci
     ResourceOverviewComponent,
     FacilitySettingsComponent,
     FacilitySettingsOverviewComponent,
-    FacilitySettingsAttributesComponent,
+    FacilityAttributesComponent,
     ResourceSettingsComponent,
     ResourceSettingsOverviewComponent,
-    ResourceSettingsAttributesComponent,
+    ResourceAttributesComponent,
     ResourceGroupsComponent,
     FacilityServiceConfigComponent,
     FacilitySettingsManagersComponent,

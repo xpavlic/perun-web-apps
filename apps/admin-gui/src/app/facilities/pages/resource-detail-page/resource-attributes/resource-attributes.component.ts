@@ -7,10 +7,10 @@ import { AttributesListComponent, EditAttributeDialogComponent } from '@perun-we
 import {SelectionModel} from '@angular/cdk/collections';
 import {
   DeleteAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import {
   CreateAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { PageEvent } from '@angular/material/paginator';
@@ -20,11 +20,11 @@ import {
 } from '@perun-web-apps/config/table-config';
 
 @Component({
-  selector: 'app-resource-settings-attributes',
-  templateUrl: './resource-settings-attributes.component.html',
-  styleUrls: ['./resource-settings-attributes.component.scss']
+  selector: 'app-resource-attributes',
+  templateUrl: './resource-attributes.component.html',
+  styleUrls: ['./resource-attributes.component.scss']
 })
-export class ResourceSettingsAttributesComponent implements OnInit {
+export class ResourceAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
@@ -53,7 +53,7 @@ export class ResourceSettingsAttributesComponent implements OnInit {
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-    this.route.parent.parent.params.subscribe(params => {
+    this.route.parent.params.subscribe(params => {
       this.resourceId = params['resourceId'];
       this.refreshTable();
     });

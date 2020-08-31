@@ -20,7 +20,7 @@ import {UserOverviewComponent} from '../shared/components/user-detail-page/user-
 import {UserOrganizationsComponent} from '../shared/components/user-detail-page/user-organizations/user-organizations.component';
 import {UserGroupsComponent} from '../shared/components/user-detail-page/user-groups/user-groups.component';
 import {UserSettingsComponent} from '../shared/components/user-detail-page/user-settings/user-settings.component';
-import {UserSettingsAttributesComponent} from '../shared/components/user-detail-page/user-settings/user-settings-attributes/user-settings-attributes.component';
+import {UserAttributesComponent} from '../shared/components/user-detail-page/user-attributes/user-attributes.component';
 import {
   UserSettingsOverviewComponent
 } from '../shared/components/user-detail-page/user-settings/user-settings-overview/user-settings-overview.component';
@@ -105,6 +105,11 @@ const routes: Routes = [
         data: {animation: 'UserOverviewPage'}
       },
       {
+        path: 'attributes',
+        component: UserAttributesComponent,
+        data: {animation: 'UserAttributesPage'}
+      },
+      {
         path: 'organizations',
         component: UserOrganizationsComponent,
         data: {animation: 'UserOrganizationsPage', showPrincipal: false}
@@ -137,11 +142,6 @@ const routes: Routes = [
             path: '',
             component: UserSettingsOverviewComponent,
             data: {animation: 'UserSettingsOverviewPage'}
-          },
-          {
-            path: 'attributes',
-            component: UserSettingsAttributesComponent,
-            data: {animation: 'UserAttributesPage'}
           },
           {
             path: 'facilityAttributes',
