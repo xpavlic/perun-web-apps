@@ -74,7 +74,8 @@
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr
           *matRowDef="let user; columns: displayedColumns;"
-          [perunWebAppsForceRouterLink]="inDialog ? null : ['/admin/users', user.id]"
+          [perunWebAppsForceRouterLink]="disableRouting ? null : ['/admin/users', user.id]"
+          [class.cursor-pointer]="!disableRouting"
           class="dark-hover-list-item"
           mat-row>
         </tr>

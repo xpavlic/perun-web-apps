@@ -38,7 +38,7 @@
       <app-users-list
         [pageSize]="pageSize"
         (page)="pageChanged($event)"
-        [inDialog]="true"
+        [disableRouting]="true"
         [selection]="selection"
         [displayedColumns]="['select', 'id', 'name', 'email', 'logins', 'organization']"
         [users]="users"

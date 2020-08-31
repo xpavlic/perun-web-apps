@@ -1,0 +1,22 @@
+<div>
+  <h1 class="page-subtitle">{{'FACILITY_DETAIL.ALLOWED_USERS.TITLE' | translate}}</h1>
+  <perun-web-apps-refresh-button
+    *ngIf="!loading"
+    (refresh)="refreshTable()">
+  </perun-web-apps-refresh-button>
+  <perun-web-apps-immediate-filter
+    *ngIf="!loading"
+    [placeholder]="'FACILITY_DETAIL.ALLOWED_USERS.FILTER'"
+    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <app-users-list
+    *ngIf="!loading && users.length !== 0"
+    (page)="pageChanged($event)"
+    [pageSize]="pageSize"
+    [users]="users"
+    [displayedColumns]="['id', 'name']"
+    [disableRouting]="!routeAuth"
+    [filter]="filterValue"
+  >
+  </app-users-list>
+</div>

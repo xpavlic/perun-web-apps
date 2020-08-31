@@ -32,13 +32,16 @@ export class UsersListComponent implements OnChanges {
   selection = new SelectionModel<RichUser>(true, []);
 
   @Input()
-  inDialog: boolean;
-
-  @Input()
   displayedColumns: string[] = ['select', 'user', 'id', 'name', 'email', 'logins', 'organization'];
 
   @Input()
   pageSize = 10;
+
+  @Input()
+  disableRouting = false;
+
+  @Input()
+  filter = '';
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
@@ -51,6 +54,7 @@ export class UsersListComponent implements OnChanges {
   setDataSource() {
     if (!!this.dataSource) {
       this.dataSource.sort = this.sort;
+      this.dataSource.filter = this.filter;
       this.dataSource.sortingDataAccessor = (item, property) => {
         switch (property) {
           case 'name':
