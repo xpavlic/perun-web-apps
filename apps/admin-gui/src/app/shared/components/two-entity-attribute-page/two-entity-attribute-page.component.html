@@ -16,11 +16,19 @@
         {{'MEMBER_DETAIL.SETTINGS.RESOURCE_ATTRIBUTES.CREATE' | translate}}
       </button>
 
-      <button mat-flat-button class="mr-2" color="accent" (click)="onSave(entity.id)" [disabled]="selection.selected.length === 0">
+      <button
+        mat-flat-button
+        class="mr-2"
+        color="accent"
+        (click)="onSave(entity.id)"
+        [disabled]="selection.selected.length === 0">
         {{'MEMBER_DETAIL.SETTINGS.RESOURCE_ATTRIBUTES.SAVE' | translate}}
       </button>
 
-      <button mat-flat-button color="warn" (click)="onDelete(entity.id)" [disabled]="selection.selected.length === 0">
+      <button
+        mat-flat-button color="warn"
+        (click)="onDelete(entity.id)"
+        [disabled]="selection.selected.length === 0">
         {{'MEMBER_DETAIL.SETTINGS.RESOURCE_ATTRIBUTES.DELETE' | translate}}
       </button>
       <mat-spinner class="ml-auto mr-auto" *ngIf="innerLoading"></mat-spinner>

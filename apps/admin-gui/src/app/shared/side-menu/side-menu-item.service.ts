@@ -421,57 +421,13 @@ export class SideMenuItemService {
     };
   }
 
-  parseMember(member: RichMember): SideMenuItem {
+  parseMember(member: RichMember, vo: Vo): SideMenuItem {
     return {
       label: parseFullName(member.user),
       baseLink: [`/organizations/${member.voId}/members/${member.id}`],
       backgroundColorCss: this.memberBgColor,
       textColorCss: this.memberTextColor,
-      links: [
-        {
-          label: 'MENU_ITEMS.MEMBER.OVERVIEW',
-          url: [`/organizations/${member.voId}/members/${member.id}`],
-          activatedRegex: '/organizations/\\d+/members/\\d+$'
-        },
-        {
-          label: 'MENU_ITEMS.MEMBER.GROUPS',
-          url: [`//organizations/${member.voId}/members/${member.id}/groups`],
-          activatedRegex: '/organizations/\\d+/members/\\d+/groups'
-        },
-        {
-          label: 'MENU_ITEMS.MEMBER.APPLICATIONS',
-          url: [`//organizations/${member.voId}/members/${member.id}/applications`],
-          activatedRegex: '/organizations/\\d+/members/\\d+/applications'
-        },
-        {
-          label: 'MENU_ITEMS.MEMBER.RESOURCES',
-          url: [`/organizations/${member.voId}/members/${member.id}/resources`],
-          activatedRegex: '/organizations/\\d+/members/\\d+/resources'
-        },
-        {
-          label: 'MENU_ITEMS.MEMBER.SETTINGS',
-          url: [`/organizations/${member.voId}/members/${member.id}/settings`],
-          activatedRegex: '/organizations/\\d+/members/\\d+/settings$',
-          children: [
-            {
-              label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
-              url: [`/organizations/${member.voId}/members/${member.id}/settings/attributes`],
-              activatedRegex: '/organizations/\\d+/members/\\d+/settings/attributes$'
-            },
-            {
-              label: 'MENU_ITEMS.MEMBER.RESOURCE_ATTRIBUTES',
-              url: [`/organizations/${member.voId}/members/${member.id}/settings/resourceAttributes`],
-              activatedRegex: '/organizations/\\d+/members/\\d+/settings/resourceAttributes'
-            },
-            {
-              label: 'MENU_ITEMS.MEMBER.GROUP_ATTRIBUTES',
-              url: [`/organizations/${member.voId}/members/${member.id}/settings/groupAttributes`],
-              activatedRegex: '/organizations/\\d+/members/\\d+/settings/groupAttributes$'
-            }
-          ],
-          showChildrenRegex: '/organizations/\\d+/members/\\d+/settings'
-        }
-      ],
+      links: this.getMemberLinks(member, vo),
       colorClass: 'member-item',
       icon: 'perun-user',
       // labelClass: 'member-text',
@@ -709,6 +665,83 @@ export class SideMenuItemService {
       });
     }
 
+    return links;
+  }
+
+  getMemberLinks(member: RichMember, vo: Vo): EntityMenuLink[]{
+    // Overview
+    const links: EntityMenuLink[] = [{
+      label: 'MENU_ITEMS.MEMBER.OVERVIEW',
+      url: [`/organizations/${member.voId}/members/${member.id}`],
+      activatedRegex: '/organizations/\\d+/members/\\d+$'
+    }];
+
+    // Attributes
+    links.push({
+      label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
+      url: [`/organizations/${member.voId}/members/${member.id}/attributes`],
+      activatedRegex: '/organizations/\\d+/members/\\d+/attributes$'
+    });
+
+    // Groups
+    if(this.authResolver.isAuthorized('getMemberGroups_Member_policy', [vo])){
+      links.push({
+        label: 'MENU_ITEMS.MEMBER.GROUPS',
+        url: [`//organizations/${member.voId}/members/${member.id}/groups`],
+        activatedRegex: '/organizations/\\d+/members/\\d+/groups'
+      });
+    }
+    // Applications
+    if(this.authResolver.isAuthorized('vo-getApplicationsForMember_Group_Member_policy', [vo])){
+      links.push({
+        label: 'MENU_ITEMS.MEMBER.APPLICATIONS',
+        url: [`//organizations/${member.voId}/members/${member.id}/applications`],
+        activatedRegex: '/organizations/\\d+/members/\\d+/applications'
+      });
+    }
+    // Resources
+    if(this.authResolver.isAuthorized('getAssignedRichResources_Member_policy', [vo])){
+      links.push({
+        label: 'MENU_ITEMS.MEMBER.RESOURCES',
+        url: [`/organizations/${member.voId}/members/${member.id}/resources`],
+        activatedRegex: '/organizations/\\d+/members/\\d+/resources'
+      });
+    }
+
+    //Settings
+    const resAttrAuth = this.authResolver.isAuthorized('getAllowedResources_Member_policy', [vo]);
+    const grpAttrAuth = this.authResolver.isAuthorized('getMemberGroups_Member_policy', [vo]);
+
+    if( resAttrAuth || grpAttrAuth){
+
+      const children = [];
+
+      // Resource attributes
+      if(resAttrAuth){
+        children.push({
+          label: 'MENU_ITEMS.MEMBER.RESOURCE_ATTRIBUTES',
+          url: [`/organizations/${member.voId}/members/${member.id}/settings/resourceAttributes`],
+          activatedRegex: '/organizations/\\d+/members/\\d+/settings/resourceAttributes'
+        });
+      }
+
+      // Group attributes
+      if(grpAttrAuth){
+        children.push({
+          label: 'MENU_ITEMS.MEMBER.GROUP_ATTRIBUTES',
+          url: [`/organizations/${member.voId}/members/${member.id}/settings/groupAttributes`],
+          activatedRegex: '/organizations/\\d+/members/\\d+/settings/groupAttributes$'
+        });
+      }
+
+      links.push({
+        label: 'MENU_ITEMS.MEMBER.SETTINGS',
+        url: [`/organizations/${member.voId}/members/${member.id}/settings`],
+        activatedRegex: '/organizations/\\d+/members/\\d+/settings$',
+        children: children,
+        showChildrenRegex: '/organizations/\\d+/members/\\d+/settings'
+      });
+    }
     return links;
   }
 }

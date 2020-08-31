@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Group, GroupsManagerService,
@@ -30,7 +30,8 @@ export class AddMemberToResourceDialogComponent implements OnInit {
               private resourceManager: ResourcesManagerService,
               private groupManager: GroupsManagerService,
               private notificator: NotificatorService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private authResolver: GuiAuthResolver) {
   }
 
   theme: string;
@@ -113,14 +114,20 @@ export class AddMemberToResourceDialogComponent implements OnInit {
 
   loadGroups(){
     this.processing = true;
-    this.resourceManager.getAssignedGroups(this.selectedResource.id).subscribe(groups =>{
-      this.groups = groups;
-    });
+    this.resourceManager.getAssignedGroups(this.selectedResource.id).subscribe(assignedGroups =>{
+      this.groups = assignedGroups;
 
-    this.groupManager.getAllMemberGroups(this.data.memberId).subscribe( groups => {
-      this.membersGroupsId = new Set<number>(groups.map(group => group.id));
-      this.processing = false;
-    }, () => this.processing = false);
+      this.groupManager.getAllMemberGroups(this.data.memberId).subscribe( memberGroups => {
+        this.membersGroupsId = new Set<number>(memberGroups.map(group => group.id));
+
+        this.groups.forEach(grp => {
+          if (!this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp])) {
+            this.membersGroupsId.add(grp.id);
+          }
+        });
+        this.processing = false;
+      }, () => this.processing = false);
+    });
   }
 
   onFinish(){

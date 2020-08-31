@@ -39,8 +39,8 @@ import {
   MemberSettingsOverviewComponent
 } from './pages/member-detail-page/member-settings/member-settings-overview/member-settings-overview.component';
 import {
-  MemberSettingsAttributesComponent
-} from './pages/member-detail-page/member-settings/member-settings-attributes/member-settings-attributes.component';
+  MemberAttributesComponent
+} from './pages/member-detail-page/member-attributes/member-attributes.component';
 import {VoResourcesOverviewComponent} from './pages/vo-detail-page/vo-resources/vo-resources-overview/vo-resources-overview.component';
 import {VoResourcesPreviewComponent} from './pages/vo-detail-page/vo-resources/vo-resources-preview/vo-resources-preview.component';
 import {VoResourcesStatesComponent} from './pages/vo-detail-page/vo-resources/vo-resources-states/vo-resources-states.component';
@@ -193,6 +193,11 @@ const routes: Routes = [
         data: {animation: 'MemberOverviewPage'}
       },
       {
+        path: 'attributes',
+        component: MemberAttributesComponent,
+        data: {animation: 'MemberSettingsAttributesPage'}
+      },
+      {
         path: 'groups',
         component: MemberGroupsComponent,
         data: {animation: 'MemberGroupsPage'}
@@ -220,11 +225,6 @@ const routes: Routes = [
             path: '',
             component: MemberSettingsOverviewComponent,
             data: {animation: 'MemberSettingsOverviewPage'}
-          },
-          {
-            path: 'attributes',
-            component: MemberSettingsAttributesComponent,
-            data: {animation: 'MemberSettingsAttributesPage'}
           },
           {
             path: 'resourceAttributes',

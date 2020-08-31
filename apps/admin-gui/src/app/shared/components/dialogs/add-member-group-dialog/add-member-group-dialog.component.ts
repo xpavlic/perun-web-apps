@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Group, GroupsManagerService, Member, MembersManagerService } from '@perun-web-apps/perun/openapi';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -22,7 +22,8 @@ export class AddMemberGroupDialogComponent implements OnInit {
               private groupManager: GroupsManagerService,
               private memberManager: MembersManagerService,
               private notificator: NotificatorService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private authResolver: GuiAuthResolver) {
 
   }
 
@@ -43,7 +44,7 @@ export class AddMemberGroupDialogComponent implements OnInit {
     this.memberManager.getMemberById(this.data.memberId).subscribe(member => {
       this.member = member;
       this.groupManager.getAllGroups(this.member.voId).subscribe(groups => {
-        this.groups = groups;
+        this.groups = groups.filter(grp => this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp]));
         this.loading = false;
       }, error => this.loading = false);
     });

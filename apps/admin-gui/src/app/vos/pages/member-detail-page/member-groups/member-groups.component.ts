@@ -1,6 +1,12 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  Group,
+  GroupsManagerService,
+  Member,
+  MembersManagerService,
+  Vo
+} from '@perun-web-apps/perun/openapi';
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_MEMBER_DETAIL_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -8,6 +14,8 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { AddMemberGroupDialogComponent } from '../../../../shared/components/dialogs/add-member-group-dialog/add-member-group-dialog.component';
 import { RemoveMemberGroupDialogComponent } from '../../../../shared/components/dialogs/remove-member-group-dialog/remove-member-group-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-member-groups',
@@ -21,15 +29,22 @@ export class MemberGroupsComponent implements OnInit {
   // used for router animation
   @HostBinding('class.router-component') true;
 
+  @ViewChild('list', {})
+  list: GroupsListComponent;
+
   constructor(
     private groupsService: GroupsManagerService,
     private tableConfigService: TableConfigService,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private memberService: MembersManagerService,
   ) { }
 
   groups: Group[];
   memberId: number;
+  member: Member;
+  allGroups: Group[];
 
   loading: boolean;
   filterValue = '';
@@ -38,13 +53,22 @@ export class MemberGroupsComponent implements OnInit {
   pageSize: number;
   selection = new SelectionModel<Group>(true, []);
 
+  addAuth: boolean;
+  removeAuth: boolean;
+  routeAuth: boolean;
+
   ngOnInit() {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
       this.memberId = parentParams['memberId'];
-
-      this.refreshTable();
+      this.memberService.getMemberById(this.memberId).subscribe(member => {
+        this.member = member;
+        this.groupsService.getAllGroups(this.member.voId).subscribe(allGroups => {
+          this.allGroups = allGroups;
+          this.refreshTable();
+        });
+      });
     });
   }
 
@@ -54,8 +78,25 @@ export class MemberGroupsComponent implements OnInit {
       this.selection.clear();
       this.filterValue = '';
       this.groups = groups;
+      this.setAuthRights();
       this.loading = false;
     }, () => this.loading = false);
+  }
+
+  setAuthRights(){
+    const vo: Vo = {
+      id:  this.member.voId,
+      beanName: 'Vo'
+    };
+
+    this.addAuth = this.allGroups.reduce((acc, grp) =>
+      acc || this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp]), false);
+
+    this.removeAuth = this.authResolver.isAuthorized('removeMember_Group_Member_policy', [vo]);
+
+    if(this.groups.length !== 0){
+      this.routeAuth = this.authResolver.isAuthorized('getGroupById_int_policy', [vo, this.groups[0]]);
+    }
   }
 
   addGroup(){

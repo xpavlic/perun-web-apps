@@ -12,5 +12,6 @@ export * from './lib/user-ext-sources-list/user-ext-sources-list.component';
 export * from './lib/remove-user-ext-source-dialog/remove-user-ext-source-dialog.component';
 export * from './lib/create-attribute-dialog/create-attribute-dialog.component';
 export * from './lib/password-reset/password-reset.component';
-export * from './lib/change-expiration-dialog/change-expiration-dialog.component'
 export * from './lib/redirect-page/redirect-page.component';
+export * from './lib/change-expiration-dialog/change-expiration-dialog.component';
+export * from './lib/groups-list/groups-list.component';

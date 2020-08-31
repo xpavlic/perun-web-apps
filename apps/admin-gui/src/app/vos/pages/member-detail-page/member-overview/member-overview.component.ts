@@ -2,8 +2,8 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute} from '@angular/router';
 import {MenuItem} from '@perun-web-apps/perun/models';
-import { MembersService } from '@perun-web-apps/perun/services';
-import { RichMember } from '@perun-web-apps/perun/openapi';
+import { GuiAuthResolver, MembersService } from '@perun-web-apps/perun/services';
+import { MembersManagerService, RichMember, Vo } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { getDefaultDialogConfig, parseFullName, parseStatusColor, parseStatusIcon } from '@perun-web-apps/perun/utils';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
@@ -22,10 +22,11 @@ export class MemberOverviewComponent implements OnInit {
 
   constructor(
     private attributesManager: AttributesManagerService,
-    private membersService: MembersService,
+    private membersService: MembersManagerService,
     private translate: TranslateService,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public authResolver: GuiAuthResolver,
   ) { }
 
   fullName = '';
@@ -35,6 +36,8 @@ export class MemberOverviewComponent implements OnInit {
 
   member: RichMember = null;
   navItems: MenuItem[] = [];
+
+  vo: Vo;
 
   ngOnInit() {
     this.route.parent.params.subscribe(parentParams => {
@@ -46,9 +49,12 @@ export class MemberOverviewComponent implements OnInit {
         this.statusIcon = parseStatusIcon(this.member);
         this.statusIconColor = parseStatusColor(this.member);
 
+        this.vo = {
+          id: member.voId,
+          beanName: "Vo"
+        };
         this.initNavItems();
-
-        this.refreshData()
+        this.refreshData();
       });
     });
   }
@@ -63,36 +69,50 @@ export class MemberOverviewComponent implements OnInit {
       if (success){
         this.refreshData();
       }
-    })
+    });
   }
 
   private initNavItems() {
-    this.navItems = [
-      {
+    this.navItems = [{
+      cssIcon: 'perun-attributes',
+      url: `/organizations/${this.vo.id}/members/${this.member.id}/attributes`,
+      label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
+      style: 'member-btn'
+    }];
+
+    if(this.authResolver.isAuthorized('getMemberGroups_Member_policy', [this.vo])){
+      this.navItems.push( {
         cssIcon: 'perun-group',
         url: `/organizations/${this.member.voId}/members/${this.member.id}/groups`,
         label: 'MENU_ITEMS.MEMBER.GROUPS',
         style: 'member-btn'
-      },
-      {
+      });
+    }
+    if(this.authResolver.isAuthorized('vo-getApplicationsForMember_Group_Member_policy', [this.vo])){
+      this.navItems.push( {
         cssIcon: 'perun-applications',
         url: `/organizations/${this.member.voId}/members/${this.member.id}/applications`,
         label: 'MENU_ITEMS.MEMBER.APPLICATIONS',
         style: 'member-btn'
-      },
-      {
-        cssIcon: 'perun-resource',
-        url: `/organizations/${this.member.voId}/members/${this.member.id}/resources`,
-        label: 'MENU_ITEMS.MEMBER.RESOURCES',
-        style: 'member-btn'
-      },
-      {
+      });
+    }
+    if(this.authResolver.isAuthorized('getAssignedRichResources_Member_policy', [this.vo])){
+     this.navItems.push({
+       cssIcon: 'perun-resource',
+       url: `/organizations/${this.member.voId}/members/${this.member.id}/resources`,
+       label: 'MENU_ITEMS.MEMBER.RESOURCES',
+       style: 'member-btn'
+     });
+    }
+    if(this.authResolver.isAuthorized('getAllowedResources_Member_policy', [this.vo]) ||
+    this.authResolver.isAuthorized('getMemberGroups_Member_policy', [this.vo])){
+      this.navItems.push({
         cssIcon: 'perun-settings2',
         url: `/organizations/${this.member.voId}/members/${this.member.id}/settings`,
         label: 'MENU_ITEMS.MEMBER.SETTINGS',
         style: 'member-btn'
-      }
-    ];
+      });
+    }
   }
 
   private refreshData() {

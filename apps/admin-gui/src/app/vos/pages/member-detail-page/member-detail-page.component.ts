@@ -41,7 +41,7 @@ export class MemberDetailPageComponent implements OnInit {
         this.membersService.getRichMemberWithAttributes(memberId).subscribe(member => {
           this.member = member;
           const voSideMenuItem = this.sideMenuItemService.parseVo(this.vo);
-          const memberSideMenuItem = this.sideMenuItemService.parseMember(this.member);
+          const memberSideMenuItem = this.sideMenuItemService.parseMember(this.member, this.vo);
           this.fullName = memberSideMenuItem.label;
           this.sideMenuService.setAccessMenuItems([voSideMenuItem, memberSideMenuItem]);
         });

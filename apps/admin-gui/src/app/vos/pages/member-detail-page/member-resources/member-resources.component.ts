@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Member, MembersManagerService, ResourcesManagerService, RichResource } from '@perun-web-apps/perun/openapi';
+import {
+  Member,
+  MembersManagerService,
+  PerunBean,
+  ResourcesManagerService,
+  RichResource
+} from '@perun-web-apps/perun/openapi';
 import { MatDialog} from '@angular/material/dialog';
 import {
   TABLE_MEMBER_RESOURCE_LIST,
@@ -8,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddMemberToResourceDialogComponent } from '../../../../shared/components/dialogs/add-member-to-resource-dialog/add-member-to-resource-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-member-resources',
@@ -20,7 +27,8 @@ export class MemberResourcesComponent implements OnInit {
               private tableConfigService: TableConfigService,
               private memberManager: MembersManagerService,
               private resourceManager: ResourcesManagerService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private authResolver: GuiAuthResolver) { }
 
 
   member: Member;
@@ -32,6 +40,9 @@ export class MemberResourcesComponent implements OnInit {
 
   pageSize: number;
   tableId = TABLE_MEMBER_RESOURCE_LIST;
+
+  routeAuth: boolean;
+  addAuth: boolean;
 
   ngOnInit(): void {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -68,8 +79,23 @@ export class MemberResourcesComponent implements OnInit {
     this.loading = true;
     this.resourceManager.getAssignedRichResourcesWithMember(this.member.id).subscribe(resources => {
       this.resources = resources;
+      this.setAuthRights();
       this.loading = false;
     });
+  }
+
+  setAuthRights(){
+    const vo: PerunBean = {
+      id: this.member.voId,
+      beanName: 'Vo'
+    };
+
+    this.addAuth = this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]) &&
+      this.authResolver.isAuthorized('addMembers_Group_List<Member>_policy', [vo]);
+
+    if(this.resources.length !== 0){
+      this.routeAuth = this.authResolver.isAuthorized('getResourceById_int_policy', [vo, this.resources[0]]);
+    }
   }
 
   applyFilter(filterValue: String){

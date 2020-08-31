@@ -2,7 +2,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {SideMenuService} from '../../../../../core/services/common/side-menu.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MenuItem} from '@perun-web-apps/perun/models';
-import { MembersService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, MembersService } from '@perun-web-apps/perun/services';
 import { Member, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -19,7 +19,7 @@ export class MemberSettingsOverviewComponent implements OnInit {
     private voService: VosManagerService,
     private memberService: MembersService,
     protected route: ActivatedRoute,
-    protected router: Router
+    private authResolver: GuiAuthResolver
   ) {
   }
 
@@ -44,25 +44,27 @@ export class MemberSettingsOverviewComponent implements OnInit {
   }
 
   private initItems() {
-    this.items = [
-      {
-        cssIcon: 'perun-attributes',
-        url: `/organizations/${this.vo.id}/members/${this.member.id}/settings/attributes`,
-        label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
-        style: 'member-btn'
-      },
-      {
-        cssIcon: 'perun-attributes',
-        url: `/organizations/${this.vo.id}/members/${this.member.id}/settings/resourceAttributes`,
-        label: 'MENU_ITEMS.MEMBER.RESOURCE_ATTRIBUTES',
-        style: 'member-btn'
-      },
-      {
-        cssIcon: 'perun-attributes',
-        url: `/organizations/${this.vo.id}/members/${this.member.id}/settings/groupAttributes`,
-        label: 'MENU_ITEMS.MEMBER.GROUP_ATTRIBUTES',
-        style: 'member-btn'
-      },
-    ];
+    this.items = [];
+
+    // Resource attributes
+    if(this.authResolver.isAuthorized('getAllowedResources_Member_policy', [this.vo])){
+      this.items.push(
+        {
+          cssIcon: 'perun-attributes',
+          url: `/organizations/${this.vo.id}/members/${this.member.id}/settings/resourceAttributes`,
+          label: 'MENU_ITEMS.MEMBER.RESOURCE_ATTRIBUTES',
+          style: 'member-btn'
+        });
+    }
+    // Group attributes
+    if(this.authResolver.isAuthorized('getMemberGroups_Member_policy', [this.vo])){
+      this.items.push(
+        {
+          cssIcon: 'perun-attributes',
+          url: `/organizations/${this.vo.id}/members/${this.member.id}/settings/groupAttributes`,
+          label: 'MENU_ITEMS.MEMBER.GROUP_ATTRIBUTES',
+          style: 'member-btn'
+        });
+    }
   }
 }

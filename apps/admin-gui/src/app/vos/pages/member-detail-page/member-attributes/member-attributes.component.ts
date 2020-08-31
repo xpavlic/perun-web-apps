@@ -7,10 +7,10 @@ import {AttributesListComponent} from '@perun-web-apps/perun/components';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
   CreateAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import {
   DeleteAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/components';
@@ -21,11 +21,11 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-member-settings-attributes',
-  templateUrl: './member-settings-attributes.component.html',
-  styleUrls: ['./member-settings-attributes.component.scss']
+  selector: 'app-member-attributes',
+  templateUrl: './member-attributes.component.html',
+  styleUrls: ['./member-attributes.component.scss']
 })
-export class MemberSettingsAttributesComponent implements OnInit {
+export class MemberAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
   constructor(
@@ -56,7 +56,7 @@ export class MemberSettingsAttributesComponent implements OnInit {
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-    this.route.parent.parent.params.subscribe(params => {
+    this.route.parent.params.subscribe(params => {
       this.memberId = params['memberId'];
       this.refreshTable();
     });

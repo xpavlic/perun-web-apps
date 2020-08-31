@@ -91,7 +91,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.filter(attribute => !isVirtualAttribute(attribute)).length;
+    const numRows = this.dataSource.data.filter(attribute => this.canBeSelected(attribute)).length;
     return numSelected === numRows;
   }
 
@@ -99,7 +99,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => {
-        if(!isVirtualAttribute(row) && row.writable) this.selection.select(row);
+        if(this.canBeSelected(row)) this.selection.select(row);
       });
   }
 
@@ -119,9 +119,13 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   }
 
   onValueChange(attribute: Attribute) {
-    if(!isVirtualAttribute(attribute)){
+    if(this.canBeSelected(attribute)){
       this.selection.select(attribute);
     }
+  }
+
+  canBeSelected(attribute: Attribute): boolean{
+    return !isVirtualAttribute(attribute) && attribute.writable;
   }
 
   pageChanged(event: PageEvent) {

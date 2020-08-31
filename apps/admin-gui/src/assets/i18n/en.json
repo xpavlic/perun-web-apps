@@ -1444,7 +1444,8 @@
       "WRONG_FORMAT": "The date has to be in format yyyy-mm-dd",
       "CANCEL": "Cancel",
       "SAVE": "Save",
-      "SUCCESS": "Expiration successfully changed"
+      "SUCCESS": "Expiration successfully changed",
+      "SAVE_HINT": "You don't have permission to change expiration date."
     },
     "EDIT_GROUP": {
       "SUCCESS": "Changes were successfully saved",
@@ -1758,7 +1759,8 @@
           "TABLE_VO_NAME": "Vo",
           "TABLE_GROUP_NAME": "Name",
           "TABLE_SEARCH": "Filter by name, description or ID",
-          "TABLE_GROUP_DESCRIPTION": "Description"
+          "TABLE_GROUP_DESCRIPTION": "Description",
+          "DISABLED_HINT": "You cannot add members to this group or user is already member."
         },
         "GROUP_MENU": {
           "MOVE": "Move group",
@@ -1802,7 +1804,8 @@
           "NAME": "Name",
           "VALUE": "Value",
           "DESCRIPTION": "Description",
-          "EMPTY": "No settings found. Use 'Add' button to add new setting."
+          "EMPTY": "No settings found. Use 'Add' button to add new setting.",
+          "DISABLED_HINT": "You don't have permission to change this attribute."
         },
         "USER_DONT_EXIST": {
           "TITLE": "Requested user (by ID or external identity) doesn't exist."

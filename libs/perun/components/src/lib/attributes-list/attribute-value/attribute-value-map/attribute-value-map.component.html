@@ -10,8 +10,8 @@
                 matInput
                 required
                 type="text"
-                (click)="readonly && showValue(keys[i], attribute.displayName)"
-                [class.cursor-pointer]="readonly"
+                (click)="readonly && attribute.displayName !== undefined && showValue(keys[i], attribute.displayName)"
+                [class.cursor-pointer]="readonly && attribute.displayName !== undefined"
                 id="{{attribute.id}}-key-{{i}}"
                 [(ngModel)]="keys[i]"
                 [readonly]="readonly"
@@ -20,8 +20,8 @@
             <mat-form-field appearance="{{readonly ? 'none' : 'standard'}}" class="w-100 mr-2 ml-2">
               <label for="{{attribute.id}}-value-{{i}}"></label>
               <input
-                (click)="readonly && showValue(value,attribute.displayName)"
-                [class.cursor-pointer]="readonly"
+                (click)="readonly && attribute.displayName !== undefined && showValue(value,attribute.displayName)"
+                [class.cursor-pointer]="readonly && attribute.displayName !== undefined"
                 [readonly]="readonly"
                 class="overflow-ellipsis"
                 matInput
