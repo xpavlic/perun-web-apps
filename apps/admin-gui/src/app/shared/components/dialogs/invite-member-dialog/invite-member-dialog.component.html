@@ -2,15 +2,20 @@
   <h1 mat-dialog-title>{{'DIALOGS.INVITE_MEMBER.TITLE' | translate}}</h1>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
-    <div class="font-italic">
-      {{'DIALOGS.INVITE_MEMBER.DESCRIPTION' | translate}}
+    <div *ngIf="!data.groupId" class="font-italic">
+      {{'DIALOGS.INVITE_MEMBER.DESCRIPTION_VO' | translate}}
+    </div>
+    <div *ngIf="data.groupId" class="font-italic">
+      {{'DIALOGS.INVITE_MEMBER.DESCRIPTION_GROUP' | translate}}
     </div>
 
     <mat-form-field class="w-100">
       <input
         matInput
         placeholder="{{'DIALOGS.INVITE_MEMBER.NAME' | translate}}"
-        [(ngModel)]="name" required>
+        [formControl]="name"
+        required>
+      <mat-error *ngIf="name.invalid">{{'DIALOGS.INVITE_MEMBER.NAME_ERROR' | translate}}</mat-error>
     </mat-form-field>
     <mat-form-field class="w-100">
     <textarea
@@ -39,7 +44,7 @@
       mat-flat-button
       class="ml-2"
       color="accent"
-      [disabled]="emailForm.invalid || name.length == 0 || loading"
+      [disabled]="emailForm.invalid || name.invalid || loading"
       (click)="onSubmit()">
       {{'DIALOGS.INVITE_MEMBER.INVITE' | translate}}
     </button>

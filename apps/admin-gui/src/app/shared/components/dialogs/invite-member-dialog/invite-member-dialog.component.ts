@@ -9,6 +9,7 @@ import { NotificatorService } from '@perun-web-apps/perun/services';
 export interface InviteMemberDialogData {
   theme: string;
   voId: number;
+  groupId: number;
 }
 
 @Component({
@@ -20,7 +21,7 @@ export class InviteMemberDialogComponent implements OnInit {
 
   emailForm = new FormControl('', [Validators.required, Validators.email]);
   language = 'en';
-  name = '';
+  name = new FormControl('', Validators.required);
   loading = false;
   theme: string;
 
@@ -39,11 +40,20 @@ export class InviteMemberDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.emailForm.invalid || this.name === '') {
+    if (this.emailForm.invalid || this.name.invalid) {
       return;
-    } else {
+    }
+    if(this.data.voId && !this.data.groupId){
       this.loading = true;
       this.registrarManager.sendInvitation(this.emailForm.value, this.language, this.data.voId).subscribe(() => {
+        this.translate.get('DIALOGS.INVITE_MEMBER.SUCCESS').subscribe(successMessage => {
+          this.notificator.showSuccess(successMessage);
+          this.dialogRef.close(true);
+        });
+      }, () => this.loading = false);
+    } else {
+      this.loading = true;
+      this.registrarManager.sendInvitationForGroup(this.emailForm.value, this.language, this.data.voId, this.data.groupId).subscribe(() => {
         this.translate.get('DIALOGS.INVITE_MEMBER.SUCCESS').subscribe(successMessage => {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close(true);
