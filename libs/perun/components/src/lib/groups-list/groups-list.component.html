@@ -50,11 +50,11 @@
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let group" mat-cell>
             <perun-web-apps-group-menu
-              (click)="disabledRouting = true"
+              (mouseenter)="disabledRouting = true"
+              (mouseleave)="disabledRouting = disableRouting"
               (moveGroup)="onMoveGroup(group)"
               (changeNameDescription)="onChangeNameDescription(group)"
               (syncGroup)="onSyncDetail(group)"
-              (whenClosed)="disabledRouting = disableRouting"
               [disabled]="group.name === 'members'"
               [displayButtons]="displayButtons"
               [group]="group">
@@ -65,9 +65,9 @@
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr
           *matRowDef="let group; columns: displayedColumns;"
-          [class.cursor-pointer]="!disableRouting"
-          [class.disable-outline]="disableRouting"
-          [routerLink]="disableRouting ? null : ['/organizations', group.voId, 'groups', group.id]"
+          [class.cursor-pointer]="!disabledRouting"
+          [class.disable-outline]="disabledRouting"
+          [routerLink]="disabledRouting ? null : ['/organizations', group.voId, 'groups', group.id]"
           class="dark-hover-list-item"
           mat-row>
         </tr>

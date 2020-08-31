@@ -84,7 +84,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   dataSource: MatTableDataSource<Group>;
 
   exporting = false;
-  disabledRouting: boolean;
+  disabledRouting = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -160,7 +160,6 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
 
   onMoveGroup(group: Group) {
     this.moveGroup.emit(group);
-    this.disabledRouting = false;
   }
 
   onSyncDetail(rg: RichGroup) {
@@ -191,4 +190,3 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.page.emit(event);
   }
 }
-

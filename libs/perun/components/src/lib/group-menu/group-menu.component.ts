@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 
 @Component({
@@ -6,7 +6,7 @@ import { GroupFlatNode } from '@perun-web-apps/perun/models';
   templateUrl: './group-menu.component.html',
   styleUrls: ['./group-menu.component.scss']
 })
-export class GroupMenuComponent implements OnInit {
+export class GroupMenuComponent {
 
   constructor() { }
 
@@ -21,11 +21,6 @@ export class GroupMenuComponent implements OnInit {
   @Output() syncGroup: EventEmitter<void> = new EventEmitter<void>();
 
   @Output() changeNameDescription: EventEmitter<void> = new EventEmitter<void>();
-
-  @Output() whenClosed: EventEmitter<boolean> = new EventEmitter<boolean>()
-
-  ngOnInit() {
-  }
 
   onMoveGroup() {
     this.moveGroup.emit();
