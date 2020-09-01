@@ -19,8 +19,10 @@ export class ResourceSettingsOverviewComponent implements OnInit {
 
   items: MenuItem[] = [];
   resource: Resource;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.parent.parent.params.subscribe(parentParams => {
       const resourceId = parentParams['resourceId'];
 
@@ -32,7 +34,8 @@ export class ResourceSettingsOverviewComponent implements OnInit {
         } else {
           this.initItems(true);
         }
-      });
+        this.loading = false;
+      }, () => this.loading = false);
     });
   }
 

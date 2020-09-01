@@ -36,8 +36,10 @@ export class GroupDetailPageComponent implements OnInit {
   vo: Vo;
   group: Group;
   editAuth = false;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const voId = params['voId'];
       const groupId = params['groupId'];
@@ -51,8 +53,9 @@ export class GroupDetailPageComponent implements OnInit {
           const groupSideMenuItem = this.sideMenuItemService.parseGroup(group);
 
           this.sideMenuService.setAccessMenuItems([voSideMenuItem, groupSideMenuItem]);
-        });
-      });
+          this.loading = false;
+        }, () => this.loading = false);
+      }, () => this.loading = false);
     });
   }
 

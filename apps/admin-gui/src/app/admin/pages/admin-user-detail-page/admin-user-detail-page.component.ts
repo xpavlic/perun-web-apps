@@ -25,8 +25,10 @@ export class AdminUserDetailPageComponent implements OnInit {
   user: User;
   path: string;
   regex: string;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const userId = params['userId'];
 
@@ -38,7 +40,8 @@ export class AdminUserDetailPageComponent implements OnInit {
 
         const userItem = this.sideMenuItemService.parseUser(user, this.path, this.regex);
         this.sideMenuService.setAdminItems([userItem]);
-      });
+        this.loading = false;
+      }, () => this.loading = false);
     });
   }
 

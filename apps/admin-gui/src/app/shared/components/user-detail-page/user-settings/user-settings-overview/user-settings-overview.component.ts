@@ -19,16 +19,19 @@ export class UserSettingsOverviewComponent implements OnInit {
   navItems: MenuItem[] = [];
   path: string;
   isServiceUser: boolean;
+  loading = false;
 
   ngOnInit() {
     if(window.location.pathname.startsWith('/admin')){
+      this.loading = true;
       this.route.parent.parent.params.subscribe(params => {
         const userId = params["userId"];
 
         this.userManager.getUserById(userId).subscribe(user => {
           this.isServiceUser = user.serviceUser;
           this.initNavItems();
-        });
+          this.loading = false;
+        }, () => this.loading = false);
       });
     } else {
       this.initNavItems();

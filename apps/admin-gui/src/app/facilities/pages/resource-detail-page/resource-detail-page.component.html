@@ -1,7 +1,8 @@
-<div class="container-fluid pl-xl-5 pr-xl-5 resource-theme" *ngIf="resource !== undefined">
+<div class="container-fluid pl-xl-5 pr-xl-5 resource-theme">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
-  <div class="d-flex page-title-headtitle">
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div class="d-flex page-title-headtitle" *ngIf="!loading && resource !== undefined">
     <mat-icon
       matTooltip="{{'RESOURCE_DETAIL.ENTITY' | translate}}"
       [ngStyle]="{'color':'black'}"
@@ -13,6 +14,9 @@
         <a class="resource-link" [routerLink]="[baseUrl]">
           {{resource.name}}
         </a>
+        <span class="resource-text" *ngIf="!facilityLinkAuth">
+          {{resource.facility.name}}
+        </span>
         <span class="text-muted">
         &nbsp;#{{resource.id}}
         </span>

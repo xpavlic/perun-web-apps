@@ -1,7 +1,8 @@
-<div *ngIf="user !== undefined" class="container-fluid pl-xl-5 pr-xl-5 user-theme">
+<div class="container-fluid pl-xl-5 pr-xl-5 user-theme">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
-  <div class="d-flex page-title-headtitle">
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div class="d-flex page-title-headtitle" *ngIf="!loading && user !== undefined">
     <mat-icon
       matTooltip="{{'ADMIN_USER.ENTITY' | translate}}"
       [ngStyle]="{'color':'black'}"
@@ -28,4 +29,3 @@
   </div>
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>
-

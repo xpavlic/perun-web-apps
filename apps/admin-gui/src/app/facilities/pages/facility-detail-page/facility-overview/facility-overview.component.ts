@@ -15,6 +15,7 @@ export class FacilityOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
   navItems: MenuItem[] = [];
   facility: Facility;
+  loading = false;
 
   constructor(
     private facilityManager: FacilitiesManagerService,
@@ -24,6 +25,7 @@ export class FacilityOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const facilityId = params['facilityId'];
 
@@ -31,7 +33,8 @@ export class FacilityOverviewComponent implements OnInit {
         this.facility = facility;
 
         this.initItems();
-      });
+        this.loading = false;
+      }, () => this.loading = false);
     });
   }
 

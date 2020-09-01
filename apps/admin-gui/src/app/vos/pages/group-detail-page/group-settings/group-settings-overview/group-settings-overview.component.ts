@@ -38,8 +38,10 @@ export class GroupSettingsOverviewComponent implements OnInit {
   items: MenuItem[] = [];
   vo: Vo;
   group: Group;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.parent.parent.params.subscribe(grandParentParams => {
       const voId = grandParentParams['voId'];
       const groupId = grandParentParams['groupId'];
@@ -50,8 +52,9 @@ export class GroupSettingsOverviewComponent implements OnInit {
           this.vo = vo;
 
           this.initItems();
-        });
-      });
+          this.loading = false;
+        }, () => this.loading = false);
+      }, () => this.loading = false);
     });
   }
 

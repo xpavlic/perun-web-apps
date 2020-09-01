@@ -38,8 +38,10 @@ export class MemberOverviewComponent implements OnInit {
   navItems: MenuItem[] = [];
 
   vo: Vo;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.parent.params.subscribe(parentParams => {
       const memberId = parentParams['memberId'];
 
@@ -55,7 +57,7 @@ export class MemberOverviewComponent implements OnInit {
         };
         this.initNavItems();
         this.refreshData();
-      });
+      }, () => this.loading = false);
     });
   }
 
@@ -116,11 +118,13 @@ export class MemberOverviewComponent implements OnInit {
   }
 
   private refreshData() {
+    this.loading = true;
     this.attributesManager.getMemberAttributeByName(this.member.id, Urns.MEMBER_DEF_EXPIRATION).subscribe(attr => {
       this.expiration = !attr.value ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') : attr.value;
-    });
-    this.membersService.getRichMemberWithAttributes(this.member.id).subscribe(member => {
-      this.member = member;
-    });
+      this.membersService.getRichMemberWithAttributes(this.member.id).subscribe(member => {
+        this.member = member;
+        this.loading = false;
+      }, () => this.loading = false);
+    }, () => this.loading = false);
   }
 }

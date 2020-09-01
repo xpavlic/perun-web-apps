@@ -1,4 +1,5 @@
-<div>
+<mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+<div *ngIf="!loading">
   <perun-web-apps-menu-buttons-field [items]="navItems" [size]="'small'"></perun-web-apps-menu-buttons-field>
 
 <!--  <h1 class="page-subtitle">Quick actions</h1>-->

@@ -23,8 +23,10 @@ export class ResourceOverviewComponent implements OnInit {
 
   navItems: MenuItem[] = [];
   resource: Resource;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const resourceId = params['resourceId'];
 
@@ -36,7 +38,8 @@ export class ResourceOverviewComponent implements OnInit {
         } else {
           this.initItems(true);
         }
-      });
+        this.loading = false;
+      }, () => this.loading = false);
     });
   }
 

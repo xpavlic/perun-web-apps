@@ -57,14 +57,16 @@ export class UserDashboardComponent implements OnInit {
   resourcePageSize: number;
   resourceFilterValue = '';
 
+  loading = false;
+
   ngOnInit() {
+    this.loading = true;
     this.user = this.storeService.getPerunPrincipal().user;
     this.voPageSize = this.tableConfigService.getTablePageSize(this.voTableId);
     this.groupPageSize = this.tableConfigService.getTablePageSize(this.groupTableId);
     this.facilityPageSize = this.tableConfigService.getTablePageSize(this.facilityTableId);
     this.resourcePageSize = this.tableConfigService.getTablePageSize(this.resourceTableId);
     this.getAdminVoGroup();
-    this.getAdminResource();
   }
 
   getAdminVoGroup() {
@@ -73,22 +75,24 @@ export class UserDashboardComponent implements OnInit {
       this.userManager.getGroupsWhereUserIsAdmin(this.user.id).subscribe( groups => {
         this.adminGroup = groups;
         this.getAdminFacility();
-      });
-    });
+      }, () => this.loading = false);
+    }, () => this.loading = false);
   }
 
   getAdminFacility() {
     if (this.guiAuthResolver.isAuthorized('getFacilities_policy', [])) {
       this.facilitiesService.getAllFacilities().subscribe(facilities => {
         this.adminFacility = facilities;
-      });
+        this.getAdminResource();
+      }, () => this.loading = false);
     }
   }
 
   getAdminResource() {
       this.resourcesService.getAllResourcesWhereUserIsAdmin(this.user.id).subscribe(resources => {
         this.adminResource = resources;
-      });
+        this.loading = false
+      }, () => this.loading = false);
   }
 
   pageChanged($event: PageEvent, tableId: string, pagesize: number) {

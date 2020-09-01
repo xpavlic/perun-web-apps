@@ -35,8 +35,10 @@ export class VoDetailPageComponent implements OnInit {
 
   vo: Vo;
   editAuth: boolean;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const voId = params['voId'];
 
@@ -48,8 +50,8 @@ export class VoDetailPageComponent implements OnInit {
 
         this.sideMenuService.setAccessMenuItems([sideMenuItem]);
 
-        addRecentlyVisited('vos', this.vo);
-      });
+        this.loading = false;
+      }, () => this.loading = false);
     });
   }
 
