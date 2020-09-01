@@ -26,8 +26,8 @@ export class ManagersPageComponent implements OnInit {
     private dialog: MatDialog,
     private tableConfigService: TableConfigService,
     private authzService: AuthzResolverService,
-    private guiAuthResolver: GuiAuthResolver,
-    private storeService: StoreService
+    private storeService: StoreService,
+    public guiAuthResolver:GuiAuthResolver
   ) {
   }
 

@@ -125,6 +125,9 @@ export class DeleteAttributeDialogComponent implements OnInit {
           this.onSuccess();
         });
         break;
+      case 'resource':
+        this.attributesManager.removeResourceAttributes(this.data.entityId, ids).subscribe( () => this.onSuccess());
+        break;
     }
   }
 

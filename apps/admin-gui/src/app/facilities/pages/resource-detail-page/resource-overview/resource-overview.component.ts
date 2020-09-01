@@ -2,6 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-resource-overview',
@@ -15,7 +16,8 @@ export class ResourceOverviewComponent implements OnInit {
 
   constructor(
     private resourcesManager: ResourcesManagerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public guiAuthResolver:GuiAuthResolver
   ) {
   }
 
@@ -40,25 +42,28 @@ export class ResourceOverviewComponent implements OnInit {
 
   private initItems(inVo: boolean) {
     const urlStart = inVo ? `/organizations/${this.resource.voId}` : `/facilities/${this.resource.facilityId}`;
-    this.navItems = [
-      {
+    this.navItems = [];
+    if(this.guiAuthResolver.isAuthorized('getAssignedGroups_Resource_policy', [this.resource])){
+      this.navItems.push({
         cssIcon: 'perun-group',
         url: `${urlStart}/resources/${this.resource.id}/groups`,
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_GROUPS',
         style: 'resource-btn'
-      },
-      {
+      })
+    }
+    if(this.guiAuthResolver.isAuthorized('getAssignedServices_Resource_policy', [this.resource])){
+      this.navItems.push({
         cssIcon: 'perun-service',
-        url: `/facilities/${this.resource.facilityId}/resources/${this.resource.id}/services`,
+        url: `/${urlStart}/resources/${this.resource.id}/services`,
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_SERVICES',
         style: 'resource-btn'
-      },
-      {
-        cssIcon: 'perun-settings2',
-        url: `${urlStart}/resources/${this.resource.id}/settings`,
-        label: 'MENU_ITEMS.RESOURCE.SETTINGS',
-        style: 'resource-btn'
-      }
-    ];
+      });
+    }
+   this.navItems.push({
+     cssIcon: 'perun-settings2',
+     url: `${urlStart}/resources/${this.resource.id}/settings`,
+     label: 'MENU_ITEMS.RESOURCE.SETTINGS',
+     style: 'resource-btn'
+   });
   }
 }

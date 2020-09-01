@@ -9,6 +9,8 @@
     <app-services-list
       (page)="pageChanged($event)"
       [pageSize]="pageSize"
+      *ngIf="!loading"
+      [disableRouting]="true"
       [services]="unAssignedServices"
       [filterValue]="filterValue"
       [selection]="selection">

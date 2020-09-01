@@ -186,7 +186,8 @@
       "ADD_GROUP": "Add..",
       "REMOVE_GROUP": "Remove groups",
       "FILTER_GROUPS": "Filter groups",
-      "NO_GROUPS": "No groups."
+      "NO_GROUPS": "No groups.",
+      "REMOVE_TOOLTIP": "You are not authorized to remove one or more of the selected groups."
     },
     "ASSIGNED_SERVICES": {
       "TITLE": "Assigned services",
@@ -1211,7 +1212,8 @@
       "ADD_BUTTON": "Add",
       "CANCEL_BUTTON": "Cancel",
       "SUCCESS_MESSAGE": "Selected groups were assigned to resource",
-      "CONFIGURE_GROUPS": "Configure group(s) before assign"
+      "CONFIGURE_GROUPS": "Configure group(s) before assign",
+      "ADD_TOOLTIP": "You don't have privileges to perform this action for one or more groups."
     },
     "ASSIGN_SERVICE_TO_RESOURCE": {
       "TITLE": "Assign service",
@@ -1804,8 +1806,9 @@
           "NAME": "Name",
           "VALUE": "Value",
           "DESCRIPTION": "Description",
+          "DISABLED_HINT": "You don't have permission to change this attribute.",
           "EMPTY": "No settings found. Use 'Add' button to add new setting.",
-          "DISABLED_HINT": "You don't have permission to change this attribute."
+          "CHECKBOX_TOOLTIP": "You don't have privileges to edit this attribute"
         },
         "USER_DONT_EXIST": {
           "TITLE": "Requested user (by ID or external identity) doesn't exist."

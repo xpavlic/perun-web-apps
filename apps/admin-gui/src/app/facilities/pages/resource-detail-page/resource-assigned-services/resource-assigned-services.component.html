@@ -1,10 +1,10 @@
 <h1 class="page-subtitle">{{'RESOURCE_DETAIL.ASSIGNED_SERVICES.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="loadAllServices()"></perun-web-apps-refresh-button>
-<button mat-flat-button color="accent" (click)="addService()">
+<button (click)="addService()" *ngIf="!loadingResource && assignServiceAuth" color="accent" mat-flat-button>
   {{'RESOURCE_DETAIL.ASSIGNED_SERVICES.ADD_SERVICE' | translate}}
 </button>
 <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0"
-        (click)="removeServices()">
+        (click)="removeServices()" *ngIf="!loadingResource && removeServiceAuth">
   {{'RESOURCE_DETAIL.ASSIGNED_SERVICES.REMOVE_SERVICE' | translate}}
 </button>
 <perun-web-apps-immediate-filter
@@ -18,5 +18,7 @@
   [services]="assignedServices"
   [selection]="selected"
   [filterValue]="filterValue"
+  [hideColumns]="removeServiceAuth ? []: ['select']"
+  [disableRouting]="!serviceRoutingAuth"
   *ngIf="!loading">
 </app-services-list>

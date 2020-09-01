@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { Group, GroupsManagerService, Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -12,7 +12,7 @@ import { PageEvent } from '@angular/material/paginator';
 
 export interface AssignGroupToResourceDialogData {
   theme: string;
-  resourceId: number;
+  resource: Resource;
 }
 
 @Component({
@@ -28,7 +28,9 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
               private translate: TranslateService,
               private resourceManager: ResourcesManagerService,
               private tableConfigService: TableConfigService,
-              private groupService: GroupsManagerService) { }
+              private groupService: GroupsManagerService,
+              public guiAuthResolver: GuiAuthResolver) {
+  }
 
   loading = false;
   theme: string;
@@ -46,20 +48,18 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
-    this.resourceManager.getResourceById(this.data.resourceId).subscribe( resource => {
-      this.resource = resource;
-      this.resourceManager.getAssignedGroups(this.resource.id).subscribe( assignedGroups => {
-        this.groupService.getAllGroups(this.resource.voId).subscribe( allGroups => {
-          this.unAssignedGroups = allGroups;
-          for (const assignedGroup of assignedGroups) {
-            for (const allGroup of allGroups) {
-              if (assignedGroup.id === allGroup.id) {
-                this.unAssignedGroups.splice(this.unAssignedGroups.indexOf(allGroup), 1);
-              }
+    this.resource = this.data.resource;
+    this.resourceManager.getAssignedGroups(this.resource.id).subscribe(assignedGroups => {
+      this.groupService.getAllGroups(this.resource.voId).subscribe(allGroups => {
+        this.unAssignedGroups = allGroups;
+        for (const assignedGroup of assignedGroups) {
+          for (const allGroup of allGroups) {
+            if (assignedGroup.id === allGroup.id) {
+              this.unAssignedGroups.splice(this.unAssignedGroups.indexOf(allGroup), 1);
             }
           }
-          this.loading = false;
-        }, () => this.loading = false);
+        }
+        this.loading = false;
       }, () => this.loading = false);
     }, () => this.loading = false);
   }
@@ -73,12 +73,12 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
       //TODO when checkbox is checked
     } else {
       this.loading = true;
-      const addedGroups: number[] =[];
+      const addedGroups: number[] = [];
       for (const group of this.selection.selected) {
         addedGroups.push(group.id);
       }
-    this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id).subscribe( () => {
-        this.translate.get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE').subscribe( message => {
+      this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id).subscribe(() => {
+        this.translate.get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE').subscribe(message => {
           this.notificator.showSuccess(message);
           this.dialogRef.close(true);
         });
@@ -93,5 +93,15 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  }
+
+  canAddGroups() {
+    let canAdd = true;
+    this.selection.selected.forEach(group => {
+      if(!this.guiAuthResolver.isAuthorized('assignGroupsToResource_List<Group>_Resource_policy',[this.resource, group])){
+        canAdd = false;
+      }
+    })
+    return canAdd;
   }
 }
