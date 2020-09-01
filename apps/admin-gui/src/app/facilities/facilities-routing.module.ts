@@ -33,6 +33,7 @@ import { FacilitySecurityTeamsComponent } from './pages/facility-detail-page/fac
 import { ResourceSettingsManagersComponent } from './pages/resource-detail-page/resource-settings/resource-settings-managers/resource-settings-managers.component';
 import { ResourceAssignedServicesComponent } from './pages/resource-detail-page/resource-assigned-services/resource-assigned-services.component';
 import { FacilityServiceStatusComponent } from './pages/facility-detail-page/facility-service-status/facility-service-status.component';
+import { FacilityAllowedUsersComponent } from './pages/facility-detail-page/facility-allowed-users/facility-allowed-users.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,11 @@ const routes: Routes = [
         path: 'resources',
         component: FacilityResourcesComponent,
         data: {animation: 'FacilityResourcesPage'}
+      },
+      {
+        path: 'allowed-users',
+        component: FacilityAllowedUsersComponent,
+        data: {animation: 'FacilityAllowedUsersPage'}
       },
       {
         path: 'allowed-groups',

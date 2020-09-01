@@ -700,6 +700,14 @@ export class SideMenuItemService {
         activatedRegex: '/facilities/\\d+/resources$'
       });
     }
+    // Allowed users
+    if(this.authResolver.isAuthorized('getAssignedUsers_Facility_Service_policy', [facility])){
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.ALLOWED_USERS',
+        url: [`/facilities/${facility.id}/allowed-users`],
+        activatedRegex: '/facilities/\\d+/allowed-users'
+      });
+    }
     // Allowed groups
     if(this.authResolver.isAuthorized('getAllowedGroups_Facility_Vo_Service_policy', [facility])){
       links.push({

@@ -23,7 +23,7 @@
         [displayedColumns]="displayedColumns"
         *ngIf="identities !== undefined && identities.length > 0"
         [users]="identities"
-        [inDialog]="true"
+        [disableRouting]="true"
         [selection]="selection">
       </app-users-list>
     </div>

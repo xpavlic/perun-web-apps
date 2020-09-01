@@ -46,8 +46,17 @@ export class FacilityOverviewComponent implements OnInit {
         style: 'facility-btn'
       });
     }
+    // Allowed users
+    if (this.authResolver.isAuthorized('getAssignedUsers_Facility_Service_policy', [this.facility])) {
+      this.navItems.push({
+        cssIcon: 'perun-user',
+        url: `/facilities/${this.facility.id}/allowed-users`,
+        label: 'MENU_ITEMS.FACILITY.ALLOWED_USERS',
+        style: 'facility-btn'
+      });
+    }
     // Allowed groups
-    if(this.authResolver.isAuthorized('getAllowedGroups_Facility_Vo_Service_policy', [this.facility])){
+    if (this.authResolver.isAuthorized('getAllowedGroups_Facility_Vo_Service_policy', [this.facility])) {
       this.navItems.push({
         cssIcon: 'perun-group',
         url: `/facilities/${this.facility.id}/allowed-groups`,
