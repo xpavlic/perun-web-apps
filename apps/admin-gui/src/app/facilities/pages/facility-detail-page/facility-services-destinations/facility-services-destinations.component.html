@@ -1,10 +1,18 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SERVICES_DESTINATIONS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button mat-flat-button color="accent" (click)="addDestination()">
+  <button
+    *ngIf="!loading && addAuth"
+    mat-flat-button color="accent"
+    class="mr-2"
+    (click)="addDestination()">
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0"  (click)="removeDestination()">
+  <button
+    *ngIf="!loading && removeAuth"
+    mat-flat-button color="warn"
+    class="mr-2"
+    [disabled]="selected.selected.length === 0"  (click)="removeDestination()">
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.REMOVE' | translate}}
   </button>
   <perun-web-apps-immediate-filter

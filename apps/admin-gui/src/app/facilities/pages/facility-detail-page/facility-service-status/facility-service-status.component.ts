@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ServicesManagerService, ServiceState, TasksManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  FacilitiesManagerService,
+  Facility,
+  ServicesManagerService,
+  ServiceState,
+  TasksManagerService
+} from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
 import {
   TABLE_FACILITY_SERVICES_STATUS_LIST,
   TableConfigService
 } from '@perun-web-apps/config/table-config';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
+import { type } from 'os';
 
 @Component({
   selector: 'app-facility-service-status',
@@ -22,7 +29,8 @@ export class FacilityServiceStatusComponent implements OnInit {
               private tableConfigService: TableConfigService,
               private servicesManager: ServicesManagerService,
               private notificator: NotificatorService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private authResolver: GuiAuthResolver) {
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_FORCE_PROPAGATION').subscribe(value => this.successFPMessage = value);
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_ALLOW').subscribe(value => this.successAllowMessage = value);
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_BLOCK').subscribe(value => this.successBlockMessage = value);
@@ -31,6 +39,7 @@ export class FacilityServiceStatusComponent implements OnInit {
   }
 
   facilityId: number;
+  facility: Facility;
   servicesStates: ServiceState[] = [];
 
   selected = new SelectionModel<ServiceState>(true, []);
@@ -44,18 +53,27 @@ export class FacilityServiceStatusComponent implements OnInit {
   successAllowMessage: string;
   successBlockMessage: string;
   successDeleteMessage: string;
-  allreadyDeletedMessage: string
+  allreadyDeletedMessage: string;
 
   disableAllowButton = true;
   disableBlockButton = true;
   disableDeleteTaskButton = true;
 
+  propagationAuth: boolean;
+  allowAuth: boolean;
+  blockAuth: boolean;
+  deleteAuth: boolean;
+
   ngOnInit(): void {
-    this.loading = true
+    this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
 
     this.route.parent.params.subscribe(params => {
-      this.facilityId = params['facilityId'];
+      this.facilityId = parseInt(params['facilityId'], 10);
+      this.facility = {
+        id: this.facilityId,
+        beanName: 'Facility'
+      };
       this.refreshTable();
     });
   }
@@ -104,9 +122,17 @@ export class FacilityServiceStatusComponent implements OnInit {
     this.loading = true;
     this.tasksManager.getFacilityServicesState(this.facilityId).subscribe(states => {
       this.servicesStates = states;
-      this.loading = false;
       this.selected.clear();
+      this.setAuthRights();
+      this.loading = false;
     });
+  }
+
+  setAuthRights(){
+    this.propagationAuth = this.authResolver.isAuthorized('forceServicePropagation_Facility_Service_policy', [this.facility]);
+    this.blockAuth = this.authResolver.isAuthorized('blockServiceOnFacility_Service_Facility_policy', [this.facility]);
+    this.allowAuth = this.authResolver.isAuthorized('unblockServiceOnFacility_Service_Facility_policy', [this.facility]);
+    this.deleteAuth = this.authResolver.isAuthorized('deleteTask_Task_policy', [this.facility]);
   }
 
   applyFilter(filterValue: string) {

@@ -1,16 +1,37 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SERVICES_STATUS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button mat-flat-button color="accent" [disabled]="selected.selected.length === 0" (click)="forcePropagation()">
+  <button
+    *ngIf="!loading && propagationAuth"
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    [disabled]="selected.selected.length === 0"
+    (click)="forcePropagation()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.FORCE_PROPAGATION' | translate}}
   </button>
-  <button mat-flat-button color="accent" class="ml-2" [disabled]="selected.selected.length === 0 || this.disableAllowButton" (click)="allow()">
+  <button
+    *ngIf="!loading && allowAuth"
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    [disabled]="selected.selected.length === 0 || this.disableAllowButton" (click)="allow()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.ALLOW' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0 || this.disableBlockButton" (click)="block()">
+  <button
+    *ngIf="!loading && blockAuth"
+    mat-flat-button
+    color="warn"
+    class="mr-2"
+    [disabled]="selected.selected.length === 0 || this.disableBlockButton" (click)="block()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.BLOCK' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0 || this.disableDeleteTaskButton" (click)="delete()">
+  <button
+    *ngIf="!loading && deleteAuth"
+    mat-flat-button
+    color="warn"
+    class="mr-2"
+    [disabled]="selected.selected.length === 0 || this.disableDeleteTaskButton" (click)="delete()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.DELETE' | translate}}
   </button>
   <perun-web-apps-immediate-filter

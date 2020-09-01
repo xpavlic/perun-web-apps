@@ -3,11 +3,20 @@
     {{'SHARED.COMPONENTS.MANAGERS_PAGE.TITLE' | translate}}
   </h1>
   <perun-web-apps-refresh-button (refresh)="changeUser()"></perun-web-apps-refresh-button>
-  <button mat-flat-button color="accent" class="mr-2" (click)="selected === 'user' ? addManager() : addGroup()">
+  <button
+    *ngIf="!loading && isAuthorized"
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    (click)="selected === 'user' ? addManager() : addGroup()">
     {{'SHARED.COMPONENTS.MANAGERS_PAGE.ADD' | translate}}
   </button>
-  <button mat-flat-button color="warn" (click)="selected === 'user' ? removeManager() : removeGroup()"
-          [disabled]="selectionUsers.selected.length === 0 && selectionGroups.selected.length === 0">
+  <button
+    *ngIf="!loading && isAuthorized"
+    mat-flat-button
+    color="warn"
+    (click)="selected === 'user' ? removeManager() : removeGroup()"
+    [disabled]="selectionUsers.selected.length === 0 && selectionGroups.selected.length === 0">
     {{'SHARED.COMPONENTS.MANAGERS_PAGE.REMOVE' | translate}}
   </button>
 
@@ -34,7 +43,7 @@
     <app-users-list
       *ngIf="managers && managers.length > 0 && selected === 'user'"
       [users]="managers"
-      [displayedColumns]="['select', 'id', 'name', 'email', 'logins', 'organization']"
+      [displayedColumns]="isAuthorized ? ['select', 'id', 'name', 'email', 'logins', 'organization'] : ['id', 'name', 'email', 'logins', 'organization']"
       [selection]="selectionUsers">
     </app-users-list>
 
@@ -43,7 +52,7 @@
       (page)="pageChanged($event)"
       [pageSize]="pageSize"
       *ngIf="groups && selected === 'group' && !loading"
-      [hideColumns]="['menu', 'vo']"
+      [hideColumns]="isAuthorized ? ['menu', 'vo'] : ['select', 'menu', 'vo']"
       [groups]="groups"
       [selection]="selectionGroups"
       [disableMembers]="false">

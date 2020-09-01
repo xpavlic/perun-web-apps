@@ -40,13 +40,18 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
   pageSize = 10;
   @Input()
   facilityId: number;
+  @Input()
+  disableRouting = false;
+
+  @Input()
+  displayedColumns: string[] = ['select', 'id', "name"];
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   private sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'id', "name"];
+
   dataSource: MatTableDataSource<Host>;
 
   exporting = false;
@@ -59,7 +64,6 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
     this.setDataSource();
     this.dataSource.filter = this.filterValue;
   }
-
 
   setDataSource() {
     if (!!this.dataSource) {
@@ -99,10 +103,6 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
-  selectHost(host: Host){
-    this.router.navigate(['/facilities', this.facilityId, 'hosts', host.id]);
   }
 
   ngAfterViewInit(): void {

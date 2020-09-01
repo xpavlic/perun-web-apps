@@ -1,10 +1,20 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.HOSTS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button mat-flat-button color="accent" (click)="addHost()">
+  <button
+    *ngIf="!loading && addAuth"
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    (click)="addHost()">
     {{'FACILITY_DETAIL.HOSTS.ADD' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2"  [disabled]="selected.selected.length === 0" (click)="removeHost()">
+  <button
+    *ngIf="!loading && removeAuth"
+    mat-flat-button
+    color="warn"
+    class="mr-2"
+    [disabled]="selected.selected.length === 0" (click)="removeHost()">
     {{'FACILITY_DETAIL.HOSTS.REMOVE' | translate}}
   </button>
   <perun-web-apps-immediate-filter
@@ -18,6 +28,8 @@
     [filterValue]="filterValue"
     [hosts]="hosts"
     [selection]="selected"
+    [displayedColumns]="displayedColumns"
+    [disableRouting]="!routeAuth"
     [facilityId]="facilityId">
   </app-hosts-list>
 </div>

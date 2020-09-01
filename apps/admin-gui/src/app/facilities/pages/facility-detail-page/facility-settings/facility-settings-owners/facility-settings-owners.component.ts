@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FacilitiesManagerService, Owner } from '@perun-web-apps/perun/openapi';
+import { FacilitiesManagerService, Facility, Owner } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFacilityOwnerDialogComponent } from '../../../../../shared/components/dialogs/add-facility-owner-dialog/add-facility-owner-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { RemoveFacilityOwnerDialogComponent } from '../../../../../shared/components/dialogs/remove-facility-owner-dialog/remove-facility-owner-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-settings-owners',
@@ -15,19 +16,29 @@ import { RemoveFacilityOwnerDialogComponent } from '../../../../../shared/compon
 export class FacilitySettingsOwnersComponent implements OnInit {
 
   facilityId: number;
+  facility: Facility;
   owners: Owner[] = [];
   selection = new SelectionModel<Owner>(true, []);
   loading: boolean;
   filterValue: string;
+  displayedColumns: string[] = ['id', 'name', 'contact', 'type'];
+
+  addAuth: boolean;
+  removeAuth: boolean;
 
   constructor(private facilitiesManagerService: FacilitiesManagerService,
               private route: ActivatedRoute,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private authResolver: GuiAuthResolver) {
   }
 
   ngOnInit(): void {
     this.route.parent.parent.params.subscribe(params => {
-      this.facilityId = params['facilityId'];
+      this.facilityId = parseInt(params['facilityId'], 10);
+      this.facility = {
+        id: this.facilityId,
+        beanName: 'Facility'
+      };
 
       this.refreshTable();
     });
@@ -38,8 +49,16 @@ export class FacilitySettingsOwnersComponent implements OnInit {
     this.selection.clear();
     this.facilitiesManagerService.getFacilityOwners(this.facilityId).subscribe(owners => {
       this.owners = owners;
+      this.setAuthRights();
       this.loading = false;
     });
+  }
+
+  setAuthRights(){
+    this.addAuth = this.authResolver.isAuthorized('addOwner_Facility_Owner_policy', [this.facility]);
+    this.removeAuth = this.authResolver.isAuthorized('removeOwner_Facility_Owner_policy', [this.facility]);
+
+    this.displayedColumns = this.removeAuth ? ['select', 'id', 'name', 'contact', 'type'] : ['id', 'name', 'contact', 'type'];
   }
 
   applyFilter(filterValue: string) {

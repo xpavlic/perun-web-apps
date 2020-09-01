@@ -15,8 +15,9 @@
     (page)="pageChanged($event)"
     [pageSize]="pageSize"
     *ngIf="!loading && groupsToShow.length !== 0"
-    [hideColumns]="['menu', 'vo']"
+    [hideColumns]="['select', 'menu', 'vo']"
     [groups] = "groupsToShow"
+    [groupsToDisable]="groupsWithoutRouteAuth"
     [disableMembers]="false">
   </perun-web-apps-groups-list>
 

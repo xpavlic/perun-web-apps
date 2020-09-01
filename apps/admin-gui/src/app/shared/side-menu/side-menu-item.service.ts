@@ -193,76 +193,7 @@ export class SideMenuItemService {
       baseLink: [`/facilities/${facility.id}`],
       backgroundColorCss: this.facilityBgColor,
       textColorCss: this.facilityTextColor,
-      links: [
-        {
-          label: 'MENU_ITEMS.FACILITY.OVERVIEW',
-          url: [`/facilities/${facility.id}`],
-          activatedRegex: '/facilities/\\d+$'
-        },
-        {
-          label: 'MENU_ITEMS.FACILITY.RESOURCES',
-          url: [`/facilities/${facility.id}/resources`],
-          activatedRegex: '/facilities/\\d+/resources$'
-        },
-        {
-          label: 'MENU_ITEMS.FACILITY.ALLOWED_GROUPS',
-          url: [`/facilities/${facility.id}/allowed-groups`],
-          activatedRegex: '/facilities/\\d+/allowed-groups'
-        },
-        {
-          label: 'MENU_ITEMS.FACILITY.SERVICES_STATUS',
-          url: [`/facilities/${facility.id}/services-status`],
-          activatedRegex: '/facilities/\\d+/services-status'
-        },
-        {
-          label: 'MENU_ITEMS.FACILITY.SERVICE_CONFIG',
-          url: [`/facilities/${facility.id}/service-config`],
-          activatedRegex: 'facilities/\\d+/service-config'
-        },
-        {
-          label: 'MENU_ITEMS.FACILITY.SERVICES_DESTINATIONS',
-          url: [`/facilities/${facility.id}/services-destinations`],
-          activatedRegex: 'facilities/\\d+/services-destinations'
-        },
-        {
-          label: 'MENU_ITEMS.FACILITY.HOSTS',
-          url: [`/facilities/${facility.id}/hosts`],
-          activatedRegex: 'facilities/\\d+/hosts'
-        },
-        {
-          label: 'MENU_ITEMS.FACILITY.SECURITY_TEAMS',
-          url: [`/facilities/${facility.id}/security-teams`],
-          activatedRegex: 'facilities/\\d+/security-teams'
-        },
-        {
-          label: 'MENU_ITEMS.FACILITY.SETTINGS',
-          url: ['/facilities', facility.id, 'settings'],
-          activatedRegex: '/facilities/\\d+/settings$',
-          children: [
-            {
-              label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
-              url: ['/facilities', facility.id, 'settings', 'attributes'],
-              activatedRegex: '/facilities/\\d+/settings/attributes$'
-            },
-            {
-              label: 'MENU_ITEMS.FACILITY.OWNERS',
-              url: ['/facilities', facility.id, 'settings', 'owners'],
-              activatedRegex: '/facilities/\\d+/settings/owners$'
-            },
-            {
-              label: 'MENU_ITEMS.FACILITY.MANAGERS',
-              url: ['/facilities', facility.id, 'settings', 'managers'],
-              activatedRegex: '/facilities/\\d+/settings/managers$'
-            },
-            {
-              label: 'MENU_ITEMS.FACILITY.BLACKLIST',
-              url: ['facilities', facility.id, 'settings', 'blacklist'],
-              activatedRegex: '/facilities/\\d+/settings/blacklist'
-            }
-          ],
-          showChildrenRegex: '/facilities/\\d+/settings'
-        }
-      ],
+      links: this.getFacilityLinks(facility),
       colorClass: 'facility-item',
       icon: 'perun-facility-white',
       // labelClass: 'facility-text',
@@ -742,6 +673,120 @@ export class SideMenuItemService {
         showChildrenRegex: '/organizations/\\d+/members/\\d+/settings'
       });
     }
+    return links;
+  }
+
+  getFacilityLinks(facility: Facility): EntityMenuLink[]{
+    const links: EntityMenuLink[] = [{
+      label: 'MENU_ITEMS.FACILITY.OVERVIEW',
+      url: [`/facilities/${facility.id}`],
+      activatedRegex: '/facilities/\\d+$'
+    }];
+
+    // Resources
+    if(this.authResolver.isAuthorized('getAssignedRichResources_Facility_policy', [facility])){
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.RESOURCES',
+        url: [`/facilities/${facility.id}/resources`],
+        activatedRegex: '/facilities/\\d+/resources$'
+      });
+    }
+    // Allowed groups
+    if(this.authResolver.isAuthorized('getAllowedGroups_Facility_Vo_Service_policy', [facility])){
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.ALLOWED_GROUPS',
+        url: [`/facilities/${facility.id}/allowed-groups`],
+        activatedRegex: '/facilities/\\d+/allowed-groups'
+      });
+    }
+    // Service state
+    if(this.authResolver.isAuthorized('getFacilityServicesState_Facility_policy', [facility])){
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.SERVICES_STATUS',
+        url: [`/facilities/${facility.id}/services-status`],
+        activatedRegex: '/facilities/\\d+/services-status'
+      });
+    }
+    // Service configuration
+    if(this.authResolver.isAuthorized('getAssignedServices_Facility_policy', [facility]) &&
+      this.authResolver.isAuthorized('getAssignedResources_Facility_policy', [facility])){
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.SERVICE_CONFIG',
+        url: [`/facilities/${facility.id}/service-config`],
+        activatedRegex: 'facilities/\\d+/service-config'
+      });
+    }
+    // Service destination
+    if(this.authResolver.isAuthorized('getAllRichDestinations_Facility_policy', [facility])){
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.SERVICES_DESTINATIONS',
+        url: [`/facilities/${facility.id}/services-destinations`],
+        activatedRegex: 'facilities/\\d+/services-destinations'
+      });
+    }
+    // Hosts
+    // TODO fix when policies are updated
+    if(this.authResolver.isFacilityAdmin()){
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.HOSTS',
+        url: [`/facilities/${facility.id}/hosts`],
+        activatedRegex: 'facilities/\\d+/hosts'
+      });
+    }
+    // Security teams
+    if(this.authResolver.isAuthorized('getAssignedSecurityTeams_Facility_policy', [facility])){
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.SECURITY_TEAMS',
+        url: [`/facilities/${facility.id}/security-teams`],
+        activatedRegex: 'facilities/\\d+/security-teams'
+      });
+    }
+    // Settings
+    const bansAuth = this.authResolver.isAuthorized('getBansForFacility_int_policy', [facility]);
+    const managersAuth = this.authResolver.isAuthorized('getRichAdmins_Facility_List<String>_boolean_boolean_policy', [facility]);
+    const ownersAuth = this.authResolver.isAuthorized('getOwners_Facility_policy', [facility]);
+
+    if(bansAuth || managersAuth || ownersAuth){
+      const children = [{
+        label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
+        url: ['/facilities', facility.id, 'settings', 'attributes'],
+        activatedRegex: '/facilities/\\d+/settings/attributes$'
+      }];
+
+      // Owners
+      if(ownersAuth){
+        children.push({
+          label: 'MENU_ITEMS.FACILITY.OWNERS',
+          url: ['/facilities', facility.id, 'settings', 'owners'],
+          activatedRegex: '/facilities/\\d+/settings/owners$'
+        });
+      }
+      // Managers
+      if(managersAuth){
+        children.push({
+          label: 'MENU_ITEMS.FACILITY.MANAGERS',
+          url: ['/facilities', facility.id, 'settings', 'managers'],
+          activatedRegex: '/facilities/\\d+/settings/managers$'
+        });
+      }
+      // Blacklist
+      if(bansAuth){
+        children.push({
+          label: 'MENU_ITEMS.FACILITY.BLACKLIST',
+          url: ['facilities', facility.id, 'settings', 'blacklist'],
+          activatedRegex: '/facilities/\\d+/settings/blacklist'
+        });
+      }
+
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.SETTINGS',
+        url: ['/facilities', facility.id, 'settings'],
+        activatedRegex: '/facilities/\\d+/settings$',
+        children: children,
+        showChildrenRegex: '/facilities/\\d+/settings'
+      });
+    }
+
     return links;
   }
 }

@@ -1,10 +1,20 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SECURITY_TEAMS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-<!--  <button mat-flat-button color="accent" (click)="addSecurityTeam()">-->
+<!--  <button-->
+<!--    *ngIf="!loading && addAuth"-->
+<!--    mat-flat-button -->
+<!--    color="accent" -->
+<!--    class="mr-2"-->
+<!--    (click)="addSecurityTeam()">-->
 <!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.ADD'| translate}}-->
 <!--  </button>-->
-<!--  <button mat-flat-button color="warn" class="ml-2"  [disabled]="selected.selected.length === 0" (click)="removeSecurityTeam()">-->
+<!--  <button -->
+<!--    *ngIf="!loading && removeAuth"-->
+<!--    mat-flat-button -->
+<!--    color="warn" -->
+<!--    class="mr-2"  -->
+<!--    [disabled]="selected.selected.length === 0" (click)="removeSecurityTeam()">-->
 <!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.REMOVE'| translate}}-->
 <!--  </button>-->
   <perun-web-apps-immediate-filter
@@ -17,6 +27,7 @@
     *ngIf="!loading"
     [filterValue]="filterValue"
     [securityTeams]="securityTeams"
+    [displayedColumns]="displayedColumns"
     [selection]="selected">
   </app-security-teams-list>
 </div>
