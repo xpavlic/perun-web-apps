@@ -754,7 +754,8 @@
       "NO_GROUP": "Move to the root",
       "TO_GROUP": "Move under a group",
       "ERROR": "Failed to move group",
-      "SUCCESS": "Group successfully moved"
+      "SUCCESS": "Group successfully moved",
+      "DISABLED_HINT": "You must select an existing group."
     },
     "CREATE_GROUP": {
       "TITLE": "Create group",

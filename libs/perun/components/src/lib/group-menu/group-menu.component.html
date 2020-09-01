@@ -16,17 +16,24 @@
     </mat-icon>
   </button>
 
-  <button (click)="onMoveGroup()" [matTooltipPosition]="'above'" mat-icon-button
-          matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.MOVE' | translate}}">
+  <button
+    (click)="onMoveGroup()"
+    [matTooltipPosition]="'above'"
+    [disabled]="disabled"
+    mat-icon-button
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.MOVE' | translate}}">
     <mat-icon>arrow_right_alt</mat-icon>
   </button>
-  <button (click)="onChangeNameDescription()" [matTooltipPosition]="'above'"
-          mat-icon-button matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.RENAME' | translate}}">
+  <button
+    [disabled]="disabled"
+    (click)="onChangeNameDescription()"
+    [matTooltipPosition]="'above'"
+    mat-icon-button matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.RENAME' | translate}}">
     <mat-icon>text_format</mat-icon>
   </button>
 </div>
 <div *ngIf="!displayButtons">
-  <button [disabled]="disabled" [mat-menu-trigger-for]="groupMenu" mat-icon-button>
+  <button [mat-menu-trigger-for]="groupMenu" mat-icon-button>
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #groupMenu="matMenu" >
@@ -45,11 +52,11 @@
       </mat-icon>
       <span>{{group | groupSyncToolTip | translate}}</span>
     </button>
-    <button (click)="onMoveGroup()" mat-menu-item>
+    <button (click)="onMoveGroup()" [disabled]="disabled" mat-menu-item>
       <mat-icon>arrow_right_alt</mat-icon>
       <span>{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.MOVE' | translate}}</span>
     </button>
-    <button (click)="onChangeNameDescription()" mat-menu-item>
+    <button (click)="onChangeNameDescription()" [disabled]="disabled" mat-menu-item>
       <mat-icon>text_format</mat-icon>
       <span>{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.RENAME' | translate}}</span>
     </button>

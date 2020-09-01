@@ -23,13 +23,16 @@
       <input
         matInput
         placeholder="{{'DIALOGS.MOVE_GROUP.GROUP_SELECT' | translate}}"
+        required
+        (change)="selectedGroup = null"
         [matAutocomplete]="groupSelectAutocomplete"
         [formControl]="otherGroupsCtrl">
       <!--suppress AngularInvalidExpressionResultType -->
       <mat-autocomplete
         #groupSelectAutocomplete="matAutocomplete"
         [displayWith]="displayFn">
-        <mat-option *ngFor="let group of filteredGroups | async" [value]="group">
+        <mat-option *ngFor="let group of filteredGroups | async" [value]="group"
+                    (click)="selectedGroup = group">
           <span>{{group.name}}</span>
         </mat-option>
       </mat-autocomplete>
@@ -39,18 +42,22 @@
   </mat-spinner>
   <div mat-dialog-actions>
     <button
-      mat-flat-button
       (click)="close()"
-      class="ml-auto">
+      class="ml-auto"
+      mat-flat-button>
       {{'DIALOGS.MOVE_GROUP.CANCEL' | translate}}
     </button>
-    <button
-      [disabled]="(!this.otherGroupsCtrl.value && moveOption !== 'toRoot') || loading"
-      mat-flat-button
-      class="ml-2"
-      (click)="confirm()"
-      color="accent">
+    <span matTooltip="{{'DIALOGS.MOVE_GROUP.DISABLED_HINT' | translate}}"
+          [matTooltipPosition]="'above'"
+          [matTooltipDisabled]="selectedGroup !== null || moveOption === 'toRoot'">
+      <button
+        (click)="confirm()"
+        [disabled]="((otherGroupsCtrl.invalid || selectedGroup === null) && moveOption !== 'toRoot') || loading"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
       {{'DIALOGS.MOVE_GROUP.CONFIRM' | translate}}
-    </button>
+      </button>
+    </span>
   </div>
 </div>

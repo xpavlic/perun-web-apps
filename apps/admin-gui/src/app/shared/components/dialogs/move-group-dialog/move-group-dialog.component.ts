@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {FormControl} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {openClose} from '@perun-web-apps/perun/animations';
@@ -45,9 +45,11 @@ export class MoveGroupDialogComponent implements OnInit {
 
   otherGroups: Group[] = [];
   filteredGroups: Observable<Group[]>;
-  otherGroupsCtrl = new FormControl();
+  otherGroupsCtrl = new FormControl(null, [Validators.required]);
   moveOption: 'toGroup' | 'toRoot';
   loading = false;
+
+  selectedGroup: Group = null;
 
   ngOnInit() {
     this.loading = true;
