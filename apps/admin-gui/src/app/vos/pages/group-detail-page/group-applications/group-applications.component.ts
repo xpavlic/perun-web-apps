@@ -29,7 +29,7 @@ export class GroupApplicationsComponent implements OnInit {
   loading = false;
   applications: Application[] = [];
   group: Group;
-  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'extSourceLoa', 'modifiedBy'];
+  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'modifiedBy'];
   filterValue = '';
   showAllDetails = false;
   detailPageSize: number;

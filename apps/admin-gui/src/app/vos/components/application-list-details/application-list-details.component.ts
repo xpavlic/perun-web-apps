@@ -34,8 +34,8 @@ export class ApplicationListDetailsComponent implements OnChanges {
   page = new EventEmitter<PageEvent>();
 
   displayedColumns: string[] = ['id', 'voId', 'voName', 'groupId', 'groupName', 'type',
-    'state', 'extSourceName', 'extSourceType', 'extSourceLoa',
-    'user', 'createdBy', 'createdAt', 'modifiedBy', 'modifiedAt', 'fedInfo'];
+    'state', 'extSourceName', 'extSourceType', 'user', 'createdBy', 'createdAt',
+    'modifiedBy', 'modifiedAt', 'fedInfo'];
 
   dataSource: MatTableDataSource<any>;
 

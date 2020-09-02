@@ -32,10 +32,6 @@
           <th *matHeaderCellDef mat-header-cell>{{(loginHeader ? loginHeader : 'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.LOGIN') | customTranslate | translate}}</th>
           <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>{{richUserExtSource.userExtSource.login}}</td>
         </ng-container>
-        <ng-container matColumnDef="loa" >
-          <th *matHeaderCellDef mat-header-cell>{{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.LOA' | customTranslate | translate}}</th>
-          <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>{{richUserExtSource.userExtSource.loa}}</td>
-        </ng-container>
         <ng-container class="pl-3" matColumnDef="lastAccess">
           <th *matHeaderCellDef mat-header-cell>{{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.LAST_ACCESS' | customTranslate | translate}}</th>
           <td *matCellDef="let richUserExtSource" mat-cell>{{richUserExtSource.userExtSource.lastAccess | parseLastAccess}}</td>

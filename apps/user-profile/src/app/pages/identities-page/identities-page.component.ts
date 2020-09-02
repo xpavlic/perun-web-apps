@@ -40,8 +40,8 @@ export class IdentitiesPageComponent implements OnInit {
   userId: number;
   loading: boolean;
 
-  hiddenColumnsIdp = ['loa', 'id'];
-  hiddenColumnsCert = ['loa', 'id', 'mail'];
+  hiddenColumnsIdp = ['id'];
+  hiddenColumnsCert = ['id', 'mail'];
   hiddenColumnsOther = ['mail', 'id'];
 
   ngOnInit() {

@@ -27,7 +27,7 @@ export class VoApplicationsComponent implements OnInit {
   loading = false;
   applications: Application[] = [];
   vo: Vo;
-  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'extSourceLoa', 'group', 'modifiedBy'];
+  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'group', 'modifiedBy'];
   firstSearchDone: boolean;
   filterValue = '';
   showAllDetails = false;
