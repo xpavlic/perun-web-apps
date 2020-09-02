@@ -3,6 +3,9 @@ import {ActivatedRoute} from '@angular/router';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import {SideMenuItemService} from '../../../shared/side-menu/side-menu-item.service';
 import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { MatDialog } from '@angular/material/dialog';
+import { EditUserDialogComponent } from '../../../shared/components/dialogs/edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-admin-user-detail-page',
@@ -15,7 +18,8 @@ export class AdminUserDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private usersService: UsersManagerService,
     private sideMenuService: SideMenuService,
-    private sideMenuItemService: SideMenuItemService
+    private sideMenuItemService: SideMenuItemService,
+    private dialog: MatDialog
   ) { }
 
   user: User;
@@ -36,6 +40,26 @@ export class AdminUserDetailPageComponent implements OnInit {
         this.sideMenuService.setAdminItems([userItem]);
       });
     });
+  }
+
+  editUser() {
+    const config = getDefaultDialogConfig();
+    config.width = '450px';
+    config.data = {
+      theme: 'admin-theme',
+      user: this.user
+    };
+
+    const dialogRef = this.dialog.open(EditUserDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.usersService.getUserById(this.user.id).subscribe(user => {
+          this.user = user;
+        });
+      }
+    });
+
   }
 
   getUserType(){

@@ -22,8 +22,11 @@ import { PerunException } from '../model/perunException';
 import { ResourceState } from '../model/resourceState';
 import { ServiceState } from '../model/serviceState';
 import { Task } from '../model/task';
+import { TaskAndDestinationIdObject } from '../model/taskAndDestinationIdObject';
+import { TaskAndDestinationNameObject } from '../model/taskAndDestinationNameObject';
 import { TaskIdObject } from '../model/taskIdObject';
 import { TaskResult } from '../model/taskResult';
+import { TaskResultIdObject } from '../model/taskResultIdObject';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -156,6 +159,192 @@ export class TasksManagerService {
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/tasksManager/deleteTask`,
             taskIdObject,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Delete TaskResult by its ID.
+     * @param taskResultIdObject 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteTaskResultById(taskResultIdObject: TaskResultIdObject, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteTaskResultById(taskResultIdObject: TaskResultIdObject, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteTaskResultById(taskResultIdObject: TaskResultIdObject, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteTaskResultById(taskResultIdObject: TaskResultIdObject, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (taskResultIdObject === null || taskResultIdObject === undefined) {
+            throw new Error('Required parameter taskResultIdObject was null or undefined when calling deleteTaskResultById.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/json/tasksManager/deleteTaskResultById`,
+            taskResultIdObject,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Delete all TaskResults for specified Task and Destination.
+     * @param taskAndDestinationIdObject 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteTaskResultsIds(taskAndDestinationIdObject: TaskAndDestinationIdObject, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteTaskResultsIds(taskAndDestinationIdObject: TaskAndDestinationIdObject, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteTaskResultsIds(taskAndDestinationIdObject: TaskAndDestinationIdObject, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteTaskResultsIds(taskAndDestinationIdObject: TaskAndDestinationIdObject, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (taskAndDestinationIdObject === null || taskAndDestinationIdObject === undefined) {
+            throw new Error('Required parameter taskAndDestinationIdObject was null or undefined when calling deleteTaskResultsIds.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/json/tasksManager/deleteTaskResults/id`,
+            taskAndDestinationIdObject,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Delete all TaskResults for specified Task and Destination.
+     * @param taskAndDestinationNameObject 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteTaskResultsNames(taskAndDestinationNameObject: TaskAndDestinationNameObject, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteTaskResultsNames(taskAndDestinationNameObject: TaskAndDestinationNameObject, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteTaskResultsNames(taskAndDestinationNameObject: TaskAndDestinationNameObject, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteTaskResultsNames(taskAndDestinationNameObject: TaskAndDestinationNameObject, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (taskAndDestinationNameObject === null || taskAndDestinationNameObject === undefined) {
+            throw new Error('Required parameter taskAndDestinationNameObject was null or undefined when calling deleteTaskResultsNames.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/json/tasksManager/deleteTaskResults/name`,
+            taskAndDestinationNameObject,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

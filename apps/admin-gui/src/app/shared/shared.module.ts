@@ -190,6 +190,7 @@ import { ConnectIdentity } from './components/dialogs/connect-identity/connect-i
 import { DisconnectIdentity } from './components/dialogs/disconnect-identity/disconnect-identity';
 import { UserSettingsAssociatedUsersComponent } from './components/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 import { EditFacilityResourceGroupVoDialogComponent } from './components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
 
 @NgModule({
   imports: [
@@ -452,7 +453,8 @@ import { EditFacilityResourceGroupVoDialogComponent } from './components/dialogs
     ConnectIdentity,
     DisconnectIdentity,
     UserSettingsAssociatedUsersComponent,
-    EditFacilityResourceGroupVoDialogComponent
+    EditFacilityResourceGroupVoDialogComponent,
+    EditUserDialogComponent
   ],
   providers: [
     AnyToStringPipe,

@@ -30,10 +30,10 @@ import { Configuration }                                     from '../configurat
 })
 export class FacilitiesManagerByFacilityNameService {
 
+    protected basePath = 'https://perun.cesnet.cz/krb/rpc';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
-    protected basePath = 'https://perun.cesnet.cz/krb/rpc';
 
     constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (configuration) {

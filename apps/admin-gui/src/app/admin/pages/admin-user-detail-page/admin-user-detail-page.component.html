@@ -1,15 +1,21 @@
-<div class="container-fluid pl-xl-5 pr-xl-5 user-theme" *ngIf="user !== undefined">
+<div *ngIf="user !== undefined" class="container-fluid pl-xl-5 pr-xl-5 user-theme">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
   <h1 class="page-title">
-    {{'ADMIN_USER.TITLE' | translate}}
-    <a class="user-link" [routerLink]="['/admin/users', user.id]">
-      {{user | userFullName}}
-    </a>
-    <span class="text-muted">
-      &nbsp;#{{user.id}}
-    </span>
-    <br>
+    <div class="d-flex align-items-center">
+      <div>
+        {{'ADMIN_USER.TITLE' | translate}}
+        <a [routerLink]="['/admin/users', user.id]" class="user-link">
+          {{user | userFullName}}
+        </a>
+        <span class="text-muted">
+          &nbsp;#{{user.id}}
+        </span>
+      </div>
+      <button (click)="editUser()" aria-label="Edit user" mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
     <span class="text-muted mt-1 entity-info">
       {{'ADMIN_USER.USER_TYPE' | translate}}:
       <span class="user-text">
