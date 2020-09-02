@@ -45,9 +45,15 @@ export class VoOverviewComponent implements OnInit {
   }
 
   private initNavItems() {
+    this.navItems.push({
+        cssIcon: 'perun-attributes',
+        url: `/organizations/${this.vo.id}/attributes`,
+        label: 'MENU_ITEMS.VO.ATTRIBUTES',
+        style: 'vo-btn'
+      });
 
     // Members
-    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+    if (this.authResolver.isAuthorized('getCompleteRichMembers_Vo_List<String>_policy', [this.vo])) {
       this.navItems.push({
         cssIcon: 'perun-user',
         url: `/organizations/${this.vo.id}/members`,
@@ -57,8 +63,7 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Groups
-    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)
-      || this.authResolver.isGroupAdminInThisVo(this.vo.id)) {
+    if (this.authResolver.isAuthorized('getAllRichGroupsWithAttributesByNames_Vo_List<String>_policy', [this.vo])) {
       this.navItems.push({
         cssIcon: 'perun-group',
         url: `/organizations/${this.vo.id}/groups`,
@@ -68,7 +73,7 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Resource management
-    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+    if (this.authResolver.isAuthorized('getRichResources_Vo_policy', [this.vo])) {
       this.navItems.push({
         cssIcon: 'perun-manage-facility',
         url: `/organizations/${this.vo.id}/resources`,
@@ -78,7 +83,7 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Applications
-    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+    if (this.authResolver.isAuthorized('getApplicationsForVo_Vo_List<String>_policy',[this.vo])) {
       this.navItems.push({
         cssIcon: 'perun-applications',
         url: `/organizations/${this.vo.id}/applications`,
@@ -88,7 +93,9 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Settings
-    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+    if (this.authResolver.isAuthorized('getRichAdmins_Vo_String_List<String>_boolean_boolean_policy', [this.vo]) ||
+    this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [this.vo]) ||
+    this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
       this.navItems.push({
         cssIcon: 'perun-settings2',
         url: `/organizations/${this.vo.id}/settings`,

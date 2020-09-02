@@ -201,15 +201,20 @@
         (click)="create()">
         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.CREATE_BUTTON' | translate}}
       </button>
+      <div
+        matTooltip="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.EDIT_HINT' | translate}}"
+        [matTooltipPosition]="'above'"
+        [matTooltipDisabled]="editAuth">
       <button
         mat-flat-button
         *ngIf="!data.createMailNotification"
         class="ml-2"
         color="accent"
-        [disabled]="loading"
+        [disabled]="loading || !editAuth"
         (click)="save()">
         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SAVE_BUTTON' | translate}}
       </button>
+      </div>
     </div>
   </div>
 </div>

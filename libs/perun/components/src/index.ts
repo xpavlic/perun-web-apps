@@ -15,3 +15,4 @@ export * from './lib/password-reset/password-reset.component';
 export * from './lib/redirect-page/redirect-page.component';
 export * from './lib/change-expiration-dialog/change-expiration-dialog.component';
 export * from './lib/groups-list/groups-list.component';
+export * from './lib/groups-tree/groups-tree.component';

@@ -59,6 +59,7 @@ export class ManagersPageComponent implements OnInit {
   pageSize: number;
 
   isAuthorized = false;
+  routeAuth: boolean;
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -66,6 +67,7 @@ export class ManagersPageComponent implements OnInit {
     this.isAuthorized = this.guiAuthResolver.isPerunAdmin() ||
       this.guiAuthResolver.isFacilityAdmin() ||
       this.guiAuthResolver.isVoAdmin();
+    this.routeAuth = this.guiAuthResolver.isPerunAdmin();
     this.changeUser();
   }
 

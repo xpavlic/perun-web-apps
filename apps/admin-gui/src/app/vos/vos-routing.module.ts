@@ -14,7 +14,7 @@ import {GroupSubgroupsComponent} from './pages/group-detail-page/group-subgroups
 import {VoResourcesComponent} from './pages/vo-detail-page/vo-resources/vo-resources.component';
 import {VoApplicationsComponent} from './pages/vo-detail-page/vo-applications/vo-applications.component';
 import {VoSettingsComponent} from './pages/vo-detail-page/vo-settings/vo-settings.component';
-import {VoSettingsAttributesComponent} from './pages/vo-detail-page/vo-settings/vo-settings-attributes/vo-settings-attributes.component';
+import {VoAttributesComponent} from './pages/vo-detail-page/vo-attributes/vo-attributes.component';
 import {VoSettingsOverviewComponent} from './pages/vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
 import {VoSettingsExpirationComponent} from './pages/vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
 import {GroupApplicationsComponent} from './pages/group-detail-page/group-applications/group-applications.component';
@@ -91,6 +91,11 @@ const routes: Routes = [
         data: {animation: 'VoOverviewPage'}
       },
       {
+        path: 'attributes',
+        component: VoAttributesComponent,
+        data: {animation: 'VoSettingsAttributesPage'}
+      },
+      {
         path: 'groups',
         component: VoGroupsComponent,
         data: {animation: 'VoGroupsPage'}
@@ -144,11 +149,6 @@ const routes: Routes = [
             path: '',
             component: VoSettingsOverviewComponent,
             data: {animation: 'VoSettingsOverviewPage'}
-          },
-          {
-            path: 'attributes',
-            component: VoSettingsAttributesComponent,
-            data: {animation: 'VoSettingsAttributesPage'}
           },
           {
             path: 'expiration',

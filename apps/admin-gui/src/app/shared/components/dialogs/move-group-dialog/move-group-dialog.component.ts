@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {openClose} from '@perun-web-apps/perun/animations';
-import {NotificatorService} from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import {TranslateService} from '@ngx-translate/core';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
@@ -31,7 +31,8 @@ export class MoveGroupDialogComponent implements OnInit {
     private groupService: GroupsManagerService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private apiRequest: ApiRequestConfigurationService
+    private apiRequest: ApiRequestConfigurationService,
+    private authResolver: GuiAuthResolver
   ) {
     this.translate.get('DIALOGS.MOVE_GROUP.SUCCESS').subscribe(value => this.successMessage = value);
     this.translate.get('DIALOGS.MOVE_GROUP.ERROR').subscribe(value => this.errorMessage = value);
@@ -54,8 +55,14 @@ export class MoveGroupDialogComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.groupService.getAllGroups(this.data.group.voId).subscribe(allGroups => {
-      this.otherGroups = allGroups.filter(group => group.id !== this.data.group.id && group.name !== 'members');
-      if (this.data.group.parentGroupId === null) {
+      this.otherGroups = allGroups.filter(group => group.id !== this.data.group.id &&
+          group.name !== 'members' &&
+          this.canMove(group));
+      if(this.otherGroups.length === 0){
+        this.toGroupOptionDisabled = true;
+      }
+      if (this.data.group.parentGroupId === null ||
+        !this.authResolver.isAuthorized('destination_null-moveGroup_Group_Group_policy', [this.data.group])) {
         this.toRootOptionDisabled = true;
         this.moveOption = 'toGroup';
       }
@@ -82,6 +89,11 @@ export class MoveGroupDialogComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return value ? this.otherGroups.filter(group => group.name.toLowerCase().indexOf(filterValue) > -1) : this.otherGroups;
+  }
+
+  canMove(group: Group): boolean {
+    return this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [group, this.data.group]) &&
+      this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [this.data.group, group]);
   }
 
   close() {

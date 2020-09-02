@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
-import {NotificatorService} from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
@@ -28,6 +28,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
   mailAttribute: Attribute;
   theme: string;
   loading = false;
+  editAuth: boolean;
 
   ngOnInit() {
     this.theme = this.data.theme;
@@ -43,10 +44,12 @@ export class EditEmailFooterDialogComponent implements OnInit {
     if (this.data.groupId) {
       this.attributesManager.setGroupAttribute({group: this.data.groupId, attribute: this.mailAttribute}).subscribe(() => {
         this.notificateSuccess();
+        this.dialogRef.close();
       }, () => this.loading = false);
     } else {
       this.attributesManager.setVoAttribute({vo: this.data.voId, attribute: this.mailAttribute}).subscribe(() => {
         this.notificateSuccess();
+        this.dialogRef.close();
       }, () => this.loading = false);
     }
   }
@@ -59,6 +62,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
     this.attributesManager.getVoAttributeByName(this.data.voId,
       Urns.VO_DEF_MAIL_FOOTER).subscribe( footer => {
       this.mailAttribute = footer;
+      this.editAuth = this.mailAttribute.writable;
       if (footer.value) {
         // @ts-ignore
         this.mailFooter = footer.value;

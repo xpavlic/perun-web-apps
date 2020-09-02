@@ -4,6 +4,7 @@
 
 <div class="w-100 d-flex">
   <button
+    *ngIf="!loading && addAuth"
     mat-flat-button
     color="accent"
     class="mr-2"
@@ -12,6 +13,7 @@
   </button>
 
   <button
+    *ngIf="!loading && removeAuth"
     mat-flat-button
     color="warn"
     class="mr-2"
@@ -21,6 +23,7 @@
   </button>
 
   <button
+    *ngIf="!loading"
     mat-stroked-button
     class="mr-2"
     (click)="changeEmailFooter()">
@@ -29,6 +32,7 @@
   </button>
 
   <button
+    *ngIf="!loading && copyAuth"
     mat-stroked-button
     (click)="copy()">
     <i class="material-icons">file_copy</i>
@@ -45,6 +49,8 @@
     [pageSize]="pageSize"
     (page)="pageChanged($event)"
     [voId]="voId"
+    [displayedColumns]="displayedColumns"
+    [disableSend]="!addAuth"
     [selection]="selection"
     [theme]="'vo-theme'"
     (selectionChange)="changeSelection($event)"></app-notification-list>

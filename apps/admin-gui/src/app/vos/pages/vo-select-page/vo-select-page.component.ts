@@ -30,7 +30,8 @@ export class VoSelectPageComponent implements OnInit {
   loading: boolean;
   filterValue = '';
 
-  isVoAdmin: boolean;
+  createAuth: boolean;
+  deleteAuth: boolean;
 
   selection: SelectionModel<Vo>;
 
@@ -42,8 +43,9 @@ export class VoSelectPageComponent implements OnInit {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.selection = new SelectionModel<Vo>(false, []);
-    this.isVoAdmin = this.authzService.isVoAdmin();
-    this.displayedColumns = this.isVoAdmin ? ['checkbox', 'id', 'recent', 'shortName', 'name'] : ['id', 'recent', 'shortName', 'name'];
+    this.createAuth = this.authzService.isAuthorized('createVo_Vo_policy', []);
+    this.deleteAuth = this.authzService.isAuthorized('deleteVo_Vo_policy', []);
+    this.displayedColumns = this.deleteAuth ? ['checkbox', 'id', 'recent', 'shortName', 'name'] : ['id', 'recent', 'shortName', 'name'];
     this.sideMenuService.setAccessMenuItems([]);
     this.refreshTable();
   }

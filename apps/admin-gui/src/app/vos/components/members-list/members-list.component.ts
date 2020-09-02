@@ -58,6 +58,9 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   @Input()
   pageSize = 10;
 
+  @Input()
+  disableRouting = false;
+
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 

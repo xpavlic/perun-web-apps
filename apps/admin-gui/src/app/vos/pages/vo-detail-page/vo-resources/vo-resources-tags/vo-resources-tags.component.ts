@@ -5,8 +5,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { CreateResourceTagDialogComponent } from '../../../../../shared/components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
 import { DeleteResourceTagDialogComponent } from '../../../../../shared/components/dialogs/delete-resource-tag-dialog/delete-resource-tag-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { ResourcesManagerService, ResourceTag } from '@perun-web-apps/perun/openapi';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { ResourcesManagerService, ResourceTag, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_VO_RESOURCES_TAGS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -24,23 +24,35 @@ export class VoResourcesTagsComponent implements OnInit {
               private dialog: MatDialog,
               private notificator: NotificatorService,
               private tableConfigService: TableConfigService,
-              private translator: TranslateService) { }
+              private translator: TranslateService,
+              private authResolver: GuiAuthResolver,
+              private voService: VosManagerService) { }
 
   loading = false;
   resourceTag: ResourceTag[] = [];
   voId: number;
+  vo: Vo;
 
   selection = new SelectionModel<ResourceTag>(true, []);
 
   filterValue: string;
   pageSize: number;
   tableId = TABLE_VO_RESOURCES_TAGS;
+  displayedColumns = [];
+
+  createAuth: boolean;
+  deleteAuth: boolean;
+  editAuth: boolean;
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(parentParams => {
       this.voId = parentParams['voId'];
-      this.updateData();
+
+      this.voService.getVoById(this.voId).subscribe(vo => {
+        this.vo = vo;
+        this.updateData();
+      });
     });
   }
 
@@ -77,13 +89,30 @@ export class VoResourcesTagsComponent implements OnInit {
       }
     });
   }
+
   updateData() {
     this.loading = true;
     this.selection.clear();
     this.resourceManager.getAllResourcesTagsForVo(this.voId).subscribe(tags => {
       this.resourceTag = tags;
+      this.selection.clear();
+      this.setAuthRights();
       this.loading = false;
     });
+  }
+
+  setAuthRights() {
+    this.displayedColumns = [];
+
+    this.createAuth = this.authResolver.isAuthorized('createResourceTag_ResourceTag_Vo_policy', [this.vo]);
+    this.deleteAuth = this.authResolver.isAuthorized('deleteResourceTag_ResourceTag_policy', [this.vo]);
+    this.editAuth = this.authResolver.isAuthorized('updateResourceTag_ResourceTag_policy', [this.vo]);
+
+    this.displayedColumns = this.deleteAuth ? ['select', 'id', 'name'] : ['id', 'name'];
+
+    if(this.editAuth){
+      this.displayedColumns.push('edit');
+    }
   }
 
   applyFilter(filterValue: string) {

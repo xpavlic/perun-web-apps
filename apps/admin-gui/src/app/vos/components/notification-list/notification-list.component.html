@@ -53,6 +53,9 @@
         <td *matCellDef="let applicationMail" mat-cell>
           <section>
             <mat-checkbox (change)="changeSending(applicationMail)"
+                          [disabled]="disableSend"
+                          matTooltip="{{'VO_DETAIL.SETTINGS.NOTIFICATIONS.DISABLED_HINT' | translate}}"
+                          [matTooltipDisabled]="!disableSend"
                           (click)="$event.stopPropagation()"
                           [ngModel]="applicationMail.send">
             </mat-checkbox>

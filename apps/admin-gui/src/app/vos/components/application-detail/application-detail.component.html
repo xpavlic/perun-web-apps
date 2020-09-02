@@ -10,19 +10,43 @@
 </mat-spinner>
 
 <div *ngIf="!loading">
-  <button mat-flat-button color="accent" class="mr-2" (click)="verifyApplication()" *ngIf="this.application.state == 'NEW'">
+  <button
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    (click)="verifyApplication()"
+    *ngIf="this.application.state == 'NEW' && verifyAuth">
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.VERIFY' | translate}}
   </button>
-  <button mat-flat-button color="accent" class="mr-2" (click)="approveApplication()" *ngIf="this.application.state == 'VERIFIED' || this.application.state == 'NEW'">
+  <button
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    (click)="approveApplication()"
+    *ngIf="(this.application.state == 'VERIFIED' || this.application.state == 'NEW') && approveAuth">
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPROVE' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="mr-2" (click)="rejectApplication()" *ngIf="this.application.state == 'VERIFIED' || this.application.state == 'NEW'">
+  <button
+    mat-flat-button
+    color="warn"
+    class="mr-2"
+    (click)="rejectApplication()"
+    *ngIf="(this.application.state == 'VERIFIED' || this.application.state == 'NEW') && rejectAuth">
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.REJECT' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="mr-2" (click)="deleteApplication()" *ngIf="this.application.state == 'REJECTED' || this.application.state == 'NEW'">
+  <button
+    mat-flat-button
+    color="warn"
+    class="mr-2"
+    (click)="deleteApplication()"
+    *ngIf="(this.application.state == 'REJECTED' || this.application.state == 'NEW') && deleteAuth">
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE' | translate}}
   </button>
-  <button mat-stroked-button class="mr-2 mb-2" (click)="resendNotification()">
+  <button
+    *ngIf="resendAuth"
+    mat-stroked-button
+    class="mr-2 mb-2"
+    (click)="resendNotification()">
     <i class="material-icons">
       mail_outline
     </i> {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.SEND_NOTIFICATION' | translate}}

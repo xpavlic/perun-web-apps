@@ -53,7 +53,8 @@
         "LOA_PERIOD_LABEL": "Special period for loa",
         "SAVE": "Save",
         "SPECIAL_LOA_SELECT": "Choose loa",
-        "EXTEND_EXPIRED_MEMBERS_CHECKBOX": "Extend already expired members"
+        "EXTEND_EXPIRED_MEMBERS_CHECKBOX": "Extend already expired members",
+        "PERMISSION_DENIED_HINT": "You don't have permission to change expiration settings"
       }
     }
   },
@@ -266,7 +267,8 @@
       "GROUP_NOT_SYNCED": "Not synchronized",
       "GROUP_SYNC_FAILED": "Last synchronization failed",
       "GROUP_NOT_YET_SYNCED": "Not yet synced",
-      "GROUP_STRUCTURE_SYNCED": "Group structure synchronized"
+      "GROUP_STRUCTURE_SYNCED": "Group structure synchronized",
+      "DELETE_PERMISSION_HINT": "You don't have permission to delete some of the selected groups."
     },
     "MEMBERS": {
       "TITLE": "Members",
@@ -395,7 +397,8 @@
         "DELETE_SUCCESS": "Email notification deleted.",
         "NO_EMAILS": "No mail notifications found for this VO.",
         "EDIT_SUCCESS": "Email notification was successfully edited",
-        "ADD_SUCCESS": "Email notification was successfully added"
+        "ADD_SUCCESS": "Email notification was successfully added",
+        "DISABLED_HINT": "You don't have permission to change sending settings."
       },
       "EXT_SOURCES": {
         "TITLE": "External sources",
@@ -760,7 +763,8 @@
       "TO_GROUP": "Move under a group",
       "ERROR": "Failed to move group",
       "SUCCESS": "Group successfully moved",
-      "DISABLED_HINT": "You must select an existing group."
+      "DISABLED_HINT": "You must select an existing group.",
+      "CANNOT_MOVE": "You don't have permission to move this group."
     },
     "CREATE_GROUP": {
       "TITLE": "Create group",
@@ -1041,7 +1045,8 @@
       "LABEL": "Footer text",
       "SUBMIT_BUTTON": "Save",
       "CANCEL_BUTTON": "Cancel",
-      "SUCCESS": "Email footer was successfully edited."
+      "SUCCESS": "Email footer was successfully edited.",
+      "HINT": "You don't have permission to edit email footer."
     },
     "NOTIFICATIONS_ADD_EDIT_MAIL": {
       "TITLE_CREATE": "Add email notification",
@@ -1049,6 +1054,7 @@
       "CANCEL_BUTTON": "Cancel",
       "CREATE_BUTTON": "Create",
       "SAVE_BUTTON": "Save",
+      "EDIT_HINT": "You don't have permission to edit notifications.",
       "BASIC_SETTINGS": "Basic settings",
       "EMAIL_TYPE": "Email type",
       "EMAIL_TYPE_DESCRIPTION_CREATE": "Selected type of notification (action which trigger sending and who is notified).",

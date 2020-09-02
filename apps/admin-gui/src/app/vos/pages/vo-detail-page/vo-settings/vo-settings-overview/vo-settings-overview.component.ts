@@ -3,6 +3,7 @@ import {SideMenuService} from '../../../../../core/services/common/side-menu.ser
 import {ActivatedRoute, Router} from '@angular/router';
 import {MenuItem} from '@perun-web-apps/perun/models';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-settings-overview',
@@ -16,6 +17,7 @@ export class VoSettingsOverviewComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
+    private authResolver: GuiAuthResolver,
     protected route: ActivatedRoute,
     protected router: Router
   ) { }
@@ -36,43 +38,52 @@ export class VoSettingsOverviewComponent implements OnInit {
   }
 
   private initItems() {
-    this.items = [
-      {
-        cssIcon: 'perun-attributes',
-        url: `/organizations/${this.vo.id}/settings/attributes`,
-        label: 'MENU_ITEMS.VO.ATTRIBUTES',
-        style: 'vo-btn'
-      },
-      {
+    this.items = [];
+
+    // Membership
+    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+      this.items.push({
         cssIcon: 'perun-group',
         url: `/organizations/${this.vo.id}/settings/expiration`,
         label: 'MENU_ITEMS.VO.EXPIRATION',
         style: 'vo-btn'
-      },
-      {
+      });
+    }
+    // Managers
+    if (this.authResolver.isAuthorized('getRichAdmins_Vo_String_List<String>_boolean_boolean_policy', [this.vo])) {
+      this.items.push({
         cssIcon: 'perun-manager',
         url: `/organizations/${this.vo.id}/settings/managers`,
         label: 'MENU_ITEMS.VO.MANAGERS',
         style: 'vo-btn'
-      },
-      {
+      });
+    }
+    // Application forms
+    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+      this.items.push({
         cssIcon: 'perun-application-form',
         url: `/organizations/${this.vo.id}/settings/applicationForm`,
         label: 'MENU_ITEMS.VO.APPLICATION_FORM',
         style: 'vo-btn'
-      },
-      {
+      });
+    }
+    // Notifications
+    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+      this.items.push({
         cssIcon: 'perun-notification',
         url: `/organizations/${this.vo.id}/settings/notifications`,
         label: 'MENU_ITEMS.VO.NOTIFICATIONS',
         style: 'vo-btn'
-      },
-      {
+      });
+    }
+    // Ext sources
+    if (this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [this.vo])) {
+      this.items.push({
         cssIcon: 'perun-external-sources',
         url: `/organizations/${this.vo.id}/settings/extsources`,
         label: 'MENU_ITEMS.VO.EXTSOURCES',
         style: 'vo-btn'
-      }
-    ];
+      });
+    }
   }
 }

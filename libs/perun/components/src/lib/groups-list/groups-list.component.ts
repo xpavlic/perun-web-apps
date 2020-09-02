@@ -12,7 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Group, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
@@ -90,8 +90,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   exporting = false;
   disabledRouting = false;
 
-  deleteAuth = false;
-  removeAuth = false;
+  deleteAuth = true;
   vo: Vo;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

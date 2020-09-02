@@ -3,13 +3,15 @@ import { Component, EventEmitter, HostListener, Input, OnChanges, Output, Simple
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
-import { RichGroup } from '@perun-web-apps/perun/openapi';
+import { RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { EditGroupDialogComponent } from '../edit-group-dialog/edit-group-dialog.component';
 
+import { GUIConfigService } from '@perun-web-apps/config/table-config';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-groups-tree',
@@ -19,7 +21,8 @@ import { EditGroupDialogComponent } from '../edit-group-dialog/edit-group-dialog
 export class GroupsTreeComponent implements OnChanges {
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver
   ) { }
 
   private transformer = (node: TreeGroup, level: number) => {
@@ -31,7 +34,8 @@ export class GroupsTreeComponent implements OnChanges {
       level: level,
       id: node.id,
       voId: node.voId,
-      attributes: node.attributes
+      attributes: node.attributes,
+      beanName: node.beanName
     };
   };
 
@@ -59,6 +63,12 @@ export class GroupsTreeComponent implements OnChanges {
   @Input()
   selection = new SelectionModel<GroupFlatNode>(true, []);
 
+  @Input()
+  hideCheckbox = false;
+
+  @Input()
+  vo: Vo;
+
   treeControl = new FlatTreeControl<GroupFlatNode>(
     node => node.level, node => node.expandable);
 
@@ -66,6 +76,8 @@ export class GroupsTreeComponent implements OnChanges {
     this.transformer, node => node.level, node => node.expandable, node => node.children);
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+  removeAuth = true;
 
   ngOnChanges(changes: SimpleChanges) {
     this.createGroupTrees(this.groups);
@@ -171,6 +183,7 @@ export class GroupsTreeComponent implements OnChanges {
       this.checkRootNodeSelection(parent);
       parent = this.getParentNode(parent);
     }
+    this.removeAuth = this.setRemoveAuth();
   }
 
   leafItemSelectionToggle(node: GroupFlatNode): void {
@@ -196,6 +209,11 @@ export class GroupsTreeComponent implements OnChanges {
       this.selection.isSelected(child)
     );
     this.checkAllParentsSelection(node);
+  }
+
+  setRemoveAuth(): boolean {
+    return this.selection.selected.reduce((acc, grp) => acc &&
+      this.authResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [this.vo, grp]), true);
   }
 
   onMoveGroup(group: GroupFlatNode) {

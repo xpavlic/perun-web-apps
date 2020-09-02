@@ -10,13 +10,15 @@
           [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
           [matTooltipPosition]="'above'"
           [matTooltip]="group | groupSyncToolTip | translate"
-          mat-icon-button>
+          mat-icon-button
+          *ngIf="syncAuth">
     <mat-icon class="{{group | groupSyncIconColor}}">
       {{group | groupSyncIcon}}
     </mat-icon>
   </button>
 
   <button
+    *ngIf="moveAuth"
     (click)="onMoveGroup()"
     [matTooltipPosition]="'above'"
     [disabled]="disabled"
@@ -25,6 +27,7 @@
     <mat-icon>arrow_right_alt</mat-icon>
   </button>
   <button
+    *ngIf="editAuth"
     [disabled]="disabled"
     (click)="onChangeNameDescription()"
     [matTooltipPosition]="'above'"
@@ -44,19 +47,29 @@
       <span>{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.COPY' | translate}}</span>
     </button>
 
-    <button (click)="onSyncDetail()"
-            [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
-            mat-menu-item>
+    <button
+      *ngIf="syncAuth"
+      (click)="onSyncDetail()"
+      [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
+      mat-menu-item>
       <mat-icon class="{{group | groupSyncIconColor}}">
         {{group | groupSyncIcon}}
       </mat-icon>
       <span>{{group | groupSyncToolTip | translate}}</span>
     </button>
-    <button (click)="onMoveGroup()" [disabled]="disabled" mat-menu-item>
+    <button
+      *ngIf="moveAuth"
+      [disabled]="disabled"
+      (click)="onMoveGroup()"
+      mat-menu-item>
       <mat-icon>arrow_right_alt</mat-icon>
       <span>{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.MOVE' | translate}}</span>
     </button>
-    <button (click)="onChangeNameDescription()" [disabled]="disabled" mat-menu-item>
+    <button
+      *ngIf="editAuth"
+      [disabled]="disabled"
+      (click)="onChangeNameDescription()"
+      mat-menu-item>
       <mat-icon>text_format</mat-icon>
       <span>{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.RENAME' | translate}}</span>
     </button>
