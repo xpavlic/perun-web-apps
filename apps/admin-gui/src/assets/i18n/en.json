@@ -1488,6 +1488,20 @@
       "VO_SUCCESS": "Vo successfully updated",
       "FILL_NAME": "Length of name has to be between 1 to 128 characters",
       "FILL_DESCRIPTION": "Length of full name has to be between 1 to 128 characters"
+    },
+    "EDIT_USER": {
+      "DIALOG_TITLE": "Edit user",
+      "TITLE_BEFORE": "Title before name",
+      "TITLE_AFTER": "Title after name",
+      "FIRST_NAME": "First name",
+      "MIDDLE_NAME": "Middle name",
+      "LAST_NAME": "Last name",
+      "SAVE": "Save",
+      "CANCEL": "Cancel",
+      "SUCCESS": "User successfully updated",
+      "ERROR_LAST_NAME": "Last name cannot be empty or longer than 128 characters",
+      "ERROR_FIRST_NAME": "First name cannot be empty or longer than 128 characters",
+      "ERROR_LENGTH": "Length of field has to be less than 128 characters"
     }
   },
   "MEMBERS_LIST": {
