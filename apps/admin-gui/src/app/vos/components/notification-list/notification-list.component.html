@@ -66,7 +66,7 @@
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr
         *matRowDef="let applicationMail; columns: displayedColumns;"
-        [class.cursor-pointer]="!disableSend"
+        [class.cursor-pointer]="true"
         (click)="openApplicationMailDetail(applicationMail)"
         class="dark-hover-list-item"
         mat-row>

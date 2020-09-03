@@ -107,9 +107,6 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
   }
 
   openApplicationMailDetail(applicationMail: ApplicationMail) {
-    if (this.disableSend) {
-      return;
-    }
     const config = getDefaultDialogConfig();
     config.width = '1400px';
     config.height = '700px';

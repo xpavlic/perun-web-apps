@@ -862,7 +862,7 @@ export class SideMenuItemService {
     });
 
     //SettingsManagers
-    if (this.authResolver.isAuthorized('getGroupById_int_policy', [group])) {
+    if (this.authResolver.isAuthorized('getRichAdmins_Group_List<String>_boolean_boolean_policy', [group])) {
       settingsChildrenLinks.push({
         label: 'MENU_ITEMS.GROUP.MANAGERS',
         url: [`/organizations/${group.voId}/groups/${group.id}/settings/managers`],
@@ -880,11 +880,13 @@ export class SideMenuItemService {
     }
 
     //SettingsNotifications
-    settingsChildrenLinks.push({
-      label: 'MENU_ITEMS.GROUP.NOTIFICATIONS',
-      url: [`/organizations/${group.voId}/groups/${group.id}/settings/notifications`],
-      activatedRegex: '/organizations/\\d+/groups/\\d+/settings/notifications$'
-    });
+    if (this.authResolver.isAuthorized('group-getFormItems_ApplicationForm_AppType_policy', [group])) {
+      settingsChildrenLinks.push({
+        label: 'MENU_ITEMS.GROUP.NOTIFICATIONS',
+        url: [`/organizations/${group.voId}/groups/${group.id}/settings/notifications`],
+        activatedRegex: '/organizations/\\d+/groups/\\d+/settings/notifications$'
+      });
+    }
 
     //SettingsRelations
     if (this.authResolver.isAuthorized('getGroupUnions_Group_boolean_policy', [group])) {

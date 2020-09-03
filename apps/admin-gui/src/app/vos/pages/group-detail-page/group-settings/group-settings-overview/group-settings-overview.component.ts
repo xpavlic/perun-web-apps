@@ -88,7 +88,7 @@ export class GroupSettingsOverviewComponent implements OnInit {
       }
     });
 
-    if (this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.group])) {
+    if (this.guiAuthResolver.isAuthorized('getRichAdmins_Group_List<String>_boolean_boolean_policy', [this.group])) {
       this.items.push({
         cssIcon: 'perun-manager',
         url: `/organizations/${this.vo.id}/groups/${this.group.id}/settings/managers`,
@@ -106,12 +106,14 @@ export class GroupSettingsOverviewComponent implements OnInit {
       });
     }
 
-    this.items.push({
-      cssIcon: 'perun-notification',
+    if (this.guiAuthResolver.isAuthorized('group-getFormItems_ApplicationForm_AppType_policy', [this.group])) {
+      this.items.push({
+        cssIcon: 'perun-notification',
         url: `/organizations/${this.vo.id}/groups/${this.group.id}/settings/notifications`,
-      label: 'MENU_ITEMS.GROUP.NOTIFICATIONS',
-      style: 'group-btn'
-    });
+        label: 'MENU_ITEMS.GROUP.NOTIFICATIONS',
+        style: 'group-btn'
+      });
+    }
 
     if (this.guiAuthResolver.isAuthorized('getGroupUnions_Group_boolean_policy', [this.group])) {
       this.items.push({

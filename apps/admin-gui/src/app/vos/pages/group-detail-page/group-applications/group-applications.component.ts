@@ -49,14 +49,13 @@ export class GroupApplicationsComponent implements OnInit {
       this.groupService.getGroupById(groupId).subscribe( group => {
         this.group = group;
         this.setData(['NEW', 'VERIFIED']);
-        this.setAuth();
       });
     });
   }
 
   setAuth() {
     if (this.applications.length !== 0) {
-      this.routeAuth = this.guiAuthResolver.isAuthorized('getApplicationById_int_policy', [this.group]);
+      this.routeAuth = this.guiAuthResolver.isAuthorized('group-getApplicationById_int_policy', [this.group]);
     }
   }
 
@@ -64,6 +63,7 @@ export class GroupApplicationsComponent implements OnInit {
   setData(state: string[]) {
     this.registrarManager.getApplicationsForGroup(this.group.id, state).subscribe(applications => {
       this.applications = applications;
+      this.setAuth();
       this.loading = false;
     });
   }
@@ -94,6 +94,7 @@ export class GroupApplicationsComponent implements OnInit {
       case 'all': {
         this.registrarManager.getApplicationsForGroup(this.group.id).subscribe(applications => {
           this.applications = applications;
+          this.setAuth();
           this.loading = false;
         });
         break;

@@ -9,3 +9,7 @@ th, td {
 ::ng-deep .status-tooltip {
   white-space: pre-line;
 }
+
+.disable-outline{
+  outline: none !important;
+}

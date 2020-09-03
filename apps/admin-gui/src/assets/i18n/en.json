@@ -536,7 +536,8 @@
         "NO_APPLICATION_FORM": "Application form doesn't exists",
         "CREATE_APPLICATION_FORM": "Create empty form",
         "CLEAR": "Clear form",
-        "CLEAR_TOOLTIP": "Removes all form items"
+        "CLEAR_TOOLTIP": "Removes all form items",
+        "CHANGE_SETTINGS_SUCCESS": "Application from settings successfully changed."
       },
       "NOTIFICATIONS": {
         "TITLE": "Email notifications",
@@ -876,7 +877,8 @@
       "SUCCESS": "Selected members were added",
       "SUCCESS_INVITE": "Invite was send to given user",
       "VALIDATION_SUCCESS": "Member validation was successful",
-      "NO_USERS_FOUND": "No users found"
+      "NO_USERS_FOUND": "No users found",
+      "ADD_MEMBER_PERMISSION_TOOLTIP": "You don't have permission to add member"
     },
     "ADD_GROUPS": {
       "TITLE": "Add group",
@@ -1792,7 +1794,9 @@
           "TABLE_GROUP_NAME": "Name",
           "TABLE_SEARCH": "Filter by name, description or ID",
           "TABLE_GROUP_DESCRIPTION": "Description",
-          "DISABLED_HINT": "You cannot add members to this group or user is already member."
+          "DISABLED_HINT": "You cannot add members to this group or user is already member.",
+          "ALREADY_MEMBER_TOOLTIP": "Already member",
+          "CREATE_RELATION_AUTH_TOOLTIP": "You don't have permission to create relation with this group."
         },
         "GROUP_MENU": {
           "MOVE": "Move group",

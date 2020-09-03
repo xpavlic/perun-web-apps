@@ -218,7 +218,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   setAuth(): boolean {
     if (this.authType === 'group-subgroups') {
       return this.selection.selected.reduce((acc, grp) => acc &&
-        this.authResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [grp]), true);
+        this.authResolver.isAuthorized('deleteGroup_Group_boolean_policy', [grp]), true);
     } else if (this.authType === 'group-relations') {
       return this.selection.selected.reduce((acc, grp) => acc && this.authResolver.isAuthorized('removeGroupUnion_Group_Group_policy', [this.parentGroup, grp]), true);
     } else if (this.authType === 'vo-groups') {
@@ -230,5 +230,10 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   itemSelectionToggle(item: Group) {
     this.selection.toggle(item);
     this.removeAuth = this.setAuth();
+  }
+
+  getCheckboxTooltipMessage() {
+    return this.authType === 'create-relation-dialog' ? 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CREATE_RELATION_AUTH_TOOLTIP' :
+      'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.ALREADY_MEMBER_TOOLTIP'
   }
 }

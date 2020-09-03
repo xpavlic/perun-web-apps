@@ -76,6 +76,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
     this.attributesManager.getGroupAttributeByName(this.data.groupId,
       Urns.GROUP_DEF_MAIL_FOOTER).subscribe(footer => {
       this.mailAttribute = footer;
+      this.editAuth = this.mailAttribute.writable;
       if (footer.value) {
         // @ts-ignore
         this.mailFooter = footer.value;

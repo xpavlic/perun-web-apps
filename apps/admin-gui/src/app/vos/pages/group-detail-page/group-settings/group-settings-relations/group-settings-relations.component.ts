@@ -11,7 +11,7 @@ import {
 } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { GroupsListComponent } from '../../../../../../../../../libs/perun/components/src/lib/groups-list/groups-list.component';
+import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-group-settings-relations',

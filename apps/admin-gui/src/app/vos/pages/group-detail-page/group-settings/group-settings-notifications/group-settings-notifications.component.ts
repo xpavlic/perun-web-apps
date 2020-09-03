@@ -91,7 +91,6 @@ export class GroupSettingsNotificationsComponent implements OnInit {
             //not implemented in authorization....probably must be hardcoded
             this.apiRequest.dontHandleErrorForNext();
             this.attributesService.getGroupAttributeByName(this.groupId, Urns.GROUP_DEF_EXPIRATION_RULES).subscribe(() => {
-              this.editEmailFooterAuth = true;
               this.setAuthRights();
               this.loading = false;
             }, error => {
@@ -104,7 +103,6 @@ export class GroupSettingsNotificationsComponent implements OnInit {
           });
         }, error => {
           if (error.error.name === 'FormNotExistsException') {
-            this.noApplicationForm = true;
             this.setAuthRights()
             this.loading = false;
           } else {

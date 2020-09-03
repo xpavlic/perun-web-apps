@@ -102,8 +102,10 @@
 </div>
 <div *ngIf="!loading && noApplicationForm">
   <app-alert color="warn">{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}</app-alert>
-  <button mat-stroked-button
-          (click)="createEmptyApplicationForm()">
+  <button
+    *ngIf="createEmptyForm"
+    mat-stroked-button
+    (click)="createEmptyApplicationForm()">
     {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CREATE_APPLICATION_FORM' | translate}}
   </button>
 

@@ -81,6 +81,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr
           mat-row
+          [class.cursor-pointer]="!disableRouting"
           *matRowDef="let application; columns: displayedColumns;"
           (click)="selectApplication(application)"
           class="dark-hover-list-item">

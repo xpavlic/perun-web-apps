@@ -16,6 +16,7 @@
         [filter]="filterValue"
         [disableHeadCheckbox]="true"
         [disableRouting]="true"
+        [authType]="'create-relation-dialog'"
     ></perun-web-apps-groups-list>
 
   </div>
@@ -30,7 +31,7 @@
       mat-flat-button
       class="ml-2"
       color="accent"
-      [disabled]="loading"
+      [disabled]="loading || selection.selected.length === 0"
       (click)="onSubmit()">
       {{'DIALOGS.CREATE_RELATION.CREATE' | translate}}
     </button>

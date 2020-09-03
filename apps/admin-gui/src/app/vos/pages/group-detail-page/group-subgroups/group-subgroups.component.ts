@@ -12,9 +12,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { GroupsTreeComponent } from '../../../../../../../../libs/perun/components/src/lib/groups-tree/groups-tree.component';
-import { GroupsListComponent } from '../../../../../../../../libs/perun/components/src/lib/groups-list/groups-list.component';
+import { GuiAuthResolver, InitAuthService } from '@perun-web-apps/perun/services';
+import { GroupsTreeComponent } from '@perun-web-apps/perun/components';
+import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-group-subgroups',
@@ -33,7 +33,8 @@ export class GroupSubgroupsComponent implements OnInit {
     private groupService: GroupsManagerService,
     private tableConfigService: TableConfigService,
     private route: ActivatedRoute,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
+    private initAuthService: InitAuthService
   ) {
   }
   group: Group;
@@ -71,7 +72,8 @@ export class GroupSubgroupsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.refreshTable();
+        this.loading = true;
+        this.initAuthService.loadPrincipal().then(() => this.refreshTable());
       }
     });
   }
@@ -135,8 +137,8 @@ export class GroupSubgroupsComponent implements OnInit {
         Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
       ]).subscribe(groups => {
       this.groups = groups;
-      this.filteredTreeGroups = this.groups;
-      this.filteredGroups = this.groups;
+      this.filteredTreeGroups = groups;
+      this.filteredGroups = groups;
       this.selected.clear();
       this.setAuthRights();
       this.loading = false;

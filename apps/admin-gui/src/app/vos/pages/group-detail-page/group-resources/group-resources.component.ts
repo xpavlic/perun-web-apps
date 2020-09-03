@@ -75,10 +75,10 @@ export class GroupResourcesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.setAuthorization()
     this.resourcesManager.getAssignedRichResourcesWithGroup(this.group.id).subscribe(resources => {
       this.resources = resources;
       this.selected.clear();
+      this.setAuthorization();
       this.loading = false;
     });
   }

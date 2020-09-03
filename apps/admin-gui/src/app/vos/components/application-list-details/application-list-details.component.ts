@@ -122,13 +122,14 @@ export class ApplicationListDetailsComponent implements OnChanges {
   }
 
   selectApplication(application: Application) {
-    console.log(this.member)
-    if (this.group && !this.disableRouting) {
-      this.router.navigate(['/organizations', application.vo.id, 'groups', this.group.id, 'applications', application.id]);
-    } else if(this.member) {
-      this.router.navigate(['/organizations', application.vo.id, 'members', this.member.id, 'applications', application.id])
-    } else {
-      this.router.navigate(['/organizations', application.vo.id, 'applications', application.id]);
+    if (!this.disableRouting) {
+      if (this.group) {
+        this.router.navigate(['/organizations', application.vo.id, 'groups', this.group.id, 'applications', application.id]);
+      } else if (this.member) {
+        this.router.navigate(['/organizations', application.vo.id, 'members', this.member.id, 'applications', application.id])
+      } else {
+        this.router.navigate(['/organizations', application.vo.id, 'applications', application.id]);
+      }
     }
   }
 
