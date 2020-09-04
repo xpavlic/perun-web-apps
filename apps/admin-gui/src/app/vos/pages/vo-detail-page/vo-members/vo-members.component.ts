@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MembersService } from '@perun-web-apps/perun/services';
-import { RichMember, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { MembersManagerService, RichMember, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl } from '@angular/forms';
 import { TABLE_VO_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
@@ -29,6 +29,7 @@ export class VoMembersComponent implements OnInit {
 
   constructor(
     private membersService: MembersService,
+    private memberMethodService: MembersManagerService, //TODO change the name when the openapi MembersService will be implemented
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
     private route: ActivatedRoute,
@@ -70,6 +71,7 @@ export class VoMembersComponent implements OnInit {
   routeAuth: boolean;
 
   ngOnInit() {
+    this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.statuses.setValue(this.statusList);
     this.route.parent.params.subscribe(parentParams => {
@@ -77,9 +79,14 @@ export class VoMembersComponent implements OnInit {
 
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;
-
         this.setAuthRights();
-      });
+        this.memberMethodService.getMembersCount(this.vo.id).subscribe( count => {
+          if(count < 400) {
+            this.onListAll();
+          }
+          this.loading = false;
+        }, err=> this.loading = false);
+      }, err => this.loading = false);
     });
   }
 

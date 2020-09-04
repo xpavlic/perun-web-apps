@@ -3,6 +3,7 @@
   </perun-web-apps-back-button>
   <h1 class="page-title">
     <div class="d-flex align-items-center">
+      <mat-icon [ngStyle]="{'color':'black'}" svgIcon='perun-facility-black' class="perun-icon perun-icon-detail mb-3 mr-2"></mat-icon>
       <div>
         {{'FACILITY_DETAIL.TITLE' | translate}}
         <a class="facility-link" [routerLink]="['/facilities', facility.id]">{{facility.name}}</a>

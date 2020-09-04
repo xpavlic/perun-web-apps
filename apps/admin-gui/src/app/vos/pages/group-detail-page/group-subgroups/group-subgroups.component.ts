@@ -53,8 +53,10 @@ export class GroupSubgroupsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.ngOnInit();
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.refreshTable();
+      }
     });
   }
 

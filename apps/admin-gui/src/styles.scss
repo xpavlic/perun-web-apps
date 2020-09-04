@@ -769,12 +769,12 @@ button:focus {
 .page-title {
   margin-top: 1rem;
   margin-bottom: 2rem;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
 .page-subtitle {
   margin-bottom: 1.5rem;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .box-button-large {
@@ -1320,8 +1320,8 @@ th, td.mat-cell {
   text-overflow: ellipsis;
 }
 
-.entity-info{
-  font-size: medium;
+.entity-info {
+  font-size: 1.2rem;
 }
 
 #loader {
@@ -1465,3 +1465,8 @@ th, td.mat-cell {
     transform: scale(1);
   }
 }
+
+.perun-icon-detail {
+  transform: scale(1.4);
+}
+

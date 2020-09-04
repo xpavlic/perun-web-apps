@@ -18,10 +18,9 @@
 
   <app-side-menu-root-item
     [sideNav]="sideNav"
-    *ngIf="authResolver.isVoAdmin() || authResolver.isVoObserver() || authResolver.isGroupAdmin() || authResolver.isResourceAdmin() || authResolver.isTopGroupCreator()"
     [item]="accessItem">
   </app-side-menu-root-item>
-  <div *ngIf="authResolver.isVoAdmin() || authResolver.isVoObserver() || authResolver.isGroupAdmin() || authResolver.isResourceAdmin() || authResolver.isTopGroupCreator()">
+  <div>
     <div
       *ngFor="let item of accessItems; let i = index"
       @rollInOut

@@ -60,7 +60,7 @@ export class CreateGroupDialogComponent implements OnInit{
   }
 
   onCancel(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   onSubmit(): void {

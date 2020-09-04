@@ -1017,6 +1017,64 @@ export class GroupsManagerService {
     }
 
     /**
+     * Returns count of group members.
+     * @param group id of Group
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getGroupMembersCount(group: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public getGroupMembersCount(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public getGroupMembersCount(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public getGroupMembersCount(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (group === null || group === undefined) {
+            throw new Error('Required parameter group was null or undefined when calling getGroupMembersCount.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (group !== undefined && group !== null) {
+            queryParameters = queryParameters.set('group', <any>group);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<number>(`${this.configuration.basePath}/json/groupsManager/getGroupMembersCount`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Return all operand groups for specified result groups (all INCLUDED groups). If \&quot;reverseDirection\&quot; is TRUE than return all result groups for specified operand group (where group is INCLUDED).
      * @param group id of Group
      * @param reverseDirection FALSE (default) return INCLUDED groups / TRUE &#x3D; return groups where INCLUDED
