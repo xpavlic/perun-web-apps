@@ -4,7 +4,7 @@ import {SideMenuItemService} from '../../../shared/side-menu/side-menu-item.serv
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import {TranslateService} from '@ngx-translate/core';
 import {fadeIn} from '@perun-web-apps/perun/animations';
-import { MembersService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, MembersService } from '@perun-web-apps/perun/services';
 import { RichMember, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -24,17 +24,20 @@ export class MemberDetailPageComponent implements OnInit {
     private membersService: MembersService,
     private voService: VosManagerService,
     private route: ActivatedRoute,
+    private authResolver: GuiAuthResolver
   ) { }
 
   vo: Vo;
   member: RichMember;
 
   fullName = '';
+  isAuthorized = false;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const voId = params['voId'];
       const memberId = params['memberId'];
+      this.isAuthorized = this.authResolver.isPerunAdmin();
 
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;

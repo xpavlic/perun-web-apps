@@ -56,6 +56,7 @@ export class GroupMembersComponent implements OnInit {
   pageSize: number;
 
   ngOnInit() {
+    this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.selection = new SelectionModel<RichMember>(true, []);
     this.route.parent.params.subscribe(parentParams => {
@@ -63,7 +64,13 @@ export class GroupMembersComponent implements OnInit {
 
       this.groupService.getGroupById(groupId).subscribe(group => {
         this.group = group;
-      });
+        this.groupService.getGroupMembersCount(this.group.id).subscribe( count => {
+          if(count < 400) {
+            this.onListAll();
+          }
+          this.loading = false;
+        }, err => this.loading = false);
+      }, err => this.loading = false);
     });
   }
 

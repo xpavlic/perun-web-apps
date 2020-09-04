@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { ApiRequestConfigurationService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -22,7 +22,9 @@ export class VoSelectPageComponent implements OnInit {
     private voService: VosManagerService,
     private authzService: GuiAuthResolver,
     private tableConfigService: TableConfigService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private notificator: NotificatorService,
+    private apiRequest: ApiRequestConfigurationService
   ) { }
 
   vos: Vo[] = [];
@@ -53,10 +55,18 @@ export class VoSelectPageComponent implements OnInit {
   refreshTable() {
     this.loading = true;
     this.selection.clear();
+    this.apiRequest.dontHandleErrorForNext();
     this.voService.getMyVos().subscribe(vos => {
       this.vos = getRecentlyVisited('vos', vos);
       this.recentIds = getRecentlyVisitedIds('vos');
       this.loading = false;
+    }, error => {
+      if (error.error.name === 'PrivilegeException') {
+        this.vos = [];
+        this.loading = false;
+      } else {
+        this.notificator.showRPCError(error);
+      }
     });
   }
 

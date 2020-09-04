@@ -176,18 +176,12 @@ export class AddMemberDialogComponent implements OnInit {
     this.memberService.createMemberWithGroups(
       this.data.voId, selectedMemberCandidate.richUser.id, [this.data.group]).subscribe(member => {
       this.onAddSuccess();
-      this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
-        this.onValidateSuccess();
-      }, () => this.onCancel());
     }, () => this.onError());
   }
 
   private addMemberToGroup(selectedMemberCandidate: MemberCandidate) {
     this.groupService.addMembers(this.data.entityId, [selectedMemberCandidate.member.id]).subscribe(() => {
       this.onAddSuccess();
-      this.membersManagerService.validateMemberAsync(selectedMemberCandidate.member.id).subscribe(() => {
-        this.onValidateSuccess();
-      }, () => this.onCancel());
     }, () => this.onError());
   }
 
@@ -195,9 +189,6 @@ export class AddMemberDialogComponent implements OnInit {
     this.memberService.createMemberForCandidateWithGroups(
       this.data.voId, selectedMemberCandidate.candidate, [this.data.group]).subscribe(member => {
       this.onAddSuccess();
-      this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
-        this.onValidateSuccess();
-      }, () => this.onCancel());
     }, () => this.onError());
   }
 

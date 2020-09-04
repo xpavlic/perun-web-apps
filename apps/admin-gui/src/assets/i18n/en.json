@@ -1923,6 +1923,7 @@
     "UI": {
       "ALERTS": {
         "NO_GROUPS": "No groups found.",
+        "NO_ORGANIZATIONS": "No organizations found",
         "NO_FILTER_RESULTS_ALERT": "No results match given search criteria."
       }
     }

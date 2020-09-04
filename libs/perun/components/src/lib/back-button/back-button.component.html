@@ -1,4 +1,7 @@
-<button mat-stroked-button class="pl-1 mb-3 mt-3" (click)="goBack()">
-  <mat-icon>keyboard_arrow_left</mat-icon>
-  {{'Back' | translate}}
+<!--<button mat-icon-button color="primary" class="pl-1 mb-3 mt-3" (click)="goBack()" matTooltip="{{'Back' | translate}}">-->
+<!--  <mat-icon>reply</mat-icon>-->
+<!--</button>-->
+
+<button [ngStyle]="{'color': backButtonColor }" mat-stroked-button class="mb-2 mt-2" (click)="goBack()" matTooltip="{{'Back' | translate}}">
+  <mat-icon class="rotate">arrow_right_alt</mat-icon>
 </button>
