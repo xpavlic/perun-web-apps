@@ -22,6 +22,9 @@
       <mat-select
         disableOptionCentering="true"
         placeholder="{{ 'DIALOGS.CREATE_FACILITY.AS_COPY' | translate}}">
+        <mat-option (click)="srcFacility = null">
+          {{'DIALOGS.CREATE_FACILITY.NO_COPY' | translate}}
+        </mat-option>
         <mat-option
           (click)="srcFacility = facility"
           *ngFor="let facility of facilities"

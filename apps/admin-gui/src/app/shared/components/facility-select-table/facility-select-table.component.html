@@ -2,8 +2,16 @@
   <div class="card-body">
     <perun-web-apps-table-options (exportEnd)="exporting = false" (exportStart)="exporting = true" [exporter]="exporter"></perun-web-apps-table-options>
     <div class="overflow-auto">
-      <table #exporter="matTableExporter" [dataSource]="dataSource" class="w-100" mat-table matSort matSortDirection="asc" matSortDisableClear
-             matTableExporter>
+      <table
+        #exporter="matTableExporter"
+        [dataSource]="dataSource"
+        class="w-100"
+        mat-table
+        matSort
+        matSortActive="name"
+        matSortDirection="asc"
+        matSortDisableClear
+        matTableExporter>
         <ng-container matColumnDef="select">
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let facility" class="static-column-size" mat-cell>
