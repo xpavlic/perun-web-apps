@@ -1,0 +1,40 @@
+<h1 *ngIf="this.isMyProfile"
+    class="page-subtitle">
+  {{'SHARED_LIB.PERUN.ORGANIZATIONS.YOU_ARE_MEMBER' | translate}}
+</h1>
+<h1 *ngIf="!this.isMyProfile"
+    class="page-subtitle">
+  {{'SHARED_LIB.PERUN.ORGANIZATIONS.USER_IS_MEMBER' | translate}}
+</h1>
+<perun-web-apps-refresh-button (refresh)="refreshMemberTable()"></perun-web-apps-refresh-button>
+<perun-web-apps-immediate-filter
+  (filter)="applyMemberFilter($event)"
+  [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
+</perun-web-apps-immediate-filter>
+<mat-spinner *ngIf="memberRefresh" class="mr-auto ml-auto"></mat-spinner>
+<perun-web-apps-vo-select-table
+  *ngIf="!memberRefresh"
+  [displayedColumns]="displayedColumns"
+  [pageSize]="memberPageSize"
+  (page)="memberPageChanged($event)"
+  [filterValue]="memberFilterValue"
+  [vos]="vosWhereIsMember">
+</perun-web-apps-vo-select-table>
+
+<div class="mt-5" *ngIf="!this.isMyProfile">
+  <h1 class="page-subtitle">{{'SHARED_LIB.PERUN.ORGANIZATIONS.USER_IS_ADMIN' | translate}}</h1>
+  <perun-web-apps-refresh-button (refresh)="refreshAdminTable()"></perun-web-apps-refresh-button>
+  <perun-web-apps-immediate-filter
+    (filter)="applyAdminFilter($event)"
+    [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
+  </perun-web-apps-immediate-filter>
+  <mat-spinner *ngIf="adminRefresh" class="mr-auto ml-auto"></mat-spinner>
+  <perun-web-apps-vo-select-table
+    *ngIf="!adminRefresh"
+    [displayedColumns]="displayedColumns"
+    [pageSize]="adminPageSize"
+    (page)="adminPageChanged($event)"
+    [filterValue]="adminFilterValue"
+    [vos]="vosWhereIsAdmin">
+  </perun-web-apps-vo-select-table>
+</div>

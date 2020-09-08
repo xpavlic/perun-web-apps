@@ -24,7 +24,8 @@
     "ACCESS_DESC": "Manage organizations, groups and members.",
     "FACILITIES_DESC": "Manage facilities and resources.",
     "ADMIN_DESC": "Manage attributes, users and do diagnostics.",
-    "PROFILE_DESC": "View information about you and your organizations and groups."
+    "PROFILE_DESC": "View information about you and your organizations and groups.",
+    "MY_PROFILE": "My profile"
   },
   "VO_MANAGEMENT": {
     "TITLE": "Select organization",
@@ -521,6 +522,9 @@
         "SUCCESS_DELETE": "Attributes deleted successfully",
         "SUCCESS_SAVE": "Attributes saved successfully"
       },
+      "RESOURCE_ATTRIBUTES": {
+        "TITLE": "Resource attributes"
+      },
       "EXPIRATION": {
         "SUCCESS_MESSAGE": "Settings saved.",
         "ERROR_MESSAGE": "Failed to save settings."
@@ -612,14 +616,26 @@
         "SUCCESS_DELETE": "Attributes deleted successfully",
         "SUCCESS_SAVE": "Attributes saved successfully"
       },
-      "RESOURCE_ATTRIBUTES": {
-        "TITLE": "Attributes",
+      "RESOURCE_PAGE": {
+        "TITLE": "Resource Attributes",
         "DELETE": "Remove",
         "FILTER": "Filter resources by name",
         "SAVE": "Save",
         "CREATE": "Add",
-        "NO_FILTERED_RESOURCES": "No resources that match the filter found",
-        "NO_RESOURCES": "You have no assigned resources"
+        "NO_FILTERED_ENTITY_MESSAGE": "No resources that match the filter found",
+        "NO_ENTITY_MESSAGE": "No assigned resources"
+      },
+      "USER_PAGE": {
+        "TITLE": "Facility Attributes",
+        "FILTER": "Filter facilities by name",
+        "NO_ENTITY_MESSAGE": "You have no assigned facilities",
+        "NO_FILTERED_ENTITY_MESSAGE": "No facilities that match the filter found"
+      },
+      "GROUP_PAGE": {
+        "TITLE": "Group attributes",
+        "FILTER": "Filter groups by name",
+        "NO_ENTITY_MESSAGE": "No assigned groups",
+        "NO_FILTERED_ENTITY_MESSAGE": "No groups that match the filter found"
       }
     }
   },
@@ -719,9 +735,9 @@
     },
     "USER": {
       "OVERVIEW": "Overview",
-      "GROUPS": "My groups",
-      "SETTINGS": "My settings",
-      "ORGANIZATIONS": "My organizations",
+      "GROUPS": "Groups",
+      "SETTINGS": "Advanced Settings",
+      "ORGANIZATIONS": "Organizations",
       "DETAIL": "Detail",
       "ATTRIBUTES": "Attributes",
       "FACILITY_ATTRIBUTES": "Facility attributes",
@@ -732,7 +748,9 @@
       "IDENTITIES": "Identities",
       "PASSWORD_RESET": "Password reset",
       "RESOURCES": "Resources",
-      "ASSOCIATED_USERS": "Associated users"
+      "ASSOCIATED_USERS": "Associated users",
+      "ENTITY": "User",
+      "USER_TYPE": "User type"
     },
     "SERVICE": {
       "OVERVIEW": "Overview",
@@ -1664,7 +1682,7 @@
   },
   "USER_DETAIL": {
     "OVERVIEW": {
-      "TITLE": "User - ",
+      "TITLE": "Home site",
       "FULL_NAME": "Full name",
       "USER_ID": "User ID",
       "USER_TYPE": "User type",
@@ -1673,7 +1691,11 @@
       "MY_GROUPS": "Your groups",
       "MY_FACILITIES": "Your facilities",
       "MY_RESOURCES": "Your resources",
-      "FILTER": "Filter"
+      "FILTER": "Filter",
+      "VO_TOOLTIP_INFO": "Organizations where you are admin",
+      "GROUPS_TOOLTIP_INFO": "Groups where you are admin",
+      "RESOURCES_TOOLTIP_INFO": "Resources where you are admin",
+      "FACILITIES_TOOLTIP_INFO": "Facilities where you are admin"
     },
     "IDENTITIES": {
       "TITLE": "Identities",
@@ -1701,13 +1723,17 @@
         "NO_IDENTITIES": "You have no service identities assigned."
       },
       "GUI_CONFIG": {
-        "PREF_TABLE_PAGE_SIZE": "Preferred table page size"
+        "PREF_TABLE_PAGE_SIZE": "Preferred table page size",
+        "TITLE": "Gui Configuration"
       },
       "ASSOCIATED_USERS": {
         "TITLE": "Associated users",
         "ADD": "Add",
         "REMOVE": "Remove",
         "NO_ASSOCIATED_USERS": "You have no associated users assigned."
+      },
+      "FACILITY_ATTRIBUTES": {
+        "TITLE": "Facility attributes"
       }
     }
   },
@@ -1765,7 +1791,8 @@
           "YOU_ARE_MEMBER": "Groups where you are member",
           "YOU_ARE_ADMIN": "Groups where you are admin",
           "USER_IS_MEMBER": "Groups where user is member",
-          "USER_IS_ADMIN": "Groups where user is admin"
+          "USER_IS_ADMIN": "Groups where user is admin",
+          "FILTER": "Filter by name or ID"
         }
       },
       "HOSTS_LIST" : {

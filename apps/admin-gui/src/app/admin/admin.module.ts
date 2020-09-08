@@ -29,6 +29,7 @@ import { AdminServicesComponent } from './pages/admin-page/admin-services/admin-
 import { ServiceDetailPageComponent } from './pages/admin-page/admin-services/service-detail-page/service-detail-page.component';
 import { ServiceOverviewComponent } from './pages/admin-page/admin-services/service-detail-page/service-overview/service-overview.component';
 import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-services/service-detail-page/service-required-attributes/service-required-attributes.component';
+import { UsersModule } from '../users/users.module';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-ser
     MatTableExporterModule,
     UiAlertsModule,
     PerunSharedComponentsModule,
-    PerunPipesModule
+    PerunPipesModule,
+    UsersModule
   ]
 })
 export class AdminModule { }
