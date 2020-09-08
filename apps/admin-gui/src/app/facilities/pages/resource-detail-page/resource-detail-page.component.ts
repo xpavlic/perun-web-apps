@@ -17,6 +17,7 @@ import {
 } from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
 import { Resource } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GetResourceRoutePipe } from '@perun-web-apps/perun/pipes';
 
 @Component({
   selector: 'app-resource-detail-page',
@@ -44,6 +45,7 @@ export class ResourceDetailPageComponent implements OnInit {
   facilityLinkAuth: boolean;
   editResourceAuth: boolean;
   voLinkAuth: boolean;
+  baseUrl = '';
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -53,12 +55,14 @@ export class ResourceDetailPageComponent implements OnInit {
         this.resource = resource;
         this.setAuth();
         if (this.route.parent.snapshot.url[0].path === 'facilities') {
+          this.baseUrl = new GetResourceRoutePipe().transform(resource, false);
           this.facilityManager.getFacilityById(resource.facilityId).subscribe(facility => {
             const facilityItem = this.sideMenuItemService.parseFacility(facility);
             const resourceItem = this.sideMenuItemService.parseResource(resource, false);
             this.sideMenuService.setFacilityMenuItems([facilityItem, resourceItem]);
           });
         } else {
+          this.baseUrl = new GetResourceRoutePipe().transform(resource, true);
           this.vosManagerService.getVoById(resource.voId).subscribe(vo => {
             const voItem = this.sideMenuItemService.parseVo(vo);
             const resourceItem = this.sideMenuItemService.parseResource(resource, true);

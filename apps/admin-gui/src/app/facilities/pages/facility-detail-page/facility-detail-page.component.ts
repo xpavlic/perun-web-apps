@@ -10,6 +10,7 @@ import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
 } from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-detail-page',
@@ -26,11 +27,13 @@ export class FacilityDetailPageComponent implements OnInit {
     private facilityManager: FacilitiesManagerService,
     private route: ActivatedRoute,
     private sideMenuService: SideMenuService,
-    private sideMenuItemService: SideMenuItemService
+    private sideMenuItemService: SideMenuItemService,
+    public guiAuthResolver:GuiAuthResolver
   ) {
   }
 
   facility: Facility;
+  editFacilityAuth = false;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -41,6 +44,8 @@ export class FacilityDetailPageComponent implements OnInit {
         const facilityItem = this.sideMenuItemService.parseFacility(facility);
 
         this.sideMenuService.setFacilityMenuItems([facilityItem]);
+
+        this.editFacilityAuth = this.guiAuthResolver.isAuthorized('updateFacility_Facility_policy',[this.facility]);
 
         addRecentlyVisited('facilities', this.facility);
       });

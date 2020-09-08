@@ -1,29 +1,32 @@
 <div *ngIf="service !== undefined" class="container-fluid pl-xl-5 pr-xl-5 service-theme">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
-  <h1 class="page-title">
-    <div class="d-flex align-items-center">
-      <mat-icon [ngStyle]="{'color':'black'}" svgIcon='perun-service' class="perun-icon perun-icon-detail mb-3 mr-2"></mat-icon>
-      {{'SERVICE_DETAIL.TITLE' | translate}}
-      <a [routerLink]="['/admin/services', service.id]" class="service-link">
-        &nbsp;{{service.name}}
-      </a>
-      <span class="text-muted">
-      &nbsp;#{{service.id}}
-    </span>
-      <button
-        (click)="editService()"
-        aria-label="Edit service"
-        mat-icon-button>
+  <div class="d-flex page-title">
+    <mat-icon
+      matTooltip="{{'SERVICE_DETAIL.ENTITY' | translate}}"
+      [ngStyle]="{'color':'black'}"
+      svgIcon='perun-service'
+      class="perun-icon perun-icon-detail">
+    </mat-icon>
+    <div class="page-title-block">
+      <div class="page-title-headline d-flex align-items-center">
+        <a [routerLink]="['/admin/services', service.id]" class="service-link">
+          {{service.name}}
+        </a>
+        <span class="text-muted">
+        &nbsp;  #{{service.id}}
+        </span>
+        <button
+          (click)="editService()"
+          aria-label="Edit service"
+          mat-icon-button>
         <mat-icon>edit</mat-icon>
       </button>
+      </div>
+      <span class="text-muted mt-1 entity-info">
+        {{'SERVICE_DETAIL.DESCRIPTION' | translate}}: {{service.description}}
+      </span>
     </div>
-    <span class="text-muted mt-1 entity-info">
-      {{'SERVICE_DETAIL.DESCRIPTION' | translate}}:
-      <span class="service-text">
-        {{service.description}}
-      </span>
-      </span>
-  </h1>
+  </div>
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>

@@ -1,27 +1,29 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 facility-theme" *ngIf="facility !== undefined">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
-  <h1 class="page-title">
-    <div class="d-flex align-items-center">
-      <mat-icon [ngStyle]="{'color':'black'}" svgIcon='perun-facility-black' class="perun-icon perun-icon-detail mb-3 mr-2"></mat-icon>
-      <div>
-        {{'FACILITY_DETAIL.TITLE' | translate}}
+  <div class="d-flex page-title">
+    <mat-icon
+      matTooltip="{{'FACILITY_DETAIL.ENTITY' | translate}}"
+      [ngStyle]="{'color':'black'}"
+      svgIcon='perun-facility-black'
+      class="perun-icon perun-icon-detail">
+    </mat-icon>
+    <div class="page-title-block">
+      <div class="page-title-headline d-flex align-items-center">
         <a class="facility-link" [routerLink]="['/facilities', facility.id]">{{facility.name}}</a>
         <span class="text-muted">
           &nbsp;#{{facility.id}}
         </span>
+        <button mat-icon-button *ngIf="editFacilityAuth" (click)="editFacility()">
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
-      <button mat-icon-button aria-label="Edit facility" (click)="editFacility()">
-        <mat-icon>edit</mat-icon>
-      </button>
+      <span class="text-muted mt-1 entity-info">
+        {{'FACILITY_DETAIL.ENTITY' | translate}},
+        {{'FACILITY_DETAIL.DESCRIPTION' | translate}}: {{facility.description}}
+      </span>
     </div>
-    <span class="text-muted mt-1 entity-info">
-          {{'FACILITY_DETAIL.DESCRIPTION' | translate}}:
-          <span class="facility-text">
-            {{facility.description}}
-          </span>
-    </span>
-  </h1>
+  </div>
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>
 
