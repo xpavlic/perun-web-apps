@@ -115,14 +115,17 @@ export function parseUserLogins(richUser: RichUser): string {
 export function parseLogins(richMember: RichMember|RichUser): string {
   let logins = '';
 
-  richMember.userAttributes.forEach(attr => {
-    if (attr.baseFriendlyName === 'login-namespace') {
-      logins += attr.friendlyNameParameter + ': ' + attr.value + ' ';
-    }
-  });
+  if(!!richMember && !!richMember.userAttributes){
+    richMember.userAttributes
+      .filter(attr => attr.baseFriendlyName === 'login-namespace')
+      .filter(attr => attr.value !== null)
+      .forEach(attr => {
+        logins += attr.friendlyNameParameter + ": " + attr.value + ", ";
+      });
+  }
 
-  if (logins.endsWith(' ')) {
-    logins = logins.substring(0, logins.length - 1);
+  if (logins.endsWith(', ')) {
+    logins = logins.substring(0, logins.length - 2);
   }
   return logins;
 }
