@@ -48,8 +48,8 @@
     "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn"
   },
   "IDENTITIES": {
-    "IDP": "Moje federované identity",
-    "CERT": "Moje certifikáty",
+    "IDP": "Vaše federované identity",
+    "CERT": "Vaše certifikáty",
     "OTHER": "Ostatní",
     "ADD": "Přidat",
     "REMOVE": "Odstranit",
@@ -75,6 +75,8 @@
     "SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů.",
     "ADMIN_SSH_KEYS_TITLE": "Seznam vašich administratorských SSH klíčů",
     "ADMIN_SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů, které jsou používány pro přístup na účet root.",
+    "COPY_TOOLTIP": "Zkopírovat klíč",
+    "REMOVE_TOOLTIP": "Odstranit",
     "NEW_KEY": "Nový klíč",
     "REMOVE_KEY": "Odstranit",
     "REMOVE_DIALOG_TITLE": "Odstranit SSH klíč",

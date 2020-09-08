@@ -30,6 +30,8 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
   extSourceNameHeader: string;
   @Input()
   loginHeader: string;
+  @Input()
+  disableRouting: boolean;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -47,9 +49,11 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
   userId: number;
 
   ngAfterViewInit() {
-    this.route.parent.params.subscribe(params => {
-      this.userId = params["userId"];
-    });
+    if(!this.disableRouting){
+      this.route.parent.params.subscribe(params => {
+        this.userId = params["userId"];
+      });
+    }
     this.setDataSource();
   }
 
