@@ -17,7 +17,7 @@
         {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_NO_VO' | translate}}
       </mat-error>
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let vo of filteredVos | async" [value]="vo">
+        <mat-option *ngFor="let vo of filteredVos | async" [value]="vo" (click)="getGroups()">
           {{vo.name}}
         </mat-option>
       </mat-autocomplete>
@@ -29,8 +29,7 @@
       <input matInput
              type="text"
              [formControl]="groupControl"
-             [matAutocomplete]="group"
-             (focus)="getGroups()">
+             [matAutocomplete]="group">
       <mat-error *ngIf="groupControl.hasError('required')">
         {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.ERROR_NO_GROUP' | translate}}
       </mat-error>
