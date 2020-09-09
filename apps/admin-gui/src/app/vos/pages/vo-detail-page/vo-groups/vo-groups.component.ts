@@ -8,6 +8,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
 import { applyFilter, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import {
+  AuthzResolverService,
   Group,
   GroupsManagerService,
   RichGroup,
@@ -18,7 +19,7 @@ import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupsTreeComponent} from '@perun-web-apps/perun/components';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';
@@ -41,7 +42,8 @@ export class VoGroupsComponent implements OnInit {
     private voService: VosManagerService,
     private route: ActivatedRoute,
     private tableConfigService: TableConfigService,
-    public guiAuthResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
+    private initAuthService: InitAuthService
   ) { }
 
   vo: Vo;
@@ -75,9 +77,10 @@ export class VoGroupsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((success) => {
-      if (success) {
-        this.loadAllGroups();
+    dialogRef.afterClosed().subscribe(groupCreated => {
+      if (groupCreated) {
+        this.loading = true;
+        this.initAuthService.loadPrincipal().then(() => this.loadAllGroups());
       }
     });
   }
@@ -108,10 +111,10 @@ export class VoGroupsComponent implements OnInit {
   }
 
   setAuthRights() {
-    this.createAuth = this.guiAuthResolver.isAuthorized('createGroup_Vo_Group_policy', [this.vo]);
+    this.createAuth = this.authResolver.isAuthorized('createGroup_Vo_Group_policy', [this.vo]);
 
     if(this.groups.length !== 0){
-      this.routeAuth = this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.vo, this.groups[0]]);
+      this.routeAuth = this.authResolver.isAuthorized('getGroupById_int_policy', [this.vo, this.groups[0]]);
     }
   }
 
