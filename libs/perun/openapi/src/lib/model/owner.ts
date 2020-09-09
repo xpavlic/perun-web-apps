@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { OwnerAllOf } from './ownerAllOf';
 
 
 export interface Owner extends Auditable { 

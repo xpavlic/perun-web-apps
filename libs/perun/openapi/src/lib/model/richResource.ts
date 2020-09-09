@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { ResourceTag } from './resourceTag';
-import { RichResourceAllOf } from './richResourceAllOf';
 import { Resource } from './resource';
 import { Vo } from './vo';
 import { Facility } from './facility';

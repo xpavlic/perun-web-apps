@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { VoAllOf } from './voAllOf';
 
 
 export interface Vo extends Auditable { 

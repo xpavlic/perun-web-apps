@@ -9,13 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
-import { UserExtSource } from './userExtSource';
+import { Attribute } from './attribute';
+import { GenDataNode } from './genDataNode';
 
 
-export interface Candidate extends User { 
-    userExtSource?: UserExtSource;
-    additionalUserExtSources?: Array<UserExtSource>;
-    attributes?: { [key: string]: string; };
+export interface HashedGenData { 
+    attributes?: { [key: string]: Array<Attribute>; };
+    hierarchy?: GenDataNode;
 }
 

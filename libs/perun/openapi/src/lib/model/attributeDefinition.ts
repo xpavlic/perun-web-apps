@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { AttributeDefinitionAllOf } from './attributeDefinitionAllOf';
 
 
 export interface AttributeDefinition extends Auditable { 

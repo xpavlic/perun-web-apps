@@ -17,29 +17,29 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { BanOnResource } from '../model/models';
-import { Facility } from '../model/models';
-import { Group } from '../model/models';
-import { InputAssignResourceTagToResource } from '../model/models';
-import { InputCopyResource } from '../model/models';
-import { InputCreateResourceTagWithResourceTag } from '../model/models';
-import { InputDeleteResourceTag } from '../model/models';
-import { InputGetAllResourcesByResourceTag } from '../model/models';
-import { InputRemoveResourceTagFromResource } from '../model/models';
-import { InputSetBan } from '../model/models';
-import { InputUpdateBan } from '../model/models';
-import { InputUpdateResource } from '../model/models';
-import { InputUpdateResourceTag } from '../model/models';
-import { Member } from '../model/models';
-import { PerunException } from '../model/models';
-import { Resource } from '../model/models';
-import { ResourceTag } from '../model/models';
-import { RichMember } from '../model/models';
-import { RichResource } from '../model/models';
-import { RichUser } from '../model/models';
-import { Service } from '../model/models';
-import { User } from '../model/models';
-import { Vo } from '../model/models';
+import { BanOnResource } from '../model/banOnResource';
+import { Facility } from '../model/facility';
+import { Group } from '../model/group';
+import { InputAssignResourceTagToResource } from '../model/inputAssignResourceTagToResource';
+import { InputCopyResource } from '../model/inputCopyResource';
+import { InputCreateResourceTagWithResourceTag } from '../model/inputCreateResourceTagWithResourceTag';
+import { InputDeleteResourceTag } from '../model/inputDeleteResourceTag';
+import { InputGetAllResourcesByResourceTag } from '../model/inputGetAllResourcesByResourceTag';
+import { InputRemoveResourceTagFromResource } from '../model/inputRemoveResourceTagFromResource';
+import { InputSetBan } from '../model/inputSetBan';
+import { InputUpdateBan } from '../model/inputUpdateBan';
+import { InputUpdateResource } from '../model/inputUpdateResource';
+import { InputUpdateResourceTag } from '../model/inputUpdateResourceTag';
+import { Member } from '../model/member';
+import { PerunException } from '../model/perunException';
+import { Resource } from '../model/resource';
+import { ResourceTag } from '../model/resourceTag';
+import { RichMember } from '../model/richMember';
+import { RichResource } from '../model/richResource';
+import { RichUser } from '../model/richUser';
+import { Service } from '../model/service';
+import { User } from '../model/user';
+import { Vo } from '../model/vo';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -71,42 +71,6 @@ export class ResourcesManagerService {
 
 
 
-    private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
-        if (typeof value === "object" && value instanceof Date === false) {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value);
-        } else {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
-        }
-        return httpParams;
-    }
-
-    private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
-        if (value == null) {
-            return httpParams;
-        }
-
-        if (typeof value === "object") {
-            if (Array.isArray(value)) {
-                (value as any[]).forEach( elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
-            } else if (value instanceof Date) {
-                if (key != null) {
-                    httpParams = httpParams.append(key,
-                        (value as Date).toISOString().substr(0, 10));
-                } else {
-                   throw Error("key may not be null if value is Date");
-                }
-            } else {
-                Object.keys(value).forEach( k => httpParams = this.addToHttpParamsRecursive(
-                    httpParams, value[k], key != null ? `${key}.${k}` : k));
-            }
-        } else if (key != null) {
-            httpParams = httpParams.append(key, value);
-        } else {
-            throw Error("key may not be null if value is not object or array");
-        }
-        return httpParams;
-    }
-
     /**
      * Adds a group administrator to the Resource.
      * @param resource id of Resource
@@ -114,10 +78,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addAdminToGroup(resource: number, authorizedGroup: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public addAdminToGroup(resource: number, authorizedGroup: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public addAdminToGroup(resource: number, authorizedGroup: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public addAdminToGroup(resource: number, authorizedGroup: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public addAdminToGroup(resource: number, authorizedGroup: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addAdminToGroup(resource: number, authorizedGroup: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addAdminToGroup(resource: number, authorizedGroup: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addAdminToGroup(resource: number, authorizedGroup: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling addAdminToGroup.');
         }
@@ -127,22 +91,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (authorizedGroup !== undefined && authorizedGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>authorizedGroup, 'authorizedGroup');
+            queryParameters = queryParameters.set('authorizedGroup', <any>authorizedGroup);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -156,29 +115,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/addAdmin/r-g`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -194,10 +144,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addAdminToUser(resource: number, user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public addAdminToUser(resource: number, user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public addAdminToUser(resource: number, user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public addAdminToUser(resource: number, user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public addAdminToUser(resource: number, user: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addAdminToUser(resource: number, user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addAdminToUser(resource: number, user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addAdminToUser(resource: number, user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling addAdminToUser.');
         }
@@ -207,22 +157,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -236,29 +181,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/addAdmin/r-u`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -274,10 +210,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addResourceSelfServiceGroup(resource: number, group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public addResourceSelfServiceGroup(resource: number, group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public addResourceSelfServiceGroup(resource: number, group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public addResourceSelfServiceGroup(resource: number, group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public addResourceSelfServiceGroup(resource: number, group: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addResourceSelfServiceGroup(resource: number, group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addResourceSelfServiceGroup(resource: number, group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addResourceSelfServiceGroup(resource: number, group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling addResourceSelfServiceGroup.');
         }
@@ -287,22 +223,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -316,29 +247,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/addResourceSelfServiceGroup`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -354,10 +276,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addResourceSelfServiceUser(resource: number, user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public addResourceSelfServiceUser(resource: number, user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public addResourceSelfServiceUser(resource: number, user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public addResourceSelfServiceUser(resource: number, user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public addResourceSelfServiceUser(resource: number, user: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addResourceSelfServiceUser(resource: number, user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addResourceSelfServiceUser(resource: number, user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addResourceSelfServiceUser(resource: number, user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling addResourceSelfServiceUser.');
         }
@@ -367,22 +289,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -396,29 +313,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/addResourceSelfServiceUser`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -434,10 +342,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignGroupToResource(group: number, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public assignGroupToResource(group: number, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public assignGroupToResource(group: number, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public assignGroupToResource(group: number, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public assignGroupToResource(group: number, resource: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignGroupToResource(group: number, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignGroupToResource(group: number, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignGroupToResource(group: number, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling assignGroupToResource.');
         }
@@ -447,22 +355,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -476,29 +379,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/assignGroupToResource`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -514,10 +408,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignGroupToResources(group: number, resources: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public assignGroupToResources(group: number, resources: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public assignGroupToResources(group: number, resources: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public assignGroupToResources(group: number, resources: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public assignGroupToResources(group: number, resources: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignGroupToResources(group: number, resources: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignGroupToResources(group: number, resources: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignGroupToResources(group: number, resources: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling assignGroupToResources.');
         }
@@ -527,24 +421,19 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resources) {
             resources.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'resources[]');
+                queryParameters = queryParameters.append('resources[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -558,29 +447,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/assignGroupToResources`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -596,10 +476,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignGroupsToResource(groups: Array<number>, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public assignGroupsToResource(groups: Array<number>, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public assignGroupsToResource(groups: Array<number>, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public assignGroupsToResource(groups: Array<number>, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public assignGroupsToResource(groups: Array<number>, resource: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignGroupsToResource(groups: Array<number>, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignGroupsToResource(groups: Array<number>, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignGroupsToResource(groups: Array<number>, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (groups === null || groups === undefined) {
             throw new Error('Required parameter groups was null or undefined when calling assignGroupsToResource.');
         }
@@ -610,23 +490,18 @@ export class ResourcesManagerService {
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (groups) {
             groups.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'groups[]');
+                queryParameters = queryParameters.append('groups[]', <any>element);
             })
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -640,29 +515,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/assignGroupsToResource`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -677,10 +543,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignResourceTagToResource(inputAssignResourceTagToResource: InputAssignResourceTagToResource, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public assignResourceTagToResource(inputAssignResourceTagToResource: InputAssignResourceTagToResource, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public assignResourceTagToResource(inputAssignResourceTagToResource: InputAssignResourceTagToResource, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public assignResourceTagToResource(inputAssignResourceTagToResource: InputAssignResourceTagToResource, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public assignResourceTagToResource(inputAssignResourceTagToResource: InputAssignResourceTagToResource, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignResourceTagToResource(inputAssignResourceTagToResource: InputAssignResourceTagToResource, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignResourceTagToResource(inputAssignResourceTagToResource: InputAssignResourceTagToResource, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignResourceTagToResource(inputAssignResourceTagToResource: InputAssignResourceTagToResource, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputAssignResourceTagToResource === null || inputAssignResourceTagToResource === undefined) {
             throw new Error('Required parameter inputAssignResourceTagToResource was null or undefined when calling assignResourceTagToResource.');
         }
@@ -688,11 +554,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -706,14 +569,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -728,15 +588,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/resourcesManager/assignResourceTagToResource`,
             inputAssignResourceTagToResource,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -752,10 +606,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignService(resource: number, service: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public assignService(resource: number, service: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public assignService(resource: number, service: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public assignService(resource: number, service: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public assignService(resource: number, service: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignService(resource: number, service: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignService(resource: number, service: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignService(resource: number, service: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling assignService.');
         }
@@ -765,22 +619,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -794,29 +643,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/assignService`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -832,10 +672,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignServices(resource: number, services: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public assignServices(resource: number, services: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public assignServices(resource: number, services: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public assignServices(resource: number, services: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public assignServices(resource: number, services: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignServices(resource: number, services: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignServices(resource: number, services: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignServices(resource: number, services: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling assignServices.');
         }
@@ -845,24 +685,19 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (services) {
             services.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'services[]');
+                queryParameters = queryParameters.append('services[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -876,29 +711,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/assignServices`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -914,10 +740,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignServicesPackage(resource: number, servicesPackage: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public assignServicesPackage(resource: number, servicesPackage: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public assignServicesPackage(resource: number, servicesPackage: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public assignServicesPackage(resource: number, servicesPackage: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public assignServicesPackage(resource: number, servicesPackage: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignServicesPackage(resource: number, servicesPackage: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignServicesPackage(resource: number, servicesPackage: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignServicesPackage(resource: number, servicesPackage: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling assignServicesPackage.');
         }
@@ -927,22 +753,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (servicesPackage !== undefined && servicesPackage !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>servicesPackage, 'servicesPackage');
+            queryParameters = queryParameters.set('servicesPackage', <any>servicesPackage);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -956,29 +777,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/assignServicesPackage`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -993,10 +805,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyResource(inputCopyResource: InputCopyResource, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Resource>;
-    public copyResource(inputCopyResource: InputCopyResource, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Resource>>;
-    public copyResource(inputCopyResource: InputCopyResource, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Resource>>;
-    public copyResource(inputCopyResource: InputCopyResource, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public copyResource(inputCopyResource: InputCopyResource, observe?: 'body', reportProgress?: boolean): Observable<Resource>;
+    public copyResource(inputCopyResource: InputCopyResource, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Resource>>;
+    public copyResource(inputCopyResource: InputCopyResource, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Resource>>;
+    public copyResource(inputCopyResource: InputCopyResource, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputCopyResource === null || inputCopyResource === undefined) {
             throw new Error('Required parameter inputCopyResource was null or undefined when calling copyResource.');
         }
@@ -1004,11 +816,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1022,14 +831,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -1044,15 +850,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<Resource>(`${this.configuration.basePath}/json/resourcesManager/copyResource`,
             inputCopyResource,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1070,10 +870,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createResource(vo: number, facility: number, name: string, description?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Resource>;
-    public createResource(vo: number, facility: number, name: string, description?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Resource>>;
-    public createResource(vo: number, facility: number, name: string, description?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Resource>>;
-    public createResource(vo: number, facility: number, name: string, description?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public createResource(vo: number, facility: number, name: string, description?: string, observe?: 'body', reportProgress?: boolean): Observable<Resource>;
+    public createResource(vo: number, facility: number, name: string, description?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Resource>>;
+    public createResource(vo: number, facility: number, name: string, description?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Resource>>;
+    public createResource(vo: number, facility: number, name: string, description?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling createResource.');
         }
@@ -1086,30 +886,23 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (name !== undefined && name !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>name, 'name');
+            queryParameters = queryParameters.set('name', <any>name);
         }
         if (description !== undefined && description !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>description, 'description');
+            queryParameters = queryParameters.set('description', <any>description);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1123,29 +916,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<Resource>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/createResource`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1160,10 +944,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createResourceTagWithResourceTag(inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<ResourceTag>;
-    public createResourceTagWithResourceTag(inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<ResourceTag>>;
-    public createResourceTagWithResourceTag(inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<ResourceTag>>;
-    public createResourceTagWithResourceTag(inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public createResourceTagWithResourceTag(inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag, observe?: 'body', reportProgress?: boolean): Observable<ResourceTag>;
+    public createResourceTagWithResourceTag(inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResourceTag>>;
+    public createResourceTagWithResourceTag(inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResourceTag>>;
+    public createResourceTagWithResourceTag(inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputCreateResourceTagWithResourceTag === null || inputCreateResourceTagWithResourceTag === undefined) {
             throw new Error('Required parameter inputCreateResourceTagWithResourceTag was null or undefined when calling createResourceTagWithResourceTag.');
         }
@@ -1171,11 +955,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1189,14 +970,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -1211,15 +989,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<ResourceTag>(`${this.configuration.basePath}/json/resourcesManager/createResourceTag/resourceTag`,
             inputCreateResourceTagWithResourceTag,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1235,10 +1007,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createResourceTagWithTagName(tagName: string, vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<ResourceTag>;
-    public createResourceTagWithTagName(tagName: string, vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<ResourceTag>>;
-    public createResourceTagWithTagName(tagName: string, vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<ResourceTag>>;
-    public createResourceTagWithTagName(tagName: string, vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public createResourceTagWithTagName(tagName: string, vo: number, observe?: 'body', reportProgress?: boolean): Observable<ResourceTag>;
+    public createResourceTagWithTagName(tagName: string, vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResourceTag>>;
+    public createResourceTagWithTagName(tagName: string, vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResourceTag>>;
+    public createResourceTagWithTagName(tagName: string, vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (tagName === null || tagName === undefined) {
             throw new Error('Required parameter tagName was null or undefined when calling createResourceTagWithTagName.');
         }
@@ -1248,22 +1020,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (tagName !== undefined && tagName !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>tagName, 'tagName');
+            queryParameters = queryParameters.set('tagName', <any>tagName);
         }
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1277,29 +1044,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<ResourceTag>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/createResourceTag/tagName`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1314,28 +1072,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteAllResources(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public deleteAllResources(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public deleteAllResources(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public deleteAllResources(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public deleteAllResources(vo: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteAllResources(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteAllResources(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteAllResources(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling deleteAllResources.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1349,29 +1103,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/deleteAllResources`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1386,28 +1131,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteAllResourcesTagsForVo(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public deleteAllResourcesTagsForVo(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public deleteAllResourcesTagsForVo(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public deleteAllResourcesTagsForVo(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public deleteAllResourcesTagsForVo(vo: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteAllResourcesTagsForVo(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteAllResourcesTagsForVo(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteAllResourcesTagsForVo(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling deleteAllResourcesTagsForVo.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1421,29 +1162,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/deleteAllResourcesTagsForVo`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1458,28 +1190,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteResource(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public deleteResource(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public deleteResource(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public deleteResource(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public deleteResource(resource: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteResource(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteResource(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteResource(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling deleteResource.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1493,29 +1221,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/deleteResource`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1530,10 +1249,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteResourceTag(inputDeleteResourceTag: InputDeleteResourceTag, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public deleteResourceTag(inputDeleteResourceTag: InputDeleteResourceTag, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public deleteResourceTag(inputDeleteResourceTag: InputDeleteResourceTag, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public deleteResourceTag(inputDeleteResourceTag: InputDeleteResourceTag, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public deleteResourceTag(inputDeleteResourceTag: InputDeleteResourceTag, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteResourceTag(inputDeleteResourceTag: InputDeleteResourceTag, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteResourceTag(inputDeleteResourceTag: InputDeleteResourceTag, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteResourceTag(inputDeleteResourceTag: InputDeleteResourceTag, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputDeleteResourceTag === null || inputDeleteResourceTag === undefined) {
             throw new Error('Required parameter inputDeleteResourceTag was null or undefined when calling deleteResourceTag.');
         }
@@ -1541,11 +1260,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1559,14 +1275,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -1581,15 +1294,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/resourcesManager/deleteResourceTag`,
             inputDeleteResourceTag,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1604,28 +1311,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAdminGroups(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Group>>;
-    public getAdminGroups(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Group>>>;
-    public getAdminGroups(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Group>>>;
-    public getAdminGroups(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAdminGroups(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
+    public getAdminGroups(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
+    public getAdminGroups(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
+    public getAdminGroups(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getAdminGroups.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1639,28 +1342,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/resourcesManager/getAdminGroups`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1677,10 +1371,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAdmins(resource: number, onlyDirectAdmins: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<User>>;
-    public getAdmins(resource: number, onlyDirectAdmins: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<User>>>;
-    public getAdmins(resource: number, onlyDirectAdmins: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<User>>>;
-    public getAdmins(resource: number, onlyDirectAdmins: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAdmins(resource: number, onlyDirectAdmins: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<User>>;
+    public getAdmins(resource: number, onlyDirectAdmins: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<User>>>;
+    public getAdmins(resource: number, onlyDirectAdmins: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<User>>>;
+    public getAdmins(resource: number, onlyDirectAdmins: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getAdmins.');
         }
@@ -1690,22 +1384,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (onlyDirectAdmins !== undefined && onlyDirectAdmins !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>onlyDirectAdmins, 'onlyDirectAdmins');
+            queryParameters = queryParameters.set('onlyDirectAdmins', <any>onlyDirectAdmins);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1719,28 +1408,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/json/resourcesManager/getAdmins`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1755,10 +1435,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllResourcesByResourceTag(inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Resource>>;
-    public getAllResourcesByResourceTag(inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Resource>>>;
-    public getAllResourcesByResourceTag(inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Resource>>>;
-    public getAllResourcesByResourceTag(inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAllResourcesByResourceTag(inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag, observe?: 'body', reportProgress?: boolean): Observable<Array<Resource>>;
+    public getAllResourcesByResourceTag(inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Resource>>>;
+    public getAllResourcesByResourceTag(inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Resource>>>;
+    public getAllResourcesByResourceTag(inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputGetAllResourcesByResourceTag === null || inputGetAllResourcesByResourceTag === undefined) {
             throw new Error('Required parameter inputGetAllResourcesByResourceTag was null or undefined when calling getAllResourcesByResourceTag.');
         }
@@ -1766,11 +1446,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1784,14 +1461,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -1806,15 +1480,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getAllResourcesByResourceTag`,
             inputGetAllResourcesByResourceTag,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1829,28 +1497,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllResourcesTagsForResource(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ResourceTag>>;
-    public getAllResourcesTagsForResource(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ResourceTag>>>;
-    public getAllResourcesTagsForResource(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ResourceTag>>>;
-    public getAllResourcesTagsForResource(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAllResourcesTagsForResource(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ResourceTag>>;
+    public getAllResourcesTagsForResource(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ResourceTag>>>;
+    public getAllResourcesTagsForResource(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ResourceTag>>>;
+    public getAllResourcesTagsForResource(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getAllResourcesTagsForResource.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1864,28 +1528,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<ResourceTag>>(`${this.configuration.basePath}/json/resourcesManager/getAllResourcesTagsForResource`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1900,28 +1555,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllResourcesTagsForVo(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ResourceTag>>;
-    public getAllResourcesTagsForVo(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ResourceTag>>>;
-    public getAllResourcesTagsForVo(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ResourceTag>>>;
-    public getAllResourcesTagsForVo(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAllResourcesTagsForVo(vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ResourceTag>>;
+    public getAllResourcesTagsForVo(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ResourceTag>>>;
+    public getAllResourcesTagsForVo(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ResourceTag>>>;
+    public getAllResourcesTagsForVo(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getAllResourcesTagsForVo.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1935,28 +1586,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<ResourceTag>>(`${this.configuration.basePath}/json/resourcesManager/getAllResourcesTagsForVo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1971,28 +1613,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllResourcesWhereUserIsAdmin(user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Resource>>;
-    public getAllResourcesWhereUserIsAdmin(user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Resource>>>;
-    public getAllResourcesWhereUserIsAdmin(user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Resource>>>;
-    public getAllResourcesWhereUserIsAdmin(user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAllResourcesWhereUserIsAdmin(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Resource>>;
+    public getAllResourcesWhereUserIsAdmin(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Resource>>>;
+    public getAllResourcesWhereUserIsAdmin(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Resource>>>;
+    public getAllResourcesWhereUserIsAdmin(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (user === null || user === undefined) {
             throw new Error('Required parameter user was null or undefined when calling getAllResourcesWhereUserIsAdmin.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2006,28 +1644,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getResourcesWhereUserIsAdmin/all`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2042,28 +1671,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllowedMembers(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Member>>;
-    public getAllowedMembers(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Member>>>;
-    public getAllowedMembers(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Member>>>;
-    public getAllowedMembers(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAllowedMembers(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Member>>;
+    public getAllowedMembers(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Member>>>;
+    public getAllowedMembers(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Member>>>;
+    public getAllowedMembers(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getAllowedMembers.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2077,28 +1702,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Member>>(`${this.configuration.basePath}/json/resourcesManager/getAllowedMembers`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2113,28 +1729,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllowedResources(member: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Resource>>;
-    public getAllowedResources(member: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Resource>>>;
-    public getAllowedResources(member: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Resource>>>;
-    public getAllowedResources(member: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAllowedResources(member: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Resource>>;
+    public getAllowedResources(member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Resource>>>;
+    public getAllowedResources(member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Resource>>>;
+    public getAllowedResources(member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getAllowedResources.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2148,28 +1760,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getAllowedResources`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2184,28 +1787,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllowedUsersOfResource(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<User>>;
-    public getAllowedUsersOfResource(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<User>>>;
-    public getAllowedUsersOfResource(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<User>>>;
-    public getAllowedUsersOfResource(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAllowedUsersOfResource(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<User>>;
+    public getAllowedUsersOfResource(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<User>>>;
+    public getAllowedUsersOfResource(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<User>>>;
+    public getAllowedUsersOfResource(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getAllowedUsersOfResource.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2219,28 +1818,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/json/resourcesManager/getAllowedUsers`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2256,32 +1846,27 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAssignedGroups(resource: number, member?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Group>>;
-    public getAssignedGroups(resource: number, member?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Group>>>;
-    public getAssignedGroups(resource: number, member?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Group>>>;
-    public getAssignedGroups(resource: number, member?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAssignedGroups(resource: number, member?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
+    public getAssignedGroups(resource: number, member?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
+    public getAssignedGroups(resource: number, member?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
+    public getAssignedGroups(resource: number, member?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getAssignedGroups.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2295,28 +1880,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedGroups`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2331,28 +1907,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAssignedMembers(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Member>>;
-    public getAssignedMembers(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Member>>>;
-    public getAssignedMembers(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Member>>>;
-    public getAssignedMembers(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAssignedMembers(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Member>>;
+    public getAssignedMembers(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Member>>>;
+    public getAssignedMembers(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Member>>>;
+    public getAssignedMembers(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getAssignedMembers.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2366,28 +1938,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Member>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedMembers`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2402,28 +1965,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAssignedResourcesWithGroup(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Resource>>;
-    public getAssignedResourcesWithGroup(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Resource>>>;
-    public getAssignedResourcesWithGroup(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Resource>>>;
-    public getAssignedResourcesWithGroup(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAssignedResourcesWithGroup(group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Resource>>;
+    public getAssignedResourcesWithGroup(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Resource>>>;
+    public getAssignedResourcesWithGroup(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Resource>>>;
+    public getAssignedResourcesWithGroup(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getAssignedResourcesWithGroup.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2437,28 +1996,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedResources/g`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2473,28 +2023,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAssignedResourcesWithMember(member: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Resource>>;
-    public getAssignedResourcesWithMember(member: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Resource>>>;
-    public getAssignedResourcesWithMember(member: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Resource>>>;
-    public getAssignedResourcesWithMember(member: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAssignedResourcesWithMember(member: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Resource>>;
+    public getAssignedResourcesWithMember(member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Resource>>>;
+    public getAssignedResourcesWithMember(member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Resource>>>;
+    public getAssignedResourcesWithMember(member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getAssignedResourcesWithMember.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2508,28 +2054,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedResources/m`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2544,28 +2081,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAssignedRichMembers(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<RichMember>>;
-    public getAssignedRichMembers(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<RichMember>>>;
-    public getAssignedRichMembers(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<RichMember>>>;
-    public getAssignedRichMembers(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAssignedRichMembers(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<RichMember>>;
+    public getAssignedRichMembers(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichMember>>>;
+    public getAssignedRichMembers(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichMember>>>;
+    public getAssignedRichMembers(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getAssignedRichMembers.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2579,28 +2112,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<RichMember>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedRichMembers`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2615,28 +2139,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAssignedRichResourcesWithGroup(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<RichResource>>;
-    public getAssignedRichResourcesWithGroup(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<RichResource>>>;
-    public getAssignedRichResourcesWithGroup(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<RichResource>>>;
-    public getAssignedRichResourcesWithGroup(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAssignedRichResourcesWithGroup(group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<RichResource>>;
+    public getAssignedRichResourcesWithGroup(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichResource>>>;
+    public getAssignedRichResourcesWithGroup(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichResource>>>;
+    public getAssignedRichResourcesWithGroup(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getAssignedRichResourcesWithGroup.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2650,28 +2170,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<RichResource>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedRichResources/g`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2686,28 +2197,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAssignedRichResourcesWithMember(member: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<RichResource>>;
-    public getAssignedRichResourcesWithMember(member: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<RichResource>>>;
-    public getAssignedRichResourcesWithMember(member: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<RichResource>>>;
-    public getAssignedRichResourcesWithMember(member: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAssignedRichResourcesWithMember(member: number, observe?: 'body', reportProgress?: boolean): Observable<Array<RichResource>>;
+    public getAssignedRichResourcesWithMember(member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichResource>>>;
+    public getAssignedRichResourcesWithMember(member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichResource>>>;
+    public getAssignedRichResourcesWithMember(member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getAssignedRichResourcesWithMember.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2721,28 +2228,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<RichResource>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedRichResources/m`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2758,10 +2256,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAssignedRichResourcesWithMemberService(member: number, service: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<RichResource>>;
-    public getAssignedRichResourcesWithMemberService(member: number, service: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<RichResource>>>;
-    public getAssignedRichResourcesWithMemberService(member: number, service: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<RichResource>>>;
-    public getAssignedRichResourcesWithMemberService(member: number, service: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAssignedRichResourcesWithMemberService(member: number, service: number, observe?: 'body', reportProgress?: boolean): Observable<Array<RichResource>>;
+    public getAssignedRichResourcesWithMemberService(member: number, service: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichResource>>>;
+    public getAssignedRichResourcesWithMemberService(member: number, service: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichResource>>>;
+    public getAssignedRichResourcesWithMemberService(member: number, service: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getAssignedRichResourcesWithMemberService.');
         }
@@ -2771,22 +2269,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2800,28 +2293,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<RichResource>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedRichResources/s-m`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2836,28 +2320,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAssignedServicesToResource(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Service>>;
-    public getAssignedServicesToResource(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Service>>>;
-    public getAssignedServicesToResource(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Service>>>;
-    public getAssignedServicesToResource(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getAssignedServicesToResource(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Service>>;
+    public getAssignedServicesToResource(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Service>>>;
+    public getAssignedServicesToResource(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Service>>>;
+    public getAssignedServicesToResource(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getAssignedServicesToResource.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2871,28 +2351,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Service>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedServices`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2907,28 +2378,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getBansForMember(member: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<BanOnResource>>;
-    public getBansForMember(member: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<BanOnResource>>>;
-    public getBansForMember(member: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<BanOnResource>>>;
-    public getBansForMember(member: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getBansForMember(member: number, observe?: 'body', reportProgress?: boolean): Observable<Array<BanOnResource>>;
+    public getBansForMember(member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BanOnResource>>>;
+    public getBansForMember(member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BanOnResource>>>;
+    public getBansForMember(member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getBansForMember.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2942,28 +2409,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<BanOnResource>>(`${this.configuration.basePath}/json/resourcesManager/getBansForMember`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2978,28 +2436,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getBansForResource(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<BanOnResource>>;
-    public getBansForResource(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<BanOnResource>>>;
-    public getBansForResource(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<BanOnResource>>>;
-    public getBansForResource(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getBansForResource(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<BanOnResource>>;
+    public getBansForResource(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BanOnResource>>>;
+    public getBansForResource(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BanOnResource>>>;
+    public getBansForResource(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getBansForResource.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3013,28 +2467,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<BanOnResource>>(`${this.configuration.basePath}/json/resourcesManager/getBansForResource`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3049,28 +2494,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFacility(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Facility>;
-    public getFacility(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Facility>>;
-    public getFacility(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Facility>>;
-    public getFacility(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFacility(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Facility>;
+    public getFacility(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Facility>>;
+    public getFacility(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Facility>>;
+    public getFacility(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getFacility.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3084,28 +2525,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Facility>(`${this.configuration.basePath}/json/resourcesManager/getFacility`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3121,10 +2553,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceBan(member: number, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<BanOnResource>;
-    public getResourceBan(member: number, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<BanOnResource>>;
-    public getResourceBan(member: number, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<BanOnResource>>;
-    public getResourceBan(member: number, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceBan(member: number, resource: number, observe?: 'body', reportProgress?: boolean): Observable<BanOnResource>;
+    public getResourceBan(member: number, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BanOnResource>>;
+    public getResourceBan(member: number, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BanOnResource>>;
+    public getResourceBan(member: number, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getResourceBan.');
         }
@@ -3134,22 +2566,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3163,28 +2590,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<BanOnResource>(`${this.configuration.basePath}/json/resourcesManager/getBan`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3199,28 +2617,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceBanById(banId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<BanOnResource>;
-    public getResourceBanById(banId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<BanOnResource>>;
-    public getResourceBanById(banId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<BanOnResource>>;
-    public getResourceBanById(banId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceBanById(banId: number, observe?: 'body', reportProgress?: boolean): Observable<BanOnResource>;
+    public getResourceBanById(banId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BanOnResource>>;
+    public getResourceBanById(banId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BanOnResource>>;
+    public getResourceBanById(banId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (banId === null || banId === undefined) {
             throw new Error('Required parameter banId was null or undefined when calling getResourceBanById.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (banId !== undefined && banId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>banId, 'banId');
+            queryParameters = queryParameters.set('banId', <any>banId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3234,28 +2648,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<BanOnResource>(`${this.configuration.basePath}/json/resourcesManager/getBanById`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3270,28 +2675,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Resource>;
-    public getResourceById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Resource>>;
-    public getResourceById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Resource>>;
-    public getResourceById(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceById(id: number, observe?: 'body', reportProgress?: boolean): Observable<Resource>;
+    public getResourceById(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Resource>>;
+    public getResourceById(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Resource>>;
+    public getResourceById(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getResourceById.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3305,28 +2706,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Resource>(`${this.configuration.basePath}/json/resourcesManager/getResourceById`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3343,10 +2735,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourceByName(vo: number, facility: number, name: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Resource>;
-    public getResourceByName(vo: number, facility: number, name: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Resource>>;
-    public getResourceByName(vo: number, facility: number, name: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Resource>>;
-    public getResourceByName(vo: number, facility: number, name: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourceByName(vo: number, facility: number, name: string, observe?: 'body', reportProgress?: boolean): Observable<Resource>;
+    public getResourceByName(vo: number, facility: number, name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Resource>>;
+    public getResourceByName(vo: number, facility: number, name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Resource>>;
+    public getResourceByName(vo: number, facility: number, name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getResourceByName.');
         }
@@ -3359,26 +2751,20 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (name !== undefined && name !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>name, 'name');
+            queryParameters = queryParameters.set('name', <any>name);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3392,28 +2778,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Resource>(`${this.configuration.basePath}/json/resourcesManager/getResourceByName`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3428,28 +2805,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResources(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Resource>>;
-    public getResources(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Resource>>>;
-    public getResources(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Resource>>>;
-    public getResources(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResources(vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Resource>>;
+    public getResources(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Resource>>>;
+    public getResources(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Resource>>>;
+    public getResources(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getResources.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3463,28 +2836,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getResources`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3498,19 +2862,16 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourcesCountForAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public getResourcesCountForAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public getResourcesCountForAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public getResourcesCountForAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourcesCountForAll(observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public getResourcesCountForAll(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public getResourcesCountForAll(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public getResourcesCountForAll(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3524,27 +2885,18 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<number>(`${this.configuration.basePath}/json/resourcesManager/getResourcesCount/all`,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3559,28 +2911,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourcesCountForVo(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public getResourcesCountForVo(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public getResourcesCountForVo(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public getResourcesCountForVo(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourcesCountForVo(vo: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public getResourcesCountForVo(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public getResourcesCountForVo(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public getResourcesCountForVo(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getResourcesCountForVo.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3594,28 +2942,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<number>(`${this.configuration.basePath}/json/resourcesManager/getResourcesCount/vo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3631,10 +2970,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourcesFromVoWhereUserIsAdmin(vo: number, user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Resource>>;
-    public getResourcesFromVoWhereUserIsAdmin(vo: number, user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Resource>>>;
-    public getResourcesFromVoWhereUserIsAdmin(vo: number, user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Resource>>>;
-    public getResourcesFromVoWhereUserIsAdmin(vo: number, user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourcesFromVoWhereUserIsAdmin(vo: number, user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Resource>>;
+    public getResourcesFromVoWhereUserIsAdmin(vo: number, user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Resource>>>;
+    public getResourcesFromVoWhereUserIsAdmin(vo: number, user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Resource>>>;
+    public getResourcesFromVoWhereUserIsAdmin(vo: number, user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getResourcesFromVoWhereUserIsAdmin.');
         }
@@ -3644,22 +2983,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3673,28 +3007,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getResourcesWhereUserIsAdmin/fromVo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3711,10 +3036,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourcesWhereGroupIsAdmin(facility: number, vo: number, group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Resource>>;
-    public getResourcesWhereGroupIsAdmin(facility: number, vo: number, group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Resource>>>;
-    public getResourcesWhereGroupIsAdmin(facility: number, vo: number, group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Resource>>>;
-    public getResourcesWhereGroupIsAdmin(facility: number, vo: number, group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourcesWhereGroupIsAdmin(facility: number, vo: number, group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Resource>>;
+    public getResourcesWhereGroupIsAdmin(facility: number, vo: number, group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Resource>>>;
+    public getResourcesWhereGroupIsAdmin(facility: number, vo: number, group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Resource>>>;
+    public getResourcesWhereGroupIsAdmin(facility: number, vo: number, group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling getResourcesWhereGroupIsAdmin.');
         }
@@ -3727,26 +3052,20 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3760,28 +3079,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getResourcesWhereUserIsAdmin/group`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3798,10 +3108,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getResourcesWhereUserIsAdmin(facility: number, vo: number, user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Resource>>;
-    public getResourcesWhereUserIsAdmin(facility: number, vo: number, user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Resource>>>;
-    public getResourcesWhereUserIsAdmin(facility: number, vo: number, user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Resource>>>;
-    public getResourcesWhereUserIsAdmin(facility: number, vo: number, user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getResourcesWhereUserIsAdmin(facility: number, vo: number, user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Resource>>;
+    public getResourcesWhereUserIsAdmin(facility: number, vo: number, user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Resource>>>;
+    public getResourcesWhereUserIsAdmin(facility: number, vo: number, user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Resource>>>;
+    public getResourcesWhereUserIsAdmin(facility: number, vo: number, user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (facility === null || facility === undefined) {
             throw new Error('Required parameter facility was null or undefined when calling getResourcesWhereUserIsAdmin.');
         }
@@ -3814,26 +3124,20 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (facility !== undefined && facility !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>facility, 'facility');
+            queryParameters = queryParameters.set('facility', <any>facility);
         }
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3847,28 +3151,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getResourcesWhereUserIsAdmin`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3886,10 +3181,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRichAdmins(resource: number, specificAttributes: Array<string>, allUserAttributes: boolean, onlyDirectAdmins: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<RichUser>>;
-    public getRichAdmins(resource: number, specificAttributes: Array<string>, allUserAttributes: boolean, onlyDirectAdmins: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<RichUser>>>;
-    public getRichAdmins(resource: number, specificAttributes: Array<string>, allUserAttributes: boolean, onlyDirectAdmins: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<RichUser>>>;
-    public getRichAdmins(resource: number, specificAttributes: Array<string>, allUserAttributes: boolean, onlyDirectAdmins: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRichAdmins(resource: number, specificAttributes: Array<string>, allUserAttributes: boolean, onlyDirectAdmins: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<RichUser>>;
+    public getRichAdmins(resource: number, specificAttributes: Array<string>, allUserAttributes: boolean, onlyDirectAdmins: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichUser>>>;
+    public getRichAdmins(resource: number, specificAttributes: Array<string>, allUserAttributes: boolean, onlyDirectAdmins: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichUser>>>;
+    public getRichAdmins(resource: number, specificAttributes: Array<string>, allUserAttributes: boolean, onlyDirectAdmins: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getRichAdmins.');
         }
@@ -3905,32 +3200,25 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (specificAttributes) {
             specificAttributes.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'specificAttributes');
+                queryParameters = queryParameters.append('specificAttributes', <any>element);
             })
         }
         if (allUserAttributes !== undefined && allUserAttributes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>allUserAttributes, 'allUserAttributes');
+            queryParameters = queryParameters.set('allUserAttributes', <any>allUserAttributes);
         }
         if (onlyDirectAdmins !== undefined && onlyDirectAdmins !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>onlyDirectAdmins, 'onlyDirectAdmins');
+            queryParameters = queryParameters.set('onlyDirectAdmins', <any>onlyDirectAdmins);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3944,28 +3232,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<RichUser>>(`${this.configuration.basePath}/json/resourcesManager/getRichAdmins`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3980,28 +3259,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRichResourceById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<RichResource>;
-    public getRichResourceById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<RichResource>>;
-    public getRichResourceById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<RichResource>>;
-    public getRichResourceById(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRichResourceById(id: number, observe?: 'body', reportProgress?: boolean): Observable<RichResource>;
+    public getRichResourceById(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RichResource>>;
+    public getRichResourceById(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RichResource>>;
+    public getRichResourceById(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getRichResourceById.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4015,28 +3290,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<RichResource>(`${this.configuration.basePath}/json/resourcesManager/getRichResourceById`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4051,28 +3317,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRichResources(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<RichResource>>;
-    public getRichResources(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<RichResource>>>;
-    public getRichResources(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<RichResource>>>;
-    public getRichResources(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getRichResources(vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<RichResource>>;
+    public getRichResources(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichResource>>>;
+    public getRichResources(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichResource>>>;
+    public getRichResources(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getRichResources.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4086,28 +3348,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<RichResource>>(`${this.configuration.basePath}/json/resourcesManager/getRichResources`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4122,28 +3375,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getVo(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Vo>;
-    public getVo(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Vo>>;
-    public getVo(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Vo>>;
-    public getVo(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getVo(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Vo>;
+    public getVo(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Vo>>;
+    public getVo(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Vo>>;
+    public getVo(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling getVo.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4157,28 +3406,19 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Vo>(`${this.configuration.basePath}/json/resourcesManager/getVo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4193,28 +3433,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeAllResourceTagsFromResource(resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeAllResourceTagsFromResource(resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeAllResourceTagsFromResource(resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeAllResourceTagsFromResource(resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeAllResourceTagsFromResource(resource: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeAllResourceTagsFromResource(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeAllResourceTagsFromResource(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeAllResourceTagsFromResource(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeAllResourceTagsFromResource.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4228,29 +3464,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeAllResourcesTagFromResource`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4266,10 +3493,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeBanByMemberAndResource(member: number, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeBanByMemberAndResource(member: number, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeBanByMemberAndResource(member: number, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeBanByMemberAndResource(member: number, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeBanByMemberAndResource(member: number, resource: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeBanByMemberAndResource(member: number, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeBanByMemberAndResource(member: number, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeBanByMemberAndResource(member: number, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling removeBanByMemberAndResource.');
         }
@@ -4279,22 +3506,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4308,29 +3530,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeBan/member-resource-id`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4346,10 +3559,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupAdminResource(resource: number, authorizedGroup: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeGroupAdminResource(resource: number, authorizedGroup: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeGroupAdminResource(resource: number, authorizedGroup: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeGroupAdminResource(resource: number, authorizedGroup: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeGroupAdminResource(resource: number, authorizedGroup: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupAdminResource(resource: number, authorizedGroup: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupAdminResource(resource: number, authorizedGroup: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupAdminResource(resource: number, authorizedGroup: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeGroupAdminResource.');
         }
@@ -4359,22 +3572,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (authorizedGroup !== undefined && authorizedGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>authorizedGroup, 'authorizedGroup');
+            queryParameters = queryParameters.set('authorizedGroup', <any>authorizedGroup);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4388,29 +3596,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeAdmin/r-g`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4426,10 +3625,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupFromResource(group: number, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeGroupFromResource(group: number, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeGroupFromResource(group: number, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeGroupFromResource(group: number, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeGroupFromResource(group: number, resource: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupFromResource(group: number, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupFromResource(group: number, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupFromResource(group: number, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling removeGroupFromResource.');
         }
@@ -4439,22 +3638,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4468,29 +3662,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeGroupFromResource`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4506,10 +3691,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupFromResources(group: number, resources: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeGroupFromResources(group: number, resources: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeGroupFromResources(group: number, resources: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeGroupFromResources(group: number, resources: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeGroupFromResources(group: number, resources: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupFromResources(group: number, resources: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupFromResources(group: number, resources: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupFromResources(group: number, resources: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling removeGroupFromResources.');
         }
@@ -4519,24 +3704,19 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (resources) {
             resources.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'resources[]');
+                queryParameters = queryParameters.append('resources[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4550,29 +3730,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeGroupFromResources`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4588,10 +3759,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeGroupsFromResource(groups: Array<number>, resource: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeGroupsFromResource(groups: Array<number>, resource: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeGroupsFromResource(groups: Array<number>, resource: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeGroupsFromResource(groups: Array<number>, resource: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeGroupsFromResource(groups: Array<number>, resource: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeGroupsFromResource(groups: Array<number>, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeGroupsFromResource(groups: Array<number>, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeGroupsFromResource(groups: Array<number>, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (groups === null || groups === undefined) {
             throw new Error('Required parameter groups was null or undefined when calling removeGroupsFromResource.');
         }
@@ -4602,23 +3773,18 @@ export class ResourcesManagerService {
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (groups) {
             groups.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'groups[]');
+                queryParameters = queryParameters.append('groups[]', <any>element);
             })
         }
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4632,29 +3798,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeGroupsFromResource`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4669,28 +3826,24 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeResourceBanById(banId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeResourceBanById(banId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeResourceBanById(banId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeResourceBanById(banId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeResourceBanById(banId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeResourceBanById(banId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeResourceBanById(banId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeResourceBanById(banId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (banId === null || banId === undefined) {
             throw new Error('Required parameter banId was null or undefined when calling removeResourceBanById.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (banId !== undefined && banId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>banId, 'banId');
+            queryParameters = queryParameters.set('banId', <any>banId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4704,29 +3857,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeBan/id`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4742,10 +3886,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeResourceSelfServiceGroup(resource: number, group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeResourceSelfServiceGroup(resource: number, group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeResourceSelfServiceGroup(resource: number, group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeResourceSelfServiceGroup(resource: number, group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeResourceSelfServiceGroup(resource: number, group: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeResourceSelfServiceGroup(resource: number, group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeResourceSelfServiceGroup(resource: number, group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeResourceSelfServiceGroup(resource: number, group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeResourceSelfServiceGroup.');
         }
@@ -4755,22 +3899,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4784,29 +3923,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeResourceSelfServiceGroup`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4822,10 +3952,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeResourceSelfServiceUser(resource: number, user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeResourceSelfServiceUser(resource: number, user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeResourceSelfServiceUser(resource: number, user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeResourceSelfServiceUser(resource: number, user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeResourceSelfServiceUser(resource: number, user: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeResourceSelfServiceUser(resource: number, user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeResourceSelfServiceUser(resource: number, user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeResourceSelfServiceUser(resource: number, user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeResourceSelfServiceUser.');
         }
@@ -4835,22 +3965,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4864,29 +3989,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeResourceSelfServiceUser`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4901,10 +4017,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeResourceTagFromResource(inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeResourceTagFromResource(inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeResourceTagFromResource(inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeResourceTagFromResource(inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeResourceTagFromResource(inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeResourceTagFromResource(inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeResourceTagFromResource(inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeResourceTagFromResource(inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputRemoveResourceTagFromResource === null || inputRemoveResourceTagFromResource === undefined) {
             throw new Error('Required parameter inputRemoveResourceTagFromResource was null or undefined when calling removeResourceTagFromResource.');
         }
@@ -4912,11 +4028,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -4930,14 +4043,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -4952,15 +4062,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/resourcesManager/removeResourceTagFromResource`,
             inputRemoveResourceTagFromResource,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -4976,10 +4080,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeService(resource: number, service: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeService(resource: number, service: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeService(resource: number, service: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeService(resource: number, service: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeService(resource: number, service: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeService(resource: number, service: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeService(resource: number, service: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeService(resource: number, service: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeService.');
         }
@@ -4989,22 +4093,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (service !== undefined && service !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>service, 'service');
+            queryParameters = queryParameters.set('service', <any>service);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5018,29 +4117,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeService`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5056,10 +4146,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeServices(resource: number, services: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeServices(resource: number, services: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeServices(resource: number, services: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeServices(resource: number, services: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeServices(resource: number, services: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeServices(resource: number, services: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeServices(resource: number, services: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeServices(resource: number, services: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeServices.');
         }
@@ -5069,24 +4159,19 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (services) {
             services.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'services[]');
+                queryParameters = queryParameters.append('services[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5100,29 +4185,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeServices`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5138,10 +4214,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeServicesPackage(resource: number, servicesPackage: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeServicesPackage(resource: number, servicesPackage: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeServicesPackage(resource: number, servicesPackage: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeServicesPackage(resource: number, servicesPackage: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeServicesPackage(resource: number, servicesPackage: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeServicesPackage(resource: number, servicesPackage: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeServicesPackage(resource: number, servicesPackage: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeServicesPackage(resource: number, servicesPackage: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeServicesPackage.');
         }
@@ -5151,22 +4227,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (servicesPackage !== undefined && servicesPackage !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>servicesPackage, 'servicesPackage');
+            queryParameters = queryParameters.set('servicesPackage', <any>servicesPackage);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5180,29 +4251,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeServicesPackage`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5218,10 +4280,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeUserAdminResource(resource: number, user: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public removeUserAdminResource(resource: number, user: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public removeUserAdminResource(resource: number, user: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public removeUserAdminResource(resource: number, user: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public removeUserAdminResource(resource: number, user: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeUserAdminResource(resource: number, user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeUserAdminResource(resource: number, user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeUserAdminResource(resource: number, user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (resource === null || resource === undefined) {
             throw new Error('Required parameter resource was null or undefined when calling removeUserAdminResource.');
         }
@@ -5231,22 +4293,17 @@ export class ResourcesManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (resource !== undefined && resource !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>resource, 'resource');
+            queryParameters = queryParameters.set('resource', <any>resource);
         }
         if (user !== undefined && user !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>user, 'user');
+            queryParameters = queryParameters.set('user', <any>user);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5260,29 +4317,20 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/resourcesManager/removeAdmin/r-u`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5297,10 +4345,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setResourceBan(inputSetBan: InputSetBan, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<BanOnResource>;
-    public setResourceBan(inputSetBan: InputSetBan, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<BanOnResource>>;
-    public setResourceBan(inputSetBan: InputSetBan, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<BanOnResource>>;
-    public setResourceBan(inputSetBan: InputSetBan, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setResourceBan(inputSetBan: InputSetBan, observe?: 'body', reportProgress?: boolean): Observable<BanOnResource>;
+    public setResourceBan(inputSetBan: InputSetBan, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BanOnResource>>;
+    public setResourceBan(inputSetBan: InputSetBan, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BanOnResource>>;
+    public setResourceBan(inputSetBan: InputSetBan, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetBan === null || inputSetBan === undefined) {
             throw new Error('Required parameter inputSetBan was null or undefined when calling setResourceBan.');
         }
@@ -5308,11 +4356,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5326,14 +4371,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -5348,15 +4390,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<BanOnResource>(`${this.configuration.basePath}/json/resourcesManager/setBan`,
             inputSetBan,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5371,10 +4407,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateResource(inputUpdateResource: InputUpdateResource, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public updateResource(inputUpdateResource: InputUpdateResource, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public updateResource(inputUpdateResource: InputUpdateResource, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public updateResource(inputUpdateResource: InputUpdateResource, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public updateResource(inputUpdateResource: InputUpdateResource, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateResource(inputUpdateResource: InputUpdateResource, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateResource(inputUpdateResource: InputUpdateResource, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateResource(inputUpdateResource: InputUpdateResource, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputUpdateResource === null || inputUpdateResource === undefined) {
             throw new Error('Required parameter inputUpdateResource was null or undefined when calling updateResource.');
         }
@@ -5382,11 +4418,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5400,14 +4433,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -5422,15 +4452,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/resourcesManager/updateResource`,
             inputUpdateResource,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5445,10 +4469,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateResourceBan(inputUpdateBan: InputUpdateBan, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<BanOnResource>;
-    public updateResourceBan(inputUpdateBan: InputUpdateBan, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<BanOnResource>>;
-    public updateResourceBan(inputUpdateBan: InputUpdateBan, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<BanOnResource>>;
-    public updateResourceBan(inputUpdateBan: InputUpdateBan, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public updateResourceBan(inputUpdateBan: InputUpdateBan, observe?: 'body', reportProgress?: boolean): Observable<BanOnResource>;
+    public updateResourceBan(inputUpdateBan: InputUpdateBan, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BanOnResource>>;
+    public updateResourceBan(inputUpdateBan: InputUpdateBan, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BanOnResource>>;
+    public updateResourceBan(inputUpdateBan: InputUpdateBan, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputUpdateBan === null || inputUpdateBan === undefined) {
             throw new Error('Required parameter inputUpdateBan was null or undefined when calling updateResourceBan.');
         }
@@ -5456,11 +4480,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5474,14 +4495,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -5496,15 +4514,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<BanOnResource>(`${this.configuration.basePath}/json/resourcesManager/updateBan`,
             inputUpdateBan,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -5519,10 +4531,10 @@ export class ResourcesManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateResourceTag(inputUpdateResourceTag: InputUpdateResourceTag, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<ResourceTag>;
-    public updateResourceTag(inputUpdateResourceTag: InputUpdateResourceTag, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<ResourceTag>>;
-    public updateResourceTag(inputUpdateResourceTag: InputUpdateResourceTag, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<ResourceTag>>;
-    public updateResourceTag(inputUpdateResourceTag: InputUpdateResourceTag, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public updateResourceTag(inputUpdateResourceTag: InputUpdateResourceTag, observe?: 'body', reportProgress?: boolean): Observable<ResourceTag>;
+    public updateResourceTag(inputUpdateResourceTag: InputUpdateResourceTag, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResourceTag>>;
+    public updateResourceTag(inputUpdateResourceTag: InputUpdateResourceTag, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResourceTag>>;
+    public updateResourceTag(inputUpdateResourceTag: InputUpdateResourceTag, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputUpdateResourceTag === null || inputUpdateResourceTag === undefined) {
             throw new Error('Required parameter inputUpdateResourceTag was null or undefined when calling updateResourceTag.');
         }
@@ -5530,11 +4542,8 @@ export class ResourcesManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -5548,14 +4557,11 @@ export class ResourcesManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -5570,15 +4576,9 @@ export class ResourcesManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<ResourceTag>(`${this.configuration.basePath}/json/resourcesManager/updateResourceTag`,
             inputUpdateResourceTag,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

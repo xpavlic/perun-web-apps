@@ -11,7 +11,6 @@
  */
 import { Group } from './group';
 import { Attribute } from './attribute';
-import { RichGroupAllOf } from './richGroupAllOf';
 
 
 export interface RichGroup extends Group { 

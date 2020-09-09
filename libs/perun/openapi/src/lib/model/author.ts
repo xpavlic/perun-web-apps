@@ -12,7 +12,6 @@
 import { PerunBean } from './perunBean';
 import { Authorship } from './authorship';
 import { Attribute } from './attribute';
-import { AuthorAllOf } from './authorAllOf';
 
 
 export interface Author extends PerunBean { 

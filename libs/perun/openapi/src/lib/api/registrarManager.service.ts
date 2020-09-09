@@ -17,23 +17,23 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { Application } from '../model/models';
-import { ApplicationForm } from '../model/models';
-import { ApplicationFormItem } from '../model/models';
-import { ApplicationFormItemData } from '../model/models';
-import { ApplicationMail } from '../model/models';
-import { InputAddApplicationMailForGroup } from '../model/models';
-import { InputAddApplicationMailForVo } from '../model/models';
-import { InputFormItemData } from '../model/models';
-import { InputSendMessage } from '../model/models';
-import { InputSetSendingEnabled } from '../model/models';
-import { InputSubmitApplication } from '../model/models';
-import { InputUpdateApplicationMail } from '../model/models';
-import { InputUpdateForm } from '../model/models';
-import { InputUpdateFormItemsForGroup } from '../model/models';
-import { InputUpdateFormItemsForVo } from '../model/models';
-import { PerunException } from '../model/models';
-import { UserExtSource } from '../model/models';
+import { Application } from '../model/application';
+import { ApplicationForm } from '../model/applicationForm';
+import { ApplicationFormItem } from '../model/applicationFormItem';
+import { ApplicationFormItemData } from '../model/applicationFormItemData';
+import { ApplicationMail } from '../model/applicationMail';
+import { InputAddApplicationMailForGroup } from '../model/inputAddApplicationMailForGroup';
+import { InputAddApplicationMailForVo } from '../model/inputAddApplicationMailForVo';
+import { InputFormItemData } from '../model/inputFormItemData';
+import { InputSendMessage } from '../model/inputSendMessage';
+import { InputSetSendingEnabled } from '../model/inputSetSendingEnabled';
+import { InputSubmitApplication } from '../model/inputSubmitApplication';
+import { InputUpdateApplicationMail } from '../model/inputUpdateApplicationMail';
+import { InputUpdateForm } from '../model/inputUpdateForm';
+import { InputUpdateFormItemsForGroup } from '../model/inputUpdateFormItemsForGroup';
+import { InputUpdateFormItemsForVo } from '../model/inputUpdateFormItemsForVo';
+import { PerunException } from '../model/perunException';
+import { UserExtSource } from '../model/userExtSource';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -65,52 +65,16 @@ export class RegistrarManagerService {
 
 
 
-    private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
-        if (typeof value === "object" && value instanceof Date === false) {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value);
-        } else {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
-        }
-        return httpParams;
-    }
-
-    private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
-        if (value == null) {
-            return httpParams;
-        }
-
-        if (typeof value === "object") {
-            if (Array.isArray(value)) {
-                (value as any[]).forEach( elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
-            } else if (value instanceof Date) {
-                if (key != null) {
-                    httpParams = httpParams.append(key,
-                        (value as Date).toISOString().substr(0, 10));
-                } else {
-                   throw Error("key may not be null if value is Date");
-                }
-            } else {
-                Object.keys(value).forEach( k => httpParams = this.addToHttpParamsRecursive(
-                    httpParams, value[k], key != null ? `${key}.${k}` : k));
-            }
-        } else if (key != null) {
-            httpParams = httpParams.append(key, value);
-        } else {
-            throw Error("key may not be null if value is not object or array");
-        }
-        return httpParams;
-    }
-
     /**
      * Add new mail notification.
      * @param inputAddApplicationMailForGroup 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addApplicationMailForGroup(inputAddApplicationMailForGroup: InputAddApplicationMailForGroup, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public addApplicationMailForGroup(inputAddApplicationMailForGroup: InputAddApplicationMailForGroup, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public addApplicationMailForGroup(inputAddApplicationMailForGroup: InputAddApplicationMailForGroup, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public addApplicationMailForGroup(inputAddApplicationMailForGroup: InputAddApplicationMailForGroup, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public addApplicationMailForGroup(inputAddApplicationMailForGroup: InputAddApplicationMailForGroup, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public addApplicationMailForGroup(inputAddApplicationMailForGroup: InputAddApplicationMailForGroup, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public addApplicationMailForGroup(inputAddApplicationMailForGroup: InputAddApplicationMailForGroup, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public addApplicationMailForGroup(inputAddApplicationMailForGroup: InputAddApplicationMailForGroup, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputAddApplicationMailForGroup === null || inputAddApplicationMailForGroup === undefined) {
             throw new Error('Required parameter inputAddApplicationMailForGroup was null or undefined when calling addApplicationMailForGroup.');
         }
@@ -118,11 +82,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -136,14 +97,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -158,15 +116,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<number>(`${this.configuration.basePath}/json/registrarManager/addApplicationMail/g`,
             inputAddApplicationMailForGroup,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -181,10 +133,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addApplicationMailForVo(inputAddApplicationMailForVo: InputAddApplicationMailForVo, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public addApplicationMailForVo(inputAddApplicationMailForVo: InputAddApplicationMailForVo, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public addApplicationMailForVo(inputAddApplicationMailForVo: InputAddApplicationMailForVo, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public addApplicationMailForVo(inputAddApplicationMailForVo: InputAddApplicationMailForVo, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public addApplicationMailForVo(inputAddApplicationMailForVo: InputAddApplicationMailForVo, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public addApplicationMailForVo(inputAddApplicationMailForVo: InputAddApplicationMailForVo, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public addApplicationMailForVo(inputAddApplicationMailForVo: InputAddApplicationMailForVo, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public addApplicationMailForVo(inputAddApplicationMailForVo: InputAddApplicationMailForVo, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputAddApplicationMailForVo === null || inputAddApplicationMailForVo === undefined) {
             throw new Error('Required parameter inputAddApplicationMailForVo was null or undefined when calling addApplicationMailForVo.');
         }
@@ -192,11 +144,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -210,14 +159,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -232,15 +178,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<number>(`${this.configuration.basePath}/json/registrarManager/addApplicationMail/v`,
             inputAddApplicationMailForVo,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -256,28 +196,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public approveApplication(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Application>;
-    public approveApplication(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Application>>;
-    public approveApplication(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Application>>;
-    public approveApplication(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public approveApplication(id: number, observe?: 'body', reportProgress?: boolean): Observable<Application>;
+    public approveApplication(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
+    public approveApplication(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
+    public approveApplication(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling approveApplication.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -291,29 +227,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<Application>(`${this.configuration.basePath}/urlinjsonout/registrarManager/approveApplication`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -328,28 +255,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public consolidateIdentityUsingToken(token: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<UserExtSource>>;
-    public consolidateIdentityUsingToken(token: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<UserExtSource>>>;
-    public consolidateIdentityUsingToken(token: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<UserExtSource>>>;
-    public consolidateIdentityUsingToken(token: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public consolidateIdentityUsingToken(token: string, observe?: 'body', reportProgress?: boolean): Observable<Array<UserExtSource>>;
+    public consolidateIdentityUsingToken(token: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<UserExtSource>>>;
+    public consolidateIdentityUsingToken(token: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<UserExtSource>>>;
+    public consolidateIdentityUsingToken(token: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (token === null || token === undefined) {
             throw new Error('Required parameter token was null or undefined when calling consolidateIdentityUsingToken.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (token !== undefined && token !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>token, 'token');
+            queryParameters = queryParameters.set('token', <any>token);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -363,28 +286,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<UserExtSource>>(`${this.configuration.basePath}/json/registrarManager/consolidateIdentityUsingToken`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -400,29 +314,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyFormFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public copyFormFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public copyFormFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public copyFormFromGroupToGroup(fromGroup?: number, toGroup?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public copyFormFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public copyFormFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public copyFormFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public copyFormFromGroupToGroup(fromGroup?: number, toGroup?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (fromGroup !== undefined && fromGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>fromGroup, 'fromGroup');
+            queryParameters = queryParameters.set('fromGroup', <any>fromGroup);
         }
         if (toGroup !== undefined && toGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>toGroup, 'toGroup');
+            queryParameters = queryParameters.set('toGroup', <any>toGroup);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -436,29 +345,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/copyForm/groupToGroup`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -474,29 +374,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyFormFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public copyFormFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public copyFormFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public copyFormFromGroupToVo(fromGroup?: number, toVo?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public copyFormFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public copyFormFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public copyFormFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public copyFormFromGroupToVo(fromGroup?: number, toVo?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (fromGroup !== undefined && fromGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>fromGroup, 'fromGroup');
+            queryParameters = queryParameters.set('fromGroup', <any>fromGroup);
         }
         if (toVo !== undefined && toVo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>toVo, 'toVo');
+            queryParameters = queryParameters.set('toVo', <any>toVo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -510,29 +405,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/copyForm/groupToVo`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -548,29 +434,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyFormFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public copyFormFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public copyFormFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public copyFormFromVoToGroup(fromVo?: number, toGroup?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public copyFormFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public copyFormFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public copyFormFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public copyFormFromVoToGroup(fromVo?: number, toGroup?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (fromVo !== undefined && fromVo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>fromVo, 'fromVo');
+            queryParameters = queryParameters.set('fromVo', <any>fromVo);
         }
         if (toGroup !== undefined && toGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>toGroup, 'toGroup');
+            queryParameters = queryParameters.set('toGroup', <any>toGroup);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -584,29 +465,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/copyForm/voToGroup`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -622,29 +494,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyFormFromVoToVo(fromVo?: number, toVo?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public copyFormFromVoToVo(fromVo?: number, toVo?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public copyFormFromVoToVo(fromVo?: number, toVo?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public copyFormFromVoToVo(fromVo?: number, toVo?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public copyFormFromVoToVo(fromVo?: number, toVo?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public copyFormFromVoToVo(fromVo?: number, toVo?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public copyFormFromVoToVo(fromVo?: number, toVo?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public copyFormFromVoToVo(fromVo?: number, toVo?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (fromVo !== undefined && fromVo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>fromVo, 'fromVo');
+            queryParameters = queryParameters.set('fromVo', <any>fromVo);
         }
         if (toVo !== undefined && toVo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>toVo, 'toVo');
+            queryParameters = queryParameters.set('toVo', <any>toVo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -658,29 +525,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/copyForm/voToVo`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -696,29 +554,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyMailsFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public copyMailsFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public copyMailsFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public copyMailsFromGroupToGroup(fromGroup?: number, toGroup?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public copyMailsFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public copyMailsFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public copyMailsFromGroupToGroup(fromGroup?: number, toGroup?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public copyMailsFromGroupToGroup(fromGroup?: number, toGroup?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (fromGroup !== undefined && fromGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>fromGroup, 'fromGroup');
+            queryParameters = queryParameters.set('fromGroup', <any>fromGroup);
         }
         if (toGroup !== undefined && toGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>toGroup, 'toGroup');
+            queryParameters = queryParameters.set('toGroup', <any>toGroup);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -732,29 +585,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/copyMails/groupToGroup`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -770,29 +614,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyMailsFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public copyMailsFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public copyMailsFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public copyMailsFromGroupToVo(fromGroup?: number, toVo?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public copyMailsFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public copyMailsFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public copyMailsFromGroupToVo(fromGroup?: number, toVo?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public copyMailsFromGroupToVo(fromGroup?: number, toVo?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (fromGroup !== undefined && fromGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>fromGroup, 'fromGroup');
+            queryParameters = queryParameters.set('fromGroup', <any>fromGroup);
         }
         if (toVo !== undefined && toVo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>toVo, 'toVo');
+            queryParameters = queryParameters.set('toVo', <any>toVo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -806,29 +645,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/copyMails/groupToVo`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -844,29 +674,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyMailsFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public copyMailsFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public copyMailsFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public copyMailsFromVoToGroup(fromVo?: number, toGroup?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public copyMailsFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public copyMailsFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public copyMailsFromVoToGroup(fromVo?: number, toGroup?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public copyMailsFromVoToGroup(fromVo?: number, toGroup?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (fromVo !== undefined && fromVo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>fromVo, 'fromVo');
+            queryParameters = queryParameters.set('fromVo', <any>fromVo);
         }
         if (toGroup !== undefined && toGroup !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>toGroup, 'toGroup');
+            queryParameters = queryParameters.set('toGroup', <any>toGroup);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -880,29 +705,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/copyMails/voToGroup`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -918,29 +734,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyMailsFromVoToVo(fromVo?: number, toVo?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public copyMailsFromVoToVo(fromVo?: number, toVo?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public copyMailsFromVoToVo(fromVo?: number, toVo?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public copyMailsFromVoToVo(fromVo?: number, toVo?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public copyMailsFromVoToVo(fromVo?: number, toVo?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public copyMailsFromVoToVo(fromVo?: number, toVo?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public copyMailsFromVoToVo(fromVo?: number, toVo?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public copyMailsFromVoToVo(fromVo?: number, toVo?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (fromVo !== undefined && fromVo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>fromVo, 'fromVo');
+            queryParameters = queryParameters.set('fromVo', <any>fromVo);
         }
         if (toVo !== undefined && toVo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>toVo, 'toVo');
+            queryParameters = queryParameters.set('toVo', <any>toVo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -954,29 +765,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/copyMails/voToVo`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -991,28 +793,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createApplicationFormInGroup(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public createApplicationFormInGroup(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public createApplicationFormInGroup(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public createApplicationFormInGroup(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public createApplicationFormInGroup(group: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public createApplicationFormInGroup(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public createApplicationFormInGroup(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public createApplicationFormInGroup(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling createApplicationFormInGroup.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1026,29 +824,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/createApplicationForm/group`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1063,28 +852,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createApplicationFormInVo(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public createApplicationFormInVo(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public createApplicationFormInVo(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public createApplicationFormInVo(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public createApplicationFormInVo(vo: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public createApplicationFormInVo(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public createApplicationFormInVo(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public createApplicationFormInVo(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling createApplicationFormInVo.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1098,29 +883,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/createApplicationForm/vo`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1135,28 +911,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteApplication(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public deleteApplication(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public deleteApplication(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public deleteApplication(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public deleteApplication(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteApplication(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteApplication(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteApplication(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling deleteApplication.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1170,29 +942,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/deleteApplication`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1208,10 +971,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteApplicationMailForGroup(group: number, id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public deleteApplicationMailForGroup(group: number, id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public deleteApplicationMailForGroup(group: number, id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public deleteApplicationMailForGroup(group: number, id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public deleteApplicationMailForGroup(group: number, id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteApplicationMailForGroup(group: number, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteApplicationMailForGroup(group: number, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteApplicationMailForGroup(group: number, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling deleteApplicationMailForGroup.');
         }
@@ -1221,22 +984,17 @@ export class RegistrarManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1250,29 +1008,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/deleteApplicationMail/g`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1288,10 +1037,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteApplicationMailForVo(vo: number, id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public deleteApplicationMailForVo(vo: number, id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public deleteApplicationMailForVo(vo: number, id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public deleteApplicationMailForVo(vo: number, id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public deleteApplicationMailForVo(vo: number, id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteApplicationMailForVo(vo: number, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteApplicationMailForVo(vo: number, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteApplicationMailForVo(vo: number, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling deleteApplicationMailForVo.');
         }
@@ -1301,22 +1050,17 @@ export class RegistrarManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1330,29 +1074,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/deleteApplicationMail/v`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1367,28 +1102,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getApplicationById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Application>;
-    public getApplicationById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Application>>;
-    public getApplicationById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Application>>;
-    public getApplicationById(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getApplicationById(id: number, observe?: 'body', reportProgress?: boolean): Observable<Application>;
+    public getApplicationById(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
+    public getApplicationById(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
+    public getApplicationById(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getApplicationById.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1402,28 +1133,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Application>(`${this.configuration.basePath}/json/registrarManager/getApplicationById`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1438,28 +1160,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getApplicationDataById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ApplicationFormItemData>>;
-    public getApplicationDataById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ApplicationFormItemData>>>;
-    public getApplicationDataById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ApplicationFormItemData>>>;
-    public getApplicationDataById(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getApplicationDataById(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ApplicationFormItemData>>;
+    public getApplicationDataById(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ApplicationFormItemData>>>;
+    public getApplicationDataById(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ApplicationFormItemData>>>;
+    public getApplicationDataById(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getApplicationDataById.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1473,28 +1191,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<ApplicationFormItemData>>(`${this.configuration.basePath}/json/registrarManager/getApplicationDataById`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1509,28 +1218,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getApplicationMailsForGroup(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ApplicationMail>>;
-    public getApplicationMailsForGroup(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ApplicationMail>>>;
-    public getApplicationMailsForGroup(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ApplicationMail>>>;
-    public getApplicationMailsForGroup(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getApplicationMailsForGroup(group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ApplicationMail>>;
+    public getApplicationMailsForGroup(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ApplicationMail>>>;
+    public getApplicationMailsForGroup(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ApplicationMail>>>;
+    public getApplicationMailsForGroup(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getApplicationMailsForGroup.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1544,28 +1249,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<ApplicationMail>>(`${this.configuration.basePath}/json/registrarManager/getApplicationMails/g`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1580,28 +1276,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getApplicationMailsForVo(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ApplicationMail>>;
-    public getApplicationMailsForVo(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ApplicationMail>>>;
-    public getApplicationMailsForVo(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ApplicationMail>>>;
-    public getApplicationMailsForVo(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getApplicationMailsForVo(vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ApplicationMail>>;
+    public getApplicationMailsForVo(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ApplicationMail>>>;
+    public getApplicationMailsForVo(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ApplicationMail>>>;
+    public getApplicationMailsForVo(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getApplicationMailsForVo.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1615,28 +1307,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<ApplicationMail>>(`${this.configuration.basePath}/json/registrarManager/getApplicationMails/v`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1652,34 +1335,29 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getApplicationsForGroup(group: number, state?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Application>>;
-    public getApplicationsForGroup(group: number, state?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Application>>>;
-    public getApplicationsForGroup(group: number, state?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Application>>>;
-    public getApplicationsForGroup(group: number, state?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getApplicationsForGroup(group: number, state?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Application>>;
+    public getApplicationsForGroup(group: number, state?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Application>>>;
+    public getApplicationsForGroup(group: number, state?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Application>>>;
+    public getApplicationsForGroup(group: number, state?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getApplicationsForGroup.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (state) {
             state.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'state[]');
+                queryParameters = queryParameters.append('state[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1693,28 +1371,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Application>>(`${this.configuration.basePath}/json/registrarManager/getApplicationsForGroup`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1730,32 +1399,27 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getApplicationsForMember(member: number, group?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Application>>;
-    public getApplicationsForMember(member: number, group?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Application>>>;
-    public getApplicationsForMember(member: number, group?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Application>>>;
-    public getApplicationsForMember(member: number, group?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getApplicationsForMember(member: number, group?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Application>>;
+    public getApplicationsForMember(member: number, group?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Application>>>;
+    public getApplicationsForMember(member: number, group?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Application>>>;
+    public getApplicationsForMember(member: number, group?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling getApplicationsForMember.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (member !== undefined && member !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>member, 'member');
+            queryParameters = queryParameters.set('member', <any>member);
         }
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1769,28 +1433,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Application>>(`${this.configuration.basePath}/json/registrarManager/getApplicationsForMember`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1806,34 +1461,29 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getApplicationsForVo(vo: number, state?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Application>>;
-    public getApplicationsForVo(vo: number, state?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Application>>>;
-    public getApplicationsForVo(vo: number, state?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Application>>>;
-    public getApplicationsForVo(vo: number, state?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getApplicationsForVo(vo: number, state?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Application>>;
+    public getApplicationsForVo(vo: number, state?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Application>>>;
+    public getApplicationsForVo(vo: number, state?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Application>>>;
+    public getApplicationsForVo(vo: number, state?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getApplicationsForVo.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (state) {
             state.forEach((element) => {
-                queryParameters = this.addToHttpParams(queryParameters,
-                  <any>element, 'state[]');
+                queryParameters = queryParameters.append('state[]', <any>element);
             })
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1847,28 +1497,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<Application>>(`${this.configuration.basePath}/json/registrarManager/getApplicationsForVo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1883,19 +1524,16 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getConsolidatorToken(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<string>;
-    public getConsolidatorToken(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<string>>;
-    public getConsolidatorToken(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<string>>;
-    public getConsolidatorToken(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getConsolidatorToken(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public getConsolidatorToken(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public getConsolidatorToken(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public getConsolidatorToken(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1909,27 +1547,18 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<string>(`${this.configuration.basePath}/json/registrarManager/getConsolidatorToken`,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1944,28 +1573,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFormItemsForGroup(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ApplicationFormItem>>;
-    public getFormItemsForGroup(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ApplicationFormItem>>>;
-    public getFormItemsForGroup(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ApplicationFormItem>>>;
-    public getFormItemsForGroup(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFormItemsForGroup(group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ApplicationFormItem>>;
+    public getFormItemsForGroup(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ApplicationFormItem>>>;
+    public getFormItemsForGroup(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ApplicationFormItem>>>;
+    public getFormItemsForGroup(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getFormItemsForGroup.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -1979,28 +1604,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<ApplicationFormItem>>(`${this.configuration.basePath}/json/registrarManager/getFormItems/group`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2016,32 +1632,27 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFormItemsForGroupWithType(group: number, type?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ApplicationFormItem>>;
-    public getFormItemsForGroupWithType(group: number, type?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ApplicationFormItem>>>;
-    public getFormItemsForGroupWithType(group: number, type?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ApplicationFormItem>>>;
-    public getFormItemsForGroupWithType(group: number, type?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFormItemsForGroupWithType(group: number, type?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ApplicationFormItem>>;
+    public getFormItemsForGroupWithType(group: number, type?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ApplicationFormItem>>>;
+    public getFormItemsForGroupWithType(group: number, type?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ApplicationFormItem>>>;
+    public getFormItemsForGroupWithType(group: number, type?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getFormItemsForGroupWithType.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
         if (type !== undefined && type !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>type, 'type');
+            queryParameters = queryParameters.set('type', <any>type);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2055,28 +1666,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<ApplicationFormItem>>(`${this.configuration.basePath}/json/registrarManager/getFormItems/group-type`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2091,28 +1693,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFormItemsForVo(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ApplicationFormItem>>;
-    public getFormItemsForVo(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ApplicationFormItem>>>;
-    public getFormItemsForVo(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ApplicationFormItem>>>;
-    public getFormItemsForVo(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFormItemsForVo(vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ApplicationFormItem>>;
+    public getFormItemsForVo(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ApplicationFormItem>>>;
+    public getFormItemsForVo(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ApplicationFormItem>>>;
+    public getFormItemsForVo(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getFormItemsForVo.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2126,28 +1724,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<ApplicationFormItem>>(`${this.configuration.basePath}/json/registrarManager/getFormItems/vo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2163,32 +1752,27 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFormItemsForVoWithType(vo: number, type?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ApplicationFormItem>>;
-    public getFormItemsForVoWithType(vo: number, type?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ApplicationFormItem>>>;
-    public getFormItemsForVoWithType(vo: number, type?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ApplicationFormItem>>>;
-    public getFormItemsForVoWithType(vo: number, type?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getFormItemsForVoWithType(vo: number, type?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ApplicationFormItem>>;
+    public getFormItemsForVoWithType(vo: number, type?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ApplicationFormItem>>>;
+    public getFormItemsForVoWithType(vo: number, type?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ApplicationFormItem>>>;
+    public getFormItemsForVoWithType(vo: number, type?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getFormItemsForVoWithType.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
         if (type !== undefined && type !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>type, 'type');
+            queryParameters = queryParameters.set('type', <any>type);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2202,28 +1786,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<Array<ApplicationFormItem>>(`${this.configuration.basePath}/json/registrarManager/getFormItems/vo-type`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2239,28 +1814,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupApplicationForm(group: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<ApplicationForm>;
-    public getGroupApplicationForm(group: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<ApplicationForm>>;
-    public getGroupApplicationForm(group: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<ApplicationForm>>;
-    public getGroupApplicationForm(group: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getGroupApplicationForm(group: number, observe?: 'body', reportProgress?: boolean): Observable<ApplicationForm>;
+    public getGroupApplicationForm(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApplicationForm>>;
+    public getGroupApplicationForm(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApplicationForm>>;
+    public getGroupApplicationForm(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupApplicationForm.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (group !== undefined && group !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>group, 'group');
+            queryParameters = queryParameters.set('group', <any>group);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2274,28 +1845,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<ApplicationForm>(`${this.configuration.basePath}/json/registrarManager/getApplicationForm/group`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2311,28 +1873,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getVoApplicationForm(vo: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<ApplicationForm>;
-    public getVoApplicationForm(vo: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<ApplicationForm>>;
-    public getVoApplicationForm(vo: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<ApplicationForm>>;
-    public getVoApplicationForm(vo: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getVoApplicationForm(vo: number, observe?: 'body', reportProgress?: boolean): Observable<ApplicationForm>;
+    public getVoApplicationForm(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApplicationForm>>;
+    public getVoApplicationForm(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApplicationForm>>;
+    public getVoApplicationForm(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (vo === null || vo === undefined) {
             throw new Error('Required parameter vo was null or undefined when calling getVoApplicationForm.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (vo !== undefined && vo !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>vo, 'vo');
+            queryParameters = queryParameters.set('vo', <any>vo);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2346,28 +1904,19 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.get<ApplicationForm>(`${this.configuration.basePath}/json/registrarManager/getApplicationForm/vo`,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2384,32 +1933,27 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public rejectApplication(id: number, reason?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Application>;
-    public rejectApplication(id: number, reason?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Application>>;
-    public rejectApplication(id: number, reason?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Application>>;
-    public rejectApplication(id: number, reason?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public rejectApplication(id: number, reason?: string, observe?: 'body', reportProgress?: boolean): Observable<Application>;
+    public rejectApplication(id: number, reason?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
+    public rejectApplication(id: number, reason?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
+    public rejectApplication(id: number, reason?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling rejectApplication.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
         if (reason !== undefined && reason !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>reason, 'reason');
+            queryParameters = queryParameters.set('reason', <any>reason);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2423,29 +1967,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<Application>(`${this.configuration.basePath}/urlinjsonout/registrarManager/rejectApplication`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2463,10 +1998,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sendInvitation(email: string, language: string, voId?: number, name?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public sendInvitation(email: string, language: string, voId?: number, name?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public sendInvitation(email: string, language: string, voId?: number, name?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public sendInvitation(email: string, language: string, voId?: number, name?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public sendInvitation(email: string, language: string, voId?: number, name?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public sendInvitation(email: string, language: string, voId?: number, name?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public sendInvitation(email: string, language: string, voId?: number, name?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public sendInvitation(email: string, language: string, voId?: number, name?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (email === null || email === undefined) {
             throw new Error('Required parameter email was null or undefined when calling sendInvitation.');
         }
@@ -2476,30 +2011,23 @@ export class RegistrarManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (voId !== undefined && voId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>voId, 'voId');
+            queryParameters = queryParameters.set('voId', <any>voId);
         }
         if (name !== undefined && name !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>name, 'name');
+            queryParameters = queryParameters.set('name', <any>name);
         }
         if (email !== undefined && email !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>email, 'email');
+            queryParameters = queryParameters.set('email', <any>email);
         }
         if (language !== undefined && language !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>language, 'language');
+            queryParameters = queryParameters.set('language', <any>language);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2513,29 +2041,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/sendInvitation`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2555,10 +2074,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sendInvitationForGroup(email: string, language: string, voId?: number, groupId?: number, name?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public sendInvitationForGroup(email: string, language: string, voId?: number, groupId?: number, name?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public sendInvitationForGroup(email: string, language: string, voId?: number, groupId?: number, name?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public sendInvitationForGroup(email: string, language: string, voId?: number, groupId?: number, name?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public sendInvitationForGroup(email: string, language: string, voId?: number, groupId?: number, name?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public sendInvitationForGroup(email: string, language: string, voId?: number, groupId?: number, name?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public sendInvitationForGroup(email: string, language: string, voId?: number, groupId?: number, name?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public sendInvitationForGroup(email: string, language: string, voId?: number, groupId?: number, name?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (email === null || email === undefined) {
             throw new Error('Required parameter email was null or undefined when calling sendInvitationForGroup.');
         }
@@ -2568,34 +2087,26 @@ export class RegistrarManagerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (voId !== undefined && voId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>voId, 'voId');
+            queryParameters = queryParameters.set('voId', <any>voId);
         }
         if (groupId !== undefined && groupId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>groupId, 'groupId');
+            queryParameters = queryParameters.set('groupId', <any>groupId);
         }
         if (name !== undefined && name !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>name, 'name');
+            queryParameters = queryParameters.set('name', <any>name);
         }
         if (email !== undefined && email !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>email, 'email');
+            queryParameters = queryParameters.set('email', <any>email);
         }
         if (language !== undefined && language !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>language, 'language');
+            queryParameters = queryParameters.set('language', <any>language);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2609,29 +2120,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/sendInvitation/g`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2648,33 +2150,27 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sendInvitationGroupToExistingUser(userId?: number, voId?: number, groupId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public sendInvitationGroupToExistingUser(userId?: number, voId?: number, groupId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public sendInvitationGroupToExistingUser(userId?: number, voId?: number, groupId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public sendInvitationGroupToExistingUser(userId?: number, voId?: number, groupId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public sendInvitationGroupToExistingUser(userId?: number, voId?: number, groupId?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public sendInvitationGroupToExistingUser(userId?: number, voId?: number, groupId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public sendInvitationGroupToExistingUser(userId?: number, voId?: number, groupId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public sendInvitationGroupToExistingUser(userId?: number, voId?: number, groupId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (userId !== undefined && userId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userId, 'userId');
+            queryParameters = queryParameters.set('userId', <any>userId);
         }
         if (voId !== undefined && voId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>voId, 'voId');
+            queryParameters = queryParameters.set('voId', <any>voId);
         }
         if (groupId !== undefined && groupId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>groupId, 'groupId');
+            queryParameters = queryParameters.set('groupId', <any>groupId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2688,29 +2184,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/sendInvitation/u-g`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2726,29 +2213,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sendInvitationToExistingUser(userId?: number, voId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public sendInvitationToExistingUser(userId?: number, voId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public sendInvitationToExistingUser(userId?: number, voId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public sendInvitationToExistingUser(userId?: number, voId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public sendInvitationToExistingUser(userId?: number, voId?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public sendInvitationToExistingUser(userId?: number, voId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public sendInvitationToExistingUser(userId?: number, voId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public sendInvitationToExistingUser(userId?: number, voId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (userId !== undefined && userId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>userId, 'userId');
+            queryParameters = queryParameters.set('userId', <any>userId);
         }
         if (voId !== undefined && voId !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>voId, 'voId');
+            queryParameters = queryParameters.set('voId', <any>voId);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2762,29 +2244,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/registrarManager/sendInvitation/u`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2800,10 +2273,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sendMessage(inputSendMessage: InputSendMessage, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public sendMessage(inputSendMessage: InputSendMessage, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public sendMessage(inputSendMessage: InputSendMessage, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public sendMessage(inputSendMessage: InputSendMessage, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public sendMessage(inputSendMessage: InputSendMessage, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public sendMessage(inputSendMessage: InputSendMessage, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public sendMessage(inputSendMessage: InputSendMessage, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public sendMessage(inputSendMessage: InputSendMessage, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSendMessage === null || inputSendMessage === undefined) {
             throw new Error('Required parameter inputSendMessage was null or undefined when calling sendMessage.');
         }
@@ -2811,11 +2284,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2829,14 +2299,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -2851,15 +2318,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/registrarManager/sendMessage`,
             inputSendMessage,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2874,10 +2335,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setSendingEnabled(inputSetSendingEnabled: InputSetSendingEnabled, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public setSendingEnabled(inputSetSendingEnabled: InputSetSendingEnabled, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public setSendingEnabled(inputSetSendingEnabled: InputSetSendingEnabled, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public setSendingEnabled(inputSetSendingEnabled: InputSetSendingEnabled, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public setSendingEnabled(inputSetSendingEnabled: InputSetSendingEnabled, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setSendingEnabled(inputSetSendingEnabled: InputSetSendingEnabled, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setSendingEnabled(inputSetSendingEnabled: InputSetSendingEnabled, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setSendingEnabled(inputSetSendingEnabled: InputSetSendingEnabled, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSetSendingEnabled === null || inputSetSendingEnabled === undefined) {
             throw new Error('Required parameter inputSetSendingEnabled was null or undefined when calling setSendingEnabled.');
         }
@@ -2885,11 +2346,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2903,14 +2361,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -2925,15 +2380,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/registrarManager/setSendingEnabled`,
             inputSetSendingEnabled,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2948,10 +2397,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Application>;
-    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Application>>;
-    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Application>>;
-    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe?: 'body', reportProgress?: boolean): Observable<Application>;
+    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
+    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
+    public submitApplication(inputSubmitApplication: InputSubmitApplication, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputSubmitApplication === null || inputSubmitApplication === undefined) {
             throw new Error('Required parameter inputSubmitApplication was null or undefined when calling submitApplication.');
         }
@@ -2959,11 +2408,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -2977,14 +2423,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -2999,15 +2442,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<Application>(`${this.configuration.basePath}/json/registrarManager/submitApplication`,
             inputSubmitApplication,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3022,10 +2459,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateApplicationMail(inputUpdateApplicationMail: InputUpdateApplicationMail, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public updateApplicationMail(inputUpdateApplicationMail: InputUpdateApplicationMail, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public updateApplicationMail(inputUpdateApplicationMail: InputUpdateApplicationMail, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public updateApplicationMail(inputUpdateApplicationMail: InputUpdateApplicationMail, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public updateApplicationMail(inputUpdateApplicationMail: InputUpdateApplicationMail, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateApplicationMail(inputUpdateApplicationMail: InputUpdateApplicationMail, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateApplicationMail(inputUpdateApplicationMail: InputUpdateApplicationMail, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateApplicationMail(inputUpdateApplicationMail: InputUpdateApplicationMail, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputUpdateApplicationMail === null || inputUpdateApplicationMail === undefined) {
             throw new Error('Required parameter inputUpdateApplicationMail was null or undefined when calling updateApplicationMail.');
         }
@@ -3033,11 +2470,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3051,14 +2485,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -3073,15 +2504,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/registrarManager/updateApplicationMail`,
             inputUpdateApplicationMail,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3096,10 +2521,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateForm(inputUpdateForm: InputUpdateForm, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<ApplicationForm>;
-    public updateForm(inputUpdateForm: InputUpdateForm, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<ApplicationForm>>;
-    public updateForm(inputUpdateForm: InputUpdateForm, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<ApplicationForm>>;
-    public updateForm(inputUpdateForm: InputUpdateForm, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public updateForm(inputUpdateForm: InputUpdateForm, observe?: 'body', reportProgress?: boolean): Observable<ApplicationForm>;
+    public updateForm(inputUpdateForm: InputUpdateForm, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApplicationForm>>;
+    public updateForm(inputUpdateForm: InputUpdateForm, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApplicationForm>>;
+    public updateForm(inputUpdateForm: InputUpdateForm, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputUpdateForm === null || inputUpdateForm === undefined) {
             throw new Error('Required parameter inputUpdateForm was null or undefined when calling updateForm.');
         }
@@ -3107,11 +2532,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3125,14 +2547,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -3147,15 +2566,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<ApplicationForm>(`${this.configuration.basePath}/json/registrarManager/updateForm`,
             inputUpdateForm,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3170,10 +2583,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateFormItemData(inputFormItemData: InputFormItemData, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public updateFormItemData(inputFormItemData: InputFormItemData, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public updateFormItemData(inputFormItemData: InputFormItemData, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public updateFormItemData(inputFormItemData: InputFormItemData, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public updateFormItemData(inputFormItemData: InputFormItemData, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateFormItemData(inputFormItemData: InputFormItemData, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateFormItemData(inputFormItemData: InputFormItemData, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateFormItemData(inputFormItemData: InputFormItemData, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputFormItemData === null || inputFormItemData === undefined) {
             throw new Error('Required parameter inputFormItemData was null or undefined when calling updateFormItemData.');
         }
@@ -3181,11 +2594,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3199,14 +2609,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -3221,15 +2628,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/json/registrarManager/updateFormItemData`,
             inputFormItemData,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3244,10 +2645,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateFormItemsForGroup(inputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public updateFormItemsForGroup(inputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public updateFormItemsForGroup(inputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public updateFormItemsForGroup(inputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public updateFormItemsForGroup(inputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public updateFormItemsForGroup(inputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public updateFormItemsForGroup(inputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public updateFormItemsForGroup(inputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputUpdateFormItemsForGroup === null || inputUpdateFormItemsForGroup === undefined) {
             throw new Error('Required parameter inputUpdateFormItemsForGroup was null or undefined when calling updateFormItemsForGroup.');
         }
@@ -3255,11 +2656,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3273,14 +2671,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -3295,15 +2690,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<number>(`${this.configuration.basePath}/json/registrarManager/updateFormItems/group`,
             inputUpdateFormItemsForGroup,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3318,10 +2707,10 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateFormItemsForVo(inputUpdateFormItemsForVo: InputUpdateFormItemsForVo, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public updateFormItemsForVo(inputUpdateFormItemsForVo: InputUpdateFormItemsForVo, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public updateFormItemsForVo(inputUpdateFormItemsForVo: InputUpdateFormItemsForVo, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public updateFormItemsForVo(inputUpdateFormItemsForVo: InputUpdateFormItemsForVo, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public updateFormItemsForVo(inputUpdateFormItemsForVo: InputUpdateFormItemsForVo, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public updateFormItemsForVo(inputUpdateFormItemsForVo: InputUpdateFormItemsForVo, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public updateFormItemsForVo(inputUpdateFormItemsForVo: InputUpdateFormItemsForVo, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public updateFormItemsForVo(inputUpdateFormItemsForVo: InputUpdateFormItemsForVo, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputUpdateFormItemsForVo === null || inputUpdateFormItemsForVo === undefined) {
             throw new Error('Required parameter inputUpdateFormItemsForVo was null or undefined when calling updateFormItemsForVo.');
         }
@@ -3329,11 +2718,8 @@ export class RegistrarManagerService {
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3347,14 +2733,11 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -3369,15 +2752,9 @@ export class RegistrarManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<number>(`${this.configuration.basePath}/json/registrarManager/updateFormItems/vo`,
             inputUpdateFormItemsForVo,
             {
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -3392,28 +2769,24 @@ export class RegistrarManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public verifyApplication(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Application>;
-    public verifyApplication(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Application>>;
-    public verifyApplication(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Application>>;
-    public verifyApplication(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public verifyApplication(id: number, observe?: 'body', reportProgress?: boolean): Observable<Application>;
+    public verifyApplication(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Application>>;
+    public verifyApplication(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Application>>;
+    public verifyApplication(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling verifyApplication.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>id, 'id');
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys) {
-            const key: string | undefined = this.configuration.apiKeys["ApiKeyAuth"] || this.configuration.apiKeys["Authorization"];
-            if (key) {
-                headers = headers.set('Authorization', key);
-            }
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // authentication (BasicAuth) required
@@ -3427,29 +2800,20 @@ export class RegistrarManagerService {
                 : this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
         return this.httpClient.post<Application>(`${this.configuration.basePath}/urlinjsonout/registrarManager/verifyApplication`,
             null,
             {
                 params: queryParameters,
-                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

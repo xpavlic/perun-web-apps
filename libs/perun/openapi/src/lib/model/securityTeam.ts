@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { FacilityAllOf } from './facilityAllOf';
 
 
 export interface SecurityTeam extends Auditable { 

@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { BanOnResourceAllOf } from './banOnResourceAllOf';
 import { Ban } from './ban';
 
 

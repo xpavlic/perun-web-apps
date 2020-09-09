@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { BanAllOf } from './banAllOf';
 
 
 export interface Ban extends Auditable { 

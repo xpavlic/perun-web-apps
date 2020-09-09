@@ -9,13 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Candidate } from './candidate';
 import { User } from './user';
-import { UserExtSource } from './userExtSource';
 
 
-export interface Candidate extends User { 
-    userExtSource?: UserExtSource;
-    additionalUserExtSources?: Array<UserExtSource>;
-    attributes?: { [key: string]: string; };
+/**
+ * input to createServiceUser
+ */
+export interface InputCreateServiceUser { 
+    candidate: Candidate;
+    specificUserOwners: Array<User>;
 }
 

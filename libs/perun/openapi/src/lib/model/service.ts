@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
-import { ServiceAllOf } from './serviceAllOf';
 
 
 export interface Service extends Auditable { 

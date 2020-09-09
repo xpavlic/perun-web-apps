@@ -9,13 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
-import { UserExtSource } from './userExtSource';
 
 
-export interface Candidate extends User { 
-    userExtSource?: UserExtSource;
-    additionalUserExtSources?: Array<UserExtSource>;
-    attributes?: { [key: string]: string; };
+export interface GenMemberDataNode { 
+    h?: Array<string>;
 }
 
