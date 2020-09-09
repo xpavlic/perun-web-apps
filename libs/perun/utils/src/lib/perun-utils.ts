@@ -24,8 +24,6 @@ export function parseStatusIcon(richMember: RichMember): string {
       return 'verified_user';
     case 'INVALID':
       return 'report';
-    case 'SUSPENDED':
-      return 'lock';
     case 'EXPIRED':
       return 'schedule';
     case 'DISABLED':

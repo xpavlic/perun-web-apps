@@ -59,8 +59,8 @@ export class VoMembersComponent implements OnInit {
   ];
 
   statuses = new FormControl();
-  statusList = ['VALID', 'INVALID', 'SUSPENDED', 'EXPIRED', 'DISABLED'];
-  selectedStatuses: string[] = ['VALID', 'INVALID', 'SUSPENDED', 'EXPIRED', 'DISABLED'];
+  statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
+  selectedStatuses: string[] = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
   pageSize: number;
   tableId = TABLE_VO_MEMBERS;
   hideColumns = [];
