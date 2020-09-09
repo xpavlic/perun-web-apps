@@ -48,8 +48,8 @@
     "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed"
   },
   "IDENTITIES": {
-    "IDP": "My federated identities",
-    "CERT": "My certificates",
+    "IDP": "Your federated identities",
+    "CERT": "Your certificates",
     "OTHER": "Other",
     "ADD": "Add",
     "REMOVE": "Remove",
@@ -76,6 +76,8 @@
     "ADMIN_SSH_KEYS_TITLE": "Admin SSH keys",
     "ADMIN_SSH_KEYS_DESCRIPTION": "List of your ssh keys for root access.",
     "NEW_KEY": "Add new key",
+    "COPY_TOOLTIP": "Copy to clipboard",
+    "REMOVE_TOOLTIP": "Remove",
     "REMOVE_KEY": "Remove selected key",
     "REMOVE_DIALOG_TITLE": "Remove ssh key",
     "REMOVE_DIALOG_DESCRIPTION": "Selected ssh key will be removed."

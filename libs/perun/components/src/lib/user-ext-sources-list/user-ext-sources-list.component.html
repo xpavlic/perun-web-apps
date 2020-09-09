@@ -44,9 +44,10 @@
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr
           *matRowDef="let richUserExtSource; columns: displayedColumns;"
-          [routerLink]="['/admin', 'users', userId, 'identities', richUserExtSource.userExtSource.id]"
+          [class.cursor-pointer]="!disableRouting"
           class="dark-hover-list-item"
-          [class.cursor-pointer]="true"
+          [class.disable-outline]="disableRouting"
+          [routerLink]="disableRouting ? null : ['/admin', 'users', userId, 'identities', richUserExtSource.userExtSource.id]"
           mat-row>
         </tr>
       </table>

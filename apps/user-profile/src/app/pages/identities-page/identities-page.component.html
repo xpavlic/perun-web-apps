@@ -9,6 +9,7 @@
       [selection]="idpSelection"
       [hideColumns]="hiddenColumnsIdp"
       [loginHeader]="loginIdp"
+      [disableRouting]="true"
     ></perun-web-apps-user-ext-sources-list>
 
     <h1 class="page-title mt-5">{{'IDENTITIES.CERT' | customTranslate | translate}}</h1>
@@ -20,6 +21,7 @@
       [extSourceNameHeader]="extSourceNameCert"
       [loginHeader]="loginCert"
       [hideColumns]="hiddenColumnsCert"
+      [disableRouting]="true"
     ></perun-web-apps-user-ext-sources-list>
 
     <h1 class="page-title mt-5">{{'IDENTITIES.OTHER' | customTranslate | translate}}</h1>
@@ -29,6 +31,7 @@
       [selection]="otherSelection"
       [extSourceNameHeader]="extSourceNameOther"
       [hideColumns]="hiddenColumnsOther"
+      [disableRouting]="true"
     ></perun-web-apps-user-ext-sources-list>
   </div>
 </div>

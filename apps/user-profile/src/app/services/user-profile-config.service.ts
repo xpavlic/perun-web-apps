@@ -60,13 +60,7 @@ export class UserProfileConfigService {
       .then(isAuthenticated => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
-          return this.initAuthService.loadPrincipal()
-            // TODO
-            // .catch(err => this.handlePrincipalErr(err))
-            .then(() => this.initAuthService.redirectToOriginDestination())
-            // TODO
-            // .then(() => this.loadPolicies());
-            .then();
+          return this.initAuthService.loadPrincipal();
         }
         // if it was not, do nothing because it will do a redirect to oidc server
       });
