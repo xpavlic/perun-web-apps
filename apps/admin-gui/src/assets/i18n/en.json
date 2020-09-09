@@ -1409,7 +1409,8 @@
       "CREATE": "Create",
       "CANCEL": "Cancel",
       "SUCCESS": "Created facility.",
-      "REQUIRE_NAME": "Facility name can't be empty."
+      "REQUIRE_NAME": "Facility name can't be empty.",
+      "NO_COPY": "--- No copy ---"
     },
     "DELETE_FACILITY": {
       "TITLE": "Delete facility",
