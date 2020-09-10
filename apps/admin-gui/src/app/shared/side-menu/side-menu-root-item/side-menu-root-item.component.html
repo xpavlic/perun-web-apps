@@ -20,12 +20,22 @@
       <div *ngFor="let link of item.links">
         <a (click)="navigate(link.url)"
            matRipple
-           class="clickable"
+           class="clickable d-flex"
            [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
            [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
            [class.activated]="isActive(currentUrl, link.activatedRegex) && item.activatedClass === undefined"
            [ngClass]="isActive(currentUrl, link.activatedRegex) && item.activatedClass !== undefined ? item.activatedClass : ''">
           {{link.label | translate}}
+          <span *ngIf="link.children" class="ml-auto">
+            <mat-icon
+              *ngIf="!isActive(currentUrl, link.showChildrenRegex)"
+              [ngStyle]="{'color': 'linkTextColor'}"
+              class="perun-icon icon-beak">keyboard_arrow_right</mat-icon>
+            <mat-icon
+              *ngIf="isActive(currentUrl, link.showChildrenRegex)"
+              [ngStyle]="{'color': 'linkTextColor'}"
+              class="perun-icon icon-beak">keyboard_arrow_down</mat-icon>
+          </span>
         </a>
         <div @rollInOut *ngIf="isActive(currentUrl, link.showChildrenRegex)">
           <a (click)="navigate(child.url)"
