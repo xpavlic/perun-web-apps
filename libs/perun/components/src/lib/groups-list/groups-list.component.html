@@ -1,8 +1,19 @@
-<div [class.hide-table]="exporting" [hidden]="groups.length === 0 || dataSource.filteredData.length === 0" class="card mt-2">
+<div [class.hide-table]="exporting"
+     [hidden]="groups.length === 0 || dataSource.filteredData.length === 0"
+     class="card mt-2">
   <div class="card-body">
-    <perun-web-apps-table-options (exportEnd)="exporting = false" (exportStart)="exporting = true" [exporter]="exporter"></perun-web-apps-table-options>
+    <perun-web-apps-table-options (exportEnd)="exporting = false"
+                                  (exportStart)="exporting = true"
+                                  [exporter]="exporter">
+    </perun-web-apps-table-options>
     <div class="overflow-auto">
-      <table #exporter="matTableExporter" [dataSource]="dataSource" class="w-100" mat-table matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
+      <table #exporter="matTableExporter"
+             [dataSource]="dataSource"
+             class="w-100"
+             mat-table matSort
+             matSortActive="id"
+             matSortDirection="asc"
+             matSortDisableClear
              matTableExporter>
         <ng-container matColumnDef="select">
           <th *matHeaderCellDef mat-header-cell>
@@ -15,15 +26,17 @@
             </mat-checkbox>
           </th>
           <td *matCellDef="let row" class="static-column-size" mat-cell>
-            <mat-checkbox (change)="$event ? itemSelectionToggle(row) : null"
-                          (click)="$event.stopPropagation()"
-                          [aria-label]="checkboxLabel(row)"
-                          [checked]="selection.isSelected(row)"
-                          [disabled]="(row.name === 'members' && disableMembers) || disableSelect(row.id)"
-                          matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.DISABLED_HINT' | translate}}"
-                          [matTooltipDisabled]="!disableSelect(row.id)"
-                          color="primary">
-            </mat-checkbox>
+            <span
+              matTooltip="{{getCheckboxTooltipMessage() | translate}}"
+              [matTooltipDisabled]="!disableSelect(row.id)">
+              <mat-checkbox (change)="$event ? itemSelectionToggle(row) : null"
+                            (click)="$event.stopPropagation()"
+                            [aria-label]="checkboxLabel(row)"
+                            [checked]="selection.isSelected(row)"
+                            [disabled]="(row.name === 'members' && disableMembers) || disableSelect(row.id)"
+                            color="primary">
+              </mat-checkbox>
+            </span>
           </td>
         </ng-container>
         <ng-container matColumnDef="id">

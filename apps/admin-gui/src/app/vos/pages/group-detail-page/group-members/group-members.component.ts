@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MembersService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, MembersService } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { Group, GroupsManagerService, RichMember } from '@perun-web-apps/perun/o
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_GROUP_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import remove from '@nrwl/workspace/src/schematics/remove/remove';
 
 @Component({
   selector: 'app-group-members',
@@ -29,7 +30,8 @@ export class GroupMembersComponent implements OnInit {
     protected route: ActivatedRoute,
     protected router: Router,
     private tableConfigService: TableConfigService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private guiAuthResolver: GuiAuthResolver
   ) { }
 
   group: Group;
@@ -55,6 +57,12 @@ export class GroupMembersComponent implements OnInit {
   ];
   pageSize: number;
 
+  addAuth: boolean;
+  removeAuth: boolean;
+  routeAuth: boolean;
+  hideColumns: String[] = [];
+
+
   ngOnInit() {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -64,6 +72,7 @@ export class GroupMembersComponent implements OnInit {
 
       this.groupService.getGroupById(groupId).subscribe(group => {
         this.group = group;
+        this.setAuthRights();
         this.groupService.getGroupMembersCount(this.group.id).subscribe( count => {
           if(count < 400) {
             this.onListAll();
@@ -71,8 +80,16 @@ export class GroupMembersComponent implements OnInit {
           this.loading = false;
         }, err => this.loading = false);
       }, err => this.loading = false);
-    });
+      });
   }
+
+  setAuthRights() {
+    this.addAuth = this.guiAuthResolver.isAuthorized('addMembers_Group_List<Member>_policy', [this.group]);
+    this.removeAuth = this.guiAuthResolver.isAuthorized('removeMembers_Group_List<Member>_policy', [this.group]);
+    this.routeAuth = this.guiAuthResolver.isAuthorized('getMemberById_int_policy', [this.group]);
+    this.hideColumns = this.removeAuth ? [] : ['checkbox'];
+  }
+
 
   onSearchByString() {
     this.data = 'search';
@@ -140,6 +157,7 @@ export class GroupMembersComponent implements OnInit {
         this.membersService.getCompleteRichMembersForGroup(this.group.id, this.attrNames).subscribe(
           members => {
             this.members = members;
+            this.setAuthRights()
             this.loading = false;
           },
           () => this.loading = false
@@ -150,6 +168,7 @@ export class GroupMembersComponent implements OnInit {
         this.membersService.findCompleteRichMembersForGroup(this.group.id, this.searchString, this.attrNames).subscribe(
           members => {
             this.members = members;
+            this.setAuthRights();
             this.loading = false;
           },
           () => this.loading = false

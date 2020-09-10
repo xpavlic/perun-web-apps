@@ -476,7 +476,8 @@
       "NO_SUBGROUPS": "This group has no subgroups.",
       "FILTER": "Filter",
       "LIST_VIEW": "List view",
-      "TREE_VIEW": "Tree view"
+      "TREE_VIEW": "Tree view",
+      "DELETE_PERMISSION_HINT": "You don't have permission to delete some of the selected subgroups."
     },
     "SUBGROUP_INFO": "This group is a subgroup of ",
     "MEMBERS": {
@@ -492,6 +493,7 @@
       "TITLE": "Resources",
       "DELETE": "Remove selected",
       "ADD": "Add",
+      "DELETE_PERMISSION_HINT": "You don't have permission to remove some of the selected resources.",
       "NO_RESOURCES_WARNING": "Group has no resources assigned."
     },
     "SETTINGS": {
@@ -534,7 +536,8 @@
         "NO_APPLICATION_FORM": "Application form doesn't exists",
         "CREATE_APPLICATION_FORM": "Create empty form",
         "CLEAR": "Clear form",
-        "CLEAR_TOOLTIP": "Removes all form items"
+        "CLEAR_TOOLTIP": "Removes all form items",
+        "CHANGE_SETTINGS_SUCCESS": "Application from settings successfully changed."
       },
       "NOTIFICATIONS": {
         "TITLE": "Email notifications",
@@ -553,7 +556,8 @@
         "DELETE": "Remove selected",
         "CREATE": "Add",
         "FILTER": "Filter by name, id or description",
-        "REVERSE_UNIONS": "Show reverse unions"
+        "REVERSE_UNIONS": "Show reverse unions",
+        "DELETE_TOOLTIP": "You don't have permission to remove some of the selected relations."
       }
     }
   },
@@ -873,7 +877,8 @@
       "SUCCESS": "Selected members were added",
       "SUCCESS_INVITE": "Invite was send to given user",
       "VALIDATION_SUCCESS": "Member validation was successful",
-      "NO_USERS_FOUND": "No users found"
+      "NO_USERS_FOUND": "No users found",
+      "ADD_MEMBER_PERMISSION_TOOLTIP": "You don't have permission to add member"
     },
     "ADD_GROUPS": {
       "TITLE": "Add group",
@@ -1313,6 +1318,7 @@
       "FILTER": "Filter by ID, name or description",
       "CANCEL": "Cancel",
       "ADD": "Add",
+      "ADD_PERMISSION_TOOLTIP": "You don't have permission to assign some of the selected resources.",
       "SUCCESS": "Resources successfully added"
     },
     "ADD_USER_EXT_SOURCE": {
@@ -1789,7 +1795,9 @@
           "TABLE_GROUP_NAME": "Name",
           "TABLE_SEARCH": "Filter by name, description or ID",
           "TABLE_GROUP_DESCRIPTION": "Description",
-          "DISABLED_HINT": "You cannot add members to this group or user is already member."
+          "DISABLED_HINT": "You cannot add members to this group or user is already member.",
+          "ALREADY_MEMBER_TOOLTIP": "Already member",
+          "CREATE_RELATION_AUTH_TOOLTIP": "You don't have permission to create relation with this group."
         },
         "GROUP_MENU": {
           "MOVE": "Move group",

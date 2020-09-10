@@ -24,6 +24,7 @@
 <div *ngIf="!loading">
   <app-applications-list
     [pageSize]="pageSize"
+    [disableRouting]="!routeAuth"
     (page)="pageChanged($event)"
     *ngIf="!showAllDetails"
     [filterValue]="filterValue"
@@ -34,6 +35,7 @@
   <app-perun-web-apps-application-list-details
     [pageSize]="detailPageSize"
     (page)="detailPageChanged($event)"
+    [disableRouting]="!routeAuth"
     [filterValue]="filterValue"
     [applications]="applications"
     [group]="group"

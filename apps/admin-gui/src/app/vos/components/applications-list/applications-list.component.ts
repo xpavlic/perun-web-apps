@@ -47,6 +47,9 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   @Input()
   pageSize = 10;
 
+  @Input()
+  disableRouting = false;
+
   @Output()
   page = new EventEmitter<PageEvent>();
 
@@ -117,12 +120,14 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   }
 
   selectApplication(application: Application) {
-    if (this.group) {
-      this.router.navigate(['/organizations', application.vo.id, 'groups', this.group.id, 'applications', application.id]);
-    } else if(this.member) {
-      this.router.navigate(['/organizations', application.vo.id, 'members', this.member.id, 'applications', application.id])
-    } else {
-      this.router.navigate(['/organizations', application.vo.id, 'applications', application.id]);
+    if (!this.disableRouting) {
+      if (this.group) {
+        this.router.navigate(['/organizations', application.vo.id, 'groups', this.group.id, 'applications', application.id]);
+      } else if (this.member) {
+        this.router.navigate(['/organizations', application.vo.id, 'members', this.member.id, 'applications', application.id])
+      } else {
+        this.router.navigate(['/organizations', application.vo.id, 'applications', application.id]);
+      }
     }
   }
 

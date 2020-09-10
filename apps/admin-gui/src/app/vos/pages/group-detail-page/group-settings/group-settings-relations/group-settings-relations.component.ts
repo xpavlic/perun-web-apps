@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -11,6 +11,7 @@ import {
 } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-group-settings-relations',
@@ -30,6 +31,7 @@ export class GroupSettingsRelationsComponent implements OnInit {
   selection = new SelectionModel<Group>(true, []);
   groups: Group[] = [];
   groupId: number;
+  group: Group;
   voId: number;
 
   reverse = false;
@@ -39,13 +41,18 @@ export class GroupSettingsRelationsComponent implements OnInit {
   tableId = TABLE_GROUP_SETTINGS_RELATIONS;
   pageSize: number;
 
+  @ViewChild('list', {})
+  list: GroupsListComponent;
+
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(params => {
       this.groupId = params['groupId'];
       this.voId = params['voId'];
-
-      this.refreshTable();
+      this.groupService.getGroupById(this.groupId).subscribe(group => {
+        this.group = group;
+        this.refreshTable();
+      });
     });
   }
 
@@ -55,7 +62,7 @@ export class GroupSettingsRelationsComponent implements OnInit {
     config.data = {
       groups: this.groups,
       theme: 'group-theme',
-      groupId: +this.groupId,
+      group: this.group,
       voId: this.voId,
       reverse: this.reverse
     };

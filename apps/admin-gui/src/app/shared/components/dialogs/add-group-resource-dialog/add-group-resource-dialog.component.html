@@ -5,9 +5,11 @@
   <div *ngIf="!loading">
     <div mat-dialog-content>
       <perun-web-apps-resources-list
+        #list
         [resources]="resources"
         [disableRouting]="true"
         [selection]="selection"
+        [groupToResource]="this.data.group"
         [displayedColumns]="['select', 'id', 'name', 'description']"
         [filterValue]="filterValue"
       ></perun-web-apps-resources-list>
@@ -19,14 +21,18 @@
         (click)="onCancel()">
         {{'DIALOGS.ADD_GROUP_RESOURCES.CANCEL' | translate}}
       </button>
-      <button
-        mat-flat-button
-        class="ml-2"
-        color="accent"
-        [disabled]="selection.selected.length === 0 || loading"
-        (click)="onSubmit()">
+      <span
+        matTooltip="{{'DIALOGS.ADD_GROUP_RESOURCES.ADD_PERMISSION_TOOLTIP' | translate}}"
+        [matTooltipDisabled]="list === undefined || list.addAuth">
+        <button
+          mat-flat-button
+          class="ml-2"
+          color="accent"
+          [disabled]="selection.selected.length === 0 || loading || (list !== undefined && !list.addAuth)"
+          (click)="onSubmit()">
         {{'DIALOGS.ADD_GROUP_RESOURCES.ADD' | translate}}
       </button>
+      </span>
     </div>
   </div>
 </div>

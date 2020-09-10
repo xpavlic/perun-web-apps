@@ -73,10 +73,13 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   disableHeadCheckbox: boolean;
 
   @Input()
+  parentGroup: Group;
+
+  @Input()
   disableRouting = false;
 
   @Input()
-  policy: string;
+  authType: string;
 
   @Output()
   page = new EventEmitter<PageEvent>();
@@ -90,8 +93,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   exporting = false;
   disabledRouting = false;
 
-  deleteAuth = true;
   vo: Vo;
+
+  removeAuth: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -107,6 +111,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.hasMembersGroup = this.checkIfHasMembersGroup();
     this.dataSource = new MatTableDataSource<Group>(this.groups);
     this.setDataSource();
+    if (this.authType) {
+      this.removeAuth = this.setAuth();
+    }
   }
 
   checkIfHasMembersGroup(): boolean {
@@ -149,8 +156,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
         }
       });
 
-    if(this.policy){
-      this.deleteAuth = this.setDeleteAuth();
+    if(this.authType){
+      this.removeAuth = this.setAuth();
     }
   }
 
@@ -204,19 +211,29 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     });
   }
 
-  itemSelectionToggle(item: Group) {
-    this.selection.toggle(item);
-    if(this.policy){
-      this.deleteAuth = this.setDeleteAuth();
+  pageChanged(event: PageEvent) {
+    this.page.emit(event);
+  }
+
+  setAuth(): boolean {
+    if (this.authType === 'group-subgroups') {
+      return this.selection.selected.reduce((acc, grp) => acc &&
+        this.authResolver.isAuthorized('deleteGroup_Group_boolean_policy', [grp]), true);
+    } else if (this.authType === 'group-relations') {
+      return this.selection.selected.reduce((acc, grp) => acc && this.authResolver.isAuthorized('removeGroupUnion_Group_Group_policy', [this.parentGroup, grp]), true);
+    } else if (this.authType === 'vo-groups') {
+      return this.selection.selected.reduce((acc, grp) => acc &&
+        this.authResolver.isAuthorized('deleteGroup_Group_boolean_policy', [this.vo, grp]), true);
     }
   }
 
-  setDeleteAuth(): boolean{
-    return this.selection.selected.reduce((acc, grp) => acc &&
-      this.authResolver.isAuthorized(this.policy, [this.vo, grp]), true);
+  itemSelectionToggle(item: Group) {
+    this.selection.toggle(item);
+    this.removeAuth = this.setAuth();
   }
 
-  pageChanged(event: PageEvent) {
-    this.page.emit(event);
+  getCheckboxTooltipMessage() {
+    return this.authType === 'create-relation-dialog' ? 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CREATE_RELATION_AUTH_TOOLTIP' :
+      'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.ALREADY_MEMBER_TOOLTIP'
   }
 }

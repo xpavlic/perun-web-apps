@@ -1,8 +1,8 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {NotificatorService} from '@perun-web-apps/perun/services';
-import {TranslateService} from '@ngx-translate/core';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
 import {
   AddApplicationFormItemDialogComponent
 } from '../../../../../shared/components/dialogs/add-application-form-item-dialog/add-application-form-item-dialog.component';
@@ -15,7 +15,13 @@ import {
 import {
   UpdateApplicationFormDialogComponent
 } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
-import { ApplicationForm, ApplicationFormItem, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  ApplicationForm,
+  ApplicationFormItem,
+  Group,
+  GroupsManagerService,
+  RegistrarManagerService
+} from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
@@ -37,7 +43,9 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private apiRequest: ApiRequestConfigurationService,
-    private router: Router) {
+    private router: Router,
+    private guiAuthResolver: GuiAuthResolver,
+    private groupsManager: GroupsManagerService) {
   }
 
   loading = false;
@@ -47,38 +55,51 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   groupId: number;
   noApplicationForm = false;
   itemsChanged = false;
+  group: Group;
+  editAuth = false;
+  createEmptyForm = false;
 
   ngOnInit() {
     this.loading = true;
     this.route.parent.parent.params.subscribe(params => {
       this.voId = params['voId'];
       this.groupId = params['groupId'];
-      // FIXME this might not work in case of some race condition (other request finishes sooner)
-      this.apiRequest.dontHandleErrorForNext();
-      this.registrarManager.getGroupApplicationForm(this.groupId).subscribe( form => {
-        this.applicationForm = form;
-        this.registrarManager.getFormItemsForGroup(this.groupId).subscribe(formItems => {
-          this.applicationFormItems = formItems;
-          this.loading = false;
+      this.groupsManager.getGroupById(this.groupId).subscribe(group => {
+        this.group = group;
+        // FIXME this might not work in case of some race condition (other request finishes sooner)
+        this.apiRequest.dontHandleErrorForNext();
+        this.registrarManager.getGroupApplicationForm(this.groupId).subscribe(form => {
+          this.applicationForm = form;
+          this.registrarManager.getFormItemsForGroup(this.groupId).subscribe(formItems => {
+            this.applicationFormItems = formItems;
+            this.setAuth();
+            this.loading = false;
+          }, () => this.loading = false);
+        }, error => {
+          if (error.error.name === 'FormNotExistsException') {
+            this.noApplicationForm = true;
+            this.setAuth();
+            this.loading = false;
+          } else {
+            this.notificator.showRPCError(error.error);
+          }
         });
-      }, error => {
-        if (error.error.name === 'FormNotExistsException') {
-          this.noApplicationForm = true;
-          this.loading = false;
-        } else {
-          this.notificator.showRPCError(error.error);
-        }
-      });
+      }, () => this.loading = false);
     });
+  }
+
+  setAuth() {
+    this.editAuth = this.guiAuthResolver.isAuthorized('group-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy', [this.group]);
+    this.createEmptyForm = this.guiAuthResolver.isAuthorized('createApplicationFormInGroup_Group_policy', [this.group]);
   }
 
   add() {
     let config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {applicationFormItems: this.applicationFormItems};
+    config.data = { applicationFormItems: this.applicationFormItems };
 
     const dialog = this.dialog.open(AddApplicationFormItemDialogComponent, config);
-    dialog.afterClosed().subscribe( success => {
+    dialog.afterClosed().subscribe(success => {
       // success is field contains of two items: first is applicationFormItems with new item in it,
       // second item is new Application Form Item
       if (success) {
@@ -87,7 +108,8 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
         config = getDefaultDialogConfig();
         config.width = '600px';
         config.height = '600px';
-        config.data = {voId: this.voId,
+        config.data = {
+          voId: this.voId,
           groupId: this.groupId,
           applicationFormItem: success[1],
           theme: 'group-theme'
@@ -102,10 +124,10 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, groupId: this.groupId, theme: 'group-theme'};
+    config.data = { voId: this.voId, groupId: this.groupId, theme: 'group-theme' };
 
     const dialog = this.dialog.open(ApplicationFormCopyItemsDialogComponent, config);
-    dialog.afterClosed().subscribe( copyFrom => {
+    dialog.afterClosed().subscribe(copyFrom => {
       if (copyFrom) {
         this.updateFormItems();
       }
@@ -115,12 +137,12 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   settings() {
     const config = getDefaultDialogConfig();
     config.width = '400px';
-    config.data = {applicationForm: this.applicationForm, theme: 'group-theme'};
+    config.data = { applicationForm: this.applicationForm, theme: 'group-theme' };
 
     const dialog = this.dialog.open(UpdateApplicationFormDialogComponent, config);
-    dialog.afterClosed().subscribe( newForm => {
+    dialog.afterClosed().subscribe(newForm => {
       if (newForm) {
-        this.translate.get('GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS').subscribe( successMessage => {
+        this.translate.get('GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS').subscribe(successMessage => {
           this.notificator.showSuccess(successMessage);
         });
         this.applicationForm = newForm;
@@ -130,12 +152,12 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
 
   preview() {
     this.router.navigate(['/organizations', this.voId, 'groups', this.groupId, 'settings', 'applicationForm', 'preview'],
-      {queryParams: {applicationFormItems: JSON.stringify(this.applicationFormItems)}});
+      { queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) } });
   }
 
   updateFormItems() {
     this.loading = true;
-    this.registrarManager.getFormItemsForGroup(this.groupId).subscribe( formItems => {
+    this.registrarManager.getFormItemsForGroup(this.groupId).subscribe(formItems => {
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
       this.loading = false;
@@ -147,7 +169,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   }
 
   createEmptyApplicationForm() {
-    this.registrarManager.createApplicationFormInGroup(this.groupId).subscribe( () => {
+    this.registrarManager.createApplicationFormInGroup(this.groupId).subscribe(() => {
       this.noApplicationForm = false;
       this.ngOnInit();
     });
@@ -158,14 +180,17 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     for (const item of this.applicationFormItems) {
       item.ordnum = i;
       if (!item.forDelete) {
-        i++
+        i++;
       }
     }
     // @ts-ignore
     // TODO reimplement this
-    this.registrarManager.updateFormItemsForGroup({group: this.groupId, items: this.applicationFormItems}).subscribe( () => {
+    this.registrarManager.updateFormItemsForGroup({
+      group: this.groupId,
+      items: this.applicationFormItems
+    }).subscribe(() => {
       this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
-        .subscribe( successMessage => {
+        .subscribe(successMessage => {
           this.notificator.showSuccess(successMessage);
         });
       this.updateFormItems();

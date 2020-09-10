@@ -1,7 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {openClose, tagsOpenClose} from '@perun-web-apps/perun/animations';
-import { ApplicationMail, RegistrarManagerService, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { openClose, tagsOpenClose } from '@perun-web-apps/perun/animations';
+import {
+  ApplicationMail,
+  GroupsManagerService,
+  RegistrarManagerService
+} from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 export interface ApplicationFormAddEditMailDialogData {
@@ -27,7 +31,9 @@ export class AddEditNotificationDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<AddEditNotificationDialogComponent>,
               private registrarService: RegistrarManagerService,
               @Inject(MAT_DIALOG_DATA) public data: ApplicationFormAddEditMailDialogData,
-              private authResolver: GuiAuthResolver) { }
+              private authResolver: GuiAuthResolver,
+              private groupsService: GroupsManagerService) {
+  }
 
   applicationMail: ApplicationMail;
   showTags = false;
@@ -42,10 +48,14 @@ export class AddEditNotificationDialogComponent implements OnInit {
     this.applicationMail = this.data.applicationMail;
     this.theme = this.data.theme;
 
-    if(this.data.voId){
+    if (this.data.groupId) {
+      this.groupsService.getGroupById(this.data.groupId).subscribe(group => {
+        this.editAuth = this.authResolver.isAuthorized('group-addMail_ApplicationForm_ApplicationMail_policy', [group]);
+      });
+    } else if (this.data.voId) {
       const vo = {
         id: this.data.voId,
-        beanName: "'Vo"
+        beanName: 'Vo'
       };
 
       this.editAuth = this.authResolver.isAuthorized('vo-addMail_ApplicationForm_ApplicationMail_policy', [vo]);
@@ -63,11 +73,17 @@ export class AddEditNotificationDialogComponent implements OnInit {
     }
     this.loading = true;
     if (this.data.groupId) {
-      this.registrarService.addApplicationMailForGroup({ group: this.data.groupId, mail: this.applicationMail }).subscribe( () => {
+      this.registrarService.addApplicationMailForGroup({
+        group: this.data.groupId,
+        mail: this.applicationMail
+      }).subscribe(() => {
         this.dialogRef.close(true);
       }, () => this.loading = false);
     } else {
-      this.registrarService.addApplicationMailForVo({ vo: this.data.voId, mail: this.applicationMail }).subscribe( () => {
+      this.registrarService.addApplicationMailForVo({
+        vo: this.data.voId,
+        mail: this.applicationMail
+      }).subscribe(() => {
         this.dialogRef.close(true);
       }, () => this.loading = false);
     }
@@ -75,7 +91,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
 
   save() {
     this.loading = true;
-    this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe( () => {
+    this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe(() => {
       this.dialogRef.close(true);
     }, () => this.loading = false);
   }
@@ -105,10 +121,10 @@ export class AddEditNotificationDialogComponent implements OnInit {
   notificationExist() {
     for (const mail of this.data.applicationMails) {
       if (mail.mailType === this.applicationMail.mailType && mail.appType === this.applicationMail.appType) {
-        this.invalidNotification =  true;
+        this.invalidNotification = true;
         return;
       }
     }
-    this.invalidNotification =  false;
+    this.invalidNotification = false;
   }
 }

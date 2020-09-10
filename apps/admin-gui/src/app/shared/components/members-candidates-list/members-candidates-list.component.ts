@@ -11,8 +11,8 @@ import {
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
-import { RichUser, Candidate, MemberCandidate, Attribute } from '@perun-web-apps/perun/openapi';
+import { SelectionModel } from '@angular/cdk/collections';
+import { RichUser, Candidate, MemberCandidate, Attribute, Group, Vo } from '@perun-web-apps/perun/openapi';
 import {
   parseEmail,
   getCandidateEmail,
@@ -20,6 +20,7 @@ import {
   parseUserEmail,
   parseVo, parseName, TABLE_ITEMS_COUNT_OPTIONS
 } from '@perun-web-apps/perun/utils';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-members-candidates-list',
@@ -28,7 +29,7 @@ import {
 })
 export class MembersCandidatesListComponent implements OnChanges, AfterViewInit {
 
-  constructor() {
+  constructor(private guiAuthResolver: GuiAuthResolver) {
   }
 
   private sort: MatSort;
@@ -52,6 +53,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   @Input()
   pageSize = 10;
 
+  @Input()
+  group: Group;
+
   @Output()
   page = new EventEmitter<PageEvent>();
 
@@ -60,6 +64,8 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
 
   exporting = false;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+
+  addAuth = false;
 
   setDataSource() {
     if (!!this.dataSource) {
@@ -90,7 +96,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
           case 'alreadyMember':
             return this.getAlreadyMember(memberCandidate);
           case 'local':
-            return memberCandidate.richUser ? "Local" : "External identity";
+            return memberCandidate.richUser ? 'Local' : 'External identity';
           default:
             return memberCandidate[property];
         }
@@ -120,19 +126,20 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+    this.setAddAuth();
   }
 
   getEmail(memberCandidate: MemberCandidate): string {
     let email: Attribute;
     if (memberCandidate.richUser) {
       for (const attribute of memberCandidate.richUser.userAttributes) {
-        if(attribute.namespace + ":" + attribute.friendlyName === 'urn:perun:user:attribute-def:def:preferredMail'){
+        if (attribute.namespace + ':' + attribute.friendlyName === 'urn:perun:user:attribute-def:def:preferredMail') {
           email = attribute;
           break;
         }
       }
       if (email != null && email.value != null && !('null' === email.value.toString().toLowerCase())) {
-        return email.value.toString().replace(",", " ");
+        return email.value.toString().replace(',', ' ');
       }
       return '';
     } else {
@@ -153,17 +160,16 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   getLogins(memberCandidate: MemberCandidate): string {
     if (memberCandidate.richUser) {
       return this.getLoginsForRichUser(memberCandidate.richUser);
-    }
-    else {
+    } else {
       let logins = this.getLoginsForCandidate(memberCandidate.candidate);
       if (logins == null || logins === '') {
         logins = memberCandidate.candidate.userExtSource.login;
       }
       return logins;
     }
-	}
+  }
 
-	getLoginsForRichUser(user: RichUser): string {
+  getLoginsForRichUser(user: RichUser): string {
     let logins = '';
     for (const userAttribute of user.userAttributes) {
       if (userAttribute.friendlyName.startsWith('login-namespace')) {
@@ -171,11 +177,11 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
         if (userAttribute.value != null) {
           // append comma
           if (logins.length > 0) {
-            logins += ", ";
+            logins += ', ';
           }
           // parse login namespace
-          const parsedNamespace =  userAttribute.friendlyName.substring(16);
-          logins += parsedNamespace + ": " + userAttribute.value;
+          const parsedNamespace = userAttribute.friendlyName.substring(16);
+          logins += parsedNamespace + ': ' + userAttribute.value;
         }
       }
     }
@@ -189,12 +195,12 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       if (candidate.attributes.hasOwnProperty(prop)) {
         if (prop.indexOf('urn:perun:user:attribute-def:def:login-namespace:') !== -1) {
           if (candidate.attributes[prop] != null) {
-            if(logins.length > 0){
-              logins += ", ";
+            if (logins.length > 0) {
+              logins += ', ';
             }
             // parse login namespace
             const parsedNamespace = prop.substring(attributesNamespace);
-            logins += parsedNamespace + ": " + candidate.attributes[prop];
+            logins += parsedNamespace + ': ' + candidate.attributes[prop];
           }
         }
       }
@@ -220,17 +226,32 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   isCheckboxDisabled(memberCandidate: MemberCandidate): boolean {
     if (this.type === 'vo') {
       return memberCandidate.member != null;
-    }
-    else {
-        if (memberCandidate.member) {
-          return memberCandidate.member.sourceGroupId !== 0 &&
-                  memberCandidate.member.membershipType === 'DIRECT'
-        }
+    } else {
+      if (memberCandidate.member) {
+        return memberCandidate.member.sourceGroupId !== 0 &&
+          memberCandidate.member.membershipType === 'DIRECT';
+      }
     }
     return false;
   }
 
   pageChanged(event: PageEvent) {
     this.page.emit(event);
+  }
+
+  setAddAuth() {
+    if (this.group !== undefined && this.selection.selected.length !== 0) {
+      if (this.selection.selected[0].member) {
+        this.addAuth = true;
+      } else {
+        this.addAuth = this.guiAuthResolver.isAuthorized('createMember_Vo_User_List<Group>_policy', [this.group]) &&
+          this.guiAuthResolver.isAuthorized('createMember_Vo_Candidate_List<Group>_policy', [this.group]);
+      }
+    }
+  }
+
+  itemSelectionToggle(item: MemberCandidate) {
+    this.selection.toggle(item);
+    this.setAddAuth();
   }
 }

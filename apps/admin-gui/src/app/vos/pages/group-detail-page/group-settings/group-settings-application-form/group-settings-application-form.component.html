@@ -23,6 +23,7 @@
     </div>
     <div class="w-25">
       <button
+        *ngIf="editAuth"
         mat-stroked-button
         (click)="settings()"
         class="ml-auto">
@@ -39,6 +40,7 @@
     <perun-web-apps-refresh-button (refresh)="this.updateFormItems()"></perun-web-apps-refresh-button>
 
     <button
+      *ngIf="editAuth"
       mat-flat-button
       color="accent"
       class="mr-2"
@@ -47,6 +49,7 @@
     </button>
 
     <button
+      *ngIf="editAuth"
       mat-flat-button
       color="accent"
       class="mr-2"
@@ -57,6 +60,7 @@
     </button>
 
     <button
+      *ngIf="editAuth"
       mat-stroked-button
       class="mr-2"
       (click)="copy()">
@@ -72,6 +76,7 @@
     </button>
 
     <button
+      *ngIf="editAuth"
       (click)="clear()"
       class="ml-2"
       mat-stroked-button
@@ -81,7 +86,8 @@
     </button>
   </div>
 
-  <app-alert color="info">
+  <app-alert color="info"
+             *ngIf="editAuth">
     {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.DRAG_AND_DROP_INFO' | translate}}
   </app-alert>
 
@@ -90,13 +96,16 @@
     [applicationForm]="applicationForm"
     [applicationFormItems]="applicationFormItems"
     [theme]="'group-theme'"
+    [displayedColumns]="editAuth ? ['drag', 'shortname', 'type', 'preview', 'edit', 'delete'] : ['shortname', 'type', 'preview']"
     (applicationFormItemsChange)="changeItems()">
   </app-application-form-list>
 </div>
 <div *ngIf="!loading && noApplicationForm">
   <app-alert color="warn">{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}</app-alert>
-  <button mat-stroked-button
-          (click)="createEmptyApplicationForm()">
+  <button
+    *ngIf="createEmptyForm"
+    mat-stroked-button
+    (click)="createEmptyApplicationForm()">
     {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CREATE_APPLICATION_FORM' | translate}}
   </button>
 

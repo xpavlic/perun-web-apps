@@ -3,13 +3,13 @@
 
   <div mat-dialog-content *ngIf="!processing">
 
-      <mat-form-field class="mr-2 search-field adjust-width">
-        <label>
-          <input matInput autocomplete="false" placeholder="{{'DIALOGS.ADD_MEMBERS.DESCRIPTION' | translate}}"
-                 (keyup.enter)="onSearchByString()"
-                 [(ngModel)]="searchString">
-        </label>
-      </mat-form-field>
+    <mat-form-field class="mr-2 search-field adjust-width">
+      <label>
+        <input matInput autocomplete="false" placeholder="{{'DIALOGS.ADD_MEMBERS.DESCRIPTION' | translate}}"
+               (keyup.enter)="onSearchByString()"
+               [(ngModel)]="searchString">
+      </label>
+    </mat-form-field>
 
     <button
       mat-flat-button
@@ -28,6 +28,8 @@
         {{'DIALOGS.ADD_MEMBERS.NO_USERS_FOUND' | translate}}
       </app-alert>
       <app-members-candidates-list
+        #list
+        [group]="data.group"
         [pageSize]="pageSize"
         (page)="pageChanged($event)"
         [selection]="selection"
@@ -46,15 +48,21 @@
       (click)="onCancel()">
       {{'DIALOGS.ADD_MEMBERS.CANCEL' | translate}}
     </button>
+    <span
+    matTooltip="{{'DIALOGS.ADD_MEMBERS.ADD_MEMBER_PERMISSION_TOOLTIP' | translate}}"
+    matTooltipPosition="above"
+    [matTooltipDisabled]="selection.selected.length === 0 || this.data.type !== 'group' || (list !== undefined && list.addAuth)">
     <button
       mat-flat-button
       class="ml-2"
       color="accent"
       (click)="onAdd()"
-      [disabled]="selection.selected.length === 0 || loading">
+      [disabled]="selection.selected.length === 0 || loading || (this.data.type === 'group' && list !== undefined && !list.addAuth)">
       {{'DIALOGS.ADD_MEMBERS.CREATE' | translate}}
     </button>
+    </span>
     <button
+      *ngIf="this.data.type !== 'group' || (this.data.type === 'group' && inviteAuth)"
       mat-flat-button
       class="ml-2"
       color="accent"

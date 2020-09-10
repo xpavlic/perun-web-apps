@@ -10,6 +10,7 @@ import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
 } from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-group-detail-page',
@@ -27,12 +28,14 @@ export class GroupDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private sideMenuItemService: SideMenuItemService,
     private groupService: GroupsManagerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private guiAuthResolver: GuiAuthResolver
   ) {
   }
 
   vo: Vo;
   group: Group;
+  editAuth = false;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -43,6 +46,7 @@ export class GroupDetailPageComponent implements OnInit {
         this.vo = vo;
         this.groupService.getGroupById(groupId).subscribe(group => {
           this.group = group;
+          this.editAuth = this.guiAuthResolver.isAuthorized('updateGroup_Group_policy', [group]);
           const voSideMenuItem = this.sideMenuItemService.parseVo(vo);
           const groupSideMenuItem = this.sideMenuItemService.parseGroup(group);
 

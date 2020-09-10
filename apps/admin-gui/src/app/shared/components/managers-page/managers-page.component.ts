@@ -66,7 +66,8 @@ export class ManagersPageComponent implements OnInit {
     this.selectedRole = this.availableRoles[0];
     this.isAuthorized = this.guiAuthResolver.isPerunAdmin() ||
       this.guiAuthResolver.isFacilityAdmin() ||
-      this.guiAuthResolver.isVoAdmin();
+      this.guiAuthResolver.isVoAdmin() ||
+      this.guiAuthResolver.isGroupAdmin();
     this.routeAuth = this.guiAuthResolver.isPerunAdmin();
     this.changeUser();
   }
