@@ -7,10 +7,10 @@ import {TranslateService} from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
   CreateAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import {
   DeleteAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/components';
@@ -21,11 +21,11 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-group-settings-attributes',
-  templateUrl: './group-settings-attributes.component.html',
-  styleUrls: ['./group-settings-attributes.component.scss']
+  selector: 'app-group-attributes',
+  templateUrl: './group-attributes.component.html',
+  styleUrls: ['./group-attributes.component.scss']
 })
-export class GroupSettingsAttributesComponent implements OnInit {
+export class GroupAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
@@ -57,7 +57,7 @@ export class GroupSettingsAttributesComponent implements OnInit {
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-    this.route.parent.parent.params.subscribe(params => {
+    this.route.parent.params.subscribe(params => {
       this.groupId = params['groupId'];
 
       this.refreshTable();

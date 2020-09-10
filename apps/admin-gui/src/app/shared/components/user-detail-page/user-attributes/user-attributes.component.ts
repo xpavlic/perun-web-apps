@@ -5,9 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CreateAttributeDialogComponent } from '../../../dialogs/create-attribute-dialog/create-attribute-dialog.component';
+import { CreateAttributeDialogComponent } from '../../dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { DeleteAttributeDialogComponent } from '../../../dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+import { DeleteAttributeDialogComponent } from '../../dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/components';
@@ -18,11 +18,11 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-user-settings-attributes',
-  templateUrl: './user-settings-attributes.component.html',
-  styleUrls: ['./user-settings-attributes.component.scss']
+  selector: 'app-user-attributes',
+  templateUrl: './user-attributes.component.html',
+  styleUrls: ['./user-attributes.component.scss']
 })
-export class UserSettingsAttributesComponent implements OnInit {
+export class UserAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 

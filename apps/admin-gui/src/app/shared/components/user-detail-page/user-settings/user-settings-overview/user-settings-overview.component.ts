@@ -36,20 +36,26 @@ export class UserSettingsOverviewComponent implements OnInit {
   }
 
   private initNavItems() {
-    this.navItems = [
+    this.navItems = [];
+
+    if (!window.location.pathname.startsWith('/admin')) {
+      this.navItems.push(
+        {
+          cssIcon: 'perun-attributes',
+          url: `attributes`,
+          label: 'MENU_ITEMS.USER.ATTRIBUTES',
+          style: 'user-btn'
+        });
+    }
+
+    this.navItems.push(
       {
-        cssIcon: 'perun-attributes',
-        url: `attributes`,
-        label: 'MENU_ITEMS.USER.ATTRIBUTES',
-        style: 'user-btn'
-      },
-      {
-        cssIcon: 'perun-attributes',
-        url: `facilityAttributes`,
-        label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
-        style: 'user-btn'
-      }
-    ];
+      cssIcon: 'perun-attributes',
+      url: `facilityAttributes`,
+      label: 'MENU_ITEMS.USER.FACILITY_ATTRIBUTES',
+      style: 'user-btn'
+      });
+    
     // if at user profile, add user gui config item
     // if at admin profile, add service identities
     if (!window.location.pathname.startsWith('/admin')) {
@@ -65,8 +71,7 @@ export class UserSettingsOverviewComponent implements OnInit {
           url: 'passwordReset',
           label: 'MENU_ITEMS.USER.PASSWORD_RESET',
           style: 'user-btn'
-        }
-        );
+        });
     } else {
       if(this.isServiceUser){
         this.navItems.push({

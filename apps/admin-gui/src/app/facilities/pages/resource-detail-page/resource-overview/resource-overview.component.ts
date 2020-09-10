@@ -17,7 +17,7 @@ export class ResourceOverviewComponent implements OnInit {
   constructor(
     private resourcesManager: ResourcesManagerService,
     private route: ActivatedRoute,
-    public guiAuthResolver:GuiAuthResolver
+    public guiAuthResolver: GuiAuthResolver
   ) {
   }
 
@@ -42,16 +42,23 @@ export class ResourceOverviewComponent implements OnInit {
 
   private initItems(inVo: boolean) {
     const urlStart = inVo ? `/organizations/${this.resource.voId}` : `/facilities/${this.resource.facilityId}`;
-    this.navItems = [];
-    if(this.guiAuthResolver.isAuthorized('getAssignedGroups_Resource_policy', [this.resource])){
+    this.navItems = [
+      {
+        cssIcon: 'perun-attributes',
+        url: `${urlStart}/resources/${this.resource.id}/attributes`,
+        label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
+        style: 'resource-btn'
+      }];
+
+    if (this.guiAuthResolver.isAuthorized('getAssignedGroups_Resource_policy', [this.resource])) {
       this.navItems.push({
         cssIcon: 'perun-group',
         url: `${urlStart}/resources/${this.resource.id}/groups`,
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_GROUPS',
         style: 'resource-btn'
-      })
+      });
     }
-    if(this.guiAuthResolver.isAuthorized('getAssignedServices_Resource_policy', [this.resource])){
+    if (this.guiAuthResolver.isAuthorized('getAssignedServices_Resource_policy', [this.resource])) {
       this.navItems.push({
         cssIcon: 'perun-service',
         url: `/${urlStart}/resources/${this.resource.id}/services`,
@@ -59,11 +66,11 @@ export class ResourceOverviewComponent implements OnInit {
         style: 'resource-btn'
       });
     }
-   this.navItems.push({
-     cssIcon: 'perun-settings2',
-     url: `${urlStart}/resources/${this.resource.id}/settings`,
-     label: 'MENU_ITEMS.RESOURCE.SETTINGS',
-     style: 'resource-btn'
-   });
+    this.navItems.push({
+      cssIcon: 'perun-settings2',
+      url: `${urlStart}/resources/${this.resource.id}/settings`,
+      label: 'MENU_ITEMS.RESOURCE.SETTINGS',
+      style: 'resource-btn'
+    });
   }
 }

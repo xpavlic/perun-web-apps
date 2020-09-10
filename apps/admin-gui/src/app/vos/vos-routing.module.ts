@@ -24,8 +24,8 @@ import {GroupMembersComponent} from './pages/group-detail-page/group-members/gro
 import {GroupResourcesComponent} from './pages/group-detail-page/group-resources/group-resources.component';
 import {GroupSettingsComponent} from './pages/group-detail-page/group-settings/group-settings.component';
 import {
-  GroupSettingsAttributesComponent
-} from './pages/group-detail-page/group-settings/group-settings-attributes/group-settings-attributes.component';
+  GroupAttributesComponent
+} from './pages/group-detail-page/group-attributes/group-attributes.component';
 import {GroupSettingsOverviewComponent
 } from './pages/group-detail-page/group-settings/group-settings-overview/group-settings-overview.component';
 import {
@@ -72,7 +72,7 @@ import { ResourceOverviewComponent } from '../facilities/pages/resource-detail-p
 import { ResourceGroupsComponent } from '../facilities/pages/resource-detail-page/resource-groups/resource-groups.component';
 import { ResourceSettingsComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings.component';
 import { ResourceSettingsOverviewComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
-import { ResourceSettingsAttributesComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-attributes/resource-settings-attributes.component';
+import { ResourceAttributesComponent } from '../facilities/pages/resource-detail-page/resource-attributes/resource-attributes.component';
 import { ResourceSettingsManagersComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-managers/resource-settings-managers.component';
 import { ResourceAssignedServicesComponent } from '../facilities/pages/resource-detail-page/resource-assigned-services/resource-assigned-services.component';
 
@@ -93,7 +93,7 @@ const routes: Routes = [
       {
         path: 'attributes',
         component: VoAttributesComponent,
-        data: {animation: 'VoSettingsAttributesPage'}
+        data: {animation: 'VoAttributesPage'}
       },
       {
         path: 'groups',
@@ -140,6 +140,11 @@ const routes: Routes = [
         path: 'applications/:applicationId',
         component: ApplicationDetailComponent,
         data: {animation: 'VoApplicationDetailPage'}
+      },
+      {
+        path: 'attributes',
+        component: VoAttributesComponent,
+        data: {animation: 'VoAttributesPage'}
       },
       {
         path: 'settings',
@@ -196,7 +201,7 @@ const routes: Routes = [
       {
         path: 'attributes',
         component: MemberAttributesComponent,
-        data: {animation: 'MemberSettingsAttributesPage'}
+        data: {animation: 'MemberAttributesPage'}
       },
       {
         path: 'groups',
@@ -271,6 +276,11 @@ const routes: Routes = [
         data: {animation: 'GroupResourcesPage'}
       },
       {
+        path: 'attributes',
+        component: GroupAttributesComponent,
+        data: {animation: 'GroupAttributesPage'}
+      },
+      {
         path: 'settings',
         component: GroupSettingsComponent,
         children: [
@@ -278,11 +288,6 @@ const routes: Routes = [
             path: '',
             component: GroupSettingsOverviewComponent,
             data: {animation: 'GroupSettingsOverviewPage'}
-          },
-          {
-            path: 'attributes',
-            component: GroupSettingsAttributesComponent,
-            data: {animation: 'GroupSettingsAttributesPage'}
           },
           {
             path: 'resourceAttributes',
@@ -349,7 +354,12 @@ const routes: Routes = [
       {
         path: 'services',
         component: ResourceAssignedServicesComponent,
-        data: {animation: 'ResourceAssignedServicesComponent'}
+        data: { animation: 'ResourceAssignedServicesComponent' }
+      },
+      {
+        path: 'attributes',
+        component: ResourceAttributesComponent,
+        data: {animation: 'ResourceAttributesPage'}
       },
       {
         path: 'settings',
@@ -359,11 +369,6 @@ const routes: Routes = [
             path: '',
             component: ResourceSettingsOverviewComponent,
             data: {animation: 'ResourceSettingsOverviewPage'}
-          },
-          {
-            path: 'attributes',
-            component: ResourceSettingsAttributesComponent,
-            data: {animation: 'ResourceSettingsAttributesPage'}
           },
           {
             path: 'managers',

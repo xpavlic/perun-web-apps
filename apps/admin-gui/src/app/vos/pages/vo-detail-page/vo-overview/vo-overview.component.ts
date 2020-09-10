@@ -45,6 +45,7 @@ export class VoOverviewComponent implements OnInit {
   }
 
   private initNavItems() {
+    // Attributes
     this.navItems.push({
         cssIcon: 'perun-attributes',
         url: `/organizations/${this.vo.id}/attributes`,

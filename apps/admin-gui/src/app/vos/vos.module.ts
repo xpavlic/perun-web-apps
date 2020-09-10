@@ -29,8 +29,8 @@ import {GroupResourcesComponent} from './pages/group-detail-page/group-resources
 // tslint:disable-next-line:max-line-length
 import {GroupSettingsComponent} from './pages/group-detail-page/group-settings/group-settings.component';
 import {
-  GroupSettingsAttributesComponent
-} from './pages/group-detail-page/group-settings/group-settings-attributes/group-settings-attributes.component';
+  GroupAttributesComponent
+} from './pages/group-detail-page/group-attributes/group-attributes.component';
 import {
   GroupSettingsOverviewComponent
 } from './pages/group-detail-page/group-settings/group-settings-overview/group-settings-overview.component';
@@ -123,7 +123,7 @@ import { MemberResourcesComponent } from './pages/member-detail-page/member-reso
     GroupApplicationsComponent,
     GroupResourcesComponent,
     GroupSettingsComponent,
-    GroupSettingsAttributesComponent,
+    GroupAttributesComponent,
     GroupSettingsOverviewComponent,
     VoSettingsApplicationFormComponent,
     ApplicationFormListComponent,

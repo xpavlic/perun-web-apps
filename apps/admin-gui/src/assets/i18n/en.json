@@ -629,7 +629,7 @@
       "RESOURCE_PREVIEW": "Resource list",
       "RESOURCE_STATES": "Resource states",
       "RESOURCE_TAGS": "Resource tags",
-      "SETTINGS": "Settings",
+      "SETTINGS": "Advanced settings",
       "ATTRIBUTES": "Attributes",
       "EXPIRATION": "Membership",
       "MANAGERS": "Managers",
@@ -641,7 +641,7 @@
       "OVERVIEW": "Overview",
       "RESOURCES": "Resources",
       "ALLOWED_GROUPS": "Allowed groups",
-      "SETTINGS": "Settings",
+      "SETTINGS": "Advanced settings",
       "ATTRIBUTES": "Attributes",
       "SERVICE_CONFIG": "Services configuration",
       "OWNERS": "Owners",
@@ -656,7 +656,7 @@
     "RESOURCE": {
       "OVERVIEW": "Overview",
       "ASSIGNED_GROUPS": "Assigned groups",
-      "SETTINGS": "Settings",
+      "SETTINGS": "Advanced settings",
       "ATTRIBUTES": "Attributes",
       "MANAGERS": "Managers",
       "ASSIGNED_SERVICES": "Assigned services"
@@ -667,7 +667,7 @@
       "SUBGROUPS": "Subgroups",
       "RESOURCES": "Resources",
       "APPLICATIONS": "Applications",
-      "SETTINGS": "Settings",
+      "SETTINGS": "Advanced settings",
       "ATTRIBUTES": "Attributes",
       "RESOURCE_ATTRIBUTES": "Resource attributes",
       "MANAGERS": "Managers",
@@ -679,7 +679,7 @@
     "MEMBER": {
       "OVERVIEW": "Overview",
       "GROUPS": "Groups",
-      "SETTINGS": "Settings",
+      "SETTINGS": "Advanced settings",
       "ATTRIBUTES": "Attributes",
       "RESOURCE_ATTRIBUTES": "Resource attributes",
       "GROUP_ATTRIBUTES": "Group attributes",
@@ -694,7 +694,7 @@
       "USERS": "Users",
       "EXT_SOURCES": "External sources",
       "GROUPS": "Groups",
-      "SETTINGS": "Settings",
+      "SETTINGS": "Advanced settings",
       "ORGANIZATIONS": "Organizations",
       "SERVICES": "Services"
     },

@@ -7,10 +7,10 @@ import {AttributesListComponent} from '@perun-web-apps/perun/components';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
   DeleteAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import {
   CreateAttributeDialogComponent
-} from '../../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
+} from '../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/components';
@@ -21,11 +21,11 @@ import {
 } from '@perun-web-apps/config/table-config';
 
 @Component({
-  selector: 'app-facility-settings-attributes',
-  templateUrl: './facility-settings-attributes.component.html',
-  styleUrls: ['./facility-settings-attributes.component.scss']
+  selector: 'app-facility-attributes',
+  templateUrl: './facility-attributes.component.html',
+  styleUrls: ['./facility-attributes.component.scss']
 })
-export class FacilitySettingsAttributesComponent implements OnInit {
+export class FacilityAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
@@ -55,7 +55,7 @@ export class FacilitySettingsAttributesComponent implements OnInit {
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-    this.route.parent.parent.params.subscribe(params => {
+    this.route.parent.params.subscribe(params => {
       this.facilityId = params['facilityId'];
       this.refreshTable();
     });

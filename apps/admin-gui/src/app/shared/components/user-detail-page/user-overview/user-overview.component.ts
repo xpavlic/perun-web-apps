@@ -26,6 +26,12 @@ export class UserOverviewComponent implements OnInit {
   private initNavItems() {
     this.navItems = [
       {
+        cssIcon: 'perun-attributes',
+        url: `attributes`,
+        label: 'MENU_ITEMS.USER.ATTRIBUTES',
+        style: 'user-btn'
+      },
+      {
         cssIcon: 'perun-vo',
         url: `organizations`,
         label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',

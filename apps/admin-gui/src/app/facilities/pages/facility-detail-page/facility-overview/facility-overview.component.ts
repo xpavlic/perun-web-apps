@@ -20,7 +20,8 @@ export class FacilityOverviewComponent implements OnInit {
     private facilityManager: FacilitiesManagerService,
     private route: ActivatedRoute,
     private authResolver: GuiAuthResolver
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -35,10 +36,16 @@ export class FacilityOverviewComponent implements OnInit {
   }
 
   private initItems() {
-    this.navItems = [];
+    this.navItems = [
+      {
+        cssIcon: 'perun-attributes',
+        url: `/facilities/${this.facility.id}/attributes`,
+        label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
+        style: 'facility-btn'
+      }];
 
     // Resources
-    if(this.authResolver.isAuthorized('getAssignedRichResources_Facility_policy', [this.facility])){
+    if (this.authResolver.isAuthorized('getAssignedRichResources_Facility_policy', [this.facility])) {
       this.navItems.push({
         cssIcon: 'perun-manage-facility',
         url: `/facilities/${this.facility.id}/resources`,
@@ -65,7 +72,7 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Service state
-    if(this.authResolver.isAuthorized('getFacilityServicesState_Facility_policy', [this.facility])){
+    if (this.authResolver.isAuthorized('getFacilityServicesState_Facility_policy', [this.facility])) {
       this.navItems.push({
         cssIcon: 'perun-service-status',
         url: `/facilities/${this.facility.id}/services-status`,
@@ -74,8 +81,8 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Service configuration
-    if(this.authResolver.isAuthorized('getAssignedServices_Facility_policy', [this.facility]) &&
-    this.authResolver.isAuthorized('getAssignedResources_Facility_policy', [this.facility])){
+    if (this.authResolver.isAuthorized('getAssignedServices_Facility_policy', [this.facility]) &&
+      this.authResolver.isAuthorized('getAssignedResources_Facility_policy', [this.facility])) {
       this.navItems.push({
         cssIcon: 'perun-settings2',
         url: `/facilities/${this.facility.id}/service-config`,
@@ -84,7 +91,7 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Service destination
-    if(this.authResolver.isAuthorized('getAllRichDestinations_Facility_policy', [this.facility])){
+    if (this.authResolver.isAuthorized('getAllRichDestinations_Facility_policy', [this.facility])) {
       this.navItems.push({
         cssIcon: 'perun-service_destination',
         url: `/facilities/${this.facility.id}/services-destinations`,
@@ -94,7 +101,7 @@ export class FacilityOverviewComponent implements OnInit {
     }
     // Hosts
     // TODO fix when policies are updated
-    if(this.authResolver.isFacilityAdmin()){
+    if (this.authResolver.isFacilityAdmin()) {
       this.navItems.push({
         cssIcon: 'perun-hosts',
         url: `/facilities/${this.facility.id}/hosts`,
@@ -103,7 +110,7 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Security teams
-    if(this.authResolver.isAuthorized('getAssignedSecurityTeams_Facility_policy', [this.facility])){
+    if (this.authResolver.isAuthorized('getAssignedSecurityTeams_Facility_policy', [this.facility])) {
       this.navItems.push({
         cssIcon: 'perun-security-teams',
         url: `/facilities/${this.facility.id}/security-teams`,
@@ -112,9 +119,9 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Settings
-    if(this.authResolver.isAuthorized('getBansForFacility_int_policy', [this.facility]) ||
+    if (this.authResolver.isAuthorized('getBansForFacility_int_policy', [this.facility]) ||
       this.authResolver.isAuthorized('getRichAdmins_Facility_List<String>_boolean_boolean_policy', [this.facility]) ||
-      this.authResolver.isAuthorized('getOwners_Facility_policy', [this.facility])){
+      this.authResolver.isAuthorized('getOwners_Facility_policy', [this.facility])) {
       this.navItems.push({
         cssIcon: 'perun-settings2',
         url: `/facilities/${this.facility.id}/settings`,

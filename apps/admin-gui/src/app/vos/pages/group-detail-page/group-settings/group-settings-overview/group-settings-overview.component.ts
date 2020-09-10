@@ -57,12 +57,6 @@ export class GroupSettingsOverviewComponent implements OnInit {
 
   private initItems() {
     this.items = []
-    this.items.push({
-      cssIcon: 'perun-attributes',
-      url: `/organizations/${this.vo.id}/groups/${this.group.id}/settings/attributes`,
-      label: 'MENU_ITEMS.GROUP.ATTRIBUTES',
-      style: 'group-btn'
-    });
 
     if (this.guiAuthResolver.isAuthorized('getAssignedResources_Group_policy', [this.group])) {
       this.items.push({
