@@ -1,28 +1,31 @@
 <div *ngIf="user !== undefined" class="container-fluid pl-xl-5 pr-xl-5 user-theme">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
-  <h1 class="page-title">
-    <div class="d-flex align-items-center">
-      <div>
-        {{'ADMIN_USER.TITLE' | translate}}
+  <div class="d-flex page-title">
+    <mat-icon
+      matTooltip="{{'ADMIN_USER.ENTITY' | translate}}"
+      [ngStyle]="{'color':'black'}"
+      svgIcon='perun-user-dark'
+      class="perun-icon perun-icon-detail">
+    </mat-icon>
+    <div class="page-title-block">
+      <div class="page-title-headline d-flex align-items-center">
         <a [routerLink]="['/admin/users', user.id]" class="user-link">
           {{user | userFullName}}
         </a>
         <span class="text-muted">
           &nbsp;#{{user.id}}
         </span>
+        <button (click)="editUser()" mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
-      <button (click)="editUser()" aria-label="Edit user" mat-icon-button>
-        <mat-icon>edit</mat-icon>
-      </button>
-    </div>
-    <span class="text-muted mt-1 entity-info">
-      {{'ADMIN_USER.USER_TYPE' | translate}}:
-      <span class="user-text">
-        {{getUserType()}}
+      <span class="text-muted mt-1 entity-info">
+        {{'ADMIN_USER.ENTITY' | translate}},
+        {{'ADMIN_USER.USER_TYPE' | translate}}: {{getUserType()}}
       </span>
-    </span>
-  </h1>
+    </div>
+  </div>
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>
 

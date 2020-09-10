@@ -1552,7 +1552,7 @@
     "SERVICE": "Service"
   },
   "ADMIN_USER": {
-    "TITLE": "User - ",
+    "ENTITY": "User",
     "USER_TYPE": "User type"
   },
   "ADMIN": {
