@@ -769,6 +769,12 @@ button:focus {
 .page-title {
   margin-top: 1rem;
   margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.page-title-headtitle {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .page-title-headline {
@@ -1485,4 +1491,12 @@ th, td.mat-cell {
 .icon-beak {
   vertical-align: bottom;
 }
+
+.icon-scale {
+  transform: scale(1.7);
+  margin-left: 0.5rem;
+  margin-top: -0.4rem;
+  margin-right: 0.9rem;
+}
+
 
