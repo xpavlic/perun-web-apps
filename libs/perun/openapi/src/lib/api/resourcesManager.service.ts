@@ -18,6 +18,7 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { BanOnResource } from '../model/banOnResource';
+import { EnrichedResource } from '../model/enrichedResource';
 import { Facility } from '../model/facility';
 import { Group } from '../model/group';
 import { InputAssignResourceTagToResource } from '../model/inputAssignResourceTagToResource';
@@ -2478,6 +2479,198 @@ export class ResourcesManagerService {
 
 
         return this.httpClient.get<Array<BanOnResource>>(`${this.configuration.basePath}/json/resourcesManager/getBansForResource`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Find resource for given id and returns it with given attributes. If attrNames are null or empty, all resource attributes are returned.
+     * @param id numeric id
+     * @param attrNames list of attribute names List&lt;String&gt; or null
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getEnrichedResourceById(id: number, attrNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<EnrichedResource>;
+    public getEnrichedResourceById(id: number, attrNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EnrichedResource>>;
+    public getEnrichedResourceById(id: number, attrNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EnrichedResource>>;
+    public getEnrichedResourceById(id: number, attrNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getEnrichedResourceById.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (id !== undefined && id !== null) {
+            queryParameters = queryParameters.set('id', <any>id);
+        }
+        if (attrNames) {
+            attrNames.forEach((element) => {
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
+            })
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<EnrichedResource>(`${this.configuration.basePath}/json/resourcesManager/getEnrichedResourceById`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Find resources for given facility and attributes for given names. If the attrNames are empty or null, return all attributes.
+     * @param facility id of Facility
+     * @param attrNames list of attribute names List&lt;String&gt; or null
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getEnrichedResourcesForFacility(facility: number, attrNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<EnrichedResource>>;
+    public getEnrichedResourcesForFacility(facility: number, attrNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<EnrichedResource>>>;
+    public getEnrichedResourcesForFacility(facility: number, attrNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<EnrichedResource>>>;
+    public getEnrichedResourcesForFacility(facility: number, attrNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (facility === null || facility === undefined) {
+            throw new Error('Required parameter facility was null or undefined when calling getEnrichedResourcesForFacility.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (facility !== undefined && facility !== null) {
+            queryParameters = queryParameters.set('facility', <any>facility);
+        }
+        if (attrNames) {
+            attrNames.forEach((element) => {
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
+            })
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<EnrichedResource>>(`${this.configuration.basePath}/json/resourcesManager/getEnrichedResourcesForFacility`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Find resources for given vo and attributes for given names. If the attrNames are empty or null, return all attributes.
+     * @param vo id of Vo
+     * @param attrNames list of attribute names List&lt;String&gt; or null
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getEnrichedResourcesForVo(vo: number, attrNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<EnrichedResource>>;
+    public getEnrichedResourcesForVo(vo: number, attrNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<EnrichedResource>>>;
+    public getEnrichedResourcesForVo(vo: number, attrNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<EnrichedResource>>>;
+    public getEnrichedResourcesForVo(vo: number, attrNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (vo === null || vo === undefined) {
+            throw new Error('Required parameter vo was null or undefined when calling getEnrichedResourcesForVo.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (vo !== undefined && vo !== null) {
+            queryParameters = queryParameters.set('vo', <any>vo);
+        }
+        if (attrNames) {
+            attrNames.forEach((element) => {
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
+            })
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<EnrichedResource>>(`${this.configuration.basePath}/json/resourcesManager/getEnrichedResourcesForVo`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

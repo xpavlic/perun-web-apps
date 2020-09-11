@@ -419,10 +419,11 @@
         "FILTER": "Filter by ID, name or type",
         "SUCCESS_REMOVED": "External source successfully removed: "
       },
-      "SPONSORED_USER": {
-        "TITLE": "Sponsored users",
+      "SPONSORED_MEMBERS": {
+        "TITLE": "Sponsored members",
         "CREATE": "Create",
-        "DELETE": "Delete"
+        "GENERATE": "Create in bulk",
+        "FILTER": "Filter by name or ID"
       }
     },
     "APPLICATION": {
@@ -675,7 +676,7 @@
       "NOTIFICATIONS": "Notifications",
       "EXTSOURCES": "External sources",
       "SPONSORS": "Sponsors",
-      "SPONSORED_USERS": "Sponsored users"
+      "SPONSORED_MEMBERS": "Sponsored members"
     },
     "FACILITY": {
       "OVERVIEW": "Overview",
@@ -1591,8 +1592,8 @@
       "SUBMIT": "Submit",
       "SUCCESS": "Application form item data edited successfully"
     },
-    "CREATE_SPONSORED_USER": {
-      "TITLE": "Create sponsored user",
+    "CREATE_SPONSORED_MEMBER": {
+      "TITLE": "Create sponsored member",
       "FIRST_NAME": "First name",
       "LAST_NAME": "Last name",
       "TITLE_BEFORE": "Title before",
@@ -1605,15 +1606,28 @@
       "LOGIN": "Login",
       "EMAIL": "Email",
       "SUCCESS": "Sponsored user created",
-      "EMAIL_ERROR": "Email is not valid"
+      "EMAIL_ERROR": "Email is not valid",
+      "LENGTH_ERROR": "Length of input has to be between 1 to 128 characters",
+      "NAMESPACE_ERROR": "Selection of namespace is required"
     },
-    "DELETE_SPONSORED_USER": {
-      "TITLE": "Delete sponsored member",
-      "DESCRIPTION": "",
-      "ASK": "",
-      "CANCEL": "",
-      "CONFIRM": "",
-      "SUCCESS": "Member successfully deleted"
+    "GENERATE_SPONSORED_MEMBERS": {
+      "TITLE": "Create sponsored members in bulk",
+      "NAMESPACE": "Namespace",
+      "NAMESPACE_ERROR": "Selection of namespace is required",
+      "NAMES_ERROR": "Members names cannot be empty",
+      "NAMES": "Member names",
+      "HINT": "Enter one member per line. You can use \"[x-y]\" in names to create members with numbers from x to y. This replacer can be specified multiple times in one name to generate MxN combinations.",
+      "CANCEL": "Cancel",
+      "GENERATE": "Create",
+      "SUCCESS": "Members successfully created"
+    },
+    "EDIT_MEMBER_SPONSORS": {
+      "TITLE": "Edit member sponsors",
+      "TABLE_ID": "id",
+      "TABLE_NAME": "name",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Submit",
+      "SUCCESS": "Sponsors successfully edited"
     }
   },
   "MEMBERS_LIST": {
@@ -1859,6 +1873,12 @@
         "NAME": "name",
         "DESCRIPTION": "description",
         "NO_SECURITY_TEAMS_WARNING": "No security teams found"
+      },
+      "SPONSORED_MEMBERS_LIST": {
+        "ID": "id",
+        "NAME": "name",
+        "SPONSORS": "sponsors",
+        "NO_SPONSORED_MEMBERS_WARNING": "No sponsored members found"
       }
     },
     "FOOTER": {
@@ -1887,7 +1907,8 @@
     "SELF": "Self",
     "FACILITYADMIN": "Facility admin",
     "GROUPADMIN": "Group admin",
-    "RESOURCEADMIN": "Resource admin"
+    "RESOURCEADMIN": "Resource admin",
+    "SPONSOR": "Sponsor"
   },
   "SHARED_LIB": {
     "PERUN": {

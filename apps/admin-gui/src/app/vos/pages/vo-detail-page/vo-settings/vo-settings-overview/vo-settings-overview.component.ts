@@ -88,12 +88,12 @@ export class VoSettingsOverviewComponent implements OnInit {
         style: 'vo-btn'
       });
     }
-    // Sponsored user
+    // Sponsored members
     if (this.authResolver.isAuthorized('getSponsoredMembers_Vo_policy', [this.vo])) {
       this.items.push({
         cssIcon: 'perun-user',
-        url: `/organizations/${this.vo.id}/settings/sponsoredUsers`,
-        label: 'MENU_ITEMS.VO.SPONSORED_USERS',
+        url: `/organizations/${this.vo.id}/settings/sponsoredMembers`,
+        label: 'MENU_ITEMS.VO.SPONSORED_MEMBERS',
         style: 'vo-btn'
       });
     }

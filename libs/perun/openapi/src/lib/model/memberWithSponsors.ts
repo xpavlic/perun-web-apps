@@ -9,17 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auditable } from './auditable';
+import { User } from './user';
+import { RichMember } from './richMember';
 
 
-export interface Member extends Auditable {
-    userId?: number;
-    voId?: number;
-    status?: string;
-    membershipType?: string;
-    sourceGroupId?: number;
-    sponsored?: boolean;
-    groupStatus?: string;
-    groupStatuses?: { [key: string]: string; };
+export interface MemberWithSponsors { 
+    member?: RichMember;
+    sponsors?: Array<User>;
 }
 

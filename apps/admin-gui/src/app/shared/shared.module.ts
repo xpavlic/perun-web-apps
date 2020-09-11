@@ -169,9 +169,11 @@ import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-tas
 import { EditApplicationFormItemDataDialogComponent } from './components/dialogs/edit-application-form-item-data-dialog/edit-application-form-item-data-dialog.component';
 import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
+import { CreateSponsoredMemberDialogComponent } from './components/dialogs/create-sponsored-member-dialog/create-sponsored-member-dialog.component';
+import { GenerateSponsoredMembersDialogComponent } from './components/dialogs/generate-sponsored-members-dialog/generate-sponsored-members-dialog.component';
+import { SponsoredMembersListComponent } from './components/sponsored-members-list/sponsored-members-list.component';
+import { EditMemberSponsorsDialogComponent } from './components/dialogs/edit-member-sponsors-dialog/edit-member-sponsors-dialog.component';
 import { CreateAttributeDialogComponent } from './components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
-import { CreateSponsoredUserDialogComponent } from './components/dialogs/create-sponsored-user-dialog/create-sponsored-user-dialog.component';
-import { DeleteSponsoredUserDialogComponent } from './components/dialogs/delete-sponsored-user-dialog/delete-sponsored-user-dialog.component';
 
 @NgModule({
   imports: [
@@ -304,6 +306,8 @@ import { DeleteSponsoredUserDialogComponent } from './components/dialogs/delete-
     UserLoginsPipe,
     UserEmailPipe,
     UsersListComponent,
+    SponsoredMembersListComponent,
+    EditMemberSponsorsDialogComponent,
     CreateAttributeDialogComponent
   ],
   declarations: [
@@ -415,10 +419,12 @@ import { DeleteSponsoredUserDialogComponent } from './components/dialogs/delete-
     EditApplicationFormItemDataDialogComponent,
     CreateServiceDialogComponent,
     UsersListComponent,
-    CreateAttributeDialogComponent,
     EditUserDialogComponent,
-    CreateSponsoredUserDialogComponent,
-    DeleteSponsoredUserDialogComponent
+    CreateSponsoredMemberDialogComponent,
+    GenerateSponsoredMembersDialogComponent,
+    SponsoredMembersListComponent,
+    EditMemberSponsorsDialogComponent,
+    CreateAttributeDialogComponent
   ],
   providers: [
     AnyToStringPipe,

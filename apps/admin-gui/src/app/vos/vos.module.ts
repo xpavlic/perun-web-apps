@@ -80,8 +80,7 @@ import { GroupSettingsResourceAttributesComponent } from './pages/group-detail-p
 import { MemberSettingsGroupAttributesComponent } from './pages/member-detail-page/member-settings/member-settings-group-attributes/member-settings-group-attributes.component';
 import { MemberApplicationsComponent } from './pages/member-detail-page/member-applications/member-applications.component';
 import { MemberResourcesComponent } from './pages/member-detail-page/member-resources/member-resources.component';
-import { VoSettingsSponsoredUserComponent } from './pages/vo-detail-page/vo-settings/vo-settings-sponsored-user/vo-settings-sponsored-user.component';
-import { VoSettingsSponsorsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-sponsors/vo-settings-sponsors.component';
+import { VoSettingsSponsoredMembersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-sponsored-members/vo-settings-sponsored-members.component';
 
 @NgModule({
   imports: [
@@ -153,8 +152,7 @@ import { VoSettingsSponsorsComponent } from './pages/vo-detail-page/vo-settings/
     MemberApplicationsComponent,
     MemberResourcesComponent,
     MemberApplicationsComponent,
-    VoSettingsSponsoredUserComponent,
-    VoSettingsSponsorsComponent
+    VoSettingsSponsoredMembersComponent
   ],
 })
 export class VosModule {

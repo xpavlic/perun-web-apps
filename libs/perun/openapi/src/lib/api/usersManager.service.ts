@@ -1697,6 +1697,79 @@ export class UsersManagerService {
     }
 
     /**
+     * Reserves password for a user in specified login-namespace.
+     * @param login login
+     * @param namespace namespace
+     * @param password password
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reservePassword(login: string, namespace: string, password: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public reservePassword(login: string, namespace: string, password: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public reservePassword(login: string, namespace: string, password: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public reservePassword(login: string, namespace: string, password: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (login === null || login === undefined) {
+            throw new Error('Required parameter login was null or undefined when calling reservePassword.');
+        }
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling reservePassword.');
+        }
+        if (password === null || password === undefined) {
+            throw new Error('Required parameter password was null or undefined when calling reservePassword.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (login !== undefined && login !== null) {
+            queryParameters = queryParameters.set('login', <any>login);
+        }
+        if (namespace !== undefined && namespace !== null) {
+            queryParameters = queryParameters.set('namespace', <any>namespace);
+        }
+        if (password !== undefined && password !== null) {
+            queryParameters = queryParameters.set('password', <any>password);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/reservePassword`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Updates user
      * @param inputUpdateUser 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

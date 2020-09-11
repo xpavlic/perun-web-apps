@@ -9,17 +9,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auditable } from './auditable';
+import { Candidate } from './candidate';
+import { User } from './user';
 
 
-export interface Member extends Auditable {
-    userId?: number;
-    voId?: number;
-    status?: string;
-    membershipType?: string;
-    sourceGroupId?: number;
-    sponsored?: boolean;
-    groupStatus?: string;
-    groupStatuses?: { [key: string]: string; };
+/**
+ * input to createSpecificMember
+ */
+export interface InputSpecificMember { 
+    candidate: Candidate;
+    vo: number;
+    specificUserType: string;
+    specificUserOwners: Array<User>;
 }
 

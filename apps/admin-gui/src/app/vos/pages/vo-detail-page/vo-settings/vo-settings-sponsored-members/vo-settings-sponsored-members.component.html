@@ -1,0 +1,33 @@
+<div>
+  <h1 class="page-subtitle">{{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.TITLE' | translate}}</h1>
+  <perun-web-apps-refresh-button (refresh)="refresh()"></perun-web-apps-refresh-button>
+  <button
+    *ngIf="!loading && createAuth"
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    (click)="onCreate()">
+    {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.CREATE' | translate}}
+  </button>
+  <button
+    *ngIf="!loading && generateAuth"
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    (click)="onGenerate()">
+    {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.GENERATE' | translate}}
+  </button>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.FILTER'">
+  </perun-web-apps-immediate-filter>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <app-sponsored-members-list
+      *ngIf="!loading"
+      [sponsoredMembers]="members"
+      [disableRouting]="!routeAuth"
+      [selection]="selection"
+      [filterValue]="searchString"
+      [pageSize]="pageSize"
+  ></app-sponsored-members-list>
+</div>

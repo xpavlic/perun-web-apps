@@ -9,17 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auditable } from './auditable';
 
 
-export interface Member extends Auditable {
-    userId?: number;
+export interface BanOnVoAllOf { 
+    memberId?: number;
     voId?: number;
-    status?: string;
-    membershipType?: string;
-    sourceGroupId?: number;
-    sponsored?: boolean;
-    groupStatus?: string;
-    groupStatuses?: { [key: string]: string; };
 }
 

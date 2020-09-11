@@ -18,8 +18,6 @@ export interface MemberAllOf {
     membershipType?: string;
     sourceGroupId?: number;
     sponsored?: boolean;
-    suspendedTo?: string;
-    suspended?: boolean;
     groupStatus?: string;
     groupStatuses?: { [key: string]: string; };
 }
