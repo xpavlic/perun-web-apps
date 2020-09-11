@@ -1,11 +1,15 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 member-theme" *ngIf="vo !== undefined && member !== undefined">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
-  <h1 class="page-title">
-    <div class="d-flex align-items-center">
-      <mat-icon [ngStyle]="{'color':'black'}" svgIcon='perun-user-dark' class="perun-icon perun-icon-detail mb-3 mr-2"></mat-icon>
-      <div>
-        {{'MEMBER_DETAIL.TITLE' | translate}}
+  <div class="d-flex page-title-headtitle">
+    <mat-icon
+      matTooltip="{{'MEMBER_DETAIL.ENTITY' | translate}}"
+      [ngStyle]="{'color':'black'}"
+      svgIcon='perun-user-dark'
+      class="perun-icon perun-icon-detail">
+    </mat-icon>
+    <div class="page-title-block">
+      <div class="page-title-headline d-flex align-items-center">
         <a class="member-link" [routerLink]="['/organizations', vo.id, 'members', member.id]">
           {{fullName}}
         </a>
@@ -13,15 +17,15 @@
           &nbsp;#{{member.id}}
         </span>
       </div>
+      <span class="text-muted mt-1 entity-info">
+        {{'MEMBER_DETAIL.ENTITY' | translate}},
+        {{'MEMBER_DETAIL.USER_ID' | translate}}:
+        <a class="member-link" *ngIf="isAuthorized" [routerLink]="['/admin', 'users', member.userId]">
+          {{member.userId}}
+        </a>
+        <span *ngIf="!isAuthorized">{{member.userId}}</span>
+      </span>
     </div>
-
-    <span class="text-muted mt-1 entity-info">
-      {{'MEMBER_DETAIL.USER_ID' | translate}}:
-      <span *ngIf="isAuthorized"><a class="member-link" [routerLink]="['/admin', 'users', member.userId]">
-        {{member.userId}}
-      </a></span>
-      <span *ngIf="!isAuthorized" class="group-text">{{member.userId}}</span>
-    </span>
-  </h1>
+  </div>
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>

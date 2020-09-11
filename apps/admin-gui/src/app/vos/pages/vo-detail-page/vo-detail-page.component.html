@@ -1,34 +1,35 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 vo-theme" *ngIf="vo !== undefined">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
-  <h1 class="page-title">
-    <div class="d-flex align-items-center">
-      <mat-icon [ngStyle]="{'color':'black'}" svgIcon='perun-vo-black' class="perun-icon perun-icon-detail mb-3 mr-2"></mat-icon>
-      <div>
-        {{'VO_DETAIL.TITLE' | translate}}
-        <a class="vo-link" [routerLink]="['/organizations/', vo.id]">
-          {{vo.name}}
-        </a>
-        <span class="text-muted">
-        &nbsp;#{{vo.id}}
-        </span>
+  <div class="d-flex page-title-headtitle">
+    <mat-icon
+      matTooltip="{{'VO_DETAIL.ENTITY' | translate}}"
+      [ngStyle]="{'color':'black'}"
+      svgIcon='perun-vo-black'
+      class="perun-icon perun-icon-detail">
+    </mat-icon>
+    <div class="page-title-block">
+      <div class="page-title-headline d-flex align-items-center">
+          <a class="vo-link" [routerLink]="['/organizations/', vo.id]">
+            {{vo.name}}
+          </a>
+          <span class="text-muted">
+          &nbsp;#{{vo.id}}
+          </span>
+        <button
+          *ngIf="editAuth"
+          mat-icon-button
+          aria-label="Edit Vo"
+          (click)="editVo()">
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
-      <button
-        *ngIf="editAuth"
-        mat-icon-button
-        aria-label="Edit Vo"
-        (click)="editVo()">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </div>
-    <span class="text-muted mt-1 entity-info">
-      {{'VO_DETAIL.SUB_TITLE' | translate}}:
-      <span class="vo-text">
-        {{vo.shortName}}
+      <span class="text-muted mt-1 entity-info">
+        {{'VO_DETAIL.ENTITY' | translate}},
+        {{'VO_DETAIL.SHORT_NAME' | translate}}: {{vo.shortName}}
       </span>
-    </span>
-  </h1>
-
+    </div>
+  </div>
   <app-animated-router-outlet></app-animated-router-outlet>
 </div>
 
