@@ -178,7 +178,8 @@
     },
     "ALLOWED_USERS": {
       "TITLE": "Allowed users",
-      "FILTER": "Filter allowed users"
+      "FILTER": "Filter allowed users",
+      "NO_USERS": "No users assigned."
     }
   },
   "RESOURCE_DETAIL": {
