@@ -489,7 +489,8 @@
       "SEARCH_DESCRIPTION": "Search by name, login or email",
       "LIST_ALL": "List all members",
       "SEARCH_ALERT": "You can search member by name, login and email. Also, you can list all valid members.",
-      "NO_MEMBERS_ALERT": "No members found."
+      "NO_MEMBERS_ALERT": "No members found.",
+      "INVITE_MEMBER": "Invite"
     },
     "RESOURCES": {
       "TITLE": "Resources",
@@ -806,7 +807,8 @@
     },
     "INVITE_MEMBER": {
       "TITLE": "Invite member",
-      "DESCRIPTION": "The person you are inviting will receive an email with a link to VOs application form. You can set up an email template in: (Vo) Settings -> Notifications.",
+      "DESCRIPTION_VO": "The person you are inviting will receive an email with a link to VOs application form. You can set up an email template in: (Vo) Settings -> Notifications.",
+      "DESCRIPTION_GROUP": "The person you are inviting will receive an email with a link to Groups application form. You can set up an email template in: (Group) Settings -> Notifications.",
       "INVITE": "Invite",
       "CANCEL": "Cancel",
       "NAME": "Name",
@@ -815,7 +817,8 @@
       "LANGUAGE_ENGLISH": "English",
       "LANGUAGE_CZECH": "Czech",
       "EMAIL_ERROR": "Fill in an correct email!",
-      "SUCCESS": "Invite was send to given email"
+      "SUCCESS": "Invite was send to given email",
+      "NAME_ERROR": "Name cannot be empty"
     },
     "DELETE_ATTRIBUTES": {
       "TITLE": "Confirm delete action",

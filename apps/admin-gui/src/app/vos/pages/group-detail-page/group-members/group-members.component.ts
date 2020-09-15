@@ -10,7 +10,7 @@ import { Group, GroupsManagerService, RichMember } from '@perun-web-apps/perun/o
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_GROUP_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import remove from '@nrwl/workspace/src/schematics/remove/remove';
+import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 
 @Component({
   selector: 'app-group-members',
@@ -47,6 +47,8 @@ export class GroupMembersComponent implements OnInit {
 
   tableId = TABLE_GROUP_MEMBERS;
 
+
+
   private attrNames = [
     Urns.MEMBER_DEF_ORGANIZATION,
     Urns.MEMBER_DEF_MAIL,
@@ -60,6 +62,7 @@ export class GroupMembersComponent implements OnInit {
   addAuth: boolean;
   removeAuth: boolean;
   routeAuth: boolean;
+  inviteAuth: boolean;
   hideColumns: String[] = [];
 
 
@@ -87,6 +90,7 @@ export class GroupMembersComponent implements OnInit {
     this.addAuth = this.guiAuthResolver.isAuthorized('addMembers_Group_List<Member>_policy', [this.group]);
     this.removeAuth = this.guiAuthResolver.isAuthorized('removeMembers_Group_List<Member>_policy', [this.group]);
     this.routeAuth = this.guiAuthResolver.isAuthorized('getMemberById_int_policy', [this.group]);
+    this.inviteAuth = this.guiAuthResolver.isAuthorized('group-sendInvitation_Vo_Group_String_String_String_policy', [this.group]);
     this.hideColumns = this.removeAuth ? [] : ['checkbox'];
   }
 
@@ -149,6 +153,24 @@ export class GroupMembersComponent implements OnInit {
     });
   }
 
+  onInviteMember(){
+    const config = getDefaultDialogConfig();
+    config.width = '650px';
+    config.data = {
+      voId: this.group.voId,
+      groupId: this.group.id,
+      theme: 'group-theme'
+    };
+
+    const dialogRef = this.dialog.open(InviteMemberDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(inviteSent => {
+      if (inviteSent) {
+        this.refreshTable();
+      }
+    });
+  }
+
   refreshTable() {
     this.loading = true;
     this.selection.clear();
@@ -157,7 +179,7 @@ export class GroupMembersComponent implements OnInit {
         this.membersService.getCompleteRichMembersForGroup(this.group.id, this.attrNames).subscribe(
           members => {
             this.members = members;
-            this.setAuthRights()
+            this.setAuthRights();
             this.loading = false;
           },
           () => this.loading = false
@@ -175,6 +197,7 @@ export class GroupMembersComponent implements OnInit {
         );
         break;
       }
+      default: this.loading = false;
     }
   }
 

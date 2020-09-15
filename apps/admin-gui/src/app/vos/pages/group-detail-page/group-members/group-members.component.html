@@ -10,6 +10,14 @@
     {{'GROUP_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
   </button>
   <button
+    *ngIf="inviteAuth"
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    (click)="onInviteMember()">
+    {{'GROUP_DETAIL.MEMBERS.INVITE_MEMBER' | translate}}
+  </button>
+  <button
     mat-flat-button
     color="warn"
     class="mr-2"
