@@ -1,7 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ResourcesManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { NotificatorService } from '@perun-web-apps/perun/services';
@@ -31,9 +29,7 @@ export class CreateResourceDialogComponent implements OnInit {
 
   nameCtrl: FormControl;
   descriptionCtrl: FormControl;
-  organizationCtrl: FormControl = new FormControl();
   vos: Vo[] = [];
-  filteredVos: Observable<Vo[]>;
 
   theme: string;
   loading: boolean;
@@ -45,11 +41,6 @@ export class CreateResourceDialogComponent implements OnInit {
     this.theme = this.data.theme;
     this.voService.getAllVos().subscribe(vos => {
       this.vos = vos;
-
-      this.filteredVos = this.organizationCtrl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
       this.loading = false;
     }, () => this.loading = false);
 
@@ -57,11 +48,6 @@ export class CreateResourceDialogComponent implements OnInit {
     this.descriptionCtrl = new FormControl(null, [Validators.required, Validators.pattern('.*[\\S]+.*')]);
   }
 
-  _filter(value: string): Vo[] {
-    const filterValue = value.toLowerCase();
-    return this.vos.filter(option => option.name.toLowerCase().indexOf(filterValue) >=0
-      || option.shortName.toLowerCase().indexOf(filterValue) >= 0);
-  }
 
   onSubmit() {
     this.loading = true;
