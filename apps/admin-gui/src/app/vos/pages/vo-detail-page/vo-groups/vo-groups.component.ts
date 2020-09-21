@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateGroupDialogComponent } from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
 import { SideMenuService } from '../../../../core/services/common/side-menu.service';
@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
-import { applyFilter, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import {
   Group,
   GroupsManagerService,
@@ -47,12 +47,11 @@ export class VoGroupsComponent implements OnInit {
   vo: Vo;
 
   groups: RichGroup[] = [];
-  filteredGroups: RichGroup[] = [];
-  filteredTreeGroups: RichGroup[] = [];
   showGroupList = false;
   selected = new SelectionModel<RichGroup>(true, []);
   loading: boolean;
   filtering = false;
+  filterValue = '';
   tableId = TABLE_VO_GROUPS;
   pageSize: number;
 
@@ -170,8 +169,6 @@ export class VoGroupsComponent implements OnInit {
       Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
     ]).subscribe(groups => {
       this.groups = groups;
-      this.filteredGroups = groups;
-      this.filteredTreeGroups = groups;
       this.selected.clear();
       this.setAuthRights();
       this.loading = false;
@@ -179,9 +176,7 @@ export class VoGroupsComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
-    const results = applyFilter(filterValue, this.groups);
-    this.filteredGroups = results[0];
-    this.filteredTreeGroups = results[1];
+    this.filterValue = filterValue;
     this.filtering = filterValue !== '';
   }
 

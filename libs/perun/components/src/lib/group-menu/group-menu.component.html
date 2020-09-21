@@ -6,16 +6,18 @@
     </mat-icon>
   </button>
 
-  <button (click)="onSyncDetail()"
-          [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
-          [matTooltipPosition]="'above'"
-          [matTooltip]="group | groupSyncToolTip | translate"
-          mat-icon-button
-          *ngIf="syncAuth">
+  <span [matTooltipPosition]="'above'"
+        [matTooltip]="group | groupSyncToolTip | translate">
+    <button (click)="onSyncDetail()"
+            [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
+            mat-icon-button
+            *ngIf="syncAuth">
     <mat-icon class="{{group | groupSyncIconColor}}">
       {{group | groupSyncIcon}}
     </mat-icon>
   </button>
+  </span>
+
 
   <button
     *ngIf="moveAuth"
