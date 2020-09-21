@@ -1,4 +1,4 @@
-<div class="card mt-2" *ngIf="groups.length !== 0">
+<div class="card mt-2" *ngIf="filteredGroups.length !== 0">
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <mat-tree-node class="group-tree-node"
                    *matTreeNodeDef="let group" matTreeNodePadding>            <!--leaf-->
@@ -65,6 +65,6 @@
   </mat-tree>
 </div>
 
-<app-alert *ngIf="groups.length === 0" color="warn">
-  {{'VO_DETAIL.GROUPS.NO_GROUPS' | translate}}
+<app-alert *ngIf="filteredGroups.length === 0" color="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>

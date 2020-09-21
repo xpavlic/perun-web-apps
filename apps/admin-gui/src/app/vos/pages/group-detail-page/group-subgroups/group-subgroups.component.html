@@ -37,19 +37,20 @@
     <perun-web-apps-groups-tree
       #tree
       *ngIf="!showGroupList"
-      [groups]="filteredTreeGroups"
+      [groups]="groups"
       [expandAll]="filtering"
       [hideCheckbox]="!deleteAuth"
       (moveGroup)="onMoveGroup($event)"
       (refreshTable)="refreshTable()"
       [selection]="selected"
+      [filterValue]="filterValue"
       [disableRouting]="!routeAuth">
     </perun-web-apps-groups-tree>
     <perun-web-apps-groups-list
       #list
       (page)="pageChanged($event)"
       [pageSize]="pageSize"
-      [groups]="filteredGroups"
+      [groups]="groups"
       [selection]="selected"
       [authType]="'group-subgroups'"
       [disableMembers]="true"
@@ -57,6 +58,7 @@
       [hideColumns]="hideColumns"
       (moveGroup)="onMoveGroup($event)"
       (refreshTable)="refreshTable()"
+      [filter]="filterValue"
       *ngIf="showGroupList">
     </perun-web-apps-groups-list>
   </div>

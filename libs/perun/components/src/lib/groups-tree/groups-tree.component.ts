@@ -6,7 +6,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { GroupsManagerService, RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { findParent, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { EditGroupDialogComponent } from '../edit-group-dialog/edit-group-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
@@ -56,6 +56,9 @@ export class GroupsTreeComponent implements OnChanges {
   groups: RichGroup[];
 
   @Input()
+  filterValue: string;
+
+  @Input()
   expandAll = false;
 
   @Input()
@@ -71,6 +74,7 @@ export class GroupsTreeComponent implements OnChanges {
   vo: Vo;
 
   removeAuth: boolean;
+  filteredGroups: RichGroup[];
 
   treeControl = new FlatTreeControl<GroupFlatNode>(
     node => node.level, node => node.expandable);
@@ -82,7 +86,19 @@ export class GroupsTreeComponent implements OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    this.createGroupTrees(this.groups);
+    if (this.expandAll) {
+      this.filteredGroups = this.groups.filter( option => option.name.toLowerCase().includes(this.filterValue.toLowerCase()) ||
+                                                          option.description.toLowerCase().includes(this.filterValue.toLowerCase()) ||
+                                                          option.id.toString().includes(this.filterValue.toLowerCase()));
+      for (const group of this.filteredGroups) {
+        if (group.parentGroupId) {
+          this.filteredGroups = this.filteredGroups.concat(findParent(group.parentGroupId, this.groups));
+        }
+      }
+    } else {
+      this.filteredGroups = this.groups;
+    }
+    this.createGroupTrees(this.filteredGroups);
     if (this.expandAll) {
       this.treeControl.expandAll();
     }

@@ -36,10 +36,12 @@
       #tree
       (moveGroup)="onMoveGroup($event)"
       *ngIf="!showGroupList"
-      [groups]="filteredTreeGroups"
+      [groups]="groups"
       [expandAll]="filtering"
       [vo]="vo"
       [selection]="selected"
+      [disableRouting]="!routeAuth"
+      [filterValue]="filterValue"
       (refreshTable)="loadAllGroups()"
       theme="vo-theme">
     </perun-web-apps-groups-tree>
@@ -48,13 +50,14 @@
       (page)="pageChanged($event)"
       [pageSize]="pageSize"
       (moveGroup)="onMoveGroup($event)"
-      [groups]="filteredGroups"
+      [groups]="groups"
       [selection]="selected"
       [disableMembers]="true"
       [hideColumns]="['vo']"
       [disableRouting]="!routeAuth"
       [authType]="'vo-groups'"
       *ngIf="showGroupList"
+      [filter]="filterValue"
       (refreshTable)="loadAllGroups()"
       theme="vo-theme">
     </perun-web-apps-groups-list>

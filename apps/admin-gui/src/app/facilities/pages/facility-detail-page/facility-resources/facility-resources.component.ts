@@ -42,7 +42,7 @@ export class FacilityResourcesComponent implements OnInit {
   loading: boolean;
   pageSize: number;
   tableId = TABLE_FACILITY_RESOURCES_LIST;
-  displayedColumns = ['id', 'name', 'facility', 'tags', 'description'];
+  displayedColumns = ['id', 'vo', 'facility', 'description'];
 
   addAuth: boolean;
   removeAuth: boolean;
@@ -91,8 +91,8 @@ export class FacilityResourcesComponent implements OnInit {
 
     this.removeAuth = this.authResolver.isAuthorized('deleteResource_Resource_policy', [this.facility]);
     this.displayedColumns = this.removeAuth ?
-      ['select', 'id', 'name', 'facility', 'tags', 'description'] :
-      ['id', 'name', 'facility', 'tags', 'description'];
+      ['select', 'id', 'name', 'vo', 'description'] :
+      ['id', 'name', 'vo', 'description'];
 
     if(this.resources.length !== 0){
       this.routeAuth = this.authResolver.isAuthorized('getRichResourceById_int_policy', [this.facility, this.resources[0]]);

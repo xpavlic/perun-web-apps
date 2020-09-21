@@ -333,26 +333,6 @@ export function filterCoreAttributes(attributes: Attribute[]): Attribute[] {
 }
 
 /**
- * Filter groups by given filter string.
- *
- * @param filterValue filter string
- * @param groups field of groups that its filtering
- * return field - on first position is groups filtered by name, on second groups are filtered by shortName and added their parents
- */
-export function applyFilter(filterValue: string, groups: Group[]) {
-  const filteredTreeGroups = [];
-  const filteredGroups = groups.filter( option => option.name.toLowerCase().includes(filterValue.toLowerCase()));
-  const treegroup = groups.filter( option => option.shortName.toLowerCase().includes(filterValue.toLowerCase()));
-  for (const group of treegroup) {
-    filteredTreeGroups.push(group);
-    if (group.parentGroupId) {
-      filteredTreeGroups.concat(findParent(group.parentGroupId, groups));
-    }
-  }
-  return [filteredGroups, filteredTreeGroups];
-}
-
-/**
  * Find parents of given group in field of groups
  * @param group that you parent you want to found
  * @param groups field of groups where you want to find parent

@@ -4,7 +4,7 @@ import { CreateGroupDialogComponent } from '../../../../shared/components/dialog
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
-import { applyFilter, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_GROUP_SUBGROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
@@ -39,14 +39,13 @@ export class GroupSubgroupsComponent implements OnInit {
   }
   group: Group;
   groups: Group[] = [];
-  filteredGroups: Group[] = [];
-  filteredTreeGroups: Group[] = [];
   selected = new SelectionModel<Group>(true, []);
   showGroupList = false;
   loading: boolean;
   filtering = false;
   tableId = TABLE_GROUP_SUBGROUPS;
   pageSize: number;
+  filterValue = '';
 
   createAuth: boolean;
   deleteAuth: boolean;
@@ -137,8 +136,6 @@ export class GroupSubgroupsComponent implements OnInit {
         Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
       ]).subscribe(groups => {
       this.groups = groups;
-      this.filteredTreeGroups = groups;
-      this.filteredGroups = groups;
       this.selected.clear();
       this.setAuthRights();
       this.loading = false;
@@ -146,9 +143,7 @@ export class GroupSubgroupsComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
-    const results = applyFilter(filterValue, this.groups);
-    this.filteredGroups = results[0];
-    this.filteredTreeGroups = results[1];
+    this.filterValue = filterValue;
     this.filtering = filterValue !== '';
   }
 
