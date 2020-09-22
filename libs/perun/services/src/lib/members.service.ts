@@ -49,7 +49,7 @@ export class MembersService {
     return this.apiService.post('json/membersManager/findCompleteRichMembers', {
       'group': groupId,
       'attrsNames': attrsNames,
-      'allowedStatuses': ['INVALID', 'SUSPENDED', 'EXPIRED', 'VALID', 'DISABLED'],
+      'allowedStatuses': ['INVALID', 'EXPIRED', 'VALID', 'DISABLED'],
       'searchString': searchString,
       'lookingInParentGroup': false
     }, showNotificationOnError);
@@ -59,7 +59,7 @@ export class MembersService {
     return this.apiService.post('json/membersManager/getCompleteRichMembers', {
       'group': groupId,
       'attrsNames': attrNames,
-      'allowedStatuses': ['INVALID', 'SUSPENDED', 'VALID'],
+      'allowedStatuses': ['INVALID', 'VALID'],
       'lookingInParentGroup': false
     }, showNotificationOnError);
   }

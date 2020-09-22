@@ -17,8 +17,6 @@ export class MemberStatusIconPipe implements PipeTransform {
         return 'verified_user';
       case 'INVALID':
         return 'report';
-      case 'SUSPENDED':
-        return 'lock';
       case 'EXPIRED':
         return 'schedule';
       case 'DISABLED':
