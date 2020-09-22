@@ -40,7 +40,6 @@ export class InitAuthService {
    * Load principal
    */
   loadPrincipal(): Promise<any> {
-    console.log('Started principal');
     return this.authzService.getPerunPrincipal()
       .toPromise()
       .then(perunPrincipal => {

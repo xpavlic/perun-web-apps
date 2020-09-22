@@ -69,8 +69,8 @@ export class GroupSubgroupsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+    dialogRef.afterClosed().subscribe(groupCreated => {
+      if(groupCreated) {
         this.loading = true;
         this.initAuthService.loadPrincipal().then(() => this.refreshTable());
       }

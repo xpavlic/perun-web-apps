@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
-import { FacilitiesManagerService, RichFacility } from '@perun-web-apps/perun/openapi';
+import { AuthzResolverService, FacilitiesManagerService, RichFacility } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import {
   TABLE_FACILITY_SELECT,
@@ -11,6 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateFacilityDialogComponent } from '../../../shared/components/dialogs/create-facility-dialog/create-facility-dialog.component';
 import { DeleteFacilityDialogComponent } from '../../../shared/components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
+import { GuiAuthResolver, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-select-page',
@@ -24,6 +25,8 @@ export class FacilitySelectPageComponent implements OnInit {
     private sideMenuService: SideMenuService,
     private tableConfigService: TableConfigService,
     private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private initAuthService: InitAuthService
   ) { }
 
   facilities: RichFacility[] = [];
@@ -60,9 +63,10 @@ export class FacilitySelectPageComponent implements OnInit {
 
     const dialogRef = this.dialog.open(CreateFacilityDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.refreshTable();
+    dialogRef.afterClosed().subscribe(facilityCreated => {
+      if (facilityCreated) {
+        this.loading = true;
+        this.initAuthService.loadPrincipal().then(() => this.refreshTable());
       }
     });
   }
