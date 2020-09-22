@@ -50,7 +50,8 @@ export class NotificatorService {
         rpcError,
         rpcError.message);
     } else {
-      this.showError(errorMessage + '\n' + rpcError.name, rpcError, rpcError.message);
+      const title = rpcError.name === undefined ? errorMessage : errorMessage + '\n' + rpcError.name;
+      this.showError(title, rpcError, rpcError.message);
     }
   }
 
