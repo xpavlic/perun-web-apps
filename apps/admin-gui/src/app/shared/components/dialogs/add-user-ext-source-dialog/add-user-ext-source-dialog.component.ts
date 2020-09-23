@@ -24,8 +24,6 @@ export class AddUserExtSourceDialogComponent implements OnInit {
 
   extSources: ExtSource[] = [];
   filteredExtSources: Observable<ExtSource[]>;
-  loas = [0, 1, 2, 3];
-  loa = 0;
   loginControl: FormControl;
   extSourcesControl: FormControl;
   loading: boolean;
@@ -76,7 +74,6 @@ export class AddUserExtSourceDialogComponent implements OnInit {
       extSource: this.extSourcesControl.value,
       id: 0,
       login: this.loginControl.value,
-      loa: this.loa,
       userId: this.data.userId
     };
     this.usersManagerService.addUserExtSource({ user: this.data.userId, userExtSource: ues }).subscribe(() => {

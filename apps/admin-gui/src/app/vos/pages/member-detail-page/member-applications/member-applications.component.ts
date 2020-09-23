@@ -28,7 +28,7 @@ export class MemberApplicationsComponent implements OnInit {
   applications: Application[] = [];
   memberId: number;
   member: Member;
-  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'extSourceLoa', 'group', 'modifiedBy'];
+  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'group', 'modifiedBy'];
   filterValue = '';
   showAllDetails = false;
   detailPageSize: number;

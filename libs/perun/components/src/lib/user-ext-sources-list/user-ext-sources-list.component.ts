@@ -43,7 +43,7 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
 
   private sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'id', 'mail', 'extSourceName', 'login','loa', 'lastAccess'];
+  displayedColumns: string[] = ['select', 'id', 'mail', 'extSourceName', 'login', 'lastAccess'];
   dataSource: MatTableDataSource<RichUserExtSource>;
   exporting = false;
   userId: number;

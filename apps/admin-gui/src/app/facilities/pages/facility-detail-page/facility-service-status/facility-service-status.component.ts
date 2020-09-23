@@ -15,7 +15,6 @@ import {
 } from '@perun-web-apps/config/table-config';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { type } from 'os';
 
 @Component({
   selector: 'app-facility-service-status',

@@ -21,15 +21,6 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <mat-form-field class="center-self">
-      <mat-select [(value)]="loa"
-                  placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.LOA'|translate}}">
-        <mat-option *ngFor="let loa of loas" [value]="loa">
-          {{loa}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <p class="pre-wrap">{{'DIALOGS.ADD_USER_EXT_SOURCE.LOA_INFO'|translate}}</p>
   </div>
 </div>
 <div mat-dialog-actions>
