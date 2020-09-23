@@ -36,7 +36,7 @@ import { MenuButtonsFieldComponent } from './menu-buttons-field/menu-buttons-fie
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
-  MatDateFormats,
+  MatDateFormats, MatOptionModule,
   MatRippleModule,
   NativeDateAdapter
 } from '@angular/material/core';
@@ -66,6 +66,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { ForceRouterLinkDirective } from '@perun-web-apps/perun/directives';
 import { RedirectPageComponent } from './redirect-page/redirect-page.component';
+import { VoSearchSelectComponent } from './vo-search-select/vo-search-select.component';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -124,7 +127,10 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ClipboardModule,
     MatTreeModule,
     MatDatepickerModule,
-    MatRadioModule
+    MatRadioModule,
+    MatOptionModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule
   ],
   declarations: [
     VoSelectTableComponent,
@@ -161,7 +167,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ServicesStatusListComponent,
     ChangeExpirationDialogComponent,
     ForceRouterLinkDirective,
-    RedirectPageComponent
+    RedirectPageComponent,
+    VoSearchSelectComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -191,7 +198,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     GroupsTreeComponent,
     ServicesStatusListComponent,
     ForceRouterLinkDirective,
-    RedirectPageComponent
+    RedirectPageComponent,
+    VoSearchSelectComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

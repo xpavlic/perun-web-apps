@@ -1255,7 +1255,6 @@
     "CREATE_RESOURCE": {
       "NAME": "Name",
       "DESCRIPTION": "Description",
-      "SELECT_VO": "Select organization",
       "CANCEL": "Cancel",
       "CREATE": "Create",
       "SUCCESS": "Resource successfully created"
@@ -1814,6 +1813,11 @@
           "NAME": "Name",
           "RECENT": "Recently viewed",
           "SHORTNAME": "Short name"
+        },
+        "VO_SEARCH_SELECT": {
+          "SELECT_VO": "Select organization",
+          "FIND_VO": "Find vo...",
+          "NO_VO_FOUND": "No matching vo found"
         },
         "RESOURCES_LIST": {
           "TITLE": "Resources",

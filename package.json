@@ -69,6 +69,7 @@
     "mat-table-exporter": "^9.0.2",
     "moment-timezone": "^0.5.31",
     "ng2-charts": "^2.3.2",
+    "ngx-mat-select-search": "^3.1.0",
     "ngx-perfect-scrollbar": "^9.0.0",
     "oidc-client": "^1.10.1",
     "rxjs": "~6.5.4",

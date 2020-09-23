@@ -191,6 +191,7 @@ import { DisconnectIdentity } from './components/dialogs/disconnect-identity/dis
 import { UserSettingsAssociatedUsersComponent } from './components/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 import { EditFacilityResourceGroupVoDialogComponent } from './components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
 import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   imports: [
@@ -237,9 +238,11 @@ import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/e
     MatBadgeModule,
     PerunSharedComponentsModule,
     ConfigTableConfigModule,
-    PerunPipesModule
+    PerunPipesModule,
+    NgxMatSelectSearchModule
   ],
   exports: [
+    NgxMatSelectSearchModule,
     PerunNavComponent,
     MatAutocompleteModule,
     MatInputModule,
