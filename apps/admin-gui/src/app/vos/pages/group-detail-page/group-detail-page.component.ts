@@ -3,7 +3,7 @@ import { SideMenuService } from '../../../core/services/common/side-menu.service
 import { ActivatedRoute } from '@angular/router';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { fadeIn } from '@perun-web-apps/perun/animations';
-import { Group, GroupsManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { GroupsManagerService, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -11,6 +11,8 @@ import {
   EditFacilityResourceGroupVoDialogOptions
 } from '@perun-web-apps/perun/components';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { Urns } from '@perun-web-apps/perun/urns';
+import { GroupSyncDetailDialogComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-group-detail-page',
@@ -34,9 +36,19 @@ export class GroupDetailPageComponent implements OnInit {
   }
 
   vo: Vo;
-  group: Group;
+  group: RichGroup;
   editAuth = false;
   loading = false;
+  syncAuth = false;
+  syncEnabled = false;
+  attrNames = [
+    Urns.GROUP_SYNC_ENABLED,
+    Urns.GROUP_LAST_SYNC_STATE,
+    Urns.GROUP_LAST_SYNC_TIMESTAMP,
+    Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+    Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+    Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
+  ];
 
   ngOnInit() {
     this.loading = true;
@@ -46,9 +58,11 @@ export class GroupDetailPageComponent implements OnInit {
 
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;
-        this.groupService.getGroupById(groupId).subscribe(group => {
+        this.groupService.getRichGroupByIdWithAttributesByNames(groupId, this.attrNames).subscribe(group => {
           this.group = group;
-          this.editAuth = this.guiAuthResolver.isAuthorized('updateGroup_Group_policy', [group]);
+          this.syncEnabled = this.isSynchronized();
+          this.editAuth = this.guiAuthResolver.isAuthorized('updateGroup_Group_policy', [this.group]);
+          this.syncAuth = this.guiAuthResolver.isAuthorized('forceGroupSynchronization_Group_policy', [this.group]);
           const voSideMenuItem = this.sideMenuItemService.parseVo(vo);
           const groupSideMenuItem = this.sideMenuItemService.parseGroup(group);
 
@@ -57,6 +71,20 @@ export class GroupDetailPageComponent implements OnInit {
         }, () => this.loading = false);
       }, () => this.loading = false);
     });
+  }
+
+  isSynchronized() {
+    return this.group.attributes.some(att =>
+      att.friendlyName === "synchronizationEnabled" && att.value !== null && att.value.toString() === "true");
+  }
+
+  onSyncDetail() {
+    const config = getDefaultDialogConfig();
+    config.data = {
+      groupId: this.group.id,
+      theme: 'group-theme'
+    };
+    this.dialog.open(GroupSyncDetailDialogComponent, config);
   }
 
   editGroup() {

@@ -17,3 +17,4 @@ export * from './lib/change-expiration-dialog/change-expiration-dialog.component
 export * from './lib/groups-list/groups-list.component';
 export * from './lib/groups-tree/groups-tree.component';
 export * from './lib/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+export * from './lib/group-sync-detail-dialog/group-sync-detail-dialog.component';
