@@ -45,6 +45,7 @@
       *ngIf="!loading"
       [filterValue]="filterValue"
       [servicesStatus]="servicesStates"
-      [selection]="selected">
+      [selection]="selected"
+      [disableRouting]="!routeAuth">
   </perun-web-apps-services-status-list>
 </div>

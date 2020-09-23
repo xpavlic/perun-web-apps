@@ -35,6 +35,7 @@ import { ResourceAssignedServicesComponent } from './pages/resource-detail-page/
 import { FacilityServiceStatusComponent } from './pages/facility-detail-page/facility-service-status/facility-service-status.component';
 import { FacilityAllowedUsersComponent } from './pages/facility-detail-page/facility-allowed-users/facility-allowed-users.component';
 import { ResourceAssignedMembersComponent } from './pages/resource-detail-page/resource-assigned-members/resource-assigned-members.component';
+import { FacilityTaskResultsComponent } from './pages/facility-detail-page/facility-service-status/facility-task-results/facility-task-results.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,11 @@ const routes: Routes = [
         path: 'services-status',
         component: FacilityServiceStatusComponent,
         data: {animation: 'FacilityServiceStatusPage'}
+      },
+      {
+        path: 'services-status/:taskId',
+        component: FacilityTaskResultsComponent,
+        data: {animation: 'FacilityTaskResultsPage'}
       },
       {
         path: 'service-config',

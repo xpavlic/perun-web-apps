@@ -186,6 +186,7 @@ import { DisconnectIdentity } from './components/dialogs/disconnect-identity/dis
 import { UserSettingsAssociatedUsersComponent } from './components/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-task-result-dialog/delete-task-result-dialog.component';
 
 @NgModule({
   imports: [
@@ -441,7 +442,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ConnectIdentity,
     DisconnectIdentity,
     UserSettingsAssociatedUsersComponent,
-    EditUserDialogComponent
+    EditUserDialogComponent,
+    DeleteTaskResultDialogComponent
   ],
   providers: [
     AnyToStringPipe,

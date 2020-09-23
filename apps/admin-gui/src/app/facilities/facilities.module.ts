@@ -43,6 +43,7 @@ import { FacilityServiceStatusComponent } from './pages/facility-detail-page/fac
 import { ResourceAssignedServicesComponent } from './pages/resource-detail-page/resource-assigned-services/resource-assigned-services.component';
 import { FacilityAllowedUsersComponent } from './pages/facility-detail-page/facility-allowed-users/facility-allowed-users.component';
 import { ResourceAssignedMembersComponent } from './pages/resource-detail-page/resource-assigned-members/resource-assigned-members.component';
+import { FacilityTaskResultsComponent } from './pages/facility-detail-page/facility-service-status/facility-task-results/facility-task-results.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ResourceAssignedMembersComponent } from './pages/resource-detail-page/r
     ResourceAssignedServicesComponent,
     FacilityServiceStatusComponent,
     FacilityAllowedUsersComponent,
-    ResourceAssignedMembersComponent
+    ResourceAssignedMembersComponent,
+    FacilityTaskResultsComponent
   ],
   imports: [
     CommonModule,

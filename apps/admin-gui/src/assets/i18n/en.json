@@ -180,6 +180,11 @@
       "TITLE": "Allowed users",
       "FILTER": "Filter allowed users",
       "NO_USERS": "No users assigned."
+    },
+    "TASK_RESULTS": {
+      "TITLE": "Task results",
+      "REMOVE": "Remove",
+      "FILTER": "Filter by id, destination, service or status"
     }
   },
   "RESOURCE_DETAIL": {
@@ -1534,6 +1539,17 @@
       "ERROR_LAST_NAME": "Last name cannot be empty or longer than 128 characters",
       "ERROR_FIRST_NAME": "First name cannot be empty or longer than 128 characters",
       "ERROR_LENGTH": "Length of field has to be less than 128 characters"
+    },
+    "DELETE_TASK_RESULT": {
+      "TITLE": "Remove task results",
+      "CANCEL": "Cancel",
+      "REMOVE": "Remove",
+      "DESCRIPTION": "Following task results will be removed.",
+      "ASK": "Do you want to proceed?",
+      "SUCCESS": "Task results were successfully removed",
+      "RESULT_ID": "Result id",
+      "DESTINATION": "Destination",
+      "TIME": "Time"
     }
   },
   "MEMBERS_LIST": {
@@ -1925,6 +1941,18 @@
           "ENDED": "Ended",
           "NO_SERVICES_STATUS_WARNING": "No service configuration was propagated to this facility.",
           "NOT_YET": "NOT YET"
+        },
+        "TASK_RESULTS_LIST": {
+          "RESULT_ID": "Result id",
+          "DESTINATION": "Destination",
+          "TYPE": "Type",
+          "SERVICE": "Service",
+          "STATUS": "Status",
+          "TIME": "Time",
+          "RETURN_CODE": "Return code",
+          "STANDARD_MESSAGE": "Standard message",
+          "ERROR_MESSAGE": "Error message",
+          "NO_RESULTS_WARNING": "No task results found"
         }
       },
       "ORGANIZATIONS": {
