@@ -34,8 +34,10 @@ export class FacilityDetailPageComponent implements OnInit {
 
   facility: Facility;
   editFacilityAuth = false;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const facilityId = params['facilityId'];
 
@@ -48,7 +50,8 @@ export class FacilityDetailPageComponent implements OnInit {
         this.editFacilityAuth = this.guiAuthResolver.isAuthorized('updateFacility_Facility_policy',[this.facility]);
 
         addRecentlyVisited('facilities', this.facility);
-      });
+        this.loading = false;
+      }, () => this.loading = false);
     });
   }
 

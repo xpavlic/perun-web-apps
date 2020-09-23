@@ -1,7 +1,8 @@
-<div class="container-fluid pl-xl-5 pr-xl-5 member-theme" *ngIf="vo !== undefined && member !== undefined">
+<div class="container-fluid pl-xl-5 pr-xl-5 member-theme">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
-  <div class="d-flex page-title-headtitle">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div class="d-flex page-title-headtitle" *ngIf="!loading && vo !== undefined && member !== undefined">
     <mat-icon
       matTooltip="{{'MEMBER_DETAIL.ENTITY' | translate}}"
       [ngStyle]="{'color':'black'}"

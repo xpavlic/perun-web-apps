@@ -46,8 +46,10 @@ export class ResourceDetailPageComponent implements OnInit {
   editResourceAuth: boolean;
   voLinkAuth: boolean;
   baseUrl = '';
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const resourceId = params['resourceId'];
 
@@ -60,7 +62,8 @@ export class ResourceDetailPageComponent implements OnInit {
             const facilityItem = this.sideMenuItemService.parseFacility(facility);
             const resourceItem = this.sideMenuItemService.parseResource(resource, false);
             this.sideMenuService.setFacilityMenuItems([facilityItem, resourceItem]);
-          });
+            this.loading = false;
+          }, () => this.loading = false);
         } else {
           this.baseUrl = new GetResourceRoutePipe().transform(resource, true);
           this.vosManagerService.getVoById(resource.voId).subscribe(vo => {
@@ -68,7 +71,8 @@ export class ResourceDetailPageComponent implements OnInit {
             const resourceItem = this.sideMenuItemService.parseResource(resource, true);
 
             this.sideMenuService.setAccessMenuItems([voItem, resourceItem]);
-          });
+            this.loading = false;
+          }, () => this.loading = false);
         }
       });
     });

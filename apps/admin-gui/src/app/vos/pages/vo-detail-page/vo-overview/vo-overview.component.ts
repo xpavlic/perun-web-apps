@@ -31,7 +31,10 @@ export class VoOverviewComponent implements OnInit {
 
   navItems: MenuItem[] = [];
 
+  loading = false;
+
   ngOnInit(): void {
+    this.loading = true;
     this.route.parent.params.subscribe(parentParams => {
       const voId = parentParams['voId'];
 
@@ -40,7 +43,8 @@ export class VoOverviewComponent implements OnInit {
 
         // this.initItems();
         this.initNavItems();
-      });
+        this.loading = false;
+      }, () => this.loading = false);
     });
   }
 

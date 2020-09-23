@@ -26,8 +26,10 @@ export class MemberSettingsOverviewComponent implements OnInit {
   items: MenuItem[] = [];
   vo: Vo;
   member: Member;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.parent.parent.params.subscribe(grandParentParams => {
       const voId = grandParentParams['voId'];
       const memberId = grandParentParams['memberId'];
@@ -38,8 +40,9 @@ export class MemberSettingsOverviewComponent implements OnInit {
           this.vo = vo;
 
           this.initItems();
-        });
-      });
+          this.loading = false;
+        }, () => this.loading = false);
+      }, () => this.loading = false);
     });
   }
 

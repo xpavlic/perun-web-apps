@@ -21,8 +21,10 @@ export class FacilitySettingsOverviewComponent implements OnInit {
 
   items: MenuItem[] = [];
   facility: Facility;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.parent.parent.params.subscribe(parentParams => {
       const facilityId = parentParams['facilityId'];
 
@@ -30,7 +32,8 @@ export class FacilitySettingsOverviewComponent implements OnInit {
         this.facility = facility;
 
         this.initItems();
-      });
+        this.loading = false;
+      }, () => this.loading = false);
     });
   }
 

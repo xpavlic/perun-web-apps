@@ -27,8 +27,10 @@ export class ServiceDetailPageComponent implements OnInit {
   }
 
   service: Service;
+  loading = false;
 
   ngOnInit(): void {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const serviceId = params["serviceId"];
 
@@ -37,7 +39,8 @@ export class ServiceDetailPageComponent implements OnInit {
 
         const serviceItems = this.sideMenuItemService.parseService(this.service);
         this.sideMenuService.setAdminItems([serviceItems]);
-      });
+        this.loading = false;
+      }, () => this.loading = false);
     });
   }
 

@@ -33,7 +33,10 @@ export class MemberDetailPageComponent implements OnInit {
   fullName = '';
   isAuthorized = false;
 
+  loading = false;
+
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const voId = params['voId'];
       const memberId = params['memberId'];
@@ -47,8 +50,9 @@ export class MemberDetailPageComponent implements OnInit {
           const memberSideMenuItem = this.sideMenuItemService.parseMember(this.member, this.vo);
           this.fullName = memberSideMenuItem.label;
           this.sideMenuService.setAccessMenuItems([voSideMenuItem, memberSideMenuItem]);
-        });
-      });
+          this.loading = false;
+        }, () => this.loading = false);
+      }, () => this.loading = false);
     });
   }
 }

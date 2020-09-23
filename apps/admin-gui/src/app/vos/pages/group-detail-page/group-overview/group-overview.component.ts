@@ -26,8 +26,10 @@ export class GroupOverviewComponent implements OnInit {
   groupId: number;
   group: Group;
   parentGroup: Group = null;
+  loading = false;
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       this.groupId = params['groupId'];
 
@@ -38,8 +40,9 @@ export class GroupOverviewComponent implements OnInit {
         } else {
           this.parentGroup = null;
           this.initNavItems();
+          this.loading = false;
         }
-      });
+      }, () => this.loading = false);
     });
   }
 
@@ -47,7 +50,8 @@ export class GroupOverviewComponent implements OnInit {
     this.groupService.getGroupById(this.group.parentGroupId).subscribe(parentGroup => {
       this.parentGroup = parentGroup;
       this.initNavItems();
-    });
+      this.loading = false;
+    }, () => this.loading = false);
   }
 
   private initNavItems() {

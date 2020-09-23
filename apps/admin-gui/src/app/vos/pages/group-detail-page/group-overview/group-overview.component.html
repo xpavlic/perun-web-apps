@@ -1,6 +1,10 @@
-<p *ngIf="parentGroup !== null">
-  {{'GROUP_DETAIL.SUBGROUP_INFO' | translate}}<a class="group-link" [routerLink]="['/organizations', parentGroup.voId, 'groups', parentGroup.id]">
-  {{parentGroup.name}}
-</a>
-</p>
-<perun-web-apps-menu-buttons-field [items]="navItems" [size]="'small'"></perun-web-apps-menu-buttons-field>
+<mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+<div *ngIf="!loading">
+  <p *ngIf="parentGroup !== null">
+    {{'GROUP_DETAIL.SUBGROUP_INFO' | translate}}
+    <a class="group-link" [routerLink]="['/organizations', parentGroup.voId, 'groups', parentGroup.id]">
+      {{parentGroup.name}}
+    </a>
+  </p>
+  <perun-web-apps-menu-buttons-field [items]="navItems" [size]="'small'"></perun-web-apps-menu-buttons-field>
+</div>
