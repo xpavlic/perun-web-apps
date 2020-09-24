@@ -186,6 +186,7 @@ import { UserSettingsAssociatedUsersComponent } from './components/user-detail-p
 import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-task-result-dialog/delete-task-result-dialog.component';
+import { EditApplicationFormItemDataDialogComponent } from './components/dialogs/edit-application-form-item-data-dialog/edit-application-form-item-data-dialog.component';
 
 @NgModule({
   imports: [
@@ -440,7 +441,8 @@ import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-tas
     DisconnectIdentity,
     UserSettingsAssociatedUsersComponent,
     EditUserDialogComponent,
-    DeleteTaskResultDialogComponent
+    DeleteTaskResultDialogComponent,
+    EditApplicationFormItemDataDialogComponent
   ],
   providers: [
     AnyToStringPipe,

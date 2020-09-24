@@ -1550,6 +1550,14 @@
       "RESULT_ID": "Result id",
       "DESTINATION": "Destination",
       "TIME": "Time"
+    },
+    "EDIT_APPLICATION_FORM_ITEM_DATA": {
+      "TITLE": "Edit item: ",
+      "INVALID_EMAIL": "Email is invalid",
+      "EMPTY_INPUT": "This field is required",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Submit",
+      "SUCCESS": "Application form item data edited successfully"
     }
   },
   "MEMBERS_LIST": {
