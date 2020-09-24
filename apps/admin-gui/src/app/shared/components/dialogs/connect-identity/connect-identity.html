@@ -14,8 +14,6 @@
       (click)="onSearchByString()">
       <mat-icon>search</mat-icon>
     </button>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-    </mat-spinner>
     <div *ngIf="!loading">
       <app-users-list
         (page)="pageChanged($event)"
@@ -34,6 +32,8 @@
       {{'DIALOGS.CONNECT_IDENTITY.NO_IDENTITIES' | translate}}
     </app-alert>
   </div>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
+  </mat-spinner>
   <div mat-dialog-actions>
     <button
       mat-flat-button

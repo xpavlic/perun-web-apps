@@ -1800,7 +1800,7 @@
       "COMPONENTS": {
         "GROUPS_LIST": {
           "TABLE_GROUP_ID": "Id",
-          "TABLE_VO_NAME": "Vo",
+          "TABLE_VO_NAME": "Organization",
           "TABLE_GROUP_NAME": "Name",
           "TABLE_SEARCH": "Filter by name, description or ID",
           "TABLE_GROUP_DESCRIPTION": "Description",
