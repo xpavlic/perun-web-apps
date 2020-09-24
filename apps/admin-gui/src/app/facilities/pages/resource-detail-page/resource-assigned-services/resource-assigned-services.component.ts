@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  Resource,
   ResourcesManagerService, Service
 } from '@perun-web-apps/perun/openapi';
 import { TABLE_RESOURCE_ASSIGNED_SERVICES, TableConfigService } from '@perun-web-apps/config/table-config';
@@ -20,6 +21,7 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 export class ResourceAssignedServicesComponent implements OnInit {
 
   resourceId: number;
+  resource: Resource;
   assignedServices: Service[] = [];
   selected = new SelectionModel<Service>(true, []);
   loading: boolean;
@@ -43,8 +45,11 @@ export class ResourceAssignedServicesComponent implements OnInit {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
       this.resourceId = parentParams['resourceId'];
-      this.getDataForAuthorization();
-      this.loadAllServices();
+      this.resourcesManager.getResourceById(this.resourceId).subscribe(resource => {
+        this.resource = resource;
+        this.getDataForAuthorization();
+        this.loadAllServices();
+      });
     });
   }
 
@@ -93,13 +98,9 @@ export class ResourceAssignedServicesComponent implements OnInit {
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
-  private getDataForAuthorization() {
-    this.loadingResource = true;
-    this.resourcesManager.getResourceById(this.resourceId).subscribe(resource => {
-      this.assignServiceAuth = this.guiAuthResolver.isAuthorized('assignServices_Resource_List<Service>_policy', [resource]);
-      this.removeServiceAuth = this.guiAuthResolver.isAuthorized('removeServices_Resource_List<Service>_policy', [resource]);
-      this.serviceRoutingAuth = this.guiAuthResolver.isPerunAdmin();
-      this.loadingResource = false;
-    });
+  getDataForAuthorization() {
+    this.assignServiceAuth = this.guiAuthResolver.isAuthorized('assignServices_Resource_List<Service>_policy', [this.resource]);
+    this.removeServiceAuth = this.guiAuthResolver.isAuthorized('removeServices_Resource_List<Service>_policy', [this.resource]);
+    this.serviceRoutingAuth = this.guiAuthResolver.isPerunAdmin();
   }
 }

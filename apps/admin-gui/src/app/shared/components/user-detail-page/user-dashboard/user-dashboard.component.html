@@ -11,7 +11,7 @@
                                          [placeholder]="'USER_DETAIL.OVERVIEW.FILTER'"></perun-web-apps-immediate-filter>
         <perun-web-apps-vo-select-table (page)="pageChanged($event, voTableId, voPageSize)"
                                         [pageSize]="voPageSize"
-                                        [displayedColumns]="['id', 'name']"
+                                        [displayedColumns]="['id', 'shortName', 'name']"
                                         [recentIds]="[]"
                                         [vos]="this.adminVo"
                                         [filterValue]="voFilterValue">
