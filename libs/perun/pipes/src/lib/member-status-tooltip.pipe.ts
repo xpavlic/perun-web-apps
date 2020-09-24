@@ -8,8 +8,13 @@ import { parseMemberStatus } from '@perun-web-apps/perun/utils';
 export class MemberStatusTooltipPipe implements PipeTransform {
 
   transform(member: RichMember, showGroupStatuses: boolean): string {
-    const memberExpiration = member.memberAttributes.find(att => att.friendlyName === 'membershipExpiration');
-    const groupExpiration = member.memberAttributes.find(att => att.friendlyName === 'groupMembershipExpiration');
+    let memberExpiration = null;
+    let groupExpiration = null;
+
+    if(member.memberAttributes !== null){
+      memberExpiration = member.memberAttributes.find(att => att.friendlyName === 'membershipExpiration');
+      groupExpiration = member.memberAttributes.find(att => att.friendlyName === 'groupMembershipExpiration');
+    }
 
     let res = `Status: ${parseMemberStatus(member.status, member.groupStatus)}
                Vo status: ${parseMemberStatus(member.status)}, Expiration: ${memberExpiration && memberExpiration.value ? memberExpiration.value as unknown as string : 'never'}`;

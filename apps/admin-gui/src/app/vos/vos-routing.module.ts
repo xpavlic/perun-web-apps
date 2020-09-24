@@ -75,6 +75,7 @@ import { ResourceSettingsOverviewComponent } from '../facilities/pages/resource-
 import { ResourceAttributesComponent } from '../facilities/pages/resource-detail-page/resource-attributes/resource-attributes.component';
 import { ResourceSettingsManagersComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-managers/resource-settings-managers.component';
 import { ResourceAssignedServicesComponent } from '../facilities/pages/resource-detail-page/resource-assigned-services/resource-assigned-services.component';
+import { ResourceAssignedMembersComponent } from '../facilities/pages/resource-detail-page/resource-assigned-members/resource-assigned-members.component';
 
 const routes: Routes = [
   {
@@ -360,6 +361,11 @@ const routes: Routes = [
         path: 'attributes',
         component: ResourceAttributesComponent,
         data: {animation: 'ResourceAttributesPage'}
+      },
+      {
+        path: 'members',
+        component: ResourceAssignedMembersComponent,
+        data: {animation: 'ResourceAssignedMembersComponent'}
       },
       {
         path: 'settings',

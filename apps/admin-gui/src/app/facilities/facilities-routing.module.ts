@@ -34,6 +34,7 @@ import { ResourceSettingsManagersComponent } from './pages/resource-detail-page/
 import { ResourceAssignedServicesComponent } from './pages/resource-detail-page/resource-assigned-services/resource-assigned-services.component';
 import { FacilityServiceStatusComponent } from './pages/facility-detail-page/facility-service-status/facility-service-status.component';
 import { FacilityAllowedUsersComponent } from './pages/facility-detail-page/facility-allowed-users/facility-allowed-users.component';
+import { ResourceAssignedMembersComponent } from './pages/resource-detail-page/resource-assigned-members/resource-assigned-members.component';
 
 const routes: Routes = [
   {
@@ -149,6 +150,11 @@ const routes: Routes = [
         path: 'services',
         component: ResourceAssignedServicesComponent,
         data: {animation: 'ResourceAssignedServicesComponent'}
+      },
+      {
+        path: 'members',
+        component: ResourceAssignedMembersComponent,
+        data: {animation: 'ResourceAssignedMembersComponent'}
       },
       {
         path: 'settings',

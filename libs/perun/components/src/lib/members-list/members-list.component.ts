@@ -20,10 +20,10 @@ import {
   parseFullName,
   TABLE_ITEMS_COUNT_OPTIONS
 } from '@perun-web-apps/perun/utils';
-import { ChangeMemberStatusDialogComponent } from '../../../shared/components/dialogs/change-member-status-dialog/change-member-status-dialog.component';
+import { ChangeMemberStatusDialogComponent } from '../change-member-status-dialog/change-member-status-dialog.component';
 
 @Component({
-  selector: 'app-members-list',
+  selector: 'perun-web-apps-members-list',
   templateUrl: './members-list.component.html',
   styleUrls: ['./members-list.component.scss']
 })
@@ -61,6 +61,9 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   @Input()
   disableRouting = false;
 
+  @Input()
+  filter = '';
+
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
@@ -76,8 +79,12 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   setDataSource() {
     this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));
     if (!!this.dataSource) {
-      this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate =
+        (data: RichMember, filter: string) => parseFullName(data.user).toLowerCase().includes(filter.toLowerCase()) ||
+          data.id.toString(10).includes(filter);
+      this.dataSource.filter = this.filter;
 
+      this.dataSource.sort = this.sort;
       this.dataSource.sortingDataAccessor = (richMember, property) => {
         switch (property) {
           case 'fullName':
@@ -138,7 +145,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
         if (success) {
           this.updateTable.emit(true);
         }
-      })
+      });
     }
   }
 

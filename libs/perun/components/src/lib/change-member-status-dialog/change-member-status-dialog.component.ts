@@ -11,7 +11,7 @@ export interface ChangeMemberStatusDialogData {
 }
 
 @Component({
-  selector: 'app-perun-web-apps-change-member-status-dialog',
+  selector: 'perun-web-apps-change-member-status-dialog',
   templateUrl: './change-member-status-dialog.component.html',
   styleUrls: ['./change-member-status-dialog.component.scss']
 })

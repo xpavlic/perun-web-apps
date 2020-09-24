@@ -49,9 +49,6 @@ import { ApplicationReSendNotificationDialogComponent
 import { ApplicationRejectDialogComponent } from './components/dialogs/application-reject-dialog/application-reject-dialog.component';
 import { AnyToStringPipe } from './pipes/any-to-string.pipe';
 import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
-import { MemberStatusIconPipe } from './pipes/member-status-icon.pipe';
-import { MemberStatusIconColorPipe } from './pipes/member-status-icon-color.pipe';
-import { MemberEmailPipe } from './pipes/member-email.pipe';
 import { MemberLoginsPipe } from './pipes/member-logins.pipe';
 import { RemoveMembersDialogComponent } from './components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { SideMenuRootItemComponent } from './side-menu/side-menu-root-item/side-menu-root-item.component';
@@ -136,7 +133,6 @@ import { ExtSourcesListComponent } from './components/ext-sources-list/ext-sourc
 import { AddExtSourceDialogComponent } from './components/dialogs/add-ext-source-dialog/add-ext-source-dialog.component';
 import { CreateRelationDialogComponent } from './components/dialogs/create-relation-dialog/create-relation-dialog.component';
 import { RemoveRelationDialogComponent } from './components/dialogs/remove-relation-dialog/remove-relation-dialog.component';
-import { ChangeMemberStatusDialogComponent } from './components/dialogs/change-member-status-dialog/change-member-status-dialog.component';
 import { RemoveGroupFromResourceDialogComponent } from './components/dialogs/remove-group-from-resource-dialog/remove-group-from-resource-dialog.component';
 import { AssignGroupToResourceDialogComponent } from './components/dialogs/assign-group-to-resource-dialog/assign-group-to-resource-dialog.component';
 import { CreateResourceDialogComponent } from './components/dialogs/create-resource-dialog/create-resource-dialog.component';
@@ -185,7 +181,6 @@ import { AddRequiredAttributesDialogComponent } from './components/dialogs/add-r
 import { RemoveRequiredAttributesDialogComponent } from './components/dialogs/remove-required-attributes-dialog/remove-required-attributes-dialog.component';
 import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.component';
 import { TransformMemberStatusPipe } from './pipes/transform-member-status.pipe';
-import { MemberStatusTooltipPipe } from './pipes/member-status-tooltip.pipe';
 import { ConnectIdentity } from './components/dialogs/connect-identity/connect-identity';
 import { DisconnectIdentity } from './components/dialogs/disconnect-identity/disconnect-identity';
 import { UserSettingsAssociatedUsersComponent } from './components/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
@@ -280,9 +275,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     NotificatorComponent,
     AttributeTypeCleanPipe,
     NameSpaceToDefPipe,
-    MemberStatusIconPipe,
-    MemberStatusIconColorPipe,
-    MemberEmailPipe,
     MemberLoginsPipe,
     TechnicalOwnersPipe,
     ApplicationFormItemTypePipe,
@@ -326,7 +318,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ServicesListComponent,
     AttrDefListComponent,
     TransformMemberStatusPipe,
-    MemberStatusTooltipPipe
   ],
   declarations: [
     PerunNavComponent,
@@ -343,9 +334,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     UsersListComponent,
     ApplicationReSendNotificationDialogComponent,
     ApplicationRejectDialogComponent,
-    MemberStatusIconPipe,
-    MemberStatusIconColorPipe,
-    MemberEmailPipe,
     MemberLoginsPipe,
     RemoveMembersDialogComponent,
     DebuggerPageComponent,
@@ -404,7 +392,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ShowNotificationHistoryDialogComponent,
     CreateRelationDialogComponent,
     RemoveRelationDialogComponent,
-    ChangeMemberStatusDialogComponent,
     RemoveGroupFromResourceDialogComponent,
     AssignGroupToResourceDialogComponent,
     CreateResourceDialogComponent,
@@ -451,7 +438,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     RemoveRequiredAttributesDialogComponent,
     AttrDefListComponent,
     TransformMemberStatusPipe,
-    MemberStatusTooltipPipe,
     IdentityDetailComponent,
     ConnectIdentity,
     DisconnectIdentity,

@@ -202,6 +202,10 @@
       "FILTER_SERVICES": "Filter services",
       "NO_SERVICES": "No services."
     },
+    "ASSIGNED_MEMBERS": {
+      "TITLE": "Assigned members",
+      "FILTER": "Filter members"
+    },
     "SETTINGS": {
       "ATTRIBUTES": {
         "TITLE": "Attributes",
@@ -662,7 +666,8 @@
       "SETTINGS": "Advanced settings",
       "ATTRIBUTES": "Attributes",
       "MANAGERS": "Managers",
-      "ASSIGNED_SERVICES": "Assigned services"
+      "ASSIGNED_SERVICES": "Assigned services",
+      "ASSIGNED_MEMBERS": "Assigned members"
     },
     "GROUP": {
       "OVERVIEW": "Overview",
@@ -1942,7 +1947,8 @@
       "ALERTS": {
         "NO_GROUPS": "No groups found.",
         "NO_ORGANIZATIONS": "No organizations found",
-        "NO_FILTER_RESULTS_ALERT": "No results match given search criteria."
+        "NO_FILTER_RESULTS_ALERT": "No results match given search criteria.",
+        "NO_MEMBERS": "No members found"
       }
     }
   }

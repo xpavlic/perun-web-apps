@@ -55,14 +55,14 @@ export function parseStatusColor(richMember: RichMember): string {
  */
 export function parseEmail(richMember: RichMember): string {
   let email = '';
-  if (richMember) {
+  if (richMember && richMember.memberAttributes !== null) {
     richMember.memberAttributes.forEach(attr => {
       if (attr.friendlyName === 'mail' && attr.value !== null) {
         email = <string><unknown>attr.value;
       }
     });
 
-    if (email.length === 0) {
+    if (email.length === 0 && richMember.userAttributes !== null) {
       richMember.userAttributes.forEach(attr => {
         if (attr.friendlyName === 'preferredMail') {
           email = <string><unknown>attr.value;
