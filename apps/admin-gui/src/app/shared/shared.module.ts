@@ -184,7 +184,6 @@ import { TransformMemberStatusPipe } from './pipes/transform-member-status.pipe'
 import { ConnectIdentity } from './components/dialogs/connect-identity/connect-identity';
 import { DisconnectIdentity } from './components/dialogs/disconnect-identity/disconnect-identity';
 import { UserSettingsAssociatedUsersComponent } from './components/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
-import { EditFacilityResourceGroupVoDialogComponent } from './components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
 import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -442,7 +441,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ConnectIdentity,
     DisconnectIdentity,
     UserSettingsAssociatedUsersComponent,
-    EditFacilityResourceGroupVoDialogComponent,
     EditUserDialogComponent
   ],
   providers: [

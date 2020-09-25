@@ -4,12 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { fadeIn } from '@perun-web-apps/perun/animations';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import { addRecentlyVisited, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
-} from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+} from '@perun-web-apps/perun/components';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
