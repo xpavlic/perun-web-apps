@@ -37,7 +37,8 @@ export class GroupsTreeComponent implements OnChanges {
       id: node.id,
       voId: node.voId,
       attributes: node.attributes,
-      beanName: node.beanName
+      beanName: node.beanName,
+      description: node.description
     };
   };
 

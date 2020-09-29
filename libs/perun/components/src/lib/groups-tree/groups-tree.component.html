@@ -12,11 +12,16 @@
                       matTreeNodeToggle></mat-checkbox>
         <!-- use a disabled button to provide padding for tree leaf -->
         <button mat-icon-button disabled></button>
-        <div class="mr-2">
-          {{group.name}}
+        <div class="w-50">
+          <span class="mr-2">
+            {{group.name}}
+          </span>
+          <span class="text-muted">
+            #{{group.id}}
+          </span>
         </div>
-        <div class="text-muted">
-          #{{group.id}}
+        <div class="w-50 text-muted description-text overflow-ellipsis" matTooltip="{{group.description}}" matTooltipPosition="before">
+          {{group.description}}
         </div>
       </div>
       <perun-web-apps-group-menu
@@ -47,11 +52,16 @@
             {{treeControl.isExpanded(group) ? 'expand_more' : 'chevron_right'}}
           </mat-icon>
         </button>
-        <div class="mr-2">
-          {{group.name}}
+        <div class="w-50">
+          <span class="mr-2">
+            {{group.name}}
+          </span>
+          <span class="text-muted">
+            #{{group.id}}
+          </span>
         </div>
-        <div class="text-muted">
-          #{{group.id}}
+        <div class="w-50 text-muted description-text overflow-ellipsis" matTooltip="{{group.description}}" matTooltipPosition="before">
+          {{group.description}}
         </div>
       </div>
       <perun-web-apps-group-menu

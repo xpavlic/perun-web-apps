@@ -13,6 +13,13 @@
   word-wrap: break-word;
 }
 
-mat-tree-node{
+mat-tree-node {
   cursor: pointer;
+}
+
+.description-text {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
