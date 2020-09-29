@@ -49,7 +49,7 @@ export class VoGroupsComponent implements OnInit {
   vo: Vo;
 
   groups: RichGroup[] = [];
-  showGroupList = false;
+  showGroupList = true;
   selected = new SelectionModel<RichGroup>(true, []);
   loading: boolean;
   filtering = false;
