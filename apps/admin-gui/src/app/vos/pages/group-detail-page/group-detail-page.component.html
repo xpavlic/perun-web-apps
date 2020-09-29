@@ -26,6 +26,20 @@
         {{'GROUP_DETAIL.VO_NAME' | translate}}:
         <a class="group-link" [routerLink]="['/organizations', vo.id]">{{vo.name}}</a>,
         {{'GROUP_DETAIL.DESCRIPTION' | translate}}: {{group.description}}
+        <span *ngIf="syncEnabled">
+          , {{'GROUP_DETAIL.SYNCHRONIZATION' | translate}}:
+          <span [matTooltipPosition]="'above'"
+                [matTooltip]="group | groupSyncToolTip | translate">
+            <button (click)="onSyncDetail()"
+                    *ngIf="syncAuth"
+                    [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
+                    mat-icon-button>
+              <mat-icon class="{{group | groupSyncIconColor}}">
+                {{group | groupSyncIcon}}
+              </mat-icon>
+            </button>
+          </span>
+        </span>
       </span>
     </div>
   </div>

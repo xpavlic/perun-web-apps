@@ -1,12 +1,12 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { GuiAuthResolver, MembersService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, MembersService, StoreService } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
-import { Group, GroupsManagerService, RichMember } from '@perun-web-apps/perun/openapi';
+import { GroupsManagerService, RichGroup, RichMember } from '@perun-web-apps/perun/openapi';
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_GROUP_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -31,13 +31,15 @@ export class GroupMembersComponent implements OnInit {
     protected router: Router,
     private tableConfigService: TableConfigService,
     private dialog: MatDialog,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
+    private storeService: StoreService
   ) { }
 
-  group: Group;
+  group: RichGroup;
 
   members: RichMember[] = null;
   selection: SelectionModel<RichMember>;
+  synchEnabled = false;
 
   searchString = '';
   firstSearchDone = false;
@@ -47,15 +49,22 @@ export class GroupMembersComponent implements OnInit {
 
   tableId = TABLE_GROUP_MEMBERS;
 
-
-
-  private attrNames = [
+  private memberAttrNames = [
     Urns.MEMBER_DEF_ORGANIZATION,
     Urns.MEMBER_DEF_MAIL,
     Urns.USER_DEF_ORGANIZATION,
     Urns.USER_DEF_PREFERRED_MAIL,
     Urns.MEMBER_DEF_EXPIRATION,
     Urns.MEMBER_DEF_GROUP_EXPIRATION
+  ];
+
+  private groupAttrNames = [
+    Urns.GROUP_SYNC_ENABLED,
+    Urns.GROUP_LAST_SYNC_STATE,
+    Urns.GROUP_LAST_SYNC_TIMESTAMP,
+    Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+    Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+    Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
   ];
   pageSize: number;
 
@@ -70,11 +79,13 @@ export class GroupMembersComponent implements OnInit {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.selection = new SelectionModel<RichMember>(true, []);
+    this.memberAttrNames = this.memberAttrNames.concat(this.storeService.getLoginAttributeNames());
     this.route.parent.params.subscribe(parentParams => {
       const groupId = parentParams['groupId'];
 
-      this.groupService.getGroupById(groupId).subscribe(group => {
+      this.groupService.getRichGroupByIdWithAttributesByNames(groupId, this.groupAttrNames).subscribe(group => {
         this.group = group;
+        this.synchEnabled = this.isSynchronized();
         this.setAuthRights();
         this.groupService.getGroupMembersCount(this.group.id).subscribe( count => {
           if(count < 400) {
@@ -84,6 +95,11 @@ export class GroupMembersComponent implements OnInit {
         }, err => this.loading = false);
       }, err => this.loading = false);
       });
+  }
+
+  isSynchronized() {
+    return this.group.attributes.some(att =>
+      att.friendlyName === "synchronizationEnabled" && att.value !== null && att.value.toString() === "true");
   }
 
   setAuthRights() {
@@ -176,7 +192,7 @@ export class GroupMembersComponent implements OnInit {
     this.selection.clear();
     switch (this.data) {
       case 'all': {
-        this.membersService.getCompleteRichMembersForGroup(this.group.id, this.attrNames).subscribe(
+        this.membersService.getCompleteRichMembersForGroup(this.group.id, this.memberAttrNames).subscribe(
           members => {
             this.members = members;
             this.setAuthRights();
@@ -187,7 +203,7 @@ export class GroupMembersComponent implements OnInit {
         break;
       }
       case 'search': {
-        this.membersService.findCompleteRichMembersForGroup(this.group.id, this.searchString, this.attrNames).subscribe(
+        this.membersService.findCompleteRichMembersForGroup(this.group.id, this.searchString, this.memberAttrNames).subscribe(
           members => {
             this.members = members;
             this.setAuthRights();
