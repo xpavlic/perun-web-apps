@@ -40,7 +40,7 @@ export class GroupSubgroupsComponent implements OnInit {
   group: Group;
   groups: Group[] = [];
   selected = new SelectionModel<Group>(true, []);
-  showGroupList = true;
+  showGroupList = false;
   loading: boolean;
   filtering = false;
   tableId = TABLE_GROUP_SUBGROUPS;
