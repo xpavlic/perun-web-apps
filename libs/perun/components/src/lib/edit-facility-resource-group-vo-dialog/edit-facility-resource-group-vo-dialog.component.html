@@ -22,14 +22,16 @@
                placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.NAME' | translate}}:"
                [formControl]="nameCtrl">
         <mat-error>
-          {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FILL_NAME' | translate}}
+          {{invalidNameMessage.length ? invalidNameMessage : ('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FILL_NAME' | translate)}}
         </mat-error>
       </mat-form-field>
-      <mat-form-field *ngIf="dialogType !== 2">
-        <input matInput
+      <mat-form-field *ngIf="dialogType !== 2" class="mt-3">
+        <textarea [formControl]="descriptionCtrl"
+               class="overflow-hidden"
+               mat-autosize
                required
                placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.DESCRIPTION' | translate}}:"
-               [formControl]="descriptionCtrl">
+                  matInput></textarea>
         <mat-error>
           {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FILL_DESCRIPTION' | translate}}
         </mat-error>

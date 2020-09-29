@@ -55,7 +55,7 @@ export class CreateGroupDialogComponent implements OnInit{
   ngOnInit() {
     this.theme = this.data.theme;
     this.invalidNameMessage = this.invalidNameMessage && this.secondaryRegex ? this.invalidNameMessage : '';
-    this.nameControl = new FormControl('', [Validators.required, Validators.pattern(this.secondaryRegex ? this.secondaryRegex : '')]);
+    this.nameControl = new FormControl('', [Validators.required, Validators.pattern(this.secondaryRegex ? this.secondaryRegex : ''), Validators.pattern('.*[\\S]+.*')]);
     this.descriptionControl = new FormControl('', [Validators.required]);
   }
 

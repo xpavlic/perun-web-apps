@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
-} from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+} from '@perun-web-apps/perun/components';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({

@@ -3,13 +3,17 @@ import { Component, EventEmitter, HostListener, Input, OnChanges, Output, Simple
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
-import { GroupsManagerService, RichGroup, Vo } from '@perun-web-apps/perun/openapi';
+import { RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
 import { findParent, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
-import { EditGroupDialogComponent } from '../edit-group-dialog/edit-group-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import {
+  EditFacilityResourceGroupVoDialogComponent,
+  EditFacilityResourceGroupVoDialogOptions
+} from '../edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+
 
 @Component({
   selector: 'perun-web-apps-groups-tree',
@@ -117,10 +121,11 @@ export class GroupsTreeComponent implements OnChanges {
   onChangeNameDescription(rg: RichGroup) {
     const config = getDefaultDialogConfig();
     config.data = {
-      groupId: rg.id,
-      theme: this.theme
+      theme: 'group-theme',
+      group: rg,
+      dialogType: EditFacilityResourceGroupVoDialogOptions.GROUP
     }
-    const dialogRef = this.dialog.open(EditGroupDialogComponent, config);
+    const dialogRef = this.dialog.open(EditFacilityResourceGroupVoDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(res => {
       if(res){

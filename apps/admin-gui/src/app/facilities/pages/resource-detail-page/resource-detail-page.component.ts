@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
-} from '../../../shared/components/dialogs/edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+} from '@perun-web-apps/perun/components';
 import { Resource } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { GetResourceRoutePipe } from '@perun-web-apps/perun/pipes';

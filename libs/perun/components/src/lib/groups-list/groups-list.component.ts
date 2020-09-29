@@ -16,8 +16,12 @@ import { Group, RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
-import { EditGroupDialogComponent } from '../edit-group-dialog/edit-group-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import {
+  EditFacilityResourceGroupVoDialogComponent,
+  EditFacilityResourceGroupVoDialogOptions
+} from '../edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+
 
 @Component({
   selector: 'perun-web-apps-groups-list',
@@ -199,10 +203,11 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   onChangeNameDescription(rg: RichGroup) {
     const config = getDefaultDialogConfig();
     config.data = {
-      groupId: rg.id,
-      theme: this.theme
+      theme: 'group-theme',
+      group: rg,
+      dialogType: EditFacilityResourceGroupVoDialogOptions.GROUP
     };
-    const dialogRef = this.dialog.open(EditGroupDialogComponent, config);
+    const dialogRef = this.dialog.open(EditFacilityResourceGroupVoDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {

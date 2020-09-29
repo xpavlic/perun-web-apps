@@ -1517,7 +1517,7 @@
       "GROUP_SUCCESS": "Group successfully updated",
       "VO_SUCCESS": "Vo successfully updated",
       "FILL_NAME": "Length of name has to be between 1 to 128 characters",
-      "FILL_DESCRIPTION": "Length of full name has to be between 1 to 128 characters"
+      "FILL_DESCRIPTION": "This field has to contain between 1 to 128 characters"
     },
     "EDIT_USER": {
       "DIALOG_TITLE": "Edit user",

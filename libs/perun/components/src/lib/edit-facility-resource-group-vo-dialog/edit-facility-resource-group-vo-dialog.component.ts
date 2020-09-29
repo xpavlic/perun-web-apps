@@ -8,7 +8,7 @@ import {
   Vo, VosManagerService
 } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators } from '@angular/forms';
 
@@ -29,11 +29,21 @@ export interface EditFacilityResourceGroupVoDialogData {
 }
 
 @Component({
-  selector: 'app-perun-web-apps-edit-facility-resource-group-vo-dialog',
+  selector: 'perun-web-apps-edit-facility-resource-group-vo-dialog',
   templateUrl: './edit-facility-resource-group-vo-dialog.component.html',
   styleUrls: ['./edit-facility-resource-group-vo-dialog.component.scss']
 })
 export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
+
+  invalidNameMessage = this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP ? this.store.get('groupNameErrorMessage') : '';
+
+  theme: string;
+  nameCtrl: FormControl;
+  descriptionCtrl: FormControl;
+  shortName: string;
+  dialogType: EditFacilityResourceGroupVoDialogOptions;
+  loading = false;
+  secondaryRegex = this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP ? this.store.get('groupNameSecondaryRegex'): '';
 
   constructor(private dialogRef: MatDialogRef<EditFacilityResourceGroupVoDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: EditFacilityResourceGroupVoDialogData,
@@ -42,15 +52,9 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
               private facilitiesManager: FacilitiesManagerService,
               private resourcesManager: ResourcesManagerService,
               private groupsManager: GroupsManagerService,
-              private vosManager: VosManagerService) {
+              private vosManager: VosManagerService,
+              private store: StoreService) {
   }
-
-  theme: string;
-  nameCtrl: FormControl;
-  descriptionCtrl: FormControl;
-  shortName: string;
-  dialogType: EditFacilityResourceGroupVoDialogOptions;
-  loading = false;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -65,7 +69,7 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
         this.descriptionCtrl = new FormControl(this.data.resource.description, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
         break;
       case EditFacilityResourceGroupVoDialogOptions.GROUP:
-        this.nameCtrl = new FormControl(this.data.group.name, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
+        this.nameCtrl = new FormControl(this.data.group.name, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.pattern(this.secondaryRegex), Validators.maxLength(129)]);
         this.descriptionCtrl = new FormControl(this.data.group.description, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
         break;
       case EditFacilityResourceGroupVoDialogOptions.VO:

@@ -56,7 +56,6 @@ import { CreateAttributeDialogComponent } from './create-attribute-dialog/create
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { ShowValueDialogComponent } from './show-value-dialog/show-value-dialog.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { EditGroupDialogComponent } from './edit-group-dialog/edit-group-dialog.component';
 import { GroupSyncDetailDialogComponent } from './group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { GroupsTreeComponent } from './groups-tree/groups-tree.component';
 import { MatTreeModule } from '@angular/material/tree';
@@ -71,6 +70,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MembersListComponent } from './members-list/members-list.component';
 import { ChangeMemberStatusDialogComponent } from './change-member-status-dialog/change-member-status-dialog.component';
+import { EditFacilityResourceGroupVoDialogComponent } from './edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -163,7 +163,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     CreateAttributeDialogComponent,
     PasswordResetComponent,
     ShowValueDialogComponent,
-    EditGroupDialogComponent,
     GroupSyncDetailDialogComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent,
@@ -172,7 +171,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     RedirectPageComponent,
     VoSearchSelectComponent,
     MembersListComponent,
-    ChangeMemberStatusDialogComponent
+    ChangeMemberStatusDialogComponent,
+    EditFacilityResourceGroupVoDialogComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -198,14 +198,14 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     CreateAttributeDialogComponent,
     PasswordResetComponent,
     GroupSyncDetailDialogComponent,
-    EditGroupDialogComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent,
     ForceRouterLinkDirective,
     RedirectPageComponent,
     VoSearchSelectComponent,
     MembersListComponent,
-    ChangeMemberStatusDialogComponent
+    ChangeMemberStatusDialogComponent,
+    EditFacilityResourceGroupVoDialogComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
