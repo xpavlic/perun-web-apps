@@ -36,6 +36,7 @@ import { ServiceDetailPageComponent } from './pages/admin-page/admin-services/se
 import { ServiceOverviewComponent } from './pages/admin-page/admin-services/service-detail-page/service-overview/service-overview.component';
 import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-services/service-detail-page/service-required-attributes/service-required-attributes.component';
 import { UserSettingsAssociatedUsersComponent } from '../users/pages/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
+import { ServiceDestinationsComponent } from './pages/admin-page/admin-services/service-detail-page/service-destinations/service-destinations.component';
 
 const routes: Routes = [
   {
@@ -180,6 +181,11 @@ const routes: Routes = [
         path: 'required-attributes',
         component: ServiceRequiredAttributesComponent,
         data: {animation: 'ServiceRequiredAttributesPage'}
+      },
+      {
+        path: 'destinations',
+        component: ServiceDestinationsComponent,
+        data: {animation: 'ServiceDestinationsPage'}
       }
     ]
   },

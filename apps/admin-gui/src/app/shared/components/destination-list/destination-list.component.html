@@ -39,27 +39,49 @@
 
         <ng-container matColumnDef="destinationId">
           <th *matHeaderCellDef mat-header-cell
-              mat-sort-header>{{'FACILITY_DETAIL.SERVICES_DESTINATIONS.TABLE_DESTINATION_ID' | translate}}</th>
+              mat-sort-header>{{'SHARED.COMPONENTS.DESTINATIONS_LIST.DESTINATION_ID' | translate}}</th>
           <td *matCellDef="let destination" class="static-column-size" mat-cell>{{destination.id}}</td>
         </ng-container>
         <ng-container matColumnDef="service">
           <th *matHeaderCellDef mat-header-cell
-              mat-sort-header>{{'FACILITY_DETAIL.SERVICES_DESTINATIONS.TABLE_SERVICE' | translate}}</th>
+              mat-sort-header>{{'SHARED.COMPONENTS.DESTINATIONS_LIST.SERVICE' | translate}}</th>
           <td *matCellDef="let destination" mat-cell>{{destination.service.name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="facility">
+          <th *matHeaderCellDef mat-header-cell
+              mat-sort-header>{{'SHARED.COMPONENTS.DESTINATIONS_LIST.FACILITY' | translate}}</th>
+          <td *matCellDef="let destination" mat-cell>{{destination.facility.name}}</td>
         </ng-container>
         <ng-container matColumnDef="destination">
           <th *matHeaderCellDef mat-header-cell
-              mat-sort-header>{{'FACILITY_DETAIL.SERVICES_DESTINATIONS.TABLE_DESTINATION' | translate}}</th>
+              mat-sort-header>{{'SHARED.COMPONENTS.DESTINATIONS_LIST.DESTINATION' | translate}}</th>
           <td *matCellDef="let destination" mat-cell>{{destination.destination}}</td>
         </ng-container>
         <ng-container matColumnDef="type">
           <th *matHeaderCellDef mat-header-cell
-              mat-sort-header>{{'FACILITY_DETAIL.SERVICES_DESTINATIONS.TABLE_TYPE' | translate}}</th>
-          <td *matCellDef="let destination" mat-cell>{{destination.type}}</td>
+              mat-sort-header>{{'SHARED.COMPONENTS.DESTINATIONS_LIST.TYPE' | translate}}</th>
+          <td *matCellDef="let destination" mat-cell>{{destination.type.toUpperCase()}}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let destination" mat-cell>
+            <mat-icon
+              class="align-bottom"
+              *ngIf="!destination.blocked"
+              matTooltip="{{'SHARED.COMPONENTS.DESTINATIONS_LIST.ALLOWED' | translate}}">
+              check_circle_outline
+            </mat-icon>
+            <mat-icon
+              class="align-bottom"
+              *ngIf="destination.blocked"
+              matTooltip="{{'SHARED.COMPONENTS.DESTINATIONS_LIST.BLOCKED' | translate}}">
+              block
+            </mat-icon>
+          </td>
         </ng-container>
         <ng-container matColumnDef="propagationType">
           <th *matHeaderCellDef mat-header-cell
-              mat-sort-header>{{'FACILITY_DETAIL.SERVICES_DESTINATIONS.TABLE_PROPAGATION_TYPE' | translate}}</th>
+              mat-sort-header>{{'SHARED.COMPONENTS.DESTINATIONS_LIST.PROPAGATION_TYPE' | translate}}</th>
           <td *matCellDef="let destination" mat-cell>{{destination.propagationType}}</td>
         </ng-container>
 
@@ -88,5 +110,5 @@
 </app-alert>
 
 <app-alert *ngIf="destinations.length === 0" color="warn">
-  {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.NO_DESTINATION' | translate}}
+  {{'SHARED.COMPONENTS.DESTINATIONS_LIST.NO_DESTINATIONS' | translate}}
 </app-alert>

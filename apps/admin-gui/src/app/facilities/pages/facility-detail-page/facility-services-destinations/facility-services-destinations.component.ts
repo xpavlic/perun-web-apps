@@ -113,8 +113,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loading = true;
-        this.deleteDestinations(this.selected.selected);
+        this.refreshTable();
       }
     });
   }
@@ -124,26 +123,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   }
 
   pageChanged(event: PageEvent) {
-    console.log(event.pageSize);
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
-  deleteDestinations(destinationsForDelete: RichDestination[]) {
-    if (destinationsForDelete.length === 0) {
-      this.translate.get('FACILITY_DETAIL.SERVICES_DESTINATIONS.REMOVE_SUCCESS').subscribe(successMessage => {
-        this.refreshTable();
-        this.notificator.showSuccess(successMessage);
-      });
-    } else {
-      const destination = destinationsForDelete[0];
-      this.servicesManager.removeDestination(destination.service.id,
-                                            destination.facility.id,
-                                            destination.destination,
-                                            destination.type).subscribe( () => {
-        destinationsForDelete.shift();
-        this.deleteDestinations(destinationsForDelete);
-      });
-    }
   }
 }

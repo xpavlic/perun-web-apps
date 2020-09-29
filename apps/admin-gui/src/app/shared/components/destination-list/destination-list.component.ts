@@ -9,7 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { RichDestination, RichResource } from '@perun-web-apps/perun/openapi';
+import { RichDestination } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -27,9 +27,9 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
   @Input()
   destinations: RichDestination[] = [];
   @Input()
-  selection = new SelectionModel<RichResource>(true, []);
+  selection = new SelectionModel<RichDestination>(true, []);
   @Input()
-  filterValue: string;
+  filterValue = "";
   @Input()
   pageSize = 10;
   @Input()
@@ -64,15 +64,27 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
       this.dataSource.sort = this.sort;
       this.dataSource.sortingDataAccessor = (item, property) => {
         switch (property) {
+          case 'destinationId': {
+            return item.id
+          }
           case 'service': {
             return item.service.name;
+          }
+          case 'facility': {
+            return item.facility.name
           }
           default: return item[property];
         }
       };
       this.dataSource.filterPredicate = (data, filter) => {
-        const dataStr = data.service.name + data.id + data.destination + data.type + data.propagationType;
-        return dataStr.indexOf(filter) !== -1;
+        let dataStr = '';
+        if(this.displayedColumns.includes('service')){
+          dataStr = data.service.name + data.id + data.destination + data.type + data.propagationType;
+        } else {
+          dataStr = data.facility.name + data.id + data.destination + data.type + data.propagationType;
+        }
+
+        return dataStr.toLowerCase().indexOf(filter) !== -1;
       };
       this.dataSource.paginator = this.paginator;
     }
@@ -93,7 +105,7 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: RichResource): string {
+  checkboxLabel(row?: RichDestination): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }

@@ -1,0 +1,49 @@
+<div>
+  <h1 class="page-subtitle">{{ 'SERVICE_DETAIL.DESTINATIONS.TITLE' | translate}}</h1>
+  <perun-web-apps-refresh-button
+    *ngIf="!loading"
+    (refresh)="refreshTable()">
+  </perun-web-apps-refresh-button>
+  <button
+    *ngIf="!loading"
+    mat-flat-button
+    color="warn"
+    class="mr-2"
+    [disabled]="selection.selected.length === 0"
+    (click)="onRemove()">
+    {{ 'SERVICE_DETAIL.DESTINATIONS.REMOVE' | translate}}
+  </button>
+  <button
+    *ngIf="!loading"
+    mat-flat-button
+    color="accent"
+    class="mr-2"
+    [disabled]="selection.selected.length === 0"
+    (click)="onAllow()">
+    {{ 'SERVICE_DETAIL.DESTINATIONS.ALLOW' | translate}}
+  </button>
+  <button
+    *ngIf="!loading"
+    mat-flat-button
+    color="warn"
+    class="mr-2"
+    [disabled]="selection.selected.length === 0"
+    (click)="onBlock()">
+    {{ 'SERVICE_DETAIL.DESTINATIONS.BLOCK' | translate}}
+  </button>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    *ngIf="!loading"
+    [placeholder]="'SERVICE_DETAIL.DESTINATIONS.FILTER'">
+  </perun-web-apps-immediate-filter>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <app-perun-web-apps-destination-list
+    *ngIf="!loading"
+    [destinations]="destinations"
+    [selection]="selection"
+    [pageSize]="pageSize"
+    [displayedColumns]="['select', 'destinationId', 'facility', 'destination', 'type', 'status', 'propagationType']"
+    [filterValue]="filterValue">
+  </app-perun-web-apps-destination-list>
+</div>
+

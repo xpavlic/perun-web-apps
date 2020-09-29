@@ -23,6 +23,12 @@ export class ServiceOverviewComponent implements OnInit {
         url: 'required-attributes',
         label: 'MENU_ITEMS.SERVICE.REQUIRED_ATTRIBUTES',
         style: 'service-btn'
+      },
+      {
+        cssIcon: 'perun-service_destination',
+        url: 'destinations',
+        label: 'MENU_ITEMS.SERVICE.DESTINATIONS',
+        style: 'service-btn'
       }
     ];
   }
