@@ -1,9 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import {
   Group,
   GroupsManagerService,
@@ -11,7 +8,7 @@ import {
   Vo,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
-import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-apps/perun/services';
+import { ApiRequestConfigurationService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 
 export interface ApplicationFormCopyItemsDialogData {
   voId: number;
@@ -31,11 +28,9 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
   vos: Vo[] = [];
   groups: Group[] = [];
   fakeGroup: Group;
-  voControl = new FormControl();
-  filteredVos: Observable<Vo[]>;
-  groupControl = new FormControl();
-  filteredGroups: Observable<Group[]>;
-  emptyFormMessage: string;
+  selectedVo: Vo;
+  selectedGroup: Group;
+  privilegeMessage: string;
   noFormMessage: string;
   theme: string;
   loading = false;
@@ -49,7 +44,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
               private apiRequest: ApiRequestConfigurationService,
               @Inject(MAT_DIALOG_DATA) public data: ApplicationFormCopyItemsDialogData) {
     translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.SUCCESS').subscribe(res => this.successMessage = res);
-    translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.EMPTY').subscribe(res => this.emptyFormMessage = res);
+    translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.PRIVILEGE').subscribe(res => this.privilegeMessage = res);
     translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.NO_FORM').subscribe(res => this.noFormMessage = res);
   }
 
@@ -67,17 +62,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
         beanName: 'Group'
       };
 
-      this.voService.getAllVos().subscribe(vos => {
-        this.vos = vos;
-
-        this.voControl = new FormControl('', [this.invalidVo(this.vos), Validators.required]);
-
-        this.filteredVos = this.voControl.valueChanges
-          .pipe(
-            startWith(''),
-            map(value => typeof value === 'string' ? value : value.name),
-            map(name => name ? this._filterVo(name) : this.vos.slice())
-          );
+      this.voService.getMyVos().subscribe(vos => {
 
         this.vos = vos.sort(((vo1, vo2) => {
           if (vo1.name > vo2.name) {
@@ -99,93 +84,61 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  _filterVo(value: string): Vo[] {
-    const filterValue = value.toLowerCase();
-
-    return this.vos.filter(option => option.name.toLowerCase().includes(filterValue));
-  }
-
-  _filterGroup(value: string): Group[] {
-    const filterValue = value.toLowerCase();
-
-    return this.groups.filter(option => option.name.toLowerCase().includes(filterValue));
-  }
-
-  displayFn(entity?: any): string | undefined {
-    return entity ? entity.name : undefined;
-  }
-
   submit() {
     this.apiRequest.dontHandleErrorForNext();
     this.loading = true;
     if (this.data.groupId) { // checking if the dialog is for group or Vo
-      if (this.groupControl.value === this.fakeGroup) {   // no group selected
-        this.registrarManager.getFormItemsForVo(this.voControl.value.id).subscribe(formItems => {
-          if (formItems.length) {
-            this.registrarManager.copyFormFromVoToGroup(this.voControl.value.id, this.data.groupId).subscribe(() => {
-              this.notificatorService.showSuccess(this.successMessage);
-              this.dialogRef.close(true);
-            });
-          } else {
-            this.notificatorService.showError(this.emptyFormMessage);
-          }
-          this.loading = false;
+      if (this.selectedGroup === this.fakeGroup) {   // no group selected
+        this.registrarManager.copyFormFromVoToGroup(this.selectedVo.id, this.data.groupId).subscribe(() => {
+          this.notificatorService.showSuccess(this.successMessage);
+          this.dialogRef.close(true);
         }, error => {
-          if(error.error.name === 'FormNotExistsException'){
+          if (error.error.name === "FormNotExistsException"){
             this.notificatorService.showError(this.noFormMessage);
+          }
+          if (error.error.name === "PrivilegeException"){
+            this.notificatorService.showError(this.privilegeMessage);
           }
           this.loading = false;
         });
       } else {
-        this.registrarManager.getFormItemsForGroup(this.groupControl.value.id).subscribe(formItems => {
-          if (formItems.length) {
-            this.registrarManager.copyFormFromGroupToGroup(this.groupControl.value.id, this.data.groupId).subscribe(() => {
-              this.notificatorService.showSuccess(this.successMessage);
-              this.dialogRef.close(true);
-            });
-          } else {
-            this.notificatorService.showError(this.emptyFormMessage);
-          }
-          this.loading = false;
+        this.registrarManager.copyFormFromGroupToGroup(this.selectedGroup.id, this.data.groupId).subscribe(() => {
+          this.notificatorService.showSuccess(this.successMessage);
+          this.dialogRef.close(true);
         }, error => {
-          if(error.error.name === 'FormNotExistsException'){
+          if (error.error.name === "FormNotExistsException"){
             this.notificatorService.showError(this.noFormMessage);
+          }
+          if (error.error.name === "PrivilegeException"){
+            this.notificatorService.showError(this.privilegeMessage);
           }
           this.loading = false;
         });
       }
     } else {
-      if (this.groupControl.value === this.fakeGroup) {       // no group selected
-        this.registrarManager.getFormItemsForVo(this.voControl.value.id).subscribe(formItems => {
-          if (formItems.length) {
-            this.registrarManager.copyFormFromVoToVo(this.voControl.value.id, this.data.voId).subscribe(() => {
-              this.notificatorService.showSuccess(this.successMessage);
-              this.dialogRef.close(true);
-            });
-          } else {
-            this.notificatorService.showError(this.emptyFormMessage);
-          }
-          this.loading = false;
+      if (this.selectedGroup === this.fakeGroup) {       // no group selected
+        this.registrarManager.copyFormFromVoToVo(this.selectedVo.id, this.data.voId).subscribe(() => {
+          this.notificatorService.showSuccess(this.successMessage);
+          this.dialogRef.close(true);
         }, error => {
-          if(error.error.name === 'FormNotExistsException'){
+          if (error.error.name === "FormNotExistsException"){
             this.notificatorService.showError(this.noFormMessage);
+          }
+          if (error.error.name === "PrivilegeException"){
+            this.notificatorService.showError(this.privilegeMessage);
           }
           this.loading = false;
         });
       } else {
-        this.registrarManager.getFormItemsForGroup(this.groupControl.value.id).subscribe(formItems => {
-          if (formItems.length) {
-            this.registrarManager.copyFormFromGroupToVo(this.groupControl.value.id, this.data.voId).subscribe(() => {
-              this.notificatorService.showSuccess(this.successMessage);
-              this.dialogRef.close(true);
-            });
-          } else {
-            this.notificatorService.showError(this.emptyFormMessage);
-          }
-          this.loading = false;
+        this.registrarManager.copyFormFromGroupToVo(this.selectedGroup.id, this.data.voId).subscribe(() => {
+          this.notificatorService.showSuccess(this.successMessage);
+          this.dialogRef.close(true);
         }, error => {
-          if(error.error.name === 'FormNotExistsException'){
+          if (error.error.name === "FormNotExistsException"){
             this.notificatorService.showError(this.noFormMessage);
+          }
+          if (error.error.name === "PrivilegeException"){
+            this.notificatorService.showError(this.privilegeMessage);
           }
           this.loading = false;
         });
@@ -193,65 +146,20 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
     }
   }
 
+  voSelected(vo: Vo) {
+    this.selectedVo = vo;
+    this.getGroups();
+  }
+
   getGroups() {
-    this.groupControl.reset(this.fakeGroup);
-    if (!this.voControl.invalid) {
-      this.groupService.getAllGroups(this.voControl.value.id).subscribe(groups => {
+    if (this.selectedVo !== undefined) {
+      this.groupService.getAllGroups(this.selectedVo.id).subscribe(groups => {
         this.groups = [this.fakeGroup].concat(groups);
-        this.groupControl.setValidators([this.invalidGroup(this.groups), Validators.required]);
-        this.filteredGroups = this.groupControl.valueChanges
-          .pipe(
-            startWith(''),
-            map(value => typeof value === 'string' ? value : value.name),
-            map(name => name ? this._filterGroup(name) : this.groups.slice())
-          );
       });
     } else {
       this.groups = [this.fakeGroup];
     }
+    this.selectedGroup = this.fakeGroup;
   }
 
-  invalidVo(vos: Vo[]): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: boolean } | null => {
-      let invalid = false;
-      if (control.value) {
-        if (control.value.beanName) {
-          if (control.value.beanName !== 'Vo') {
-            invalid = true;
-          }
-        } else {
-          const vo = vos.find(x => x.name.toLowerCase() === control.value.toLowerCase());
-          if (!vo) {
-            invalid = true;
-          } else {
-            control.setValue(vo);
-          }
-        }
-      }
-      return invalid ? { 'invalidVo': true } : null;
-    };
-  }
-
-  invalidGroup(groups: Group[]): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: boolean } | null => {
-      let invalid = false;
-      if (control.value) {
-        if (control.value.beanName) {
-          if (control.value.beanName !== 'Group') {
-            invalid = true;
-          }
-        } else if (control.value === this.fakeGroup) {
-          invalid = false;
-        } else {
-          const group = groups.find(x => x.name.toLowerCase() === control.value.toLowerCase());
-          if (!group) {
-            invalid = true;
-          } else {
-            control.setValue(group);
-          }
-        }
-      }
-      return invalid ? { 'invalidGroup': true } : null;
-    };
-  }
 }

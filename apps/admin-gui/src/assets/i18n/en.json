@@ -977,7 +977,7 @@
       "ERROR_INVALID_GROUP": "Please choose group from options",
       "ERROR_NO_GROUP": "Please choose group",
       "SUCCESS": "Form items copied",
-      "EMPTY": "Selected entity's form has no items",
+      "PRIVILEGE": "You cannot copy application form for this combination of organization and group",
       "NO_FORM": "Selected entity has no form"
     },
     "APPLICATION_FORM_ADD_ITEM": {
@@ -1838,6 +1838,11 @@
           "MOVE": "Move group",
           "RENAME": "Update name/description",
           "COPY": "Copy group name to clipboard"
+        },
+        "GROUP_SEARCH_SELECT": {
+          "SELECT_GROUP": "Select group",
+          "FIND_GROUP": "Find group...",
+          "NO_GROUP_FOUND": "No matching found"
         },
         "VO_SELECT_TABLE": {
           "ID": "Id",
