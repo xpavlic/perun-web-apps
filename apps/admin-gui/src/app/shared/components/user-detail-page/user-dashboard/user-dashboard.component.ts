@@ -74,18 +74,25 @@ export class UserDashboardComponent implements OnInit {
       this.adminVo = vo;
       this.userManager.getGroupsWhereUserIsAdmin(this.user.id).subscribe( groups => {
         this.adminGroup = groups;
-        this.getAdminFacility();
+        return this.getAdminFacility()
+          .then(() => this.getAdminResource());
       }, () => this.loading = false);
     }, () => this.loading = false);
   }
 
-  getAdminFacility() {
-    if (this.guiAuthResolver.isAuthorized('getFacilities_policy', [])) {
-      this.facilitiesService.getAllFacilities().subscribe(facilities => {
-        this.adminFacility = facilities;
-        this.getAdminResource();
-      }, () => this.loading = false);
-    }
+  getAdminFacility(): Promise<void> {
+    return new Promise((resolve, reject) => {
+
+      if (this.guiAuthResolver.isAuthorized('getFacilities_policy', [])) {
+        this.facilitiesService.getAllFacilities().subscribe(facilities => {
+          this.adminFacility = facilities;
+          resolve();
+        }, () => resolve());
+      } else {
+        resolve();
+      }
+
+    });
   }
 
   getAdminResource() {
