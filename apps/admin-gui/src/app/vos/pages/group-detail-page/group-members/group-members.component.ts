@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { GuiAuthResolver, MembersService, StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, MembersService } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -31,8 +31,7 @@ export class GroupMembersComponent implements OnInit {
     protected router: Router,
     private tableConfigService: TableConfigService,
     private dialog: MatDialog,
-    private guiAuthResolver: GuiAuthResolver,
-    private storeService: StoreService
+    private guiAuthResolver: GuiAuthResolver
   ) { }
 
   group: Group;
@@ -47,6 +46,8 @@ export class GroupMembersComponent implements OnInit {
   data: 'search' | 'all';
 
   tableId = TABLE_GROUP_MEMBERS;
+
+
 
   private attrNames = [
     Urns.MEMBER_DEF_ORGANIZATION,
@@ -69,7 +70,6 @@ export class GroupMembersComponent implements OnInit {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.selection = new SelectionModel<RichMember>(true, []);
-    this.attrNames = this.attrNames.concat(this.storeService.getLoginAttributeNames());
     this.route.parent.params.subscribe(parentParams => {
       const groupId = parentParams['groupId'];
 
