@@ -1,0 +1,16 @@
+<mat-form-field class="w-100">
+  <mat-select
+    placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_SEARCH_SELECT.SELECT_GROUP' | translate}}"
+    [formControl]="groupCtrl">
+    <mat-option>
+      <ngx-mat-select-search
+        placeholderLabel="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_SEARCH_SELECT.FIND_GROUP' | translate}}"
+        noEntriesFoundLabel="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_SEARCH_SELECT.NO_GROUP_FOUND' | translate}}"
+        [formControl]="groupFilterCtrl">
+      </ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngFor="let grp of filteredGroups | async" [value]="grp">
+      {{grp.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

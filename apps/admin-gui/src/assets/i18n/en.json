@@ -794,7 +794,11 @@
       "CREATE": "Create",
       "SUCCESS": "New group successfully created",
       "SUCCESS_SUBGROUP": "New subgroup successfully created",
-      "FILL_VALUE": "Please fill this value."
+      "FILL_VALUE": "Please fill this value.",
+      "AS_SUBGROUP": "As sub-group",
+      "PARENT_GROUP": "Parent group",
+      "INVALID_PARENT_GROUP": "Selecting parent group is required",
+      "INVALID_DESCRIPTION": "Description must contain at least 1 and less than 128 characters"
     },
     "CREATE_VO": {
       "TITLE": "Create organization",
@@ -1830,6 +1834,11 @@
           "MOVE": "Move group",
           "RENAME": "Update name/description",
           "COPY": "Copy group name to clipboard"
+        },
+        "GROUP_SEARCH_SELECT": {
+          "SELECT_GROUP": "Select group",
+          "FIND_GROUP": "Find group...",
+          "NO_GROUP_FOUND": "No matching found"
         },
         "VO_SELECT_TABLE": {
           "ID": "Id",
