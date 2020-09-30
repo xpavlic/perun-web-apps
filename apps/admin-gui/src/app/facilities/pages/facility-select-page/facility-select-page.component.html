@@ -2,7 +2,14 @@
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
 
-  <h1 class="page-title">{{'FACILITY_MANAGEMENT.TITLE' | translate}}</h1>
+  <h1 class="page-title d-flex">
+    <mat-icon
+      [ngStyle]="{'color':'black'}"
+      svgIcon='perun-facility-black'
+      class="perun-icon icon-scale">
+    </mat-icon>
+    {{'FACILITY_MANAGEMENT.TITLE' | translate}}
+  </h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
   <button
     *ngIf="!loading"
