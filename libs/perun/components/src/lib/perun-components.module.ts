@@ -71,6 +71,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MembersListComponent } from './members-list/members-list.component';
 import { ChangeMemberStatusDialogComponent } from './change-member-status-dialog/change-member-status-dialog.component';
 import { EditFacilityResourceGroupVoDialogComponent } from './edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+import { TaskResultsListComponent } from './task-results-list/task-results-list.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -172,7 +173,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     VoSearchSelectComponent,
     MembersListComponent,
     ChangeMemberStatusDialogComponent,
-    EditFacilityResourceGroupVoDialogComponent
+    EditFacilityResourceGroupVoDialogComponent,
+    TaskResultsListComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -205,7 +207,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     VoSearchSelectComponent,
     MembersListComponent,
     ChangeMemberStatusDialogComponent,
-    EditFacilityResourceGroupVoDialogComponent
+    EditFacilityResourceGroupVoDialogComponent,
+    TaskResultsListComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

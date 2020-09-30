@@ -81,7 +81,8 @@
         [class.make-yellow]="serviceState.status === 'GENERATING' || serviceState.status === 'GENERATED' || serviceState.status === 'SENDING'"
         [class.make-green]="serviceState.status === 'DONE'"
         [class.make-red]="serviceState.status === 'GENERROR' || serviceState.status === 'SENDERROR' || serviceState.status === 'ERROR'"
-        [routerLink]="disableRouting ? null : ['/facilities', serviceState.facility.id, 'services-status']">
+        [class.cursor-pointer]="!disableRouting && serviceState.task !== null"
+        [routerLink]="disableRouting || serviceState.task === null ? null : ['/facilities', serviceState.facility.id, 'services-status', serviceState.taskId]">
       </tr>
     </table>
     <mat-paginator

@@ -1,7 +1,3 @@
-.disable-outline{
-    outline: none !important;
-}
-
 .make-green {
   background-color: #8fbc8f;
 }
@@ -17,8 +13,3 @@
 .make-red {
   background-color: #fdc3c3;
 }
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
