@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { SideMenuService } from '../../../../core/services/common/side-menu.service';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
@@ -38,6 +38,7 @@ export class VoMembersComponent implements OnInit {
     private tableConfigService: TableConfigService,
     private dialog: MatDialog,
     private authzService: GuiAuthResolver,
+    private storeService: StoreService
   ) { }
 
   vo: Vo;
@@ -74,6 +75,7 @@ export class VoMembersComponent implements OnInit {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.statuses.setValue(this.statusList);
+    this.attrNames = this.attrNames.concat(this.storeService.getLoginAttributeNames());
     this.route.parent.params.subscribe(parentParams => {
       const voId = parentParams['voId'];
 

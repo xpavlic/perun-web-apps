@@ -49,7 +49,6 @@ import { ApplicationReSendNotificationDialogComponent
 import { ApplicationRejectDialogComponent } from './components/dialogs/application-reject-dialog/application-reject-dialog.component';
 import { AnyToStringPipe } from './pipes/any-to-string.pipe';
 import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
-import { MemberLoginsPipe } from './pipes/member-logins.pipe';
 import { RemoveMembersDialogComponent } from './components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { SideMenuRootItemComponent } from './side-menu/side-menu-root-item/side-menu-root-item.component';
 import { DebuggerPageComponent } from './debugger-page/debugger-page.component';
@@ -275,7 +274,6 @@ import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-tas
     NotificatorComponent,
     AttributeTypeCleanPipe,
     NameSpaceToDefPipe,
-    MemberLoginsPipe,
     TechnicalOwnersPipe,
     ApplicationFormItemTypePipe,
     DragDropModule,
@@ -334,7 +332,6 @@ import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-tas
     UsersListComponent,
     ApplicationReSendNotificationDialogComponent,
     ApplicationRejectDialogComponent,
-    MemberLoginsPipe,
     RemoveMembersDialogComponent,
     DebuggerPageComponent,
     TechnicalOwnersPipe,
