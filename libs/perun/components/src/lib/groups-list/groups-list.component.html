@@ -27,13 +27,14 @@
           </th>
           <td *matCellDef="let row" class="static-column-size" mat-cell>
             <span
-              matTooltip="{{getCheckboxTooltipMessage() | translate}}"
-              [matTooltipDisabled]="!disableSelect(row.id)">
+              matTooltip="{{getCheckboxTooltipMessage(row) | translate}}"
+              [matTooltipPosition]="'above'"
+              [matTooltipDisabled]="!disableSelect(row)">
               <mat-checkbox (change)="$event ? itemSelectionToggle(row) : null"
                             (click)="$event.stopPropagation()"
                             [aria-label]="checkboxLabel(row)"
                             [checked]="selection.isSelected(row)"
-                            [disabled]="(row.name === 'members' && disableMembers) || disableSelect(row.id)"
+                            [disabled]="(row.name === 'members' && disableMembers) || disableSelect(row)"
                             color="primary">
               </mat-checkbox>
             </span>

@@ -47,7 +47,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   moveGroup = new EventEmitter<Group>();
 
   @Input()
-  groups: Group[] = [];
+  groups: Group[] | RichGroup[] = [];
 
   @Input()
   selection = new SelectionModel<Group>(true, []);
@@ -92,7 +92,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   refreshTable = new EventEmitter<void>();
 
   displayedColumns: string[] = ['select', 'id', 'vo', 'name', 'description', 'menu'];
-  dataSource: MatTableDataSource<Group>;
+  dataSource: MatTableDataSource<Group | RichGroup>;
 
   exporting = false;
   disabledRouting = false;
@@ -138,14 +138,13 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
+  canBeSelected(group: Group) {
+    return (group.name !== 'members' || !this.disableMembers) && !this.disableSelect(group);
+  }
+
   isAllSelected() {
-    let numSelected = this.selection.selected.length;
-
-    if (numSelected > 0 && this.hasMembersGroup && this.disableMembers) {
-      numSelected++;
-    }
-
-    const numRows = this.dataSource.data.length;
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.filter(grp => this.canBeSelected(grp)).length;
     return numSelected === numRows;
   }
 
@@ -153,9 +152,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => {
-        if (row.name !== 'members') {
-          this.selection.select(row);
-        } else if (!this.disableMembers) {
+        if (this.canBeSelected(row)) {
           this.selection.select(row);
         }
       });
@@ -172,8 +169,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  disableSelect(id: number): boolean {
-    return this.disableGroups && this.groupsToDisable.has(id);
+  disableSelect(grp: Group): boolean {
+    return this.disableGroups && (this.groupsToDisable.has(grp.id) || this.isSynchronized(grp));
   }
 
   ngAfterViewInit(): void {
@@ -237,8 +234,21 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.removeAuth = this.setAuth();
   }
 
-  getCheckboxTooltipMessage() {
-    return this.authType === 'create-relation-dialog' ? 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CREATE_RELATION_AUTH_TOOLTIP' :
-      'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.ALREADY_MEMBER_TOOLTIP'
+  isSynchronized(grp: RichGroup) {
+    if (grp.attributes){
+      return grp.attributes.some(att =>
+        att.friendlyName === "synchronizationEnabled" && att.value !== null && att.value.toString() === "true");
+    }
+    return false;
+  }
+
+  getCheckboxTooltipMessage(row: Group | RichGroup) {
+    if (this.authType === 'create-relation-dialog'){
+      return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CREATE_RELATION_AUTH_TOOLTIP';
+    } else if (this.isSynchronized(row)){
+      return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.SYNCHRONIZED_GROUP';
+    } else {
+      return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.ALREADY_MEMBER_TOOLTIP';
+    }
   }
 }
