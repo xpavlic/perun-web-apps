@@ -1,7 +1,16 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 vo-theme">
   <perun-web-apps-back-button>
   </perun-web-apps-back-button>
-  <h1 class="page-title">{{'VO_MANAGEMENT.TITLE' | translate}}</h1>
+
+  <h1 class="page-title d-flex">
+    <mat-icon
+      [ngStyle]="{'color':'black'}"
+      svgIcon='perun-vo-black'
+      class="perun-icon icon-scale">
+    </mat-icon>
+    {{'VO_MANAGEMENT.TITLE' | translate}}
+  </h1>
+
   <perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
   <button mat-flat-button color="accent" class="mr-2" (click)="onCreateVo()" *ngIf="!loading && createAuth">
     {{'VO_MANAGEMENT.CREATE_VO' | translate}}
