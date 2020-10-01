@@ -13,7 +13,7 @@
   mat-flat-button
   color="warn"
   (click)="removeGroup()"
-  [disabled]="selection.selected.length === 0 || (list !== undefined && !list.deleteAuth)"
+  [disabled]="selection.selected.length === 0 || (list !== undefined && !list.removeAuth)"
   class="mr-2">
   {{'MEMBER_DETAIL.GROUPS.REMOVE' | translate}}
 </button>
@@ -32,6 +32,6 @@
   [selection]="selection"
   [filter]="filterValue"
   [disableRouting]="!routeAuth"
-  [policy]="'removeMember_Member_List<Group>_policy'"
+  [authType]="'member-groups'"
   *ngIf="!loading">
 </perun-web-apps-groups-list>

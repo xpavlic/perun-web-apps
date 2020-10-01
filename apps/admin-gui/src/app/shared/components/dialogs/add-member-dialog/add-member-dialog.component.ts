@@ -183,9 +183,18 @@ export class AddMemberDialogComponent implements OnInit {
   }
 
   private addUserToGroup(selectedMemberCandidate: MemberCandidate) {
+    const group = {
+      id: this.data.group.id,
+      beanName: this.data.group.beanName,
+      name: this.data.group.name,
+      voId: this.data.group.voId
+    }
     this.memberService.createMemberWithGroups(
-      this.data.voId, selectedMemberCandidate.richUser.id, [this.data.group]).subscribe(member => {
+      this.data.voId, selectedMemberCandidate.richUser.id, [group]).subscribe(member => {
       this.onAddSuccess();
+      this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
+        this.onValidateSuccess();
+      }, () => this.onCancel());
     }, () => this.onError());
   }
 
@@ -196,9 +205,18 @@ export class AddMemberDialogComponent implements OnInit {
   }
 
   private addCandidateToGroup(selectedMemberCandidate: MemberCandidate) {
+    const group = {
+      id: this.data.group.id,
+      beanName: this.data.group.beanName,
+      name: this.data.group.name,
+      voId: this.data.group.voId
+    }
     this.memberService.createMemberForCandidateWithGroups(
-      this.data.voId, selectedMemberCandidate.candidate, [this.data.group]).subscribe(member => {
+      this.data.voId, selectedMemberCandidate.candidate, [group]).subscribe(member => {
       this.onAddSuccess();
+      this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
+        this.onValidateSuccess();
+      }, () => this.onCancel());
     }, () => this.onError());
   }
 
@@ -222,10 +240,11 @@ export class AddMemberDialogComponent implements OnInit {
   }
 
   private onValidateSuccess() {
-    this.translate.get('DIALOGS.ADD_MEMBERS.VALIDATION_SUCCESS').subscribe(msg => {
-      this.notificator.showSuccess(msg);
-      this.dialogRef.close(true);
-    });
+    this.dialogRef.close(true);
+    // this.translate.get('DIALOGS.ADD_MEMBERS.VALIDATION_SUCCESS').subscribe(msg => {
+    //   this.notificator.showSuccess(msg);
+    //   this.dialogRef.close(true);
+    // });
   }
 
   pageChanged(event: PageEvent) {
