@@ -826,7 +826,8 @@ export class SideMenuItemService {
     }
 
     //Subgroups
-    if (this.authResolver.isAuthorized('getAllRichSubGroupsWithAttributesByNames_Group_List<String>_policy', [group])) {
+    if (this.authResolver.isAuthorized('getAllRichSubGroupsWithAttributesByNames_Group_List<String>_policy', [group])
+        && group.name !== 'members') {
       links.push({
         label: 'MENU_ITEMS.GROUP.SUBGROUPS',
         url: [`/organizations/${group.voId}/groups/${group.id}/subgroups`],

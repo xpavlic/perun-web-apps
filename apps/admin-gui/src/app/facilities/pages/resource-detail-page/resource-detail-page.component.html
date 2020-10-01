@@ -14,9 +14,6 @@
         <a class="resource-link" [routerLink]="[baseUrl]">
           {{resource.name}}
         </a>
-        <span class="resource-text" *ngIf="!facilityLinkAuth">
-          {{resource.facility.name}}
-        </span>
         <span class="text-muted">
         &nbsp;#{{resource.id}}
         </span>
@@ -26,12 +23,16 @@
       </div>
       <span class="text-muted mt-1 entity-info">
         {{'RESOURCE_DETAIL.ENTITY' | translate}},
-        {{'RESOURCE_DETAIL.VO' | translate}}: <a *ngIf="voLinkAuth" [routerLink]="['/organizations', resource.vo.id]" class="resource-link">{{resource.vo.name}}</a>
+        {{'RESOURCE_DETAIL.VO' | translate}}:
+        <a *ngIf="voLinkAuth"
+           [routerLink]="['/organizations', resource.vo.id]" class="resource-link">{{resource.vo.name}}</a>
         <span *ngIf="!voLinkAuth">
           {{resource.vo.name}}
         </span>
         #{{resource.voId}},
-        {{'RESOURCE_DETAIL.FACILITY' | translate}}: <a class="resource-link" *ngIf="facilityLinkAuth" [routerLink]="['/facilities', resource.facilityId]">{{resource.facility.name}}</a>
+        {{'RESOURCE_DETAIL.FACILITY' | translate}}:
+        <a class="resource-link" *ngIf="facilityLinkAuth"
+           [routerLink]="['/facilities', resource.facilityId]">{{resource.facility.name}}</a>
         <span *ngIf="!facilityLinkAuth">
           {{resource.facility.name}}
         </span>

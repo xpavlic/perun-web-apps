@@ -74,7 +74,8 @@ export class GroupOverviewComponent implements OnInit {
         });
     }
 
-    if (this.guiAuthResolver.isAuthorized('getAllRichSubGroupsWithAttributesByNames_Group_List<String>_policy', [this.group])) {
+    if (this.guiAuthResolver.isAuthorized('getAllRichSubGroupsWithAttributesByNames_Group_List<String>_policy', [this.group])
+        && this.group.name !== 'members') {
       this.navItems.push({
         cssIcon: 'perun-group',
         url: `/organizations/${this.group.voId}/groups/${this.groupId}/subgroups`,

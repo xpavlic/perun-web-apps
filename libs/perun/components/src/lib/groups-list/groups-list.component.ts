@@ -225,10 +225,14 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
       return this.selection.selected.reduce((acc, grp) => acc &&
         this.authResolver.isAuthorized('deleteGroup_Group_boolean_policy', [grp]), true);
     } else if (this.authType === 'group-relations') {
-      return this.selection.selected.reduce((acc, grp) => acc && this.authResolver.isAuthorized('removeGroupUnion_Group_Group_policy', [this.parentGroup, grp]), true);
+      return this.selection.selected.reduce((acc, grp) => acc &&
+        this.authResolver.isAuthorized('removeGroupUnion_Group_Group_policy', [this.parentGroup, grp]), true);
     } else if (this.authType === 'vo-groups') {
       return this.selection.selected.reduce((acc, grp) => acc &&
         this.authResolver.isAuthorized('deleteGroup_Group_boolean_policy', [this.vo, grp]), true);
+    } else if (this.authType === 'member-groups') {
+      return this.selection.selected.reduce((acc, grp) => acc &&
+        this.authResolver.isAuthorized('removeMember_Member_List<Group>_policy', [grp]), true);
     }
   }
 
