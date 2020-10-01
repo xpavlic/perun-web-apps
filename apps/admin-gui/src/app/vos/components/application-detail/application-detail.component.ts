@@ -13,6 +13,7 @@ import {
   RegistrarManagerService
 } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { EditApplicationFormItemDataDialogComponent } from '../../../shared/components/dialogs/edit-application-form-item-data-dialog/edit-application-form-item-data-dialog.component';
 
 @Component({
   selector: 'app-application-detail',
@@ -52,11 +53,11 @@ export class ApplicationDetailComponent implements OnInit {
     this.route.params.subscribe(parentParams => {
 
       if (parentParams['groupId']) {
-        this.dialogTheme = 'group-theme'
+        this.dialogTheme = 'group-theme';
       } else if (parentParams['memberId']) {
-        this.dialogTheme = 'member-theme'
+        this.dialogTheme = 'member-theme';
       } else {
-        this.dialogTheme = 'vo-theme'
+        this.dialogTheme = 'vo-theme';
       }
       const applicationId = parentParams['applicationId'];
       this.registrarManager.getApplicationById(applicationId).subscribe(application => {
@@ -169,6 +170,18 @@ export class ApplicationDetailComponent implements OnInit {
         this.loading = false;
       });
     });
+  }
+
+  editApplicationData(data: ApplicationFormItemData) {
+    const config = getDefaultDialogConfig();
+    config.width = '600px';
+    config.data = {
+      theme: this.dialogTheme,
+      applicationId: this.application.id,
+      formItemData: data
+    };
+
+    this.dialog.open(EditApplicationFormItemDataDialogComponent, config);
   }
 
 }

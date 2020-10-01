@@ -92,7 +92,15 @@
       </ng-container>
       <ng-container matColumnDef="value">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td class="word-break-all" mat-cell *matCellDef="let userData"> {{userData.value}} </td>
+        <td class="word-break-all" mat-cell *matCellDef="let userData"> {{userData.value}}
+          <button
+            *ngIf="!userData.formItem.type.startsWith('FROM_FEDERATION') &&
+            (application.state === 'NEW' || application.state === 'VERIFIED')"
+            mat-icon-button
+            aria-label="Edit Application data"
+            (click)="editApplicationData(userData)">
+          <mat-icon>edit</mat-icon>
+        </button></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="h-50"></tr>
