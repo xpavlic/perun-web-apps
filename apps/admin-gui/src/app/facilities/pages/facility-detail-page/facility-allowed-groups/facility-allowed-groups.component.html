@@ -10,6 +10,10 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <perun-web-apps-immediate-filter
+    [placeholder]="'FACILITY_DETAIL.ALLOWED_GROUPS.FILTER'"
+    (filter)="applyFilter($event)">
+  </perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-groups-list
     (page)="pageChanged($event)"
@@ -18,6 +22,7 @@
     [hideColumns]="['select', 'menu']"
     [groups] = "groupsToShow"
     [groupsToDisable]="groupsWithoutRouteAuth"
+    [filter]="filterValue"
     [disableMembers]="false">
   </perun-web-apps-groups-list>
 
