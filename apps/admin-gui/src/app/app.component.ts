@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
   }
 
   getContentInnerMinHeight() {
-    // 64 for nav (+48) when alert is shown
+    // 64 for nav (+48) when error is shown
     // 210 for footer, 510 for footer on mobile
 
     let footerSpace = this.isMobile() ? '510' : '210';

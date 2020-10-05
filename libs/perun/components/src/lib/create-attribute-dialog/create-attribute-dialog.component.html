@@ -8,32 +8,32 @@
     </app-error>
   </div>
   <div mat-dialog-content>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+    <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
     <perun-web-apps-attributes-list
-      #list
       (page)="pageChanged($event)"
-      *ngIf="attributes !== undefined && !loading"
-      [attributes]="attributes"
-      [filterValue]="filterValue"
-      [inDialog]="true"
       [pageSize]="pageSize"
-      [selection]="selected">
+      *ngIf="attributes !== undefined && !loading"
+      #list
+      [filterValue]="filterValue"
+      [attributes]="attributes"
+      [selection]="selected"
+      [inDialog]="true">
     </perun-web-apps-attributes-list>
   </div>
   <div mat-dialog-actions>
     <button
-      (click)="onCancel()"
+      mat-flat-button
       class="ml-auto"
-      mat-flat-button>
+      (click)="onCancel()">
       {{'DIALOGS.CREATE_ATTRIBUTE.CANCEL' | translate}}
     </button>
 
     <button
-      (click)="onSave()"
-      [disabled]="selected.selected.length === 0"
+      mat-flat-button
       class="ml-2"
       color="accent"
-      mat-flat-button>
+      (click)="onSave()"
+      [disabled]="selected.selected.length === 0">
       {{'DIALOGS.CREATE_ATTRIBUTE.SAVE' | translate}}
     </button>
   </div>

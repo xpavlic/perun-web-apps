@@ -86,14 +86,10 @@
 
 <mat-spinner *ngIf="exporting" class="ml-auto mr-auto"></mat-spinner>
 
-<app-alert
-  *ngIf="members.length !== 0 && dataSource.filteredData.length === 0"
-  [color]="'warn'">
+<app-alert *ngIf="members.length !== 0 && dataSource.filteredData.length === 0">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 
-<app-alert
-  *ngIf="members.length === 0"
-  [color]="'warn'">
+<app-alert *ngIf="members.length === 0">
   {{'SHARED_LIB.UI.ALERTS.NO_MEMBERS' | translate}}
 </app-alert>

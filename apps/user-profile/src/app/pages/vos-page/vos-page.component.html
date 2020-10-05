@@ -13,15 +13,17 @@
                                       [hideColumns]="['checkbox','description']"
                                       (extendMembership)="extendMembership($event)"></perun-web-apps-membership-list>
     </div>
-    <app-alert color="warn"
-               *ngIf="userMemberships.length === 0">{{'ORGANIZATIONS.NO_VOS_ALERT' | customTranslate | translate}}</app-alert>
+    <app-alert *ngIf="userMemberships.length === 0">
+      {{'ORGANIZATIONS.NO_VOS_ALERT' | customTranslate | translate}}
+    </app-alert>
 
   </div>
 
   <div *ngIf="!loading" class="mt-5">
     <h1 class="page-subtitle">{{'ORGANIZATIONS.IS_ADMIN' | customTranslate | translate}}</h1>
-    <app-alert *ngIf="!adminMemberships.length"
-               color="warn">{{'ORGANIZATIONS.NO_VOS_ALERT' | customTranslate | translate}}</app-alert>
+    <app-alert *ngIf="!adminMemberships.length">
+      {{'ORGANIZATIONS.NO_VOS_ALERT' | customTranslate | translate}}
+    </app-alert>
     <perun-web-apps-membership-list [members]="adminMemberships"
                                     *ngIf="adminMemberships.length"
                                     [filterValue]="filterValue"
