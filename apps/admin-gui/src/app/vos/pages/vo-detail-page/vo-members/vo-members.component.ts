@@ -7,7 +7,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
-import { MembersService } from '@perun-web-apps/perun/services';
 import { MembersManagerService, RichMember, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl } from '@angular/forms';
@@ -28,7 +27,6 @@ export class VoMembersComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(
-    private membersService: MembersService,
     private memberMethodService: MembersManagerService, //TODO change the name when the openapi MembersService will be implemented
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
@@ -113,7 +111,7 @@ export class VoMembersComponent implements OnInit {
 
     this.selection.clear();
 
-    this.membersService.findCompleteRichMembers(this.vo.id, this.searchString, this.attrNames, this.selectedStatuses).subscribe(
+    this.memberMethodService.findCompleteRichMembers(this.vo.id, this.searchString, this.attrNames, this.selectedStatuses).subscribe(
       members => {
         this.members = members;
         this.setAuthRights();
@@ -128,7 +126,7 @@ export class VoMembersComponent implements OnInit {
     this.firstSearchDone = true;
 
     this.selection.clear();
-    this.membersService.getCompleteRichMembers(this.vo.id, this.attrNames, this.selectedStatuses).subscribe(
+    this.memberMethodService.getCompleteRichMembers(this.vo.id, this.attrNames, this.selectedStatuses).subscribe(
       members => {
         this.members = members;
         this.setAuthRights();

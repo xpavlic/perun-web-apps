@@ -3,7 +3,7 @@ import {SideMenuService} from '../../../../../core/services/common/side-menu.ser
 import {ActivatedRoute, Router} from '@angular/router';
 import {MenuItem} from '@perun-web-apps/perun/models';
 import { GuiAuthResolver, MembersService } from '@perun-web-apps/perun/services';
-import { Member, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { Member, MembersManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-member-settings-overview',
@@ -17,7 +17,7 @@ export class MemberSettingsOverviewComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
-    private memberService: MembersService,
+    private memberService: MembersManagerService,
     protected route: ActivatedRoute,
     private authResolver: GuiAuthResolver
   ) {

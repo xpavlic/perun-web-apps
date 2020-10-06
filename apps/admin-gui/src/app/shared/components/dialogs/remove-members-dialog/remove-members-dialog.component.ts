@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import {NotificatorService} from '@perun-web-apps/perun/services';
 import {TranslateService} from '@ngx-translate/core';
-import { GroupsManagerService, RichMember } from '@perun-web-apps/perun/openapi';
+import { GroupsManagerService, MembersManagerService, RichMember } from '@perun-web-apps/perun/openapi';
 import { MembersService } from '@perun-web-apps/perun/services';
 
 export interface RemoveMembersDialogData {
@@ -21,7 +21,7 @@ export class RemoveMembersDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<RemoveMembersDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveMembersDialogData,
-    private membersService: MembersService,
+    private membersService: MembersManagerService,
     private groupService: GroupsManagerService,
     private notificator: NotificatorService,
     private translate: TranslateService

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { RichMember } from '@perun-web-apps/perun/openapi';
+import { MembersManagerService, RichMember } from '@perun-web-apps/perun/openapi';
 import { MembersService } from '@perun-web-apps/perun/services';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,7 +19,7 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ChangeMemberStatusDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: ChangeMemberStatusDialogData,
-              private memberService: MembersService,
+              private memberService: MembersManagerService,
               private notificatorService: NotificatorService,
               private translate: TranslateService,
               private route: ActivatedRoute) { }

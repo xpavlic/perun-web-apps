@@ -1,6 +1,12 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { MembersService, StoreService } from '@perun-web-apps/perun/services';
-import { Group, GroupsManagerService, UsersManagerService, Vo } from '@perun-web-apps/perun/openapi';
+import {
+  Group,
+  GroupsManagerService,
+  MembersManagerService,
+  UsersManagerService,
+  Vo
+} from '@perun-web-apps/perun/openapi';
 import {
   TABLE_USER_DETAIL_ADMIN_GROUPS,
   TABLE_USER_DETAIL_MEMBER_GROUPS,
@@ -32,7 +38,7 @@ export class UserGroupsComponent implements OnInit {
   showPrincipal: boolean;
 
   constructor(private usersService: UsersManagerService,
-              private memberService: MembersService,
+              private memberService: MembersManagerService,
               private tableConfigService: TableConfigService,
               private groupService: GroupsManagerService,
               private store: StoreService,

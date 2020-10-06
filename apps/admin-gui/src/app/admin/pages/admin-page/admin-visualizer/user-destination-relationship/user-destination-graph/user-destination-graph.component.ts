@@ -18,7 +18,7 @@ import {
   UsersManagerService,
   VosManagerService,
   ServicesManagerService,
-  User
+  User, MembersManagerService
 } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -33,7 +33,7 @@ export class UserDestinationGraphComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private facilityManager: FacilitiesManagerService,
               private userService: UsersManagerService,
-              private memberService: MembersService,
+              private memberService: MembersManagerService,
               private serviceService: ServicesManagerService,
               private resourceManager: ResourcesManagerService,
               private groupService: GroupsManagerService,

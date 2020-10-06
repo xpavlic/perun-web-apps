@@ -39,7 +39,6 @@ export class AddMemberDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AddMemberDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddMemberDialogData,
-    private memberService: MembersService,
     private membersManagerService: MembersManagerService,
     private groupService: GroupsManagerService,
     private voService: VosManagerService,
@@ -164,7 +163,7 @@ export class AddMemberDialogComponent implements OnInit {
   }
 
   private addUserToVo(selectedMemberCandidate: MemberCandidate) {
-    this.memberService.createMember(this.data.entityId, selectedMemberCandidate.richUser.id).subscribe(member => {
+    this.membersManagerService.createMember(this.data.entityId, selectedMemberCandidate.richUser.id).subscribe(member => {
       this.onAddSuccess();
       this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
         this.onValidateSuccess();
@@ -173,7 +172,7 @@ export class AddMemberDialogComponent implements OnInit {
   }
 
   private addCandidateToVo(selectedMemberCandidate: MemberCandidate) {
-    this.memberService.createMemberForCandidate(
+    this.membersManagerService.createMemberForCandidate(
       this.data.entityId, selectedMemberCandidate.candidate).subscribe(member => {
       this.onAddSuccess();
       this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
@@ -189,7 +188,7 @@ export class AddMemberDialogComponent implements OnInit {
       name: this.data.group.name,
       voId: this.data.group.voId
     }
-    this.memberService.createMemberWithGroups(
+    this.membersManagerService.createMemberWithGroups(
       this.data.voId, selectedMemberCandidate.richUser.id, [group]).subscribe(member => {
       this.onAddSuccess();
       this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {
@@ -211,7 +210,7 @@ export class AddMemberDialogComponent implements OnInit {
       name: this.data.group.name,
       voId: this.data.group.voId
     }
-    this.memberService.createMemberForCandidateWithGroups(
+    this.membersManagerService.createMemberForCandidateWithGroups(
       this.data.voId, selectedMemberCandidate.candidate, [group]).subscribe(member => {
       this.onAddSuccess();
       this.membersManagerService.validateMemberAsync(member.id).subscribe(() => {

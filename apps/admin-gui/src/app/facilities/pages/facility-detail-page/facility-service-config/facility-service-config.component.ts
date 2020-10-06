@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {
   FacilitiesManagerService,
   Facility,
-  Group,
+  Group, MembersManagerService,
   Resource,
   ResourcesManagerService, RichMember, Service, ServicesManagerService, Vo
 } from '@perun-web-apps/perun/openapi';
@@ -29,7 +29,7 @@ export class FacilityServiceConfigComponent implements OnInit {
     private facilityManager: FacilitiesManagerService,
     private resourceManager: ResourcesManagerService,
     private serviceManager: ServicesManagerService,
-    private membersManager: MembersService,
+    private membersManager: MembersManagerService,
     private namePipe: UserFullNamePipe,
     private translate: TranslateService
   ) {

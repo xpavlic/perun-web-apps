@@ -6,7 +6,7 @@ import { Urns } from '@perun-web-apps/perun/urns';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
-import { GroupsManagerService, RichGroup, RichMember } from '@perun-web-apps/perun/openapi';
+import { GroupsManagerService, MembersManagerService, RichGroup, RichMember } from '@perun-web-apps/perun/openapi';
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_GROUP_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -25,7 +25,7 @@ export class GroupMembersComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(
-    private membersService: MembersService,
+    private membersService: MembersManagerService,
     private groupService: GroupsManagerService,
     protected route: ActivatedRoute,
     protected router: Router,
