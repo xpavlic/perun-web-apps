@@ -43,7 +43,6 @@ import { ApplicationStatePipe } from './pipes/application-state.pipe';
 import { NotificatorComponent } from './components/notificator/notificator.component';
 import { AttributeTypeCleanPipe } from './pipes/attribute-type-clean.pipe';
 import { NameSpaceToDefPipe } from './pipes/name-space-to-def.pipe';
-import {UsersListComponent} from './components/users-list/users-list.component';
 import { ApplicationReSendNotificationDialogComponent
 } from './components/dialogs/application-re-send-notification-dialog/application-re-send-notification-dialog.component';
 import { ApplicationRejectDialogComponent } from './components/dialogs/application-reject-dialog/application-reject-dialog.component';
@@ -104,16 +103,6 @@ import { AnimatedRouterOutletComponent } from './components/animated-router-outl
 import { UserEmailPipe } from './pipes/user-email.pipe';
 import { ResourcesTagsListComponent } from './components/resources-tags-list/resources-tags-list.component';
 import { DebounceFilterComponent } from './components/debounce-filter/debounce-filter.component';
-import { UserDetailPageComponent } from './components/user-detail-page/user-detail-page.component';
-import {UserOverviewComponent} from './components/user-detail-page/user-overview/user-overview.component';
-import {UserGroupsComponent} from './components/user-detail-page/user-groups/user-groups.component';
-import {UserSettingsComponent} from './components/user-detail-page/user-settings/user-settings.component';
-import {UserOrganizationsComponent} from './components/user-detail-page/user-organizations/user-organizations.component';
-import {UserAttributesComponent} from './components/user-detail-page/user-attributes/user-attributes.component';
-import {
-  UserSettingsOverviewComponent
-} from './components/user-detail-page/user-settings/user-settings-overview/user-settings-overview.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
 // tslint:disable-next-line:max-line-length
 import { DeleteAttributeDefinitionDialogComponent } from './components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
 // tslint:disable-next-line:max-line-length
@@ -138,26 +127,20 @@ import { CreateResourceDialogComponent } from './components/dialogs/create-resou
 import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
 // @ts-ignore
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
-import { UserRolesComponent } from './components/user-detail-page/user-settings/user-roles/user-roles.component';
-import { UserSettingsAppConfigurationComponent } from './components/user-detail-page/user-settings/user-settings-app-configuration/user-settings-app-configuration.component';
 import { ConfigTableConfigModule } from '@perun-web-apps/config/table-config';
-import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
+import { MemberStatusTooltipPipe, PerunPipesModule } from '@perun-web-apps/perun/pipes';
 import { RemoveDestinationDialogComponent } from './components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
 import { DestinationListComponent } from './components/destination-list/destination-list.component';
 import { AddServicesDestinationDialogComponent } from './components/dialogs/add-services-destination-dialog/add-services-destination-dialog.component';
 import { AddGroupResourceDialogComponent } from './components/dialogs/add-group-resource-dialog/add-group-resource-dialog.component';
 import { RemoveGroupResourceDialogComponent } from './components/dialogs/remove-group-resource-dialog/remove-group-resource-dialog.component';
 import { TwoEntityAttributePageComponent } from './components/two-entity-attribute-page/two-entity-attribute-page.component';
-import { UserSettingsFacilityAttributesComponent } from './components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
 import { UserLoginsPipe } from './pipes/user-logins.pipe';
 import { AttributeImportDialogComponent } from './components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
 import { FacilitySelectTableComponent } from './components/facility-select-table/facility-select-table.component';
-import { UserDashboardComponent } from './components/user-detail-page/user-dashboard/user-dashboard.component';
 import { HostsListComponent } from './components/hosts-list/hosts-list.component';
-import { UserSettingsServiceIdentitiesComponent } from './components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
 import { BlacklistListComponent } from './components/blacklist-list/blacklist-list.component';
 import { SecurityTeamsListComponent } from './components/security-teams-list/security-teams-list.component';
-import { UserIdentitiesComponent } from './components/user-detail-page/user-identities/user-identities.component';
 import { AddUserExtSourceDialogComponent } from './components/dialogs/add-user-ext-source-dialog/add-user-ext-source-dialog.component';
 import { AddHostDialogComponent } from './components/dialogs/add-host-dialog/add-host-dialog.component';
 import { RemoveHostDialogComponent } from './components/dialogs/remove-host-dialog/remove-host-dialog.component';
@@ -167,7 +150,6 @@ import { RemoveFacilityOwnerDialogComponent } from './components/dialogs/remove-
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CreateEditServiceDialogComponent } from './components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
 import { DeleteServiceDialogComponent } from './components/dialogs/delete-service-dialog/delete-service-dialog.component';
-import { UserResourcesComponent } from './components/user-detail-page/user-resources/user-resources.component';
 import { AddMemberToResourceDialogComponent } from './components/dialogs/add-member-to-resource-dialog/add-member-to-resource-dialog.component';
 import { CreateFacilityDialogComponent } from './components/dialogs/create-facility-dialog/create-facility-dialog.component';
 import { DeleteFacilityDialogComponent } from './components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
@@ -182,11 +164,12 @@ import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.co
 import { TransformMemberStatusPipe } from './pipes/transform-member-status.pipe';
 import { ConnectIdentity } from './components/dialogs/connect-identity/connect-identity';
 import { DisconnectIdentity } from './components/dialogs/disconnect-identity/disconnect-identity';
-import { UserSettingsAssociatedUsersComponent } from './components/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-task-result-dialog/delete-task-result-dialog.component';
 import { EditApplicationFormItemDataDialogComponent } from './components/dialogs/edit-application-form-item-data-dialog/edit-application-form-item-data-dialog.component';
+import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 
 @NgModule({
   imports: [
@@ -283,7 +266,6 @@ import { EditApplicationFormItemDataDialogComponent } from './components/dialogs
     AddManagerDialogComponent,
     AddGroupManagerDialogComponent,
     RemoveGroupManagerDialogComponent,
-    UsersListComponent,
     AnyToStringPipe,
     AddMemberDialogComponent,
     MembersCandidatesListComponent,
@@ -300,7 +282,6 @@ import { EditApplicationFormItemDataDialogComponent } from './components/dialogs
     AnimatedRouterOutletComponent,
     ResourcesTagsListComponent,
     DebounceFilterComponent,
-    UserDetailPageComponent,
     PerunFooterComponent,
     CreateResourceDialogComponent,
     ExtSourcesListComponent,
@@ -317,6 +298,10 @@ import { EditApplicationFormItemDataDialogComponent } from './components/dialogs
     ServicesListComponent,
     AttrDefListComponent,
     TransformMemberStatusPipe,
+    MemberStatusTooltipPipe,
+    UserLoginsPipe,
+    UserEmailPipe,
+    UsersListComponent,
   ],
   declarations: [
     PerunNavComponent,
@@ -330,7 +315,6 @@ import { EditApplicationFormItemDataDialogComponent } from './components/dialogs
     NotificatorComponent,
     AttributeTypeCleanPipe,
     NameSpaceToDefPipe,
-    UsersListComponent,
     ApplicationReSendNotificationDialogComponent,
     ApplicationRejectDialogComponent,
     RemoveMembersDialogComponent,
@@ -369,15 +353,7 @@ import { EditApplicationFormItemDataDialogComponent } from './components/dialogs
     AnimatedRouterOutletComponent,
     UserEmailPipe,
     ResourcesTagsListComponent,
-    UserDetailPageComponent,
-    UserOverviewComponent,
-    UserGroupsComponent,
-    UserSettingsComponent,
-    UserOrganizationsComponent,
-    UserAttributesComponent,
-    UserSettingsOverviewComponent,
     DebounceFilterComponent,
-    UserProfileComponent,
     DeleteAttributeDefinitionDialogComponent,
     CreateAttributeDefinitionDialogComponent,
     PerunFooterComponent,
@@ -396,24 +372,18 @@ import { EditApplicationFormItemDataDialogComponent } from './components/dialogs
     ExtSourcesListComponent,
     AddExtSourceDialogComponent,
     ExtSourceTypePipe,
-    UserRolesComponent,
-    UserSettingsAppConfigurationComponent,
     RemoveDestinationDialogComponent,
     DestinationListComponent,
     AddServicesDestinationDialogComponent,
     AddGroupResourceDialogComponent,
     RemoveGroupResourceDialogComponent,
     TwoEntityAttributePageComponent,
-    UserSettingsFacilityAttributesComponent,
     UserLoginsPipe,
     AttributeImportDialogComponent,
     FacilitySelectTableComponent,
-    UserDashboardComponent,
-    UserSettingsServiceIdentitiesComponent,
     HostsListComponent,
     BlacklistListComponent,
     SecurityTeamsListComponent,
-    UserIdentitiesComponent,
     AddUserExtSourceDialogComponent,
     AddHostDialogComponent,
     RemoveHostDialogComponent,
@@ -423,7 +393,6 @@ import { EditApplicationFormItemDataDialogComponent } from './components/dialogs
     NotFoundPageComponent,
     CreateEditServiceDialogComponent,
     DeleteServiceDialogComponent,
-    UserResourcesComponent,
     AddMemberToResourceDialogComponent,
     CreateFacilityDialogComponent,
     DeleteFacilityDialogComponent,
@@ -439,10 +408,11 @@ import { EditApplicationFormItemDataDialogComponent } from './components/dialogs
     IdentityDetailComponent,
     ConnectIdentity,
     DisconnectIdentity,
-    UserSettingsAssociatedUsersComponent,
     EditUserDialogComponent,
     DeleteTaskResultDialogComponent,
-    EditApplicationFormItemDataDialogComponent
+    EditApplicationFormItemDataDialogComponent,
+    CreateServiceDialogComponent,
+    UsersListComponent,
   ],
   providers: [
     AnyToStringPipe,

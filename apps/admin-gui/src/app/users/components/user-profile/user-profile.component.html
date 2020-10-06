@@ -1,0 +1,27 @@
+<div *ngIf="user !== undefined" class="container-fluid pl-xl-5 pr-xl-5 user-theme">
+  <perun-web-apps-back-button>
+  </perun-web-apps-back-button>
+  <div class="d-flex page-title-headtitle">
+    <mat-icon
+      matTooltip="{{'MENU_ITEMS.USER.ENTITY' | translate}}"
+      [ngStyle]="{'color':'black'}"
+      svgIcon='perun-user-dark'
+      class="perun-icon perun-icon-detail">
+    </mat-icon>
+    <div class="page-title-block">
+      <div class="page-title-headline d-flex align-items-center">
+        <a [routerLink]="['/myProfile']" class="user-link">
+          {{user | userFullName}}
+        </a>
+        <span class="text-muted">
+          &nbsp;#{{user.id}}
+        </span>
+      </div>
+      <span class="text-muted mt-1 entity-info">
+        {{'MENU_ITEMS.USER.ENTITY' | translate}},
+        {{'MENU_ITEMS.USER.USER_TYPE' | translate}}: {{getUserType()}}
+      </span>
+    </div>
+  </div>
+  <app-animated-router-outlet></app-animated-router-outlet>
+</div>

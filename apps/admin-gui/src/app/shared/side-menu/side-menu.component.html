@@ -2,11 +2,10 @@
 <div class="accordion entity-menu-accordion" id="sideMenuAccordion">
   <app-side-menu-root-item
     [sideNav]="sideNav"
-    [showOpen]="userItemOpened"
-    [item]="userItem">
+    [item]="homeItem">
   </app-side-menu-root-item>
   <div
-    *ngFor="let item of userItems; let i = index"
+    *ngFor="let item of homeItems; let i = index"
     @rollInOut
     class="overflow-hidden">
     <app-side-menu-item
@@ -51,7 +50,23 @@
         [showLinks]="i === facilityItems.length - 1">
       </app-side-menu-item>
     </div>
+  </div>
 
+  <app-side-menu-root-item
+    [sideNav]="sideNav"
+    [showOpen]="userItemOpened"
+    [item]="userItem">
+  </app-side-menu-root-item>
+  <div
+    *ngFor="let item of userItems; let i = index"
+    @rollInOut
+    class="overflow-hidden">
+    <app-side-menu-item
+      [sideNav]="sideNav"
+      [item]="item"
+      [index]="i"
+      [showLinks]="i === userItems.length - 1">
+    </app-side-menu-item>
   </div>
   <app-side-menu-root-item
     [sideNav]="sideNav"

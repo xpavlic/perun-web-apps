@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   Attribute,
@@ -19,7 +19,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
   templateUrl: './two-entity-attribute-page.component.html',
   styleUrls: ['./two-entity-attribute-page.component.scss']
 })
-export class TwoEntityAttributePageComponent implements OnChanges {
+export class TwoEntityAttributePageComponent implements OnInit, OnChanges {
 
   constructor(protected route: ActivatedRoute,
               private attributesManagerService: AttributesManagerService,
@@ -53,6 +53,18 @@ export class TwoEntityAttributePageComponent implements OnChanges {
 
   loading: boolean;
   innerLoading: boolean;
+
+  filterMessage: string;
+  noEntityMessage: string;
+  noFilteredEntityMessage: string;
+
+  ngOnInit(): void {
+    if (this.firstEntity === 'member') {
+      this.setMessages(this.secondEntity.toUpperCase());
+    } else if (this.firstEntity === 'group') {
+      this.setMessages('RESOURCE');
+    } else (this.setMessages(this.firstEntity.toUpperCase()));
+  }
 
   ngOnChanges(): void {
     this.filteredEntityValues = this.entityValues;
@@ -89,7 +101,12 @@ export class TwoEntityAttributePageComponent implements OnChanges {
         });
         break;
     }
+  }
 
+  setMessages(entity: string) {
+    this.filterMessage = `MEMBER_DETAIL.SETTINGS.${entity}_PAGE.FILTER`
+    this.noEntityMessage = `MEMBER_DETAIL.SETTINGS.${entity}_PAGE.NO_ENTITY_MESSAGE`
+    this.noFilteredEntityMessage = `MEMBER_DETAIL.SETTINGS.${entity}_PAGE.NO_FILTERED_ENTITY_MESSAGE`
   }
 
   applyFilter(filterValue: string) {
@@ -164,5 +181,4 @@ export class TwoEntityAttributePageComponent implements OnChanges {
       }
     });
   }
-
 }

@@ -16,26 +16,26 @@ import {
 } from './pages/admin-page/admin-visualizer/user-destination-relationship/user-destination-graph/user-destination-graph.component';
 import {AdminUsersComponent} from './pages/admin-page/admin-users/admin-users.component';
 import {AdminUserDetailPageComponent} from './pages/admin-user-detail-page/admin-user-detail-page.component';
-import {UserOverviewComponent} from '../shared/components/user-detail-page/user-overview/user-overview.component';
-import {UserOrganizationsComponent} from '../shared/components/user-detail-page/user-organizations/user-organizations.component';
-import {UserGroupsComponent} from '../shared/components/user-detail-page/user-groups/user-groups.component';
-import {UserSettingsComponent} from '../shared/components/user-detail-page/user-settings/user-settings.component';
-import {UserAttributesComponent} from '../shared/components/user-detail-page/user-attributes/user-attributes.component';
+import {UserOverviewComponent} from '../users/pages/user-detail-page/user-overview/user-overview.component';
+import {UserOrganizationsComponent} from '../users/pages/user-detail-page/user-organizations/user-organizations.component';
+import {UserGroupsComponent} from '../users/pages/user-detail-page/user-groups/user-groups.component';
+import {UserSettingsComponent} from '../users/pages/user-detail-page/user-settings/user-settings.component';
+import {UserAttributesComponent} from '../users/pages/user-detail-page/user-attributes/user-attributes.component';
 import {
   UserSettingsOverviewComponent
-} from '../shared/components/user-detail-page/user-settings/user-settings-overview/user-settings-overview.component';
+} from '../users/pages/user-detail-page/user-settings/user-settings-overview/user-settings-overview.component';
 import { AdminExtSourcesComponent } from './pages/admin-page/admin-ext-sources/admin-ext-sources.component';
-import { UserRolesComponent } from '../shared/components/user-detail-page/user-settings/user-roles/user-roles.component';
-import { UserSettingsFacilityAttributesComponent } from '../shared/components/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
-import { UserSettingsServiceIdentitiesComponent } from '../shared/components/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
-import { UserIdentitiesComponent } from '../shared/components/user-detail-page/user-identities/user-identities.component';
+import { UserRolesComponent } from '../users/pages/user-detail-page/user-settings/user-roles/user-roles.component';
+import { UserSettingsFacilityAttributesComponent } from '../users/pages/user-detail-page/user-settings/user-settings-facility-attributes/user-settings-facility-attributes.component';
+import { UserSettingsServiceIdentitiesComponent } from '../users/pages/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
+import { UserIdentitiesComponent } from '../users/pages/user-detail-page/user-identities/user-identities.component';
 import { AdminServicesComponent } from './pages/admin-page/admin-services/admin-services.component';
-import { UserResourcesComponent } from '../shared/components/user-detail-page/user-resources/user-resources.component';
+import { UserResourcesComponent } from '../users/pages/user-detail-page/user-resources/user-resources.component';
 import { IdentityDetailComponent } from '../shared/components/identity-detail/identity-detail.component';
 import { ServiceDetailPageComponent } from './pages/admin-page/admin-services/service-detail-page/service-detail-page.component';
 import { ServiceOverviewComponent } from './pages/admin-page/admin-services/service-detail-page/service-overview/service-overview.component';
 import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-services/service-detail-page/service-required-attributes/service-required-attributes.component';
-import { UserSettingsAssociatedUsersComponent } from '../shared/components/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
+import { UserSettingsAssociatedUsersComponent } from '../users/pages/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 
 const routes: Routes = [
   {

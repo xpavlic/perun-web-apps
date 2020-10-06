@@ -13,6 +13,11 @@ export class SideMenuService {
   @Output() adminItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();
   @Output() userItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();
   @Output() resetChange: EventEmitter<void> = new EventEmitter();
+  @Output() homeItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();
+
+  setHomeItems(items: SideMenuItem[]): void {
+    this.homeItemsChange.emit(items);
+  }
 
   setAccessMenuItems(items: SideMenuItem[]): void {
     this.accessItemsChange.emit(items);

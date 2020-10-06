@@ -44,6 +44,7 @@ import { ResourceAssignedServicesComponent } from './pages/resource-detail-page/
 import { FacilityAllowedUsersComponent } from './pages/facility-detail-page/facility-allowed-users/facility-allowed-users.component';
 import { ResourceAssignedMembersComponent } from './pages/resource-detail-page/resource-assigned-members/resource-assigned-members.component';
 import { FacilityTaskResultsComponent } from './pages/facility-detail-page/facility-service-status/facility-task-results/facility-task-results.component';
+import { UsersModule } from '../users/users.module';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { FacilityTaskResultsComponent } from './pages/facility-detail-page/facil
     UiAlertsModule,
     PerunSharedComponentsModule,
     PerunFacilityServicesConfigModule,
-    PerunPipesModule
+    PerunPipesModule,
+    UsersModule
   ],
   providers: [
     UserFullNamePipe
