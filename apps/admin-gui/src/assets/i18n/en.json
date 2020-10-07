@@ -1858,8 +1858,9 @@
           "TABLE_SEARCH": "Filter by name, description or ID",
           "TABLE_GROUP_DESCRIPTION": "Description",
           "DISABLED_HINT": "You cannot add members to this group or user is already member.",
-          "ALREADY_MEMBER_TOOLTIP": "Already member",
-          "CREATE_RELATION_AUTH_TOOLTIP": "You don't have permission to create relation with this group."
+          "ALREADY_MEMBER_TOOLTIP": "User is already member of group",
+          "CREATE_RELATION_AUTH_TOOLTIP": "You don't have permission to create relation with this group.",
+          "SYNCHRONIZED_GROUP": "Group is filled with members from external source"
         },
         "GROUP_MENU": {
           "MOVE": "Move group",

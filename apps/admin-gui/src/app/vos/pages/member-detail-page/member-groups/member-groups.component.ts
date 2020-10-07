@@ -104,6 +104,7 @@ export class MemberGroupsComponent implements OnInit {
     config.width = "850px";
     config.data = {
       memberId: this.memberId,
+      membersGroups: new Set<number>(this.groups.map(grp => grp.id)),
       theme: "member-theme"
     };
 
