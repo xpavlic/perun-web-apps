@@ -28,7 +28,7 @@ export class ApiInterceptor implements HttpInterceptor {
         setHeaders: {
           'Cache-control': 'no-cache, must-revalidate'
         }
-      })
+      });
     }
     if (apiUrl !== undefined && req.url.toString().indexOf(apiUrl) !== -1 && !this.store.skipOidc() && !this.authService.isLoggedIn()) {
       const err: RPCError = {
@@ -49,7 +49,14 @@ export class ApiInterceptor implements HttpInterceptor {
 
     // Also handle errors globally
     return next.handle(req).pipe(
-      tap(x => x, err => {
+      tap(x => {
+        // reset error handling only on API response
+        if (x.type !== 0){
+          this.apiRequestConfiguration.shouldHandleError();
+        }
+
+        return x;
+        }, err => {
         // Handle this err
         const errRpc = this.formatErrors(err, req);
         if (errRpc === undefined) {
