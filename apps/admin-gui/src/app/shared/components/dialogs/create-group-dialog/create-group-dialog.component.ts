@@ -22,10 +22,13 @@ export class CreateGroupDialogComponent implements OnInit{
   theme: string;
 
   isNotSubGroup: boolean;
+  asSubgroup = false;
   invalidNameMessage = this.store.get('groupNameErrorMessage');
   secondaryRegex = this.store.get('groupNameSecondaryRegex');
   nameControl: FormControl;
   descriptionControl: FormControl;
+  selectedParent: Group;
+  voGroups: Group[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<CreateGroupDialogComponent>,
@@ -56,7 +59,8 @@ export class CreateGroupDialogComponent implements OnInit{
     this.theme = this.data.theme;
     this.invalidNameMessage = this.invalidNameMessage && this.secondaryRegex ? this.invalidNameMessage : '';
     this.nameControl = new FormControl('', [Validators.required, Validators.pattern(this.secondaryRegex ? this.secondaryRegex : ''), Validators.pattern('.*[\\S]+.*')]);
-    this.descriptionControl = new FormControl('', [Validators.required]);
+    this.descriptionControl = new FormControl('', [Validators.required, Validators.maxLength(129)]);
+    this.selectedParent = null;
   }
 
   onCancel(): void {
@@ -65,19 +69,26 @@ export class CreateGroupDialogComponent implements OnInit{
 
   onSubmit(): void {
     this.loading = true;
-    if (this.isNotSubGroup) {
+    if (this.isNotSubGroup && !this.asSubgroup) {
       this.groupService.createGroupWithVoNameDescription(this.data.voId, this.nameControl.value, this.descriptionControl.value).subscribe(() => {
         this.notificator.showSuccess(this.successMessage);
         this.loading = false;
         this.dialogRef.close(true);
       }, () => this.loading = false);
     } else {
-      this.groupService.createGroupWithParentGroupNameDescription(this.data.parentGroup.id, this.nameControl.value, this.descriptionControl.value).subscribe(() => {
+      const parentGroupId = this.asSubgroup ? this.selectedParent.id : this.data.parentGroup.id;
+      this.groupService.createGroupWithParentGroupNameDescription(parentGroupId, this.nameControl.value, this.descriptionControl.value).subscribe(() => {
         this.notificator.showSuccess(this.successSubGroupMessage);
         this.loading = false;
         this.dialogRef.close(true);
       }, () => this.loading = false);
     }
+  }
+
+  loadVoGroups(){
+    this.groupService.getAllGroups(this.data.voId).subscribe(groups => {
+      this.voGroups = groups.filter(grp => grp.name !== 'members');
+    });
   }
 }
 

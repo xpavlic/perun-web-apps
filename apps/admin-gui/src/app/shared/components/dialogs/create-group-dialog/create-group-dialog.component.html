@@ -24,9 +24,22 @@
             required></textarea>
         </label>
         <mat-error>
-          {{'DIALOGS.CREATE_GROUP.FILL_VALUE' | translate}}
+          {{'DIALOGS.CREATE_GROUP.INVALID_DESCRIPTION' | translate}}
         </mat-error>
       </mat-form-field>
+      <mat-checkbox
+        *ngIf="isNotSubGroup"
+        [labelPosition]="'before'"
+        (click)="loadVoGroups()"
+        [(ngModel)]="asSubgroup" >
+        {{'DIALOGS.CREATE_GROUP.AS_SUBGROUP' | translate}}
+      </mat-checkbox>
+      <perun-web-apps-group-search-select
+        *ngIf="asSubgroup"
+        class="long-input"
+        [groups]="voGroups"
+        (groupSelected)="selectedParent = $event">
+      </perun-web-apps-group-search-select>
 
     </div>
     <div mat-dialog-actions>
@@ -38,7 +51,7 @@
       </button>
       <button
         (click)="onSubmit()"
-        [disabled]="nameControl.invalid || descriptionControl.invalid || loading"
+        [disabled]="nameControl.invalid || descriptionControl.invalid || (asSubgroup && selectedParent === null) || loading"
         class="ml-2"
         color="accent"
         mat-flat-button>

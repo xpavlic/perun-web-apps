@@ -72,6 +72,7 @@ import { MembersListComponent } from './members-list/members-list.component';
 import { ChangeMemberStatusDialogComponent } from './change-member-status-dialog/change-member-status-dialog.component';
 import { EditFacilityResourceGroupVoDialogComponent } from './edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
 import { TaskResultsListComponent } from './task-results-list/task-results-list.component';
+import { GroupSearchSelectComponent } from './group-search-select/group-search-select.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -174,7 +175,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MembersListComponent,
     ChangeMemberStatusDialogComponent,
     EditFacilityResourceGroupVoDialogComponent,
-    TaskResultsListComponent
+    TaskResultsListComponent,
+    GroupSearchSelectComponent
   ],
   exports: [
     VoSelectTableComponent,
@@ -208,7 +210,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MembersListComponent,
     ChangeMemberStatusDialogComponent,
     EditFacilityResourceGroupVoDialogComponent,
-    TaskResultsListComponent
+    TaskResultsListComponent,
+    GroupSearchSelectComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
