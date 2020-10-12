@@ -156,10 +156,9 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     for (const item of this.applicationFormItems) {
       item.ordnum = i;
       if (!item.forDelete) {
-        i++
+        i++;
       }
     }
-    console.log(this.applicationFormItems);
     // @ts-ignore
     this.registrarManager.updateFormItemsForVo({vo: this.voId, items: this.applicationFormItems}).subscribe( () => {
       this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
@@ -171,7 +170,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   }
 
   clear() {
-    this.applicationFormItems = [];
+    this.applicationFormItems.forEach(appFormItem => appFormItem.forDelete = true);
     this.itemsChanged = true;
   }
 }
