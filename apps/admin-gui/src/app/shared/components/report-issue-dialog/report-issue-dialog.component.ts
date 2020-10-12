@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
-import { RtMessagesService } from '@perun-web-apps/perun/services';
 import { version } from '../../../../../../../package.json';
+import { RTMessagesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-perun-web-apps-report-issue-dialog',
@@ -19,7 +19,7 @@ export class ReportIssueDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<ReportIssueDialogComponent>,
               private translate: TranslateService,
               private notificator: NotificatorService,
-              private rtMessages: RtMessagesService,
+              private rtMessages: RTMessagesManagerService,
               private storeService: StoreService) { }
 
   ngOnInit() {
@@ -27,7 +27,7 @@ export class ReportIssueDialogComponent implements OnInit {
   }
 
   sendBugReport() {
-    this.rtMessages.sendMessageToRT('perun', this.subject, this.getFullEmailBody()).subscribe(message  => {
+    this.rtMessages.sentMessageToRTWithQueue('perun', this.subject, this.getFullEmailBody()).subscribe(message  => {
       this.dialogRef.afterClosed()
         .subscribe(() => this.notificator.showSuccess(this.translate.instant('DIALOGS.REPORT_ISSUE.SUCCESS') + message.ticketNumber));
       this.dialogRef.close();
@@ -35,10 +35,10 @@ export class ReportIssueDialogComponent implements OnInit {
   }
 
   getFullEmailBody(): string {
-    return this.message + '\n' +
-      '------------------------\n' +
-      'Perun instance: ' + this.instanceName + '\n' +
-      'Sended from new gui version:' + version;
+    return this.message + '\n ' +
+      '------------------------\n ' +
+      'Perun instance: ' + this.instanceName + '\n ' +
+      'Sended from new Perun Gui, version: ' + version;
 
   }
 

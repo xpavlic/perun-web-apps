@@ -1952,11 +1952,12 @@
           "SUBJECT_VALUE": "Reported error: ",
           "SUBJECT_ERROR": "Subject cannot be empty.",
           "MESSAGE": "Message",
-          "MESSAGE_PLACEHOLDER": "You can describe what you did that caused the error. (Minimal length is 60 characters)",
-          "MESSAGE_ERROR": "Minimal length is 60.",
+          "MESSAGE_PLACEHOLDER": "Please describe your problem and which of your actions lead to this problem.",
+          "MESSAGE_ERROR": "Please tell us something about the problem.",
           "CANCEL": "Cancel",
           "SEND": "Send",
-          "SUCCESS": "Bug report send"
+          "SUCCESS1": "Ticket with ID: ",
+          "SUCCESS2": "was created."
         },
         "REMOVE_USER_EXT_SOURCE": {
           "TITLE": "Remove user's external identity",

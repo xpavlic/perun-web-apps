@@ -1,9 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
-import {NotificatorService} from '@perun-web-apps/perun/services';
+import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { RPCError } from '@perun-web-apps/perun/models';
-import { RtMessagesService } from '@perun-web-apps/perun/services';
+import { version } from '../../../../../../package.json';
+import { RTMessagesManagerService } from '@perun-web-apps/perun/openapi';
 
 
 export interface BugReportData {
@@ -21,8 +22,9 @@ export class BugReportDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<BugReportDialogComponent>,
     private translate: TranslateService,
     private notificator: NotificatorService,
-    private rtMessages: RtMessagesService,
-    @Inject(MAT_DIALOG_DATA) public data: BugReportData
+    private rtMessages: RTMessagesManagerService,
+    @Inject(MAT_DIALOG_DATA) public data: BugReportData,
+    private storeService: StoreService
   ) { }
 
   message = '';
@@ -37,11 +39,19 @@ export class BugReportDialogComponent implements OnInit {
   }
 
   sendBugReport() {
-    this.rtMessages.sendMessageToRT('perun', this.subject, this.getFullEmailBody()).subscribe(() => {
-      // TODO show ticket number and email
+    this.rtMessages.sentMessageToRTWithQueue('perun', this.subject, this.getFullEmailBody()).subscribe(rtMessage => {
       this.dialogRef.afterClosed()
-        .subscribe(() => this.notificator.showSuccess(this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS')));
-      this.dialogRef.close();
+        .subscribe(() => {
+          this.notificator.showSuccess(
+            this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS1') +
+            rtMessage.ticketNumber +
+            this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS2'));
+        this.dialogRef.close();
+    }, err => {
+        this.dialogRef.afterClosed().subscribe(() => {
+          //TODO WHEN REPORT BUG FAIL
+        });
+      });
     });
   }
 
@@ -53,21 +63,29 @@ export class BugReportDialogComponent implements OnInit {
   }
 
   getFullEmailBody(): string {
-    return this.message + '\n' +
+    const instance = this.storeService.get('config');
+    let text = this.message + '\n'+
       '------------------------\n' +
       'Technical details:\n\n' +
-      this.data.error.errorId + ' ' + this.data.error.type + '\n' +
-      this.data.error.message + '\n' +
+      this.data.error.errorId;
 
-      // TODO add instance
-      'Perun instance: GENERIC\n' +
+    if (this.data.error.type) {
+      text = text.concat(' ' + this.data.error.type + '\n');
+    } else {
+      text = text.concat('\n');
+    }
+
+    text = text.concat(this.data.error.message + '\n' +
+      'Perun instance: ' + instance + '\n' +
       'Request:\n' +
-      this.data.error.call + '\n\n' +
-      'Payload:\n' +
-      this.data.error.payload + '\n\n' +
+      this.data.error.call + '\n\n');
 
-      // TODO add version
-      'NEW GUI';
+    if (this.data.error.payload) {
+      text = text.concat('Payload:\n' +
+        this.data.error.payload + '\n\n');
+    }
 
+    text = text.concat('Sended from new Perun Gui, version: ' + version);
+    return text.split('\n').join('\n ');          //add space after each new line
   }
 }
