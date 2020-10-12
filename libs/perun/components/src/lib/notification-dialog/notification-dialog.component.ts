@@ -25,7 +25,7 @@ export class NotificationDialogComponent {
     this.dialogRef.afterClosed().subscribe(() => {
       const config = getDefaultDialogConfig();
       config.width = '550px';
-      config.data =  {error: this.data.error,}
+      config.data =  {error: this.data.error}
       config.autoFocus = false;
 
       this.dialog.open(BugReportDialogComponent, config);
