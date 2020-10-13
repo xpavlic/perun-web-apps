@@ -17,15 +17,15 @@ export interface ChangeMemberStatusDialogData {
 })
 export class ChangeMemberStatusDialogComponent implements OnInit {
 
+  loading = false;
+  theme: string;
+
   constructor(public dialogRef: MatDialogRef<ChangeMemberStatusDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: ChangeMemberStatusDialogData,
               private memberService: MembersService,
               private notificatorService: NotificatorService,
               private translate: TranslateService,
               private route: ActivatedRoute) { }
-
-  loading = false;
-  theme: string;
 
   ngOnInit() {
     this.route.params.subscribe(parentParams => {

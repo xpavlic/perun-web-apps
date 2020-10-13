@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'dialogs',
-  preset: '../../jest.preset.js',
+  displayName: 'perun-dialogs',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../coverage/libs/dialogs',
+  coverageDirectory: '../../../coverage/libs/perun/dialogs',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

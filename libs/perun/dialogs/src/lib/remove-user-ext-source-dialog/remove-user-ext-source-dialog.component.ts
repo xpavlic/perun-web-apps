@@ -19,6 +19,13 @@ export interface RemoveUserExtSourceDialogData {
 })
 export class RemoveUserExtSourceDialogComponent implements OnInit {
 
+  successMessage: string;
+  theme: string;
+  force = false;
+  loading: boolean;
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<RichUserExtSource>;
+
   constructor(
     private dialogRef: MatDialogRef<RemoveUserExtSourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveUserExtSourceDialogData,
@@ -28,14 +35,6 @@ export class RemoveUserExtSourceDialogComponent implements OnInit {
   ) {
     translate.get('SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.SUCCESS').subscribe(res => this.successMessage = res);
   }
-
-  successMessage: string;
-  theme: string;
-  force = false;
-  loading: boolean;
-
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<RichUserExtSource>;
 
   ngOnInit() {
     this.theme = this.data.theme;

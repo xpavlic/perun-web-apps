@@ -7,12 +7,12 @@ import { RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
 import { findParent, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
+import { GroupSyncDetailDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
-} from '../edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+} from '@perun-web-apps/perun/dialogs';
 
 
 @Component({

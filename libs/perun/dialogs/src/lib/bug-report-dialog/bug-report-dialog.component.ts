@@ -18,6 +18,10 @@ export interface BugReportData {
 })
 export class BugReportDialogComponent implements OnInit {
 
+  message = '';
+  subject = '';
+  methodRegexp = /(\w+\/\w+)$/g;
+
   constructor(
     public dialogRef: MatDialogRef<BugReportDialogComponent>,
     private translate: TranslateService,
@@ -26,10 +30,6 @@ export class BugReportDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: BugReportData,
     private storeService: StoreService
   ) { }
-
-  message = '';
-  subject = '';
-  methodRegexp = /(\w+\/\w+)$/g;
 
   ngOnInit() {
     if (this.data.error && this.data.error.errorId) {
@@ -53,13 +53,6 @@ export class BugReportDialogComponent implements OnInit {
         });
       });
     });
-  }
-
-  private parseMethod(url: string): string {
-    if (!url) {
-      return url;
-    }
-    return this.methodRegexp.exec(url)[1];
   }
 
   getFullEmailBody(): string {
@@ -87,5 +80,12 @@ export class BugReportDialogComponent implements OnInit {
 
     text = text.concat('Sended from new Perun Gui, version: ' + version);
     return text.split('\n').join('\n ');          //add space after each new line
+  }
+
+  private parseMethod(url: string): string {
+    if (!url) {
+      return url;
+    }
+    return this.methodRegexp.exec(url)[1];
   }
 }

@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { AttrEntity } from '@perun-web-apps/perun/models';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { TableConfigService, TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
+import { AttributesListComponent } from '@perun-web-apps/perun/components';
 
 export interface CreateAttributeDialogData {
   entityId: number;
@@ -19,12 +19,23 @@ export interface CreateAttributeDialogData {
 }
 
 @Component({
-  selector: 'app-create-attribute-dialog',
+  selector: 'perun-web-apps-create-attribute-dialog',
   templateUrl: './create-attribute-dialog.component.html',
   styleUrls: ['./create-attribute-dialog.component.scss']
 })
 
 export class CreateAttributeDialogComponent implements OnInit {
+
+  @ViewChild('list')
+  list: AttributesListComponent;
+  attributes: Attribute[];
+  selected = new SelectionModel<Attribute>(true, []);
+  saveSuccessMessage: string;
+  showError = false;
+  filterValue = '';
+  tableId = TABLE_ATTRIBUTES_SETTINGS;
+  pageSize: number;
+  loading: boolean;
 
   constructor(private dialogRef: MatDialogRef<CreateAttributeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: CreateAttributeDialogData,
@@ -34,18 +45,6 @@ export class CreateAttributeDialogComponent implements OnInit {
               private translate: TranslateService) {
     this.translate.get('DIALOGS.CREATE_ATTRIBUTE.SUCCESS_SAVE').subscribe(value => this.saveSuccessMessage = value);
   }
-
-  @ViewChild('list')
-  list: AttributesListComponent;
-
-  attributes: Attribute[];
-  selected = new SelectionModel<Attribute>(true, []);
-  saveSuccessMessage: string;
-  showError = false;
-  filterValue = '';
-  tableId = TABLE_ATTRIBUTES_SETTINGS;
-  pageSize: number;
-  loading: boolean;
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -123,14 +122,7 @@ export class CreateAttributeDialogComponent implements OnInit {
         return !unWanted.includes(attribute.id) && this.twoEntityValid(attribute);
       });
       this.loading = false;
-    }, () => this.loading = false);
-  }
-
-  private twoEntityValid(attribute: Attribute) {
-    if (!this.data.secondEntity) {
-      return true;
-    }
-    return attribute.entity === `${this.data.entity}_${this.data.secondEntity}`;
+    });
   }
 
   onCancel(): void {
@@ -156,7 +148,6 @@ export class CreateAttributeDialogComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
     switch (this.data.entity) {
       case 'facility':
         this.attributesManager.setFacilityAttributes({
@@ -164,7 +155,7 @@ export class CreateAttributeDialogComponent implements OnInit {
           attributes: this.selected.selected
         }).subscribe(() => {
           this.handleSuccess();
-        }, () => this.loading = false);
+        });
         break;
       case 'group':
         switch (this.data.secondEntity) {
@@ -175,7 +166,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            }, () => this.loading = false);
+            });
             break;
           default:
             this.attributesManager.setGroupAttributes({
@@ -183,7 +174,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            }, () => this.loading = false);
+            });
         }
         break;
       case 'member':
@@ -195,7 +186,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            }, () => this.loading = false);
+            });
             break;
           case 'group':
             this.attributesManager.setMemberGroupAttributes({
@@ -204,7 +195,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            }, () => this.loading = false);
+            });
             break;
           default:
             this.attributesManager.setMemberAttributes({
@@ -212,7 +203,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            }, () => this.loading = false);
+            });
         }
         break;
       case 'resource':
@@ -221,7 +212,7 @@ export class CreateAttributeDialogComponent implements OnInit {
           attributes: this.selected.selected
         }).subscribe(() => {
           this.handleSuccess();
-        }, () => this.loading = false);
+        });
         break;
       case 'user':
         switch (this.data.secondEntity) {
@@ -232,7 +223,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            }, () => this.loading = false);
+            });
             break;
           default:
             this.attributesManager.setUserAttributes({
@@ -240,7 +231,7 @@ export class CreateAttributeDialogComponent implements OnInit {
               attributes: this.selected.selected
             }).subscribe(() => {
               this.handleSuccess();
-            }, () => this.loading = false);
+            });
         }
         break;
       case 'vo':
@@ -249,19 +240,11 @@ export class CreateAttributeDialogComponent implements OnInit {
           attributes: this.selected.selected
         }).subscribe(() => {
           this.handleSuccess();
-        }, () => this.loading = false);
+        });
         break;
       case 'host':
         this.attributesManager.setHostAttributes({
           host: this.data.entityId,
-          attributes: this.selected.selected
-        }).subscribe(() => {
-          this.handleSuccess();
-        }, () => this.loading = false);
-        break;
-      case 'ues':
-        this.attributesManager.setUserExtSourceAttributes({
-          userExtSource: this.data.entityId,
           attributes: this.selected.selected
         }).subscribe(() => {
           this.handleSuccess();
@@ -283,6 +266,13 @@ export class CreateAttributeDialogComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  }
+
+  private twoEntityValid(attribute: Attribute) {
+    if (!this.data.secondEntity) {
+      return true;
+    }
+    return attribute.entity === `${this.data.entity}_${this.data.secondEntity}`;
   }
 }
 

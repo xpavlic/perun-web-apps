@@ -1,8 +1,8 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {NotificationData} from '@perun-web-apps/perun/models';
-import { BugReportDialogComponent } from '../bug-report-dialog/bug-report-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { BugReportDialogComponent } from '../bug-report-dialog/bug-report-dialog.component';
 
 @Component({
   selector: 'perun-web-apps-notification-dialog',

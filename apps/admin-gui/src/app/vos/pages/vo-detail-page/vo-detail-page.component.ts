@@ -6,11 +6,11 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
-} from '@perun-web-apps/perun/components';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+} from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'app-vo-detail-page',

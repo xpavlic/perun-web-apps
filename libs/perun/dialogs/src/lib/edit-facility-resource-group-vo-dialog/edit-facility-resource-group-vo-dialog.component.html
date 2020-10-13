@@ -8,19 +8,19 @@
       mat-dialog-title>{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_GROUP' | translate}}</h1>
   <div mat-dialog-content>
     <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-    <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+    <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
       <mat-form-field *ngIf="dialogType === 2">
-        <input matInput
-               required
+        <input [value]="shortName"
+               disabled
+               matInput
                placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SHORT_NAME' | translate}}:"
-               [value]="shortName"
-               disabled>
+               required>
       </mat-form-field>
       <mat-form-field>
-        <input matInput
-               required
+        <input [formControl]="nameCtrl"
+               matInput
                placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.NAME' | translate}}:"
-               [formControl]="nameCtrl">
+               required>
         <mat-error>
           {{invalidNameMessage.length ? invalidNameMessage : ('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FILL_NAME' | translate)}}
         </mat-error>
@@ -29,9 +29,9 @@
         <textarea [formControl]="descriptionCtrl"
                class="overflow-hidden"
                mat-autosize
-               required
+               matInput
                placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.DESCRIPTION' | translate}}:"
-                  matInput></textarea>
+                  required></textarea>
         <mat-error>
           {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FILL_DESCRIPTION' | translate}}
         </mat-error>
@@ -41,17 +41,17 @@
 
   <div mat-dialog-actions>
     <button
-      mat-flat-button
+      (click)="cancel()"
       class="ml-auto"
-      (click)="cancel()">
+      mat-flat-button>
       {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.CANCEL_BUTTON' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="submit()"
+      [disabled]="loading || nameCtrl.invalid || descriptionCtrl.invalid"
       class="ml-2"
       color="accent"
-      [disabled]="loading || nameCtrl.invalid || descriptionCtrl.invalid"
-      (click)="submit()">
+      mat-flat-button>
       {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SUBMIT_BUTTON' | translate}}
     </button>
   </div>

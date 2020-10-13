@@ -75,7 +75,6 @@ import {
   EditApplicationFormItemDialogComponent
 } from './components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
 import { ApplicationFormWidgetDescriptionPipe } from './pipes/application-form-widget-description.pipe';
-import {CreateAttributeDialogComponent} from './components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { AddMemberDialogComponent } from './components/dialogs/add-member-dialog/add-member-dialog.component';
 import {MembersCandidatesListComponent} from './components/members-candidates-list/members-candidates-list.component';
 import {UserVoPipe} from './pipes/vo-or-ext-source.pipe';
@@ -170,6 +169,7 @@ import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-tas
 import { EditApplicationFormItemDataDialogComponent } from './components/dialogs/edit-application-form-item-data-dialog/edit-application-form-item-data-dialog.component';
 import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
+import { CreateAttributeDialogComponent } from './components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 
 @NgModule({
   imports: [
@@ -302,6 +302,7 @@ import { UsersListComponent } from './components/users-list/users-list.component
     UserLoginsPipe,
     UserEmailPipe,
     UsersListComponent,
+    CreateAttributeDialogComponent
   ],
   declarations: [
     PerunNavComponent,
@@ -338,7 +339,6 @@ import { UsersListComponent } from './components/users-list/users-list.component
     AddMemberDialogComponent,
     MembersCandidatesListComponent,
     UserVoPipe,
-    CreateAttributeDialogComponent,
     CreateResourceTagDialogComponent,
     DeleteResourceTagDialogComponent,
     MoveGroupDialogComponent,
@@ -413,6 +413,7 @@ import { UsersListComponent } from './components/users-list/users-list.component
     EditApplicationFormItemDataDialogComponent,
     CreateServiceDialogComponent,
     UsersListComponent,
+    CreateAttributeDialogComponent
   ],
   providers: [
     AnyToStringPipe,

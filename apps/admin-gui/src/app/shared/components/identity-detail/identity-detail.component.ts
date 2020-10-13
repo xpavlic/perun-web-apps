@@ -6,9 +6,10 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { filterCoreAttributes, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { CreateAttributeDialogComponent } from '../dialogs/create-attribute-dialog/create-attribute-dialog.component';
-import { AttributesListComponent, EditAttributeDialogComponent } from '@perun-web-apps/perun/components';
+import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import { DeleteAttributeDialogComponent } from '../dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+import { EditAttributeDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { CreateAttributeDialogComponent } from '../dialogs/create-attribute-dialog/create-attribute-dialog.component';
 
 @Component({
   selector: 'app-identity-detail',

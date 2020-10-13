@@ -1,7 +1,7 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.GROUP_SYNC_DETAIL.TITLE' | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div mat-dialog-content *ngIf="!loading">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <span>
       {{'DIALOGS.GROUP_SYNC_DETAIL.GROUP_NAME' | translate}}
       <b>{{group.name}}</b>
@@ -24,30 +24,30 @@
   </div>
   <div mat-dialog-actions>
     <div class="ml-auto">
-      <button mat-icon-button (click)="refresh()">
+      <button (click)="refresh()" mat-icon-button>
         <mat-icon>refresh</mat-icon>
       </button>
       <button
-        class="ml-2"
-        [disabled]="this.loading"
-        *ngIf="this.isStructured()"
-        mat-flat-button
         (click)="onForceStructure()"
+        *ngIf="this.isStructured()"
+        [disabled]="this.loading"
+        class="ml-2"
+        mat-flat-button
       >
         {{'DIALOGS.GROUP_SYNC_DETAIL.FORCE_STRUCTURE' | translate}}
       </button>
       <button
-        [disabled]="this.loading"
+        (click)="onForce()"
         *ngIf="this.isBasic() || this.isStructured()"
-        mat-flat-button
+        [disabled]="this.loading"
         class="ml-2"
-        (click)="onForce()">
+        mat-flat-button>
         {{'DIALOGS.GROUP_SYNC_DETAIL.FORCE' | translate}}
       </button>
       <button
-        mat-flat-button
+        (click)="onCancel()"
         class="ml-2"
-        (click)="onCancel()">
+        mat-flat-button>
         {{'DIALOGS.GROUP_SYNC_DETAIL.CANCEL' | translate}}
       </button>
     </div>

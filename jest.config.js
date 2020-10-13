@@ -22,5 +22,6 @@ module.exports = {
     '<rootDir>/libs/perun/animations',
     '<rootDir>/libs/perun/directives',
     '<rootDir>/libs/dialogs',
+    '<rootDir>/libs/perun/dialogs',
   ],
 };

@@ -18,16 +18,15 @@ export interface GroupSyncDetailDialogData {
   styleUrls: ['./group-sync-detail-dialog.component.scss']
 })
 export class GroupSyncDetailDialogComponent implements OnInit {
+  theme: string;
+  loading = true;
+  group: RichGroup;
   private syncEnabled: string;
   private lastSyncState: string;
   private lastSyncTime: string;
   private structSyncEnabled: boolean;
   private lastStructSyncState: string;
   private lastStructSyncTime: string;
-
-  theme: string;
-  loading = true;
-  group: RichGroup;
   private type: SyncType;
 
   constructor(
@@ -70,35 +69,6 @@ export class GroupSyncDetailDialogComponent implements OnInit {
     }
   }
 
-  private loadGroup() {
-    this.loading = true;
-    this.groupService.getRichGroupByIdWithAttributesByNames(this.data.groupId, [
-      Urns.GROUP_SYNC_ENABLED,
-      Urns.GROUP_LAST_SYNC_STATE,
-      Urns.GROUP_LAST_SYNC_TIMESTAMP,
-      Urns.GROUP_STRUCTURE_SYNC_ENABLED,
-      Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
-      Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
-    ]).subscribe(richGroup => {
-      this.group = richGroup;
-
-      this.syncEnabled = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_SYNC_ENABLED).value;
-      this.lastSyncState = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_STATE).value;
-      this.lastSyncTime = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP).value;
-      this.structSyncEnabled = <boolean><unknown>getAttribute(this.group.attributes, Urns.GROUP_STRUCTURE_SYNC_ENABLED).value;
-      this.lastStructSyncState = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_STATE).value;
-      this.lastStructSyncTime = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP).value;
-
-      if (this.syncEnabled !== null && this.syncEnabled === 'true') {
-        this.type = 'BASIC';
-      }
-      if (this.structSyncEnabled !== null && this.structSyncEnabled) {
-        this.type = 'STRUCTURED';
-      }
-      this.loading = false;
-    });
-  }
-
   getSynchronizationType() : string {
     if (this.isBasic()) {
       return 'DIALOGS.GROUP_SYNC_DETAIL.NORMAL_SYNC';
@@ -139,5 +109,34 @@ export class GroupSyncDetailDialogComponent implements OnInit {
 
   refresh() {
     this.loadGroup();
+  }
+
+  private loadGroup() {
+    this.loading = true;
+    this.groupService.getRichGroupByIdWithAttributesByNames(this.data.groupId, [
+      Urns.GROUP_SYNC_ENABLED,
+      Urns.GROUP_LAST_SYNC_STATE,
+      Urns.GROUP_LAST_SYNC_TIMESTAMP,
+      Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+      Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+      Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
+    ]).subscribe(richGroup => {
+      this.group = richGroup;
+
+      this.syncEnabled = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_SYNC_ENABLED).value;
+      this.lastSyncState = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_STATE).value;
+      this.lastSyncTime = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP).value;
+      this.structSyncEnabled = <boolean><unknown>getAttribute(this.group.attributes, Urns.GROUP_STRUCTURE_SYNC_ENABLED).value;
+      this.lastStructSyncState = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_STATE).value;
+      this.lastStructSyncTime = <string><unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP).value;
+
+      if (this.syncEnabled !== null && this.syncEnabled === 'true') {
+        this.type = 'BASIC';
+      }
+      if (this.structSyncEnabled !== null && this.structSyncEnabled) {
+        this.type = 'STRUCTURED';
+      }
+      this.loading = false;
+    });
   }
 }

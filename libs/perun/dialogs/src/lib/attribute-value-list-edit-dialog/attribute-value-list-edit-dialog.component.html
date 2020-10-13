@@ -1,23 +1,23 @@
 <h5 mat-dialog-title>{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.EDIT_DIALOG.TITLE' | translate}}</h5>
-<div mat-dialog-content class="dialog-container">
+<div class="dialog-container" mat-dialog-content>
   <mat-form-field>
-    <textarea matInput cdkTextareaAutosize="true" [(ngModel)]="attributeValue"></textarea>
+    <textarea [(ngModel)]="attributeValue" cdkTextareaAutosize="true" matInput></textarea>
   </mat-form-field>
 
 </div>
 
-<div mat-dialog-actions class="d-flex">
+<div class="d-flex" mat-dialog-actions>
   <button
-    mat-flat-button
+    (click)="cancel()"
     class="ml-auto"
-    (click)="cancel()">
+    mat-flat-button>
     {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.EDIT_DIALOG.CANCEL_BUTTON' | translate}}
   </button>
   <button
-    mat-flat-button
+    (click)="submit()"
     class="ml-2"
     color="accent"
-    (click)="submit()">
+    mat-flat-button>
     {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.EDIT_DIALOG.SUBMIT_BUTTON' | translate}}
   </button>
 </div>

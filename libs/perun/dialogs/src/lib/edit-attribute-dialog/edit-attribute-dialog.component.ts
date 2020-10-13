@@ -21,6 +21,9 @@ export interface EditAttributeDialogData {
 })
 export class EditAttributeDialogComponent implements OnInit {
 
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Attribute>;
+
   constructor(public dialogRef: MatDialogRef<EditAttributeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: EditAttributeDialogData,
               private notificator: NotificatorService,
@@ -28,9 +31,6 @@ export class EditAttributeDialogComponent implements OnInit {
               private attributesManager: AttributesManagerService
   ) {
   }
-
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Attribute>;
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Attribute>(this.data.attributes);

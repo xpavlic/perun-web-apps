@@ -52,6 +52,15 @@ export class ChangeExpirationDialogComponent implements OnInit {
 
   }
 
+  onCancel() {
+    this.dialogRef.close(false)
+  }
+
+  setExpiration() {
+    this.newExpiration = formatDate(this.expirationControl.value,'yyyy-MM-dd','en-GB');
+    this.expirationControl.setValue(formatDate(this.expirationControl.value,'yyyy-MM-dd','en-GB'));
+  }
+
   private changeExpiration() {
     // @ts-ignore
     this.expirationAttr.value = this.newExpiration === 'never' ? null : this.newExpiration;
@@ -60,14 +69,5 @@ export class ChangeExpirationDialogComponent implements OnInit {
       this.notificator.showSuccess(this.successMessage);
       this.dialogRef.close(true);
     })
-  }
-
-  onCancel() {
-    this.dialogRef.close(false)
-  }
-
-  setExpiration() {
-    this.newExpiration = formatDate(this.expirationControl.value,'yyyy-MM-dd','en-GB');
-    this.expirationControl.setValue(formatDate(this.expirationControl.value,'yyyy-MM-dd','en-GB'));
   }
 }

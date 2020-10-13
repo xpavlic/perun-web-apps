@@ -2,13 +2,13 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute} from '@angular/router';
 import {MenuItem} from '@perun-web-apps/perun/models';
-import { GuiAuthResolver, MembersService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver} from '@perun-web-apps/perun/services';
 import { MembersManagerService, RichMember, Vo } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { getDefaultDialogConfig, parseFullName, parseStatusColor, parseStatusIcon } from '@perun-web-apps/perun/utils';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
-import { ChangeExpirationDialogComponent } from '@perun-web-apps/perun/components';
+import { ChangeExpirationDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'app-member-overview',

@@ -40,27 +40,16 @@ import {
   MatRippleModule,
   NativeDateAdapter
 } from '@angular/material/core';
-import { AttributeValueListEditDialogComponent } from './attributes-list/attribute-value/attribute-value-list/attribute-value-list-edit-dialog/attribute-value-list-edit-dialog.component';
-import { AttributeValueListDeleteDialogComponent } from './attributes-list/attribute-value/attribute-value-list/attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
-import { MatDialogModule } from '@angular/material/dialog';
 import { AttributeValueIntegerComponent } from './attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component';
 import { NotificationComponent } from './notification/notification.component';
-import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
-import { BugReportDialogComponent } from './bug-report-dialog/bug-report-dialog.component';
 import { AutoFocusDirective } from '@perun-web-apps/perun/directives';
 import { UserExtSourcesListComponent } from './user-ext-sources-list/user-ext-sources-list.component';
-import { RemoveUserExtSourceDialogComponent } from './remove-user-ext-source-dialog/remove-user-ext-source-dialog.component';
-import { EditAttributeDialogComponent } from './attributes-list/edit-attribute-dialog/edit-attribute-dialog.component';
-import { CreateAttributeDialogComponent } from './create-attribute-dialog/create-attribute-dialog.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { ShowValueDialogComponent } from './show-value-dialog/show-value-dialog.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { GroupSyncDetailDialogComponent } from './group-sync-detail-dialog/group-sync-detail-dialog.component';
 import { GroupsTreeComponent } from './groups-tree/groups-tree.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { ServicesStatusListComponent } from './services-status-list/services-status-list.component';
-import { ChangeExpirationDialogComponent } from './change-expiration-dialog/change-expiration-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { ForceRouterLinkDirective } from '@perun-web-apps/perun/directives';
@@ -69,8 +58,6 @@ import { VoSearchSelectComponent } from './vo-search-select/vo-search-select.com
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MembersListComponent } from './members-list/members-list.component';
-import { ChangeMemberStatusDialogComponent } from './change-member-status-dialog/change-member-status-dialog.component';
-import { EditFacilityResourceGroupVoDialogComponent } from './edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
 import { TaskResultsListComponent } from './task-results-list/task-results-list.component';
 import { GroupSearchSelectComponent } from './group-search-select/group-search-select.component';
 
@@ -127,7 +114,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MatInputModule,
     MatRippleModule,
     PerunPipesModule,
-    MatDialogModule,
     ClipboardModule,
     MatTreeModule,
     MatDatepickerModule,
@@ -152,29 +138,17 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeValueStringComponent,
     ResourcesListComponent,
     MenuButtonsFieldComponent,
-    AttributeValueListEditDialogComponent,
-    AttributeValueListDeleteDialogComponent,
     AttributeValueIntegerComponent,
     NotificationComponent,
-    NotificationDialogComponent,
-    BugReportDialogComponent,
     AutoFocusDirective,
     UserExtSourcesListComponent,
-    RemoveUserExtSourceDialogComponent,
-    EditAttributeDialogComponent,
-    CreateAttributeDialogComponent,
     PasswordResetComponent,
-    ShowValueDialogComponent,
-    GroupSyncDetailDialogComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent,
-    ChangeExpirationDialogComponent,
     ForceRouterLinkDirective,
     RedirectPageComponent,
     VoSearchSelectComponent,
     MembersListComponent,
-    ChangeMemberStatusDialogComponent,
-    EditFacilityResourceGroupVoDialogComponent,
     TaskResultsListComponent,
     GroupSearchSelectComponent
   ],
@@ -197,19 +171,13 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     NotificationComponent,
     AutoFocusDirective,
     UserExtSourcesListComponent,
-    RemoveUserExtSourceDialogComponent,
-    EditAttributeDialogComponent,
-    CreateAttributeDialogComponent,
     PasswordResetComponent,
-    GroupSyncDetailDialogComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent,
     ForceRouterLinkDirective,
     RedirectPageComponent,
     VoSearchSelectComponent,
     MembersListComponent,
-    ChangeMemberStatusDialogComponent,
-    EditFacilityResourceGroupVoDialogComponent,
     TaskResultsListComponent,
     GroupSearchSelectComponent
   ],

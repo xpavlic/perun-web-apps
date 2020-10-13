@@ -88,6 +88,9 @@
     },
     "dialogs": {
       "tags": []
+    },
+    "perun-dialogs": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

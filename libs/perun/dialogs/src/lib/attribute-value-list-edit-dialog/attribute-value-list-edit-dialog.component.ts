@@ -14,10 +14,10 @@ export interface AttributeValueListEditDialogData {
 })
 export class AttributeValueListEditDialogComponent implements OnInit {
 
+  attributeValue = '';
+
   constructor(public dialogRef: MatDialogRef<AttributeValueListEditDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: AttributeValueListEditDialogData) { }
-
-  attributeValue = '';
 
   ngOnInit() {
     this.attributeValue = this.data.attribute.value[this.data.index];

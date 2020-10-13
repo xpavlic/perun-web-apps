@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, isVirtualAttribute } from '@perun-web-apps/perun/utils';
-import { ShowValueDialogComponent } from '../../../show-value-dialog/show-value-dialog.component';
+import { ShowValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

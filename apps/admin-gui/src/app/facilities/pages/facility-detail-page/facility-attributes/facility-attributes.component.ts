@@ -8,17 +8,15 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {
   DeleteAttributeDialogComponent
 } from '../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
-import {
-  CreateAttributeDialogComponent
-} from '../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { EditAttributeDialogComponent } from '@perun-web-apps/perun/components';
 import { PageEvent } from '@angular/material/paginator';
 import {
   TABLE_ATTRIBUTES_SETTINGS,
   TableConfigService
 } from '@perun-web-apps/config/table-config';
+import { EditAttributeDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { CreateAttributeDialogComponent } from '../../../../shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 
 @Component({
   selector: 'app-facility-attributes',

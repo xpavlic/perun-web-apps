@@ -9,8 +9,8 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
-import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/components';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'perun-web-apps-identities-page',
