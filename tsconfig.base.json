@@ -41,7 +41,10 @@
       "@perun-web-apps/perun/animations": [
         "libs/perun/animations/src/index.ts"
       ],
-      "@perun-web-apps/perun/directives": ["libs/perun/directives/src/index.ts"]
+      "@perun-web-apps/perun/directives": [
+        "libs/perun/directives/src/index.ts"
+      ],
+      "@perun-web-apps/dialogs": ["libs/dialogs/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
