@@ -978,36 +978,6 @@
         }
       }
     },
-    "dialogs": {
-      "projectType": "library",
-      "root": "libs/dialogs",
-      "sourceRoot": "libs/dialogs/src",
-      "prefix": "perun-web-apps",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/dialogs/tsconfig.lib.json",
-              "libs/dialogs/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/dialogs/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/dialogs/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
     "perun-dialogs": {
       "projectType": "library",
       "root": "libs/perun/dialogs",

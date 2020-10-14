@@ -20,6 +20,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/dialogs';
+// tslint:disable-next-line:nx-enforce-module-boundaries
 import { CreateAttributeDialogComponent } from '../../../../../../apps/admin-gui/src/app/shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 
 export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';

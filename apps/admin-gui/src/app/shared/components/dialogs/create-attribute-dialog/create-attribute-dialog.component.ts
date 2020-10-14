@@ -19,7 +19,7 @@ export interface CreateAttributeDialogData {
 }
 
 @Component({
-  selector: 'perun-web-apps-create-attribute-dialog',
+  selector: 'app-create-attribute-dialog',
   templateUrl: './create-attribute-dialog.component.html',
   styleUrls: ['./create-attribute-dialog.component.scss']
 })
