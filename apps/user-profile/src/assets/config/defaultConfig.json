@@ -20,6 +20,18 @@
   "registrar_base_url": "https://perun-dev.cesnet.cz/fed/registrar/",
   "pwd_reset_base_url": "https://perun-dev.cesnet.cz/fed/pwd-reset/",
   "rt_url": "",
+  "external_services": [
+    {
+      "url": "https://google.com",
+      "label_en": "Google (custom link)",
+      "label_cz": "Google (vlastni stitek)"
+    },
+    {
+      "url": "https://github.com",
+      "label_en": "GitHub (custom link)",
+      "label_cz": "GitHub (vlastni stitek)"
+    }
+  ],
   "displayed_tabs": [
     "profile",
     "identities",
@@ -35,7 +47,8 @@
     "alt_passwords",
     "pref_shells",
     "pref_group_names",
-    "password_reset"
+    "password_reset",
+    "external"
   ],
   "custom_labels": [
     {

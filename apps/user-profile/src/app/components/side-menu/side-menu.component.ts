@@ -58,4 +58,8 @@ export class SideMenuComponent implements OnInit {
       this.sideNav.close();
     }
   }
+
+  goToURL(link: string) {
+    location.href = link;
+  }
 }
