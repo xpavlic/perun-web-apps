@@ -39,7 +39,8 @@ export class SideMenuComponent implements OnInit {
 
   ngOnInit() {
     this.translateService.onLangChange.subscribe(lang => {
-      this.lang = lang;
+      const {lang: lan} = lang;
+      this.lang = lan;
     });
     const displayedTabs: string[] = this.storeService.get('displayed_tabs');
     this.items = this.sideMenuItemService.getSideMenuItems();
@@ -60,6 +61,6 @@ export class SideMenuComponent implements OnInit {
   }
 
   goToURL(link: string) {
-    location.href = link;
+    window.open(link, '_blank');
   }
 }
