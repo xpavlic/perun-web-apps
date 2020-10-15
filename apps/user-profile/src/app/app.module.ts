@@ -71,6 +71,7 @@ import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { ApiService } from '@perun-web-apps/perun/services';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { LocalizationLabelPipe } from './pipes/localization-label.pipe';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -129,7 +130,8 @@ const loadConfigs = (appConfig: UserProfileConfigService) => {
     ValidateExpirationPipe,
     ShowSshDialogComponent,
     NotificatorComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    LocalizationLabelPipe
   ],
   imports: [
     BrowserModule,
