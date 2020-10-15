@@ -17,7 +17,6 @@ import {
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { PageEvent } from '@angular/material/paginator';
 import { SideMenuService } from '../../../../core/services/common/side-menu.service';
-import { SideMenuItemService } from '../../../../shared/side-menu/side-menu-item.service';
 
 @Component({
   selector: 'app-perun-web-apps-user-dashboard',

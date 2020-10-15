@@ -1,15 +1,11 @@
-.make-green {
-  background-color: #8fbc8f;
+.greenTableItem {
+  background-color: #c4ffcb;
 }
 
-.make-lightyellow {
-  background-color: #ffffcc;
+.yellowTableItem {
+  background-color: #fffde7;
 }
 
-.make-yellow {
-  background-color: #f5fa75;
-}
-
-.make-red {
-  background-color: #fdc3c3;
+.redTableItem {
+  background-color: #ffcdd2;
 }
