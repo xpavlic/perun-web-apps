@@ -73,6 +73,7 @@ import { ChangeMemberStatusDialogComponent } from './change-member-status-dialog
 import { EditFacilityResourceGroupVoDialogComponent } from './edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
 import { TaskResultsListComponent } from './task-results-list/task-results-list.component';
 import { GroupSearchSelectComponent } from './group-search-select/group-search-select.component';
+import { MiddleClickRouterLinkDirective } from '@perun-web-apps/perun/directives';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -176,7 +177,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ChangeMemberStatusDialogComponent,
     EditFacilityResourceGroupVoDialogComponent,
     TaskResultsListComponent,
-    GroupSearchSelectComponent
+    GroupSearchSelectComponent,
+    MiddleClickRouterLinkDirective
   ],
   exports: [
     VoSelectTableComponent,
@@ -211,7 +213,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ChangeMemberStatusDialogComponent,
     EditFacilityResourceGroupVoDialogComponent,
     TaskResultsListComponent,
-    GroupSearchSelectComponent
+    GroupSearchSelectComponent,
+    MiddleClickRouterLinkDirective
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

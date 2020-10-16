@@ -57,6 +57,7 @@
         <tr
           *matRowDef="let facility; columns: displayedColumns;"
           [routerLink]="['/facilities', facility.id]"
+          [perunWebAppsMiddleClickRouterLink]="['/facilities', facility.id]"
           class="dark-hover-list-item"
           mat-row>
         </tr>

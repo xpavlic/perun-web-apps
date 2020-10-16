@@ -64,6 +64,7 @@
           [class.disable-outline]="disableRouting"
           [class.cursor-pointer]="!disableRouting"
           [routerLink]="disableRouting ? null : ['/organizations', member.voId, 'members', member.id]"
+          [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/organizations', member.voId, 'members', member.id]"
           class="dark-hover-list-item"
           mat-row>
         </tr>

@@ -4,6 +4,7 @@
        [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
        [ngStyle]="{'background': item.backgroundColorCss}"
        [class.root-header-activated]="isActive(currentUrl, item.baseColorClassRegex)"
+       [perunWebAppsMiddleClickRouterLink]="item.baseLink"
        (click)="toggle()">
     <div class="entity-menu-item-link {{item.labelClass}}">
       <a class="entity-menu-item-label" [ngStyle]="{'color': item.textColorCss}">
@@ -19,6 +20,7 @@
     <div class="side-entity-menu {{item.linksClass}}" [ngStyle]="{'background': linkBgColor}">
       <div *ngFor="let link of item.links">
         <a (click)="navigate(link.url)"
+           [perunWebAppsMiddleClickRouterLink]="link.url"
            matRipple
            class="clickable d-flex"
            [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
@@ -39,6 +41,7 @@
         </a>
         <div @rollInOut *ngIf="isActive(currentUrl, link.showChildrenRegex)">
           <a (click)="navigate(child.url)"
+             [perunWebAppsMiddleClickRouterLink]="child.url"
              matRipple
              [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
              [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"

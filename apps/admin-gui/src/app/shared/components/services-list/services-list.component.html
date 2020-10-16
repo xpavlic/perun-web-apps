@@ -76,6 +76,7 @@
         <tr
           *matRowDef="let service; columns: displayedColumns;"
           [routerLink]="disableRouting ? null : ['/admin/services', service.id]"
+          [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/admin/services', service.id]"
           [class.cursor-pointer]="!disableRouting"
           [class.disable-outline]="disableRouting"
           class="dark-hover-list-item"
