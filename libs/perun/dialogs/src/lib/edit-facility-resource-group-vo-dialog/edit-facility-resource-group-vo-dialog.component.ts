@@ -125,13 +125,16 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
   }
 
   editGroup() {
-    this.data.group.name = this.nameCtrl.value;
-    this.data.group.description = this.descriptionCtrl.value;
-    this.groupsManager.updateGroup({ group: this.data.group }).subscribe(() => {
-      this.translateService.get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.GROUP_SUCCESS').subscribe(message => {
-        this.notificator.showSuccess(message);
-        this.dialogRef.close(true);
-      });
+    this.groupsManager.getGroupById(this.data.group.id).subscribe(grp => {
+      const group = grp;
+      group.name = this.nameCtrl.value;
+      group.description = this.descriptionCtrl.value;
+      this.groupsManager.updateGroup({ group: group }).subscribe(() => {
+        this.translateService.get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.GROUP_SUCCESS').subscribe(message => {
+          this.notificator.showSuccess(message);
+          this.dialogRef.close(true);
+        });
+      }, () => this.loading = false);
     }, () => this.loading = false);
   }
 

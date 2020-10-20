@@ -68,6 +68,7 @@
         [disabled]="group.fullName === 'members'"
         (moveGroup)="onMoveGroup(group)"
         (syncGroup)="onSyncDetail(group)"
+        (changeNameDescription)="onChangeNameDescription(group)"
         [displayButtons]="displayButtons"
         [group]="group">
       </perun-web-apps-group-menu>
