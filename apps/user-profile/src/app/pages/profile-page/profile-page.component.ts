@@ -23,7 +23,7 @@ export class ProfilePageComponent implements OnInit {
 
   currentLang = 'en';
   languages = ['en', 'cz'];
-  timeZones = moment.tz.names();
+  timeZones = moment.tz.names().filter(name => !name.startsWith('Etc/'));
 
   successMessage: string;
 
