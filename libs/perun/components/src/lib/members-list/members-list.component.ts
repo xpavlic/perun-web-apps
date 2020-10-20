@@ -20,7 +20,7 @@ import {
   parseFullName,
   TABLE_ITEMS_COUNT_OPTIONS
 } from '@perun-web-apps/perun/utils';
-import { ChangeMemberStatusDialogComponent } from '../change-member-status-dialog/change-member-status-dialog.component';
+import { ChangeMemberStatusDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'perun-web-apps-members-list',

@@ -4,10 +4,10 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
-import { AttributeValueListEditDialogComponent } from './attribute-value-list-edit-dialog/attribute-value-list-edit-dialog.component';
+import { AttributeValueListEditDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { AttributeValueListDeleteDialogComponent } from './attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
 import { getDefaultDialogConfig, isVirtualAttribute } from '@perun-web-apps/perun/utils';
-import { ShowValueDialogComponent } from '../../../show-value-dialog/show-value-dialog.component';
+import { ShowValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'perun-web-apps-attribute-value-list',

@@ -3,37 +3,37 @@
     <h1 class="page-subtitle">{{'DIALOGS.CREATE_ATTRIBUTE.SET_NEW' | translate}}</h1>
     <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.FILTER'"
                                      class="font-size-1rem"></perun-web-apps-immediate-filter>
-    <app-alert class="ml-3 font-size-1rem" *ngIf="showError" color="error">
+    <app-alert *ngIf="showError" class="ml-3 font-size-1rem" color="error">
       {{'DIALOGS.CREATE_ATTRIBUTE.ERROR_EMPTY_VALUE' | translate}}
     </app-alert>
   </div>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
+  <div mat-dialog-content>
+    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <perun-web-apps-attributes-list
-      (page)="pageChanged($event)"
-      [pageSize]="pageSize"
-      *ngIf="attributes !== undefined"
       #list
-      [filterValue]="filterValue"
+      (page)="pageChanged($event)"
+      *ngIf="attributes !== undefined && !loading"
       [attributes]="attributes"
-      [selection]="selected"
-      [inDialog]="true">
+      [filterValue]="filterValue"
+      [inDialog]="true"
+      [pageSize]="pageSize"
+      [selection]="selected">
     </perun-web-apps-attributes-list>
   </div>
   <div mat-dialog-actions>
     <button
-      mat-flat-button
+      (click)="onCancel()"
       class="ml-auto"
-      (click)="onCancel()">
+      mat-flat-button>
       {{'DIALOGS.CREATE_ATTRIBUTE.CANCEL' | translate}}
     </button>
 
     <button
-      mat-flat-button
+      (click)="onSave()"
+      [disabled]="selected.selected.length === 0"
       class="ml-2"
       color="accent"
-      (click)="onSave()"
-      [disabled]="selected.selected.length === 0 || loading">
+      mat-flat-button>
       {{'DIALOGS.CREATE_ATTRIBUTE.SAVE' | translate}}
     </button>
   </div>

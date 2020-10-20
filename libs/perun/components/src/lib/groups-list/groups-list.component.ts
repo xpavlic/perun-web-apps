@@ -15,12 +15,12 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Group, RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
-import { GroupSyncDetailDialogComponent } from '../group-sync-detail-dialog/group-sync-detail-dialog.component';
+import { GroupSyncDetailDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
-} from '../edit-facility-resource-group-vo-dialog/edit-facility-resource-group-vo-dialog.component';
+} from '@perun-web-apps/perun/dialogs';
 
 
 @Component({

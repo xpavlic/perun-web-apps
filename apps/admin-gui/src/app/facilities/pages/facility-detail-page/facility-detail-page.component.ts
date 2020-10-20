@@ -6,11 +6,11 @@ import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.se
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
 import { addRecentlyVisited, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
-} from '@perun-web-apps/perun/components';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+} from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'app-facility-detail-page',

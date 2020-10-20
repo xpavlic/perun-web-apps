@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { NotificationStorageService } from '@perun-web-apps/perun/services';
 import { doAfterDelay, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { NotificationDialogComponent } from '../notification-dialog/notification-dialog.component';
+import { NotificationDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'perun-web-apps-notification',

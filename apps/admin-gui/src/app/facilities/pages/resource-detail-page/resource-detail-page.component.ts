@@ -11,13 +11,13 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  EditFacilityResourceGroupVoDialogComponent,
-  EditFacilityResourceGroupVoDialogOptions
-} from '@perun-web-apps/perun/components';
 import { Resource } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { GetResourceRoutePipe } from '@perun-web-apps/perun/pipes';
+import {
+  EditFacilityResourceGroupVoDialogComponent,
+  EditFacilityResourceGroupVoDialogOptions
+} from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'app-resource-detail-page',

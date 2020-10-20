@@ -8,10 +8,10 @@ import {
 import { StoreService } from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
-import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/components';
 import { AddUserExtSourceDialogComponent } from '../../../../shared/components/dialogs/add-user-ext-source-dialog/add-user-ext-source-dialog.component';
 import { ActivatedRoute } from '@angular/router';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'app-user-identities',
