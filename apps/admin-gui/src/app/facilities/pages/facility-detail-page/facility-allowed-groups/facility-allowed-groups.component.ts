@@ -34,6 +34,8 @@ export class FacilityAllowedGroupsComponent implements OnInit {
 
   loading: boolean;
 
+  filterValue = "";
+
   @Input()
   groups: Group[] = [];
   selected = 'all';
@@ -68,6 +70,7 @@ export class FacilityAllowedGroupsComponent implements OnInit {
   refreshTable() {
     this.loading = true;
     this.groups = [];
+    this.filterValue = "";
     this.vos.forEach(vo => {
       this.facilityManager.getAllowedGroups(this.facilityId, vo.id).subscribe(group => {
         this.groups =  this.groups.concat(group);
@@ -87,6 +90,10 @@ export class FacilityAllowedGroupsComponent implements OnInit {
         this.groupsWithoutRouteAuth.add(grp.id);
       }
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.filterValue = filterValue;
   }
 
   pageChanged(event: PageEvent) {

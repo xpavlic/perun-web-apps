@@ -48,7 +48,7 @@
         <ng-container matColumnDef="vo">
           <th *matHeaderCellDef mat-header-cell
               mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_VO_NAME' | translate}}</th>
-          <td *matCellDef="let group" class="static-column-size" mat-cell>{{group.voId}}</td>
+          <td *matCellDef="let group" class="static-column-size" mat-cell>{{voNames.get(group.voId)}}</td>
         </ng-container>
         <ng-container matColumnDef="name">
           <th *matHeaderCellDef mat-header-cell

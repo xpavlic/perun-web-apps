@@ -109,7 +109,8 @@
       "TABLE_GROUP_ID": "Id",
       "TABLE_GROUP_NAME": "Name",
       "ALL": "All",
-      "NO_GROUPS_ALERT": "No groups found."
+      "NO_GROUPS_ALERT": "No groups found.",
+      "FILTER": "Filter by name, id or description"
     },
     "SERVICES_DESTINATIONS": {
       "TITLE": "Services Destinations",

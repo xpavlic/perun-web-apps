@@ -4,7 +4,7 @@ import {
   EventEmitter,
   HostListener,
   Input,
-  OnChanges, Output,
+  OnChanges, OnInit, Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
@@ -12,7 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Group, RichGroup, Vo } from '@perun-web-apps/perun/openapi';
+import { Group, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupSyncDetailDialogComponent } from '@perun-web-apps/perun/dialogs';
@@ -28,7 +28,7 @@ import {
   templateUrl: './groups-list.component.html',
   styleUrls: ['./groups-list.component.scss']
 })
-export class GroupsListComponent implements AfterViewInit, OnChanges {
+export class GroupsListComponent implements  AfterViewInit, OnChanges {
 
   displayButtons: boolean;
 
@@ -41,7 +41,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   theme = 'group-theme';
 
   constructor(private dialog: MatDialog,
-              private authResolver: GuiAuthResolver) { }
+              private authResolver: GuiAuthResolver,
+              private voService: VosManagerService) { }
 
   @Output()
   moveGroup = new EventEmitter<Group>();
@@ -98,6 +99,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   disabledRouting = false;
 
   vo: Vo;
+  voIds: Set<number> = new Set<number>();
+  voNames: Map<number, string> = new Map<number, string>();
 
   removeAuth: boolean;
 
@@ -113,6 +116,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     this.disabledRouting = this.disableRouting;
     this.hasMembersGroup = this.checkIfHasMembersGroup();
+    this.updateVoNames();
     this.dataSource = new MatTableDataSource<Group>(this.groups);
     this.setDataSource();
     if (this.authType) {
@@ -132,9 +136,25 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   setDataSource() {
     this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));
     if (!!this.dataSource) {
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'vo' :{
+            if (item.voId) {
+              return this.voNames.get(item.voId).toLowerCase();
+            }
+            break;
+          }
+          default: return item[property];
+        }
+      };
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.filterPredicate = (data: Group, filter: string) => {
+        filter = filter.toLowerCase();
+        const dataStr = (data.id.toString() + this.voNames.get(data.voId) + data.name + data.description).toLowerCase();
+        return dataStr.indexOf(filter) !== -1;
+      };
       this.dataSource.filter = this.filter;
+      this.dataSource.paginator = this.paginator;
     }
   }
 
@@ -254,5 +274,18 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     } else {
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.ALREADY_MEMBER_TOOLTIP';
     }
+  }
+
+  updateVoNames() {
+    if (!this.hideColumns.includes('vo')){
+        this.groups.forEach(grp => {
+          if(!this.voIds.has(grp.voId)){
+            this.voIds.add(grp.voId);
+            this.voService.getVoById(grp.voId).subscribe(vo => {
+              this.voNames.set(grp.voId, vo.name);
+            });
+          }
+        });
+      }
   }
 }
