@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { AfterViewChecked, Component, HostBinding, OnInit } from '@angular/core';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import { AuthzResolverService, FacilitiesManagerService, RichFacility } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
@@ -18,7 +18,11 @@ import { GuiAuthResolver, InitAuthService, StoreService } from '@perun-web-apps/
   templateUrl: './facility-select-page.component.html',
   styleUrls: ['./facility-select-page.component.scss']
 })
-export class FacilitySelectPageComponent implements OnInit {
+export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
+
+  static id = 'FacilitySelectPageComponent'
+
+  @HostBinding('class.router-component') true;
 
   constructor(
     private facilityManager: FacilitiesManagerService,
@@ -39,9 +43,12 @@ export class FacilitySelectPageComponent implements OnInit {
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-    this.sideMenuService.setFacilityMenuItems([]);
 
     this.refreshTable();
+  }
+
+  ngAfterViewChecked() {
+    this.sideMenuService.setFacilityMenuItems([]);
   }
 
   refreshTable() {

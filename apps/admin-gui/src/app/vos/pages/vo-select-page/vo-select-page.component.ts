@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, HostBinding, OnInit } from '@angular/core';
 import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import { AuthzResolverService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, getRecentlyVisited, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
@@ -20,7 +20,11 @@ import { PageEvent } from '@angular/material/paginator';
   templateUrl: './vo-select-page.component.html',
   styleUrls: ['./vo-select-page.component.scss']
 })
-export class VoSelectPageComponent implements OnInit {
+export class VoSelectPageComponent implements OnInit, AfterViewChecked{
+
+  static id = 'VoSelectPageComponent';
+
+  @HostBinding('class.router-component') true;
 
   constructor(
     private sideMenuService: SideMenuService,
@@ -54,8 +58,11 @@ export class VoSelectPageComponent implements OnInit {
     this.createAuth = this.guiAuthResolver.isAuthorized('createVo_Vo_policy', []);
     this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteVo_Vo_policy', []);
     this.displayedColumns = this.deleteAuth ? ['checkbox', 'id', 'recent', 'shortName', 'name'] : ['id', 'recent', 'shortName', 'name'];
-    this.sideMenuService.setAccessMenuItems([]);
     this.refreshTable();
+  }
+
+  ngAfterViewChecked() {
+    this.sideMenuService.setAccessMenuItems([]);
   }
 
   refreshTable() {
