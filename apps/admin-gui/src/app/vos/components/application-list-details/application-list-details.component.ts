@@ -54,7 +54,7 @@ export class ApplicationListDetailsComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.loading = true;
-    this.table = []
+    this.table = [];
     this.getApplicationsData(0);
   }
 

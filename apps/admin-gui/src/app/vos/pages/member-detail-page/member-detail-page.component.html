@@ -18,7 +18,7 @@
           &nbsp;#{{member.id}}
         </span>
       </div>
-      <span class="text-muted mt-1 entity-info">
+      <span class="mt-1 entity-info">
         {{'MEMBER_DETAIL.ENTITY' | translate}},
         {{'MEMBER_DETAIL.USER_ID' | translate}}:
         <a class="member-link" *ngIf="isAuthorized" [routerLink]="['/admin', 'users', member.userId]">

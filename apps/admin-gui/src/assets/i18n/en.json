@@ -290,7 +290,7 @@
       "LIST_MEMBERS": "List members",
       "SEARCH_ALERT": "You can search member by name, login and email. Also, you can list all valid members.",
       "NO_MEMBERS_ALERT": "No members found.",
-      "STATUS": "Status",
+      "FILTER_STATUS": "Select Status",
       "INVITE": "Invite"
     },
     "OVERVIEW": {
@@ -1591,7 +1591,8 @@
     "STATUS": "Status",
     "GROUP_STATUS": "Group status",
     "EMAIL": "Email",
-    "LOGINS": "Logins"
+    "LOGINS": "Logins",
+    "ORGANIZATION": "Organization"
   },
   "MEMBERS_CANDIDATES_LIST": {
     "STATUS": "Status",
@@ -1887,7 +1888,7 @@
         },
         "VO_SEARCH_SELECT": {
           "SELECT_VO": "Select organization",
-          "FIND_VO": "Find vo...",
+          "FIND_VO": "Find organization...",
           "NO_VO_FOUND": "No matching vo found"
         },
         "RESOURCES_LIST": {

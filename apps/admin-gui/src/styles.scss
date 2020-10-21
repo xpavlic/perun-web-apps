@@ -1499,17 +1499,7 @@ th, td.mat-cell {
   margin-right: 0.9rem;
 }
 
-//colors when we want to make one item in table colored
-.greenTableItem {
-  background-color: #c4ffcb;
+//font size of tooltip
+.mat-tooltip {
+  font-size: 14px !important;
 }
-
-.yellowTableItem {
-  background-color: #ffffcc;
-}
-
-.redTableItem {
-  background-color: #fdc3c3;
-}
-
-

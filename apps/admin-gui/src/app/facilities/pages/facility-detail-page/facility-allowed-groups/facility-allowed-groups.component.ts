@@ -73,7 +73,7 @@ export class FacilityAllowedGroupsComponent implements OnInit {
     this.filterValue = "";
     this.vos.forEach(vo => {
       this.facilityManager.getAllowedGroups(this.facilityId, vo.id).subscribe(group => {
-        this.groups =  this.groups.concat(group);
+        this.groups = this.groups.concat(group);
         this.groupsToShow = this.groups;
         this.setAuthRights(vo, group);
         this.loading = false;

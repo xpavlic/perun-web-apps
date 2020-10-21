@@ -58,11 +58,21 @@ export class GroupDetailPageComponent implements OnInit {
 
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;
-        this.groupService.getRichGroupByIdWithAttributesByNames(groupId, this.attrNames).subscribe(group => {
+        this.groupService.getGroupById(groupId).subscribe( group => {
           this.group = group;
-          this.syncEnabled = this.isSynchronized();
+          if (this.guiAuthResolver.isAuthorized('getRichGroupByIdWithAttributesByNames_int_List<String>_policy', [this.group])) {
+            this.groupService.getRichGroupByIdWithAttributesByNames(groupId, this.attrNames).subscribe(richGroup => {
+              this.group = richGroup;
+              this.syncEnabled = this.isSynchronized();
+
+              this.syncAuth = this.guiAuthResolver.isAuthorized('forceGroupSynchronization_Group_policy', [this.group]);
+            }, () => this.loading = false);
+          } else {
+            this.syncEnabled = false;
+          }
+
           this.editAuth = this.guiAuthResolver.isAuthorized('updateGroup_Group_policy', [this.group]);
-          this.syncAuth = this.guiAuthResolver.isAuthorized('forceGroupSynchronization_Group_policy', [this.group]);
+
           const voSideMenuItem = this.sideMenuItemService.parseVo(vo);
           const groupSideMenuItem = this.sideMenuItemService.parseGroup(group);
 
