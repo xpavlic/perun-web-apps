@@ -16,6 +16,7 @@ import { MemberStatusIconPipe } from './member-status-icon.pipe';
 import { MemberStatusTooltipPipe } from './member-status-tooltip.pipe';
 import { MemberEmailPipe } from './member-email.pipe';
 import { MemberLoginsPipe} from './member-logins.pipe';
+import { MemberOrganizationPipe } from './member-organization.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MemberLoginsPipe} from './member-logins.pipe';
     MemberStatusIconPipe,
     MemberStatusTooltipPipe,
     MemberEmailPipe,
-    MemberLoginsPipe
+    MemberLoginsPipe,
+    MemberOrganizationPipe
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -54,7 +56,8 @@ import { MemberLoginsPipe} from './member-logins.pipe';
     MemberStatusIconPipe,
     MemberStatusTooltipPipe,
     MemberEmailPipe,
-    MemberLoginsPipe
+    MemberLoginsPipe,
+    MemberOrganizationPipe
   ],
   imports: [CommonModule],
 })

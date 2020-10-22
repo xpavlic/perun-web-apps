@@ -48,27 +48,31 @@ export function parseStatusColor(richMember: RichMember): string {
 }
 
 /**
- * Gets email of given member. The vo-email has top priority, the preferred email
+ * Gets email of given member. The preferred email has top priority, the vo-email
  * has lower priority. If there are no emails, an empty string is returned.
  *
  * @param richMember RichMember
  */
 export function parseEmail(richMember: RichMember): string {
   let email = '';
-  if (richMember && richMember.memberAttributes !== null) {
-    richMember.memberAttributes.forEach(attr => {
-      if (attr.friendlyName === 'mail' && attr.value !== null) {
+  if (richMember && richMember.userAttributes !== null) {
+
+    richMember.userAttributes.forEach(attr => {
+      if (attr.friendlyName === 'preferredMail') {
         email = <string><unknown>attr.value;
       }
     });
 
-    if (email.length === 0 && richMember.userAttributes !== null) {
-      richMember.userAttributes.forEach(attr => {
-        if (attr.friendlyName === 'preferredMail') {
+    if ( email.length === 0 && richMember.memberAttributes !== null) {
+      richMember.memberAttributes.forEach(attr => {
+        if (attr.friendlyName === 'mail' && attr.value !== null) {
           email = <string><unknown>attr.value;
         }
       });
     }
+
+
+
   }
   return email;
 }
@@ -559,4 +563,32 @@ export function parseMemberStatus(memberStatus: string, memberGroupStatus?:strin
     return 'INACTIVE'
   }
   return memberStatus;
+}
+
+/**
+ * Gets organization of given member. The Organization (for VO) has top priority, the Organization, provided by IDP
+ * has lower priority. If there are no organizations, an empty string is returned.
+ *
+ * @param richMember RichMember
+ */
+export function parseOrganization(richMember: RichMember): string {
+
+  let organization = '';
+
+  if (richMember && richMember.memberAttributes !== null) {
+    richMember.memberAttributes.forEach(attr => {
+      if (attr.friendlyName === 'organization' && attr.value !== null) {
+        organization = <string><unknown>attr.value;
+      }
+    });
+
+    if (organization.length === 0 && richMember.userAttributes !== null) {
+      richMember.userAttributes.forEach(attr => {
+        if (attr.friendlyName === 'organization') {
+          organization = <string><unknown>attr.value;
+        }
+      });
+    }
+  }
+  return organization;
 }

@@ -52,8 +52,12 @@
     </i> {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.SEND_NOTIFICATION' | translate}}
   </button>
 
-  <div>
-    <span class="font-weight-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPLICATION_FOR_VO' | translate}}</span> : {{this.application.vo.name}}
+  <div *ngIf="!application.group">
+    <span class="font-weight-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPLICATION_FOR_VO' | translate}}</span>: {{this.application.vo.name}}
+  </div>
+  <div *ngIf="application.group">
+    <span class="font-weight-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPLICATION_FOR_GROUP' | translate}}</span>: {{this.application.group.name}}
+    <span class="font-weight-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPLICATION_IN_VO' | translate}}</span>: {{this.application.vo.name}}
   </div>
   <div>
     <span class="font-weight-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.STATE' | translate}}</span>: <span [outerHTML]="this.application.state | applicationState"></span>

@@ -17,7 +17,7 @@ import { RichMember } from '@perun-web-apps/perun/openapi';
 import {
   getDefaultDialogConfig,
   parseEmail,
-  parseFullName,
+  parseFullName, parseOrganization,
   TABLE_ITEMS_COUNT_OPTIONS
 } from '@perun-web-apps/perun/utils';
 import { ChangeMemberStatusDialogComponent } from '@perun-web-apps/perun/dialogs';
@@ -72,7 +72,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
 
   exporting = false;
 
-  displayedColumns: string[] = ['checkbox', 'id', 'fullName', 'status', 'email', 'logins'];
+  displayedColumns: string[] = ['checkbox', 'id', 'fullName', 'status', 'organization', 'email', 'logins'];
   dataSource: MatTableDataSource<RichMember>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
@@ -95,6 +95,8 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
             }
           case 'email':
             return parseEmail(richMember);
+          case 'organization':
+            return parseOrganization(richMember);
           default:
             return richMember[property];
         }

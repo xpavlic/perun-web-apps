@@ -14,7 +14,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RichUser, Candidate, MemberCandidate, Attribute, Group, Vo } from '@perun-web-apps/perun/openapi';
 import {
-  parseEmail,
   getCandidateEmail,
   getExtSourceNameOrOrganizationColumn,
   parseUserEmail,

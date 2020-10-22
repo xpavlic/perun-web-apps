@@ -84,8 +84,9 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row
               *matRowDef="let task; columns: displayedColumns;"
-              [ngClass]="{'redBackground': task.status === 'ERROR' || task.status === 'SENDERROR' || task.status === 'GENERROR',
-                                'greenBackground': task.status === 'DONE'}">
+              [ngClass]="{'redTableItem': task.status === 'ERROR' || task.status === 'SENDERROR' || task.status === 'GENERROR',
+                          'greenTableItem': task.status === 'DONE',
+                          'yellowTableItem': task.status === 'WARNING'}">
           </tr>
         </table>
 
