@@ -14,12 +14,11 @@
 /**
  * statuses of a member in a Vo
  */
-export type VoMemberStatuses = 'VALID' | 'INVALID' | 'SUSPENDED' | 'EXPIRED' | 'DISABLED';
+export type VoMemberStatuses = 'VALID' | 'INVALID' | 'EXPIRED' | 'DISABLED';
 
 export const VoMemberStatuses = {
     VALID: 'VALID' as VoMemberStatuses,
     INVALID: 'INVALID' as VoMemberStatuses,
-    SUSPENDED: 'SUSPENDED' as VoMemberStatuses,
     EXPIRED: 'EXPIRED' as VoMemberStatuses,
     DISABLED: 'DISABLED' as VoMemberStatuses
 };

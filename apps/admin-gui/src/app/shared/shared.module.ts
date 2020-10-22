@@ -169,6 +169,10 @@ import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-tas
 import { EditApplicationFormItemDataDialogComponent } from './components/dialogs/edit-application-form-item-data-dialog/edit-application-form-item-data-dialog.component';
 import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
+import { CreateSponsoredMemberDialogComponent } from './components/dialogs/create-sponsored-member-dialog/create-sponsored-member-dialog.component';
+import { GenerateSponsoredMembersDialogComponent } from './components/dialogs/generate-sponsored-members-dialog/generate-sponsored-members-dialog.component';
+import { SponsoredMembersListComponent } from './components/sponsored-members-list/sponsored-members-list.component';
+import { EditMemberSponsorsDialogComponent } from './components/dialogs/edit-member-sponsors-dialog/edit-member-sponsors-dialog.component';
 import { CreateAttributeDialogComponent } from './components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 
 @NgModule({
@@ -302,6 +306,8 @@ import { CreateAttributeDialogComponent } from './components/dialogs/create-attr
     UserLoginsPipe,
     UserEmailPipe,
     UsersListComponent,
+    SponsoredMembersListComponent,
+    EditMemberSponsorsDialogComponent,
     CreateAttributeDialogComponent
   ],
   declarations: [
@@ -413,6 +419,11 @@ import { CreateAttributeDialogComponent } from './components/dialogs/create-attr
     EditApplicationFormItemDataDialogComponent,
     CreateServiceDialogComponent,
     UsersListComponent,
+    EditUserDialogComponent,
+    CreateSponsoredMemberDialogComponent,
+    GenerateSponsoredMembersDialogComponent,
+    SponsoredMembersListComponent,
+    EditMemberSponsorsDialogComponent,
     CreateAttributeDialogComponent
   ],
   providers: [

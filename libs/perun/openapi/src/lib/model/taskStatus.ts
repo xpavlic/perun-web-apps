@@ -11,7 +11,7 @@
  */
 
 
-export type TaskStatus = 'WAITING' | 'PLANNED' | 'GENERATING' | 'GENERROR' | 'GENERATED' | 'SENDING' | 'DONE' | 'SENDERROR' | 'ERROR';
+export type TaskStatus = 'WAITING' | 'PLANNED' | 'GENERATING' | 'GENERROR' | 'GENERATED' | 'SENDING' | 'DONE' | 'SENDERROR' | 'ERROR' | 'WARNING';
 
 export const TaskStatus = {
     WAITING: 'WAITING' as TaskStatus,
@@ -22,6 +22,7 @@ export const TaskStatus = {
     SENDING: 'SENDING' as TaskStatus,
     DONE: 'DONE' as TaskStatus,
     SENDERROR: 'SENDERROR' as TaskStatus,
-    ERROR: 'ERROR' as TaskStatus
+    ERROR: 'ERROR' as TaskStatus,
+    WARNING: 'WARNING' as TaskStatus
 };
 

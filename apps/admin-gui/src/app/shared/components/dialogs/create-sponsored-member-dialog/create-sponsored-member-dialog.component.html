@@ -1,0 +1,95 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE' | translate}}</h1>
+
+  <div mat-dialog-content class="dialog-container">
+
+    <mat-form-field>
+      <label>
+        <input matInput [formControl]="firstName" required
+               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.FIRST_NAME' | translate}}">
+      </label>
+      <mat-error *ngIf="firstName.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <label>
+        <input matInput [formControl]="lastName" required
+               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LAST_NAME' | translate}}">
+      </label>
+      <mat-error *ngIf="lastName.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <label>
+        <input matInput [(ngModel)]="titleBefore"
+               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_BEFORE' | translate}}">
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <label>
+        <input matInput [(ngModel)]="titleAfter"
+               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_AFTER' | translate}}">
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <label>
+        <input matInput [formControl]="login" required
+               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN' | translate}}">
+      </label>
+      <mat-error *ngIf="login.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <label>
+        <input matInput [formControl]="password" required
+               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD' | translate}}">
+      </label>
+      <mat-error *ngIf="password.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}</mat-error>
+    </mat-form-field>
+
+    <!--        <mat-form-field class="">-->
+    <!--          <label>-->
+    <!--            <input matInput [(ngModel)]="this.sponsorId" placeholder="{{'DIALOGS.CREATE_SPONSORED_USER.SPONSOR_ID' | translate}}">-->
+    <!--          </label>-->
+    <!--        </mat-form-field>-->
+
+    <mat-form-field>
+      <mat-select placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.NAMESPACE' | translate}}" required [formControl]="namespace">
+        <mat-option (onSelectionChange)="namespace.setValue(namespc)" *ngFor="let namespc of namespaceOptions" [value]="namespc">
+          {{namespc}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="namespace.invalid">
+        {{'DIALOGS.CREATE_SPONSORED_MEMBER.NAMESPACE_ERROR' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <label>
+        <input matInput required [formControl]="email"
+               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL' | translate}}">
+      </label>
+      <mat-error *ngIf="email.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL_ERROR' | translate}}</mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button
+      (click)="onCancel()"
+      class="ml-auto"
+      mat-flat-button>
+      {{'DIALOGS.CREATE_SPONSORED_MEMBER.CANCEL' | translate}}
+    </button>
+    <button
+      (click)="onConfirm()"
+      [disabled]="loading || firstName.invalid || lastName.invalid || login.invalid || password.invalid || namespace.invalid || email.invalid"
+      class="ml-2"
+      color="accent"
+      mat-flat-button>
+      {{'DIALOGS.CREATE_SPONSORED_MEMBER.CREATE' | translate}}
+    </button>
+  </div>
+</div>

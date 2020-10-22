@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 import { Destination } from '../model/destination';
 import { DestinationPropagationType } from '../model/destinationPropagationType';
 import { DestinationType } from '../model/destinationType';
+import { HashedGenData } from '../model/hashedGenData';
 import { InputAddDestinationToMultipleServices } from '../model/inputAddDestinationToMultipleServices';
 import { InputAddDestinationsDefinedByHostsOnFacility } from '../model/inputAddDestinationsDefinedByHostsOnFacility';
 import { InputCreateService } from '../model/inputCreateService';
@@ -2271,6 +2272,144 @@ export class ServicesManagerService {
 
 
         return this.httpClient.get<ServiceAttributes>(`${this.configuration.basePath}/json/servicesManager/getFlatData`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Generates hashed group structure data for given service and facility.
+     * @param service id of Service
+     * @param facility id of Facility
+     * @param filterExpiredMembers if true the method does not take members expired in groups into account
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getHashedDataWithGroups(service: number, facility: number, filterExpiredMembers?: boolean, observe?: 'body', reportProgress?: boolean): Observable<HashedGenData>;
+    public getHashedDataWithGroups(service: number, facility: number, filterExpiredMembers?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HashedGenData>>;
+    public getHashedDataWithGroups(service: number, facility: number, filterExpiredMembers?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HashedGenData>>;
+    public getHashedDataWithGroups(service: number, facility: number, filterExpiredMembers?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (service === null || service === undefined) {
+            throw new Error('Required parameter service was null or undefined when calling getHashedDataWithGroups.');
+        }
+        if (facility === null || facility === undefined) {
+            throw new Error('Required parameter facility was null or undefined when calling getHashedDataWithGroups.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (service !== undefined && service !== null) {
+            queryParameters = queryParameters.set('service', <any>service);
+        }
+        if (facility !== undefined && facility !== null) {
+            queryParameters = queryParameters.set('facility', <any>facility);
+        }
+        if (filterExpiredMembers !== undefined && filterExpiredMembers !== null) {
+            queryParameters = queryParameters.set('filterExpiredMembers', <any>filterExpiredMembers);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<HashedGenData>(`${this.configuration.basePath}/json/servicesManager/getHashedDataWithGroups`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Generates hashed hierarchical data structure for given service and facility.
+     * @param service id of Service
+     * @param facility id of Facility
+     * @param filterExpiredMembers if true the method does not take members expired in groups into account
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getHashedHierarchicalData(service: number, facility: number, filterExpiredMembers?: boolean, observe?: 'body', reportProgress?: boolean): Observable<HashedGenData>;
+    public getHashedHierarchicalData(service: number, facility: number, filterExpiredMembers?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HashedGenData>>;
+    public getHashedHierarchicalData(service: number, facility: number, filterExpiredMembers?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HashedGenData>>;
+    public getHashedHierarchicalData(service: number, facility: number, filterExpiredMembers?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (service === null || service === undefined) {
+            throw new Error('Required parameter service was null or undefined when calling getHashedHierarchicalData.');
+        }
+        if (facility === null || facility === undefined) {
+            throw new Error('Required parameter facility was null or undefined when calling getHashedHierarchicalData.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (service !== undefined && service !== null) {
+            queryParameters = queryParameters.set('service', <any>service);
+        }
+        if (facility !== undefined && facility !== null) {
+            queryParameters = queryParameters.set('facility', <any>facility);
+        }
+        if (filterExpiredMembers !== undefined && filterExpiredMembers !== null) {
+            queryParameters = queryParameters.set('filterExpiredMembers', <any>filterExpiredMembers);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<HashedGenData>(`${this.configuration.basePath}/json/servicesManager/getHashedHierarchicalData`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

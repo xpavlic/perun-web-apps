@@ -11,13 +11,12 @@
  */
 
 
-export type TaskResultStatus = 'DONE' | 'ERROR' | 'FATAL_ERROR' | 'DENIED' | 'WARN';
+export type TaskResultStatus = 'DONE' | 'ERROR' | 'DENIED' | 'WARNING';
 
 export const TaskResultStatus = {
     DONE: 'DONE' as TaskResultStatus,
     ERROR: 'ERROR' as TaskResultStatus,
-    FATALERROR: 'FATAL_ERROR' as TaskResultStatus,
     DENIED: 'DENIED' as TaskResultStatus,
-    WARN: 'WARN' as TaskResultStatus
+    WARNING: 'WARNING' as TaskResultStatus
 };
 

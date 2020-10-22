@@ -89,3 +89,4 @@ export const TABLE_USER_ASSOCIATED_USERS = '55';
 export const TABLE_FACILITY_ALLOWED_USERS = '56';
 export const TABLE_RESOURCE_MEMBERS = '57';
 export const TABLE_TASK_RESULTS = '58';
+export const TABLE_SPONSORED_MEMBERS = '59';
