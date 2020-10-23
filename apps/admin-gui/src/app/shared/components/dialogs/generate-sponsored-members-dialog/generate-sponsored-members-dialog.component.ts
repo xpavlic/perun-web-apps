@@ -106,7 +106,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
 
   exportData(data) {
     this.dataSource.data = this.createOutputObjects(data);
-    setTimeout(() => {  this.exporter.exportTable('xlsx', {fileName: 'member-logins'}) }, 2000);
+    this.exporter.exportTable('xlsx', {fileName: 'member-logins'});
   }
 
   onGenerate(){
@@ -118,13 +118,16 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
       generatedMemberNames = generatedMemberNames.concat(this.parseMemberName(name));
     }
 
-
     // For testing purposes
-    // const fakeExportData: {[p: string]: {[p: string]: string}} = {
+    // const fakeExportData = {
     //   'meno1': {'status': 'ok', 'login': '123', 'password': '456'},
     //   'meno2': {'status': 'ok', 'login': 'abc', 'password': 'wqeq'},
     // }
-    // this.exportData(fakeExportData);
+    // const fakeExportData = {"guest Zeman":{"password":"tmY@xwAz1D+L","login":"9137983","status":"OK"},
+    //   "guest Japonec":{"password":"tmY@xwAz1D+L","login":"9137983","status":"OK"},
+    // };
+    // console.log(fakeExportData);
+    //this.exportData(fakeExportData);
 
     this.membersService.createSponsoredMembers({
       guestNames: generatedMemberNames,

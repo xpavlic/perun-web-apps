@@ -17,14 +17,14 @@
           <button
             mat-icon-button
             (click)="markSponsor(sponsor)">
-            <mat-icon *ngIf="!sponsorsToRemove.has(sponsor.id)" color="warn">clear</mat-icon>
-            <mat-icon *ngIf="sponsorsToRemove.has(sponsor.id)">settings_backup_restore</mat-icon>
+            <mat-icon *ngIf="!sponsorsToRemove.has(sponsor.user.id)" color="warn">clear</mat-icon>
+            <mat-icon *ngIf="sponsorsToRemove.has(sponsor.user.id)">settings_backup_restore</mat-icon>
           </button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
       <tr mat-row *matRowDef="let sponsor; columns: displayedColumns;"
-          [class.make-red]="sponsorsToRemove.has(sponsor.id)">
+          [class.make-red]="sponsorsToRemove.has(sponsor.user.id)">
       </tr>
     </table>
   </div>

@@ -1875,9 +1875,9 @@
         "NO_SECURITY_TEAMS_WARNING": "No security teams found"
       },
       "SPONSORED_MEMBERS_LIST": {
-        "ID": "id",
-        "NAME": "name",
-        "SPONSORS": "sponsors",
+        "ID": "Id",
+        "NAME": "Name",
+        "SPONSORS": "Sponsors",
         "NO_SPONSORED_MEMBERS_WARNING": "No sponsored members found"
       }
     },

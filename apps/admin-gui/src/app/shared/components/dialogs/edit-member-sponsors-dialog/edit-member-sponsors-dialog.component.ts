@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MembersManagerService, User } from '@perun-web-apps/perun/openapi';
+import { MembersManagerService, Sponsor, User } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 export interface EditMemberSponsorsDialogComponent {
   theme: string;
-  sponsors: User[];
+  sponsors: Sponsor[];
   member: number;
 }
 
@@ -25,9 +25,9 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
               private translate: TranslateService) { }
 
   theme: string;
-  sponsors: User[];
+  sponsors: Sponsor[];
   displayedColumns: string[] = ['id', 'name', 'remove'];
-  dataSource: MatTableDataSource<User>;
+  dataSource: MatTableDataSource<Sponsor>;
   loading = false;
 
   sponsorsToRemove: Set<number> = new Set<number>();
@@ -35,14 +35,14 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.sponsors = this.data.sponsors;
-    this.dataSource = new MatTableDataSource<User>(this.data.sponsors);
+    this.dataSource = new MatTableDataSource<Sponsor>(this.data.sponsors);
   }
 
-  markSponsor(sponsor: User) {
-    if (this.sponsorsToRemove.has(sponsor.id)){
-      this.sponsorsToRemove.delete(sponsor.id);
+  markSponsor(sponsor: Sponsor) {
+    if (this.sponsorsToRemove.has(sponsor.user.id)){
+      this.sponsorsToRemove.delete(sponsor.user.id);
     } else {
-      this.sponsorsToRemove.add(sponsor.id);
+      this.sponsorsToRemove.add(sponsor.user.id);
     }
   }
 
