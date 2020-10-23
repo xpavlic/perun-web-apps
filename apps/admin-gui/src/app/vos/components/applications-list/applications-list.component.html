@@ -69,7 +69,8 @@
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr
           [class.cursor-pointer]="!disableRouting"
-          (click)="selectApplication(application)"
+          [routerLink]="selectApplication(application)"
+          [perunWebAppsMiddleClickRouterLink]="selectApplication(application)"
           *matRowDef="let application; columns: displayedColumns;"
           class="dark-hover-list-item"
           mat-row>

@@ -2,7 +2,9 @@
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <mat-tree-node class="group-tree-node"
                    *matTreeNodeDef="let group" matTreeNodePadding>            <!--leaf-->
-      <div class="group-item-content" [routerLink]="disableRouting ? null : ['/organizations', group.voId, 'groups', group.id]">
+      <div class="group-item-content"
+           [routerLink]="disableRouting ? null : ['/organizations', group.voId, 'groups', group.id]"
+           [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/organizations', group.voId, 'groups', group.id]">
         <mat-checkbox color="primary"
                       *ngIf="!hideCheckbox"
                       [disabled]="group.fullName === 'members'"
@@ -45,7 +47,10 @@
                     [indeterminate]="descendantsPartiallySelected(group)"
                     (change)="itemSelectionToggle(group)"
                     matTreeNodeToggle></mat-checkbox>
-      <div class="group-item-content" [routerLink]="disableRouting ? null :['/organizations', group.voId, 'groups', group.id]">
+      <div
+        class="group-item-content"
+        [routerLink]="disableRouting ? null :['/organizations', group.voId, 'groups', group.id]"
+        [perunWebAppsMiddleClickRouterLink]="disableRouting ? null :['/organizations', group.voId, 'groups', group.id]">
         <button mat-icon-button matTreeNodeToggle
                 [attr.aria-label]="'toggle ' + group.name">
           <mat-icon class="mat-icon-rtl-mirror">

@@ -44,6 +44,7 @@
           class="dark-hover-list-item"
           [class.disable-outline]="disableRouting"
           [routerLink]="disableRouting ? null : ['/admin', 'users', userId, 'identities', richUserExtSource.userExtSource.id]"
+          [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/admin', 'users', userId, 'identities', richUserExtSource.userExtSource.id]"
           mat-row>
         </tr>
       </table>

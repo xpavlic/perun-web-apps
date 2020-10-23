@@ -60,6 +60,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MembersListComponent } from './members-list/members-list.component';
 import { TaskResultsListComponent } from './task-results-list/task-results-list.component';
 import { GroupSearchSelectComponent } from './group-search-select/group-search-select.component';
+import { MiddleClickRouterLinkDirective } from '@perun-web-apps/perun/directives';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -150,7 +151,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     VoSearchSelectComponent,
     MembersListComponent,
     TaskResultsListComponent,
-    GroupSearchSelectComponent
+    GroupSearchSelectComponent,
+    MiddleClickRouterLinkDirective
   ],
   exports: [
     VoSelectTableComponent,
@@ -179,7 +181,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     VoSearchSelectComponent,
     MembersListComponent,
     TaskResultsListComponent,
-    GroupSearchSelectComponent
+    GroupSearchSelectComponent,
+    MiddleClickRouterLinkDirective
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
