@@ -161,6 +161,7 @@ export * from './serviceState';
 export * from './servicesPackage';
 export * from './setRoleWithGroupComplementaryObject';
 export * from './setRoleWithUserComplementaryObject';
+export * from './sponsor';
 export * from './task';
 export * from './taskAndDestinationIdObject';
 export * from './taskAndDestinationNameObject';
