@@ -155,8 +155,7 @@ export class GuiAuthResolver {
     if (this.principal.roles[role]) {
       //console.log(this.principal.roles[role]);
       if (this.principal.roles[role][convertedBeanName]) {
-        //console.log(this.principal.roles[role][convertedBeanName]);
-        return this.principal.roles[role][convertedBeanName].indexOf(id) !== -1;
+        return this.principal.roles[role][convertedBeanName].includes(Number(id.toString()));
       }
     }
     return false;

@@ -29,5 +29,7 @@
       [selection]="selection"
       [filterValue]="searchString"
       [pageSize]="pageSize"
+      (page)="pageChanged($event)"
+      (refreshTable)="refresh()"
   ></app-sponsored-members-list>
 </div>

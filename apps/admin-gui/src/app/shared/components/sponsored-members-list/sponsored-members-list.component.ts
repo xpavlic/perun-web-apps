@@ -52,6 +52,9 @@ export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
+  @Output()
+  refreshTable = new EventEmitter<void>();
+
   dataSource: MatTableDataSource<MemberWithSponsors>;
   private sort: MatSort;
   exporting = false;
@@ -106,8 +109,12 @@ export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
       member: member.member.id,
       theme: "vo-theme"
     };
-
-    this.dialog.open(EditMemberSponsorsDialogComponent, config);
+    const dialogRef = this.dialog.open(EditMemberSponsorsDialogComponent, config);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.refreshTable.emit();
+      }
+    });
   }
 
   isAllSelected() {
