@@ -89,7 +89,7 @@ export class VoSettingsOverviewComponent implements OnInit {
       });
     }
     // Sponsored members
-    if (this.authResolver.isAuthorized('getSponsoredMembers_Vo_policy', [this.vo])) {
+    if (this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [this.vo])) {
       this.items.push({
         cssIcon: 'perun-user',
         url: `/organizations/${this.vo.id}/settings/sponsoredMembers`,

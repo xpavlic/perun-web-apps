@@ -468,7 +468,7 @@ export class SideMenuItemService {
     // Settings
     const extSourcesAuth = this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [vo]);
     const managersAuth = this.authResolver.isAuthorized('getRichAdmins_Vo_String_List<String>_boolean_boolean_policy', [vo]);
-    const sponsoredMembersAuth = this.authResolver.isAuthorized('getSponsoredMembers_Vo_policy', [vo]);
+    const sponsoredMembersAuth = this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [vo]);
     const adminOrObserver = this.authResolver.isThisVoAdminOrObserver(vo.id);
 
     if (managersAuth || extSourcesAuth || adminOrObserver || sponsoredMembersAuth) {

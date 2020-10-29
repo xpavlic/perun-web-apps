@@ -20,8 +20,10 @@ export interface InputCreateSponsoredMember {
     titleBefore?: string;
     titleAfter?: string;
     password: string;
+    email?: string;
     vo: number;
     sponsor: number;
     namespace: string;
+    validityTo?: string;
 }
 

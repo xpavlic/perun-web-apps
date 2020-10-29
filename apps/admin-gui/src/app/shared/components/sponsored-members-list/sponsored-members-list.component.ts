@@ -106,7 +106,7 @@ export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
     config.width = "650px";
     config.data = {
       sponsors: member.sponsors,
-      member: member.member.id,
+      member: member.member,
       theme: "vo-theme"
     };
     const dialogRef = this.dialog.open(EditMemberSponsorsDialogComponent, config);

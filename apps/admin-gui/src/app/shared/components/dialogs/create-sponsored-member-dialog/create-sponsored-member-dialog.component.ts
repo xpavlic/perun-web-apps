@@ -1,11 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-  MembersManagerService,
-  UsersManagerService
+  MembersManagerService, RichMember
 } from '@perun-web-apps/perun/openapi';
-import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { StoreService } from '@perun-web-apps/perun/services';
 import { FormControl, Validators } from '@angular/forms';
 
 export interface CreateSponsoredMemberDialogData {
@@ -23,6 +21,10 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
   theme: string;
   loading = false;
+  functionalityNotSupported = false;
+  loginThatWasSet = '';
+  successfullyCreated = false;
+  createdMember: RichMember;
 
   namespaceOptions: string[] = [];
 
@@ -38,7 +40,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
   password = new FormControl('', [Validators.required]);
 
-  namespace = new FormControl('', [Validators.required,]);
+  namespace = new FormControl('', [Validators.required]);
 
   login = new FormControl('', [Validators.required]);
 
@@ -47,22 +49,26 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<CreateSponsoredMemberDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: CreateSponsoredMemberDialogData,
               private membersService: MembersManagerService,
-              private store: StoreService,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private usersService: UsersManagerService) {
+              private store: StoreService) {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.theme = this.data.theme;
     this.parseNamespace();
+    if (this.namespaceOptions.length === 0) {
+      this.functionalityNotSupported = true;
+    }
+    this.loading = false;
   }
 
   parseNamespace(){
-    const namespaces = this.store.getLoginAttributeNames();
-    for(const namespace of namespaces){
+    //TODO get login_namespace_attributes when creating for other namespaces will be available, then delete
+    //TODO sponsor_namespace_attributes from configuration
+    const namespaces = this.store.get("sponsor_namespace_attributes");
+    for (const namespace of namespaces) {
       const index = namespace.lastIndexOf(':');
-      if(index !== -1){
+      if (index !== -1) {
         this.namespaceOptions.push(namespace.substring(index + 1, namespace.length));
       }
     }
@@ -78,17 +84,41 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
       titleBefore: this.titleBefore,
       namespace: this.namespace.value,
       password: this.password.value,
-      sponsor: this.store.getPerunPrincipal().userId
-    }).subscribe(rm => {
-      this.usersService.reservePassword(this.login.value, this.namespace.value, this.password.value).subscribe(_ => {
-        this.notificator.showSuccess(this.translate.instant('DIALOGS.CREATE_SPONSORED_USER.SUCCESS'));
-        this.dialogRef.close(true);
-      }, () => this.loading = false);
-    }, () => this.loading = false);
+      sponsor: this.store.getPerunPrincipal().userId,
+      email: this.email.value
+    }).subscribe(richMember => {
+      this.successfullyCreated = true;
+      this.dialogRef.updateSize('600px');
+      this.createdMember = richMember;
+      if(!!richMember && !!richMember.userAttributes){
+        richMember.userAttributes
+          .filter(attr => attr.baseFriendlyName === 'login-namespace')
+          .filter(attr => attr.friendlyNameParameter === 'mu')
+          .filter(attr => attr.value !== null)
+          .forEach(attr => {
+            this.loginThatWasSet = attr.value.toString();
+          });
+      }
+      this.loading = false;
+    }, () => {
+      this.loading = false
+    });
   }
 
   onCancel() {
-    this.dialogRef.close();
+    if (this.successfullyCreated) {
+      this.dialogRef.close(true);
+    } else {
+      this.dialogRef.close();
+    }
+
   }
 
+  changeNamespace(namespc: string) {
+    if (namespc === 'mu') {
+      this.login.disable();
+    } else {
+      this.login.enable();
+    }
+  }
 }

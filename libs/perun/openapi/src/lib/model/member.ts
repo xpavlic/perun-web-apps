@@ -12,7 +12,7 @@
 import { Auditable } from './auditable';
 
 
-export interface Member extends Auditable {
+export interface Member extends Auditable { 
     userId?: number;
     voId?: number;
     status?: string;

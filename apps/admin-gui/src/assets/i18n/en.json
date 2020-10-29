@@ -1602,13 +1602,20 @@
       "NAMESPACE": "Namespace",
       "SPONSOR_ID": "Sponsor ID",
       "CANCEL": "Cancel",
+      "OK": "Ok",
       "CREATE": "Create",
       "LOGIN": "Login",
       "EMAIL": "Email",
       "SUCCESS": "Sponsored user created",
       "EMAIL_ERROR": "Email is not valid",
       "LENGTH_ERROR": "Length of input has to be between 1 to 128 characters",
-      "NAMESPACE_ERROR": "Selection of namespace is required"
+      "NAMESPACE_ERROR": "Selection of namespace is required",
+      "FUNCTIONALITY_NOT_SUPPORTED": "This functionality is not yet supported.",
+      "LOGIN_DISABLED": "Setting login is disabled in this namespace",
+      "SUCCESSFULLY_CREATED": "Sponsored member was successfully created",
+      "USER": "User",
+      "WAS_CREATED": "was successfully created",
+      "COPY_INFORMATION": "Please save this information. It will not be possible to access this information later."
     },
     "GENERATE_SPONSORED_MEMBERS": {
       "TITLE": "Create sponsored members in bulk",
@@ -1627,7 +1634,8 @@
       "TABLE_NAME": "name",
       "CANCEL": "Cancel",
       "SUBMIT": "Submit",
-      "SUCCESS": "Sponsors successfully edited"
+      "SUCCESS": "Sponsors successfully edited",
+      "REMOVE_SPONSOR_DISABLED": "You are not authorized to remove sponsor"
     }
   },
   "MEMBERS_LIST": {
@@ -1742,15 +1750,19 @@
       "USER_ID": "User ID",
       "USER_TYPE": "User type",
       "EDIT_NAME": "Edit name",
-      "MY_VO": "Your organizations",
-      "MY_GROUPS": "Your groups",
-      "MY_FACILITIES": "Your facilities",
-      "MY_RESOURCES": "Your resources",
+      "MY_VO": "Manager in Organizations",
+      "MY_GROUPS": "Manager in Groups",
+      "MY_FACILITIES": "Manager in Facilities",
+      "MY_RESOURCES": "Manager in Resources",
+      "VO_WHERE_SPONSOR": "Sponsor in Organizations",
+      "VO_WHERE_TOP_GROUP_CREATOR": "Group creator in Organizations",
       "FILTER": "Filter",
       "VO_TOOLTIP_INFO": "Organizations where you are admin",
       "GROUPS_TOOLTIP_INFO": "Groups where you are admin",
       "RESOURCES_TOOLTIP_INFO": "Resources where you are admin",
-      "FACILITIES_TOOLTIP_INFO": "Facilities where you are admin"
+      "FACILITIES_TOOLTIP_INFO": "Facilities where you are admin",
+      "SPONSOR_TOOLTIP_INFO": "Organizations where you have role Sponsor",
+      "TOP_GROUP_CREATOR_TOOLTIP_INFO": "Organization where you have role Top group creator"
     },
     "IDENTITIES": {
       "TITLE": "Identities",

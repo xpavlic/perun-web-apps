@@ -63,7 +63,7 @@ export function parseEmail(richMember: RichMember): string {
       }
     });
 
-    if ( email.length === 0 && richMember.memberAttributes !== null) {
+    if ( email && email.length === 0 && richMember.memberAttributes !== null) {
       richMember.memberAttributes.forEach(attr => {
         if (attr.friendlyName === 'mail' && attr.value !== null) {
           email = <string><unknown>attr.value;

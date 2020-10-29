@@ -1337,6 +1337,79 @@ export class MembersManagerService {
     }
 
     /**
+     * Updates sponsorship validity. To change it to FOREVER, pass null in validityTo.
+     * @param member id of Member
+     * @param sponsor id of sponsor
+     * @param validityTo date in format yyyy-mm-dd
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateSponsorshipValidity(member: number, sponsor: number, validityTo: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateSponsorshipValidity(member: number, sponsor: number, validityTo: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateSponsorshipValidity(member: number, sponsor: number, validityTo: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateSponsorshipValidity(member: number, sponsor: number, validityTo: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (member === null || member === undefined) {
+            throw new Error('Required parameter member was null or undefined when calling updateSponsorshipValidity.');
+        }
+        if (sponsor === null || sponsor === undefined) {
+            throw new Error('Required parameter sponsor was null or undefined when calling updateSponsorshipValidity.');
+        }
+        if (validityTo === null || validityTo === undefined) {
+            throw new Error('Required parameter validityTo was null or undefined when calling updateSponsorshipValidity.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (member !== undefined && member !== null) {
+            queryParameters = queryParameters.set('member', <any>member);
+        }
+        if (sponsor !== undefined && sponsor !== null) {
+            queryParameters = queryParameters.set('sponsor', <any>sponsor);
+        }
+        if (validityTo !== undefined && validityTo !== null) {
+            queryParameters = queryParameters.set('validityTo', <any>validityTo);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/membersManager/updateSponsorshipValidity`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Validate all attributes for member and set member\&#39;s status to VALID. This method runs asynchronously. It immediately return member with original status and after asynchronous validation successfully finishes it switch member\&#39;s status to VALID. If validation ends with error, member keeps his status.
      * @param member id of Member
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

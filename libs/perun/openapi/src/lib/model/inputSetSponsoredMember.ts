@@ -20,5 +20,6 @@ export interface InputSetSponsoredMember {
     vo: number;
     sponsor?: number;
     namespace: string;
+    validityTo?: string;
 }
 

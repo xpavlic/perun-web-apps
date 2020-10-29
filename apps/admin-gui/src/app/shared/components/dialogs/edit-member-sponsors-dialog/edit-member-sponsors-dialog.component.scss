@@ -1,3 +1,9 @@
 .make-red {
   background-color: #FFCDD2;
 }
+
+.btn-delete:disabled{
+  .icn-delete{
+    color: grey;
+  }
+}
