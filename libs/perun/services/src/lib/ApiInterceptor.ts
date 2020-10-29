@@ -47,22 +47,17 @@ export class ApiInterceptor implements HttpInterceptor {
       }
     });
 
-    // Also handle errors globally
-    return next.handle(req).pipe(
-      tap(x => {
-        // reset error handling only on API response
-        if (x.type !== 0){
-          this.apiRequestConfiguration.shouldHandleError();
-        }
+    // Also handle errors globally, if not disabled
+    const shouldHandleError = this.apiRequestConfiguration.shouldHandleError();
 
-        return x;
-        }, err => {
+    return next.handle(req).pipe(
+      tap(x => x, err => {
         // Handle this err
         const errRpc = this.formatErrors(err, req);
         if (errRpc === undefined) {
           return throwError(err);
         }
-        if (this.apiRequestConfiguration.shouldHandleError()) {
+        if (shouldHandleError) {
           this.notificator.showRPCError(errRpc);
         } else {
           return throwError(errRpc);
