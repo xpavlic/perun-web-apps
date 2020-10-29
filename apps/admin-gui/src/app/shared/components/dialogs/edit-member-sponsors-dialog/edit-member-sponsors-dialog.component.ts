@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MembersManagerService, Sponsor, User } from '@perun-web-apps/perun/openapi';
+import { Member, MembersManagerService, Sponsor } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 export interface EditMemberSponsorsDialogComponent {
   theme: string;
   sponsors: Sponsor[];
-  member: number;
+  member: Member;
 }
 
 @Component({
@@ -22,6 +22,7 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) private data: EditMemberSponsorsDialogComponent,
               public memberService: MembersManagerService,
               private notificator: NotificatorService,
+              private authResolver: GuiAuthResolver,
               private translate: TranslateService) { }
 
   theme: string;
@@ -54,7 +55,7 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     }
 
     const sponsorId = sponsorIds.pop();
-    this.memberService.removeSponsor(this.data.member, sponsorId).subscribe(() => {
+    this.memberService.removeSponsor(this.data.member.id, sponsorId).subscribe(() => {
       this.removeSponsors(sponsorIds);
     }, () => this.loading = false);
   }
@@ -69,4 +70,8 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
+  isAuthorized(sponsor: Sponsor) {
+    return this.authResolver.isAuthorized('sponsored-removeSponsor_Member_User_policy', [this.data.member])
+    && this.authResolver.isAuthorized('sponsor-removeSponsor_Member_User_policy', [sponsor.user]);
+  }
 }

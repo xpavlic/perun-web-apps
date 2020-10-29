@@ -220,6 +220,10 @@ export class GuiAuthResolver {
     return this.hasAtLeasOne(Role.PERUNADMIN, Role.GROUPADMIN);
   }
 
+  public isOnlySponsor(): boolean {
+    return this.hasAtLeasOne(Role.SPONSOR);
+  }
+
   public isThisGroupAdmin(id: number): boolean {
     return (this.editableGroups.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
   }
@@ -242,6 +246,9 @@ export class GuiAuthResolver {
 
   public isTopGroupCreator(): boolean {
     return this.hasAtLeasOne(Role.PERUNADMIN, Role.TOPGROUPCREATOR);
+  }
+  public isTopGroupCreatorOnly(): boolean {
+    return this.hasAtLeasOne(Role.TOPGROUPCREATOR);
   }
 
   isVoObserver(): boolean {

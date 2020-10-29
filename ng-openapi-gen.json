@@ -2,5 +2,8 @@
 	"$schema": "node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
 	"input": "https://raw.githubusercontent.com/CESNET/perun/master/perun-openapi/openapi.yml",
 	"output": "libs/perun/openapi/src/lib",
-	"ignoreUnusedModels": false
+	"ignoreUnusedModels": false,
+  "generator-cli": {
+    "version": "4.2.2"
+  }
 }

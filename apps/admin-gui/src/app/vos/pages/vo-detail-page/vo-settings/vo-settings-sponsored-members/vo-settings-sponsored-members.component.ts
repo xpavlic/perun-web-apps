@@ -7,8 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { CreateSponsoredMemberDialogComponent } from '../../../../../shared/components/dialogs/create-sponsored-member-dialog/create-sponsored-member-dialog.component';
 import { GenerateSponsoredMembersDialogComponent } from '../../../../../shared/components/dialogs/generate-sponsored-members-dialog/generate-sponsored-members-dialog.component';
-import { Urns } from '@perun-web-apps/perun/urns';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -22,7 +21,8 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
-              private tableConfigService: TableConfigService) {
+              private tableConfigService: TableConfigService,
+              private storeService: StoreService) {
   }
 
   voId: number;
@@ -33,12 +33,13 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
   generateAuth: boolean;
   routeAuth: boolean;
 
+  //TODO uncomment when we need those parameters
   private attrNames = [
-    Urns.USER_DEF_ORGANIZATION,
-    Urns.USER_DEF_PREFERRED_MAIL,
-    Urns.MEMBER_DEF_ORGANIZATION,
-    Urns.MEMBER_DEF_MAIL,
-    Urns.MEMBER_DEF_EXPIRATION
+    //Urns.USER_DEF_ORGANIZATION,
+    //Urns.USER_DEF_PREFERRED_MAIL,
+    //Urns.MEMBER_DEF_ORGANIZATION,
+    //Urns.MEMBER_DEF_MAIL,
+    //Urns.MEMBER_DEF_EXPIRATION
   ];
 
   selection = new SelectionModel<MemberWithSponsors>(true, []);
@@ -62,8 +63,10 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
   }
 
   setAuthRights() {
-    this.createAuth = this.authResolver.isAuthorized('createSponsoredMember_Vo_String_Map<String_String>_String_User_LocalDate_policy', [this.vo]);
-    this.generateAuth = this.authResolver.isAuthorized('createSponsoredMembers_Vo_String_List<String>_User_policy', [this.vo]);
+    this.createAuth = this.authResolver.isAuthorized('createSponsoredMember_Vo_String_Map<String_String>_String_User_LocalDate_policy',
+      [this.vo, this.storeService.getPerunPrincipal().user]);
+    this.generateAuth = this.authResolver.isAuthorized('createSponsoredMembers_Vo_String_List<String>_User_policy',
+      [this.vo, this.storeService.getPerunPrincipal().user]);
     if (this.members!== null && this.members.length !== 0){
       this.routeAuth = this.authResolver.isAuthorized('getMemberById_int_policy', [this.vo, this.members[0].member]);
     }

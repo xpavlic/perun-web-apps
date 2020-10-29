@@ -33,6 +33,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
   dataSource: MatTableDataSource<{name: string, status: string, login: string, passwd: string}> =
     new MatTableDataSource<{name: string; status: string; login: string; passwd: string}>();
   outputColumns = ['name', 'status', 'login', 'password'];
+  functionalityNotSupported = false;
 
   notEmptyRegex = /.*\S.*/;
 
@@ -50,6 +51,9 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.parseNamespace();
+    if (this.namespaceOptions.length === 0) {
+      this.functionalityNotSupported = true;
+    }
   }
 
   ngAfterViewInit() {
@@ -57,7 +61,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
   }
 
   parseNamespace(){
-    const namespaces = this.store.getLoginAttributeNames();
+    const namespaces = this.store.get('sponsor_namespace_attributes');
     for(const namespace of namespaces){
       const index = namespace.lastIndexOf(':');
       if(index !== -1){
@@ -74,7 +78,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
     const output = [];
 
     for (const memberName of Object.keys(data)) {
-      name = memberName;
+      name = memberName.replace(';', ' ');
       for (const memberData of Object.keys(data[memberName])) {
         switch (memberData) {
           case 'status': {
@@ -113,9 +117,14 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
     this.loading = false;
     const memberNames = this.sponsoredMembers.value.split("\n");
     let generatedMemberNames: string[] = [];
+    let finalMemberNames: string[] = [];
 
     for (const name of memberNames){
       generatedMemberNames = generatedMemberNames.concat(this.parseMemberName(name));
+    }
+
+    for (const name of generatedMemberNames){
+      finalMemberNames = finalMemberNames.concat(this.parseFirstName(name));
     }
 
     // For testing purposes
@@ -130,7 +139,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
     //this.exportData(fakeExportData);
 
     this.membersService.createSponsoredMembers({
-      guestNames: generatedMemberNames,
+      guestNames: finalMemberNames,
       namespace: this.namespace.value,
       sponsor: this.store.getPerunPrincipal().userId,
       vo: this.data.voId
@@ -145,16 +154,26 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
     this.dialogRef.close(false);
   }
 
-  parseMemberName(name: string){
-    const rangeRegex = new RegExp('\[[0-9]+-[0-9]+\]','g');
-    const prefixes = name.split(rangeRegex);
-    const suffixes = name.match(rangeRegex);
+  parseFirstName(name: string) {
+    if (name.indexOf(' ') === -1) {
+      return ';' + name;
+    } else {
+      return name.replace(' ', ';');
+    }
 
-    if(suffixes == null){
-      if (name.trim() === ""){
+  }
+
+  parseMemberName(name: string){
+    const trimName = name.trim();
+    const rangeRegex = new RegExp('\[[0-9]+-[0-9]+\]','g');
+    const prefixes = trimName.split(rangeRegex);
+    const suffixes = trimName.match(rangeRegex);
+
+    if (suffixes === null){
+      if (trimName.trim() === ""){
         return [];
       }
-      return [name];
+      return [trimName];
     }
 
     let nameParts: string[][]= [];

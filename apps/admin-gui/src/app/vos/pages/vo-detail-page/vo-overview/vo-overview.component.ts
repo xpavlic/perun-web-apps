@@ -99,8 +99,9 @@ export class VoOverviewComponent implements OnInit {
 
     // Settings
     if (this.authResolver.isAuthorized('getRichAdmins_Vo_String_List<String>_boolean_boolean_policy', [this.vo]) ||
-    this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [this.vo]) ||
-    this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+      this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [this.vo]) ||
+      this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [this.vo]) ||
+      this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
       this.navItems.push({
         cssIcon: 'perun-settings2',
         url: `/organizations/${this.vo.id}/settings`,

@@ -13,7 +13,9 @@
 
 
 .cover-image {
-  background-size: cover;
+  transform: scale(1.8);
+  margin-left: 0.9rem;
+  margin-right: 0.7rem;
 }
 
 .mat-card-header {
@@ -23,4 +25,8 @@
 .dashboard-icon {
   vertical-align: middle;
   transform:scale(0.8);
+}
+
+.card-title {
+  font-size: 1.4rem;
 }

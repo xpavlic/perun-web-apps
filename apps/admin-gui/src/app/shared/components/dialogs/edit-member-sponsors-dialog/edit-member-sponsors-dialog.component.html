@@ -14,12 +14,19 @@
       <ng-container matColumnDef="remove">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let sponsor">
-          <button
-            mat-icon-button
-            (click)="markSponsor(sponsor)">
-            <mat-icon *ngIf="!sponsorsToRemove.has(sponsor.user.id)" color="warn">clear</mat-icon>
-            <mat-icon *ngIf="sponsorsToRemove.has(sponsor.user.id)">settings_backup_restore</mat-icon>
-          </button>
+          <div
+            matTooltip="{{'DIALOGS.EDIT_MEMBER_SPONSORS.REMOVE_SPONSOR_DISABLED' | translate}}"
+            [matTooltipPosition]="'above'"
+            [matTooltipDisabled]="isAuthorized(sponsor)">
+            <button
+              mat-icon-button
+              class="btn-delete"
+              [disabled]="!isAuthorized(sponsor)"
+              (click)="markSponsor(sponsor)">
+              <mat-icon *ngIf="!sponsorsToRemove.has(sponsor.user.id)" class="icn-delete" color="warn">clear</mat-icon>
+              <mat-icon *ngIf="sponsorsToRemove.has(sponsor.user.id)">settings_backup_restore</mat-icon>
+            </button>
+          </div>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>

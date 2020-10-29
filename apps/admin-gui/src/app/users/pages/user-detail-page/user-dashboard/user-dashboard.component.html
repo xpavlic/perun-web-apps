@@ -2,19 +2,19 @@
   <h1 class="page-title">
     {{'USER_DETAIL.OVERVIEW.TITLE' | translate}}
   </h1>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div class="dashboard-container">
-    <div *ngIf="this.adminVo.length !== 0">
-      <mat-card>
-        <mat-card-header>
-          <mat-icon mat-card-avatar svgIcon='perun-vo-black' class="cover-image"></mat-icon>
-          <mat-card-title>{{'USER_DETAIL.OVERVIEW.MY_VO' | translate}}
-            <span matTooltip="{{'USER_DETAIL.OVERVIEW.VO_TOOLTIP_INFO' |translate }}"
-                  matTooltipPosition="above">
-            <mat-icon class="dashboard-icon">info_outline</mat-icon>
-          </span>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+    <span *ngIf="!loading">
+      <div *ngIf="this.adminVo.length !== 0">
+        <div class="card p-3">
+          <div class="flex-column card-title">
+            <mat-icon svgIcon='perun-vo-black' class="cover-image"></mat-icon>
+              {{'USER_DETAIL.OVERVIEW.MY_VO' | translate}}
+              <span matTooltip="{{'USER_DETAIL.OVERVIEW.VO_TOOLTIP_INFO' |translate }}"
+                    matTooltipPosition="above">
+              <mat-icon class="dashboard-icon">info_outline</mat-icon>
+            </span>
+          </div>
           <perun-web-apps-immediate-filter (filter)="this.voFilterValue = $event"
                                            [placeholder]="'USER_DETAIL.OVERVIEW.FILTER'"></perun-web-apps-immediate-filter>
           <perun-web-apps-vo-select-table (page)="pageChanged($event, voTableId, voPageSize)"
@@ -24,23 +24,19 @@
                                           [vos]="this.adminVo"
                                           [filterValue]="voFilterValue">
           </perun-web-apps-vo-select-table>
+        </div>
+      </div>
 
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <div *ngIf="this.adminGroup.length !== 0">
-      <mat-card class="card-container">
-        <mat-card-header>
-          <mat-icon mat-card-avatar svgIcon='perun-group-black' class="cover-image"></mat-icon>
-          <mat-card-title>{{'USER_DETAIL.OVERVIEW.MY_GROUPS' | translate}}
+      <div *ngIf="this.adminGroup.length !== 0">
+        <div class="card p-3">
+          <div class="flex-column card-title">
+            <mat-icon svgIcon='perun-group-black' class="cover-image"></mat-icon>
+            {{'USER_DETAIL.OVERVIEW.MY_GROUPS' | translate}}
             <span matTooltip="{{'USER_DETAIL.OVERVIEW.GROUPS_TOOLTIP_INFO' |translate }}"
                   matTooltipPosition="above">
-            <mat-icon class="dashboard-icon">info_outline</mat-icon>
-          </span>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+              <mat-icon class="dashboard-icon">info_outline</mat-icon>
+            </span>
+          </div>
           <perun-web-apps-immediate-filter (filter)="this.groupFilterValue = $event"
                                            [placeholder]="'USER_DETAIL.OVERVIEW.FILTER'"></perun-web-apps-immediate-filter>
           <perun-web-apps-groups-list (page)="pageChanged($event, groupTableId, groupPageSize)"
@@ -49,23 +45,19 @@
                                       [hideColumns]="['select', 'menu']"
                                       [filter]="groupFilterValue">
           </perun-web-apps-groups-list>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        </div>
+      </div>
 
-
-    <div *ngIf="this.adminFacility.length !== 0">
-      <mat-card class="card-container">
-        <mat-card-header>
-          <mat-icon mat-card-avatar svgIcon='perun-facility-black' class="cover-image"></mat-icon>
-          <mat-card-title>{{'USER_DETAIL.OVERVIEW.MY_FACILITIES' | translate}}
+      <div *ngIf="this.adminFacility.length !== 0">
+        <div class="card p-3">
+          <div class="flex-column card-title">
+            <mat-icon svgIcon='perun-facility-black' class="cover-image"></mat-icon>
+            {{'USER_DETAIL.OVERVIEW.MY_FACILITIES' | translate}}
             <span matTooltip="{{'USER_DETAIL.OVERVIEW.FACILITIES_TOOLTIP_INFO' |translate }}"
                   matTooltipPosition="above">
-            <mat-icon class="dashboard-icon">info_outline</mat-icon>
-          </span>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+              <mat-icon class="dashboard-icon">info_outline</mat-icon>
+            </span>
+          </div>
           <perun-web-apps-immediate-filter (filter)="this.facilityFilterValue = $event"
                                            [placeholder]="'USER_DETAIL.OVERVIEW.FILTER'"></perun-web-apps-immediate-filter>
           <app-facility-select-table (page)="pageChanged($event, facilityTableId, facilityPageSize)"
@@ -74,24 +66,21 @@
                                      [displayedColumns]="['id', 'name']"
                                      [filterValue]="facilityFilterValue">
           </app-facility-select-table>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        </div>
+      </div>
 
-    <div *ngIf="this.adminResource.length !== 0">
-      <mat-card class="card-container">
-        <mat-card-header>
-          <mat-icon mat-card-avatar svgIcon='perun-resource-black' class="cover-image"></mat-icon>
-          <mat-card-title>{{'USER_DETAIL.OVERVIEW.MY_RESOURCES' | translate}}
+      <div *ngIf="this.adminResource.length !== 0">
+        <div class="card p-3">
+          <div class="flex-column card-title">
+            <mat-icon mat-card-avatar svgIcon='perun-resource-black' class="cover-image"></mat-icon>
+            {{'USER_DETAIL.OVERVIEW.MY_RESOURCES' | translate}}
             <span matTooltip="{{'USER_DETAIL.OVERVIEW.RESOURCES_TOOLTIP_INFO' |translate }}"
-                  matTooltipPosition="above">
-            <mat-icon class="dashboard-icon">info_outline</mat-icon>
-          </span>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+                    matTooltipPosition="above">
+              <mat-icon class="dashboard-icon">info_outline</mat-icon>
+            </span>
+          </div>
           <perun-web-apps-immediate-filter (filter)="this.resourceFilterValue = $event"
-                                           [placeholder]="'USER_DETAIL.OVERVIEW.FILTER'"></perun-web-apps-immediate-filter>
+                                             [placeholder]="'USER_DETAIL.OVERVIEW.FILTER'"></perun-web-apps-immediate-filter>
           <perun-web-apps-resources-list (page)="pageChanged($event, resourceTableId, resourcePageSize)"
                                          [pageSize]="resourcePageSize"
                                          [resources]="this.adminResource"
@@ -99,9 +88,53 @@
                                          [routingVo]="true"
                                          [filterValue]="resourceFilterValue">
           </perun-web-apps-resources-list>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        </div>
+      </div>
+
+      <div *ngIf="this.sponsoringVo.length !== 0">
+        <div class="card p-3">
+          <div class="flex-column card-title">
+            <mat-icon mat-card-avatar svgIcon='perun-vo-black' class="cover-image"></mat-icon>
+            {{'USER_DETAIL.OVERVIEW.VO_WHERE_SPONSOR' | translate}}
+            <span matTooltip="{{'USER_DETAIL.OVERVIEW.SPONSOR_TOOLTIP_INFO' | translate }}"
+                    matTooltipPosition="above">
+              <mat-icon class="dashboard-icon">info_outline</mat-icon>
+            </span>
+          </div>
+          <perun-web-apps-immediate-filter (filter)="this.sponsoringVoFilterValue = $event"
+                                             [placeholder]="'USER_DETAIL.OVERVIEW.FILTER'"></perun-web-apps-immediate-filter>
+          <perun-web-apps-vo-select-table (page)="pageChanged($event, sponsoringVoTableId, sponsoringVoPageSize)"
+                                          [pageSize]="sponsoringVoPageSize"
+                                          [displayedColumns]="['id', 'name']"
+                                          [recentIds]="[]"
+                                          [vos]="this.sponsoringVo"
+                                          [filterValue]="sponsoringVoFilterValue">
+          </perun-web-apps-vo-select-table>
+        </div>
+      </div>
+
+      <div *ngIf="this.topGroupCreatorVo.length !== 0">
+        <div class="card p-3">
+          <div class="flex-column card-title">
+            <mat-icon mat-card-avatar svgIcon='perun-vo-black' class="cover-image"></mat-icon>
+            {{'USER_DETAIL.OVERVIEW.VO_WHERE_TOP_GROUP_CREATOR' | translate}}
+            <span matTooltip="{{'USER_DETAIL.OVERVIEW.TOP_GROUP_CREATOR_TOOLTIP_INFO' | translate }}"
+                  matTooltipPosition="above">
+              <mat-icon class="dashboard-icon">info_outline</mat-icon>
+            </span>
+          </div>
+          <perun-web-apps-immediate-filter (filter)="this.topGroupCreatorVoFilterValue = $event"
+                                           [placeholder]="'USER_DETAIL.OVERVIEW.FILTER'"></perun-web-apps-immediate-filter>
+            <perun-web-apps-vo-select-table (page)="pageChanged($event, topGroupCreatorVoTableId, topGroupCreatorVoPageSize)"
+                                            [pageSize]="topGroupCreatorVoPageSize"
+                                            [displayedColumns]="['id', 'name']"
+                                            [recentIds]="[]"
+                                            [vos]="this.topGroupCreatorVo"
+                                            [filterValue]="topGroupCreatorVoFilterValue">
+            </perun-web-apps-vo-select-table>
+        </div>
+      </div>
+    </span>
   </div>
 </div>
 

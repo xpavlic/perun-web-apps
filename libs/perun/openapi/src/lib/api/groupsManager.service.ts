@@ -1198,6 +1198,73 @@ export class GroupsManagerService {
     }
 
     /**
+     * Returns full list of member\&#39;s RichGroups containing selected attributes. \&#39;members\&#39; group is not included! Supported are attributes from these namespaces: - group - member-group
+     * @param member id of Member
+     * @param attrNames list of attribute names List&lt;String&gt;
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getMemberRichGroupsWithAttributesByNames(member: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<RichGroup>>;
+    public getMemberRichGroupsWithAttributesByNames(member: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichGroup>>>;
+    public getMemberRichGroupsWithAttributesByNames(member: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichGroup>>>;
+    public getMemberRichGroupsWithAttributesByNames(member: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (member === null || member === undefined) {
+            throw new Error('Required parameter member was null or undefined when calling getMemberRichGroupsWithAttributesByNames.');
+        }
+        if (attrNames === null || attrNames === undefined) {
+            throw new Error('Required parameter attrNames was null or undefined when calling getMemberRichGroupsWithAttributesByNames.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (member !== undefined && member !== null) {
+            queryParameters = queryParameters.set('member', <any>member);
+        }
+        if (attrNames) {
+            attrNames.forEach((element) => {
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
+            })
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<RichGroup>>(`${this.configuration.basePath}/json/groupsManager/getMemberRichGroupsWithAttributesByNames`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Returns RichGroup selected by id containing selected attributes
      * Throws GroupNotExistsException when the group doesn\&#39;t exist.
      * @param groupId id of Group

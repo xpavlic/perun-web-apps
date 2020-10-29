@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { Sponsor } from './sponsor';
 import { RichMember } from './richMember';
 
 
 export interface MemberWithSponsors { 
     member?: RichMember;
-    sponsors?: Array<User>;
+    sponsors?: Array<Sponsor>;
 }
 
