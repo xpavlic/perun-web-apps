@@ -10,33 +10,25 @@
     </app-alert>
 
     <mat-form-field>
-      <label>
-        <input matInput [formControl]="firstName" required
-               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.FIRST_NAME' | translate}}">
-      </label>
+      <input matInput [formControl]="firstName" required
+             placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.FIRST_NAME' | translate}}">
       <mat-error *ngIf="firstName.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <label>
-        <input matInput [formControl]="lastName" required
-               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LAST_NAME' | translate}}">
-      </label>
+      <input matInput [formControl]="lastName" required
+             placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LAST_NAME' | translate}}">
       <mat-error *ngIf="lastName.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <label>
-        <input matInput [(ngModel)]="titleBefore"
-               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_BEFORE' | translate}}">
-      </label>
+      <input matInput [(ngModel)]="titleBefore"
+             placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_BEFORE' | translate}}">
     </mat-form-field>
 
     <mat-form-field>
-      <label>
-        <input matInput [(ngModel)]="titleAfter"
-               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_AFTER' | translate}}">
-      </label>
+      <input matInput [(ngModel)]="titleAfter"
+             placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_AFTER' | translate}}">
     </mat-form-field>
 
     <mat-form-field>
@@ -57,21 +49,17 @@
       matTooltip="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN_DISABLED' | translate}}"
       matTooltipPosition="left"
       [matTooltipDisabled]="!login.disabled">
-      <label>
-        <input matInput
-               [formControl]="login"
-               required
-               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN' | translate}}">
-      </label>
+      <input matInput
+             [formControl]="login"
+             required
+             placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN' | translate}}">
       <mat-error *ngIf="login.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}</mat-error>
     </mat-form-field>
 
 
     <mat-form-field>
-      <label>
-        <input matInput [formControl]="password" required
-               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD' | translate}}">
-      </label>
+      <input matInput [formControl]="password" required
+             placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD' | translate}}">
       <mat-error *ngIf="password.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}</mat-error>
     </mat-form-field>
 
@@ -82,10 +70,8 @@
     <!--        </mat-form-field>-->
 
     <mat-form-field>
-      <label>
-        <input matInput required [formControl]="email"
-               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL' | translate}}">
-      </label>
+      <input matInput required [formControl]="email"
+             placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL' | translate}}">
       <mat-error *ngIf="email.invalid">{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL_ERROR' | translate}}</mat-error>
     </mat-form-field>
 

@@ -144,9 +144,9 @@ const routes: Routes = [
         data: {animation: 'VoApplicationDetailPage'}
       },
       {
-        path: 'attributes',
-        component: VoAttributesComponent,
-        data: {animation: 'VoAttributesPage'}
+        path: 'sponsoredMembers',
+        component: VoSettingsSponsoredMembersComponent,
+        data: {animation: 'VoSettingsSponsoredMembersPage'}
       },
       {
         path: 'settings',
@@ -186,11 +186,6 @@ const routes: Routes = [
             path: 'extsources',
             component: VoSettingsExtsourcesComponent,
             data: {animation: 'VoSettingsExtSourcesPage'}
-          },
-          {
-            path: 'sponsoredMembers',
-            component: VoSettingsSponsoredMembersComponent,
-            data: {animation: 'VoSettingsSponsoredMembersPage'}
           }
         ]
       }

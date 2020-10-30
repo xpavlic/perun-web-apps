@@ -36,10 +36,12 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
   functionalityNotSupported = false;
 
   notEmptyRegex = /.*\S.*/;
+  emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 
   namespaceOptions: string[] = [];
   namespace: FormControl = new FormControl('', Validators.required);
   sponsoredMembers: FormControl = new FormControl('', [Validators.required, Validators.pattern(this.notEmptyRegex)]);
+  email = new FormControl('', [Validators.required, Validators.pattern(this.emailRegx)]);
 
   constructor(private dialogRef: MatDialogRef<GenerateSponsoredMembersDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: GenerateSponsoredMembersDialogData,
@@ -49,11 +51,13 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
               private translate: TranslateService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.theme = this.data.theme;
     this.parseNamespace();
     if (this.namespaceOptions.length === 0) {
       this.functionalityNotSupported = true;
     }
+    this.loading = false;
   }
 
   ngAfterViewInit() {
@@ -114,7 +118,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
   }
 
   onGenerate(){
-    this.loading = false;
+    this.loading = true;
     const memberNames = this.sponsoredMembers.value.split("\n");
     let generatedMemberNames: string[] = [];
     let finalMemberNames: string[] = [];
@@ -142,12 +146,13 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
       guestNames: finalMemberNames,
       namespace: this.namespace.value,
       sponsor: this.store.getPerunPrincipal().userId,
-      vo: this.data.voId
+      vo: this.data.voId,
+      email: this.email.value
     }).subscribe(logins => {
       this.exportData(logins);
       this.notificator.showSuccess(this.translate.instant('DIALOGS.GENERATE_SPONSORED_MEMBERS.SUCCESS'));
       this.dialogRef.close(true);
-    });
+    }, err => this.loading = false);
   }
 
   onCancel() {

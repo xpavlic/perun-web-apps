@@ -97,10 +97,19 @@ export class VoOverviewComponent implements OnInit {
       });
     }
 
+    // Sponsored members
+    if (this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [this.vo])) {
+      this.navItems.push({
+        cssIcon: 'perun-user',
+        url: `/organizations/${this.vo.id}/sponsoredMembers`,
+        label: 'MENU_ITEMS.VO.SPONSORED_MEMBERS',
+        style: 'vo-btn'
+      });
+    }
+
     // Settings
     if (this.authResolver.isAuthorized('getRichAdmins_Vo_String_List<String>_boolean_boolean_policy', [this.vo]) ||
       this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [this.vo]) ||
-      this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [this.vo]) ||
       this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
       this.navItems.push({
         cssIcon: 'perun-settings2',

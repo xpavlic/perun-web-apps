@@ -21,6 +21,7 @@ export class BugReportDialogComponent implements OnInit {
   message = '';
   subject = '';
   methodRegexp = /(\w+\/\w+)$/g;
+  loading = false;
 
   constructor(
     public dialogRef: MatDialogRef<BugReportDialogComponent>,
@@ -39,18 +40,19 @@ export class BugReportDialogComponent implements OnInit {
   }
 
   sendBugReport() {
+    this.loading = true;
     this.rtMessages.sentMessageToRTWithQueue('perun', this.subject, this.getFullEmailBody()).subscribe(rtMessage => {
-      this.dialogRef.afterClosed()
-        .subscribe(() => {
-          this.notificator.showSuccess(
-            this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS1') +
-            rtMessage.ticketNumber +
-            this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS2'));
-        this.dialogRef.close();
+      this.dialogRef.afterClosed().subscribe(() => {
+        this.notificator.showSuccess(
+          this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS1') +
+          rtMessage.ticketNumber +
+          this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS2'));
+      });
+      this.dialogRef.close();
     }, err => {
-        this.dialogRef.afterClosed().subscribe(() => {
-          //TODO WHEN REPORT BUG FAIL
-        });
+      this.loading = false;
+      this.dialogRef.afterClosed().subscribe(() => {
+        //TODO WHEN REPORT BUG FAIL
       });
     });
   }

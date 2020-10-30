@@ -465,13 +465,21 @@ export class SideMenuItemService {
       });
     }
 
+    // Sponsored members
+    if(this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [vo])){
+      links.push({
+        label: 'MENU_ITEMS.VO.SPONSORED_MEMBERS',
+        url: [`/organizations/${vo.id}/sponsoredMembers`],
+        activatedRegex: '/organizations/\\d+/sponsoredMembers$'
+      });
+    }
+
     // Settings
     const extSourcesAuth = this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [vo]);
     const managersAuth = this.authResolver.isAuthorized('getRichAdmins_Vo_String_List<String>_boolean_boolean_policy', [vo]);
-    const sponsoredMembersAuth = this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [vo]);
     const adminOrObserver = this.authResolver.isThisVoAdminOrObserver(vo.id);
 
-    if (managersAuth || extSourcesAuth || adminOrObserver || sponsoredMembersAuth) {
+    if (managersAuth || extSourcesAuth || adminOrObserver) {
       const children = [];
 
       // Membership
@@ -516,15 +524,6 @@ export class SideMenuItemService {
           label: 'MENU_ITEMS.VO.EXTSOURCES',
           url: [`/organizations/${vo.id}/settings/extsources`],
           activatedRegex: '/organizations/\\d+/settings/extsources$'
-        });
-      }
-
-      // Sponsored members
-      if(sponsoredMembersAuth){
-        children.push({
-          label: 'MENU_ITEMS.VO.SPONSORED_MEMBERS',
-          url: [`/organizations/${vo.id}/settings/sponsoredMembers`],
-          activatedRegex: '/organizations/\\d+/settings/sponsoredMembers$'
         });
       }
 

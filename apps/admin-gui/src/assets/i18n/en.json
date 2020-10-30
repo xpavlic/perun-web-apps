@@ -1626,7 +1626,9 @@
       "HINT": "Enter one member per line. You can use \"[x-y]\" in names to create members with numbers from x to y. This replacer can be specified multiple times in one name to generate MxN combinations.",
       "CANCEL": "Cancel",
       "GENERATE": "Create",
-      "SUCCESS": "Members successfully created"
+      "SUCCESS": "Members successfully created",
+      "EMAIL": "Email",
+      "EMAIL_ERROR": "Email is not valid"
     },
     "EDIT_MEMBER_SPONSORS": {
       "TITLE": "Edit member sponsors",
@@ -2027,7 +2029,7 @@
           "CANCEL": "Cancel",
           "SEND": "Send",
           "SUCCESS1": "Ticket with ID: ",
-          "SUCCESS2": "was created."
+          "SUCCESS2": " was created."
         },
         "REMOVE_USER_EXT_SOURCE": {
           "TITLE": "Remove user's external identity",
