@@ -30,6 +30,7 @@ import { ServiceDetailPageComponent } from './pages/admin-page/admin-services/se
 import { ServiceOverviewComponent } from './pages/admin-page/admin-services/service-detail-page/service-overview/service-overview.component';
 import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-services/service-detail-page/service-required-attributes/service-required-attributes.component';
 import { UsersModule } from '../users/users.module';
+import { ServiceDestinationsComponent } from './pages/admin-page/admin-services/service-detail-page/service-destinations/service-destinations.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { UsersModule } from '../users/users.module';
     AdminServicesComponent,
     ServiceDetailPageComponent,
     ServiceOverviewComponent,
-    ServiceRequiredAttributesComponent
+    ServiceRequiredAttributesComponent,
+    ServiceDestinationsComponent
   ],
   imports: [
     NgxGraphModule,

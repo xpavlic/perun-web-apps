@@ -376,6 +376,11 @@ export class SideMenuItemService {
           label: 'MENU_ITEMS.SERVICE.REQUIRED_ATTRIBUTES',
           url: [`/admin/services/${service.id}/required-attributes`],
           activatedRegex: '/admin/services/\\d+/required-attributes'
+        },
+        {
+          label: 'MENU_ITEMS.SERVICE.DESTINATIONS',
+          url: [`/admin/services/${service.id}/destinations`],
+          activatedRegex: '/admin/services/\\d+/destinations'
         }
       ],
       colorClass: 'service-item',

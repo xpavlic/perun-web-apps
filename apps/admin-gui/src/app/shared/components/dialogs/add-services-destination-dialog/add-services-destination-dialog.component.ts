@@ -10,6 +10,7 @@ import {
   Service,
   ServicesManagerService
 } from '@perun-web-apps/perun/openapi';
+import { FormControl, Validators } from '@angular/forms';
 
 export interface  AddServicesDestinationDialogData {
   facility: Facility;
@@ -31,23 +32,26 @@ export class AddServicesDestinationDialogComponent implements OnInit {
               public facilitiesManager: FacilitiesManagerService,
               public servicesManager: ServicesManagerService) { }
 
-
   hosts: Host[];
   servicesOnFacility: boolean;
   services: Service[] = [];
-  selectedService: Service;
+  serviceControl: FormControl;
   types: string[] = ['host', 'user@host', 'user@host:port','user@host-windows', 'host-windows-proxy',
     'url', 'mail', 'semail', 'service-specific'];
   selectedType = 'host';
   propagations: string[] = ['PARALLEL', 'DUMMY'];
   selectedPropagation  = 'PARALLEL';
-  destination = '';
+  destinationControl: FormControl;
   useFacilityHost = false;
-  invalidNotification = '';
   loading = false;
+  emailControl: FormControl;
+  emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
   ngOnInit() {
     this.loading = true;
+    this.serviceControl = new FormControl(undefined, Validators.required);
+    this.destinationControl = new FormControl('', Validators.required);
+    this.emailControl = new FormControl("", [Validators.required, Validators.pattern(this.emailRegex)]);
     this.facilitiesManager.getHosts(this.data.facility.id).subscribe( hosts => {
       this.hosts = hosts;
       this.servicesOnFacility = true;
@@ -62,33 +66,33 @@ export class AddServicesDestinationDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    // @ts-ignore
-    if (this.selectedService === 'all') {
+
+    if (this.serviceControl.value === 'all') {
       if (this.useFacilityHost) {
         this.servicesManager.addDestinationsDefinedByHostsOnFacilityWithListOfServiceAndFacility(
-          {services: this.services, facility: this.data.facility.id}).subscribe( destination => {
+          {services: this.services, facility: this.data.facility.id}).subscribe( () => {
           this.dialogRef.close(true);
         }, () => this.loading = false);
       }
       else {
         this.servicesManager.addDestinationToMultipleServices({services: this.services, facility: this.data.facility.id,
-        destination: this.destination, type: this.selectedType as DestinationType,
-          propagationType: this.selectedPropagation as DestinationPropagationType}).subscribe( destination => {
+        destination: this.destinationControl.value, type: this.selectedType as DestinationType,
+          propagationType: this.selectedPropagation as DestinationPropagationType}).subscribe( () => {
           this.dialogRef.close(true);
         }, () => this.loading = false);
       }
     } else {
       if (this.useFacilityHost) {
         this.servicesManager.addDestinationsDefinedByHostsOnFacilityWithServiceAndFacility(
-          this.selectedService.id, this.data.facility.id
-        ).subscribe( destination => {
+          this.serviceControl.value.id, this.data.facility.id
+        ).subscribe( () => {
           this.dialogRef.close(true);
         }, () => this.loading = false);
       }
       else {
-        this.servicesManager.addDestination(this.selectedService.id, this.data.facility.id,
-          this.destination, this.selectedType as DestinationType,
-          this.selectedPropagation as DestinationPropagationType).subscribe( destination => {
+        this.servicesManager.addDestination(this.serviceControl.value.id, this.data.facility.id,
+          this.destinationControl.value, this.selectedType as DestinationType,
+          this.selectedPropagation as DestinationPropagationType).subscribe( () => {
           this.dialogRef.close(true);
         }, () => this.loading = false);
       }
@@ -107,7 +111,7 @@ export class AddServicesDestinationDialogComponent implements OnInit {
       }, () => this.loading = false);
     }
     this.loading = false;
-    this.selectedService = undefined;
+    this.serviceControl.setValue(undefined);
   }
 
   getTypeForView(type: string) {
@@ -120,28 +124,19 @@ export class AddServicesDestinationDialogComponent implements OnInit {
     return type;
   }
 
-  isInvalid():boolean {
-    // @ts-ignore
-    if (this.selectedService === 'noService') {
-      this.invalidNotification = 'NO_SERVICE';
-      return true;
+  selectedTypeIsMail() {
+    return this.selectedType === 'mail' || this.selectedType === 'semail';
+  }
+
+  invalidDestination() {
+    if (this.selectedType === 'host' && this.useFacilityHost) {
+      return false;
     }
-    // @ts-ignore
-    if (this.selectedService === undefined) {
-      this.invalidNotification = 'CHOOSE_SERVICE';
-      return true;
+
+    if (this.selectedTypeIsMail()){
+      return this.emailControl.invalid;
     }
-    if (this.destination === '' && !this.useFacilityHost) {
-      this.invalidNotification = 'REQUIRED_FIELD';
-      return true;
-    }
-    if (this.selectedType === 'mail'|| this.selectedType === 'semail') {
-      const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-      if (!regexp.test(this.destination)) {
-        this.invalidNotification = 'TYPE_EMAIL';
-        return true;
-      }
-    }
-    return false;
+
+    return this.destinationControl.invalid;
   }
 }

@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { RichDestination } from '@perun-web-apps/perun/openapi';
+import { RichDestination, ServicesManagerService } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_FACILITY_SERVICES_DESTINATION_LIST, TableConfigService } from '@perun-web-apps/config/table-config';
+import { MatTableDataSource } from '@angular/material/table';
+import { NotificatorService } from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface RemoveDestinationDialogData {
   destinations: RichDestination[];
@@ -18,27 +19,49 @@ export class RemoveDestinationDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<RemoveDestinationDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: RemoveDestinationDialogData,
-              private tableConfigService: TableConfigService) { }
+              private notificator: NotificatorService,
+              private translate: TranslateService,
+              private serviceManager: ServicesManagerService) { }
 
-  displayedColumns: string[] = ['destinationId', 'service', 'destination', 'type', 'propagationType'];
+  displayedColumns: string[] = [];
 
-  pageSize: number;
-  tableId = TABLE_FACILITY_SERVICES_DESTINATION_LIST;
+  loading = false;
+  theme: string;
+  destinations: RichDestination[];
+
+  dataSource: MatTableDataSource<RichDestination>;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
+    this.theme = this.data.theme;
+    this.destinations = this.data.destinations;
+    this.displayedColumns = this.theme === 'admin-theme' ?
+      ['destinationId', 'facility', 'destination', 'type', 'propagationType'] :
+      ['destinationId', 'service', 'destination', 'type', 'propagationType'];
+    this.dataSource = new MatTableDataSource<RichDestination>(this.data.destinations);
   }
 
   onCancel() {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
-    this.dialogRef.close(true);
+  deleteDestinations() {
+    if (this.destinations.length === 0){
+      this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_DESTINATIONS.SUCCESS'));
+      this.dialogRef.close(true);
+      return;
+    }
+    const destination = this.destinations.pop();
+    this.serviceManager.removeDestination(
+      destination.service.id,
+      destination.facility.id,
+      destination.destination,
+      destination.type).subscribe(() => {
+      this.deleteDestinations();
+    }, () => this.loading = false);
   }
 
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  onConfirm() {
+    this.loading = true;
+    this.deleteDestinations();
   }
 }

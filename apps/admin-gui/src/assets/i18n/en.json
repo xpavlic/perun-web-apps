@@ -117,12 +117,6 @@
       "ADD": "Add",
       "REMOVE": "Remove",
       "FILTER": "Filter",
-      "TABLE_DESTINATION_ID": "Destination ID",
-      "TABLE_SERVICE": "Service",
-      "TABLE_DESTINATION": "Destination",
-      "TABLE_TYPE": "Type",
-      "TABLE_PROPAGATION_TYPE": "Propagation Type",
-      "NO_DESTINATION": "Facility has no services destinations. Service configuration can't be propagated.",
       "REMOVE_SUCCESS": "Destinations were successfully removed",
       "ADD_SUCCESS": "Destinations were successfully added"
     },
@@ -656,6 +650,15 @@
       "ADD": "Add",
       "REMOVE": "Remove",
       "FILTER": "Filter"
+    },
+    "DESTINATIONS": {
+      "TITLE": "Service destinations",
+      "FILTER": "Filter by id, facility or destination",
+      "ALLOW": "Allow",
+      "BLOCK": "Block",
+      "REMOVE": "Remove",
+      "ALLOW_SUCCESS": "Service was successfully allowed on destination",
+      "BLOCK_SUCCESS": "Service was successfully blocked on destination"
     }
   },
   "MENU_ITEMS": {
@@ -765,7 +768,8 @@
     },
     "SERVICE": {
       "OVERVIEW": "Overview",
-      "REQUIRED_ATTRIBUTES": "Required attributes"
+      "REQUIRED_ATTRIBUTES": "Required attributes",
+      "DESTINATIONS": "Destinations"
     }
   },
   "DIALOGS": {
@@ -1336,12 +1340,13 @@
       "SERVICES": "Dependent services:"
     },
     "REMOVE_DESTINATIONS": {
-      "TITLE": "Confirm delete action",
+      "TITLE": "Remove destination from service",
       "WARNING": "Removing destination will stop propagation of service's configuration for this destination/service.",
       "DESCRIPTION": "Following destinations will be removed.",
       "ASK": "Do you want to proceed?",
       "CANCEL": "Cancel",
-      "DELETE": "Delete"
+      "CONFIRM": "Remove",
+      "SUCCESS": "Destinations were successfully removed from service."
     },
     "ADD_SERVICE_DESTINATION": {
       "TITLE": "Add destination",
@@ -1893,6 +1898,17 @@
         "NAME": "Name",
         "SPONSORS": "Sponsors",
         "NO_SPONSORED_MEMBERS_WARNING": "No sponsored members found"
+      },
+      "DESTINATIONS_LIST": {
+        "DESTINATION_ID": "Destination ID",
+        "SERVICE": "Service",
+        "FACILITY": "Facility",
+        "DESTINATION": "Destination",
+        "TYPE": "Type",
+        "ALLOWED": "Allowed",
+        "BLOCKED": "Blocked",
+        "PROPAGATION_TYPE": "Propagation type",
+        "NO_DESTINATIONS": "No destinations found"
       }
     },
     "FOOTER": {
