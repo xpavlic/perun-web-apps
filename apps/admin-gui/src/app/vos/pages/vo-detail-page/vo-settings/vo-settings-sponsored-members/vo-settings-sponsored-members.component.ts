@@ -52,7 +52,7 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-    this.route.parent.parent.params.subscribe(parentParentParams => {
+    this.route.parent.params.subscribe(parentParentParams => {
       this.voId = parentParentParams ['voId'];
       this.vo = {
         id: this.voId,
