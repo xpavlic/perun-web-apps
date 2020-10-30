@@ -1,6 +1,6 @@
-<div *ngIf="isProduction" class="beta-warning">
+<div *ngIf="displayWarning" class="beta-warning">
   <mat-icon>alert</mat-icon>
-  BETA version of new Perun GUI. It doesn’t contain all functionality. Please report any issues to support mail below.
+  {{ warningMessage }}
 </div>
 <app-perun-nav-menu
   id="nav-menu"
