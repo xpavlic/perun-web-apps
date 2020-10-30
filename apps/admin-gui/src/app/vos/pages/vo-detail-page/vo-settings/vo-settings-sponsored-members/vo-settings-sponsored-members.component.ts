@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MembersManagerService, MemberWithSponsors, Vo } from '@perun-web-apps/perun/openapi';
+import { AuthzResolverService, MembersManagerService, MemberWithSponsors, Vo } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_SPONSORED_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
@@ -22,7 +22,8 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
               private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
               private tableConfigService: TableConfigService,
-              private storeService: StoreService) {
+              private storeService: StoreService,
+              private authzResolver: AuthzResolverService) {
   }
 
   voId: number;
@@ -85,7 +86,11 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.refresh();
+        this.loading = true;
+        this.authzResolver.getPerunPrincipal().subscribe(principal => {
+          this.storeService.setPerunPrincipal(principal);
+          this.refresh();
+        });
       }
     });
   }
@@ -101,8 +106,13 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     const dialogRef = this.dialog.open(GenerateSponsoredMembersDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
+
       if(result){
-        this.refresh();
+        this.loading = true;
+        this.authzResolver.getPerunPrincipal().subscribe(principal => {
+          this.storeService.setPerunPrincipal(principal);
+          this.refresh();
+        });
       }
     });
   }

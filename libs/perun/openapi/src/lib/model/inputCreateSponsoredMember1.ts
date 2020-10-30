@@ -23,5 +23,6 @@ export interface InputCreateSponsoredMember1 {
     sponsor: number;
     namespace: string;
     validityTo?: string;
+    email?: string;
 }
 

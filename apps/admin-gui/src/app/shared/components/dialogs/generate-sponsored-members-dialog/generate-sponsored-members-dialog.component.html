@@ -7,13 +7,18 @@
     </app-alert>
     <mat-form-field>
       <mat-select placeholder="{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NAMESPACE' | translate}}" required [formControl]="namespace">
-        <mat-option (onSelectionChange)="namespace.setValue(namespc)" *ngFor="let namespc of namespaceOptions" [value]="namespc">
+        <mat-option *ngFor="let namespc of namespaceOptions" [value]="namespc">
           {{namespc}}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="namespace.invalid">
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NAMESPACE_ERROR' | translate}}
       </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput required [formControl]="email"
+             placeholder="{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.EMAIL' | translate}}">
+      <mat-error *ngIf="email.invalid">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.EMAIL_ERROR' | translate}}</mat-error>
     </mat-form-field>
     <mat-form-field>
       <textarea
@@ -31,46 +36,45 @@
       </mat-error>
     </mat-form-field>
     <div class="text-muted">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.HINT'| translate}}</div>
-
-    <table
-      [hidden]="true"
-      #exporter="matTableExporter" [dataSource]="dataSource"
-      class="w-100"
-      mat-table
-      matTableExporter>
-      <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell>name</th>
-        <td *matCellDef="let sponsoredMember" mat-cell>{{sponsoredMember.name}}</td>
-      </ng-container>
-      <ng-container matColumnDef="status">
-        <th *matHeaderCellDef mat-header-cell>status</th>
-        <td *matCellDef="let sponsoredMember" mat-cell>{{sponsoredMember.status}}</td>
-      </ng-container>
-      <ng-container matColumnDef="login">
-        <th *matHeaderCellDef mat-header-cell>login</th>
-        <td *matCellDef="let sponsoredMember" mat-cell>{{sponsoredMember.login}}</td>
-      </ng-container>
-      <ng-container matColumnDef="password">
-        <th *matHeaderCellDef mat-header-cell>password</th>
-        <td *matCellDef="let sponsoredMember" mat-cell>{{sponsoredMember.password}}</td>
-      </ng-container>
-      <tr *matHeaderRowDef="outputColumns" mat-header-row></tr>
-      <tr
-        *matRowDef="let sponsoredMember; columns: outputColumns;"
-        class="dark-hover-list-item"
-        mat-row
-      >
-      </tr>
-    </table>
-
-    <mat-paginator
-      [hidden]="true"
-      [length]="this.dataSource.data.length"
-      (page)="pageChanged($event)"
-      [pageSize]="100">
-    </mat-paginator>
-
   </div>
+
+  <table
+    [hidden]="true"
+    #exporter="matTableExporter" [dataSource]="dataSource"
+    class="w-100"
+    mat-table
+    matTableExporter>
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell>name</th>
+      <td *matCellDef="let sponsoredMember" mat-cell>{{sponsoredMember.name}}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th *matHeaderCellDef mat-header-cell>status</th>
+      <td *matCellDef="let sponsoredMember" mat-cell>{{sponsoredMember.status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="login">
+      <th *matHeaderCellDef mat-header-cell>login</th>
+      <td *matCellDef="let sponsoredMember" mat-cell>{{sponsoredMember.login}}</td>
+    </ng-container>
+    <ng-container matColumnDef="password">
+      <th *matHeaderCellDef mat-header-cell>password</th>
+      <td *matCellDef="let sponsoredMember" mat-cell>{{sponsoredMember.password}}</td>
+    </ng-container>
+    <tr *matHeaderRowDef="outputColumns" mat-header-row></tr>
+    <tr
+      *matRowDef="let sponsoredMember; columns: outputColumns;"
+      class="dark-hover-list-item"
+      mat-row
+    >
+    </tr>
+  </table>
+
+  <mat-paginator
+    [hidden]="true"
+    [length]="this.dataSource.data.length"
+    (page)="pageChanged($event)"
+    [pageSize]="100">
+  </mat-paginator>
   <div mat-dialog-actions>
     <button
       mat-flat-button
@@ -82,7 +86,7 @@
       mat-flat-button
       class="ml-2"
       color="accent"
-      [disabled]="sponsoredMembers.value.trim().length === 0 || namespace.invalid || loading"
+      [disabled]="sponsoredMembers.value.trim().length === 0 || namespace.invalid || email.invalid || loading"
       (click)="onGenerate()">
       {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.GENERATE' | translate}}
     </button>
