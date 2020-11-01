@@ -54,9 +54,9 @@
   </div>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
   </mat-spinner>
-  <app-info *ngIf="!firstSearchDone">
+  <app-alert [color]="'info'" *ngIf="!firstSearchDone">
     {{'VO_DETAIL.MEMBERS.SEARCH_ALERT' | translate}}
-  </app-info>
+  </app-alert>
   <div class="mt-3" *ngIf="members !== null && !loading">
     <perun-web-apps-members-list
       [pageSize]="pageSize"
@@ -69,7 +69,7 @@
       *ngIf="members.length !== 0">
     </perun-web-apps-members-list>
 
-    <app-alert *ngIf="members.length === 0">
+    <app-alert *ngIf="members.length === 0" [color]="'warn'">
       {{'VO_DETAIL.MEMBERS.NO_MEMBERS_ALERT' | translate}}
     </app-alert>
   </div>

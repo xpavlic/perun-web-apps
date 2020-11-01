@@ -1,6 +1,7 @@
-<div class="perun-alert d-flex align-items-center">
-  <mat-icon class="perun-alert-icon">
-      error
-  </mat-icon>
+<div
+  class="perun-alert"
+  [class.warn-alert]="color === 'warn'"
+  [class.error-alert]="color === 'error'"
+  [class.info-alert]="color === 'info'">
   <ng-content></ng-content>
 </div>

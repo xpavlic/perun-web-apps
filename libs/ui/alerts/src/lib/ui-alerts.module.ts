@@ -1,22 +1,12 @@
 import { NgModule } from '@angular/core';
-import { ErrorComponent } from './error/error.component';
 import { AlertComponent } from './alert/alert.component';
-import { InfoComponent } from './info/info.component';
-import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   exports: [
-    ErrorComponent,
-    AlertComponent,
-    InfoComponent
-  ],
-  imports: [
-    MatIconModule
+    AlertComponent
   ],
   declarations: [
-    ErrorComponent,
-    AlertComponent,
-    InfoComponent
+    AlertComponent
   ]
 })
 export class UiAlertsModule {

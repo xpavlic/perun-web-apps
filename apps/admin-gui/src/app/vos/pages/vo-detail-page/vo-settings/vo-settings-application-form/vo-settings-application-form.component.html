@@ -85,9 +85,11 @@
 <!--    </button>-->
   </div>
 
-  <app-info *ngIf="editAuth">
+  <app-alert
+    *ngIf="editAuth"
+    [color]="'info'">
     {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DRAG_AND_DROP_INFO' | translate}}
-  </app-info>
+  </app-alert>
 
   <app-application-form-list
     [loading]="loading"
